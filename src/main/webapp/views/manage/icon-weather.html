@@ -15,7 +15,7 @@
 
 <link rel="stylesheet" href="assets/css/animate.css">
 
-<link rel="stylesheet" href="assets/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="assets/plugins/icons/weather/weathericons.css">
 
 <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
 <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
@@ -75,7 +75,7 @@
 <img src="assets/img/flags/us1.png" alt="" height="20">
 </a>
 <div class="dropdown-menu dropdown-menu-right">
-<a href="javascript:void(0);" class="dropdown-item">
+ <a href="javascript:void(0);" class="dropdown-item">
 <img src="assets/img/flags/us.png" alt="" height="16"> English
 </a>
 <a href="javascript:void(0);" class="dropdown-item">
@@ -130,7 +130,7 @@
 </li>
 <li class="notification-message">
 <a href="activities.html">
-<div class="media d-flex">
+ <div class="media d-flex">
 <span class="avatar flex-shrink-0">
 <img alt="" src="assets/img/profiles/avatar-06.jpg">
 </span>
@@ -182,7 +182,7 @@
 </a>
 <div class="dropdown-menu menu-drop-user">
 <div class="profilename">
-<div class="profileset">
+ <div class="profileset">
 <span class="user-img"><img src="assets/img/profiles/avator1.jpg" alt="">
 <span class="status online"></span></span>
 <div class="profilesets">
@@ -217,7 +217,7 @@
 <div class="sidebar-inner slimscroll">
 <div id="sidebar-menu" class="sidebar-menu">
 <ul>
-<li class="active">
+<li>
 <a href="index.html"><img src="assets/img/icons/dashboard.svg" alt="img"><span> Dashboard</span> </a>
 </li>
 <li class="submenu">
@@ -265,7 +265,7 @@
 <a href="javascript:void(0);"><img src="assets/img/icons/quotation1.svg" alt="img"><span> Quotation</span> <span class="menu-arrow"></span></a>
 <ul>
 <li><a href="quotationList.html">Quotation List</a></li>
- <li><a href="addquotation.html">Add Quotation</a></li>
+<li><a href="addquotation.html">Add Quotation</a></li>
 </ul>
 </li>
 <li class="submenu">
@@ -295,9 +295,10 @@
 <li><a href="userlist.html">User List</a></li>
 <li><a href="adduser.html">Add User</a></li>
 <li><a href="storelist.html">Store List</a></li>
-<li><a href="addstore.html">Add Store</a></li>
+ <li><a href="addstore.html">Add Store</a></li>
 </ul>
-</li> <li class="submenu">
+</li>
+<li class="submenu">
 <a href="javascript:void(0);"><img src="assets/img/icons/places.svg" alt="img"><span> Places</span> <span class="menu-arrow"></span></a>
 <ul>
 <li><a href="newcountry.html">New Country</a></li>
@@ -348,7 +349,7 @@
 <li><a href="chart-apex.html">Apex Charts</a></li>
 <li><a href="chart-js.html">Chart Js</a></li>
 <li><a href="chart-morris.html">Morris Charts</a></li>
-<li><a href="chart-flot.html">Flot Charts</a></li>
+ <li><a href="chart-flot.html">Flot Charts</a></li>
 <li><a href="chart-peity.html">Peity Charts</a></li>
 </ul>
 </li>
@@ -362,7 +363,7 @@
 <li><a href="icon-pe7.html">Pe7 Icons</a></li>
 <li><a href="icon-simpleline.html">Simpleline Icons</a></li>
 <li><a href="icon-themify.html">Themify Icons</a></li>
-<li><a href="icon-weather.html">Weather Icons</a></li>
+<li><a href="icon-weather.html" class="active">Weather Icons</a></li>
 <li><a href="icon-typicon.html">Typicon Icons</a></li>
 <li><a href="icon-flag.html">Flag Icons</a></li>
 </ul>
@@ -400,7 +401,7 @@
 <ul>
 <li><a href="purchaseorderreport.html">Purchase order report</a></li>
 <li><a href="inventoryreport.html">Inventory Report</a></li>
-<li><a href="salesreport.html">Sales Report</a></li>
+ <li><a href="salesreport.html">Sales Report</a></li>
 <li><a href="invoicereport.html">Invoice Report</a></li>
 <li><a href="purchasereport.html">Purchase Report</a></li>
 <li><a href="supplierreport.html">Supplier Report</a></li>
@@ -419,7 +420,7 @@
 <ul>
 <li><a href="generalsettings.html">General Settings</a></li>
 <li><a href="emailsettings.html">Email Settings</a></li>
- <li><a href="paymentsettings.html">Payment Settings</a></li>
+<li><a href="paymentsettings.html">Payment Settings</a></li>
 <li><a href="currencysettings.html">Currency Settings</a></li>
 <li><a href="grouppermissions.html">Group Permissions</a></li>
 <li><a href="taxrates.html">Tax Rates</a></li>
@@ -430,284 +431,194 @@
 </div>
 </div>
 
-<div class="page-wrapper">
-<div class="content">
+<div class="page-wrapper cardhead">
+<div class="content container-fluid">
+
+<div class="page-header">
 <div class="row">
-<div class="col-lg-3 col-sm-6 col-12">
-<div class="dash-widget">
-<div class="dash-widgetimg">
-<span><img src="assets/img/icons/dash1.svg" alt="img"></span>
-</div>
-<div class="dash-widgetcontent">
-<h5>$<span class="counters" data-count="307144.00">$307,144.00</span></h5>
-<h6>Total Purchase Due</h6>
-</div>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6 col-12">
-<div class="dash-widget dash1">
-<div class="dash-widgetimg">
-<span><img src="assets/img/icons/dash2.svg" alt="img"></span>
-</div>
-<div class="dash-widgetcontent">
-<h5>$<span class="counters" data-count="4385.00">$4,385.00</span></h5>
-<h6>Total Sales Due</h6>
-</div>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6 col-12">
-<div class="dash-widget dash2">
-<div class="dash-widgetimg">
-<span><img src="assets/img/icons/dash3.svg" alt="img"></span>
-</div>
-<div class="dash-widgetcontent">
-<h5>$<span class="counters" data-count="385656.50">385,656.50</span></h5>
-<h6>Total Sale Amount</h6>
-</div>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6 col-12">
-<div class="dash-widget dash3">
-<div class="dash-widgetimg">
-<span><img src="assets/img/icons/dash4.svg" alt="img"></span>
-</div>
-<div class="dash-widgetcontent">
-<h5>$<span class="counters" data-count="40000.00">400.00</span></h5>
-<h6>Total Sale Amount</h6>
-</div>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6 col-12 d-flex">
-<div class="dash-count">
-<div class="dash-counts">
-<h4>100</h4>
-<h5>Customers</h5>
-</div>
-<div class="dash-imgs">
-<i data-feather="user"></i>
-</div>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6 col-12 d-flex">
-<div class="dash-count das1">
-<div class="dash-counts">
-<h4>100</h4>
-<h5>Suppliers</h5>
-</div>
-<div class="dash-imgs">
-<i data-feather="user-check"></i>
-</div>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6 col-12 d-flex">
-<div class="dash-count das2">
-<div class="dash-counts">
-<h4>100</h4>
-<h5>Purchase Invoice</h5>
-</div>
-<div class="dash-imgs">
-<i data-feather="file-text"></i>
-</div>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6 col-12 d-flex">
-<div class="dash-count das3">
-<div class="dash-counts">
-<h4>105</h4>
-<h5>Sales Invoice</h5>
-</div>
-<div class="dash-imgs">
-<i data-feather="file"></i>
-</div>
+<div class="col-sm-12">
+<h3 class="page-title">Weather Icon</h3>
+<ul class="breadcrumb">
+<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+<li class="breadcrumb-item active">Weather Icon</li>
+</ul>
 </div>
 </div>
 </div>
 
 <div class="row">
-<div class="col-lg-7 col-sm-12 col-12 d-flex">
-<div class="card flex-fill">
-<div class="card-header pb-0 d-flex justify-content-between align-items-center">
-<h5 class="card-title mb-0">Purchase & Sales</h5>
-<div class="graph-sets">
-<ul>
-<li>
-<span>Sales</span>
-</li>
-<li>
-<span>Purchase</span>
-</li>
-</ul>
-<div class="dropdown">
-<button class="btn btn-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
- 2022 <img src="assets/img/icons/dropdown.svg" alt="img" class="ms-2">
-</button>
-<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-<li>
-<a href="javascript:void(0);" class="dropdown-item">2022</a>
-</li>
-<li>
-<a href="javascript:void(0);" class="dropdown-item">2021</a>
-</li>
-<li>
-<a href="javascript:void(0);" class="dropdown-item">2020</a>
-</li>
-</ul>
-</div>
-</div>
+
+<div class="col-md-12">
+<div class="card">
+<div class="card-header">
+<div class="card-title">Weather Icon</div>
 </div>
 <div class="card-body">
-<div id="sales_charts"></div>
-</div>
-</div>
-</div>
-<div class="col-lg-5 col-sm-12 col-12 d-flex">
-<div class="card flex-fill">
-<div class="card-header pb-0 d-flex justify-content-between align-items-center">
-<h4 class="card-title mb-0">Recently Added Products</h4>
-<div class="dropdown">
-<a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false" class="dropset">
-<i class="fa fa-ellipsis-v"></i>
-</a>
-<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-<li>
-<a href="productlist.html" class="dropdown-item">Product List</a>
-</li>
-<li>
-<a href="addproduct.html" class="dropdown-item">Product Add</a>
-</li>
+<div class="icons-items">
+<ul class="icons-list">
+<li><i class="wi wi-day-cloudy-high" data-bs-toggle="tooltip" title="wi wi-day-cloudy-high"></i></li>
+<li><i class="wi wi-moonrise" data-bs-toggle="tooltip" title="wi wi-moonrise"></i></li>
+<li><i class="wi wi-na" data-bs-toggle="tooltip" title="wi wi-na"></i></li>
+<li><i class="wi wi-volcano" data-bs-toggle="tooltip" title="wi wi-volcano"></i></li>
+<li><i class="wi wi-day-light-wind" data-bs-toggle="tooltip" title="wi wi-day-light-wind"></i></li>
+<li><i class="wi wi-moonset" data-bs-toggle="tooltip" title="wi wi-moonset"></i></li>
+<li><i class="wi wi-flood" data-bs-toggle="tooltip" title="wi wi-flood"></i></li>
+<li><i class="wi wi-train" data-bs-toggle="tooltip" title="wi wi-train"></i></li>
+<li><i class="wi wi-day-sleet" data-bs-toggle="tooltip" title="wi wi-day-sleet"></i></li>
+<li><i class="wi wi-night-sleet" data-bs-toggle="tooltip" title="wi wi-night-sleet"></i></li>
+<li><i class="wi wi-sandstorm" data-bs-toggle="tooltip" title="wi wi-sandstorm"></i></li>
+ <li><i class="wi wi-small-craft-advisory" data-bs-toggle="tooltip" title="wi wi-small-craft-advisory"></i></li>
+<li><i class="wi wi-day-haze" data-bs-toggle="tooltip" title="wi wi-day-haze"></i></li>
+<li><i class="wi wi-night-alt-sleet" data-bs-toggle="tooltip" title="wi wi-night-alt-sleet"></i></li>
+<li><i class="wi wi-tsunami" data-bs-toggle="tooltip" title="wi wi-tsunami"></i></li>
+<li><i class="wi wi-gale-warning" data-bs-toggle="tooltip" title="wi wi-gale-warning"></i></li>
+<li><i class="wi wi-night-cloudy-high" data-bs-toggle="tooltip" title="wi wi-night-cloudy-high"></i></li>
+<li><i class="wi wi-raindrop" data-bs-toggle="tooltip" title="wi wi-raindrop"></i></li>
+<li><i class="wi wi-earthquake" data-bs-toggle="tooltip" title="wi wi-earthquake"></i></li>
+<li><i class="wi wi-storm-warning" data-bs-toggle="tooltip" title="wi wi-storm-warning"></i></li>
+<li><i class="wi wi-night-alt-partly-cloudy" data-bs-toggle="tooltip" title="wi wi-night-alt-partly-cloudy"></i></li>
+<li><i class="wi wi-barometer" data-bs-toggle="tooltip" title="wi wi-barometer"></i></li>
+<li><i class="wi wi-fire" data-bs-toggle="tooltip" title="wi wi-fire"></i></li>
+<li><i class="wi wi-hurricane-warning" data-bs-toggle="tooltip" title="wi wi-hurricane-warning"></i></li>
+<li><i class="wi wi-sleet" data-bs-toggle="tooltip" title="wi wi-sleet"></i></li>
+<li><i class="wi wi-humidity" data-bs-toggle="tooltip" title="wi wi-humidity"></i></li>
+<li><i class="wi wi-day-sunny" data-bs-toggle="tooltip" title="wi wi-day-sunny"></i></li>
+<li><i class="wi wi-day-cloudy" data-bs-toggle="tooltip" title="wi wi-day-cloudy"></i></li>
+<li><i class="wi wi-day-cloudy-gusts" data-bs-toggle="tooltip" title="wi wi-day-cloudy-gusts"></i></li>
+<li><i class="wi wi-day-cloudy-windy" data-bs-toggle="tooltip" title="wi wi-day-cloudy-windy"></i></li>
+<li><i class="wi wi-day-fog" data-bs-toggle="tooltip" title="wi wi-day-fog"></i></li>
+<li><i class="wi wi-day-hail" data-bs-toggle="tooltip" title="wi wi-day-hail"></i></li>
+<li><i class="wi wi-day-haze" data-bs-toggle="tooltip" title="wi wi-day-haze"></i></li>
+<li><i class="wi wi-day-lightning" data-bs-toggle="tooltip" title="wi wi-day-lightning"></i></li>
+<li><i class="wi wi-day-rain" data-bs-toggle="tooltip" title="wi wi-day-rain"></i></li>
+<li><i class="wi wi-day-rain-mix" data-bs-toggle="tooltip" title="wi wi-day-rain-mix"></i></li>
+<li><i class="wi wi-day-rain-wind" data-bs-toggle="tooltip" title="wi wi-day-rain-wind"></i></li>
+<li><i class="wi wi-day-showers" data-bs-toggle="tooltip" title="wi wi-day-showers"></i></li>
+<li><i class="wi wi-day-sleet" data-bs-toggle="tooltip" title="wi wi-day-sleet"></i></li>
+<li><i class="wi wi-day-sleet-storm" data-bs-toggle="tooltip" title="wi wi-day-sleet-storm"></i></li>
+<li><i class="wi wi-day-snow" data-bs-toggle="tooltip" title="wi wi-day-snow"></i></li>
+<li><i class="wi wi-day-snow-thunderstorm" data-bs-toggle="tooltip" title="wi wi-day-snow-thunderstorm"></i></li>
+<li><i class="wi wi-day-snow-wind" data-bs-toggle="tooltip" title="wi wi-day-snow-wind"></i></li>
+<li><i class="wi wi-day-sprinkle" data-bs-toggle="tooltip" title="wi wi-day-sprinkle"></i></li>
+<li><i class="wi wi-day-storm-showers" data-bs-toggle="tooltip" title="wi wi-day-storm-showers"></i></li>
+<li><i class="wi wi-day-sunny-overcast" data-bs-toggle="tooltip" title="wi wi-day-sunny-overcast"></i></li>
+<li><i class="wi wi-day-thunderstorm" data-bs-toggle="tooltip" title="wi wi-day-thunderstorm"></i></li>
+<li><i class="wi wi-day-windy" data-bs-toggle="tooltip" title="wi wi-day-windy"></i></li>
+<li><i class="wi wi-solar-eclipse" data-bs-toggle="tooltip" title="wi wi-solar-eclipse"></i></li>
+<li><i class="wi wi-hot" data-bs-toggle="tooltip" title="wi wi-hot"></i></li>
+<li><i class="wi wi-day-cloudy-high" data-bs-toggle="tooltip" title="wi wi-day-cloudy-high"></i></li>
+<li><i class="wi wi-day-light-wind" data-bs-toggle="tooltip" title="wi wi-day-light-wind"></i></li>
+<li><i class="wi wi-night-clear" data-bs-toggle="tooltip" title="wi wi-night-clear"></i></li>
+<li><i class="wi wi-night-alt-cloudy" data-bs-toggle="tooltip" title="wi wi-night-alt-cloudy"></i></li>
+<li><i class="wi wi-night-alt-cloudy-gusts" data-bs-toggle="tooltip" title="wi wi-night-alt-cloudy-gusts"></i></li>
+<li><i class="wi wi-night-alt-cloudy-windy" data-bs-toggle="tooltip" title="wi wi-night-alt-cloudy-windy"></i></li>
+<li><i class="wi wi-night-alt-hail" data-bs-toggle="tooltip" title="wi wi-night-alt-hail"></i></li>
+<li><i class="wi wi-night-alt-lightning" data-bs-toggle="tooltip" title="wi wi-night-alt-lightning"></i></li>
+<li><i class="wi wi-night-alt-rain" data-bs-toggle="tooltip" title="wi wi-night-alt-rain"></i></li>
+<li><i class="wi wi-night-alt-rain-mix" data-bs-toggle="tooltip" title="wi wi-night-alt-rain-mix"></i></li>
+<li><i class="wi wi-night-alt-rain-wind" data-bs-toggle="tooltip" title="wi wi-night-alt-rain-wind"></i></li>
+<li><i class="wi wi-night-alt-showers" data-bs-toggle="tooltip" title="wi wi-night-alt-showers"></i></li>
+<li><i class="wi wi-night-alt-sleet" data-bs-toggle="tooltip" title="wi wi-night-alt-sleet"></i></li>
+<li><i class="wi wi-night-alt-sleet-storm" data-bs-toggle="tooltip" title="wi wi-night-alt-sleet-storm"></i></li>
+<li><i class="wi wi-night-alt-snow" data-bs-toggle="tooltip" title="wi wi-night-alt-snow"></i></li>
+<li><i class="wi wi-night-alt-snow-thunderstorm" data-bs-toggle="tooltip" title="wi wi-night-alt-snow-thunderstorm"></i></li>
+<li><i class="wi wi-night-alt-snow-wind" data-bs-toggle="tooltip" title="wi wi-night-alt-snow-wind"></i></li>
+<li><i class="wi wi-night-alt-sprinkle" data-bs-toggle="tooltip" title="wi wi-night-alt-sprinkle"></i></li>
+<li><i class="wi wi-night-alt-storm-showers" data-bs-toggle="tooltip" title="wi wi-night-alt-storm-showers"></i></li>
+<li><i class="wi wi-night-alt-thunderstorm" data-bs-toggle="tooltip" title="wi wi-night-alt-thunderstorm"></i></li>
+<li><i class="wi wi-night-cloudy" data-bs-toggle="tooltip" title="wi wi-night-cloudy"></i></li>
+<li><i class="wi wi-night-cloudy-gusts" data-bs-toggle="tooltip" title="wi wi-night-cloudy-gusts"></i></li>
+<li><i class="wi wi-night-cloudy-windy" data-bs-toggle="tooltip" title="wi wi-night-cloudy-windy"></i></li>
+<li><i class="wi wi-night-fog" data-bs-toggle="tooltip" title="wi wi-night-fog"></i></li>
+<li><i class="wi wi-night-hail" data-bs-toggle="tooltip" title="wi wi-night-hail"></i></li>
+<li><i class="wi wi-night-lightning" data-bs-toggle="tooltip" title="wi wi-night-lightning"></i></li>
+<li><i class="wi wi-night-partly-cloudy" data-bs-toggle="tooltip" title="wi wi-night-partly-cloudy"></i></li>
+<li><i class="wi wi-night-rain" data-bs-toggle="tooltip" title="wi wi-night-rain"></i></li>
+<li><i class="wi wi-night-rain-mix" data-bs-toggle="tooltip" title="wi wi-night-rain-mix"></i></li>
+<li><i class="wi wi-night-rain-wind" data-bs-toggle="tooltip" title="wi wi-night-rain-wind"></i></li>
+<li><i class="wi wi-night-showers" data-bs-toggle="tooltip" title="wi wi-night-showers"></i></li>
+<li><i class="wi wi-night-sleet" data-bs-toggle="tooltip" title="wi wi-night-sleet"></i></li>
+<li><i class="wi wi-night-sleet-storm" data-bs-toggle="tooltip" title="wi wi-night-sleet-storm"></i></li>
+<li><i class="wi wi-night-snow" data-bs-toggle="tooltip" title="wi wi-night-snow"></i></li>
+<li><i class="wi wi-night-snow-thunderstorm" data-bs-toggle="tooltip" title="wi wi-night-snow-thunderstorm"></i></li>
+<li><i class="wi wi-night-snow-wind" data-bs-toggle="tooltip" title="wi wi-night-snow-wind"></i></li>
+<li><i class="wi wi-night-sprinkle" data-bs-toggle="tooltip" title="wi wi-night-sprinkle"></i></li>
+<li><i class="wi wi-night-storm-showers" data-bs-toggle="tooltip" title="wi wi-night-storm-showers"></i></li>
+<li><i class="wi wi-night-thunderstorm" data-bs-toggle="tooltip" title="wi wi-night-thunderstorm"></i></li>
+<li><i class="wi wi-lunar-eclipse" data-bs-toggle="tooltip" title="wi wi-lunar-eclipse"></i></li>
+<li><i class="wi wi-stars" data-bs-toggle="tooltip" title="wi wi-stars"></i></li>
+<li><i class="wi wi-storm-showers" data-bs-toggle="tooltip" title="wi wi-storm-showers"></i></li>
+<li><i class="wi wi-night-alt-cloudy-high" data-bs-toggle="tooltip" title="wi wi-night-alt-cloudy-high"></i></li>
+<li><i class="wi wi-night-cloudy-high" data-bs-toggle="tooltip" title="wi wi-night-cloudy-high"></i></li>
+<li><i class="wi wi-night-alt-partly-cloudy" data-bs-toggle="tooltip" title="wi wi-night-alt-partly-cloudy"></i></li>
+<li><i class="wi wi-cloud" data-bs-toggle="tooltip" title="wi wi-cloud"></i></li>
+<li><i class="wi wi-cloudy" data-bs-toggle="tooltip" title="wi wi-cloudy"></i></li>
+<li><i class="wi wi-cloudy-gusts" data-bs-toggle="tooltip" title="wi wi-cloudy-gusts"></i></li>
+<li><i class="wi wi-cloudy-windy" data-bs-toggle="tooltip" title="wi wi-cloudy-windy"></i></li>
+<li><i class="wi wi-fog" data-bs-toggle="tooltip" title="wi wi-fog"></i></li>
+<li><i class="wi wi-hail" data-bs-toggle="tooltip" title="wi wi-hail"></i></li>
+<li><i class="wi wi-rain" data-bs-toggle="tooltip" title="wi wi-rain"></i></li>
+<li><i class="wi wi-rain-mix" data-bs-toggle="tooltip" title="wi wi-rain-mix"></i></li>
+<li><i class="wi wi-rain-wind" data-bs-toggle="tooltip" title="wi wi-rain-wind"></i></li>
+<li><i class="wi wi-showers" data-bs-toggle="tooltip" title="wi wi-showers"></i></li>
+<li><i class="wi wi-sleet" data-bs-toggle="tooltip" title="wi wi-sleet"></i></li>
+<li><i class="wi wi-snow" data-bs-toggle="tooltip" title="wi wi-snow"></i></li>
+<li><i class="wi wi-sprinkle" data-bs-toggle="tooltip" title="wi wi-sprinkle"></i></li>
+<li><i class="wi wi-storm-showers" data-bs-toggle="tooltip" title="wi wi-storm-showers"></i></li>
+<li><i class="wi wi-thunderstorm" data-bs-toggle="tooltip" title="wi wi-thunderstorm"></i></li>
+<li><i class="wi wi-snow-wind" data-bs-toggle="tooltip" title="wi wi-snow-wind"></i></li>
+<li><i class="wi wi-snow" data-bs-toggle="tooltip" title="wi wi-snow"></i></li>
+<li><i class="wi wi-smog" data-bs-toggle="tooltip" title="wi wi-smog"></i></li>
+<li><i class="wi wi-smoke" data-bs-toggle="tooltip" title="wi wi-smoke"></i></li>
+<li><i class="wi wi-lightning" data-bs-toggle="tooltip" title="wi wi-lightning"></i></li>
+<li><i class="wi wi-raindrops" data-bs-toggle="tooltip" title="wi wi-raindrops"></i></li>
+<li><i class="wi wi-raindrop" data-bs-toggle="tooltip" title="wi wi-raindrop"></i></li>
+<li><i class="wi wi-snowflake-cold" data-bs-toggle="tooltip" title="wi wi-snowflake-cold"></i></li>
+<li><i class="wi wi-windy" data-bs-toggle="tooltip" title="wi wi-windy"></i></li>
+<li><i class="wi wi-strong-wind" data-bs-toggle="tooltip" title="wi wi-strong-wind"></i></li>
+<li><i class="wi wi-sandstorm" data-bs-toggle="tooltip" title="wi wi-sandstorm"></i></li>
+<li><i class="wi wi-earthquake" data-bs-toggle="tooltip" title="wi wi-earthquake"></i></li>
+<li><i class="wi wi-fire" data-bs-toggle="tooltip" title="wi wi-fire"></i></li>
+<li><i class="wi wi-flood" data-bs-toggle="tooltip" title="wi wi-flood"></i></li>
+<li><i class="wi wi-meteor" data-bs-toggle="tooltip" title="wi wi-meteor"></i></li>
+<li><i class="wi wi-tsunami" data-bs-toggle="tooltip" title="wi wi-tsunami"></i></li>
+<li><i class="wi wi-volcano" data-bs-toggle="tooltip" title="wi wi-volcano"></i></li>
+<li><i class="wi wi-hurricane" data-bs-toggle="tooltip" title="wi wi-hurricane"></i></li>
+<li><i class="wi wi-tornado" data-bs-toggle="tooltip" title="wi wi-tornado"></i></li>
+<li><i class="wi wi-small-craft-advisory" data-bs-toggle="tooltip" title="wi wi-small-craft-advisory"></i></li>
+<li><i class="wi wi-gale-warning" data-bs-toggle="tooltip" title="wi wi-gale-warning"></i></li>
+<li><i class="wi wi-storm-warning" data-bs-toggle="tooltip" title="wi wi-storm-warning"></i></li>
+<li><i class="wi wi-hurricane-warning" data-bs-toggle="tooltip" title="wi wi-hurricane-warning"></i></li>
+<li><i class="wi wi-wind-direction" data-bs-toggle="tooltip" title="wi wi-wind-direction"></i></li>
+<li><i class="wi wi-alien" data-bs-toggle="tooltip" title="wi wi-alien"></i></li>
+<li><i class="wi wi-celsius" data-bs-toggle="tooltip" title="wi wi-celsius"></i></li>
+<li><i class="wi wi-fahrenheit" data-bs-toggle="tooltip" title="wi wi-fahrenheit"></i></li>
+<li><i class="wi wi-degrees" data-bs-toggle="tooltip" title="wi wi-degrees"></i></li>
+<li><i class="wi wi-thermometer" data-bs-toggle="tooltip" title="wi wi-thermometer"></i></li>
+<li><i class="wi wi-thermometer-exterior" data-bs-toggle="tooltip" title="wi wi-thermometer-exterior"></i></li>
+<li><i class="wi wi-thermometer-internal" data-bs-toggle="tooltip" title="wi wi-thermometer-internal"></i></li>
+<li><i class="wi wi-cloud-down" data-bs-toggle="tooltip" title="wi wi-cloud-down"></i></li>
+<li><i class="wi wi-cloud-up" data-bs-toggle="tooltip" title="wi wi-cloud-up"></i></li>
+<li><i class="wi wi-cloud-refresh" data-bs-toggle="tooltip" title="wi wi-cloud-refresh"></i></li>
+<li><i class="wi wi-horizon" data-bs-toggle="tooltip" title="wi wi-horizon"></i></li>
+<li><i class="wi wi-horizon-alt" data-bs-toggle="tooltip" title="wi wi-horizon-alt"></i></li>
+<li><i class="wi wi-sunrise" data-bs-toggle="tooltip" title="wi wi-sunrise"></i></li>
+<li><i class="wi wi-sunset" data-bs-toggle="tooltip" title="wi wi-sunset"></i></li>
+<li><i class="wi wi-moonrise" data-bs-toggle="tooltip" title="wi wi-moonrise"></i></li>
+<li><i class="wi wi-moonset" data-bs-toggle="tooltip" title="wi wi-moonset"></i></li>
+<li><i class="wi wi-refresh" data-bs-toggle="tooltip" title="typcn typcn-rss-outline"></i></li>
+<li><i class="wi wi-refresh-alt" data-bs-toggle="tooltip" title="wi wi-refresh-alt"></i></li>
+<li><i class="wi wi-umbrella" data-bs-toggle="tooltip" title="wi wi-umbrella"></i></li>
+<li><i class="wi wi-barometer" data-bs-toggle="tooltip" title="wi wi-barometer"></i></li>
+<li><i class="wi wi-humidity" data-bs-toggle="tooltip" title="wi wi-humidity"></i></li>
+<li><i class="wi wi-na" data-bs-toggle="tooltip" title="wi wi-na"></i></li>
+<li><i class="wi wi-train" data-bs-toggle="tooltip" title="wi wi-train"></i></li>
 </ul>
 </div>
 </div>
-<div class="card-body">
-<div class="table-responsive dataview">
-<table class="table datatable ">
-<thead>
-<tr>
-<th>Sno</th>
-<th>Products</th>
-<th>Price</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td class="productimgname">
-<a href="productlist.html" class="product-img">
-<img src="assets/img/product/product22.jpg" alt="product">
-</a>
-<a href="productlist.html">Apple Earpods</a>
-</td>
-<td>$891.2</td>
-</tr>
-<tr>
-<td>2</td>
-<td class="productimgname">
-<a href="productlist.html" class="product-img">
-<img src="assets/img/product/product23.jpg" alt="product">
-</a>
-<a href="productlist.html">iPhone 11</a>
-</td>
-<td>$668.51</td>
-</tr>
-<tr>
-<td>3</td>
-<td class="productimgname">
-<a href="productlist.html" class="product-img">
-<img src="assets/img/product/product24.jpg" alt="product">
-</a>
-<a href="productlist.html">samsung</a>
-</td>
-<td>$522.29</td>
-</tr>
-<tr>
-<td>4</td>
-<td class="productimgname">
-<a href="productlist.html" class="product-img">
-<img src="assets/img/product/product6.jpg" alt="product">
-</a>
-<a href="productlist.html">Macbook Pro</a>
-</td>
-<td>$291.01</td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="card mb-0">
-<div class="card-body">
-<h4 class="card-title">Expired Products</h4>
-<div class="table-responsive dataview">
-<table class="table datatable ">
-<thead>
-<tr>
-<th>SNo</th>
-<th>Product Code</th>
-<th>Product Name</th>
-<th>Brand Name</th>
-<th>Category Name</th>
-<th>Expiry Date</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td><a href="javascript:void(0);">IT0001</a></td>
-<td class="productimgname">
-<a class="product-img" href="productlist.html">
-<img src="assets/img/product/product2.jpg" alt="product">
-</a>
-<a href="productlist.html">Orange</a>
-</td>
-<td>N/D</td>
-<td>Fruits</td>
-<td>12-12-2022</td>
-</tr>
-<tr>
-<td>2</td>
-<td><a href="javascript:void(0);">IT0002</a></td>
-<td class="productimgname">
-<a class="product-img" href="productlist.html">
-<img src="assets/img/product/product3.jpg" alt="product">
-</a>
-<a href="productlist.html">Pineapple</a>
-</td>
-<td>N/D</td>
-<td>Fruits</td>
-<td>25-11-2022</td>
-</tr>
-<tr>
-<td>3</td>
-<td><a href="javascript:void(0);">IT0003</a></td>
-<td class="productimgname">
-<a class="product-img" href="productlist.html">
-<img src="assets/img/product/product4.jpg" alt="product">
-</a>
-<a href="productlist.html">Stawberry</a>
-</td>
-<td>N/D</td>
-<td>Fruits</td>
-<td>19-11-2022</td>
-</tr>
-<tr>
-<td>4</td>
-<td><a href="javascript:void(0);">IT0004</a></td>
-<td class="productimgname">
-<a class="product-img" href="productlist.html">
-<img src="assets/img/product/product5.jpg" alt="product">
-</a>
-<a href="productlist.html">Avocat</a>
-</td>
-<td>N/D</td>
-<td>Fruits</td>
-<td>20-11-2022</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+
 </div>
 </div>
 </div>
@@ -719,9 +630,6 @@
 <script src="assets/js/feather.min.js"></script>
 
 <script src="assets/js/jquery.slimscroll.min.js"></script>
-
-<script src="assets/js/jquery.dataTables.min.js"></script>
-<script src="assets/js/dataTables.bootstrap4.min.js"></script>
 
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 
