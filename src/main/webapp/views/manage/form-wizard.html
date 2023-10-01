@@ -13,9 +13,7 @@
 
 <link rel="stylesheet" href="assets/css/bootstrap.min.css">
 
-<link rel="stylesheet" href="assets/css/animate.css">
-
-<link rel="stylesheet" href="assets/css/dataTables.bootstrap4.min.css">
+<link rel="stylesheet" href="assets/plugins/twitter-bootstrap-wizard/form-wizard.css">
 
 <link rel="stylesheet" href="assets/plugins/fontawesome/css/fontawesome.min.css">
 <link rel="stylesheet" href="assets/plugins/fontawesome/css/all.min.css">
@@ -76,7 +74,7 @@
 </a>
 <div class="dropdown-menu dropdown-menu-right">
 <a href="javascript:void(0);" class="dropdown-item">
-<img src="assets/img/flags/us.png" alt="" height="16"> English
+ <img src="assets/img/flags/us.png" alt="" height="16"> English
 </a>
 <a href="javascript:void(0);" class="dropdown-item">
 <img src="assets/img/flags/fr.png" alt="" height="16"> French
@@ -131,7 +129,7 @@
 <li class="notification-message">
 <a href="activities.html">
 <div class="media d-flex">
-<span class="avatar flex-shrink-0">
+ <span class="avatar flex-shrink-0">
 <img alt="" src="assets/img/profiles/avatar-06.jpg">
 </span>
 <div class="media-body flex-grow-1">
@@ -217,7 +215,7 @@
 <div class="sidebar-inner slimscroll">
 <div id="sidebar-menu" class="sidebar-menu">
 <ul>
-<li class="active">
+<li>
 <a href="index.html"><img src="assets/img/icons/dashboard.svg" alt="img"><span> Dashboard</span> </a>
 </li>
 <li class="submenu">
@@ -265,7 +263,7 @@
 <a href="javascript:void(0);"><img src="assets/img/icons/quotation1.svg" alt="img"><span> Quotation</span> <span class="menu-arrow"></span></a>
 <ul>
 <li><a href="quotationList.html">Quotation List</a></li>
- <li><a href="addquotation.html">Add Quotation</a></li>
+<li><a href="addquotation.html">Add Quotation</a></li>
 </ul>
 </li>
 <li class="submenu">
@@ -296,8 +294,9 @@
 <li><a href="adduser.html">Add User</a></li>
 <li><a href="storelist.html">Store List</a></li>
 <li><a href="addstore.html">Add Store</a></li>
-</ul>
-</li> <li class="submenu">
+ </ul>
+</li>
+<li class="submenu">
 <a href="javascript:void(0);"><img src="assets/img/icons/places.svg" alt="img"><span> Places</span> <span class="menu-arrow"></span></a>
 <ul>
 <li><a href="newcountry.html">New Country</a></li>
@@ -339,7 +338,7 @@
 <li><a href="lightbox.html">Lightbox</a></li>
 <li><a href="stickynote.html">Sticky Note</a></li>
 <li><a href="timeline.html">Timeline</a></li>
-<li><a href="form-wizard.html">Form Wizard</a></li>
+<li><a href="form-wizard.html" class="active">Form Wizard</a></li>
 </ul>
 </li>
 <li class="submenu">
@@ -349,7 +348,7 @@
 <li><a href="chart-js.html">Chart Js</a></li>
 <li><a href="chart-morris.html">Morris Charts</a></li>
 <li><a href="chart-flot.html">Flot Charts</a></li>
-<li><a href="chart-peity.html">Peity Charts</a></li>
+ <li><a href="chart-peity.html">Peity Charts</a></li>
 </ul>
 </li>
 <li class="submenu">
@@ -401,7 +400,7 @@
 <li><a href="purchaseorderreport.html">Purchase order report</a></li>
 <li><a href="inventoryreport.html">Inventory Report</a></li>
 <li><a href="salesreport.html">Sales Report</a></li>
-<li><a href="invoicereport.html">Invoice Report</a></li>
+ <li><a href="invoicereport.html">Invoice Report</a></li>
 <li><a href="purchasereport.html">Purchase Report</a></li>
 <li><a href="supplierreport.html">Supplier Report</a></li>
 <li><a href="customerreport.html">Customer Report</a></li>
@@ -419,7 +418,7 @@
 <ul>
 <li><a href="generalsettings.html">General Settings</a></li>
 <li><a href="emailsettings.html">Email Settings</a></li>
- <li><a href="paymentsettings.html">Payment Settings</a></li>
+<li><a href="paymentsettings.html">Payment Settings</a></li>
 <li><a href="currencysettings.html">Currency Settings</a></li>
 <li><a href="grouppermissions.html">Group Permissions</a></li>
 <li><a href="taxrates.html">Tax Rates</a></li>
@@ -430,284 +429,393 @@
 </div>
 </div>
 
-<div class="page-wrapper">
-<div class="content">
+<div class="page-wrapper cardhead">
+<div class="content container-fluid">
+
+<div class="page-header">
 <div class="row">
-<div class="col-lg-3 col-sm-6 col-12">
-<div class="dash-widget">
-<div class="dash-widgetimg">
-<span><img src="assets/img/icons/dash1.svg" alt="img"></span>
-</div>
-<div class="dash-widgetcontent">
-<h5>$<span class="counters" data-count="307144.00">$307,144.00</span></h5>
-<h6>Total Purchase Due</h6>
-</div>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6 col-12">
-<div class="dash-widget dash1">
-<div class="dash-widgetimg">
-<span><img src="assets/img/icons/dash2.svg" alt="img"></span>
-</div>
-<div class="dash-widgetcontent">
-<h5>$<span class="counters" data-count="4385.00">$4,385.00</span></h5>
-<h6>Total Sales Due</h6>
-</div>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6 col-12">
-<div class="dash-widget dash2">
-<div class="dash-widgetimg">
-<span><img src="assets/img/icons/dash3.svg" alt="img"></span>
-</div>
-<div class="dash-widgetcontent">
-<h5>$<span class="counters" data-count="385656.50">385,656.50</span></h5>
-<h6>Total Sale Amount</h6>
-</div>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6 col-12">
-<div class="dash-widget dash3">
-<div class="dash-widgetimg">
-<span><img src="assets/img/icons/dash4.svg" alt="img"></span>
-</div>
-<div class="dash-widgetcontent">
-<h5>$<span class="counters" data-count="40000.00">400.00</span></h5>
-<h6>Total Sale Amount</h6>
-</div>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6 col-12 d-flex">
-<div class="dash-count">
-<div class="dash-counts">
-<h4>100</h4>
-<h5>Customers</h5>
-</div>
-<div class="dash-imgs">
-<i data-feather="user"></i>
-</div>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6 col-12 d-flex">
-<div class="dash-count das1">
-<div class="dash-counts">
-<h4>100</h4>
-<h5>Suppliers</h5>
-</div>
-<div class="dash-imgs">
-<i data-feather="user-check"></i>
-</div>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6 col-12 d-flex">
-<div class="dash-count das2">
-<div class="dash-counts">
-<h4>100</h4>
-<h5>Purchase Invoice</h5>
-</div>
-<div class="dash-imgs">
-<i data-feather="file-text"></i>
-</div>
-</div>
-</div>
-<div class="col-lg-3 col-sm-6 col-12 d-flex">
-<div class="dash-count das3">
-<div class="dash-counts">
-<h4>105</h4>
-<h5>Sales Invoice</h5>
-</div>
-<div class="dash-imgs">
-<i data-feather="file"></i>
-</div>
+<div class="col-sm-12">
+<h3 class="page-title">Form Wizard</h3>
+<ul class="breadcrumb">
+<li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+<li class="breadcrumb-item active">Form Wizard</li>
+</ul>
 </div>
 </div>
 </div>
 
 <div class="row">
-<div class="col-lg-7 col-sm-12 col-12 d-flex">
-<div class="card flex-fill">
-<div class="card-header pb-0 d-flex justify-content-between align-items-center">
-<h5 class="card-title mb-0">Purchase & Sales</h5>
-<div class="graph-sets">
-<ul>
-<li>
-<span>Sales</span>
-</li>
-<li>
-<span>Purchase</span>
-</li>
-</ul>
-<div class="dropdown">
-<button class="btn btn-white btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
- 2022 <img src="assets/img/icons/dropdown.svg" alt="img" class="ms-2">
-</button>
-<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-<li>
-<a href="javascript:void(0);" class="dropdown-item">2022</a>
-</li>
-<li>
-<a href="javascript:void(0);" class="dropdown-item">2021</a>
-</li>
-<li>
-<a href="javascript:void(0);" class="dropdown-item">2020</a>
-</li>
-</ul>
-</div>
-</div>
+
+<div class="col-lg-12">
+<div class="card">
+<div class="card-header">
+<h4 class="card-title mb-0">Basic Wizard</h4>
 </div>
 <div class="card-body">
-<div id="sales_charts"></div>
+<div id="basic-pills-wizard" class="twitter-bs-wizard">
+<ul class="twitter-bs-wizard-nav">
+<li class="nav-item">
+<a href="#seller-details" class="nav-link" data-toggle="tab">
+<div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Seller Details">
+<i class="far fa-user"></i>
 </div>
-</div>
-</div>
-<div class="col-lg-5 col-sm-12 col-12 d-flex">
-<div class="card flex-fill">
-<div class="card-header pb-0 d-flex justify-content-between align-items-center">
-<h4 class="card-title mb-0">Recently Added Products</h4>
-<div class="dropdown">
-<a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false" class="dropset">
-<i class="fa fa-ellipsis-v"></i>
 </a>
-<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-<li>
-<a href="productlist.html" class="dropdown-item">Product List</a>
 </li>
-<li>
-<a href="addproduct.html" class="dropdown-item">Product Add</a>
+<li class="nav-item">
+<a href="#company-document" class="nav-link" data-toggle="tab">
+<div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Company Document">
+ <i class="fas fa-map-pin"></i>
+</div>
+</a>
 </li>
+<li class="nav-item">
+<a href="#bank-detail" class="nav-link" data-toggle="tab">
+<div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Bank Details">
+<i class="fas fa-credit-card"></i>
+</div>
+</a>
+</li>
+</ul>
+
+<div class="tab-content twitter-bs-wizard-tab-content">
+<div class="tab-pane" id="seller-details">
+<div class="mb-4">
+<h5>Enter Your Personal Details</h5>
+</div>
+<form>
+<div class="row">
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="basicpill-firstname-input" class="form-label">First name</label>
+<input type="text" class="form-control" id="basicpill-firstname-input">
+</div>
+</div>
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="basicpill-lastname-input" class="form-label">Last name</label>
+<input type="text" class="form-control" id="basicpill-lastname-input">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="basicpill-phoneno-input" class="form-label">Phone</label>
+<input type="text" class="form-control" id="basicpill-phoneno-input">
+</div>
+</div>
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="basicpill-email-input" class="form-label">Email</label>
+<input type="email" class="form-control" id="basicpill-email-input">
+</div>
+</div>
+</div>
+</form>
+<ul class="pager wizard twitter-bs-wizard-pager-link">
+<li class="next"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab()">Next <i class="bx bx-chevron-right ms-1"></i></a></li>
+</ul>
+</div>
+
+<div class="tab-pane" id="company-document">
+<div>
+<div class="mb-4">
+<h5>Enter Your Address</h5>
+</div>
+<form>
+<div class="row">
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="basicpill-pancard-input" class="form-label">Address 1</label>
+<input type="text" class="form-control" id="basicpill-pancard-input">
+</div>
+</div>
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="basicpill-vatno-input" class="form-label">Address 2</label>
+<input type="text" class="form-control" id="basicpill-vatno-input">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="basicpill-cstno-input" class="form-label">Landmark</label>
+<input type="text" class="form-control" id="basicpill-cstno-input">
+</div>
+</div>
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="basicpill-servicetax-input" class="form-label">Town</label>
+<input type="text" class="form-control" id="basicpill-servicetax-input">
+</div>
+</div>
+</div>
+</form>
+<ul class="pager wizard twitter-bs-wizard-pager-link">
+<li class="previous"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab()"><i class="bx bx-chevron-left me-1"></i> Previous</a></li>
+<li class="next"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab()">Next <i class="bx bx-chevron-right ms-1"></i></a></li>
+</ul>
+</div>
+ </div>
+
+<div class="tab-pane" id="bank-detail">
+<div>
+<div class="mb-4">
+<h5>Payment Details</h5>
+</div>
+<form>
+<div class="row">
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="basicpill-namecard-input" class="form-label">Name on Card</label>
+<input type="text" class="form-control" id="basicpill-namecard-input">
+</div>
+</div>
+<div class="col-lg-6">
+<div class="mb-3">
+<label class="form-label">Credit Card Type</label>
+<select class="form-select">
+<option selected>Select Card Type</option>
+<option value="AE">American Express</option>
+<option value="VI">Visa</option>
+<option value="MC">MasterCard</option>
+<option value="DI">Discover</option>
+</select>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="basicpill-cardno-input" class="form-label">Credit Card Number</label>
+<input type="text" class="form-control" id="basicpill-cardno-input">
+</div>
+</div>
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="basicpill-card-verification-input" class="form-label">Card Verification Number</label>
+<input type="text" class="form-control" id="basicpill-card-verification-input">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-6">
+<div class="mb-3">
+ <label for="basicpill-expiration-input" class="form-label">Expiration Date</label>
+<input type="text" class="form-control" id="basicpill-expiration-input">
+</div>
+</div>
+</div>
+</form>
+<ul class="pager wizard twitter-bs-wizard-pager-link">
+<li class="previous"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab()"><i class="bx bx-chevron-left me-1"></i> Previous</a></li>
+<li class="float-end"><a href="javascript: void(0);" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".confirmModal">Save
+Changes</a></li>
 </ul>
 </div>
 </div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+
+<div class="col-lg-12">
+<div class="card">
+<div class="card-header">
+<h4 class="card-title mb-0">Wizard with Progressbar</h4>
+</div>
 <div class="card-body">
-<div class="table-responsive dataview">
-<table class="table datatable ">
-<thead>
-<tr>
-<th>Sno</th>
-<th>Products</th>
-<th>Price</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td class="productimgname">
-<a href="productlist.html" class="product-img">
-<img src="assets/img/product/product22.jpg" alt="product">
+<div id="progrss-wizard" class="twitter-bs-wizard">
+<ul class="twitter-bs-wizard-nav nav nav-pills nav-justified">
+<li class="nav-item">
+<a href="#progress-seller-details" class="nav-link" data-toggle="tab">
+<div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="User Details">
+<i class="far fa-user"></i>
+</div>
 </a>
-<a href="productlist.html">Apple Earpods</a>
-</td>
-<td>$891.2</td>
-</tr>
-<tr>
-<td>2</td>
-<td class="productimgname">
-<a href="productlist.html" class="product-img">
-<img src="assets/img/product/product23.jpg" alt="product">
+</li>
+<li class="nav-item">
+<a href="#progress-company-document" class="nav-link" data-toggle="tab">
+<div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Address Detail">
+<i class="fas fa-map-pin"></i>
+</div>
 </a>
-<a href="productlist.html">iPhone 11</a>
-</td>
-<td>$668.51</td>
-</tr>
-<tr>
-<td>3</td>
-<td class="productimgname">
-<a href="productlist.html" class="product-img">
-<img src="assets/img/product/product24.jpg" alt="product">
-</a>
-<a href="productlist.html">samsung</a>
-</td>
-<td>$522.29</td>
-</tr>
-<tr>
-<td>4</td>
-<td class="productimgname">
-<a href="productlist.html" class="product-img">
-<img src="assets/img/product/product6.jpg" alt="product">
-</a>
-<a href="productlist.html">Macbook Pro</a>
-</td>
-<td>$291.01</td>
-</tr>
-</tbody>
-</table>
+</li>
+<li class="nav-item">
+<a href="#progress-bank-detail" class="nav-link" data-toggle="tab">
+<div class="step-icon" data-bs-toggle="tooltip" data-bs-placement="top" title="Payment Details">
+<i class="fas fa-credit-card"></i>
+</div>
+ </a>
+</li>
+</ul>
+
+<div id="bar" class="progress mt-4">
+<div class="progress-bar bg-success progress-bar-striped progress-bar-animated"></div>
+</div>
+<div class="tab-content twitter-bs-wizard-tab-content">
+<div class="tab-pane" id="progress-seller-details">
+<div class="mb-4">
+<h5>User Details</h5>
+</div>
+<form>
+<div class="row">
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="progresspill-firstname-input">First name</label>
+<input type="text" class="form-control" id="progresspill-firstname-input">
+</div>
+</div>
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="progresspill-lastname-input">Last name</label>
+<input type="text" class="form-control" id="progresspill-lastname-input">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="progresspill-phoneno-input">Phone</label>
+<input type="text" class="form-control" id="progresspill-phoneno-input">
+</div>
+</div>
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="progresspill-email-input">Email</label>
+<input type="email" class="form-control" id="progresspill-email-input">
+</div>
+</div>
+</div>
+</form>
+<ul class="pager wizard twitter-bs-wizard-pager-link">
+<li class="next"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab()">Next <i class="bx bx-chevron-right ms-1"></i></a></li>
+</ul>
+</div>
+<div class="tab-pane" id="progress-company-document">
+<div>
+ <div class="mb-4">
+<h5>Location Details</h5>
+</div>
+<form>
+<div class="row">
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="progresspill-pancard-input" class="form-label">Address Line 1</label>
+<input type="text" class="form-control" id="progresspill-pancard-input">
+</div>
+</div>
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="progresspill-vatno-input" class="form-label">Address Line 2</label>
+<input type="text" class="form-control" id="progresspill-vatno-input">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="progresspill-cstno-input" class="form-label">Landmark</label>
+<input type="text" class="form-control" id="progresspill-cstno-input">
+</div>
+</div>
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="progresspill-servicetax-input" class="form-label">City</label>
+<input type="text" class="form-control" id="progresspill-servicetax-input">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="progresspill-companyuin-input" class="form-label">State</label>
+<input type="text" class="form-control" id="progresspill-companyuin-input">
+</div>
+</div>
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="progresspill-declaration-input" class="form-label">Country</label>
+<input type="text" class="form-control" id="progresspill-declaration-input">
+</div>
+</div>
+</div>
+ </form>
+<ul class="pager wizard twitter-bs-wizard-pager-link">
+<li class="previous"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab()"><i class="bx bx-chevron-left me-1"></i> Previous</a></li>
+<li class="next"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab()">Next <i class="bx bx-chevron-right ms-1"></i></a></li>
+</ul>
+</div>
+</div>
+<div class="tab-pane" id="progress-bank-detail">
+<div>
+<div class="mb-4">
+<h5>Payment Details</h5>
+</div>
+<form>
+<div class="row">
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="progresspill-namecard-input" class="form-label">Name on Card</label>
+<input type="text" class="form-control" id="progresspill-namecard-input">
+</div>
+</div>
+<div class="col-lg-6">
+<div class="mb-3">
+<label class="form-label">Credit Card Type</label>
+<select class="form-select">
+<option selected>Select Card Type</option>
+<option value="AE">American Express</option>
+<option value="VI">Visa</option>
+<option value="MC">MasterCard</option>
+<option value="DI">Discover</option>
+</select>
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="progresspill-cardno-input" class="form-label">Credit Card Number</label>
+<input type="text" class="form-control" id="progresspill-cardno-input">
+</div>
+</div>
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="progresspill-card-verification-input" class="form-label">Card Verification Number</label>
+<input type="text" class="form-control" id="progresspill-card-verification-input">
+</div>
+</div>
+</div>
+<div class="row">
+<div class="col-lg-6">
+<div class="mb-3">
+<label for="progresspill-expiration-input" class="form-label">Expiration Date</label>
+<input type="text" class="form-control" id="progresspill-expiration-input">
+</div>
+</div>
+</div>
+</form>
+<ul class="pager wizard twitter-bs-wizard-pager-link">
+<li class="previous"><a href="javascript: void(0);" class="btn btn-primary" onclick="nextTab()"><i class="bx bx-chevron-left me-1"></i> Previous</a></li>
+<li class="float-end"><a href="javascript: void(0);" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".confirmModal">Save Changes</a></li>
+</ul>
 </div>
 </div>
 </div>
 </div>
 </div>
-<div class="card mb-0">
-<div class="card-body">
-<h4 class="card-title">Expired Products</h4>
-<div class="table-responsive dataview">
-<table class="table datatable ">
-<thead>
-<tr>
-<th>SNo</th>
-<th>Product Code</th>
-<th>Product Name</th>
-<th>Brand Name</th>
-<th>Category Name</th>
-<th>Expiry Date</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td><a href="javascript:void(0);">IT0001</a></td>
-<td class="productimgname">
-<a class="product-img" href="productlist.html">
-<img src="assets/img/product/product2.jpg" alt="product">
-</a>
-<a href="productlist.html">Orange</a>
-</td>
-<td>N/D</td>
-<td>Fruits</td>
-<td>12-12-2022</td>
-</tr>
-<tr>
-<td>2</td>
-<td><a href="javascript:void(0);">IT0002</a></td>
-<td class="productimgname">
-<a class="product-img" href="productlist.html">
-<img src="assets/img/product/product3.jpg" alt="product">
-</a>
-<a href="productlist.html">Pineapple</a>
-</td>
-<td>N/D</td>
-<td>Fruits</td>
-<td>25-11-2022</td>
-</tr>
-<tr>
-<td>3</td>
-<td><a href="javascript:void(0);">IT0003</a></td>
-<td class="productimgname">
-<a class="product-img" href="productlist.html">
-<img src="assets/img/product/product4.jpg" alt="product">
-</a>
-<a href="productlist.html">Stawberry</a>
-</td>
-<td>N/D</td>
-<td>Fruits</td>
-<td>19-11-2022</td>
-</tr>
-<tr>
-<td>4</td>
-<td><a href="javascript:void(0);">IT0004</a></td>
-<td class="productimgname">
-<a class="product-img" href="productlist.html">
-<img src="assets/img/product/product5.jpg" alt="product">
-</a>
-<a href="productlist.html">Avocat</a>
-</td>
-<td>N/D</td>
-<td>Fruits</td>
-<td>20-11-2022</td>
-</tr>
-</tbody>
-</table>
+
 </div>
+
 </div>
+
 </div>
 </div>
 </div>
@@ -720,13 +828,11 @@
 
 <script src="assets/js/jquery.slimscroll.min.js"></script>
 
-<script src="assets/js/jquery.dataTables.min.js"></script>
-<script src="assets/js/dataTables.bootstrap4.min.js"></script>
-
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 
-<script src="assets/plugins/apexchart/apexcharts.min.js"></script>
-<script src="assets/plugins/apexchart/chart-data.js"></script>
+<script src="assets/plugins/twitter-bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+<script src="assets/plugins/twitter-bootstrap-wizard/prettify.js"></script>
+<script src="assets/plugins/twitter-bootstrap-wizard/form-wizard.js"></script>
 
 <script src="assets/js/script.js"></script>
 </body>
