@@ -1,13 +1,13 @@
 package com.example.demo.model;
 
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+        import jakarta.persistence.*;
+        import lombok.AllArgsConstructor;
+        import lombok.Getter;
+        import lombok.NoArgsConstructor;
+        import lombok.Setter;
 
-import java.util.Date;
-import java.util.UUID;
+        import java.util.Date;
+        import java.util.UUID;
 
 @Entity
 @Table(name= "Giay")
@@ -36,6 +36,9 @@ public class Giay {
 
     @Column(name = "ten_Giay")
     private String tenGiay;
+
+    @Column(name = "mo_Ta")
+    private String moTa;
 
     @Column(name = "trang_Thai")
     private int trangThai;
