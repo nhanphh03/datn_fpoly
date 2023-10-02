@@ -55,7 +55,7 @@ public class NhanVien {
     private String diaChi;
 
     @Column(name = "CCCD_NV")
-    private int CCCDNV;
+    private String CCCDNV;
 
     @Column(name = "trang_Thai")
     private int trangThai;
