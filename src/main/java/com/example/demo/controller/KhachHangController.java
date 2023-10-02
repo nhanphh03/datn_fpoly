@@ -5,11 +5,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/offline")
+@RequestMapping("/manage")
 public class KhachHangController {
 
-    @GetMapping("/index")
+    @GetMapping("/activities")
     public String hienThi(){
-        return "offline/index";
+        return "manage/activities";
     }
 }
