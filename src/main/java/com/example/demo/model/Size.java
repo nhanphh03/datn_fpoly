@@ -25,8 +25,11 @@ public class Size {
     @Column(name = "ma_Size")
     private String maSize;
 
-    @Column(name="ten_Size")
-    private String tenSize;
+    @Column(name="so_Size")
+    private int tenSize;
+
+    @Column(name = "trang_Thai")
+    private int trangThai;
 
     @Column(name = "tg_Them")
     private Date tgThem;
