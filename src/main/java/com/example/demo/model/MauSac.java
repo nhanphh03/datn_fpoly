@@ -28,6 +28,9 @@ public class MauSac {
     @Column(name="ten_Mau")
     private String tenMau;
 
+    @Column(name = "trang_Thai")
+    private int trangThai;
+
     @Column(name = "tg_Them")
     private Date tgThem;
 
