@@ -240,10 +240,10 @@
                         <ul>
                             <li><a href="/manage/chat-lieu">Chất Liệu</a></li>
                             <li><a href="/manage/giay">Giày</a></li>
-                            <li><a href="/manage/hang">Hãng</a></li>
+                            <li><a href="/manage/hang" class="active">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
                             <li><a href="/manage/mau-sac">Màu Sắc</a></li>
-                            <li><a href="/manage/size" class="active">Size</a></li>
+                            <li><a href="/manage/size" >Size</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -308,7 +308,7 @@
         <div class="content">
             <div class="page-header">
                 <div class="page-title">
-                    <h4>List Size</h4>
+                    <h4>List Hãng</h4>
                     <h6>Quản Lý Giày</h6>
                 </div>
                 <div class="page-btn">
@@ -399,8 +399,8 @@
                                         <span class="checkmarks"></span>
                                     </label>
                                 </th>
-                                <th>Mã Size</th>
-                                <th>Tên Size</th>
+                                <th>Mã Hãng</th>
+                                <th>Tên Hãng</th>
                                 <th>Trạng Thái</th>
                                 <th>Thời Gian Thêm</th>
                                 <th>Thời Gian Sửa</th>
@@ -408,27 +408,27 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="items : ${size}">
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td th:text="${items.maSize}"></td>
-                                    <td th:text="${items.tenSize}"></td>
-                                    <td th:text="${items.trangThai}"></td>
-                                    <td th:text="${items.tgThem}"></td>
-                                    <td th:text="${items.tgSua}"></td>
-                                    <td>
-                                        <a class="me-3" href="editcategory.html">
-                                            <img src="/images/img/icons/edit.svg" alt="img">
-                                        </a>
-                                        <a class="me-3 confirm-text" href="javascript:void(0);">
-                                            <img src="/images/img/icons/delete.svg" alt="img">
-                                        </a>
-                                    </td>
-                                </tr>
+                            <tr th:each="items : ${hang}">
+                                <td>
+                                    <label class="checkboxs">
+                                        <input type="checkbox">
+                                        <span class="checkmarks"></span>
+                                    </label>
+                                </td>
+                                <td th:text="${items.maHang}"></td>
+                                <td th:text="${items.tenHang}"></td>
+                                <td th:text="${items.trangThai}"></td>
+                                <td th:text="${items.tgThem}"></td>
+                                <td th:text="${items.tgSua}"></td>
+                                <td>
+                                    <a class="me-3" href="editcategory.html">
+                                        <img src="/images/img/icons/edit.svg" alt="img">
+                                    </a>
+                                    <a class="me-3 confirm-text" href="javascript:void(0);">
+                                        <img src="/images/img/icons/delete.svg" alt="img">
+                                    </a>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
