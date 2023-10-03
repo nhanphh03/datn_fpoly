@@ -33,15 +33,18 @@
     <div class="header">
 
         <div class="header-left active">
-            <a href="/admin/home" class="logo">
+            <a href="index.html" class="logo">
                 <img src="/images/img/logo.png" alt="">
             </a>
-            <a href="/admin/home" class="logo-small">
+            <a href="index.html" class="logo-small">
                 <img src="/images/img/logo-small.png" alt="">
             </a>
             <a id="toggle_btn" href="javascript:void(0);">
             </a>
         </div>
+
+        <a id="mobile_btn" class="mobile_btn" href="#sidebar">
+<span class="bar-icon">
 <span></span>
 <span></span>
 <span></span>
@@ -239,8 +242,8 @@
                             <li><a href="/manage/giay">Giày</a></li>
                             <li><a href="/manage/hang">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
-                            <li><a href="/manage/mau-sac">Màu Sắc</a></li>
-                            <li><a href="/manage/size">Size</a></li>
+                            <li><a href="/manage/mau-sac" class="active">Màu Sắc</a></li>
+                            <li><a href="/manage/size" >Size</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -301,90 +304,138 @@
             </div>
         </div>
     </div>
-    <!--CODE TỪ DƯỚI NÀY-->
     <div class="page-wrapper">
         <div class="content">
             <div class="page-header">
                 <div class="page-title">
-                    <h4>All Notifications</h4>
-                    <h6>View your all activities</h6>
-                    <h1>ĐÂY LÀ TRANG CHỦ CỦA ADMIN</h1>
+                    <h4>List Màu Sắc</h4>
+                    <h6>Quản Lý Giày</h6>
+                </div>
+                <div class="page-btn">
+                    <a href="addcategory.html" class="btn btn-added">
+                        <img src="/images/img/icons/plus.svg" class="me-1" alt="img">Add Category
+                    </a>
                 </div>
             </div>
 
-            <div class="activity">
-                <div class="activity-box">
-                    <ul class="activity-list">
-                        <li>
-                            <div class="activity-user">
-                                <a href="profile.html" title="" data-toggle="tooltip"
-                                   data-original-title="Lesley Grauer">
-                                    <img alt="Lesley Grauer" src="/images/img/customer/profile3.jpg" class=" img-fluid">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-top">
+                        <div class="search-set">
+                            <div class="search-path">
+                                <a class="btn btn-filter" id="filter_search">
+                                    <img src="/images/img/icons/filter.svg" alt="img">
+                                    <span><img src="/images/img/icons/closes.svg" alt="img"></span>
                                 </a>
                             </div>
-                            <div class="activity-content">
-                                <div class="timeline-content">
-                                    <a href="profile.html" class="name">Elwis Mathew </a> added a new product <a
-                                        href="javascript:void(0);">Redmi Pro 7 Mobile</a>
-                                    <span class="time">4 mins ago</span>
+                            <div class="search-input">
+                                <a class="btn btn-searchset"><img src="/images/img/icons/search-white.svg"
+                                                                  alt="img"></a>
+                            </div>
+                        </div>
+                        <div class="wordset">
+                            <ul>
+                                <li>
+                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
+                                            src="/images/img/icons/pdf.svg" alt="img"></a>
+                                </li>
+                                <li>
+                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
+                                            src="/images/img/icons/excel.svg" alt="img"></a>
+                                </li>
+                                <li>
+                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
+                                            src="/images/img/icons/printer.svg" alt="img"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card" id="filter_inputs">
+                        <div class="card-body pb-0">
+                            <div class="row">
+                                <div class="col-lg-2 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <select class="select">
+                                            <option>Choose Category</option>
+                                            <option>Computers</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="activity-user">
-                                <a href="profile.html" title="" data-toggle="tooltip"
-                                   data-original-title="Lesley Grauer">
-                                    <img alt="Lesley Grauer" src="/images/img/customer/profile4.jpg" class=" img-fluid">
-                                </a>
-                            </div>
-                            <div class="activity-content">
-                                <div class="timeline-content">
-                                    <a href="profile.html" class="name">Elizabeth Olsen</a> added a new product category
-                                    <a href="javascript:void(0);">Desktop Computers</a>
-                                    <span class="time">6 mins ago</span>
+                                <div class="col-lg-2 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <select class="select">
+                                            <option>Choose Sub Category</option>
+                                            <option>Fruits</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="activity-user">
-                                <a href="profile.html" title="" data-toggle="tooltip"
-                                   data-original-title="Lesley Grauer">
-                                    <img alt="Lesley Grauer" src="/images/img/customer/profile5.jpg" class=" img-fluid">
-                                </a>
-                            </div>
-                            <div class="activity-content">
-                                <div class="timeline-content">
-                                    <div class="timeline-content">
-                                        <a href="profile.html" class="name">William Smith</a> added a new sales list for<a
-                                            href="javascript:void(0);">January Month</a>
-                                        <span class="time">12 mins ago</span>
+                                <div class="col-lg-2 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <select class="select">
+                                            <option>Choose Sub Brand</option>
+                                            <option>Iphone</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-sm-6 col-12 ms-auto">
+                                    <div class="form-group">
+                                        <a class="btn btn-filters ms-auto"><img
+                                                src="/images/img/icons/search-whites.svg"
+                                                alt="img"></a>
                                     </div>
                                 </div>
                             </div>
-                        </li>
-                        <li>
-                            <div class="activity-user">
-                                <a href="profile.html" title="" data-toggle="tooltip"
-                                   data-original-title="Lesley Grauer">
-                                    <img alt="Lesley Grauer" src="/images/img/customer/customer4.jpg"
-                                         class=" img-fluid">
-                                </a>
-                            </div>
-                            <div class="activity-content">
-                                <div class="timeline-content">
-                                    <a href="profile.html" class="name">Lesley Grauer</a> has updated invoice <a
-                                        href="javascript:void(0);">#987654</a>
-                                    <span class="time">4 mins ago</span>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table  datanew">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <label class="checkboxs">
+                                        <input type="checkbox" id="select-all">
+                                        <span class="checkmarks"></span>
+                                    </label>
+                                </th>
+                                <th>Mã Màu</th>
+                                <th>Tên Màu</th>
+                                <th>Trạng Thái</th>
+                                <th>Thời Gian Thêm</th>
+                                <th>Thời Gian Sửa</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="items : ${mauSac}">
+                                    <td>
+                                        <label class="checkboxs">
+                                            <input type="checkbox">
+                                            <span class="checkmarks"></span>
+                                        </label>
+                                    </td>
+                                    <td th:text="${items.maMau}"></td>
+                                    <td th:text="${items.tenMau}"></td>
+                                    <td th:text="${items.trangThai}"></td>
+                                    <td th:text="${items.tgThem}"></td>
+                                    <td th:text="${items.tgSua}"></td>
+                                    <td>
+                                        <a class="me-3" href="editcategory.html">
+                                            <img src="/images/img/icons/edit.svg" alt="img">
+                                        </a>
+                                        <a class="me-3 confirm-text" href="javascript:void(0);">
+                                            <img src="/images/img/icons/delete.svg" alt="img">
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
-    <!-- HẾT -->
 </div>
 <script src="/js/jquery-3.6.0.min.js"></script>
 
