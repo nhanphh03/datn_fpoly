@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/manage")
 public class KhachHangController {
 
-    @GetMapping("/activities")
-    public String hienThi(){
-        return "manage/activities";
+    @GetMapping("/khach-hang")
+    public String dsKhachHang() {
+        return "manage/khach-hang";
     }
 }

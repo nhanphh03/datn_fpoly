@@ -7,12 +7,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
+@RequestMapping("/manage")
 @Controller
 public class ChatLieuController {
     @Autowired
     private ChatLieuService chatLieuService;
+
+    @ModelAttribute("dsTrangThai")
+    public Map<Integer, String> getDsTrangThai() {
+        Map<Integer, String> dsTrangThai = new HashMap<>();
+        dsTrangThai.put(1, "Hoạt động");
+        dsTrangThai.put(0, "Không hoạt động");
+        return dsTrangThai;
+    }
 
     @GetMapping("/chat-lieu")
     public String dsChatLieu(Model model) {

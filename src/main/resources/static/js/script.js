@@ -40,7 +40,7 @@ var right_side_views='<div class="right-side-views d-none">'+
 '<li class="sidebar-icons">'+
 '<a class="toggle tipinfo open-layout open-siderbar" href="javascript:void(0);" data-toggle="tooltip" data-placement="left" data-bs-original-title="Tooltip on left">'+
 '<div class="tooltip-five ">'+
-'<img src="assets/img/icons/siderbar-icon2.svg" class="feather-five" alt="">'+
+'<img src="/images/img/icons/siderbar-icon2.svg" class="feather-five" alt="">'+
 '<span class="tooltiptext">Check Layout</span>'+
 '</div>'+
 '</a>'+
@@ -55,12 +55,12 @@ var right_side_views='<div class="right-side-views d-none">'+
 '<div class="col-xl-6 col-sm-6 col-12">'+
 '<div class="sidebar-logo">'+
 '<a href="index.html" class="logo">'+
-'<img src="assets/img/logo.png" alt="Logo" class="img-flex">'+
+'<img src="/images/img/logo.png" alt="Logo" class="img-flex">'+
 '</a>'+
 '</div>'+
 '</div>'+
 '<div class="col-xl-6 col-sm-6 col-12">'+
-'<a class="btn-closed" href="javascript:void(0);"><img class="img-fliud" src="assets/img/icons/sidebar-delete-icon.svg" alt="demo"></a>'+
+'<a class="btn-closed" href="javascript:void(0);"><img class="img-fliud" src="/images/img/icons/sidebar-delete-icon.svg" alt="demo"></a>'+
 '</div>'+
 '</div>'+
 '</div>'+
@@ -70,7 +70,7 @@ var right_side_views='<div class="right-side-views d-none">'+
 '<h5 class="sidebar-title">Choose layout</h5>'+
 '<div class="col-xl-12 col-sm-6 col-12">'+
 '<div class="sidebar-image align-center">'+
-'<img class="img-fliud" src="assets/img/demo-one.png" alt="demo">'+
+'<img class="img-fliud" src="/images/img/demo-one.png" alt="demo">'+
 '</div>'+
 '<div class="row">'+
 '<div class="col-lg-6 layout">'+

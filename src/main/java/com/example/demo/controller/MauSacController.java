@@ -5,18 +5,25 @@ import com.example.demo.service.MauSacService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
-
+@RequestMapping("/manage")
 @Controller
 public class MauSacController {
     @Autowired
     private MauSacService mauSacService;
+
+    @ModelAttribute("dsTrangThai")
+    public Map<Integer, String> getDsTrangThai() {
+        Map<Integer, String> dsTrangThai = new HashMap<>();
+        dsTrangThai.put(1, "Hoạt động");
+        dsTrangThai.put(0, "Không hoạt động");
+        return dsTrangThai;
+    }
 
     @GetMapping("/mau-sac")
     public String dsMauSac(Model model) {
