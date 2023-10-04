@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Sneaker Shop</title>
+</head>
+<style>
+  body {
+    background-image: url('/images/wall2.png');
+    background-size: 100% auto;
+    background-position: center center;
+    background-attachment: fixed;
+  }
+  .form {
+    background-color: whitesmoke;
+    display: block;
+    margin-left: 63% ;
+    margin-top: 13.5%;
+    padding: 1rem;
+    width: 70%;
+    max-width: 350px;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  }
+
+  .form-title {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+    text-align: center;
+    color: #834F36;
+  }
+
+  .input-container {
+    position: relative;
+    display: flex;
+    margin-bottom: 8px;
+  }
+
+  .input-container input,
+  .form button {
+    outline: none;
+    border: 1px solid #834F36;
+  }
+
+  .input-container input {
+    background-color: #fff;
+    padding: 1rem;
+    padding-right: 3rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    width: 100%;
+    height: 10px;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  }
+
+  .input-container span {
+    display: grid;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    place-content: center;
+  }
+
+  .input-container span svg {
+    color: #9CA3AF;
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .submit {
+    display: block;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    background-color: #834F36;
+    color: #ffffff;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: 500;
+    width: 100%;
+    border-radius: 0.5rem;
+    text-transform: uppercase;
+  }
+
+  .signup-link {
+    color: #582209;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    text-align: center;
+    margin-top: 11%;
+  }
+
+  .signup-link a,
+  .link_design a,
+  .forgotPassword {
+    text-decoration: underline;
+  }
+
+  .forgotPassword {
+    text-align: center;
+    position: relative;
+    margin-left: 33%;
+    width: 100%;
+    bottom: -15px;
+    font-size: 0.9rem;
+    align-self: center;
+    font-weight: bold;
+    color: #2c1001;
+  }
+
+  .forgotPassword::after {
+    position: absolute;
+    content: '';
+    width: 200%;
+    height: 1px;
+    bottom: -13px;
+    margin-left: -150%;
+    background: #040404;
+  }
+
+  .forgotPassword:hover {
+    text-decoration: underline;
+  }
+  .link_language,
+  .link_language2  {
+      text-decoration: underline;
+  }
+
+  .link_design {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      margin-bottom: 3%;
+      margin-right: 1%;
+      color: #000000;
+      font-size: 0.93rem;
+      line-height: 1.25rem;
+      text-align: center;
+
+  }
+
+  .link_language {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      margin-bottom: 5%;
+      margin-right: 1%;
+      color: #000000;
+      font-size: 0.93rem;
+      line-height: 1.25rem;
+      text-align: center;
+
+  }
+
+  .link_language2 {
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      margin-bottom: 5%;
+      margin-right: 3%;
+      color: #000000;
+      font-size: 0.93rem;
+      line-height: 1.25rem;
+      text-align: center;
+
+  }
+
+</style>
+<body>
+
+<form th:action="@{/buyer/login}" class="form" method="post">
+
+  <p class="form-title">[(#{lable.login.titleLogin})]</p>
+
+  <span th:text="${messageLogin}" style="color: red;"></span>
+  <div class="input-container">
+    <input th:placeholder="#{lable.login.user}" name="username" type="text" id="username">
+  </div>
+
+  <div class="input-container">
+    <input th:placeholder="#{lable.login.pass}" name="password" type="password" class="form-control" id="password">
+  </div>
+
+  <button class="submit" type="submit" id="loginButton">
+      [(#{lable.login.Login})]
+  </button>
+
+  <a class="forgotPassword" th:href="@{'/buyer/reset'}">[(#{lable.login.forgotPass})]</a>
+
+  <p class="signup-link">
+      [(#{lable.login.noAccount})]
+    <a th:href="@{'/buyer/register'}">[(#{lable.login.signUp})]</a>
+  </p>
+</form>
+
+<a class="link_language" href="?language=vi"><img src="/images/img/i18/vietnam.png" alt=""> </a>
+<a class="link_language2" href="?language=en"><img src="/images/img/i18/united-kingdom.png"> </a>
+
+
+<script>
+    // Lấy các phần tử DOM
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const loginButton = document.getElementById('loginButton');
+
+    // Thêm xử lý sự kiện cho nút đăng nhập
+    loginButton.addEventListener('click', function () {
+        const username = usernameInput.value;
+        const password = passwordInput.value;
+
+        // Thực hiện xử lý đăng nhập ở đây, ví dụ:
+        if (username && password ) {
+        } else {
+            // Đăng nhập thất bại, hiển thị thông báo hoặc xử lý khác
+            alert('Đăng nhập thất bại. Vui lòng điền tài khoản và mật khẩu.');
+            event.preventDefault();
+        }
+    });
+</script>
+
+
+</body>
+</html>
