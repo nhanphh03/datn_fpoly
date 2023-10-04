@@ -50,6 +50,9 @@ public class KhachHang {
     @Column(name = "diaChi_KH")
     private String diaChi;
 
+    @Column(name = "mat_Khau_KH")
+    private String matKhau;
+
     @Column(name = "CCCD_KH")
     private int CCCDKH;
 
