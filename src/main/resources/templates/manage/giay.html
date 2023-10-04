@@ -375,45 +375,46 @@
                             <div class="row">
                                 <div class="col-lg-12 col-sm-12">
                                     <div class="row">
-                                        <div class="col-lg col-sm-6 col-12">
+                                        <div class="col-lg-2 col-sm-6 col-12">
                                             <div class="form-group">
                                                 <select class="select">
-                                                    <option>Choose Product</option>
-                                                    <option>Macbook pro</option>
-                                                    <option>Orange</option>
+                                                    <option>Mã Giày</option>
+                                                    <option th:each="loc : ${giay}" th:value="${loc.maGiay}"
+                                                            th:text="${loc.maGiay}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <select class="select">
+                                                    <option>Tên Giày</option>
+                                                    <option th:each="loc : ${giay}" th:value="${loc.tenGiay}"
+                                                            th:text="${loc.tenGiay}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <select class="select">
+                                                    <option>Trạng Thái</option>
+                                                    <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
+                                                            th:text="${loc.value}"></option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-lg col-sm-6 col-12">
                                             <div class="form-group">
                                                 <select class="select">
-                                                    <option>Choose Category</option>
-                                                    <option>Computers</option>
-                                                    <option>Fruits</option>
+                                                    <option>Hãng</option>
+                                                    <option></option>
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-lg col-sm-6 col-12">
                                             <div class="form-group">
                                                 <select class="select">
-                                                    <option>Choose Sub Category</option>
-                                                    <option>Computer</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <select class="select">
-                                                    <option>Brand</option>
-                                                    <option>N/D</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <select class="select">
-                                                    <option>Price</option>
-                                                    <option>150.00</option>
+                                                    <option>Chất Liệu</option>
+                                                    <option></option>
                                                 </select>
                                             </div>
                                         </div>
@@ -462,7 +463,10 @@
                                 </td>
                                 <td th:text="${items.maGiay}"></td>
                                 <td th:text="${items.tenGiay}"></td>
-                                <td th:text="${items.trangThai}"></td>
+                                <td>
+                                    <p th:if="${items.trangThai == 1}">Hoạt Động</p>
+                                    <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
+                                </td>
                                 <td th:class="${items.hang}"></td>
                                 <td th:class="${items.chatLieu}"></td>
                                 <td th:text="${items.tgThem}"></td>
