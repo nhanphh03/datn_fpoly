@@ -29,6 +29,9 @@ public class Hang {
     @Column(name="ten_Hang")
     private String tenHang;
 
+    @Column(name="logo_Hang")
+    private String logoHang;
+
     @Column( name = "trang_Thai")
     private int trangThai;
 
