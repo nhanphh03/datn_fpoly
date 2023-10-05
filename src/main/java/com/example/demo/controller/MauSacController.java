@@ -7,10 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+
 @RequestMapping("/manage")
 @Controller
 public class MauSacController {
@@ -40,14 +38,19 @@ public class MauSacController {
 
     @PostMapping("/mau-sac/viewAdd/add")
     public String addMauSac(@ModelAttribute("mauSac") MauSac mauSac) {
-        mauSacService.save(mauSac);
-        return "redirect:/mau-sac";
+        MauSac mauSac1 = new MauSac();
+        mauSac1.setMaMau(mauSac.getMaMau());
+        mauSac1.setTenMau(mauSac.getTenMau());
+        mauSac1.setTgThem(new Date());
+        mauSac1.setTrangThai(mauSac.getTrangThai());
+        mauSacService.save(mauSac1);
+        return "redirect:/manage/mau-sac";
     }
 
     @GetMapping("/mau-sac/delete/{id}")
     public String deleteMauSac(@PathVariable UUID id) {
         mauSacService.deleteByIdMauSac(id);
-        return "redirect:/mau-sac";
+        return "redirect:/manage/mau-sac";
     }
 
     @GetMapping("/mau-sac/viewUpdate/{id}")
@@ -62,11 +65,11 @@ public class MauSacController {
         MauSac mauSacDb = mauSacService.getByIdMauSac(id);
         if (mauSacDb != null) {
             mauSacDb.setMaMau(mauSac.getMaMau());
-            mauSacDb.setTenMau(mauSac.getMaMau());
-            mauSacDb.setTgSua(mauSac.getTgSua());
-            mauSacDb.setTgThem(mauSac.getTgThem());
+            mauSacDb.setTenMau(mauSac.getTenMau());
+            mauSacDb.setTgSua(new Date());
+            mauSacDb.setTrangThai(mauSac.getTrangThai());
             mauSacService.save(mauSacDb);
         }
-        return "redirect:/mau-sac";
+        return "redirect:/manage/mau-sac";
     }
 }
