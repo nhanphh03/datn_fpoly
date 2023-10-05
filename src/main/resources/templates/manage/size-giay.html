@@ -312,12 +312,11 @@
                     <h6>Quản Lý Giày</h6>
                 </div>
                 <div class="page-btn">
-                    <a href="addcategory.html" class="btn btn-added">
-                        <img src="/images/img/icons/plus.svg" class="me-1" alt="img">Add Category
+                    <a href="/manage/size/viewAdd" class="btn btn-added">
+                        <img src="/images/img/icons/plus.svg" class="me-1" alt="img">Thêm Size
                     </a>
                 </div>
             </div>
-
             <div class="card">
                 <div class="card-body">
                     <div class="table-top">
@@ -357,24 +356,27 @@
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <select class="select">
-                                            <option>Choose Category</option>
-                                            <option>Computers</option>
+                                            <option>Mã Size</option>
+                                            <option th:each="loc : ${size}" th:value="${loc.maSize}"
+                                                    th:text="${loc.maSize}"></option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <select class="select">
-                                            <option>Choose Sub Category</option>
-                                            <option>Fruits</option>
+                                            <option>Size</option>
+                                            <option th:each="loc : ${size}" th:value="${loc.tenSize}"
+                                                    th:text="${loc.tenSize}"></option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <select class="select">
-                                            <option>Choose Sub Brand</option>
-                                            <option>Iphone</option>
+                                            <option>Trạng Thái</option>
+                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
+                                                    th:text="${loc.value}"></option>
                                         </select>
                                     </div>
                                 </div>
@@ -408,27 +410,30 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="items : ${size}">
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td th:text="${items.maSize}"></td>
-                                    <td th:text="${items.tenSize}"></td>
-                                    <td th:text="${items.trangThai}"></td>
-                                    <td th:text="${items.tgThem}"></td>
-                                    <td th:text="${items.tgSua}"></td>
-                                    <td>
-                                        <a class="me-3" href="editcategory.html">
-                                            <img src="/images/img/icons/edit.svg" alt="img">
-                                        </a>
-                                        <a class="me-3 confirm-text" href="javascript:void(0);">
-                                            <img src="/images/img/icons/delete.svg" alt="img">
-                                        </a>
-                                    </td>
-                                </tr>
+                            <tr th:each="items : ${size}">
+                                <td>
+                                    <label class="checkboxs">
+                                        <input type="checkbox">
+                                        <span class="checkmarks"></span>
+                                    </label>
+                                </td>
+                                <td th:text="${items.maSize}"></td>
+                                <td th:text="${items.tenSize}"></td>
+                                <td>
+                                    <p th:if="${items.trangThai == 1}">Hoạt Động</p>
+                                    <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
+                                </td>
+                                <td th:text="${items.tgThem}"></td>
+                                <td th:text="${items.tgSua}"></td>
+                                <td>
+                                    <a class="me-3" th:href="@{'/manage/size/viewUpdate/' + ${items.idSize}}">
+                                        <img src="/images/img/icons/edit.svg" alt="img">
+                                    </a>
+                                    <a class="me-3" th:href="@{'/manage/size/delete/' + ${items.idSize}}">
+                                        <img src="/images/img/icons/delete.svg" alt="img">
+                                    </a>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>

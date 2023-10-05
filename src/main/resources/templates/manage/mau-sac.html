@@ -243,7 +243,7 @@
                             <li><a href="/manage/hang">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
                             <li><a href="/manage/mau-sac" class="active">Màu Sắc</a></li>
-                            <li><a href="/manage/size" >Size</a></li>
+                            <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -312,8 +312,8 @@
                     <h6>Quản Lý Giày</h6>
                 </div>
                 <div class="page-btn">
-                    <a href="addcategory.html" class="btn btn-added">
-                        <img src="/images/img/icons/plus.svg" class="me-1" alt="img">Add Category
+                    <a href="/manage/mau-sac/viewAdd" class="btn btn-added">
+                        <img src="/images/img/icons/plus.svg" class="me-1" alt="img">Thêm Màu
                     </a>
                 </div>
             </div>
@@ -357,24 +357,27 @@
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <select class="select">
-                                            <option>Choose Category</option>
-                                            <option>Computers</option>
+                                            <option>Mã Màu</option>
+                                            <option th:each="loc : ${mauSac}" th:value="${loc.maMau}"
+                                                    th:text="${loc.maMau}"></option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <select class="select">
-                                            <option>Choose Sub Category</option>
-                                            <option>Fruits</option>
+                                            <option>Tên Màu</option>
+                                            <option th:each="loc : ${mauSac}" th:value="${loc.tenMau}"
+                                                    th:text="${loc.tenMau}"></option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <select class="select">
-                                            <option>Choose Sub Brand</option>
-                                            <option>Iphone</option>
+                                            <option>Trạng Thái</option>
+                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
+                                                    th:text="${loc.value}"></option>
                                         </select>
                                     </div>
                                 </div>
@@ -408,27 +411,30 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="items : ${mauSac}">
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td th:text="${items.maMau}"></td>
-                                    <td th:text="${items.tenMau}"></td>
-                                    <td th:text="${items.trangThai}"></td>
-                                    <td th:text="${items.tgThem}"></td>
-                                    <td th:text="${items.tgSua}"></td>
-                                    <td>
-                                        <a class="me-3" href="editcategory.html">
-                                            <img src="/images/img/icons/edit.svg" alt="img">
-                                        </a>
-                                        <a class="me-3 confirm-text" href="javascript:void(0);">
-                                            <img src="/images/img/icons/delete.svg" alt="img">
-                                        </a>
-                                    </td>
-                                </tr>
+                            <tr th:each="items : ${mauSac}">
+                                <td>
+                                    <label class="checkboxs">
+                                        <input type="checkbox">
+                                        <span class="checkmarks"></span>
+                                    </label>
+                                </td>
+                                <td th:text="${items.maMau}"></td>
+                                <td th:text="${items.tenMau}"></td>
+                                <td>
+                                    <p th:if="${items.trangThai == 1}">Hoạt Động</p>
+                                    <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
+                                </td>
+                                <td th:text="${items.tgThem}"></td>
+                                <td th:text="${items.tgSua}"></td>
+                                <td>
+                                    <a class="me-3" th:href="@{'/manage/mau-sac/viewUpdate/' + ${items.idMau}}">
+                                        <img src="/images/img/icons/edit.svg" alt="img">
+                                    </a>
+                                    <a class="me-3" th:href="@{'/manage/mau-sac/delete/' + ${items.idMau}}">
+                                        <img src="/images/img/icons/delete.svg" alt="img">
+                                    </a>
+                                </td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>

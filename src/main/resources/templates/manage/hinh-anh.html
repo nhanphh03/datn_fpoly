@@ -312,8 +312,8 @@
                     <h6>Quản Lý Giày</h6>
                 </div>
                 <div class="page-btn">
-                    <a href="addcategory.html" class="btn btn-added">
-                        <img src="/images/img/icons/plus.svg" class="me-1" alt="img">Add Category
+                    <a href="/manage/hinh-anh/viewAdd" class="btn btn-added">
+                        <img src="/images/img/icons/plus.svg" class="me-1" alt="img">Thêm Hình Ảnh
                     </a>
                 </div>
             </div>
@@ -357,24 +357,9 @@
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <select class="select">
-                                            <option>Choose Category</option>
-                                            <option>Computers</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <select class="select">
-                                            <option>Choose Sub Category</option>
-                                            <option>Fruits</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <select class="select">
-                                            <option>Choose Sub Brand</option>
-                                            <option>Iphone</option>
+                                            <option>Trạng Thái</option>
+                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
+                                                    th:text="${loc.value}"></option>
                                         </select>
                                     </div>
                                 </div>
@@ -392,7 +377,7 @@
                     <div class="table-responsive">
                         <table class="table  datanew">
                             <thead>
-                            <tr>
+                            <tr align="center">
                                 <th>
                                     <label class="checkboxs">
                                         <input type="checkbox" id="select-all">
@@ -417,18 +402,21 @@
                                             <span class="checkmarks"></span>
                                         </label>
                                     </td>
-                                    <td th:text="${items.url1}"></td>
-                                    <td th:text="${items.url2}"></td>
-                                    <td th:text="${items.url3}"></td>
-                                    <td th:text="${items.url4}"></td>
-                                    <td th:text="${items.trangThai}"></td>
+                                    <td><img th:src="@{'/images/imgsProducts/'+ ${items.url1}}"></td>
+                                    <td><img th:src="@{'/images/imgsProducts/'+ ${items.url2}}"></td>
+                                    <td><img th:src="@{'/images/imgsProducts/'+ ${items.url3}}"></td>
+                                    <td><img th:src="@{'/images/imgsProducts/'+ ${items.url4}}"></td>
+                                    <td>
+                                        <p th:if="${items.trangThai == 1}">Hoạt Động</p>
+                                        <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
+                                    </td>
                                     <td th:text="${items.tgThem}"></td>
                                     <td th:text="${items.tgSua}"></td>
                                     <td>
-                                        <a class="me-3" href="editcategory.html">
+                                        <a class="me-3" th:href="@{'/manage/hinh-anh/viewUpdate/' + ${items.idGiay}}">
                                             <img src="/images/img/icons/edit.svg" alt="img">
                                         </a>
-                                        <a class="me-3 confirm-text" href="javascript:void(0);">
+                                        <a class="me-3 " th:href="@{'/manage/hinh-anh/delete/' + ${items.idGiay}}">
                                             <img src="/images/img/icons/delete.svg" alt="img">
                                         </a>
                                     </td>
