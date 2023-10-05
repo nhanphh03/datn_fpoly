@@ -312,8 +312,8 @@
                     <h6>Quản Lý Giày</h6>
                 </div>
                 <div class="page-btn">
-                    <a href="addcategory.html" class="btn btn-added">
-                        <img src="/images/img/icons/plus.svg" class="me-1" alt="img">Add Category
+                    <a href="/manage/chat-lieu/viewAdd" class="btn btn-added">
+                        <img src="/images/img/icons/plus.svg" class="me-1" alt="img">Thêm Chất Liệu
                     </a>
                 </div>
             </div>
@@ -357,24 +357,27 @@
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <select class="select">
-                                            <option>Choose Category</option>
-                                            <option>Computers</option>
+                                            <option>Mã Chất Liệu</option>
+                                            <option th:each="loc : ${chatLieu}" th:value="${loc.maChatLieu}"
+                                                    th:text="${loc.maChatLieu}"></option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <select class="select">
-                                            <option>Choose Sub Category</option>
-                                            <option>Fruits</option>
+                                            <option>Tên Chất Liệu</option>
+                                            <option th:each="loc : ${chatLieu}" th:value="${loc.tenChatLieu}"
+                                                    th:text="${loc.tenChatLieu}"></option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <select class="select">
-                                            <option>Choose Sub Brand</option>
-                                            <option>Iphone</option>
+                                            <option>Trạng Thái</option>
+                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
+                                                    th:text="${loc.value}"></option>
                                         </select>
                                     </div>
                                 </div>
@@ -417,14 +420,17 @@
                                     </td>
                                     <td th:text="${items.maChatLieu}"></td>
                                     <td th:text="${items.tenChatLieu}"></td>
-                                    <td th:text="${items.trangThai}"></td>
+                                    <td>
+                                        <p th:if="${items.trangThai == 1}">Hoạt Động</p>
+                                        <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
+                                    </td>
                                     <td th:text="${items.tgThem}"></td>
                                     <td th:text="${items.tgSua}"></td>
                                     <td>
-                                        <a class="me-3" href="editcategory.html">
+                                        <a class="me-3" th:href="@{'/manage/chat-lieu/viewUpdate/' + ${items.idChatLieu}}">
                                             <img src="/images/img/icons/edit.svg" alt="img">
                                         </a>
-                                        <a class="me-3 confirm-text" href="javascript:void(0);">
+                                        <a class="me-3 " th:href="@{'/manage/chat-lieu/delete/' + ${items.idChatLieu}}">
                                             <img src="/images/img/icons/delete.svg" alt="img">
                                         </a>
                                     </td>
