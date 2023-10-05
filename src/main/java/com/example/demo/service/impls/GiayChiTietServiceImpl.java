@@ -5,7 +5,6 @@ import com.example.demo.model.Giay;
 import com.example.demo.repository.GiayChiTietRepository;
 import com.example.demo.repository.GiayRepository;
 import com.example.demo.service.GiayChiTietService;
-import com.example.demo.viewModel.CTSPViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
