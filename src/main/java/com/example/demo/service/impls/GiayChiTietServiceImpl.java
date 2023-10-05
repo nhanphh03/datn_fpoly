@@ -3,7 +3,6 @@ package com.example.demo.service.impls;
 import com.example.demo.model.ChiTietGiay;
 import com.example.demo.repository.GiayChiTietRepository;
 import com.example.demo.service.GiayChiTietService;
-import com.example.demo.viewModel.CTSPViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
