@@ -7,10 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+
 @RequestMapping("/manage")
 @Controller
 public class HinhAnhController {
@@ -40,14 +38,21 @@ public class HinhAnhController {
 
     @PostMapping("/hinh-anh/viewAdd/add")
     public String addHinhAnh(@ModelAttribute("hinhAnh") HinhAnh hinhAnh) {
-        hinhAnhService.save(hinhAnh);
-        return "redirect:/hinh-anh";
+        HinhAnh hinhAnh1 = new HinhAnh();
+        hinhAnh1.setUrl1(hinhAnh.getUrl1());
+        hinhAnh1.setUrl2(hinhAnh.getUrl2());
+        hinhAnh1.setUrl3(hinhAnh.getUrl3());
+        hinhAnh1.setUrl4(hinhAnh.getUrl4());
+        hinhAnh1.setTgThem(new Date());
+        hinhAnh1.setTrangThai(hinhAnh.getTrangThai());
+        hinhAnhService.save(hinhAnh1);
+        return "redirect:/manage/hinh-anh";
     }
 
     @GetMapping("/hinh-anh/delete/{id}")
     public String deleteHinhAnh(@PathVariable UUID id) {
         hinhAnhService.deleteByIdHinhAnh(id);
-        return "redirect:/hinh-anh";
+        return "redirect:/manage/hinh-anh";
     }
 
     @GetMapping("/hinh-anh/viewUpdate/{id}")
@@ -61,8 +66,7 @@ public class HinhAnhController {
     public String updateHinhAnh(@PathVariable UUID id, @ModelAttribute("hinhAnh") HinhAnh hinhAnh) {
         HinhAnh hinhAnhDb = hinhAnhService.getByIdHinhAnh(id);
         if (hinhAnhDb != null) {
-            hinhAnhDb.setTgSua(hinhAnh.getTgSua());
-            hinhAnhDb.setTgThem(hinhAnh.getTgThem());
+            hinhAnhDb.setTgSua(new Date());
             hinhAnhDb.setTrangThai(hinhAnh.getTrangThai());
             hinhAnhDb.setUrl1(hinhAnh.getUrl1());
             hinhAnhDb.setUrl2(hinhAnh.getUrl2());
@@ -70,6 +74,6 @@ public class HinhAnhController {
             hinhAnhDb.setUrl4(hinhAnh.getUrl4());
             hinhAnhService.save(hinhAnhDb);
         }
-        return "redirect:/hinh-anh";
+        return "redirect:/manage/hinh-anh";
     }
 }

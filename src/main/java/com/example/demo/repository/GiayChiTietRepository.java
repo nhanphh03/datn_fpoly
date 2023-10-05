@@ -1,9 +1,11 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.ChiTietGiay;
+import com.example.demo.model.Giay;
 import com.example.demo.viewModel.CTSPViewModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.UUID;
 
 @Repository
 public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> {
-//    @Query(value = "select chi_tiet_giay.id_giay,\n" +
+    //    @Query(value = "select chi_tiet_giay.id_giay,\n" +
 //                    "giay.ma_giay,giay.ten_giay,\n" +
 //                    "mau_sac.ten_mau,\n" +
 //                    "size.so_size,\n" +
