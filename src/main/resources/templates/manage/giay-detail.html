@@ -239,8 +239,8 @@
                             <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="/manage/chat-lieu">Chất Liệu</a></li>
-                            <li><a href="/manage/giay">Giày</a></li>
-                            <li><a href="/manage/hang" class="active">Hãng</a></li>
+                            <li><a href="/manage/giay" class="active">Giày</a></li>
+                            <li><a href="/manage/hang">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
                             <li><a href="/manage/mau-sac">Màu Sắc</a></li>
                             <li><a href="/manage/size">Size</a></li>
@@ -304,163 +304,128 @@
             </div>
         </div>
     </div>
-    <div class="page-wrapper">
-        <div class="content">
-            <div class="page-header">
-                <div class="page-title">
-                    <h4>List Hãng</h4>
-                    <h6>Quản Lý Giày</h6>
-                </div>
-                <div class="page-btn">
-                    <a href="/manage/hang/viewAdd" class="btn btn-added">
-                        <img src="/images/img/icons/plus.svg" class="me-1" alt="img">Thêm Hãng
-                    </a>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-top">
-                        <div class="search-set">
-                            <div class="search-path">
-                                <a class="btn btn-filter" id="filter_search">
-                                    <img src="/images/img/icons/filter.svg" alt="img">
-                                    <span><img src="/images/img/icons/closes.svg" alt="img"></span>
-                                </a>
-                            </div>
-                            <div class="search-input">
-                                <a class="btn btn-searchset"><img src="/images/img/icons/search-white.svg"
-                                                                  alt="img"></a>
-                            </div>
-                        </div>
-                        <div class="wordset">
-                            <ul>
-                                <li>
-                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
-                                            src="/images/img/icons/pdf.svg" alt="img"></a>
-                                </li>
-                                <li>
-                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
-                                            src="/images/img/icons/excel.svg" alt="img"></a>
-                                </li>
-                                <li>
-                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
-                                            src="/images/img/icons/printer.svg" alt="img"></a>
-                                </li>
-                            </ul>
-                        </div>
+    <form th:object="${chiTietGiayList}" method="post"
+               th:action="@{'/giay/detail/'+${chiTietGiayList.idCTG}}">
+        <div class="page-wrapper">
+            <div class="content">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h4>Chi Tiết Giày</h4>
+                        <h6>Quản Lý Giày</h6>
                     </div>
+                </div>
 
-                    <div class="card" id="filter_inputs">
-                        <div class="card-body pb-0">
-                            <div class="row">
-                                <div class="col-lg-2 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <select class="select">
-                                            <option>Mã Hãng</option>
-                                            <option th:each="loc : ${hang}" th:value="${loc.maHang}"
-                                                    th:text="${loc.maHang}"></option>
-                                        </select>
-                                    </div>
+                <div class="row">
+                    <div class="col-lg-8 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="bar-code-view">
+                                    <img src="assets/img/barcode1.png" alt="barcode">
+                                    <a class="printimg">
+                                        <img src="assets/img/icons/printer.svg" alt="print">
+                                    </a>
                                 </div>
-                                <div class="col-lg-2 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <select class="select">
-                                            <option>Tên Hãng</option>
-                                            <option th:each="loc : ${hang}" th:value="${loc.tenHang}"
-                                                    th:text="${loc.tenHang}"></option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <select class="select">
-                                            <option>Trạng Thái</option>
-                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                                    th:text="${loc.value}"></option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-1 col-sm-6 col-12 ms-auto">
-                                    <div class="form-group">
-                                        <a class="btn btn-filters ms-auto"><img
-                                                src="/images/img/icons/search-whites.svg"
-                                                alt="img"></a>
-                                    </div>
+                                <div class="productdetails">
+                                    <ul class="product-bar">
+                                        <li>
+                                            <h4>Giá Bán</h4>
+                                            <h6></h6>
+                                        </li>
+                                        <li>
+                                            <h4>Năm Bảo Hành</h4>
+                                            <h6>Computers</h6>
+                                        </li>
+                                        <li>
+                                            <h4>Năm Sản Xuất</h4>
+                                            <h6>None</h6>
+                                        </li>
+                                        <li>
+                                            <h4>Số Lượng</h4>
+                                            <h6>None</h6>
+                                        </li>
+                                        <li>
+                                            <h4>Thời Gian Thêm</h4>
+                                            <h6>Piece</h6>
+                                        </li>
+                                        <li>
+                                            <h4>Thời Gian Sửa</h4>
+                                            <h6>PT0001</h6>
+                                        </li>
+                                        <li>
+                                            <h4>Trọng Lượng</h4>
+                                            <h6>5</h6>
+                                        </li>
+                                        <li>
+                                            <h4>Mã Giày</h4>
+                                            <h6>50</h6>
+                                        </li>
+                                        <li>
+                                            <h4>Tên Giày</h4>
+                                            <h6>0.00 %</h6>
+                                        </li>
+                                        <li>
+                                            <h4>Màu</h4>
+                                            <h6>Percentage</h6>
+                                        </li>
+                                        <li>
+                                            <h4>Size</h4>
+                                            <h6>1500.00</h6>
+                                        </li>
+                                        <li>
+                                            <h4>Trạng Thái</h4>
+                                            <h6>Active</h6>
+                                        </li>
+                                        <li>
+                                            <h4>Mô Tả</h4>
+                                            <h6>Lorem Ipsum is simply dummy text of the printing and typesetting
+                                                industry.
+                                                Lorem Ipsum has been the industry's standard dummy text ever since the
+                                                1500s,</h6>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div class="table-responsive">
-                        <table class="table  datanew">
-                            <thead>
-                            <tr>
-                                <th>
-                                    <label class="checkboxs">
-                                        <input type="checkbox" id="select-all">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </th>
-                                <th>Logo</th>
-                                <th>Mã Hãng</th>
-                                <th>Tên Hãng</th>
-                                <th>Trạng Thái</th>
-                                <th>Thời Gian Thêm</th>
-                                <th>Thời Gian Sửa</th>
-                                <th>Action</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="items : ${hang}">
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td><img width="80px" height="90px" th:src="@{'/images/logoBrands/'+ ${items.logoHang}}"></td>
-                                <td th:text="${items.maHang}"></td>
-                                <td th:text="${items.tenHang}"></td>
-                                <td>
-                                    <p th:if="${items.trangThai == 1}">Hoạt Động</p>
-                                    <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
-                                </td>
-                                <td th:text="${items.tgThem}"></td>
-                                <td th:text="${items.tgSua}"></td>
-                                <td>
-                                    <a class="me-3" th:href="@{'/manage/hang/viewUpdate/' + ${items.idHang}}">
-                                        <img src="/images/img/icons/edit.svg" alt="img">
-                                    </a>
-                                    <a class="me-3 " th:href="@{'/manage/hang/delete/' + ${items.idHang}}">
-                                        <img src="/images/img/icons/delete.svg" alt="img">
-                                    </a>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="slider-product-details">
+                                    <div class="owl-carousel owl-theme product-slide">
+                                        <div class="slider-product">
+                                            <img src="assets/img/product/product69.jpg" alt="img">
+                                            <h4>macbookpro.jpg</h4>
+                                            <h6>581kb</h6>
+                                        </div>
+                                        <div class="slider-product">
+                                            <img src="assets/img/product/product69.jpg" alt="img">
+                                            <h4>macbookpro.jpg</h4>
+                                            <h6>581kb</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
-<script src="/js/jquery-3.6.0.min.js"></script>
 
-<script src="/js/feather.min.js"></script>
 
-<script src="/js/jquery.slimscroll.min.js"></script>
+<script src="assets/js/jquery-3.6.0.min.js"></script>
 
-<script src="/js/jquery.dataTables.min.js"></script>
-<script src="/js/dataTables.bootstrap4.min.js"></script>
+<script src="assets/js/feather.min.js"></script>
 
-<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/jquery.slimscroll.min.js"></script>
 
-<script src="/plugins/select2/js/select2.min.js"></script>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
 
-<script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
-<script src="/plugins/sweetalert/sweetalerts.min.js"></script>
+<script src="assets/plugins/owlcarousel/owl.carousel.min.js"></script>
 
-<script src="/js/script.js"></script>
+<script src="assets/plugins/select2/js/select2.min.js"></script>
+
+<script src="assets/js/script.js"></script>
 </body>
 </html>

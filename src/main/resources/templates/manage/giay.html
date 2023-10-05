@@ -312,13 +312,7 @@
                     <h6>Quản Lý Giày</h6>
                 </div>
                 <div class="page-btn">
-                    <a href="addproduct.html" class="btn btn-added"
-                    ><img
-                            src="/images/img/icons/plus.svg"
-                            alt="img"
-                            class="me-1"
-                    />Add New Product</a
-                    >
+                    <a href="/manage/giay/viewAdd" class="btn btn-added"><img src="/images/img/icons/plus.svg" alt="img" class="me-1"/>Thêm Giày</a>
                 </div>
             </div>
 
@@ -397,7 +391,8 @@
                                             <div class="form-group">
                                                 <select class="select">
                                                     <option>Trạng Thái</option>
-                                                    <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
+                                                    <option th:each="loc : ${dsTrangThai.entrySet()}"
+                                                            th:value="${loc.key}"
                                                             th:text="${loc.value}"></option>
                                                 </select>
                                             </div>
@@ -406,7 +401,8 @@
                                             <div class="form-group">
                                                 <select class="select">
                                                     <option>Hãng</option>
-                                                    <option></option>
+                                                    <option th:each="loc : ${hang}" th:value="${loc.idHang}"
+                                                            th:text="${loc.tenHang}"></option>
                                                 </select>
                                             </div>
                                         </div>
@@ -414,7 +410,8 @@
                                             <div class="form-group">
                                                 <select class="select">
                                                     <option>Chất Liệu</option>
-                                                    <option></option>
+                                                    <option th:each="loc : ${chatLieu}" th:value="${loc.idChatLieu}"
+                                                            th:text="${loc.tenChatLieu}"></option>
                                                 </select>
                                             </div>
                                         </div>
@@ -437,12 +434,12 @@
                         <table class="table datanew">
                             <thead>
                             <tr>
-                                <th>
-                                    <label class="checkboxs">
-                                        <input type="checkbox" id="select-all"/>
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </th>
+<!--                                <th>-->
+<!--                                    <label class="checkboxs">-->
+<!--                                        <input type="checkbox" id="select-all"/>-->
+<!--                                        <span class="checkmarks"></span>-->
+<!--                                    </label>-->
+<!--                                </th>-->
                                 <th>Mã Giày</th>
                                 <th>Tên Giày</th>
                                 <th>Trạng Thái</th>
@@ -455,30 +452,30 @@
                             </thead>
                             <tbody>
                             <tr th:each="items : ${giay}">
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox"/>
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
+<!--                                <td>-->
+<!--                                    <label class="checkboxs">-->
+<!--                                        <input type="checkbox"/>-->
+<!--                                        <span class="checkmarks"></span>-->
+<!--                                    </label>-->
+<!--                                </td>-->
                                 <td th:text="${items.maGiay}"></td>
                                 <td th:text="${items.tenGiay}"></td>
                                 <td>
                                     <p th:if="${items.trangThai == 1}">Hoạt Động</p>
                                     <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
                                 </td>
-                                <td th:class="${items.hang}"></td>
-                                <td th:class="${items.chatLieu}"></td>
+                                <td th:text="${items.hang.tenHang}"></td>
+                                <td th:text="${items.chatLieu.tenChatLieu}"></td>
                                 <td th:text="${items.tgThem}"></td>
                                 <td th:text="${items.tgSua}"></td>
                                 <td>
-                                    <a class="me-3" href="product-details.html">
+                                    <a class="me-3" th:href="@{'/manage/giay/detail/' + ${items.idGiay}}">
                                         <img src="/images/img/icons/eye.svg" alt="img"/>
                                     </a>
-                                    <a class="me-3" href="editproduct.html">
+                                    <a class="me-3" th:href="@{'/manage/giay/viewUpdate/' + ${items.idGiay}}">
                                         <img src="/images/img/icons/edit.svg" alt="img"/>
                                     </a>
-                                    <a class="confirm-text" href="javascript:void(0);">
+                                    <a class="" th:href="@{'/manage/giay/delete/' + ${items.idGiay}}">
                                         <img src="/images/img/icons/delete.svg" alt="img"/>
                                     </a>
                                 </td>

@@ -40,6 +40,7 @@ public class HangController {
     @PostMapping("/hang/viewAdd/add")
     public String addHang(@ModelAttribute("hang") Hang hang) {
         Hang hang1 = new Hang();
+        hang1.setLogoHang(hang.getLogoHang());
         hang1.setMaHang(hang.getMaHang());
         hang1.setTenHang(hang.getTenHang());
         hang1.setTgThem(new Date());
@@ -65,6 +66,7 @@ public class HangController {
     public String updateHang(@PathVariable UUID id, @ModelAttribute("hang") Hang hang) {
         Hang hangDb = hangService.getByIdHang(id);
         if (hangDb != null) {
+            hangDb.setLogoHang(hang.getLogoHang());
             hangDb.setMaHang(hang.getMaHang());
             hangDb.setTenHang(hang.getTenHang());
             hangDb.setTgSua(new Date());
