@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.ChiTietGiay;
+import com.example.demo.viewModel.CTGViewModel;
 import com.example.demo.model.Giay;
 import com.example.demo.viewModel.CTSPViewModel;
 import org.springframework.data.jpa.repository.JpaRepository;
