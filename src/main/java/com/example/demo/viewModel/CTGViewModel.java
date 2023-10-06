@@ -1,7 +1,6 @@
 package com.example.demo.viewModel;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,14 +15,22 @@ import java.util.UUID;
 @Entity
 public class CTGViewModel {
     @Id
-    private UUID id;
+    @Column(name = "id_giay")
     private UUID idChiTietGiay;
-    private String maGiay;
+
+    @Column(name = "min_price")
+    private Double minPrice;
+
+    @Column(name = "ten_giay")
     private String tenGiay;
+
+    @Column(name = "slTon")
+    private int slTon;
+
+    @Column(name="url1")
     private String hinhAnh;
-    private String mauSac;
-    private int size;
-    private String hang;
-    private int soLuong;
-    private double giaBan;
+
+    @Column(name = "so_Luong_Da_Ban")
+    private int soLuongDaBan;
+
 }
