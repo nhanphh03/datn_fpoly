@@ -49,7 +49,10 @@ public class ChatLieuController {
 
     @GetMapping("/chat-lieu/delete/{id}")
     public String deleteChatLieu(@PathVariable UUID id) {
-        chatLieuService.deleteByIdChatLieu(id);
+        ChatLieu chatLieu = chatLieuService.getByIdChatLieu(id);
+        chatLieu.setTrangThai(0);
+        chatLieu.setTgSua(new Date());
+        chatLieuService.save(chatLieu);
         return "redirect:/manage/chat-lieu";
     }
 

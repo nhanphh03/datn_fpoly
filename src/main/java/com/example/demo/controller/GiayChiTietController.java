@@ -48,13 +48,13 @@ public class GiayChiTietController {
     @PostMapping("/giay-chi-tiet/viewAdd/add")
     public String addGiayChiTiet(@ModelAttribute("giayChiTiet") ChiTietGiay chiTietGiay) {
         giayChiTietService.save(chiTietGiay);
-        return "redirect:/giay-chi-tiet";
+        return "redirect:/manage/giay-chi-tiet";
     }
 
     @GetMapping("/giay-chi-tiet/delete/{id}")
     public String deleteGiayChiTiet(@PathVariable UUID id) {
         giayChiTietService.deleteByIdChiTietGiay(id);
-        return "redirect:/giay-chi-tiet";
+        return "redirect:/manage/giay-chi-tiet";
     }
 
     @GetMapping("/giay-chi-tiet/viewUpdate/{id}")
@@ -89,6 +89,6 @@ public class GiayChiTietController {
             chiTietGiayDb.setTrongLuong(chiTietGiay.getTrongLuong());
             giayChiTietService.save(chiTietGiayDb);
         }
-        return "redirect:/giay-chi-tiet";
+        return "redirect:/manage/giay-chi-tiet";
     }
 }

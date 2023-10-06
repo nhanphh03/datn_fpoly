@@ -51,7 +51,10 @@ public class HangController {
 
     @GetMapping("/hang/delete/{id}")
     public String deleteHang(@PathVariable UUID id) {
-        hangService.deleteByIdHang(id);
+        Hang hang = hangService.getByIdHang(id);
+        hang.setTrangThai(0);
+        hang.setTgSua(new Date());
+        hangService.save(hang);
         return "redirect:/manage/hang";
     }
 
