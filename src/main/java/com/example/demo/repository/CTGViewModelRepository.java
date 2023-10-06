@@ -11,19 +11,29 @@ import java.util.UUID;
 @Repository
 public interface CTGViewModelRepository extends JpaRepository<CTGViewModel, UUID> {
 
-    @Query(value = "SELECT chi_tiet_giay.id_giay,\n" +
-            "       giay.ma_giay,\n" +
-            "       giay.ten_giay,\n" +
-            "       mau_sac.ten_mau,\n" +
-            "       size.so_size,\n" +
-            "       hinh_anh.url1,\n" +
-            "       chi_tiet_giay.so_luong,\n" +
-            "       chi_tiet_giay.gia_ban\n" +
-            "FROM chi_tiet_giay\n" +
-            "JOIN giay ON chi_tiet_giay.id_giay = giay.id_giay\n" +
-            "JOIN mau_sac ON chi_tiet_giay.id_mau = mau_sac.id_mau\n" +
-            "JOIN size ON chi_tiet_giay.id_size = size.id_size\n" +
-            "JOIN hinh_anh ON chi_tiet_giay.id_hinh_anh = hinh_anh.id_hinh_anh\n" +
-            "WHERE chi_tiet_giay.trang_thai = 1", nativeQuery = true)
+    @Query(value = "SELECT\n" +
+            "    ctg.id_giay,\n" +
+            "    MIN(ctg.gia_ban) AS min_price,\n" +
+            "    g.ten_giay,\n" +
+            "    SUM(ctg.so_luong) AS sl_ton,\n" +
+            "    a.url1,\n" +
+            "    COALESCE(SUM(cthd.so_luong), 0) AS so_Luong_Da_Ban\n" +
+            "FROM\n" +
+            "    chi_tiet_giay ctg\n" +
+            "JOIN\n" +
+            "    giay g ON g.id_giay = ctg.id_giay\n" +
+            "JOIN\n" +
+            "    hinh_anh a ON a.id_hinh_anh = ctg.id_hinh_anh\n" +
+            "LEFT JOIN\n" +
+            "    hoa_don_chi_tiet cthd ON cthd.id_ctg = ctg.id_chi_tiet_giay\n" +
+            "WHERE\n" +
+            "    ctg.id_giay IS NOT NULL\n" +
+            "    AND ctg.id_hinh_anh IS NOT NULL\n" +
+            "\tAND g.trang_thai Like 1\n" +
+            "\tAND ctg.trang_thai like 1\n" +
+            "GROUP BY\n" +
+            "    ctg.id_giay,\n" +
+            "    g.ten_giay,\n" +
+            "    a.url1;", nativeQuery = true)
     List<CTGViewModel> getAll();
 }
