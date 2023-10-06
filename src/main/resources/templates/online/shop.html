@@ -6,7 +6,7 @@
   <meta name="keywords" content="Male_Fashion, unica, creative, html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>COFFEE SOUL</title>
+  <title>SNEAKER SHOP</title>
 
   <link rel="icon" href="/img/logo-favicon.png" type="image/x-icon">
   <!-- Google Font -->
@@ -45,13 +45,13 @@
             <div class="header__top__hover">
               <span>jjj<i class="arrow_carrot-down"></i></span>
               <ul>
-                <li><a href="/settingAccount" >Setting</a></li>
-                <li><a href="/viewsUsers/usersLogout">Log out</a></li>
+                <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
+                <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
               </ul>
             </div>
             <div class="header__top__links"  >
-              <a href="/viewsUsers/authencation/usersLogin">Login</a>
-              <a href="/viewsUsers/authencation/usersRegister">Register</a>
+              <a th:href="@{'/buyer/login'}">Login</a>
+              <a th:href="@{'/buyer/register'}">Register</a>
             </div>
             <div class="header__top__hover">
               <span>EN<i class="arrow_carrot-down"></i></span>
@@ -70,21 +70,21 @@
     <div class="row">
       <div class="col-lg-3 col-md-3">
         <div class="header__logo">
-          <a  href="/index2" ><img src="/images/img/logo.png" alt=""></a>
+          <a th:href="@{'/buyer/home'}" ><img src="/images/img/logo.png" alt=""></a>
         </div>
       </div>
       <div class="col-lg-6 col-md-6">
         <nav class="header__menu mobile-menu">
           <ul>
-            <li><a href="/viewsUsers/usersHome" >Home</a></li>
-            <li class="active"><a href="/viewsUsers/usersShop" >Shop</a></li>
-            <li><a href="/viewsUsers/usersAbout">About Us</a></li>
-            <li><a href="/viewsUsers/usersBlog">Blog</a>
+            <li><a th:href="@{'/buyer/home'}" >Home</a></li>
+            <li class="active"><a th:href="@{'/buyer/shop'}" >Shop</a></li>
+            <li><a th:href="@{'/buyer/about'}">About Us</a></li>
+            <li><a th:href="@{'/buyer/blog'}">Blog</a>
               <ul class="dropdown">
-                <li><a href="/viewsUsers/authencation/usersBlog-details">Blog Details</a></li>
+                <li><a th:href="@{'/buyer/blog/blog-details'}">Blog Details</a></li>
               </ul>
             </li>
-            <li><a href="/viewsUsers/authencation/usersContact">Contact</a></li>
+            <li><a th:href="@{'/buyer/contact'}">Contact</a></li>
           </ul>
         </nav>
       </div>
@@ -113,7 +113,7 @@
         <div class="breadcrumb__text">
           <h4>Shop</h4>
           <div class="breadcrumb__links">
-            <a href="/viewsUsers/usersHome" >Home</a>
+            <a th:href="@{'/buyer/home'}" >Home</a>
             <span>Shop</span>
           </div>
         </div>
@@ -164,9 +164,9 @@
                     <div class="shop__sidebar__brand">
                       <ul>
                         <li class="active" data-filter="*"><a >All Branding</a></li>
-<!--                        <c:forEach items="${listBrand}" var="br" >-->
-<!--                          <li data-filter=".${br.ten}" ><a>${br.ten}</a></li>-->
-<!--                        </c:forEach>-->
+                        <th:block th:each="a : ${listBrand}">
+                          <li><a  th:href="@{'/shop/brand/' + ${a.idHang}}" th:text="${a.tenHang}" > </a></li>
+                        </th:block>
                       </ul>
                     </div>
                   </div>
@@ -198,12 +198,11 @@
                 <div id="collapseFour" class="collapse show" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="shop__sidebar__size">
-
-<!--                      <c:forEach items="${listSize}" var="size" >-->
-<!--                        <label>-->
-<!--                          <li><a href="/ + ${size}" >${size.soSize}</a></li>-->
-<!--                        </label>-->
-<!--                      </c:forEach>-->
+                      <th:block th:each="a : ${listSize}">
+                        <label>
+                        <li><a  th:href="@{'/shop/size/' + ${a.idSize}}" th:text="${a.soSize}" > </a></li>
+                        </label>
+                      </th:block>
                     </div>
                   </div>
                 </div>
@@ -215,11 +214,13 @@
                 <div id="collapseFive" class="collapse show" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="shop__sidebar__color">
-<!--                      <c:forEach items="${listColor}" var="color" >-->
-<!--                        <label style="background-color: ${color.ten};" >-->
-<!--                          <input type="radio" >-->
-<!--                        </label>-->
-<!--                      </c:forEach>-->
+                      <th:block th:each="a : ${listColor}">
+                        <a  th:href="@{'/shop/size/' + ${a.idMau}}">
+                          <label style="background-color: ${a.tenMau};">
+                            <input type="radio" >
+                          </label>
+                        </a>
+                      </th:block>
                     </div>
                   </div>
                 </div>
@@ -269,7 +270,8 @@
 
         <div class="row product__filter">
 
-          <c:forEach  items="${listProducts}" var="product">
+
+          <c:forEach  items="${listProducts}" var="product"> <th:block th:each="a : ${listColor}">
             <div class="col-lg-4 col-md-6 col-sm-6 mix ${product.nameBrand}">
               <div class="product__item">
                 <div class="product__item__pic set-bg" style="border-radius: 10px;"  data-setbg="/img/imgsProducts/${product.hinhAnh.urlImg0}">
@@ -286,7 +288,7 @@
                 </div>
               </div>
             </div>
-          </c:forEach>
+          </th:block>
 
         </div>
 

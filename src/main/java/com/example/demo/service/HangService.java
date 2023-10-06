@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-import com.example.demo.model.ChatLieu;
 import com.example.demo.model.Hang;
 
 import java.util.List;
@@ -14,4 +13,7 @@ public interface HangService {
     public void deleteByIdHang(UUID id);
 
     public Hang getByIdHang(UUID id);
+
+    public List<Hang> getAllActive();
+
 }
