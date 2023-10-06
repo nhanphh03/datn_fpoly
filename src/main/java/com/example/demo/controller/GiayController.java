@@ -105,7 +105,9 @@ public class GiayController {
 
     @GetMapping("/giay/detail/{id}")
     public String detail(@PathVariable UUID id, Model model) {
-        
+        Giay giay = giayService.getByIdGiay(id);
+        List<ChiTietGiay> listCTGByGiay = giayChiTietService.getCTGByGiay(giay);
+        model.addAttribute("chiTietGiayList", listCTGByGiay);
         return "manage/giay-detail";
     }
 }

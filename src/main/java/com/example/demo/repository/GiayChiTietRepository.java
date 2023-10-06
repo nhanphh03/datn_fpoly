@@ -1,8 +1,8 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.ChiTietGiay;
+import com.example.demo.viewModel.CTGViewModel;
 import com.example.demo.model.Giay;
-import com.example.demo.viewModel.CTSPViewModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,6 +13,9 @@ import java.util.UUID;
 
 @Repository
 public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> {
+
+    List<ChiTietGiay> findByGiay(Giay giay);
+
     //    @Query(value = "select chi_tiet_giay.id_giay,\n" +
 //                    "giay.ma_giay,giay.ten_giay,\n" +
 //                    "mau_sac.ten_mau,\n" +

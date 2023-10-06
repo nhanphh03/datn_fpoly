@@ -5,7 +5,6 @@ import com.example.demo.model.HoaDon;
 import com.example.demo.service.GiayChiTietService;
 import com.example.demo.service.HangService;
 import com.example.demo.service.HoaDonService;
-import com.example.demo.viewModel.CTSPViewModel;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
