@@ -49,7 +49,10 @@ public class MauSacController {
 
     @GetMapping("/mau-sac/delete/{id}")
     public String deleteMauSac(@PathVariable UUID id) {
-        mauSacService.deleteByIdMauSac(id);
+        MauSac mauSac = mauSacService.getByIdMauSac(id);
+        mauSac.setTrangThai(0);
+        mauSac.setTgSua(new Date());
+        mauSacService.save(mauSac);
         return "redirect:/manage/mau-sac";
     }
 
