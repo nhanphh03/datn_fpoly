@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/ban-hang")
@@ -38,6 +40,7 @@ public class BanHangController {
     @GetMapping("/hien-thi")
     public String hienThi(Model model){
         List<ChiTietGiay> getAll = giayChiTietService.getAllChiTietGiay();
+//        List<CTSPViewModel> getAll = banHangRepository.getAll();
         model.addAttribute("listSanPham",getAll);
         model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
         model.addAttribute("listHang", hangService.getALlHang());
@@ -57,12 +60,17 @@ public class BanHangController {
             hd.setTrangThai(tinhTrang);
             hoaDonService.add(hd);
             session.setAttribute("message", "Tạo hóa đơn thành công");
-        } else if (listHD.size() == -1) {
-            session.setAttribute("message", "Hãy tạo hóa đơn");
         } else {
             session.setAttribute("message", "Quá số lượng");
         }
         model.addAttribute("listHoaDon", listHD);
+        return "offline/index";
+    }
+    @GetMapping("/chon-size/{idChiTietGiay}")
+    public String chonSize(@PathVariable(value = "idChiTietGiay") UUID idChiTietGiay, Model model){
+        ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(idChiTietGiay);
+        System.out.printf(chiTietGiay.toString());
+        model.addAttribute("sizeList","1234");
         return "offline/index";
     }
 
