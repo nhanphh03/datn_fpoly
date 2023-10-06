@@ -111,6 +111,10 @@ public class GiayController {
         Giay giay = giayService.getByIdGiay(id);
         List<ChiTietGiay> listCTGByGiay = giayChiTietService.getCTGByGiay(giay);
         model.addAttribute("chiTietGiayList", listCTGByGiay);
+        model.addAttribute("idGiay", id);
+        for(ChiTietGiay list : listCTGByGiay){
+            System.out.println(list.getNamSX());
+        }
         return "manage/giay-detail";
     }
 }

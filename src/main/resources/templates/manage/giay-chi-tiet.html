@@ -470,14 +470,14 @@
                                         <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
                                     </td>
                                     <td>
-                                        <a class="me-3" th:href="@{'/manage/giay-chi-tiet/detail/' + ${items.idCTG}}">
+                                        <a class="me-2" th:href="@{'/manage/giay-chi-tiet/detail/' + ${items.idCTG}}">
                                             <img src="/images/img/icons/eye.svg" alt="img"/>
                                         </a>
-                                        <a class="me-3"
+                                        <a class="me-2"
                                            th:href="@{'/manage/giay-chi-tiet/viewUpdate/' + ${items.idCTG}}">
                                             <img src="/images/img/icons/edit.svg" alt="img"/>
                                         </a>
-                                        <a class="confirm-text" th:href="@{'/manage/giay-chi-tiet/delete/' + ${items.idCTG}}">
+                                        <a class="me-2" th:href="@{'/manage/giay-chi-tiet/delete/' + ${items.idCTG}}">
                                             <img src="/images/img/icons/delete.svg" alt="img"/>
                                         </a>
                                     </td>
