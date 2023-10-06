@@ -54,7 +54,10 @@ public class SizeController {
 
     @GetMapping("/size/delete/{id}")
     public String deleteSize(@PathVariable UUID id) {
-        sizeService.deleteByIdSize(id);
+        Size size = sizeService.getByIdSize(id);
+        size.setTrangThai(0);
+        size.setTgSua(new Date());
+        sizeService.save(size);
         return "redirect:/manage/size";
     }
 

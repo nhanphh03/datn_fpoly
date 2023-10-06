@@ -320,7 +320,10 @@
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Logo</label>
-                                <input type="text" th:field="*{logoHang}">
+                                <input th:field="*{logoHang}" type="file" id="imageInput" accept="image/*"
+                                       onchange="previewImage(event)">
+                                <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
+                                             style="display: none; max-width: 150px; max-height: 150px;">
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
@@ -371,5 +374,22 @@
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
 <script src="/js/script.js"></script>
+<script>
+    function previewImage(event) {
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
+
+        if (imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            };
+
+            reader.readAsDataURL(imageInput.files[0]);
+        }
+    }
+</script>
 </body>
 </html>
