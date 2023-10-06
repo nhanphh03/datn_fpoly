@@ -15,4 +15,6 @@ public interface GiayChiTietService {
     public void deleteByIdChiTietGiay(UUID id);
 
     public ChiTietGiay getByIdChiTietGiay(UUID id);
+
+    public List<ChiTietGiay> getCTGByGiay(Giay giay);
 }
