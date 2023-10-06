@@ -246,75 +246,20 @@
                         <th:block th:each="listHang : ${listHang}">
                             <li th:id="${listHang.tenHang}">
                                 <div class="product-details ">
-                                    <img src="/images/img/product/product63.png" alt="img">
+                                    <img th:src="@{'/images/logoBrands/'+${listHang.logoHang} +''}" style=" width: auto; height: auto" alt="img">
                                     <h6>[[${listHang.tenHang}]]</h6>
                                 </div>
                             </li>
                         </th:block>
-                        <!--                        <li class="active" id="fruits">-->
-                        <!--                            <div class="product-details ">-->
-                        <!--                                <img src="/images/img/product/product62.png" alt="img">-->
-                        <!--                                <h6>Fruits</h6>-->
-                        <!--                            </div>-->
-                        <!--                        </li>-->
-                        <!--                        <li id="Accessories">-->
-                        <!--                            <div class="product-details">-->
-                        <!--                                <img src="/images/img/product/product64.png" alt="img">-->
-                        <!--                                <h6>Accessories</h6>-->
-                        <!--                            </div>-->
-                        <!--                        </li>-->
-                        <!--                        <li id="Shoes">-->
-                        <!--                            <a class="product-details">-->
-                        <!--                                <img src="/images/img/product/product65.png" alt="img">-->
-                        <!--                                <h6>Shoes</h6>-->
-                        <!--                            </a>-->
-                        <!--                        </li>-->
-                        <!--                        <li id="computer">-->
-                        <!--                            <a class="product-details">-->
-                        <!--                                <img src="/images/img/product/product66.png" alt="img">-->
-                        <!--                                <h6>Computer</h6>-->
-                        <!--                            </a>-->
-                        <!--                        </li>-->
-                        <!--                        <li id="Snacks">-->
-                        <!--                            <a class="product-details">-->
-                        <!--                                <img src="/images/img/product/product67.png" alt="img">-->
-                        <!--                                <h6>Snacks</h6>-->
-                        <!--                            </a>-->
-                        <!--                        </li>-->
-                        <!--                        <li id="watch">-->
-                        <!--                            <a class="product-details">-->
-                        <!--                                <img src="/images/img/product/product68.png" alt="img">-->
-                        <!--                                <h6>Watches</h6>-->
-                        <!--                            </a>-->
-                        <!--                        </li>-->
-                        <!--                        <li id="cycle">-->
-                        <!--                            <a class="product-details">-->
-                        <!--                                <img src="/images/img/product/product61.png" alt="img">-->
-                        <!--                                <h6>Cycles</h6>-->
-                        <!--                            </a>-->
-                        <!--                        </li>-->
-                        <!--                        <li id="fruits1">-->
-                        <!--                            <div class="product-details ">-->
-                        <!--                                <img src="/images/img/product/product62.png" alt="img">-->
-                        <!--                                <h6>Fruits</h6>-->
-                        <!--                            </div>-->
-                        <!--                        </li>-->
-                        <!--                        <li id="headphone1">-->
-                        <!--                            <div class="product-details ">-->
-                        <!--                                <img src="/images/img/product/product63.png" alt="img">-->
-                        <!--                                <h6>Headphones</h6>-->
-                        <!--                            </div>-->
-                        <!--                        </li>-->
                     </ul>
                     <div class="tabs_container">
-                        <div class="row ">
+                        <div class="row">
                             <th:block th:each="ctsp : ${listSanPham}">
-                                <div class="tab_content active" th:data-tab="${ctsp.giay.hang.tenHang}">
-                                    <div class="col-lg-3 col-sm-6 d-flex ">
+                                <div class="col-lg-3 col-sm-6">
+                                    <div class="tab_content active" th:data-tab="${ctsp.giay.hang.tenHang}">
                                         <div class="productset flex-fill active">
                                             <div class="productsetimg">
-                                                <img th:src="@{'/images/imgsProducts/'+ ${ctsp.hinhAnh.url1}+ ''}"
-                                                     alt="img">
+                                                <img th:src="@{'/images/imgsProducts/'+ ${ctsp.hinhAnh.url1}+ ''}" alt="img">
                                                 <h6>[[${ctsp.soLuong}]]</h6>
                                                 <div class="check-product">
                                                     <i class="fa fa-check"></i>
@@ -324,6 +269,9 @@
                                                 <h5>[[${ctsp.giay.hang.tenHang}]]</h5>
                                                 <h4>[[${ctsp.giay.tenGiay}]]</h4>
                                                 <h6>[[${ctsp.giaBan}]]</h6>
+                                                <a th:href="@{'/mua-hang/chon-size/' + ${ctsp.giay.idGiay} }"
+                                                   class="btn btn-outline-warning m-3" data-bs-toggle="modal" data-bs-target="#chonSize">
+                                                    Chọn</a>
                                             </div>
                                         </div>
                                     </div>
@@ -1380,6 +1328,82 @@
                                 </table>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="chonSize" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+     data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sản phẩm</h5>
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row m-3">
+                    <div class="col-6">
+<!--                        <img th:src="@{'/images/imgsProducts/'+ ${chiTietGiay.hinhAnh.url1}+ ''}" alt="" height="400"-->
+<!--                             width="300">-->
+                    </div>
+                    <div class="col-6">
+                        <div class="container">
+                            <div class="row">
+<!--                                <div class="text-left fs-2 fw-bolder">-->
+<!--                                    <label th:text="${chiTietGiay.giay.hang.tenHang}">Thương hiệu :</label>-->
+<!--                                </div>-->
+                                <div class="text-left ">
+                                    <label th:text="${sizeList}"></label>
+                                </div>
+                                <div class="text-left ">
+                                    <label>Thương hiệu: ${giayDistinct.nameBrand}</label>
+                                </div>
+                            </div>
+<!--                            <div class="row">-->
+<!--                                <div class="product__details__option">-->
+<!--                                    <div class="product__details__option__size">-->
+<!--                                        <span>Size :</span>-->
+<!--&lt;!&ndash;                                        <c:forEach items="${listSize}" var="size">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <a href="/mua-hang/cart/view/chonSize/${giayDistinct.giay.id}/${size.id}"&ndash;&gt;-->
+<!--&lt;!&ndash;                                               class="btn btn-light">${size.soSize}</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </c:forEach>&ndash;&gt;-->
+<!--                                    </div>-->
+<!--                                    <div class="mt-3">-->
+<!--                                        <form action="/mua-hang/cart/add" method="get">-->
+<!--                                            <div class="product__details__option__color">-->
+<!--                                                <span class="">Color :</span>-->
+<!--&lt;!&ndash;                                                <c:forEach items="${listColor}" var="color">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <input type="button" class="m-2 color-option"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                           style="background-color: ${color.mauSac.ten};&ndash;&gt;-->
+<!--&lt;!&ndash;                                                                           width: 40px; height: 30px; display: inline-block; color: transparent;"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <input type="hidden" name="idChiTietGiay"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                           value="${color.id}">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                </c:forEach>&ndash;&gt;-->
+<!--                                            </div>-->
+<!--                                            <div class="">-->
+<!--                                                <span>Số lượng</span>-->
+<!--                                                <input type="number" name="soLuong" value="1"-->
+<!--                                                       class="form-control"/>-->
+<!--                                            </div>-->
+<!--                                            <div class="mt-2">-->
+<!--                                                <span>Có ${giayDistinct.remindProducts}</span>-->
+<!--                                                <span>Sản phẩm có sẵn</span>-->
+<!--                                            </div>-->
+
+<!--                                            <button type="submit" class="btn btn-secondary btn-center mt-3">Thêm-->
+<!--                                                giỏ hàng-->
+<!--                                            </button>-->
+<!--                                        </form>-->
+<!--                                    </div>-->
+
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
                 </div>
             </div>

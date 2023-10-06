@@ -45,7 +45,7 @@ public class SizeController {
     public String addSize(@ModelAttribute("size") Size size) {
         Size sizeAdd = new Size();
         sizeAdd.setMaSize(size.getMaSize());
-        sizeAdd.setTenSize(size.getTenSize());
+        sizeAdd.setSoSize(size.getSoSize());
         sizeAdd.setTgThem(new Date());
         sizeAdd.setTrangThai(size.getTrangThai());
         sizeService.save(sizeAdd);
@@ -73,7 +73,7 @@ public class SizeController {
         Size sizeDb = sizeService.getByIdSize(id);
         if (sizeDb != null) {
             sizeDb.setMaSize(size.getMaSize());
-            sizeDb.setTenSize(size.getTenSize());
+            sizeDb.setSoSize(size.getSoSize());
             sizeDb.setTgSua(new Date());
             sizeDb.setTrangThai(size.getTrangThai());
             sizeService.save(sizeDb);
