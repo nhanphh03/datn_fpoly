@@ -103,16 +103,6 @@ public class AuthController {
 
     @GetMapping("/register")
     public String getFormBuyerRegister(){
-        List<CTGViewModel> list = new ArrayList<>();
-
-        list = giayChiTietRepository.getAll();
-
-        for (CTGViewModel x:list) {
-            System.out.println(x.getIdChiTietGiay());
-            System.out.println(x.getSoLuongDaBan());
-            System.out.println(x.getHinhAnh());
-            System.out.println(x.getTenGiay());
-        }
         return "online/register";
     }
 
@@ -142,18 +132,20 @@ public class AuthController {
 
         KhachHang kh = khachHangService.checkEmail(email);
         if (kh != null){
-            
+            model.addAttribute("messEmail", "Email already exists ! ");
+            return "/online/register";
         }
+        KhachHang khachHang = new KhachHang();
+        khachHang.setEmailKH(email);
+        khachHang.setHoTenKH(fullName);
+        khachHang.setMatKhau(password);
+
 
         return "online/login";
     }
 
     @GetMapping("/reset")
     public String getFormBuyerResetPass(){
-
-        List<CTGViewModel> list = giayChiTietRepository.getAll();
-
-
 
         return "online/reset";
     }
