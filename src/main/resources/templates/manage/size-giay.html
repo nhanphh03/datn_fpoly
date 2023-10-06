@@ -355,16 +355,7 @@
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <select class="select">
-                                            <option>Mã Size</option>
-                                            <option th:each="loc : ${size}" th:value="${loc.maSize}"
-                                                    th:text="${loc.maSize}"></option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <select class="select">
+                                        <select class="select" id="sizeFilter">
                                             <option>Size</option>
                                             <option th:each="loc : ${size}" th:value="${loc.tenSize}"
                                                     th:text="${loc.tenSize}"></option>
@@ -382,9 +373,9 @@
                                 </div>
                                 <div class="col-lg-1 col-sm-6 col-12 ms-auto">
                                     <div class="form-group">
-                                        <a class="btn btn-filters ms-auto"><img
+                                        <button type="submit" class="btn btn-filters ms-auto"><img
                                                 src="/images/img/icons/search-whites.svg"
-                                                alt="img"></a>
+                                                alt="img"></button>
                                     </div>
                                 </div>
                             </div>
@@ -392,7 +383,7 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table  datanew">
+                        <table class="table datanew">
                             <thead>
                             <tr>
                                 <th>
@@ -459,5 +450,31 @@
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
 <script src="/js/script.js"></script>
+<script>
+    // Lấy thẻ select bằng id
+    var sizeFilter = document.getElementById("sizeFilter");
+
+    // Thêm sự kiện 'change' cho thẻ select
+    sizeFilter.addEventListener("change", function () {
+        // Lấy giá trị đã chọn từ combobox
+        var selectedSize = sizeFilter.value;
+
+        // Lọc và hiển thị dữ liệu dựa trên giá trị đã chọn
+        var tableRows = document.querySelectorAll(".datanew tbody tr");
+
+        for (var i = 0; i < tableRows.length; i++) {
+            var row = tableRows[i];
+            var sizeCell = row.querySelector("td:nth-child(3)"); // Giả sử cột chứa size là cột thứ 3
+
+            if (selectedSize === "Size" || sizeCell.textContent === selectedSize) {
+                // Hiển thị dòng nếu giá trị đã chọn là "Size" hoặc trùng với giá trị size của dòng
+                row.style.display = "";
+            } else {
+                // Ẩn dòng nếu không trùng khớp
+                row.style.display = "none";
+            }
+        }
+    });
+</script>
 </body>
 </html>

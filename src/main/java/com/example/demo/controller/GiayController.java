@@ -105,7 +105,7 @@ public class GiayController {
 
     @GetMapping("/giay/detail/{id}")
     public String detail(@PathVariable UUID id, Model model) {
-
+        
         return "manage/giay-detail";
     }
 }

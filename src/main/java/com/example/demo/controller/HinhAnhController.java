@@ -51,7 +51,10 @@ public class HinhAnhController {
 
     @GetMapping("/hinh-anh/delete/{id}")
     public String deleteHinhAnh(@PathVariable UUID id) {
-        hinhAnhService.deleteByIdHinhAnh(id);
+        HinhAnh hinhAnh = hinhAnhService.getByIdHinhAnh(id);
+        hinhAnh.setTrangThai(0);
+        hinhAnh.setTgSua(new Date());
+        hinhAnhService.save(hinhAnh);
         return "redirect:/manage/hinh-anh";
     }
 
