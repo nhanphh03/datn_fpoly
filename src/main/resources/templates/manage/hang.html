@@ -243,7 +243,7 @@
                             <li><a href="/manage/hang" class="active">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
                             <li><a href="/manage/mau-sac">Màu Sắc</a></li>
-                            <li><a href="/manage/size" >Size</a></li>
+                            <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -312,8 +312,8 @@
                     <h6>Quản Lý Giày</h6>
                 </div>
                 <div class="page-btn">
-                    <a href="addcategory.html" class="btn btn-added">
-                        <img src="/images/img/icons/plus.svg" class="me-1" alt="img">Add Category
+                    <a href="/manage/hang/viewAdd" class="btn btn-added">
+                        <img src="/images/img/icons/plus.svg" class="me-1" alt="img">Thêm Hãng
                     </a>
                 </div>
             </div>
@@ -357,24 +357,27 @@
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <select class="select">
-                                            <option>Choose Category</option>
-                                            <option>Computers</option>
+                                            <option>Mã Hãng</option>
+                                            <option th:each="loc : ${hang}" th:value="${loc.maHang}"
+                                                    th:text="${loc.maHang}"></option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <select class="select">
-                                            <option>Choose Sub Category</option>
-                                            <option>Fruits</option>
+                                            <option>Tên Hãng</option>
+                                            <option th:each="loc : ${hang}" th:value="${loc.tenHang}"
+                                                    th:text="${loc.tenHang}"></option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <select class="select">
-                                            <option>Choose Sub Brand</option>
-                                            <option>Iphone</option>
+                                            <option>Trạng Thái</option>
+                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
+                                                    th:text="${loc.value}"></option>
                                         </select>
                                     </div>
                                 </div>
@@ -399,6 +402,7 @@
                                         <span class="checkmarks"></span>
                                     </label>
                                 </th>
+                                <th>Logo</th>
                                 <th>Mã Hãng</th>
                                 <th>Tên Hãng</th>
                                 <th>Trạng Thái</th>
@@ -415,16 +419,20 @@
                                         <span class="checkmarks"></span>
                                     </label>
                                 </td>
+                                <td><img width="80px" height="90px" th:src="@{'/images/logoBrands/'+ ${items.logoHang}}"></td>
                                 <td th:text="${items.maHang}"></td>
                                 <td th:text="${items.tenHang}"></td>
-                                <td th:text="${items.trangThai}"></td>
+                                <td>
+                                    <p th:if="${items.trangThai == 1}">Hoạt Động</p>
+                                    <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
+                                </td>
                                 <td th:text="${items.tgThem}"></td>
                                 <td th:text="${items.tgSua}"></td>
                                 <td>
-                                    <a class="me-3" href="editcategory.html">
+                                    <a class="me-3" th:href="@{'/manage/hang/viewUpdate/' + ${items.idHang}}">
                                         <img src="/images/img/icons/edit.svg" alt="img">
                                     </a>
-                                    <a class="me-3 confirm-text" href="javascript:void(0);">
+                                    <a class="me-3 " th:href="@{'/manage/hang/delete/' + ${items.idHang}}">
                                         <img src="/images/img/icons/delete.svg" alt="img">
                                     </a>
                                 </td>

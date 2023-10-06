@@ -1,8 +1,10 @@
 package com.example.demo.service;
 
 import com.example.demo.model.ChiTietGiay;
+import com.example.demo.model.Giay;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface GiayChiTietService {
@@ -13,4 +15,6 @@ public interface GiayChiTietService {
     public void deleteByIdChiTietGiay(UUID id);
 
     public ChiTietGiay getByIdChiTietGiay(UUID id);
+
+    public List<ChiTietGiay> getCTGByGiay(Giay giay);
 }

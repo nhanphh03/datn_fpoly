@@ -7,10 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+
 @RequestMapping("/manage")
 @Controller
 public class ChatLieuController {
@@ -40,14 +38,22 @@ public class ChatLieuController {
 
     @PostMapping("/chat-lieu/viewAdd/add")
     public String addChatLieu(@ModelAttribute("chatLieu") ChatLieu chatLieu) {
-        chatLieuService.save(chatLieu);
-        return "redirect:/chat-lieu";
+        ChatLieu chatLieu1 = new ChatLieu();
+        chatLieu1.setMaChatLieu(chatLieu.getMaChatLieu());
+        chatLieu1.setTenChatLieu(chatLieu.getTenChatLieu());
+        chatLieu1.setTgThem(new Date());
+        chatLieu1.setTrangThai(chatLieu.getTrangThai());
+        chatLieuService.save(chatLieu1);
+        return "redirect:/manage/chat-lieu";
     }
 
     @GetMapping("/chat-lieu/delete/{id}")
     public String deleteChatLieu(@PathVariable UUID id) {
-        chatLieuService.deleteByIdChatLieu(id);
-        return "redirect:/chat-lieu";
+        ChatLieu chatLieu = chatLieuService.getByIdChatLieu(id);
+        chatLieu.setTrangThai(0);
+        chatLieu.setTgSua(new Date());
+        chatLieuService.save(chatLieu);
+        return "redirect:/manage/chat-lieu";
     }
 
     @GetMapping("/chat-lieu/viewUpdate/{id}")
@@ -63,11 +69,10 @@ public class ChatLieuController {
         if (chatLieuDb != null) {
             chatLieuDb.setMaChatLieu(chatLieu.getMaChatLieu());
             chatLieuDb.setTenChatLieu(chatLieu.getTenChatLieu());
-            chatLieuDb.setTgSua(chatLieu.getTgSua());
-            chatLieuDb.setTgThem(chatLieu.getTgThem());
+            chatLieuDb.setTgSua(new Date());
             chatLieuDb.setTrangThai(chatLieu.getTrangThai());
             chatLieuService.save(chatLieuDb);
         }
-        return "redirect:/chat-lieu";
+        return "redirect:/manage/chat-lieu";
     }
 }

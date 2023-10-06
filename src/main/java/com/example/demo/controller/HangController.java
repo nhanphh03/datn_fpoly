@@ -8,10 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+
 @RequestMapping("/manage")
 @Controller
 public class HangController {
@@ -41,14 +39,23 @@ public class HangController {
 
     @PostMapping("/hang/viewAdd/add")
     public String addHang(@ModelAttribute("hang") Hang hang) {
-        hangService.save(hang);
-        return "redirect:/hang";
+        Hang hang1 = new Hang();
+        hang1.setLogoHang(hang.getLogoHang());
+        hang1.setMaHang(hang.getMaHang());
+        hang1.setTenHang(hang.getTenHang());
+        hang1.setTgThem(new Date());
+        hang1.setTrangThai(hang.getTrangThai());
+        hangService.save(hang1);
+        return "redirect:/manage/hang";
     }
 
     @GetMapping("/hang/delete/{id}")
     public String deleteHang(@PathVariable UUID id) {
-        hangService.deleteByIdHang(id);
-        return "redirect:/hang";
+        Hang hang = hangService.getByIdHang(id);
+        hang.setTrangThai(0);
+        hang.setTgSua(new Date());
+        hangService.save(hang);
+        return "redirect:/manage/hang";
     }
 
     @GetMapping("/hang/viewUpdate/{id}")
@@ -62,13 +69,13 @@ public class HangController {
     public String updateHang(@PathVariable UUID id, @ModelAttribute("hang") Hang hang) {
         Hang hangDb = hangService.getByIdHang(id);
         if (hangDb != null) {
+            hangDb.setLogoHang(hang.getLogoHang());
             hangDb.setMaHang(hang.getMaHang());
             hangDb.setTenHang(hang.getTenHang());
-            hangDb.setTgSua(hang.getTgSua());
-            hangDb.setTgThem(hang.getTgThem());
+            hangDb.setTgSua(new Date());
             hangDb.setTrangThai(hang.getTrangThai());
             hangService.save(hangDb);
         }
-        return "redirect:/hang";
+        return "redirect:/manage/hang";
     }
 }

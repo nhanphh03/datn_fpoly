@@ -2,8 +2,11 @@ package com.example.demo.buyerController;
 
 import com.example.demo.model.GioHang;
 import com.example.demo.model.KhachHang;
+import com.example.demo.repository.CTGViewModelRepository;
+import com.example.demo.repository.GiayChiTietRepository;
 import com.example.demo.service.GioHangService;
 import com.example.demo.service.KhachHangService;
+import com.example.demo.viewModel.CTGViewModel;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +17,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 
 @Controller
 @RequestMapping("/buyer")
-public class LoginController {
+public class AuthController {
 
     private Random random = new Random();
 
@@ -32,6 +37,9 @@ public class LoginController {
 
     @Autowired
     private HttpServletRequest request;
+
+    @Autowired
+    private CTGViewModelRepository giayChiTietRepository;
 
 
     @GetMapping("/login")
@@ -124,14 +132,21 @@ public class LoginController {
 
         KhachHang kh = khachHangService.checkEmail(email);
         if (kh != null){
-            
+            model.addAttribute("messEmail", "Email already exists ! ");
+            return "/online/register";
         }
+        KhachHang khachHang = new KhachHang();
+        khachHang.setEmailKH(email);
+        khachHang.setHoTenKH(fullName);
+        khachHang.setMatKhau(password);
+
 
         return "online/login";
     }
 
     @GetMapping("/reset")
     public String getFormBuyerResetPass(){
+
         return "online/reset";
     }
 
