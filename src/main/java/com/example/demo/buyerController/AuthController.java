@@ -109,6 +109,9 @@ public class AuthController {
 
         for (CTGViewModel x:list) {
             System.out.println(x.getIdChiTietGiay());
+            System.out.println(x.getSoLuongDaBan());
+            System.out.println(x.getHinhAnh());
+            System.out.println(x.getTenGiay());
         }
         return "online/register";
     }
@@ -147,6 +150,11 @@ public class AuthController {
 
     @GetMapping("/reset")
     public String getFormBuyerResetPass(){
+
+        List<CTGViewModel> list = giayChiTietRepository.getAll();
+
+
+
         return "online/reset";
     }
 
