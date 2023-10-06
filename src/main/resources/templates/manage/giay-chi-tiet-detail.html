@@ -304,97 +304,93 @@
             </div>
         </div>
     </div>
-    <form th:object="${giayChiTiet}" method="post" th:action="@{/manage/giay-chi-tiet/viewAdd/add}">
+    <form th:object="${giayChiTietDetail}" method="post" th:action="@{'/manage/giay-chi-tiet/detail/'+ ${giayChiTietDetail.idCTG}}">
         <div class="page-wrapper">
             <div class="content">
                 <div class="page-header">
                     <div class="page-title">
-                        <h4>Thêm Chi Tiết Giày</h4>
+                        <h4>Giày Chi Tiết Detail</h4>
                         <h6>Quản Lý Giày</h6>
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Giày</label>
-                                    <select class="select" th:field="*{giay}">
-                                        <option th:each="loc : ${giay}" th:value="${loc.idGiay}"
-                                                th:text="${loc.tenGiay}"></option>
-                                    </select>
+                <div class="row">
+                    <div class="col-lg-8 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="bar-code-view">
+                                    <img src="/images/img/barcode1.png" alt="barcode">
+                                    <a class="printimg">
+                                        <img src="/images/img/icons/printer.svg" alt="print">
+                                    </a>
+                                </div>
+                                <div class="productdetails">
+                                    <ul class="product-bar">
+                                        <li>
+                                            <h4>Tên Giày</h4>
+                                            <h6 th:text="${giayChiTietDetail.giay.tenGiay}"></h6>
+                                        </li>
+                                        <li>
+                                            <h4>Size</h4>
+                                            <h6 th:text="${giayChiTietDetail.size.soSize}"></h6>
+                                        </li>
+                                        <li>
+                                            <h4>Màu Sắc</h4>
+                                            <h6 th:text="${giayChiTietDetail.mauSac.tenMau}"></h6>
+                                        </li>
+                                        <li>
+                                            <h4>Số Lượng</h4>
+                                            <h6 th:text="${giayChiTietDetail.soLuong}"></h6>
+                                        </li>
+                                        <li>
+                                            <h4>Giá Bán</h4>
+                                            <h6 th:text="${giayChiTietDetail.giaBan}"></h6>
+                                        </li>
+                                        <li>
+                                            <h4>Trọng Lượng</h4>
+                                            <h6 th:text="${giayChiTietDetail.trongLuong}"> gram</h6>
+                                        </li>
+                                        <li>
+                                            <h4>Năm Sản Xuất</h4>
+                                            <h6 th:text="${giayChiTietDetail.namSX}"></h6>
+                                        </li>
+                                        <li>
+                                            <h4>Năm Bảo Hành</h4>
+                                            <h6 th:text="${giayChiTietDetail.namBH}"></h6>
+                                        </li>
+                                        <li>
+                                            <h4>Trạng Thái</h4>
+                                            <h6 th:if="${giayChiTietDetail.trangThai == 1}">Hoạt Động</h6>
+                                            <h6 th:unless="${giayChiTietDetail.trangThai == 1}">Không Hoạt Động</h6>
+                                        </li>
+                                        <li>
+                                            <h4>Mô Tả</h4>
+                                            <h6 th:text="${giayChiTietDetail.giay.moTa}"></h6>
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Năm Sản Xuất</label>
-                                    <input type="text" th:field="*{namSX}">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="slider-product-details">
+                                    <div class="owl-carousel owl-theme product-slide">
+                                        <div class="slider-product">
+                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url1}}" alt="img" />
+                                        </div>
+<!--                                        <div class="slider-product">-->
+<!--                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url2}}" alt="img" />-->
+<!--                                        </div>-->
+<!--                                        <div class="slider-product">-->
+<!--                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url3}}" alt="img" />-->
+<!--                                        </div>-->
+<!--                                        <div class="slider-product">-->
+<!--                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url4}}" alt="img" />-->
+<!--                                        </div>-->
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Năm Bảo Hành</label>
-                                    <input type="text" th:field="*{namBH}">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Trọng Lượng</label>
-                                    <input type="text" th:field="*{trongLuong}">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Giá Bán</label>
-                                    <input type="text" th:field="*{giaBan}">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Số Lượng</label>
-                                    <input type="text" th:field="*{soLuong}">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Trạng Thái</label>
-                                    <select class="select" th:field="*{trangThai}">
-                                        <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                                th:text="${loc.value}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Màu Sắc</label>
-                                    <select class="select" th:field="*{mauSac}">
-                                        <option th:each="loc : ${mauSac}" th:value="${loc.idMau}"
-                                                th:text="${loc.tenMau}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Hình Ảnh</label>
-                                    <select class="select" th:field="*{hinhAnh}">
-                                        <option th:each="loc : ${hinhAnh}" th:value="${loc.idGiay}"
-                                                th:text="${loc.url1}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Size</label>
-                                    <select class="select" th:field="*{size}">
-                                        <option th:each="loc : ${size}" th:value="${loc.idSize}"
-                                                th:text="${loc.soSize}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-12">
-                                <button type="submit" class="btn btn-submit me-2">Submit</button>
-                                <a href="/manage/giay-chi-tiet" class="btn btn-cancel">Cancel</a>
                             </div>
                         </div>
                     </div>
@@ -404,23 +400,17 @@
         </div>
     </form>
 </div>
-
-
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
 
 <script src="/js/jquery.slimscroll.min.js"></script>
 
-<script src="/js/jquery.dataTables.min.js"></script>
-<script src="/js/dataTables.bootstrap4.min.js"></script>
-
 <script src="/js/bootstrap.bundle.min.js"></script>
 
-<script src="/plugins/select2/js/select2.min.js"></script>
+<script src="/plugins/owlcarousel/owl.carousel.min.js"></script>
 
-<script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
-<script src="/plugins/sweetalert/sweetalerts.min.js"></script>
+<script src="/plugins/select2/js/select2.min.js"></script>
 
 <script src="/js/script.js"></script>
 </body>
