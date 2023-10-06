@@ -14,4 +14,6 @@ public interface MauSacService {
     public void deleteByIdMauSac(UUID id);
 
     public MauSac getByIdMauSac(UUID id);
+
+    List<MauSac> getMauSacActive();
 }
