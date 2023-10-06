@@ -14,4 +14,6 @@ public interface GiayService {
     public void deleteByIdGiay(UUID id);
 
     public Giay getByIdGiay(UUID id);
+
+    public Giay getByName(String name);
 }

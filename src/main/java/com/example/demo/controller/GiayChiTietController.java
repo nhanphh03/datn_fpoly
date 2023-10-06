@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.ChiTietGiay;
+import com.example.demo.model.Giay;
 import com.example.demo.service.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,8 @@ public class GiayChiTietController {
     private MauSacService mauSacService;
     @Autowired
     private HinhAnhService hinhAnhService;
+    @Autowired
+    private HttpServletRequest httpServletRequest;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -45,10 +49,12 @@ public class GiayChiTietController {
         return "manage/giay-chi-tiet-detail";
     }
 
-    @GetMapping("/giay-chi-tiet/viewAdd")
-    public String viewAddGiayChiTiet(Model model) {
+    @GetMapping("/giay-chi-tiet/viewAdd/{id}")
+    public String viewAddGiayChiTiet(@PathVariable UUID id, Model model) {
+        Giay giay = giayService.getByIdGiay(id);
+        System.out.println(id);
         model.addAttribute("giayChiTiet", new ChiTietGiay());
-        model.addAttribute("giay", giayService.getAllGiay());
+        model.addAttribute("tenGiay", giay.getTenGiay());
         model.addAttribute("mauSac", mauSacService.getALlMauSac());
         model.addAttribute("size", sizeService.getAllSize());
         model.addAttribute("hinhAnh", hinhAnhService.getAllHinhAnh());
@@ -57,8 +63,10 @@ public class GiayChiTietController {
 
     @PostMapping("/giay-chi-tiet/viewAdd/add")
     public String addGiayChiTiet(@ModelAttribute("giayChiTiet") ChiTietGiay chiTietGiay) {
+        String tenGiay = httpServletRequest.getParameter("tenGiay");
+        System.out.println(tenGiay);
         ChiTietGiay chiTietGiay1 = new ChiTietGiay();
-        chiTietGiay1.setGiay(chiTietGiay.getGiay());
+//        chiTietGiay1.setGiay(giay);
         chiTietGiay1.setNamSX(chiTietGiay.getNamSX());
         chiTietGiay1.setNamBH(chiTietGiay.getNamBH());
         chiTietGiay1.setTrongLuong(chiTietGiay.getTrongLuong());
@@ -70,6 +78,7 @@ public class GiayChiTietController {
         chiTietGiay1.setSize(chiTietGiay.getSize());
         chiTietGiay1.setTgThem(new Date());
         giayChiTietService.save(chiTietGiay1);
+
         return "redirect:/manage/giay-chi-tiet";
     }
 

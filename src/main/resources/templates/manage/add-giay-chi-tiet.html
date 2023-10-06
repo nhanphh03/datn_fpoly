@@ -320,10 +320,10 @@
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Giày</label>
-                                    <select class="select" th:field="*{giay}">
-                                        <option th:each="loc : ${giay}" th:value="${loc.idGiay}"
-                                                th:text="${loc.tenGiay}"></option>
-                                    </select>
+<!--                                    <select class="select">-->
+<!--                                        <option th:text="${tenGiay}"></option>-->
+<!--                                    </select>-->
+                                    <input name="tenGiay" type="text" th:value="${tenGiay}" disabled="true">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -379,7 +379,8 @@
                                     <label>Hình Ảnh</label>
                                     <select class="select" th:field="*{hinhAnh}">
                                         <option th:each="loc : ${hinhAnh}" th:value="${loc.idGiay}"
-                                                th:text="${loc.url1}"></option>
+                                                th:text="${loc.url1}"><img
+                                                th:src="@{'/images/imgsProducts/'+${loc.url1}}"></option>
                                     </select>
                                 </div>
                             </div>

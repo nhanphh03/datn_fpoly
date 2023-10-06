@@ -17,4 +17,5 @@ public interface GiayChiTietService {
     public ChiTietGiay getByIdChiTietGiay(UUID id);
 
     public List<ChiTietGiay> getCTGByGiay(Giay giay);
+
 }
