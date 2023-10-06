@@ -33,4 +33,10 @@ public class SizeServiceImpl implements SizeService {
     public Size getByIdSize(UUID id) {
         return sizeRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public java.util.List<Size> getByActive() {
+        return sizeRepository.findByTrangThai(1);
+    }
+
 }

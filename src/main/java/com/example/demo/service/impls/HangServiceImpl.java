@@ -32,4 +32,9 @@ public class HangServiceImpl implements HangService {
     public Hang getByIdHang(UUID id) {
         return hangRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public List<Hang> getAllActive() {
+        return hangRepository.getByTrangThai(1);
+    }
 }

@@ -33,4 +33,9 @@ public class MauSacServiceImpl implements MauSacService {
     public MauSac getByIdMauSac(UUID id) {
         return mauSacRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public List<MauSac> getMauSacActive() {
+        return mauSacRepository.findByTrangThai(1);
+    }
 }

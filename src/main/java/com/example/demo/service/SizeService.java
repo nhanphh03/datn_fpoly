@@ -14,4 +14,6 @@ public interface SizeService {
     public void deleteByIdSize(UUID id);
 
     public Size getByIdSize(UUID id);
+
+     public List<Size> getByActive();
 }
