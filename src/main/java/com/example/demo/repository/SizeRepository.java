@@ -9,4 +9,6 @@ import java.util.UUID;
 
 @Repository
 public interface SizeRepository extends JpaRepository<Size, UUID> {
+
+    List<Size> findByTrangThai(int trangThai);
 }
