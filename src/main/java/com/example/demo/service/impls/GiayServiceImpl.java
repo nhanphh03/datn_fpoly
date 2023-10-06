@@ -33,4 +33,9 @@ public class GiayServiceImpl implements GiayService {
     public Giay getByIdGiay(UUID id) {
         return giayRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public Giay getByName(String name) {
+        return giayRepository.findByTenGiay(name);
+    }
 }
