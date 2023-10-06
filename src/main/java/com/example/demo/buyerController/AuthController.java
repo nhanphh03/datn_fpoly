@@ -25,7 +25,7 @@ import java.util.Random;
 
 @Controller
 @RequestMapping("/buyer")
-public class LoginController {
+public class AuthController {
 
     private Random random = new Random();
 
