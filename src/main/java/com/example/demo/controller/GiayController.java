@@ -1,13 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.ChatLieu;
-import com.example.demo.model.ChiTietGiay;
-import com.example.demo.model.Giay;
-import com.example.demo.model.Hang;
-import com.example.demo.service.ChatLieuService;
-import com.example.demo.service.GiayChiTietService;
-import com.example.demo.service.GiayService;
-import com.example.demo.service.HangService;
+import com.example.demo.model.*;
+import com.example.demo.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,6 +20,12 @@ public class GiayController {
     private ChatLieuService chatLieuService;
     @Autowired
     private GiayChiTietService giayChiTietService;
+    @Autowired
+    private HinhAnhService hinhAnhService;
+    @Autowired
+    private SizeService sizeService;
+    @Autowired
+    private MauSacService mauSacService;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -73,7 +73,10 @@ public class GiayController {
 
     @GetMapping("/giay/delete/{id}")
     public String deleteGiay(@PathVariable UUID id) {
-        giayService.deleteByIdGiay(id);
+        Giay giay = giayService.getByIdGiay(id);
+        giay.setTrangThai(0);
+        giay.setTgSua(new Date());
+        giayService.save(giay);
         return "redirect:/manage/giay";
     }
 
