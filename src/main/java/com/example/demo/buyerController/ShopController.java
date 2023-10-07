@@ -4,9 +4,11 @@ package com.example.demo.buyerController;
 import com.example.demo.model.Hang;
 import com.example.demo.model.MauSac;
 import com.example.demo.model.Size;
+import com.example.demo.service.CTGViewModelService;
 import com.example.demo.service.HangService;
 import com.example.demo.service.MauSacService;
 import com.example.demo.service.SizeService;
+import com.example.demo.viewModel.CTGViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,6 +33,9 @@ public class ShopController {
     @Autowired
     private MauSacService mauSacService;
 
+    @Autowired
+    private CTGViewModelService ctgViewModelService;
+
     @GetMapping("/shop")
     private String getShopBuyer(Model model){
         List<Hang> listHang = hangService.getAllActive();
@@ -41,6 +46,10 @@ public class ShopController {
 
         List<MauSac> listColor = mauSacService.getMauSacActive();
         model.addAttribute("listColor", listColor);
+
+        List<CTGViewModel> listCTGViewModel = ctgViewModelService.getAll();
+        model.addAttribute("listCTGModel",listCTGViewModel);
+
         //listHang
         return "online/shop";
     }

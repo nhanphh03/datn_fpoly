@@ -2,9 +2,11 @@ package com.example.demo.controller;
 
 import com.example.demo.model.ChiTietGiay;
 import com.example.demo.model.HoaDon;
+import com.example.demo.service.CTGViewModelService;
 import com.example.demo.service.GiayChiTietService;
 import com.example.demo.service.HangService;
 import com.example.demo.service.HoaDonService;
+import com.example.demo.viewModel.CTGViewModel;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,15 +35,21 @@ public class BanHangController {
     @Autowired
     private HoaDonService hoaDonService;
 
+    @Autowired
+    private CTGViewModelService ctgViewModelService;
+
     @GetMapping("/offline")
     public String offline(){
         return "manage/activities";
     }
+
+
     @GetMapping("/hien-thi")
     public String hienThi(Model model){
-        List<ChiTietGiay> getAll = giayChiTietService.getAllChiTietGiay();
+
+        List<CTGViewModel> listCTGViewModel = ctgViewModelService.getAll();
 //        List<CTSPViewModel> getAll = banHangRepository.getAll();
-        model.addAttribute("listSanPham",getAll);
+        model.addAttribute("listSanPham",listCTGViewModel);
         model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
         model.addAttribute("listHang", hangService.getALlHang());
         return "offline/index";
