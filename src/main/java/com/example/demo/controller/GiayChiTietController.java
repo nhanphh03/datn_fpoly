@@ -50,9 +50,8 @@ public class GiayChiTietController {
     }
 
     @GetMapping("/giay-chi-tiet/viewAdd/{id}")
-    public String viewAddGiayChiTiet(@PathVariable UUID id, Model model) {
+    public String viewAddChiTietGiay(@PathVariable UUID id, Model model) {
         Giay giay = giayService.getByIdGiay(id);
-        System.out.println(id);
         model.addAttribute("giayChiTiet", new ChiTietGiay());
         model.addAttribute("tenGiay", giay.getTenGiay());
         model.addAttribute("mauSac", mauSacService.getALlMauSac());
@@ -61,12 +60,22 @@ public class GiayChiTietController {
         return "manage/add-giay-chi-tiet";
     }
 
+    @GetMapping("/chi-tiet-giay/viewAdd")
+    public String viewAddGiayChiTiet( Model model) {
+        model.addAttribute("chiTietGiay", new ChiTietGiay());
+        model.addAttribute("giay", giayService.getAllGiay());
+        model.addAttribute("mauSac", mauSacService.getALlMauSac());
+        model.addAttribute("size", sizeService.getAllSize());
+        model.addAttribute("hinhAnh", hinhAnhService.getAllHinhAnh());
+        return "manage/add-chi-tiet-giay";
+    }
+
+
     @PostMapping("/giay-chi-tiet/viewAdd/add")
     public String addGiayChiTiet(@ModelAttribute("giayChiTiet") ChiTietGiay chiTietGiay) {
-        String tenGiay = httpServletRequest.getParameter("tenGiay");
-        System.out.println(tenGiay);
+//        String tenGiay = httpServletRequest.getParameter("tenGiay");
         ChiTietGiay chiTietGiay1 = new ChiTietGiay();
-//        chiTietGiay1.setGiay(giay);
+        chiTietGiay1.setGiay(chiTietGiay.getGiay());
         chiTietGiay1.setNamSX(chiTietGiay.getNamSX());
         chiTietGiay1.setNamBH(chiTietGiay.getNamBH());
         chiTietGiay1.setTrongLuong(chiTietGiay.getTrongLuong());
@@ -78,6 +87,25 @@ public class GiayChiTietController {
         chiTietGiay1.setSize(chiTietGiay.getSize());
         chiTietGiay1.setTgThem(new Date());
         giayChiTietService.save(chiTietGiay1);
+
+        return "redirect:/manage/giay-chi-tiet";
+    }
+
+    @PostMapping("/chi-tiet-giay/viewAdd/add")
+    public String addChiTietGiay(@ModelAttribute("chiTietGiay") ChiTietGiay chiTietGiay) {
+        ChiTietGiay chiTietGiay2 = new ChiTietGiay();
+        chiTietGiay2.setGiay(chiTietGiay.getGiay());
+        chiTietGiay2.setNamSX(chiTietGiay.getNamSX());
+        chiTietGiay2.setNamBH(chiTietGiay.getNamBH());
+        chiTietGiay2.setTrongLuong(chiTietGiay.getTrongLuong());
+        chiTietGiay2.setGiaBan(chiTietGiay.getGiaBan());
+        chiTietGiay2.setSoLuong(chiTietGiay.getSoLuong());
+        chiTietGiay2.setTrangThai(chiTietGiay.getTrangThai());
+        chiTietGiay2.setMauSac(chiTietGiay.getMauSac());
+        chiTietGiay2.setHinhAnh(chiTietGiay.getHinhAnh());
+        chiTietGiay2.setSize(chiTietGiay.getSize());
+        chiTietGiay2.setTgThem(new Date());
+        giayChiTietService.save(chiTietGiay2);
 
         return "redirect:/manage/giay-chi-tiet";
     }
