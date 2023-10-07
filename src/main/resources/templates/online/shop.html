@@ -277,8 +277,7 @@
                 <div class="product__item__pic set-bg" style="border-radius: 10px;"  th:attr="data-setbg=@{'/images/imgsProducts/' + ${product.hinhAnh}}">
                   <ul class="product__hover">
                     <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a></li>
-                    <li><a href="#"><img src="/images/img/icon/compare.png" alt=""> <span>Compare</span></a>
-                    </li>
+                    <li><a href="#"><img src="/images/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
                     <li><a th:href="@{'/shop-details/' + ${product.idChiTietGiay} }"><img src="/images/imgicon/search.png" alt=""></a></li>
                   </ul>
                 </div>
@@ -298,27 +297,6 @@
                       <input type="radio" id="pc-6">
                     </label>
                   </div>
-                </div>
-              </div>
-            </div>
-          </th:block>
-
-
-<!--          <c:forEach  items="${listProducts}" var="product">-->
-            <th:block th:each="a : ${listCTGModel}">
-            <div class="col-lg-4 col-md-6 col-sm-6 mix ${product.nameBrand}">
-              <div class="product__item">
-                <div class="product__item__pic set-bg" style="border-radius: 10px;"  data-setbg="/img/imgsProducts/${product.hinhAnh.urlImg0}">
-                  <ul class="product__hover">
-                    <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a></li>
-                    <li><a href="#"><img src="/images/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
-                  </ul>
-                </div>
-                <div class="product__item__text">
-                  <h6>${product.giay.ten}</h6>
-                  <a href="/viewsUsers/shop-details/${product.giay.id}" class="add-cart">+ Add To Cart</a>
-                  <h5>${product.minPrice}</h5>
-                  <h6 style="text-align: right">${product.remindProducts} sold</h6>
                 </div>
               </div>
             </div>

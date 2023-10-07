@@ -304,12 +304,12 @@
             </div>
         </div>
     </div>
-    <form th:object="${giayChiTiet}" method="post" th:action="@{'/manage/giay-chi-tiet/viewUpdate/' + ${giayChiTiet.idCTG}}">
+    <form th:object="${chiTietGiay}" method="post" th:action="@{/manage/chi-tiet-giay/viewAdd/add}">
         <div class="page-wrapper">
             <div class="content">
                 <div class="page-header">
                     <div class="page-title">
-                        <h4>Update Chi Tiết Giày</h4>
+                        <h4>Thêm Chi Tiết Giày</h4>
                         <h6>Quản Lý Giày</h6>
                     </div>
                 </div>
@@ -428,6 +428,8 @@
         </div>
     </form>
 </div>
+
+
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
