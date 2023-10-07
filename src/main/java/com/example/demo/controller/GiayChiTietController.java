@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.thymeleaf.util.StringUtils;
 
 import java.util.*;
 
@@ -34,6 +36,12 @@ public class GiayChiTietController {
         dsTrangThai.put(0, "Không hoạt động");
         return dsTrangThai;
     }
+    private String getReferer() {
+        // Lấy đường dẫn trang trước đó từ header "referer"
+        // Trong trường hợp không có header này, bạn có thể xác định một đích mặc định để chuyển hướng
+        String referer = ServletUriComponentsBuilder.fromCurrentRequestUri().toUriString();
+        return StringUtils.isEmpty(referer) ? "/default" : referer;
+    }
 
     @GetMapping("/giay-chi-tiet")
     public String dsGiayChiTiet(Model model) {
@@ -53,7 +61,7 @@ public class GiayChiTietController {
     public String viewAddChiTietGiay(@PathVariable UUID id, Model model) {
         Giay giay = giayService.getByIdGiay(id);
         model.addAttribute("giayChiTiet", new ChiTietGiay());
-        model.addAttribute("tenGiay", giay.getTenGiay());
+        model.addAttribute("giay", giayService.getAllGiay());
         model.addAttribute("mauSac", mauSacService.getALlMauSac());
         model.addAttribute("size", sizeService.getAllSize());
         model.addAttribute("hinhAnh", hinhAnhService.getAllHinhAnh());

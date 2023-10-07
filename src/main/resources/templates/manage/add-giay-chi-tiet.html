@@ -277,7 +277,7 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản Lý Người Dùng</span>
+                        <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản Lý Khách Hàng</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="customerlist.html">Customer List</a></li>
@@ -298,6 +298,33 @@
                             <li><a href="createsalesreturn.html">Add Sales Return </a></li>
                             <li><a href="purchasereturnlist.html">Purchase Return List</a></li>
                             <li><a href="createpurchasereturn.html">Add Purchase Return </a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản Lý Nhân Viên</span>
+                            <span class="menu-arrow"></span></a>
+                        <ul>
+                            <li><a href="customerlist.html">Customer List</a></li>
+                            <li><a href="addcustomer.html">Add Customer </a></li>
+                            <li><a href="supplierlist.html">Supplier List</a></li>
+                            <li><a href="addsupplier.html">Add Supplier </a></li>
+                            <li><a href="userlist.html">User List</a></li>
+                            <li><a href="adduser.html">Add User</a></li>
+                            <li><a href="storelist.html">Store List</a></li>
+                            <li><a href="addstore.html">Add Store</a></li>
+                        </ul>
+                    </li>
+                    <li class="submenu">
+                        <a href="javascript:void(0);"
+                        ><img src="/images/img/icons/transfer1.svg" alt="img" /><span>
+                    Quản Lý Voucher</span
+                        >
+                            <span class="menu-arrow"></span
+                            ></a>
+                        <ul>
+                            <li><a href="transferlist.html">Transfer List</a></li>
+                            <li><a href="addtransfer.html">Add Transfer </a></li>
+                            <li><a href="importtransfer.html">Import Transfer </a></li>
                         </ul>
                     </li>
                 </ul>
@@ -420,7 +447,7 @@
 
                             <div class="col-lg-12">
                                 <button type="submit" class="btn btn-submit me-2">Submit</button>
-                                <a href="/manage/giay-chi-tiet" class="btn btn-cancel">Cancel</a>
+                                <a href="#" id="cancelButton" class="btn btn-cancel">Cancel</a>
                             </div>
                         </div>
                     </div>
@@ -449,5 +476,14 @@
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
 <script src="/js/script.js"></script>
+<script>
+    document.getElementById("cancelButton").addEventListener("click", function(event) {
+        event.preventDefault(); // Ngăn chặn hành động mặc định của nút hoặc liên kết
+        history.back(); // Quay lại trang trước đó trong lịch sử trình duyệt
+        setTimeout(function() {
+            location.reload(); // Tải lại trang trước đó
+        }, 100); // Sử dụng setTimeout để đảm bảo quay lại trang trước đủ thời gian
+    });
+</script>
 </body>
 </html>
