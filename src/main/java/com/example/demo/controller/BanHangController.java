@@ -48,7 +48,6 @@ public class BanHangController {
     public String hienThi(Model model){
 
         List<CTGViewModel> listCTGViewModel = ctgViewModelService.getAll();
-//        List<CTSPViewModel> getAll = banHangRepository.getAll();
         model.addAttribute("listSanPham",listCTGViewModel);
         model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
         model.addAttribute("listHang", hangService.getALlHang());
@@ -71,6 +70,8 @@ public class BanHangController {
         } else {
             session.setAttribute("message", "Quá số lượng");
         }
+        List<CTGViewModel> listCTGViewModel = ctgViewModelService.getAll();
+        model.addAttribute("listSanPham",listCTGViewModel);
         model.addAttribute("listHoaDon", listHD);
         return "offline/index";
     }
