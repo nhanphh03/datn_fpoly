@@ -454,10 +454,10 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="items : ${items}">
-                                    <td><img th:src="@{'/images/imgsProducts/'+ ${items.hinhAnh}}"></td>
-                                    <td th:text="${items.giay}"></td>
-                                    <td th:text="${items.size}"></td>
-                                    <td th:text="${items.mauSac}"></td>
+                                    <td><img th:src="@{'/images/imgsProducts/'+ ${items.hinhAnh.url1}}"></td>
+                                    <td th:text="${items.giay.tenGiay}"></td>
+                                    <td th:text="${items.size.soSize}"></td>
+                                    <td th:text="${items.mauSac.tenMau}"></td>
                                     <td th:text="${items.soLuong}"></td>
                                     <td th:text="${items.giaBan}"></td>
                                     <td th:text="${items.trongLuong}"></td>
