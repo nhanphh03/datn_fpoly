@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -51,6 +52,7 @@ public class AuthController {
     @PostMapping("/login")
     private String buyerLogin(Model model, RedirectAttributes redirectAttributes,
                               HttpSession session){
+
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
