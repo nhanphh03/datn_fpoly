@@ -22,6 +22,9 @@ public class HinhAnh {
     @Column(name = "id_HinhAnh")
     private UUID idGiay;
 
+    @Column(name = "ma_Anh")
+    private String maAnh;
+
     @Column(name = "url1")
     private String url1;
 
@@ -33,6 +36,9 @@ public class HinhAnh {
 
     @Column(name = "url4")
     private String url4;
+
+    @Column(name = "url5")
+    private String url5;
 
     @Column(name = "trang_Thai")
     private int trangThai;
