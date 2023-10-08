@@ -6,6 +6,9 @@ import com.example.demo.service.KhachHangService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.UUID;
+
 @Service
 public class KhachHangServiceImpl implements KhachHangService {
 
@@ -25,5 +28,25 @@ public class KhachHangServiceImpl implements KhachHangService {
     @Override
     public KhachHang checkEmail(String email) {
         return khachHangRepository.findByEmailKH(email);
+    }
+
+    @Override
+    public List<KhachHang> getAllKhachHang() {
+        return khachHangRepository.findAll();
+    }
+
+    @Override
+    public void save(KhachHang khachHang) {
+        khachHangRepository.save(khachHang);
+    }
+
+    @Override
+    public void deteleByIdKhachHang(UUID id) {
+        khachHangRepository.deleteById(id);
+    }
+
+    @Override
+    public KhachHang getByIdKhachHang(UUID id) {
+        return khachHangRepository.findById(id).orElse(null);
     }
 }
