@@ -1,22 +1,22 @@
 package com.example.demo.model;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name= "DiaChi")
+@Table(name= "Dia_Chi")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-class DiaChi {
+public class DiaChiKH {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO )
@@ -32,9 +32,6 @@ class DiaChi {
 
     @Column(name="ten_Dia_Chi")
     private String tenDC;
-
-    @Column(name="dia_Chi")
-    private String diaChi;
 
     @Column(name="xa_Phuong")
     private String xaPhuong;
@@ -59,6 +56,4 @@ class DiaChi {
 
     @Column(name = "tg_Sua")
     private Date tgSua;
-
-
 }
