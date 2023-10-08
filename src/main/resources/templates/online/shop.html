@@ -42,13 +42,18 @@
         </div>
         <div class="col-lg-6 col-md-5">
           <div class="header__top__right">
+
+<!--Name Buyer Begin-->
             <div class="header__top__hover">
-              <span>jjj<i class="arrow_carrot-down"></i></span>
+              <span>Login<i class="arrow_carrot-down"></i></span>
               <ul>
                 <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
                 <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
               </ul>
             </div>
+<!--Name Buyer End-->
+
+
             <div class="header__top__links"  >
               <a th:href="@{'/buyer/login'}">Login</a>
               <a th:href="@{'/buyer/register'}">Register</a>
@@ -95,7 +100,7 @@
 
           <a href="/viewsUsers/shopping-cart" style="position: relative; display: inline-block; ">
             <img src="/images/img/icon/cart.png" alt="">
-            <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" >${sumProductInCart}</span>
+            <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" >0</span>
           </a>
         </div>
       </div>
