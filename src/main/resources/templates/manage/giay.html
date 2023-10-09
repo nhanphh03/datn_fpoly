@@ -366,7 +366,7 @@
                         <div class="wordset">
                             <ul>
                                 <li>
-                                    <a
+                                    <a th:href="@{/manage/giay/export/pdf}"
                                             data-bs-toggle="tooltip"
                                             data-bs-placement="top"
                                             title="pdf"
@@ -374,7 +374,7 @@
                                     /></a>
                                 </li>
                                 <li>
-                                    <a
+                                    <a th:href="@{/manage/giay/export/excel}"
                                             data-bs-toggle="tooltip"
                                             data-bs-placement="top"
                                             title="excel"
@@ -382,7 +382,7 @@
                                     /></a>
                                 </li>
                                 <li>
-                                    <a
+                                    <a id="printButton"
                                             data-bs-toggle="tooltip"
                                             data-bs-placement="top"
                                             title="print"
@@ -474,9 +474,10 @@
                                 <th>Trạng Thái</th>
                                 <th>Hãng</th>
                                 <th>Chất Liệu</th>
+                                <th>Action</th>
                                 <th>Thời Gian Thêm</th>
                                 <th>Thời Gian Sửa</th>
-                                <th>Action</th>
+
                             </tr>
                             </thead>
                             <tbody>
@@ -495,19 +496,20 @@
                                 </td>
                                 <td th:text="${items.hang.tenHang}"></td>
                                 <td th:text="${items.chatLieu.tenChatLieu}"></td>
-                                <td th:text="${items.tgThem}"></td>
-                                <td th:text="${items.tgSua}"></td>
                                 <td>
-                                    <a class="me-3" th:href="@{'/manage/giay/detail/' + ${items.idGiay}}">
+                                    <a class="me-2" th:href="@{'/manage/giay/detail/' + ${items.idGiay}}">
                                         <img src="/images/img/icons/eye.svg" alt="img"/>
                                     </a>
-                                    <a class="me-3" th:href="@{'/manage/giay/viewUpdate/' + ${items.idGiay}}">
+                                    <a class="me-2" th:href="@{'/manage/giay/viewUpdate/' + ${items.idGiay}}">
                                         <img src="/images/img/icons/edit.svg" alt="img"/>
                                     </a>
-                                    <a class="" th:href="@{'/manage/giay/delete/' + ${items.idGiay}}">
+                                    <a class="me-2" th:href="@{'/manage/giay/delete/' + ${items.idGiay}}">
                                         <img src="/images/img/icons/delete.svg" alt="img"/>
                                     </a>
                                 </td>
+                                <td th:text="${items.tgThem}"></td>
+                                <td th:text="${items.tgSua}"></td>
+
                             </tr>
                             </tbody>
                         </table>
@@ -535,5 +537,17 @@
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
 <script src="/js/script.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Lấy thẻ nút in bằng id
+        var printButton = document.getElementById("printButton");
+
+        // Thêm sự kiện click cho nút
+        printButton.addEventListener("click", function() {
+            // Gọi hàm in mặc định của trình duyệt
+            window.print();
+        });
+    });
+</script>
 </body>
 </html>

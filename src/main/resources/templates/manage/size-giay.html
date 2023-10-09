@@ -362,16 +362,16 @@
                         <div class="wordset">
                             <ul>
                                 <li>
-                                    <a th:href="@{/manage/users/export/pdf}" data-bs-toggle="tooltip"
+                                    <a th:href="@{/manage/size/export/pdf}" data-bs-toggle="tooltip"
                                        data-bs-placement="top" title="pdf"><img
                                             src="/images/img/icons/pdf.svg" alt="img"></a>
                                 </li>
                                 <li>
-                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
+                                    <a th:href="@{/manage/size/export/excel}" data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
                                             src="/images/img/icons/excel.svg" alt="img"></a>
                                 </li>
                                 <li>
-                                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
+                                    <a id="printButton" data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
                                             src="/images/img/icons/printer.svg" alt="img"></a>
                                 </li>
                             </ul>
@@ -423,9 +423,10 @@
                                 <th>Mã Size</th>
                                 <th>Số Size</th>
                                 <th>Trạng Thái</th>
+                                <th>Action</th>
                                 <th>Thời Gian Thêm</th>
                                 <th>Thời Gian Sửa</th>
-                                <th>Action</th>
+
                             </tr>
                             </thead>
                             <tbody>
@@ -442,8 +443,6 @@
                                     <p th:if="${items.trangThai == 1}">Hoạt Động</p>
                                     <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
                                 </td>
-                                <td th:text="${items.tgThem}"></td>
-                                <td th:text="${items.tgSua}"></td>
                                 <td>
                                     <a class="me-3" th:href="@{'/manage/size/viewUpdate/' + ${items.idSize}}">
                                         <img src="/images/img/icons/edit.svg" alt="img">
@@ -452,6 +451,9 @@
                                         <img src="/images/img/icons/delete.svg" alt="img">
                                     </a>
                                 </td>
+                                <td th:text="${items.tgThem}"></td>
+                                <td th:text="${items.tgSua}"></td>
+
                             </tr>
                             </tbody>
                         </table>
@@ -502,6 +504,18 @@
                 row.style.display = "none";
             }
         }
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Lấy thẻ nút in bằng id
+        var printButton = document.getElementById("printButton");
+
+        // Thêm sự kiện click cho nút
+        printButton.addEventListener("click", function() {
+            // Gọi hàm in mặc định của trình duyệt
+            window.print();
+        });
     });
 </script>
 </body>

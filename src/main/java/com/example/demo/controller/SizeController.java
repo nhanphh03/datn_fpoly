@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.config.SizePDFExporter;
+import com.example.demo.config.ExcelExporterSize;
+import com.example.demo.config.PDFExporterSizes;
 import com.example.demo.model.Size;
 import com.example.demo.service.SizeService;
 import com.lowagie.text.DocumentException;
@@ -87,8 +88,8 @@ public class SizeController {
         return "redirect:/manage/size";
     }
 
-    @GetMapping("/users/export/pdf")
-    public void exportToPDF(HttpServletResponse response) throws DocumentException, IOException {
+    @GetMapping("/size/export/pdf")
+    public void exportToPDFSize(HttpServletResponse response) throws DocumentException, IOException {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
@@ -99,7 +100,24 @@ public class SizeController {
 
         List<Size> listSizes = sizeService.getAllSize();
 
-        SizePDFExporter exporter = new SizePDFExporter(listSizes);
+        PDFExporterSizes exporter = new PDFExporterSizes(listSizes);
         exporter.export(response);
+    }
+
+    @GetMapping("/size/export/excel")
+    public void exportToExcelSize(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=sizes_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List<Size> lisSize = sizeService.getAllSize();
+
+        ExcelExporterSize excelExporter = new ExcelExporterSize(lisSize);
+
+        excelExporter.export(response);
     }
 }

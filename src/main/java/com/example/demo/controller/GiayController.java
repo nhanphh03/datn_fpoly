@@ -1,12 +1,21 @@
 package com.example.demo.controller;
 
+import com.example.demo.config.ExcelExporterGiays;
+import com.example.demo.config.ExcelExporterSize;
+import com.example.demo.config.PDFExporterGiays;
+import com.example.demo.config.PDFExporterSizes;
 import com.example.demo.model.*;
 import com.example.demo.service.*;
+import com.lowagie.text.DocumentException;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RequestMapping("/manage")
@@ -140,5 +149,38 @@ public class GiayController {
         model.addAttribute("chiTietGiayList", listCTGByGiay);
         model.addAttribute("idGiay", id);
         return "manage/giay-detail";
+    }
+
+    @GetMapping("/giay/export/pdf")
+    public void exportToPDFGiay(HttpServletResponse response) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=giay_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        List<Giay> listGiay = giayService.getAllGiay();
+
+        PDFExporterGiays exporter = new PDFExporterGiays(listGiay);
+        exporter.export(response);
+    }
+
+    @GetMapping("/giay/export/excel")
+    public void exportToExcelSize(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=giay_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List<Giay> lisGiay = giayService.getAllGiay();
+
+        ExcelExporterGiays excelExporter = new ExcelExporterGiays(lisGiay);
+
+        excelExporter.export(response);
     }
 }
