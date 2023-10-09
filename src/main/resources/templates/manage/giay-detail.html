@@ -340,7 +340,7 @@
                         <h6>Quản Lý Giày</h6>
                     </div>
                     <div class="page-btn">
-                        <a th:href="@{'/manage/giay-chi-tiet/viewAdd/'+${idGiay}}" class="btn btn-added"
+                        <a th:href="@{'/manage/chi-tiet-giay/viewAdd/'+${idGiay}}" class="btn btn-added"
                         ><img
                                 src="/images/img/icons/plus.svg"
                                 alt="img"
@@ -497,7 +497,7 @@
                                         <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
                                     </td>
                                     <td>
-                                        <a class="me-3" th:href="@{'/manage/giay-chi-tiet/detail/' + ${items.idCTG}}">
+                                        <a class="me-3" th:href="@{'/manage/chi-tiet-giay/detail/' + ${items.idCTG}}">
                                             <img src="/images/img/icons/eye.svg" alt="img"/>
                                         </a>
                                         <a class="me-3" th:href="@{'/manage/giay-chi-tiet/viewUpdate/' + ${items.idCTG}}">

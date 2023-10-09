@@ -51,6 +51,8 @@ public class GiayController {
         List<Hang> hangs = hangService.getALlHang();
         List<ChatLieu> chatLieus = chatLieuService.getAllChatLieu();
         model.addAttribute("giay", new Giay());
+        model.addAttribute("hangAdd", new Hang());
+        model.addAttribute("chatLieuAdd", new ChatLieu());
         model.addAttribute("hang", hangs);
         model.addAttribute("chatLieu", chatLieus);
         System.out.println(hangs);
@@ -71,6 +73,29 @@ public class GiayController {
         return "redirect:/manage/giay";
     }
 
+    @PostMapping("/giay/hang/viewAdd/add")
+    public String addHang(@ModelAttribute("hangAdd") Hang hang) {
+        Hang hang1 = new Hang();
+        hang1.setLogoHang(hang.getLogoHang());
+        hang1.setMaHang(hang.getMaHang());
+        hang1.setTenHang(hang.getTenHang());
+        hang1.setTgThem(new Date());
+        hang1.setTrangThai(hang.getTrangThai());
+        hangService.save(hang1);
+        return "redirect:/manage/giay/viewAdd";
+    }
+
+    @PostMapping("/giay/chat-lieu/viewAdd/add")
+    public String addChatLieu(@ModelAttribute("chatLieuAdd") ChatLieu chatLieu) {
+        ChatLieu chatLieu1 = new ChatLieu();
+        chatLieu1.setMaChatLieu(chatLieu.getMaChatLieu());
+        chatLieu1.setTenChatLieu(chatLieu.getTenChatLieu());
+        chatLieu1.setTgThem(new Date());
+        chatLieu1.setTrangThai(chatLieu.getTrangThai());
+        chatLieuService.save(chatLieu1);
+        return "redirect:/manage/giay/viewAdd";
+    }
+
     @GetMapping("/giay/delete/{id}")
     public String deleteGiay(@PathVariable UUID id) {
         Giay giay = giayService.getByIdGiay(id);
@@ -88,6 +113,8 @@ public class GiayController {
         model.addAttribute("giay", giay);
         model.addAttribute("hang", hang);
         model.addAttribute("chatLieu", chatLieu);
+        model.addAttribute("hangAdd", new Hang());
+        model.addAttribute("chatLieuAdd", new ChatLieu());
         return "manage/update-giay";
     }
 
@@ -112,9 +139,6 @@ public class GiayController {
         List<ChiTietGiay> listCTGByGiay = giayChiTietService.getCTGByGiay(giay);
         model.addAttribute("chiTietGiayList", listCTGByGiay);
         model.addAttribute("idGiay", id);
-        for(ChiTietGiay list : listCTGByGiay){
-            System.out.println(list.getNamSX());
-        }
         return "manage/giay-detail";
     }
 }

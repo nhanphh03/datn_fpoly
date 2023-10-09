@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.ChiTietGiay;
-import com.example.demo.model.Giay;
+import com.example.demo.model.*;
 import com.example.demo.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +26,9 @@ public class GiayChiTietController {
     @Autowired
     private HinhAnhService hinhAnhService;
     @Autowired
-    private HttpServletRequest httpServletRequest;
+    private HangService hangService;
+    @Autowired
+    private ChatLieuService chatLieuService;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -36,6 +37,7 @@ public class GiayChiTietController {
         dsTrangThai.put(0, "Không hoạt động");
         return dsTrangThai;
     }
+
     private String getReferer() {
         // Lấy đường dẫn trang trước đó từ header "referer"
         // Trong trường hợp không có header này, bạn có thể xác định một đích mặc định để chuyển hướng
@@ -57,31 +59,53 @@ public class GiayChiTietController {
         return "manage/giay-chi-tiet-detail";
     }
 
-    @GetMapping("/giay-chi-tiet/viewAdd/{id}")
-    public String viewAddChiTietGiay(@PathVariable UUID id, Model model) {
-        Giay giay = giayService.getByIdGiay(id);
+    @GetMapping("/chi-tiet-giay/detail/{id}")
+    public String detailChiTietGiay(@PathVariable UUID id, Model model) {
+        ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(id);
+        model.addAttribute("giayChiTietDetail", chiTietGiay);
+        return "manage/giay-chi-tiet-detail";
+    }
+
+    @GetMapping("/giay-chi-tiet/viewAdd")
+    public String viewAddGiayChiTiet(Model model) {
         model.addAttribute("giayChiTiet", new ChiTietGiay());
         model.addAttribute("giay", giayService.getAllGiay());
         model.addAttribute("mauSac", mauSacService.getALlMauSac());
         model.addAttribute("size", sizeService.getAllSize());
         model.addAttribute("hinhAnh", hinhAnhService.getAllHinhAnh());
+        model.addAttribute("giayAdd", new Giay());
+        model.addAttribute("mauSacAdd", new MauSac());
+        model.addAttribute("sizeAdd", new Size());
+        model.addAttribute("hinhAnhAdd", new HinhAnh());
+        model.addAttribute("hangAdd", new Hang());
+        model.addAttribute("chatLieuAdd", new ChatLieu());
+        model.addAttribute("hang", hangService.getALlHang());
+        model.addAttribute("chatLieu", chatLieuService.getAllChatLieu());
         return "manage/add-giay-chi-tiet";
     }
 
-    @GetMapping("/chi-tiet-giay/viewAdd")
-    public String viewAddGiayChiTiet( Model model) {
+    @GetMapping("/chi-tiet-giay/viewAdd/{id}")
+    public String viewAddChiTietGiay(@PathVariable UUID id, Model model) {
+        Giay idGiay = giayService.getByIdGiay(id);
         model.addAttribute("chiTietGiay", new ChiTietGiay());
-        model.addAttribute("giay", giayService.getAllGiay());
+        model.addAttribute("giay", idGiay);
         model.addAttribute("mauSac", mauSacService.getALlMauSac());
         model.addAttribute("size", sizeService.getAllSize());
         model.addAttribute("hinhAnh", hinhAnhService.getAllHinhAnh());
+        model.addAttribute("giayAdd", new Giay());
+        model.addAttribute("mauSacAdd", new MauSac());
+        model.addAttribute("sizeAdd", new Size());
+        model.addAttribute("hinhAnhAdd", new HinhAnh());
+        model.addAttribute("hangAdd", new Hang());
+        model.addAttribute("chatLieuAdd", new ChatLieu());
+        model.addAttribute("hang", hangService.getALlHang());
+        model.addAttribute("chatLieu", chatLieuService.getAllChatLieu());
         return "manage/add-chi-tiet-giay";
     }
 
 
     @PostMapping("/giay-chi-tiet/viewAdd/add")
     public String addGiayChiTiet(@ModelAttribute("giayChiTiet") ChiTietGiay chiTietGiay) {
-//        String tenGiay = httpServletRequest.getParameter("tenGiay");
         ChiTietGiay chiTietGiay1 = new ChiTietGiay();
         chiTietGiay1.setGiay(chiTietGiay.getGiay());
         chiTietGiay1.setNamSX(chiTietGiay.getNamSX());
@@ -100,7 +124,7 @@ public class GiayChiTietController {
     }
 
     @PostMapping("/chi-tiet-giay/viewAdd/add")
-    public String addChiTietGiay(@ModelAttribute("chiTietGiay") ChiTietGiay chiTietGiay) {
+    public String addChiTietGiay( @ModelAttribute("chiTietGiay") ChiTietGiay chiTietGiay, Model model) {
         ChiTietGiay chiTietGiay2 = new ChiTietGiay();
         chiTietGiay2.setGiay(chiTietGiay.getGiay());
         chiTietGiay2.setNamSX(chiTietGiay.getNamSX());
@@ -118,6 +142,154 @@ public class GiayChiTietController {
         return "redirect:/manage/giay-chi-tiet";
     }
 
+    @PostMapping("/chi-tiet-giay/giay/viewAdd/add")
+    public String addGiay(@ModelAttribute("giayAdd") Giay giay, Model model) {
+        Giay giay1 = new Giay();
+        giay1.setMaGiay(giay.getMaGiay());
+        giay1.setTenGiay(giay.getTenGiay());
+        giay1.setTgThem(new Date());
+        giay1.setHang(giay.getHang());
+        giay1.setChatLieu(giay.getChatLieu());
+        giay1.setTrangThai(giay.getTrangThai());
+        giayService.save(giay1);
+        return "redirect:/manage/chi-tiet-giay/viewAdd";
+    }
+
+    @PostMapping("/giay-chi-tiet/giay/viewAdd/add")
+    public String addGiayCT(@ModelAttribute("giayAdd") Giay giay, Model model) {
+        Giay giay1 = new Giay();
+        giay1.setMaGiay(giay.getMaGiay());
+        giay1.setTenGiay(giay.getTenGiay());
+        giay1.setTgThem(new Date());
+        giay1.setHang(giay.getHang());
+        giay1.setChatLieu(giay.getChatLieu());
+        giay1.setTrangThai(giay.getTrangThai());
+        giayService.save(giay1);
+        return "redirect:/manage/giay-chi-tiet/viewAdd";
+    }
+
+    @PostMapping("/chi-tiet-giay/giay/hang/viewAdd/add")
+    public String addHang(@PathVariable UUID id, @ModelAttribute("hangAdd") Hang hang) {
+        ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(id);
+        Hang hang1 = new Hang();
+        hang1.setLogoHang(hang.getLogoHang());
+        hang1.setMaHang(hang.getMaHang());
+        hang1.setTenHang(hang.getTenHang());
+        hang1.setTgThem(new Date());
+        hang1.setTrangThai(hang.getTrangThai());
+        hangService.save(hang1);
+        return "redirect:/manage/chi-tiet-giay/viewAdd/" + chiTietGiay;
+    }
+
+    @PostMapping("/giay-chi-tiet/giay/hang/viewAdd/add")
+    public String addHangCT(@ModelAttribute("hangAdd") Hang hang) {
+        Hang hang1 = new Hang();
+        hang1.setLogoHang(hang.getLogoHang());
+        hang1.setMaHang(hang.getMaHang());
+        hang1.setTenHang(hang.getTenHang());
+        hang1.setTgThem(new Date());
+        hang1.setTrangThai(hang.getTrangThai());
+        hangService.save(hang1);
+        return "redirect:/manage/giay-chi-tiet/viewAdd";
+    }
+
+    @PostMapping("/chi-tiet-giay/giay/chat-lieu/viewAdd/add")
+    public String addChatLieu(@PathVariable UUID id, @ModelAttribute("chatLieuAdd") ChatLieu chatLieu) {
+        ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(id);
+        ChatLieu chatLieu1 = new ChatLieu();
+        chatLieu1.setMaChatLieu(chatLieu.getMaChatLieu());
+        chatLieu1.setTenChatLieu(chatLieu.getTenChatLieu());
+        chatLieu1.setTgThem(new Date());
+        chatLieu1.setTrangThai(chatLieu.getTrangThai());
+        chatLieuService.save(chatLieu1);
+        return "redirect:/manage/chi-tiet-giay/viewAdd/" + chiTietGiay;
+    }
+
+    @PostMapping("/giay-chi-tiet/giay/chat-lieu/viewAdd/add")
+    public String addChatLieuCT(@ModelAttribute("chatLieuAdd") ChatLieu chatLieu) {
+        ChatLieu chatLieu1 = new ChatLieu();
+        chatLieu1.setMaChatLieu(chatLieu.getMaChatLieu());
+        chatLieu1.setTenChatLieu(chatLieu.getTenChatLieu());
+        chatLieu1.setTgThem(new Date());
+        chatLieu1.setTrangThai(chatLieu.getTrangThai());
+        chatLieuService.save(chatLieu1);
+        return "redirect:/manage/giay-chi-tiet/viewAdd";
+    }
+
+    @PostMapping("/chi-tiet-giay/mau-sac/viewAdd/add")
+    public String addMauSac(@PathVariable UUID id, @ModelAttribute("mauSacAdd") MauSac mauSac) {
+        ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(id);
+        MauSac mauSac1 = new MauSac();
+        mauSac1.setMaMau(mauSac.getMaMau());
+        mauSac1.setTenMau(mauSac.getTenMau());
+        mauSac1.setTgThem(new Date());
+        mauSac1.setTrangThai(mauSac.getTrangThai());
+        mauSacService.save(mauSac1);
+        return "redirect:/manage/chi-tiet-giay/viewAdd/" + chiTietGiay;
+    }
+
+    @PostMapping("/giay-chi-tiet/mau-sac/viewAdd/add")
+    public String addMauSacCT(@ModelAttribute("mauSacAdd") MauSac mauSac) {
+        MauSac mauSac1 = new MauSac();
+        mauSac1.setMaMau(mauSac.getMaMau());
+        mauSac1.setTenMau(mauSac.getTenMau());
+        mauSac1.setTgThem(new Date());
+        mauSac1.setTrangThai(mauSac.getTrangThai());
+        mauSacService.save(mauSac1);
+        return "redirect:/manage/giay-chi-tiet/viewAdd";
+    }
+
+    @PostMapping("/chi-tiet-giay/size/viewAdd/add")
+    public String addSize(@PathVariable UUID id, @ModelAttribute("sizeAdd") Size size) {
+        ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(id);
+        Size sizeAdd = new Size();
+        sizeAdd.setMaSize(size.getMaSize());
+        sizeAdd.setSoSize(size.getSoSize());
+        sizeAdd.setTgThem(new Date());
+        sizeAdd.setTrangThai(size.getTrangThai());
+        sizeService.save(sizeAdd);
+        return "redirect:/manage/chi-tiet-giay/viewAdd/" + chiTietGiay;
+    }
+
+    @PostMapping("/giay-chi-tiet/size/viewAdd/add")
+    public String addSizeCT(@ModelAttribute("sizeAdd") Size size) {
+        Size sizeAdd = new Size();
+        sizeAdd.setMaSize(size.getMaSize());
+        sizeAdd.setSoSize(size.getSoSize());
+        sizeAdd.setTgThem(new Date());
+        sizeAdd.setTrangThai(size.getTrangThai());
+        sizeService.save(sizeAdd);
+        return "redirect:/manage/giay-chi-tiet/viewAdd";
+    }
+
+    @PostMapping("/chi-tiet-giay/hinh-anh/viewAdd/add")
+    public String addHinhAnh(@PathVariable UUID id, @ModelAttribute("hinhAnhAdd") HinhAnh hinhAnh) {
+        ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(id);
+        HinhAnh hinhAnh1 = new HinhAnh();
+        hinhAnh1.setUrl1(hinhAnh.getUrl1());
+        hinhAnh1.setUrl2(hinhAnh.getUrl2());
+        hinhAnh1.setUrl3(hinhAnh.getUrl3());
+        hinhAnh1.setUrl4(hinhAnh.getUrl4());
+        hinhAnh1.setTgThem(new Date());
+        hinhAnh1.setTrangThai(hinhAnh.getTrangThai());
+        hinhAnhService.save(hinhAnh1);
+        return "redirect:/manage/chi-tiet-giay/viewAdd/" + chiTietGiay;
+    }
+
+    @PostMapping("/giay-chi-tiet/hinh-anh/viewAdd/add")
+    public String addHinhAnh(@ModelAttribute("hinhAnhAdd") HinhAnh hinhAnh) {
+        HinhAnh hinhAnh1 = new HinhAnh();
+        hinhAnh1.setUrl1(hinhAnh.getUrl1());
+        hinhAnh1.setUrl2(hinhAnh.getUrl2());
+        hinhAnh1.setUrl3(hinhAnh.getUrl3());
+        hinhAnh1.setUrl4(hinhAnh.getUrl4());
+        hinhAnh1.setTgThem(new Date());
+        hinhAnh1.setTrangThai(hinhAnh.getTrangThai());
+        hinhAnhService.save(hinhAnh1);
+        return "redirect:/manage/giay-chi-tiet/viewAdd";
+    }
+
+
     @GetMapping("/giay-chi-tiet/delete/{id}")
     public String deleteGiayChiTiet(@PathVariable UUID id) {
         ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(id);
@@ -125,6 +297,15 @@ public class GiayChiTietController {
         chiTietGiay.setTgSua(new Date());
         giayChiTietService.save(chiTietGiay);
         return "redirect:/manage/giay-chi-tiet";
+    }
+
+    @GetMapping("/chi-tiet-giay/delete/{id}")
+    public String deleteChiTietGiay(@PathVariable UUID id) {
+        ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(id);
+        chiTietGiay.setTrangThai(0);
+        chiTietGiay.setTgSua(new Date());
+        giayChiTietService.save(chiTietGiay);
+        return "redirect:/manage/chi-tiet-giay";
     }
 
     @GetMapping("/giay-chi-tiet/viewUpdate/{id}")
@@ -135,6 +316,14 @@ public class GiayChiTietController {
         model.addAttribute("mauSac", mauSacService.getALlMauSac());
         model.addAttribute("size", sizeService.getAllSize());
         model.addAttribute("hinhAnh", hinhAnhService.getAllHinhAnh());
+        model.addAttribute("giayAdd", new Giay());
+        model.addAttribute("mauSacAdd", new MauSac());
+        model.addAttribute("sizeAdd", new Size());
+        model.addAttribute("hinhAnhAdd", new HinhAnh());
+        model.addAttribute("hangAdd", new Hang());
+        model.addAttribute("chatLieuAdd", new ChatLieu());
+        model.addAttribute("hang", hangService.getALlHang());
+        model.addAttribute("chatLieu", chatLieuService.getAllChatLieu());
         return "manage/update-giay-chi-tiet";
     }
 
