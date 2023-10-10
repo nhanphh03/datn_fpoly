@@ -18,4 +18,10 @@ public interface GiayChiTietService {
 
     public List<ChiTietGiay> getCTGByGiay(Giay giay);
 
+    List<ChiTietGiay> getCTGByGiayActive(Giay giay);
+
+    //Double maxPriceGiay(Giay giay);
+
+
+
 }

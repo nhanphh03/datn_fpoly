@@ -14,8 +14,10 @@ import java.util.UUID;
 
 @Service
 public class GiayChiTietServiceImpl implements GiayChiTietService {
+
     @Autowired
     private GiayChiTietRepository giayChiTietRepository;
+
     @Autowired
     private GiayRepository giayRepository;
 
@@ -43,6 +45,16 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
     public List<ChiTietGiay> getCTGByGiay(Giay giay) {
         return giayChiTietRepository.findByGiay(giay);
     }
+
+    @Override
+    public List<ChiTietGiay> getCTGByGiayActive(Giay giay) {
+        return giayChiTietRepository.findByTrangThaiAndGiay(1, giay);
+    }
+
+//    @Override
+//    public Double maxPriceGiay(Giay giay) {
+//        return giayChiTietRepository.maxPriceByGiay(giay);
+//    }
 
 
 }

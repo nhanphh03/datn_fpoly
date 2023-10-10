@@ -238,7 +238,7 @@
 <body>
 
 
-<form th:action="@{/buyer/register}" class="form" method="post" >
+<form  th:if="${formRegister}" th:object="${userRegister}" th:action="@{/buyer/register}" class="form" method="post" >
   <p class="form-title">Register to your account</p>
   <span style="color: red;" th:text="${messageRegister}"></span>
 
@@ -281,30 +281,31 @@
 </form>
 
 
-<!--<form method="post" action="/viewsUsers/authencation/verify-otp" class="form-otp">-->
-<!--  <div class="title">OTP</div>-->
-<!--  <div class="title">Verification Code</div>-->
-<!--  <p class="message">We have sent a verification code to your email number</p>-->
+<form th:if="${formOTPRegister}" method="post" th:action="@{/buyer/register/verify-otp}" class="form-otp">
+  <div class="title">OTP</div>
+  <div class="title">Verification Code</div>
+  <p class="message">We have sent a verification code to your email number</p>
 
-<!--  <span style="color: red;">${messageOTP}</span>-->
-<!--  <br>-->
-<!--  <div class="form-card-input-wrapper">-->
-<!--    <input type="tel" maxlength="4" placeholder="____" class="form-card-input" name="OTPRegister">-->
-<!--    <div class="form-card-input-bg"></div>-->
-<!--  </div>-->
+  <span style="color: red;" th:text="${messageOTP}" ></span>
+  <br>
+  <div class="form-card-input-wrapper">
+    <input type="tel" maxlength="4" placeholder="____" class="form-card-input" name="OTPRegister">
+    <div class="form-card-input-bg"></div>
+  </div>
 
-<!--  <button id="myButton" class="action">Verify me</button>-->
+  <button id="myButton" class="action">Verify me</button>
 
-<!--  <div class="resend">-->
-<!--    <a id="countdown-link">Resend</a>-->
-<!--  </div>-->
+  <div class="resend">
+    <a id="countdown-link">Resend</a>
+  </div>
 
-<!--  <br>-->
-<!--  <div class="link-container">-->
-<!--    <a href="">Not get OTP ?</a>-->
-<!--  </div>-->
+  <br>
+  <div class="link-container">
+    <a href="">Not get OTP ?</a>
+  </div>
 
-<!--</form>-->
+</form>
+
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const password = document.getElementById("password");
@@ -322,62 +323,62 @@
   });
 </script>
 
-<!--<script>-->
-<!--  document.addEventListener("DOMContentLoaded", function () {-->
-<!--    var countdownElement = document.getElementById("countdown-link");-->
-<!--    var countdown = 60;-->
-<!--    var countdownInterval;-->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var countdownElement = document.getElementById("countdown-link");
+    var countdown = 60;
+    var countdownInterval;
 
-<!--    function updateCountdown() {-->
-<!--      countdown&#45;&#45;;-->
-<!--      countdownElement.textContent = countdown + "s";-->
+    function updateCountdown() {
+      countdown--;
+      countdownElement.textContent = countdown + "s";
 
-<!--      if (countdown === 0) {-->
-<!--        clearInterval(countdownInterval);-->
-<!--        countdownElement.href = "/viewsUsers/authencation/resened-otp";-->
-<!--        countdownElement.textContent = "Resend";-->
-<!--      }-->
-<!--    }-->
+      if (countdown === 0) {
+        clearInterval(countdownInterval);
+        countdownElement.href = "/buyer/register/resened-otp";
+        countdownElement.textContent = "Resend";
+      }
+    }
 
-<!--    countdownInterval = setInterval(updateCountdown, 1000);-->
+    countdownInterval = setInterval(updateCountdown, 1000);
 
-<!--    countdownElement.addEventListener("click", function () {-->
-<!--      if (countdown === 0) {-->
-<!--        countdown = 60;-->
-<!--        countdownElement.textContent = countdown + "s";-->
-<!--        countdownElement.href = "/viewsUsers/authencation/resened-otp";-->
-<!--        countdownInterval = setInterval(updateCountdown, 1000);-->
-<!--      }-->
-<!--    });-->
-<!--  });-->
-<!--</script>-->
-<!--<script>-->
-<!--  document.addEventListener("DOMContentLoaded", function () {-->
-<!--    var button = document.getElementById("myButton");-->
-<!--    var clicked = false;-->
-<!--    var disableTimeout;-->
+    countdownElement.addEventListener("click", function () {
+      if (countdown === 0) {
+        countdown = 60;
+        countdownElement.textContent = countdown + "s";
+        countdownElement.href = "/buyer/register/resened-otp";
+        countdownInterval = setInterval(updateCountdown, 1000);
+      }
+    });
+  });
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    var button = document.getElementById("myButton");
+    var clicked = false;
+    var disableTimeout;
 
-<!--    function disableButton() {-->
-<!--      button.disabled = true;-->
-<!--    }-->
+    function disableButton() {
+      button.disabled = true;
+    }
 
-<!--    function resetDisableTimeout() {-->
-<!--      clearTimeout(disableTimeout);-->
-<!--      disableTimeout = setTimeout(disableButton, 30000);-->
-<!--    }-->
+    function resetDisableTimeout() {
+      clearTimeout(disableTimeout);
+      disableTimeout = setTimeout(disableButton, 30000);
+    }
 
-<!--    resetDisableTimeout();-->
+    resetDisableTimeout();
 
-<!--    button.addEventListener("click", function () {-->
-<!--      if (!clicked) {-->
-<!--        clicked = true;-->
-<!--      }-->
-<!--    });-->
+    button.addEventListener("click", function () {
+      if (!clicked) {
+        clicked = true;
+      }
+    });
 
-<!--    document.addEventListener("mousemove", resetDisableTimeout);-->
-<!--    document.addEventListener("keydown", resetDisableTimeout);-->
-<!--  });-->
-<!--</script>-->
+    document.addEventListener("mousemove", resetDisableTimeout);
+    document.addEventListener("keydown", resetDisableTimeout);
+  });
+</script>
 </body>
 
 </html>
