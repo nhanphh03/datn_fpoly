@@ -13,7 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.servlet.view.RedirectView;
 import org.thymeleaf.util.StringUtils;
 
 import java.io.IOException;
@@ -95,9 +97,9 @@ public class GiayChiTietController {
 
     @GetMapping("/chi-tiet-giay/viewAdd/{id}")
     public String viewAddChiTietGiay(@PathVariable UUID id, Model model) {
-        Giay idGiay = giayService.getByIdGiay(id);
+        Giay giay = giayService.getByIdGiay(id);
         model.addAttribute("chiTietGiay", new ChiTietGiay());
-        model.addAttribute("giay", idGiay);
+        model.addAttribute("giay", giay);
         model.addAttribute("mauSac", mauSacService.getALlMauSac());
         model.addAttribute("size", sizeService.getAllSize());
         model.addAttribute("hinhAnh", hinhAnhService.getAllHinhAnh());
@@ -133,9 +135,13 @@ public class GiayChiTietController {
     }
 
     @PostMapping("/chi-tiet-giay/viewAdd/add")
-    public String addChiTietGiay(@ModelAttribute("chiTietGiay") ChiTietGiay chiTietGiay, Model model) {
+    public RedirectView addChiTietGiay(@ModelAttribute("chiTietGiay") ChiTietGiay chiTietGiay, RedirectAttributes redirectAttributes) {
+        UUID idGiay = chiTietGiay.getGiay().getIdGiay();
+        ////
+        Giay giay = giayService.getByIdGiay(idGiay);
+        ////
         ChiTietGiay chiTietGiay2 = new ChiTietGiay();
-        chiTietGiay2.setGiay(chiTietGiay.getGiay());
+        chiTietGiay2.setGiay(giay);
         chiTietGiay2.setNamSX(chiTietGiay.getNamSX());
         chiTietGiay2.setNamBH(chiTietGiay.getNamBH());
         chiTietGiay2.setTrongLuong(chiTietGiay.getTrongLuong());
@@ -147,8 +153,16 @@ public class GiayChiTietController {
         chiTietGiay2.setSize(chiTietGiay.getSize());
         chiTietGiay2.setTgThem(new Date());
         giayChiTietService.save(chiTietGiay2);
+        ////
+        return new RedirectView("/manage/giayCT/detail/" + idGiay);
+    }
 
-        return "redirect:/manage/giay-chi-tiet";
+    @RequestMapping("/giayCT/detail/{id}")
+    public String detailCTG(@PathVariable UUID id, Model model) {
+        Giay giay = giayService.getByIdGiay(id);
+        List<ChiTietGiay> listCTGByGiay = giayChiTietService.getCTGByGiay(giay);
+        model.addAttribute("chiTietGiayList", listCTGByGiay);
+        return "manage/giay-detail";
     }
 
     @PostMapping("/chi-tiet-giay/giay/viewAdd/add")
@@ -161,7 +175,7 @@ public class GiayChiTietController {
         giay1.setChatLieu(giay.getChatLieu());
         giay1.setTrangThai(giay.getTrangThai());
         giayService.save(giay1);
-        return "redirect:/manage/chi-tiet-giay/viewAdd";
+        return "manage/message";
     }
 
     @PostMapping("/giay-chi-tiet/giay/viewAdd/add")
@@ -178,8 +192,7 @@ public class GiayChiTietController {
     }
 
     @PostMapping("/chi-tiet-giay/giay/hang/viewAdd/add")
-    public String addHang(@PathVariable UUID id, @ModelAttribute("hangAdd") Hang hang) {
-        ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(id);
+    public String addHang(@ModelAttribute("hangAdd") Hang hang) {
         Hang hang1 = new Hang();
         hang1.setLogoHang(hang.getLogoHang());
         hang1.setMaHang(hang.getMaHang());
@@ -187,7 +200,7 @@ public class GiayChiTietController {
         hang1.setTgThem(new Date());
         hang1.setTrangThai(hang.getTrangThai());
         hangService.save(hang1);
-        return "redirect:/manage/chi-tiet-giay/viewAdd/" + chiTietGiay;
+        return "manage/message";
     }
 
     @PostMapping("/giay-chi-tiet/giay/hang/viewAdd/add")
@@ -203,15 +216,14 @@ public class GiayChiTietController {
     }
 
     @PostMapping("/chi-tiet-giay/giay/chat-lieu/viewAdd/add")
-    public String addChatLieu(@PathVariable UUID id, @ModelAttribute("chatLieuAdd") ChatLieu chatLieu) {
-        ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(id);
+    public String addChatLieu(@ModelAttribute("chatLieuAdd") ChatLieu chatLieu) {
         ChatLieu chatLieu1 = new ChatLieu();
         chatLieu1.setMaChatLieu(chatLieu.getMaChatLieu());
         chatLieu1.setTenChatLieu(chatLieu.getTenChatLieu());
         chatLieu1.setTgThem(new Date());
         chatLieu1.setTrangThai(chatLieu.getTrangThai());
         chatLieuService.save(chatLieu1);
-        return "redirect:/manage/chi-tiet-giay/viewAdd/" + chiTietGiay;
+        return "manage/message";
     }
 
     @PostMapping("/giay-chi-tiet/giay/chat-lieu/viewAdd/add")
@@ -226,15 +238,14 @@ public class GiayChiTietController {
     }
 
     @PostMapping("/chi-tiet-giay/mau-sac/viewAdd/add")
-    public String addMauSac(@PathVariable UUID id, @ModelAttribute("mauSacAdd") MauSac mauSac) {
-        ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(id);
+    public String addMauSac(@ModelAttribute("mauSacAdd") MauSac mauSac) {
         MauSac mauSac1 = new MauSac();
         mauSac1.setMaMau(mauSac.getMaMau());
         mauSac1.setTenMau(mauSac.getTenMau());
         mauSac1.setTgThem(new Date());
         mauSac1.setTrangThai(mauSac.getTrangThai());
         mauSacService.save(mauSac1);
-        return "redirect:/manage/chi-tiet-giay/viewAdd/" + chiTietGiay;
+        return "manage/message";
     }
 
     @PostMapping("/giay-chi-tiet/mau-sac/viewAdd/add")
@@ -249,15 +260,14 @@ public class GiayChiTietController {
     }
 
     @PostMapping("/chi-tiet-giay/size/viewAdd/add")
-    public String addSize(@PathVariable UUID id, @ModelAttribute("sizeAdd") Size size) {
-        ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(id);
+    public String addSize(@ModelAttribute("sizeAdd") Size size) {
         Size sizeAdd = new Size();
         sizeAdd.setMaSize(size.getMaSize());
         sizeAdd.setSoSize(size.getSoSize());
         sizeAdd.setTgThem(new Date());
         sizeAdd.setTrangThai(size.getTrangThai());
         sizeService.save(sizeAdd);
-        return "redirect:/manage/chi-tiet-giay/viewAdd/" + chiTietGiay;
+        return "manage/message";
     }
 
     @PostMapping("/giay-chi-tiet/size/viewAdd/add")
@@ -272,8 +282,7 @@ public class GiayChiTietController {
     }
 
     @PostMapping("/chi-tiet-giay/hinh-anh/viewAdd/add")
-    public String addHinhAnh(@PathVariable UUID id, @ModelAttribute("hinhAnhAdd") HinhAnh hinhAnh) {
-        ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(id);
+    public String addHinhAnhCTG(@ModelAttribute("hinhAnhAdd") HinhAnh hinhAnh) {
         HinhAnh hinhAnh1 = new HinhAnh();
         hinhAnh1.setUrl1(hinhAnh.getUrl1());
         hinhAnh1.setUrl2(hinhAnh.getUrl2());
@@ -282,7 +291,7 @@ public class GiayChiTietController {
         hinhAnh1.setTgThem(new Date());
         hinhAnh1.setTrangThai(hinhAnh.getTrangThai());
         hinhAnhService.save(hinhAnh1);
-        return "redirect:/manage/chi-tiet-giay/viewAdd/" + chiTietGiay;
+        return "manage/message";
     }
 
     @PostMapping("/giay-chi-tiet/hinh-anh/viewAdd/add")
