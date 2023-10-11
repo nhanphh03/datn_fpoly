@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.ChiTietGiay;
+import com.example.demo.model.HinhAnh;
 import com.example.demo.viewModel.CTGViewModel;
 import com.example.demo.model.Giay;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,6 +19,8 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
 
     List<ChiTietGiay> findByTrangThaiAndGiay(int trangThai, Giay giay);
 
-//    @Query(value = "SELECT MAX(ChiTietGiay.giaBan) FROM ChiTietGiay WHERE ChiTietGiay .giay = ?1 AND ChiTietGiay .trangThai like 1;", nativeQuery = true)
-//    Double maxPriceByGiay(Giay giay);
+
+    @Query(value = "SELECT DISTINCT ctg.hinhAnh FROM ChiTietGiay ctg WHERE ctg.giay = ?1")
+    List<HinhAnh> findDistinctByGiay(Giay giay);
+
 }
