@@ -383,7 +383,7 @@
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <select class="select">
+                                        <select class="select" id="chatLieuFilterMa">
                                             <option>Mã Chất Liệu</option>
                                             <option th:each="loc : ${chatLieu}" th:value="${loc.maChatLieu}"
                                                     th:text="${loc.maChatLieu}"></option>
@@ -392,7 +392,7 @@
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <select class="select">
+                                        <select class="select" id="chatLieuFilterTen">
                                             <option>Tên Chất Liệu</option>
                                             <option th:each="loc : ${chatLieu}" th:value="${loc.tenChatLieu}"
                                                     th:text="${loc.tenChatLieu}"></option>
@@ -420,7 +420,7 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table  datanew">
+                        <table class="table  datanew" id="data-table">
                             <thead>
                             <tr>
                                 <th>
@@ -544,6 +544,40 @@
     $(document).ready(function () {
         $('#filter_inputs').slideToggle("slow");
         $('#filter_search').toggleClass("setclose");
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        // Lắng nghe sự kiện thay đổi trong dropdown kích thước
+        $("#chatLieuFilterMa").change(function () {
+            var maChatLieu = $(this).val();
+
+            // Ẩn tất cả các dòng trong bảng
+            $("#data-table tbody tr").hide();
+
+            // Hiển thị các dòng có giá trị kích thước tương ứng
+            $("#data-table tbody tr").each(function () {
+                var maColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
+                if (maColumn === maChatLieu || maChatLieu === "Mã Chất Liệu") {
+                    $(this).show();
+                }
+            });
+        });
+        //
+        $("#chatLieuFilterTen").change(function () {
+            var tenChatLieu = $(this).val();
+
+            // Ẩn tất cả các dòng trong bảng
+            $("#data-table tbody tr").hide();
+
+            // Hiển thị các dòng có giá trị kích thước tương ứng
+            $("#data-table tbody tr").each(function () {
+                var tenColumn = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
+                if (tenColumn === tenChatLieu || tenChatLieu === "Tên Chất Liệu") {
+                    $(this).show();
+                }
+            });
+        });
     });
 </script>
 </body>

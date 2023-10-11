@@ -403,49 +403,34 @@
                                 <div class="row">
                                     <div class="col-lg-12 col-sm-12">
                                         <div class="row">
-                                            <div class="col-lg col-sm-6 col-12">
+                                            <div class="col-lg-2 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <select class="select">
-                                                        <option>Choose Product</option>
-                                                        <option>Macbook pro</option>
-                                                        <option>Orange</option>
+                                                    <select class="select" id="giayFilter">
+                                                        <option>Giày</option>
+                                                        <option th:each="loc : ${giayList}" th:value="${loc.tenGiay}"
+                                                                th:text="${loc.tenGiay}"></option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg col-sm-6 col-12">
+                                            <div class="col-lg-2 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <select class="select">
-                                                        <option>Choose Category</option>
-                                                        <option>Computers</option>
-                                                        <option>Fruits</option>
+                                                    <select class="select" id="sizeFilter">
+                                                        <option>Size</option>
+                                                        <option th:each="loc : ${sizeList}" th:value="${loc.soSize}"
+                                                                th:text="${loc.soSize}"></option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg col-sm-6 col-12">
+                                            <div class="col-lg-2 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <select class="select">
-                                                        <option>Choose Sub Category</option>
-                                                        <option>Computer</option>
+                                                    <select class="select" id="mauSacFilter">
+                                                        <option>Màu Sắc</option>
+                                                        <option th:each="loc : ${mauSacList}" th:value="${loc.tenMau}"
+                                                                th:text="${loc.tenMau}"></option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <select class="select">
-                                                        <option>Brand</option>
-                                                        <option>N/D</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <select class="select">
-                                                        <option>Price</option>
-                                                        <option>150.00</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-1 col-sm-6 col-12">
+                                            <div class="col-lg-6 col-sm-6 col-12">
                                                 <div class="form-group">
                                                     <a class="btn btn-filters ms-auto"
                                                     ><img
@@ -461,7 +446,7 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table datanew">
+                            <table class="table datanew" id="data-table">
                                 <thead>
                                 <tr>
                                     <th>Hình Ảnh</th>
@@ -593,6 +578,55 @@
     $(document).ready(function () {
         $('#filter_inputs').slideToggle("slow");
         $('#filter_search').toggleClass("setclose");
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        // Lắng nghe sự kiện thay đổi trong dropdown kích thước
+        $("#sizeFilter").change(function () {
+            var selectedSize = $(this).val();
+
+            // Ẩn tất cả các dòng trong bảng
+            $("#data-table tbody tr").hide();
+
+            // Hiển thị các dòng có giá trị kích thước tương ứng
+            $("#data-table tbody tr").each(function () {
+                var sizeColumn = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
+                if (sizeColumn === selectedSize || selectedSize === "Size") {
+                    $(this).show();
+                }
+            });
+        });
+        //
+        $("#giayFilter").change(function () {
+            var giay = $(this).val();
+
+            // Ẩn tất cả các dòng trong bảng
+            $("#data-table tbody tr").hide();
+
+            // Hiển thị các dòng có giá trị kích thước tương ứng
+            $("#data-table tbody tr").each(function () {
+                var giayColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
+                if (giayColumn === giay || giay === "Giày") {
+                    $(this).show();
+                }
+            });
+        });
+        //
+        $("#mauSacFilter").change(function () {
+            var mauSac = $(this).val();
+
+            // Ẩn tất cả các dòng trong bảng
+            $("#data-table tbody tr").hide();
+
+            // Hiển thị các dòng có giá trị kích thước tương ứng
+            $("#data-table tbody tr").each(function () {
+                var mauSacColumn = $(this).find("td:eq(3)").text(); // Vị trí cột chứa giá trị kích thước
+                if (mauSacColumn === mauSac || mauSac === "Màu Sắc") {
+                    $(this).show();
+                }
+            });
+        });
     });
 </script>
 </body>
