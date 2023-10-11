@@ -1,12 +1,19 @@
 package com.example.demo.controller;
 
+import com.example.demo.config.ExcelExporterSize;
+import com.example.demo.config.PDFExporterSizes;
 import com.example.demo.model.Size;
 import com.example.demo.service.SizeService;
+import com.lowagie.text.DocumentException;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RequestMapping("/manage")
@@ -18,8 +25,8 @@ public class SizeController {
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
         Map<Integer, String> dsTrangThai = new HashMap<>();
-        dsTrangThai.put(1, "Hoạt động");
-        dsTrangThai.put(0, "Không hoạt động");
+        dsTrangThai.put(1, "Hoạt Động");
+        dsTrangThai.put(0, "Không Hoạt Động");
         return dsTrangThai;
     }
 
@@ -32,6 +39,7 @@ public class SizeController {
     public String dsSize(Model model) {
         List<Size> size = sizeService.getAllSize();
         model.addAttribute("size", size);
+        model.addAttribute("sizeAll", sizeService.getAllSize());
         return "manage/size-giay";
     }
 
@@ -79,5 +87,57 @@ public class SizeController {
             sizeService.save(sizeDb);
         }
         return "redirect:/manage/size";
+    }
+
+    @GetMapping("/size/export/pdf")
+    public void exportToPDFSize(HttpServletResponse response) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=sizes_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        List<Size> listSizes = sizeService.getAllSize();
+
+        PDFExporterSizes exporter = new PDFExporterSizes(listSizes);
+        exporter.export(response);
+    }
+
+    @GetMapping("/size/export/excel")
+    public void exportToExcelSize(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=sizes_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List<Size> lisSize = sizeService.getAllSize();
+
+        ExcelExporterSize excelExporter = new ExcelExporterSize(lisSize);
+
+        excelExporter.export(response);
+    }
+
+    @GetMapping("/filter")
+    public String filterData(Model model,
+                             @RequestParam(value = "selectedSize", required = false) Integer selectedSize,
+                             @RequestParam(value = "maSize", required = false) String maSize) {
+        // Thực hiện lọc dữ liệu dựa trên selectedSize (và trạng thái nếu cần)
+        List<Size> filteredSizes;
+        if (selectedSize == null && "Mã Size".equals(maSize)) {
+            // Nếu người dùng chọn "Tất cả", hiển thị tất cả dữ liệu
+            filteredSizes = sizeService.getAllSize();
+        } else {
+            // Thực hiện lọc dữ liệu dựa trên selectedSize
+            filteredSizes = sizeService.filterSizes(selectedSize, maSize);
+        }
+        model.addAttribute("size", filteredSizes);
+        model.addAttribute("sizeAll", sizeService.getAllSize());
+
+        return "manage/size-giay"; // Trả về mẫu HTML chứa bảng dữ liệu sau khi lọc
     }
 }
