@@ -15,5 +15,8 @@ public interface SizeService {
 
     public Size getByIdSize(UUID id);
 
-     public List<Size> getByActive();
+    public List<Size> getByActive();
+
+    public List<Size> filterSizes(Integer selectedSize, String maSize);
+
 }

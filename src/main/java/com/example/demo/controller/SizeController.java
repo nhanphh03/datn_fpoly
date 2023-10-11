@@ -25,8 +25,8 @@ public class SizeController {
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
         Map<Integer, String> dsTrangThai = new HashMap<>();
-        dsTrangThai.put(1, "Hoạt động");
-        dsTrangThai.put(0, "Không hoạt động");
+        dsTrangThai.put(1, "Hoạt Động");
+        dsTrangThai.put(0, "Không Hoạt Động");
         return dsTrangThai;
     }
 
@@ -39,6 +39,7 @@ public class SizeController {
     public String dsSize(Model model) {
         List<Size> size = sizeService.getAllSize();
         model.addAttribute("size", size);
+        model.addAttribute("sizeAll", sizeService.getAllSize());
         return "manage/size-giay";
     }
 
@@ -119,5 +120,24 @@ public class SizeController {
         ExcelExporterSize excelExporter = new ExcelExporterSize(lisSize);
 
         excelExporter.export(response);
+    }
+
+    @GetMapping("/filter")
+    public String filterData(Model model,
+                             @RequestParam(value = "selectedSize", required = false) Integer selectedSize,
+                             @RequestParam(value = "maSize", required = false) String maSize) {
+        // Thực hiện lọc dữ liệu dựa trên selectedSize (và trạng thái nếu cần)
+        List<Size> filteredSizes;
+        if (selectedSize == null && "Mã Size".equals(maSize)) {
+            // Nếu người dùng chọn "Tất cả", hiển thị tất cả dữ liệu
+            filteredSizes = sizeService.getAllSize();
+        } else {
+            // Thực hiện lọc dữ liệu dựa trên selectedSize
+            filteredSizes = sizeService.filterSizes(selectedSize, maSize);
+        }
+        model.addAttribute("size", filteredSizes);
+        model.addAttribute("sizeAll", sizeService.getAllSize());
+
+        return "manage/size-giay"; // Trả về mẫu HTML chứa bảng dữ liệu sau khi lọc
     }
 }

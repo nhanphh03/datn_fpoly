@@ -416,17 +416,17 @@
                                                 </select>
                                             </div>
                                         </div>
+<!--                                        <div class="col-lg-2 col-sm-6 col-12">-->
+<!--                                            <div class="form-group">-->
+<!--                                                <select class="select">-->
+<!--                                                    <option>Trạng Thái</option>-->
+<!--                                                    <option th:each="loc : ${dsTrangThai.entrySet()}"-->
+<!--                                                            th:value="${loc.key}"-->
+<!--                                                            th:text="${loc.value}"></option>-->
+<!--                                                </select>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                         <div class="col-lg-2 col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <select class="select">
-                                                    <option>Trạng Thái</option>
-                                                    <option th:each="loc : ${dsTrangThai.entrySet()}"
-                                                            th:value="${loc.key}"
-                                                            th:text="${loc.value}"></option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg col-sm-6 col-12">
                                             <div class="form-group">
                                                 <select class="select">
                                                     <option>Hãng</option>
@@ -435,7 +435,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-lg col-sm-6 col-12">
+                                        <div class="col-lg-2 col-sm-6 col-12">
                                             <div class="form-group">
                                                 <select class="select">
                                                     <option>Chất Liệu</option>
@@ -444,7 +444,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-lg-1 col-sm-6 col-12">
+                                        <div class="col-lg-4 col-sm-6 col-12">
                                             <div class="form-group">
                                                 <a class="btn btn-filters ms-auto"
                                                 ><img
@@ -587,6 +587,12 @@
             }
         });
     }
+</script>
+<script>
+    $(document).ready(function () {
+        $('#filter_inputs').slideToggle("slow");
+        $('#filter_search').toggleClass("setclose");
+    });
 </script>
 </body>
 </html>
