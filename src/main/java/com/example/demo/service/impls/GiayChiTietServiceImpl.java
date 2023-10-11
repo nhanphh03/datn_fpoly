@@ -2,6 +2,7 @@ package com.example.demo.service.impls;
 
 import com.example.demo.model.ChiTietGiay;
 import com.example.demo.model.Giay;
+import com.example.demo.model.HinhAnh;
 import com.example.demo.repository.GiayChiTietRepository;
 import com.example.demo.repository.GiayRepository;
 import com.example.demo.service.GiayChiTietService;
@@ -51,10 +52,13 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
         return giayChiTietRepository.findByTrangThaiAndGiay(1, giay);
     }
 
-//    @Override
-//    public Double maxPriceGiay(Giay giay) {
-//        return giayChiTietRepository.maxPriceByGiay(giay);
-//    }
+    @Override
+    public List<HinhAnh> listHinhAnhByGiay(Giay giay) {
+        return giayChiTietRepository.findDistinctByGiay(giay);
+    }
+
+
+
 
 
 }

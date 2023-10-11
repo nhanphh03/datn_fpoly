@@ -2,6 +2,8 @@ package com.example.demo.service;
 
 import com.example.demo.model.ChiTietGiay;
 import com.example.demo.model.Giay;
+import com.example.demo.model.HinhAnh;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +22,7 @@ public interface GiayChiTietService {
 
     List<ChiTietGiay> getCTGByGiayActive(Giay giay);
 
+    List<HinhAnh> listHinhAnhByGiay(Giay giay);
     //Double maxPriceGiay(Giay giay);
 
 
