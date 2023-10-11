@@ -22,7 +22,7 @@ public class PDFExporterChatLieu {
 
     private void writeTableHeader(PdfPTable table) {
         PdfPCell cell = new PdfPCell();
-        cell.setBackgroundColor(Color.BLUE);
+        cell.setBackgroundColor(Color.PINK);
         cell.setPadding(4);
 
         Font font = FontFactory.getFont(FontFactory.HELVETICA);

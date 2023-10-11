@@ -22,7 +22,7 @@ public class PDFExporterCTGiay {
 
     private void writeTableHeader(PdfPTable table) {
         PdfPCell cell = new PdfPCell();
-        cell.setBackgroundColor(Color.BLUE);
+        cell.setBackgroundColor(Color.PINK);
         cell.setPadding(11);
 
         Font font = FontFactory.getFont(FontFactory.HELVETICA);

@@ -442,7 +442,7 @@
                                         <a class="me-3" th:href="@{'/manage/hinh-anh/viewUpdate/' + ${items.idGiay}}">
                                             <img src="/images/img/icons/edit.svg" alt="img">
                                         </a>
-                                        <a class="me-3 " th:href="@{'/manage/hinh-anh/delete/' + ${items.idGiay}}">
+                                        <a class="me-3 delete-button" th:data-delete-url="@{'/manage/hinh-anh/delete/' + ${items.idGiay}}">
                                             <img src="/images/img/icons/delete.svg" alt="img">
                                         </a>
                                     </td>
@@ -486,6 +486,45 @@
             window.print();
         });
     });
+</script>
+<script>
+    // Bắt sự kiện click trên nút "Xóa"
+    document.querySelectorAll(".delete-button").forEach(function (button) {
+        button.addEventListener("click", function (event) {
+            event.preventDefault(); // Ngăn chặn thực hiện chuyển hướng mặc định
+            const deleteUrl = button.getAttribute("data-delete-url");
+            showConfirmationDialog(deleteUrl);
+        });
+    });
+
+    // Hàm hiển thị mã thông báo xác nhận
+    function showConfirmationDialog(deleteUrl) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+            confirmButtonClass: "btn btn-primary",
+            cancelButtonClass: "btn btn-danger ml-1",
+            buttonsStyling: false
+        }).then(function (result) {
+            if (result.value) {
+                // Chuyển hướng đến URL xóa
+                window.location.href = deleteUrl;
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                // Xử lý khi người dùng hủy bỏ
+                Swal.fire({
+                    title: "Cancelled",
+                    text: "Your imaginary file is safe :)",
+                    type: "error",
+                    confirmButtonClass: "btn btn-success"
+                });
+            }
+        });
+    }
 </script>
 </body>
 </html>

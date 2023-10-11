@@ -22,7 +22,7 @@ public class PDFExporterMauSac {
 
     private void writeTableHeader(PdfPTable table) {
         PdfPCell cell = new PdfPCell();
-        cell.setBackgroundColor(Color.BLUE);
+        cell.setBackgroundColor(Color.PINK);
         cell.setPadding(5);
 
         Font font = FontFactory.getFont(FontFactory.HELVETICA);

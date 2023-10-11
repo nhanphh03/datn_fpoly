@@ -238,14 +238,17 @@ public class GiayChiTietController {
     }
 
     @PostMapping("/chi-tiet-giay/mau-sac/viewAdd/add")
-    public String addMauSac(@ModelAttribute("mauSacAdd") MauSac mauSac) {
+    public String addMauSac(@ModelAttribute("mauSacAdd") MauSac mauSac, HttpServletRequest request, RedirectAttributes redirectAttributes) {
         MauSac mauSac1 = new MauSac();
         mauSac1.setMaMau(mauSac.getMaMau());
         mauSac1.setTenMau(mauSac.getTenMau());
         mauSac1.setTgThem(new Date());
         mauSac1.setTrangThai(mauSac.getTrangThai());
         mauSacService.save(mauSac1);
-        return "manage/message";
+        //
+        UUID chiTietGiayId = UUID.fromString(request.getParameter("giay"));
+        redirectAttributes.addAttribute("id", chiTietGiayId);
+        return "redirect:/manage/chi-tiet-giay/viewAdd/{id}";
     }
 
     @PostMapping("/giay-chi-tiet/mau-sac/viewAdd/add")
