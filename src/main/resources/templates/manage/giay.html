@@ -366,7 +366,7 @@
                         <div class="wordset">
                             <ul>
                                 <li>
-                                    <a
+                                    <a th:href="@{/manage/giay/export/pdf}"
                                             data-bs-toggle="tooltip"
                                             data-bs-placement="top"
                                             title="pdf"
@@ -374,7 +374,7 @@
                                     /></a>
                                 </li>
                                 <li>
-                                    <a
+                                    <a th:href="@{/manage/giay/export/excel}"
                                             data-bs-toggle="tooltip"
                                             data-bs-placement="top"
                                             title="excel"
@@ -382,7 +382,7 @@
                                     /></a>
                                 </li>
                                 <li>
-                                    <a
+                                    <a id="printButton"
                                             data-bs-toggle="tooltip"
                                             data-bs-placement="top"
                                             title="print"
@@ -416,17 +416,17 @@
                                                 </select>
                                             </div>
                                         </div>
+<!--                                        <div class="col-lg-2 col-sm-6 col-12">-->
+<!--                                            <div class="form-group">-->
+<!--                                                <select class="select">-->
+<!--                                                    <option>Trạng Thái</option>-->
+<!--                                                    <option th:each="loc : ${dsTrangThai.entrySet()}"-->
+<!--                                                            th:value="${loc.key}"-->
+<!--                                                            th:text="${loc.value}"></option>-->
+<!--                                                </select>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
                                         <div class="col-lg-2 col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <select class="select">
-                                                    <option>Trạng Thái</option>
-                                                    <option th:each="loc : ${dsTrangThai.entrySet()}"
-                                                            th:value="${loc.key}"
-                                                            th:text="${loc.value}"></option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg col-sm-6 col-12">
                                             <div class="form-group">
                                                 <select class="select">
                                                     <option>Hãng</option>
@@ -435,7 +435,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-lg col-sm-6 col-12">
+                                        <div class="col-lg-2 col-sm-6 col-12">
                                             <div class="form-group">
                                                 <select class="select">
                                                     <option>Chất Liệu</option>
@@ -444,7 +444,7 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-lg-1 col-sm-6 col-12">
+                                        <div class="col-lg-4 col-sm-6 col-12">
                                             <div class="form-group">
                                                 <a class="btn btn-filters ms-auto"
                                                 ><img
@@ -474,9 +474,10 @@
                                 <th>Trạng Thái</th>
                                 <th>Hãng</th>
                                 <th>Chất Liệu</th>
+                                <th>Action</th>
                                 <th>Thời Gian Thêm</th>
                                 <th>Thời Gian Sửa</th>
-                                <th>Action</th>
+
                             </tr>
                             </thead>
                             <tbody>
@@ -495,19 +496,20 @@
                                 </td>
                                 <td th:text="${items.hang.tenHang}"></td>
                                 <td th:text="${items.chatLieu.tenChatLieu}"></td>
-                                <td th:text="${items.tgThem}"></td>
-                                <td th:text="${items.tgSua}"></td>
                                 <td>
-                                    <a class="me-3" th:href="@{'/manage/giay/detail/' + ${items.idGiay}}">
+                                    <a class="me-2" th:href="@{'/manage/giay/detail/' + ${items.idGiay}}">
                                         <img src="/images/img/icons/eye.svg" alt="img"/>
                                     </a>
-                                    <a class="me-3" th:href="@{'/manage/giay/viewUpdate/' + ${items.idGiay}}">
+                                    <a class="me-2" th:href="@{'/manage/giay/viewUpdate/' + ${items.idGiay}}">
                                         <img src="/images/img/icons/edit.svg" alt="img"/>
                                     </a>
-                                    <a class="" th:href="@{'/manage/giay/delete/' + ${items.idGiay}}">
+                                    <a class="me-2 delete-button" th:data-delete-url="@{'/manage/giay/delete/' + ${items.idGiay}}">
                                         <img src="/images/img/icons/delete.svg" alt="img"/>
                                     </a>
                                 </td>
+                                <td th:text="${items.tgThem}"></td>
+                                <td th:text="${items.tgSua}"></td>
+
                             </tr>
                             </tbody>
                         </table>
@@ -535,5 +537,62 @@
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
 <script src="/js/script.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Lấy thẻ nút in bằng id
+        var printButton = document.getElementById("printButton");
+
+        // Thêm sự kiện click cho nút
+        printButton.addEventListener("click", function() {
+            // Gọi hàm in mặc định của trình duyệt
+            window.print();
+        });
+    });
+</script>
+<script>
+    // Bắt sự kiện click trên nút "Xóa"
+    document.querySelectorAll(".delete-button").forEach(function (button) {
+        button.addEventListener("click", function (event) {
+            event.preventDefault(); // Ngăn chặn thực hiện chuyển hướng mặc định
+            const deleteUrl = button.getAttribute("data-delete-url");
+            showConfirmationDialog(deleteUrl);
+        });
+    });
+
+    // Hàm hiển thị mã thông báo xác nhận
+    function showConfirmationDialog(deleteUrl) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+            confirmButtonClass: "btn btn-primary",
+            cancelButtonClass: "btn btn-danger ml-1",
+            buttonsStyling: false
+        }).then(function (result) {
+            if (result.value) {
+                // Chuyển hướng đến URL xóa
+                window.location.href = deleteUrl;
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                // Xử lý khi người dùng hủy bỏ
+                Swal.fire({
+                    title: "Cancelled",
+                    text: "Your imaginary file is safe :)",
+                    type: "error",
+                    confirmButtonClass: "btn btn-success"
+                });
+            }
+        });
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $('#filter_inputs').slideToggle("slow");
+        $('#filter_search').toggleClass("setclose");
+    });
+</script>
 </body>
 </html>
