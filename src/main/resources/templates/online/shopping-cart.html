@@ -14,14 +14,14 @@
         rel="stylesheet">
 
   <!-- Css Styles -->
-  <link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css">
-  <link rel="stylesheet" href="/css/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="/css/elegant-icons.css" type="text/css">
-  <link rel="stylesheet" href="/css/magnific-popup.css" type="text/css">
-  <link rel="stylesheet" href="/css/nice-select.css" type="text/css">
-  <link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css">
-  <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/cssx/bootstrap.min.css" type="text/css">
+  <link rel="stylesheet" href="/cssx/font-awesome.min.css" type="text/css">
+  <link rel="stylesheet" href="/cssx/elegant-icons.css" type="text/css">
+  <link rel="stylesheet" href="/cssx/magnific-popup.css" type="text/css">
+  <link rel="stylesheet" href="/cssx/nice-select.css" type="text/css">
+  <link rel="stylesheet" href="/cssx/owl.carousel.min.css" type="text/css">
+  <link rel="stylesheet" href="/cssx/slicknav.min.css" type="text/css">
+  <link rel="stylesheet" href="/cssx/style.css" type="text/css">
 
 
 </head>
@@ -45,21 +45,13 @@
         <div class="col-lg-6 col-md-5">
           <div class="header__top__right">
             <div class="header__top__hover">
-              <% boolean ifFullnameLogin = (Boolean) request.getAttribute("ifFullnameLogin"); %>
-              <% if ( ifFullnameLogin) { %>
-              <span>${fullnameLogin}<i class="arrow_carrot-down"></i></span>
+              <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
               <ul>
-                <li><a href="/settingAccount" >Setting</a></li>
-                <li><a href="/viewsUsers/usersLogout">Log out</a></li>
+                <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
+                <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
               </ul>
-              <% } %>
             </div>
             <div class="header__top__links"  >
-              <% boolean messageLoginOrSignin = (Boolean) request.getAttribute("messageLoginOrSignin"); %>
-              <% if ( messageLoginOrSignin) { %>
-              <a href="/viewsUsers/authencation/usersLogin">Login</a>
-              <a href="/viewsUsers/authencation/usersRegister">Register</a>
-              <% } %>
             </div>
             <div class="header__top__hover">
               <span>EN<i class="arrow_carrot-down"></i></span>
@@ -78,32 +70,32 @@
     <div class="row">
       <div class="col-lg-3 col-md-3">
         <div class="header__logo">
-          <a  href="/index2" ><img src="/img/logo.png" alt=""></a>
+          <a th:href="@{'/buyer/homeBuyer'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
         </div>
       </div>
       <div class="col-lg-6 col-md-6">
         <nav class="header__menu mobile-menu">
           <ul>
-            <li><a href="/viewsUsers/usersHome" >Home</a></li>
-            <li class="active"><a href="/viewsUsers/usersShop" >Shop</a></li>
-            <li><a href="/viewsUsers/authencation/usersAbout">About Us</a></li>
-            <li><a href="/viewsUsers/authencation/usersBlog">Blog</a>
+            <li><a th:href="@{'/buyer/homeBuyer'}" >Home</a></li>
+            <li class="active"><a th:href="@{'/buyer/shop'}" >Shop</a></li>
+            <li><a th:href="@{'/buyer/about'}">About Us</a></li>
+            <li><a th:href="@{'/buyer/blog'}">Blog</a>
               <ul class="dropdown">
-                <li><a href="/viewsUsers/authencation/usersBlog-details">Blog Details</a></li>
+                <li><a th:href="@{'/buyer/blog/blog-details'}">Blog Details</a></li>
               </ul>
             </li>
-            <li><a href="/viewsUsers/authencation/usersContact">Contact</a></li>
+            <li><a th:href="@{'/buyer/contact'}">Contact</a></li>
           </ul>
         </nav>
       </div>
       <div class="col-lg-3 col-md-3">
         <div class="header__nav__option">
-          <a href="#" class="search-switch"><img src="/img/icon/search.png" alt=""></a>
-          <a href="#"><img src="/img/icon/heart.png" alt=""></a>
+          <a href="#" class="search-switch"><img src="/images/img/icon/search.png" alt=""></a>
+          <a href="#"><img src="/images/img/icon/heart.png" alt=""></a>
 
-          <a href="/viewsUsers/shopping-cart" style="position: relative; display: inline-block; ">
-            <img src="/img/icon/cart.png" alt="">
-            <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" >${sumProductInCart}</span>
+          <a th:href="@{'/viewsUsers/shopping-cart'}" style="position: relative; display: inline-block; ">
+            <img src="/images/img/icon/cart.png" alt="">
+            <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
           </a>
         </div>
       </div>
@@ -121,8 +113,8 @@
         <div class="breadcrumb__text">
           <h4>Shop</h4>
           <div class="breadcrumb__links">
-            <a href="/viewsUsers/usersHome">Home</a>
-            <a href="/viewsUsers/usersShop">Shop</a>
+            <a th:href="@{'/buyer/homeBuyer'}" >Home</a>
+            <a th:href="@{'/buyer/shop'}" >Shop</a>
             <span>Shopping Cart</span>
           </div>
         </div>
@@ -150,49 +142,49 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${listCTGH}" var="c" >
-              <tr id="productId" value="${c.chiTietGiay.id}">
-                <form action="/deleteToCartButton/${c.chiTietGiay.id}" method="post" >
-                  <td><input name="selectedProducts" type="checkbox" value="${c.chiTietGiay.id}"></td>
-                  <td class="product__cart__item">
-                    <div class="product__cart__item__pic">
-                      <a href="/viewsUsers/shop-details/${c.chiTietGiay.giay.id}"> <img style="width:90px; height:90px;" src="/img/imgsProducts/${c.chiTietGiay.hinhAnh.urlImg0}"></a>
-                    </div>
-                    <div class="product__cart__item__text">
-                      <a href="/viewsUsers/shop-details/${c.chiTietGiay.giay.id}">
-                        <h6>${c.chiTietGiay.giay.ten}</h6>
-                      </a>
-                      <h5 class="cart__price">${c.chiTietGiay.giaBan}</h5>
-                    </div>
+<!--            <c:forEach items="${listCTGH}" var="c" >-->
+<!--              <tr id="productId" value="${c.chiTietGiay.id}">-->
+<!--                <form action="/deleteToCartButton/${c.chiTietGiay.id}" method="post" >-->
+<!--                  <td><input name="selectedProducts" type="checkbox" value="${c.chiTietGiay.id}"></td>-->
+<!--                  <td class="product__cart__item">-->
+<!--                    <div class="product__cart__item__pic">-->
+<!--                      <a href="/viewsUsers/shop-details/${c.chiTietGiay.giay.id}"> <img style="width:90px; height:90px;" src="/img/imgsProducts/${c.chiTietGiay.hinhAnh.urlImg0}"></a>-->
+<!--                    </div>-->
+<!--                    <div class="product__cart__item__text">-->
+<!--                      <a href="/viewsUsers/shop-details/${c.chiTietGiay.giay.id}">-->
+<!--                        <h6>${c.chiTietGiay.giay.ten}</h6>-->
+<!--                      </a>-->
+<!--                      <h5 class="cart__price">${c.chiTietGiay.giaBan}</h5>-->
+<!--                    </div>-->
 
-                  </td>
-                  <td class="cart__price">
-                    <div  style="position: absolute;padding-top: -30px">
-                      <span id="showButton" style="font-weight: normal; font-size: medium;">Options :</span>
-                      <div id="hiddenDiv" style="display: none; height: 100px; width: 200px; background-color: aquamarine;">
-                      </div>
-                    </div>
-                  </td>
-                  <td class="quantity__item">
-                    <div class="quantity">
-                      <div class="pro-qty-2">
-                        <input  type="text"  id="quantityInput_${product.id}" value="${c.soLuong}">
-                      </div>
-                    </div>
-                  </td>
-                  <td class="cart__price" id="totalAmount">$ ${c.chiTietGiay.giaBan * c.soLuong}</td>
-                  <td class="cart__close"><a href="/viewsUsers/shop-details/deleteProduct/${c.chiTietGiay.id}" id="deleteToCartButton" style="border-radius: 20% ; " ><i class="fa fa-close"></i></a></td>
+<!--                  </td>-->
+<!--                  <td class="cart__price">-->
+<!--                    <div  style="position: absolute;padding-top: -30px">-->
+<!--                      <span id="showButton" style="font-weight: normal; font-size: medium;">Options :</span>-->
+<!--                      <div id="hiddenDiv" style="display: none; height: 100px; width: 200px; background-color: aquamarine;">-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </td>-->
+<!--                  <td class="quantity__item">-->
+<!--                    <div class="quantity">-->
+<!--                      <div class="pro-qty-2">-->
+<!--                        <input  type="text"  id="quantityInput_${product.id}" value="${c.soLuong}">-->
+<!--                      </div>-->
+<!--                    </div>-->
+<!--                  </td>-->
+<!--                  <td class="cart__price" id="totalAmount">$ ${c.chiTietGiay.giaBan * c.soLuong}</td>-->
+<!--                  <td class="cart__close"><a href="/viewsUsers/shop-details/deleteProduct/${c.chiTietGiay.id}" id="deleteToCartButton" style="border-radius: 20% ; " ><i class="fa fa-close"></i></a></td>-->
 
-                </form>
-              </tr>
-            </c:forEach>
+<!--                </form>-->
+<!--              </tr>-->
+<!--            </c:forEach>-->
             </tbody>
           </table>
         </div>
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-6">
             <div class="continue__btn">
-              <a href="/viewsUsers/usersShop">Shop</a>
+              <a th:href="@{'/buyer/shop'}" >Shop</a>
             </div>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6">
@@ -235,10 +227,10 @@
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="footer__about">
           <div class="footer__logo">
-            <a href="#"><img src="/img/footer-logo.png" alt=""></a>
+            <a href="#"><img src="/images/img/footer-logo.png" alt=""></a>
           </div>
           <p>The customer is at the heart of our unique business model, which includes design.</p>
-          <a href="#"><img src="/img/payment.png" alt=""></a>
+          <a href="#"><img src="/images/img/payment.png" alt=""></a>
         </div>
       </div>
       <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
@@ -315,63 +307,63 @@
 
 
 
-<script>
-  const showButton = document.getElementById('showButton');
-  const hiddenDiv = document.getElementById('hiddenDiv');
+<!--<script>-->
+<!--  const showButton = document.getElementById('showButton');-->
+<!--  const hiddenDiv = document.getElementById('hiddenDiv');-->
 
-  document.addEventListener('click', function(event) {
-    if (!showButton.contains(event.target) && !hiddenDiv.contains(event.target)) {
-      hiddenDiv.style.display = 'none';
-    }
-  });
+<!--  document.addEventListener('click', function(event) {-->
+<!--    if (!showButton.contains(event.target) && !hiddenDiv.contains(event.target)) {-->
+<!--      hiddenDiv.style.display = 'none';-->
+<!--    }-->
+<!--  });-->
 
-  showButton.addEventListener('click', function() {
-    hiddenDiv.style.display = 'block';
-    event.stopPropagation(); // Ngăn chặn sự kiện click lan truyền lên body/document
-  });
+<!--  showButton.addEventListener('click', function() {-->
+<!--    hiddenDiv.style.display = 'block';-->
+<!--    event.stopPropagation(); // Ngăn chặn sự kiện click lan truyền lên body/document-->
+<!--  });-->
 
-  hiddenDiv.addEventListener('click', function(event) {
-    event.stopPropagation(); // Ngăn chặn sự kiện click lan truyền lên body/document
-  });
+<!--  hiddenDiv.addEventListener('click', function(event) {-->
+<!--    event.stopPropagation(); // Ngăn chặn sự kiện click lan truyền lên body/document-->
+<!--  });-->
 
-</script>
+<!--</script>-->
 
-<script>
-  function selectAllRows() {
-    var checkboxes = document.querySelectorAll('tbody input[type="checkbox"]');
-    var selectAllCheckbox = document.querySelector('thead input.check');
+<!--<script>-->
+<!--  function selectAllRows() {-->
+<!--    var checkboxes = document.querySelectorAll('tbody input[type="checkbox"]');-->
+<!--    var selectAllCheckbox = document.querySelector('thead input.check');-->
 
-    checkboxes.forEach(function(checkbox) {
-      checkbox.checked = selectAllCheckbox.checked;
-    });
-  }
-</script>
+<!--    checkboxes.forEach(function(checkbox) {-->
+<!--      checkbox.checked = selectAllCheckbox.checked;-->
+<!--    });-->
+<!--  }-->
+<!--</script>-->
 
-<script>
-  $(document).ready(function() {
-    $(".deleteToCartButton").click(function(event) {
-      event.preventDefault();  // Ngăn chặn hành vi mặc định của button
+<!--<script>-->
+<!--  $(document).ready(function() {-->
+<!--    $(".deleteToCartButton").click(function(event) {-->
+<!--      event.preventDefault();  // Ngăn chặn hành vi mặc định của button-->
 
-      var idProduct = $(this).closest("tr").attr("id");  // Lấy ID sản phẩm từ thuộc tính id của phần tử tr
+<!--      var idProduct = $(this).closest("tr").attr("id");  // Lấy ID sản phẩm từ thuộc tính id của phần tử tr-->
 
-      // Gửi yêu cầu AJAX đến Controller
-      $.ajax({
-        url: "/deleteToCartButton/" + idProduct,
-        type: "POST",
-        success: function(response) {
-          // Hiển thị thông báo thành công
-          $("#alertMessage").text(response).show();
-          // Cập nhật danh sách giỏ hàng (nếu cần)
-          // ...
-        },
-        error: function(xhr, status, error) {
-          // Xử lý lỗi (nếu có)
-          alert("Error occurred while removing the product from cart");
-        }
-      });
-    });
-  });
-</script>
+<!--      // Gửi yêu cầu AJAX đến Controller-->
+<!--      $.ajax({-->
+<!--        url: "/deleteToCartButton/" + idProduct,-->
+<!--        type: "POST",-->
+<!--        success: function(response) {-->
+<!--          // Hiển thị thông báo thành công-->
+<!--          $("#alertMessage").text(response).show();-->
+<!--          // Cập nhật danh sách giỏ hàng (nếu cần)-->
+<!--          // ...-->
+<!--        },-->
+<!--        error: function(xhr, status, error) {-->
+<!--          // Xử lý lỗi (nếu có)-->
+<!--          alert("Error occurred while removing the product from cart");-->
+<!--        }-->
+<!--      });-->
+<!--    });-->
+<!--  });-->
+<!--</script>-->
 
 <!-- Js Plugins -->
 <script src="/js/jquery-3.3.1.min.js"></script>
