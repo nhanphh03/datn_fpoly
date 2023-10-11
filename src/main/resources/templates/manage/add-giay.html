@@ -22,6 +22,7 @@
 
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/plugins/alertify/alertify.min.css"/>
 
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -316,7 +317,7 @@
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img" /><span>
+                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
                     Quản Lý Voucher</span
                         >
                             <span class="menu-arrow"></span
@@ -356,15 +357,6 @@
                                     <input type="text" th:field="*{tenGiay}">
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Trạng Thái</label>
-                                    <select class="select" th:field="*{trangThai}">
-                                        <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                                th:text="${loc.value}"></option>
-                                    </select>
-                                </div>
-                            </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Hãng</label>
@@ -372,6 +364,14 @@
                                         <option th:each="loc : ${hang}" th:value="${loc.idHang}"
                                                 th:text="${loc.tenHang}"></option>
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-2 col-2 ps-0">
+                                <div class="add-icon">
+                                    <a href="javascript:void(0);" id="modal-hang" data-toggle="modal"
+                                       data-target="#myModal"><img
+                                            src="/images/img/icons/plus1.svg"
+                                            alt="img"></a>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
@@ -383,6 +383,23 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-lg-3 col-sm-2 col-2 ps-0">
+                                <div class="add-icon">
+                                    <a href="javascript:void(0);" id="modal-chatLieu" data-toggle="modal"
+                                       data-target="#myModal"><img
+                                            src="/images/img/icons/plus1.svg"
+                                            alt="img"></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Trạng Thái</label>
+                                    <select class="select" th:field="*{trangThai}" id="trangthai" name="trangThai">
+                                        <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
+                                                th:text="${loc.value}"></option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-lg-12">
                                 <button type="submit" class="btn btn-submit me-2">Submit</button>
                                 <a href="/manage/giay" class="btn btn-cancel">Cancel</a>
@@ -390,13 +407,132 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </form>
 </div>
-
-
+<!-- Modal Hãng-->
+<div class="modal fade" id="myModal-hang" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" >
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel-hang"></h5>
+                <button type="button" class="close btn-secondary hang" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:object="${hangAdd}" method="post" th:action="@{/manage/giay/hang/viewAdd/add}" style="width: auto;height: auto">
+                    <div class="page-header">
+                        <div class="page-title">
+                            <h4>Thêm Hãng </h4>
+                            <h6>Quản Lý Hãng</h6>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Logo</label>
+                                        <input th:field="*{logoHang}" type="file" id="imageInput"
+                                               accept="image/*"
+                                               onchange="previewImage(event)">
+                                        <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
+                                                     style="display: none; max-width: 150px; max-height: 150px;">
+                                    </div>
+                                </div><div th:utext="'&nbsp;'"></div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Mã Hãng</label>
+                                        <input type="text" th:field="*{maHang}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Tên Hãng</label>
+                                        <input type="text" th:field="*{tenHang}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Trạng Thái</label>
+                                        <select class="select" th:field="*{trangThai}" id="trangThaiHang" name="trangThaiHang">
+                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
+                                                    th:text="${loc.value}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <button type="submit" class="btn btn-submit me-2">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal ChatLieu-->
+<div class="modal fade" id="myModal-chatLieu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel-chatLieu"></h5>
+                <button type="button" class="close btn-secondary chatLieu" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:object="${chatLieuAdd}" method="post" th:action="@{/manage/giay/chat-lieu/viewAdd/add}"
+                      style="width: auto;height: auto">
+                    <div class="page-header">
+                        <div class="page-title">
+                            <h4>Thêm Chất Liệu </h4>
+                            <h6>Quản Lý Chất Liệu</h6>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Mã Chất Liệu</label>
+                                        <input type="text" th:field="*{maChatLieu}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Tên Chất Liệu</label>
+                                        <input type="text" th:field="*{tenChatLieu}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Trạng Thái</label>
+                                        <select class="select" th:field="*{trangThai}" id="trangThaiChatLieu" name="trangThaiChatLieu">
+                                            <option th:each="loc : ${dsTrangThai.entrySet()}"
+                                                    th:value="${loc.key}"
+                                                    th:text="${loc.value}"
+                                                    th:selected="${loc.key == 1}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <button type="submit" class="btn btn-submit me-2">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
@@ -404,6 +540,7 @@
 <script src="/js/jquery.slimscroll.min.js"></script>
 
 <script src="/js/jquery.dataTables.min.js"></script>
+
 <script src="/js/dataTables.bootstrap4.min.js"></script>
 
 <script src="/js/bootstrap.bundle.min.js"></script>
@@ -411,8 +548,58 @@
 <script src="/plugins/select2/js/select2.min.js"></script>
 
 <script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
+
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
+<script src="/plugins/alertify/alertify.min.js"></script>
+
+<script src="/plugins/alertify/custom-alertify.min.js"></script>
+
 <script src="/js/script.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy phần tử có id="modal"
+        var modalElement = document.getElementById("modal-hang");
+        // Lắng nghe sự kiện click trên phần tử có id="modal"
+        modalElement.addEventListener("click", function () {
+            // Khi người dùng nhấn vào phần tử có id="modal", kích hoạt modal
+            $('#myModal-hang').modal('show');
+        });
+        var modalElement = document.getElementById("modal-chatLieu");
+        // Lắng nghe sự kiện click trên phần tử có id="modal"
+        modalElement.addEventListener("click", function () {
+            // Khi người dùng nhấn vào phần tử có id="modal", kích hoạt modal
+            $('#myModal-chatLieu').modal('show');
+        });
+
+        var closeButton = document.querySelector(".hang");
+        closeButton.addEventListener("click", function () {
+            // Tắt modal có id="myModal"
+            $('#myModal-hang').modal('hide');
+        });
+        var closeButton = document.querySelector(".chatLieu");
+        closeButton.addEventListener("click", function () {
+            // Tắt modal có id="myModal"
+            $('#myModal-chatLieu').modal('hide');
+        });
+    });
+</script>
+<script>
+    function previewImage(event) {
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
+
+        if (imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            };
+
+            reader.readAsDataURL(imageInput.files[0]);
+        }
+    }
+</script>
 </body>
 </html>
