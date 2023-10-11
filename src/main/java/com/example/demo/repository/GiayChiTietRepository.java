@@ -16,4 +16,8 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
 
     List<ChiTietGiay> findByGiay(Giay giay);
 
+    List<ChiTietGiay> findByTrangThaiAndGiay(int trangThai, Giay giay);
+
+//    @Query(value = "SELECT MAX(ChiTietGiay.giaBan) FROM ChiTietGiay WHERE ChiTietGiay .giay = ?1 AND ChiTietGiay .trangThai like 1;", nativeQuery = true)
+//    Double maxPriceByGiay(Giay giay);
 }

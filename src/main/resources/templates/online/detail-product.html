@@ -46,17 +46,23 @@
         </div>
         <div class="col-lg-6 col-md-5">
           <div class="header__top__right">
+
+<!--        Buyer FullName Begin    -->
             <div class="header__top__hover">
-              <span>${fullnameLogin}<i class="arrow_carrot-down"></i></span>
+              <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
               <ul>
-                <li><a href="/settingAccount" >Setting</a></li>
-                <li><a href="/viewsUsers/usersLogout">Log out</a></li>
+                <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
+                <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
               </ul>
             </div>
+
+<!--            Buyer FullName End -->
+
             <div class="header__top__links"  >
-              <a href="/viewsUsers/authencation/usersLogin">Login</a>
-              <a href="/viewsUsers/authencation/usersRegister">Register</a>
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Login</a>
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Register</a>
             </div>
+
             <div class="header__top__hover">
               <span>EN<i class="arrow_carrot-down"></i></span>
               <ul>
@@ -74,21 +80,21 @@
     <div class="row">
       <div class="col-lg-3 col-md-3">
         <div class="header__logo">
-          <a  href="/index2" ><img src="/images/img/logo.png" alt=""></a>
+          <a th:href="@{'/buyer/homeBuyer'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
         </div>
       </div>
       <div class="col-lg-6 col-md-6">
         <nav class="header__menu mobile-menu">
           <ul>
-            <li><a href="/viewsUsers/usersHome" >Home</a></li>
-            <li class="active"><a href="/viewsUsers/usersShop" >Shop</a></li>
-            <li><a href="/viewsUsers/authencation/usersAbout">About Us</a></li>
-            <li><a href="/viewsUsers/authencation/usersBlog">Blog</a>
+            <li><a th:href="@{'/buyer/homeBuyer'}" >Home</a></li>
+            <li class="active"><a th:href="@{'/buyer/shop'}" >Shop</a></li>
+            <li><a th:href="@{'/buyer/about'}">About Us</a></li>
+            <li><a th:href="@{'/buyer/blog'}">Blog</a>
               <ul class="dropdown">
-                <li><a href="/viewsUsers/authencation/usersBlog-details">Blog Details</a></li>
+                <li><a th:href="@{'/buyer/blog/blog-details'}">Blog Details</a></li>
               </ul>
             </li>
-            <li><a href="/viewsUsers/authencation/usersContact">Contact</a></li>
+            <li><a th:href="@{'/buyer/contact'}">Contact</a></li>
           </ul>
         </nav>
       </div>
@@ -97,10 +103,11 @@
           <a href="#" class="search-switch"><img src="/images/img/icon/search.png" alt=""></a>
           <a href="#"><img src="/images/img/icon/heart.png" alt=""></a>
 
-          <a href="/images/viewsUsers/shopping-cart" style="position: relative; display: inline-block; ">
+          <a th:href="@{'/viewsUsers/shopping-cart'}" style="position: relative; display: inline-block; ">
             <img src="/images/img/icon/cart.png" alt="">
-            <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" >${sumProductInCart}</span>
+            <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
           </a>
+
         </div>
       </div>
     </div>
@@ -111,14 +118,14 @@
 
 <!-- Shop Details Section Begin -->
 <section class="shop-details">
-  <form object="${product}" action="/viewsUsers/shop-details/addToCart"  method="get" >
+  <form th:object="${product}" action="/viewsUsers/shop-details/addToCart"  method="get" >
     <div class="product__details__pic">
       <div class="container">
         <div class="row">
           <div class="col-lg-12">
             <div class="product__details__breadcrumb">
-              <a href="/viewsUsers/usersHome">Home</a>
-              <a href="/viewsUsers/usersShop">Shop</a>
+              <a th:href="@{'/buyer/homeBuyer'}" >Home</a>
+              <a th:href="@{'/buyer/shop'}" >Shop</a>
               <span>Product Details</span>
             </div>
           </div>
@@ -128,50 +135,52 @@
             <ul class="nav nav-tabs" role="tablist">
               <li class="nav-item">
                 <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">
-                  <div style="border-radius:10px;" class="product__thumb__pic set-bg" data-setbg="/img/imgsProducts/${product.hinhAnh.urlImg0}"></div>
+                  <div style="border-radius:10px;" class="product__thumb__pic set-bg" th:attr="data-setbg=@{'/images/imgProducts/' + ${url0}}"></div>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">
-                  <div style="border-radius:10px;" class="product__thumb__pic set-bg" data-setbg="/img/imgsProducts/${product.hinhAnh.urlImg1}"></div>
+                  <div style="border-radius:10px;" class="product__thumb__pic set-bg" th:attr="data-setbg=@{'/images/imgProducts/' + ${url1}}"></div>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">
-                  <div style="border-radius:10px;" class="product__thumb__pic set-bg" data-setbg="/img/imgsProducts/${product.hinhAnh.urlImg2}"></div>
+                  <div style="border-radius:10px;" class="product__thumb__pic set-bg" th:attr="data-setbg=@{'/images/imgProducts/' + ${url2}}"></div>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab">
-                  <div style="border-radius:10px;" class="product__thumb__pic set-bg" data-setbg="/img/imgsProducts/${product.hinhAnh.urlImg3}"></div>
+                  <div style="border-radius:10px;" class="product__thumb__pic set-bg" th:attr="data-setbg=@{'/images/imgProducts/' + ${url3}}"></div>
                 </a>
               </li>
             </ul>
           </div>
-<!--          <div class="col-lg-6 col-md-9">-->
-<!--            <div class="tab-content">-->
-<!--              <div class="tab-pane active" id="tabs-1" role="tabpanel">-->
-<!--                <div class="product__details__pic__item">-->
-<!--                  <img src="/img/imgsProducts/${product.hinhAnh.urlImg0}"/>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="tab-pane" id="tabs-2" role="tabpanel">-->
-<!--                <div class="product__details__pic__item">-->
-<!--                  <img src="/img/imgsProducts/${product.hinhAnh.urlImg1}"/>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="tab-pane" id="tabs-3" role="tabpanel">-->
-<!--                <div class="product__details__pic__item">-->
-<!--                  <img src="/img/imgsProducts/${product.hinhAnh.urlImg2}"/>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--              <div class="tab-pane" id="tabs-4" role="tabpanel">-->
-<!--                <div class="product__details__pic__item">-->
-<!--                  <img src="/img/imgsProducts/${product.hinhAnh.urlImg3}"/>-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
-<!--          </div>-->
+<!--          Show Image Product Begin-->
+          <div class="col-lg-6 col-md-9">
+            <div class="tab-content">
+              <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                <div class="product__details__pic__item">
+                  <img th:src="@{'/images/imgProducts/' + ${url3}}"/>
+                </div>
+              </div>
+              <div class="tab-pane" id="tabs-2" role="tabpanel">
+                <div class="product__details__pic__item">
+                  <img th:src="@{'/images/imgProducts/' + ${url3}}"/>
+                </div>
+              </div>
+              <div class="tab-pane" id="tabs-3" role="tabpanel">
+                <div class="product__details__pic__item">
+                  <img th:src="@{'/images/imgProducts/' + ${url3}}"/>
+                </div>
+              </div>
+              <div class="tab-pane" id="tabs-4" role="tabpanel">
+                <div class="product__details__pic__item">
+                  <img th:src="@{'/images/imgProducts/' + ${url3}}"/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--          Show Image Product End-->
         </div>
       </div>
     </div>
