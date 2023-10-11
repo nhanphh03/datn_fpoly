@@ -39,4 +39,14 @@ public class SizeServiceImpl implements SizeService {
         return sizeRepository.findByTrangThai(1);
     }
 
+    @Override
+    public List<Size> filterSizes(Integer selectedSize, String maSize) {
+        if ("Size".equals(selectedSize) && "Mã Size".equals(maSize)) {
+            // Trường hợp không chọn kích thước, bạn có thể trả về toàn bộ danh sách
+            return sizeRepository.findAll();
+        }
+        // Thực hiện truy vấn hoặc logic lọc dữ liệu dựa trên selectedSize
+        return sizeRepository.findBySoSizeAndMaSize(selectedSize, maSize);
+    }
+
 }

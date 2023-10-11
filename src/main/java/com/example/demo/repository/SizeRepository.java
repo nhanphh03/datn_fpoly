@@ -11,4 +11,6 @@ import java.util.UUID;
 public interface SizeRepository extends JpaRepository<Size, UUID> {
 
     List<Size> findByTrangThai(int trangThai);
+
+    List<Size> findBySoSizeAndMaSize(Integer selectedSize,String maSize);
 }
