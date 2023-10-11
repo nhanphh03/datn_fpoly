@@ -16,7 +16,7 @@ import java.util.UUID;
 public class CTGViewModel {
     @Id
     @Column(name = "id_giay")
-    private UUID idChiTietGiay;
+    private UUID idGiay;
 
     @Column(name = "min_price")
     private Double minPrice;

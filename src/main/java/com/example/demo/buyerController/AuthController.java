@@ -2,10 +2,14 @@ package com.example.demo.buyerController;
 
 import com.example.demo.model.GioHang;
 import com.example.demo.model.KhachHang;
+import com.example.demo.model.LoaiKhachHang;
+import com.example.demo.model.LoaiKhuyenMai;
 import com.example.demo.repository.CTGViewModelRepository;
 import com.example.demo.repository.GiayChiTietRepository;
 import com.example.demo.service.GioHangService;
 import com.example.demo.service.KhachHangService;
+import com.example.demo.service.LoaiKHService;
+import com.example.demo.service.SendMailService;
 import com.example.demo.viewModel.CTGViewModel;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -42,6 +46,14 @@ public class AuthController {
     @Autowired
     private CTGViewModelRepository giayChiTietRepository;
 
+    @Autowired
+    private LoaiKHService loaiKHService;
+
+    @Autowired
+    private SendMailService sendMailService;
+
+    @Autowired
+    private HttpSession session;
 
     @GetMapping("/login")
     public String getFormBuyerLogin(){
@@ -66,25 +78,52 @@ public class AuthController {
         if (b){
             KhachHang kh  = khachHangService.checkLoginEmail(username, password);
             if (kh !=null){
-                return "redirect:/buyer/";
-            }else{
+
                 GioHang gh = gioHangService.findByKhachHang(kh);
+
                 if (gh != null){
-                    GioHang gioHang = new GioHang();
-                    gioHang.setKhachHang(kh);
-                    gioHang.setTrangThai(1);
-                    gioHang.setTgThem(date);
-                    gioHangService.saveGH(gh);
-                    model.addAttribute("messageLogin", "Username or Password incorrect");
-                    return "online/login";
+                    String fullName = kh.getHoTenKH();
+                    model.addAttribute("fullNameLogin", fullName);
+                    session.setAttribute("KhachHangLogin", kh);
+                    session.setAttribute("GHLogged", gh);
+                    return "redirect:/buyer/";
                 }
+
+                GioHang gioHang = new GioHang();
+                gioHang.setKhachHang(kh);
+                gioHang.setTrangThai(1);
+                gioHang.setTgThem(date);
+                gioHangService.saveGH(gioHang);
+                session.setAttribute("GHLogged", gioHang);
+
+                return "redirect:/buyer/";
+
+            }else{
                 model.addAttribute("messageLogin", "Username or Password incorrect");
                 return "online/login";
             }
         }else{
             KhachHang kh  = khachHangService.checkLoginSDT(username, password);
-            if (kh !=null){
+            if (kh != null){
+                GioHang gh = gioHangService.findByKhachHang(kh);
+
+                if (gh != null){
+                    String fullName = kh.getHoTenKH();
+                    model.addAttribute("fullNameLogin", fullName);
+                    session.setAttribute("KhachHangLogin", kh);
+                    session.setAttribute("GHLogged", gh);
+                    return "redirect:/buyer/";
+                }
+
+                GioHang gioHang = new GioHang();
+                gioHang.setKhachHang(kh);
+                gioHang.setTrangThai(1);
+                gioHang.setTgThem(date);
+                gioHangService.saveGH(gioHang);
+                session.setAttribute("GHLogged", gioHang);
+
                 return "redirect:/buyer/";
+
             }else{
                 GioHang gh = gioHangService.findByKhachHang(kh);
                 if (gh != null){
@@ -104,14 +143,16 @@ public class AuthController {
 
 
     @GetMapping("/register")
-    public String getFormBuyerRegister(){
+    public String getFormBuyerRegister(Model model){
+        KhachHang khachHang = new KhachHang();
+        model.addAttribute("formRegister", true);
+        model.addAttribute("userRegister",khachHang);
         return "online/register";
     }
 
 
     @PostMapping("/register")
-    public String buyerRegister(Model model, RedirectAttributes redirectAttributes,
-                                HttpSession session){
+    public String buyerRegister(Model model, RedirectAttributes redirectAttributes){
         String fullName = request.getParameter("fullname");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
@@ -129,21 +170,83 @@ public class AuthController {
         if (hasErr){
             model.addAttribute("messageFullName", fullName);
             model.addAttribute("messageEmail", email);
+            model.addAttribute("formRegister", true);
             return "/online/register";
         }
 
         KhachHang kh = khachHangService.checkEmail(email);
         if (kh != null){
             model.addAttribute("messEmail", "Email already exists ! ");
+            model.addAttribute("messageFullName", fullName);
+            model.addAttribute("formRegister", true);
             return "/online/register";
         }
         KhachHang khachHang = new KhachHang();
         khachHang.setEmailKH(email);
         khachHang.setHoTenKH(fullName);
         khachHang.setMatKhau(password);
+        khachHang.setTrangThai(2);
+        Date date = new Date();
+        khachHang.setTgThem(date);
+        LoaiKhachHang loaiKhachHang = loaiKHService.findByTenLKH("Sat");
+        khachHang.setLoaiKhachHang(loaiKhachHang);
+        khachHangService.addKhachHang(khachHang);
 
+        String numberOTP = generateRandomNumbers();
 
-        return "online/login";
+        session.setAttribute("userRegister", khachHang);
+        session.setAttribute("OTPRegister", numberOTP);
+
+        String subject="Dear" + " " + fullName + " " + "This is OTP to register a your account : ";
+
+        sendMailService.sendSimpleMail(email, "Verify your email address"  ,subject + " "+  numberOTP);
+
+        model.addAttribute("formRegister", false);
+        model.addAttribute("formOTPRegister", true);
+
+        return "online/register";
+    }
+
+    @PostMapping("/register/verify-otp")
+    public String buyerRegisterVerifyOTP(Model model){
+
+        String OTPNumber = (String) session.getAttribute("OTPRegister");
+        KhachHang KHRegiter = (KhachHang) session.getAttribute("userRegister");
+
+        String OTPUser = request.getParameter("OTPRegister");
+
+        if (OTPNumber.equals(OTPUser)){
+            KHRegiter.setTrangThai(1);
+            khachHangService.addKhachHang(KHRegiter);
+            session.invalidate();
+            return"online/login";
+        }else {
+            model.addAttribute("formRegister", false);
+            model.addAttribute("formOTPRegister", true);
+            model.addAttribute("messageOTP", "Invalid OTP. Please try again.");
+            return "online/register";
+        }
+
+    }
+
+    @GetMapping("/register/resened-otp")
+    public String resendOTPEmailForm(Model model){
+        model.addAttribute("formRegister", false);
+        model.addAttribute("formOTPRegister", true);
+
+        KhachHang KHRegiter = (KhachHang) session.getAttribute("userRegister");
+
+        String numberOTPResend = generateRandomNumbers();
+        String fullName = KHRegiter.getHoTenKH();
+        String email = KHRegiter.getEmailKH();
+        session.removeAttribute("OTPRegister");
+        session.setAttribute("OTPRegisterResend", numberOTPResend);
+
+        String subject="Dear" + " " + fullName + " " + "This is OTP to register a your account : ";
+
+        sendMailService.sendSimpleMail(email, "Verify your email address"  ,subject + " "+  numberOTPResend);
+
+        return "online/register";
     }
 
     @GetMapping("/reset")
@@ -151,6 +254,13 @@ public class AuthController {
 
         return "online/reset";
     }
+
+    @GetMapping("/logout")
+    public String getFormBuyerLogout(){
+        session.invalidate();
+        return "redirect:/buyer/";
+    }
+
 
     public String generateRandomNumbers() {
         StringBuilder sb = new StringBuilder();

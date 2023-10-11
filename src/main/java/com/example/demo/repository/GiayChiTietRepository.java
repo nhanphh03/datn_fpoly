@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.ChiTietGiay;
+import com.example.demo.model.HinhAnh;
 import com.example.demo.viewModel.CTGViewModel;
 import com.example.demo.model.Giay;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,5 +16,11 @@ import java.util.UUID;
 public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> {
 
     List<ChiTietGiay> findByGiay(Giay giay);
+
+    List<ChiTietGiay> findByTrangThaiAndGiay(int trangThai, Giay giay);
+
+
+    @Query(value = "SELECT DISTINCT ctg.hinhAnh FROM ChiTietGiay ctg WHERE ctg.giay = ?1")
+    List<HinhAnh> findDistinctByGiay(Giay giay);
 
 }
