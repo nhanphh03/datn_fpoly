@@ -50,7 +50,7 @@
 
                         <!--Name Buyer Begin-->
                         <div class="header__top__hover">
-                            <span>Login<i class="arrow_carrot-down"></i></span>
+                            <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
                             <ul>
                                 <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
                                 <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
@@ -60,9 +60,10 @@
 
 
                         <div class="header__top__links"  >
-                            <a th:href="@{'/buyer/login'}">Login</a>
-                            <a th:href="@{'/buyer/register'}">Register</a>
+                            <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Login</a>
+                            <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Register</a>
                         </div>
+
                         <div class="header__top__hover">
                             <span>EN<i class="arrow_carrot-down"></i></span>
                             <ul>
@@ -80,14 +81,14 @@
         <div class="row">
             <div class="col-lg-3 col-md-3">
                 <div class="header__logo">
-                    <a th:href="@{'/buyer/home'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
+                    <a th:href="@{'/buyer/homeBuyer'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <nav class="header__menu mobile-menu">
                     <ul>
-                        <li><a th:href="@{'/buyer/home'}" >Home</a></li>
-                        <li class="active"><a th:href="@{'/buyer/shop'}" >Shop</a></li>
+                        <li class="active"><a th:href="@{'/buyer/'}" >Home</a></li>
+                        <li><a th:href="@{'/buyer/shop'}" >Shop</a></li>
                         <li><a th:href="@{'/buyer/about'}">About Us</a></li>
                         <li><a th:href="@{'/buyer/blog'}">Blog</a>
                             <ul class="dropdown">
@@ -105,7 +106,7 @@
 
                     <a href="/viewsUsers/shopping-cart" style="position: relative; display: inline-block; ">
                         <img src="/images/img/icon/cart.png" alt="">
-                        <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" >0</span>
+                        <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}" ></span>
                     </a>
                 </div>
             </div>
@@ -128,7 +129,7 @@
                             <h2>Fall - Winter Collections 2030</h2>
                             <p>A specialist label creating luxury essentials. Ethically crafted with an unwavering
                                 commitment to exceptional quality.</p>
-                            <a th:href="@{'/shop'}" class="primary-btn">Shop now <span class="arrow_right"></span></a>
+                            <a th:href="@{'/buyer/shop'}" class="primary-btn">Shop now <span class="arrow_right"></span></a>
                             <div class="hero__social">
                                 <a th:href="@{'https://www.facebook.com/Nhanday.19092003'}"><i class="fa fa-facebook"></i></a>
                                 <a th:href="@{'https://www.instagram.com/nhanphh_03/?theme=dark'}"><i class="fa fa-twitter"></i></a>
@@ -232,7 +233,7 @@
                                                               <ul class="product__hover">
                                                                   <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a></li>
                                                                   <li><a href="#"><img src="/images/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
-                                                                  <li><a th:href="@{'/shop-details/' + ${product.idChiTietGiay} }"><img src="/images/imgicon/search.png" alt=""></a></li>
+                                                                  <li><a th:href="@{'/shop-details/' + ${product.idGiay} }"><img src="/images/img/icon/search.png" alt=""></a></li>
                                                               </ul>
                                                   </div>
                                                     <div class="product__item__text">

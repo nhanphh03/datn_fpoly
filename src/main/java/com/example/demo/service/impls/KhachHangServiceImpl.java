@@ -26,4 +26,9 @@ public class KhachHangServiceImpl implements KhachHangService {
     public KhachHang checkEmail(String email) {
         return khachHangRepository.findByEmailKH(email);
     }
+
+    @Override
+    public KhachHang addKhachHang(KhachHang khachHang) {
+        return khachHangRepository.save(khachHang);
+    }
 }

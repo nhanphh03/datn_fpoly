@@ -8,4 +8,6 @@ public interface KhachHangService{
     KhachHang checkLoginEmail(String email, String pass);
 
     KhachHang checkEmail(String email);
+
+    KhachHang addKhachHang(KhachHang khachHang);
 }
