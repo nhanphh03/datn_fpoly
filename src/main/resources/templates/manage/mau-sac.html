@@ -276,14 +276,9 @@
                         <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản Lý Khách Hàng</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="customerlist.html">Customer List</a></li>
-                            <li><a href="addcustomer.html">Add Customer </a></li>
-                            <li><a href="supplierlist.html">Supplier List</a></li>
-                            <li><a href="addsupplier.html">Add Supplier </a></li>
-                            <li><a href="userlist.html">User List</a></li>
-                            <li><a href="adduser.html">Add User</a></li>
-                            <li><a href="storelist.html">Store List</a></li>
-                            <li><a href="addstore.html">Add Store</a></li>
+                            <li><a href="/manage/khach-hang">Khách Hàng</a></li>
+                            <li><a href="/manage/dia-chi">Địa Chỉ </a></li>
+                            <li><a href="/manage/loai-khach-hang">Loại Khách Hàng</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -300,14 +295,8 @@
                         <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản Lý Nhân Viên</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="customerlist.html">Customer List</a></li>
-                            <li><a href="addcustomer.html">Add Customer </a></li>
-                            <li><a href="supplierlist.html">Supplier List</a></li>
-                            <li><a href="addsupplier.html">Add Supplier </a></li>
-                            <li><a href="userlist.html">User List</a></li>
-                            <li><a href="adduser.html">Add User</a></li>
-                            <li><a href="storelist.html">Store List</a></li>
-                            <li><a href="addstore.html">Add Store</a></li>
+                            <li><a href="/manage/chuc-vu">Chức Vụ</a></li>
+                            <li><a href="/manage/nhan-vien">Nhân Viên</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -379,7 +368,7 @@
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <select class="select">
+                                        <select class="select" id="mauSacFilterMa">
                                             <option>Mã Màu</option>
                                             <option th:each="loc : ${mauSac}" th:value="${loc.maMau}"
                                                     th:text="${loc.maMau}"></option>
@@ -388,7 +377,7 @@
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <select class="select">
+                                        <select class="select" id="mauSacFilterTen">
                                             <option>Tên Màu</option>
                                             <option th:each="loc : ${mauSac}" th:value="${loc.tenMau}"
                                                     th:text="${loc.tenMau}"></option>
@@ -416,7 +405,7 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table  datanew">
+                        <table class="table  datanew" id="data-table">
                             <thead>
                             <tr>
                                 <th>
@@ -540,6 +529,40 @@
     $(document).ready(function () {
         $('#filter_inputs').slideToggle("slow");
         $('#filter_search').toggleClass("setclose");
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        // Lắng nghe sự kiện thay đổi trong dropdown kích thước
+        $("#mauSacFilterMa").change(function () {
+            var maMau = $(this).val();
+
+            // Ẩn tất cả các dòng trong bảng
+            $("#data-table tbody tr").hide();
+
+            // Hiển thị các dòng có giá trị kích thước tương ứng
+            $("#data-table tbody tr").each(function () {
+                var maColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
+                if (maColumn === maMau || maMau === "Mã Màu") {
+                    $(this).show();
+                }
+            });
+        });
+        //
+        $("#mauSacFilterTen").change(function () {
+            var tenMau = $(this).val();
+
+            // Ẩn tất cả các dòng trong bảng
+            $("#data-table tbody tr").hide();
+
+            // Hiển thị các dòng có giá trị kích thước tương ứng
+            $("#data-table tbody tr").each(function () {
+                var tenColumn = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
+                if (tenColumn === tenMau || tenMau === "Tên Màu") {
+                    $(this).show();
+                }
+            });
+        });
     });
 </script>
 </body>

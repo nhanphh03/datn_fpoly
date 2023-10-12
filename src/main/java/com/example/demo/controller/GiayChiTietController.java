@@ -9,6 +9,7 @@ import com.example.demo.service.*;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +47,8 @@ public class GiayChiTietController {
     private HangService hangService;
     @Autowired
     private ChatLieuService chatLieuService;
+    @Autowired
+    private HttpSession httpSession;
 
 
     @ModelAttribute("dsTrangThai")
@@ -66,7 +69,13 @@ public class GiayChiTietController {
     @GetMapping("/giay-chi-tiet")
     public String dsGiayChiTiet(Model model) {
         List<ChiTietGiay> items = giayChiTietService.getAllChiTietGiay();
+        List<Giay> giayList = giayService.getAllGiay();
+        List<Size> sizeList = sizeService.getAllSize();
+        List<MauSac> mauSacList = mauSacService.getALlMauSac();
         model.addAttribute("items", items);
+        model.addAttribute("giayList", giayList);
+        model.addAttribute("sizeList", sizeList);
+        model.addAttribute("mauSacList", mauSacList);
         return "manage/giay-chi-tiet";
     }
 
@@ -104,6 +113,8 @@ public class GiayChiTietController {
 
     @GetMapping("/chi-tiet-giay/viewAdd/{id}")
     public String viewAddChiTietGiay(@PathVariable UUID id, Model model) {
+        httpSession.removeAttribute("idViewAddCTG");
+        httpSession.setAttribute("idViewAddCTG", id);
         Giay giay = giayService.getByIdGiay(id);
         model.addAttribute("chiTietGiay", new ChiTietGiay());
         model.addAttribute("giay", giay);
@@ -252,10 +263,10 @@ public class GiayChiTietController {
         mauSac1.setTgThem(new Date());
         mauSac1.setTrangThai(mauSac.getTrangThai());
         mauSacService.save(mauSac1);
-        //
-        UUID chiTietGiayId = UUID.fromString(request.getParameter("giay"));
-        redirectAttributes.addAttribute("id", chiTietGiayId);
-        return "redirect:/manage/chi-tiet-giay/viewAdd/{id}";
+        UUID idCTGViewAdd = (UUID) httpSession.getAttribute("idViewAddCTG");
+        String link = "redirect:/manage/chi-tiet-giay/viewAdd/" + idCTGViewAdd;
+        String tenMau = mauSac.getTenMau();
+        return link;
     }
 
     @PostMapping("/giay-chi-tiet/mau-sac/viewAdd/add")
@@ -277,7 +288,9 @@ public class GiayChiTietController {
         sizeAdd.setTgThem(new Date());
         sizeAdd.setTrangThai(size.getTrangThai());
         sizeService.save(sizeAdd);
-        return "manage/message";
+        UUID idCTGViewAdd = (UUID) httpSession.getAttribute("idViewAddCTG");
+        String link = "redirect:/manage/chi-tiet-giay/viewAdd/" + idCTGViewAdd;
+        return link;
     }
 
     @PostMapping("/giay-chi-tiet/size/viewAdd/add")
@@ -301,7 +314,9 @@ public class GiayChiTietController {
         hinhAnh1.setTgThem(new Date());
         hinhAnh1.setTrangThai(hinhAnh.getTrangThai());
         hinhAnhService.save(hinhAnh1);
-        return "manage/message";
+        UUID idCTGViewAdd = (UUID) httpSession.getAttribute("idViewAddCTG");
+        String link = "redirect:/manage/chi-tiet-giay/viewAdd/" + idCTGViewAdd;
+        return link;
     }
 
     @PostMapping("/giay-chi-tiet/hinh-anh/viewAdd/add")
