@@ -63,9 +63,9 @@ public class KhachHangController {
                 khachHang1.setSdtKH(khachHang.getSdtKH());
                 khachHang1.setCCCDKH(khachHang.getCCCDKH());
                 khachHang1.setGioiTinh(khachHang.getGioiTinh());
-                khachHang1.setNgaySinh(KhachHang.getNgaySinh());
+                khachHang1.setNgaySinh(khachHang.getNgaySinh());
                 khachHang1.setTgThem(new Date());
-                khachHang1.setTrangThai(KhachHang.getTrangThai());
+                khachHang1.setTrangThai(khachHang.getTrangThai());
                 khachHang1.setLoaiKhachHang(khachHang.getLoaiKhachHang());
                 khachHangService.save(khachHang1);
                 return "redirect:/manage/khach-hang";
@@ -103,9 +103,9 @@ public class KhachHangController {
                     khachHangdb.setSdtKH(khachHang.getSdtKH());
                     khachHangdb.setCCCDKH(khachHang.getCCCDKH());
                     khachHangdb.setGioiTinh(khachHang.getGioiTinh());
-                    khachHangdb.setNgaySinh(KhachHang.getNgaySinh());
+                    khachHangdb.setNgaySinh(khachHang.getNgaySinh());
                     khachHangdb.setTgSua(new Date());
-                    khachHangdb.setTrangThai(KhachHang.getTrangThai());
+                    khachHangdb.setTrangThai(khachHang.getTrangThai());
                     khachHangdb.setLoaiKhachHang(khachHang.getLoaiKhachHang());
                     khachHangService.save(khachHangdb);
                 }
