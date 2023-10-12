@@ -1,12 +1,22 @@
 package com.example.demo.controller;
 
+import com.example.demo.config.ExcelExporterChatLieu;
+import com.example.demo.config.ExcelExporterSize;
+import com.example.demo.config.PDFExporterChatLieu;
+import com.example.demo.config.PDFExporterSizes;
 import com.example.demo.model.ChatLieu;
+import com.example.demo.model.Size;
 import com.example.demo.service.ChatLieuService;
+import com.lowagie.text.DocumentException;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RequestMapping("/manage")
@@ -74,5 +84,38 @@ public class ChatLieuController {
             chatLieuService.save(chatLieuDb);
         }
         return "redirect:/manage/chat-lieu";
+    }
+
+    @GetMapping("/chatLieu/export/pdf")
+    public void exportToPDFChatLieu(HttpServletResponse response) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=chatLieu_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        List<ChatLieu> listChatLieu = chatLieuService.getAllChatLieu();
+
+        PDFExporterChatLieu exporter = new PDFExporterChatLieu(listChatLieu);
+        exporter.export(response);
+    }
+
+    @GetMapping("/chatLieu/export/excel")
+    public void exportToExcelSize(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=chatLieu_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List<ChatLieu> listChatLieu = chatLieuService.getAllChatLieu();
+
+        ExcelExporterChatLieu excelExporter = new ExcelExporterChatLieu(listChatLieu);
+
+        excelExporter.export(response);
     }
 }

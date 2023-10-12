@@ -1,12 +1,22 @@
 package com.example.demo.controller;
 
+import com.example.demo.config.ExcelExporterMauSac;
+import com.example.demo.config.ExcelExporterSize;
+import com.example.demo.config.PDFExporterMauSac;
+import com.example.demo.config.PDFExporterSizes;
 import com.example.demo.model.MauSac;
+import com.example.demo.model.Size;
 import com.example.demo.service.MauSacService;
+import com.lowagie.text.DocumentException;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RequestMapping("/manage")
@@ -74,5 +84,38 @@ public class MauSacController {
             mauSacService.save(mauSacDb);
         }
         return "redirect:/manage/mau-sac";
+    }
+
+    @GetMapping("/mauSac/export/pdf")
+    public void exportToPDFMauSac(HttpServletResponse response) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=mauSac_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        List<MauSac> listMauSac = mauSacService.getALlMauSac();
+
+        PDFExporterMauSac exporter = new PDFExporterMauSac(listMauSac);
+        exporter.export(response);
+    }
+
+    @GetMapping("/mauSac/export/excel")
+    public void exportToExcelSize(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=mauSac_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List<MauSac> listMauSac = mauSacService.getALlMauSac();
+
+        ExcelExporterMauSac excelExporter = new ExcelExporterMauSac(listMauSac);
+
+        excelExporter.export(response);
     }
 }
