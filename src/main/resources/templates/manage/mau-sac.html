@@ -372,7 +372,7 @@
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <select class="select">
+                                        <select class="select" id="mauSacFilterMa">
                                             <option>Mã Màu</option>
                                             <option th:each="loc : ${mauSac}" th:value="${loc.maMau}"
                                                     th:text="${loc.maMau}"></option>
@@ -381,7 +381,7 @@
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <select class="select">
+                                        <select class="select" id="mauSacFilterTen">
                                             <option>Tên Màu</option>
                                             <option th:each="loc : ${mauSac}" th:value="${loc.tenMau}"
                                                     th:text="${loc.tenMau}"></option>
@@ -409,7 +409,7 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table  datanew">
+                        <table class="table  datanew" id="data-table">
                             <thead>
                             <tr>
                                 <th>
@@ -533,6 +533,40 @@
     $(document).ready(function () {
         $('#filter_inputs').slideToggle("slow");
         $('#filter_search').toggleClass("setclose");
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        // Lắng nghe sự kiện thay đổi trong dropdown kích thước
+        $("#mauSacFilterMa").change(function () {
+            var maMau = $(this).val();
+
+            // Ẩn tất cả các dòng trong bảng
+            $("#data-table tbody tr").hide();
+
+            // Hiển thị các dòng có giá trị kích thước tương ứng
+            $("#data-table tbody tr").each(function () {
+                var maColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
+                if (maColumn === maMau || maMau === "Mã Màu") {
+                    $(this).show();
+                }
+            });
+        });
+        //
+        $("#mauSacFilterTen").change(function () {
+            var tenMau = $(this).val();
+
+            // Ẩn tất cả các dòng trong bảng
+            $("#data-table tbody tr").hide();
+
+            // Hiển thị các dòng có giá trị kích thước tương ứng
+            $("#data-table tbody tr").each(function () {
+                var tenColumn = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
+                if (tenColumn === tenMau || tenMau === "Tên Màu") {
+                    $(this).show();
+                }
+            });
+        });
     });
 </script>
 </body>
