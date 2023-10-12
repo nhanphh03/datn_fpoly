@@ -329,7 +329,7 @@
                         <h6>Quản Lý Giày</h6>
                     </div>
                     <div class="page-btn">
-                        <a th:href="@{'/manage/giay-chi-tiet/viewAdd/'+${idGiay}}" class="btn btn-added"
+                        <a th:href="@{'/manage/chi-tiet-giay/viewAdd/'+${idGiay}}" class="btn btn-added"
                         ><img
                                 src="/images/img/icons/plus.svg"
                                 alt="img"
@@ -359,24 +359,24 @@
                             </div>
                             <div class="wordset">
                                 <ul>
+<!--                                    <li>-->
+<!--                                        <a-->
+<!--                                                data-bs-toggle="tooltip"-->
+<!--                                                data-bs-placement="top"-->
+<!--                                                title="pdf"-->
+<!--                                        ><img src="/images/img/icons/pdf.svg" alt="img"-->
+<!--                                        /></a>-->
+<!--                                    </li>-->
+<!--                                    <li>-->
+<!--                                        <a-->
+<!--                                                data-bs-toggle="tooltip"-->
+<!--                                                data-bs-placement="top"-->
+<!--                                                title="excel"-->
+<!--                                        ><img src="/images/img/icons/excel.svg" alt="img"-->
+<!--                                        /></a>-->
+<!--                                    </li>-->
                                     <li>
-                                        <a
-                                                data-bs-toggle="tooltip"
-                                                data-bs-placement="top"
-                                                title="pdf"
-                                        ><img src="/images/img/icons/pdf.svg" alt="img"
-                                        /></a>
-                                    </li>
-                                    <li>
-                                        <a
-                                                data-bs-toggle="tooltip"
-                                                data-bs-placement="top"
-                                                title="excel"
-                                        ><img src="/images/img/icons/excel.svg" alt="img"
-                                        /></a>
-                                    </li>
-                                    <li>
-                                        <a
+                                        <a id="printButton"
                                                 data-bs-toggle="tooltip"
                                                 data-bs-placement="top"
                                                 title="print"
@@ -462,10 +462,11 @@
                                     <th>Trọng Lượng</th>
                                     <th>Năm Sản Xuất</th>
                                     <th>Năm Bảo Hành</th>
-                                    <th>Thời Gian Thêm</th>
-                                    <th>Thời Gian Sửa</th>
                                     <th>Trạng Thái</th>
                                     <th>Action</th>
+                                    <th>Thời Gian Thêm</th>
+                                    <th>Thời Gian Sửa</th>
+
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -479,23 +480,24 @@
                                     <td th:text="${items.trongLuong}"></td>
                                     <td th:text="${items.namSX}"></td>
                                     <td th:text="${items.namBH}"></td>
-                                    <td th:text="${items.tgThem}"></td>
-                                    <td th:text="${items.tgSua}"></td>
                                     <td>
                                         <p th:if="${items.trangThai == 1}">Hoạt Động</p>
                                         <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
                                     </td>
                                     <td>
-                                        <a class="me-3" th:href="@{'/manage/giay-chi-tiet/detail/' + ${items.idCTG}}">
+                                        <a class="me-2" th:href="@{'/manage/chi-tiet-giay/detail/' + ${items.idCTG}}">
                                             <img src="/images/img/icons/eye.svg" alt="img"/>
                                         </a>
-                                        <a class="me-3" th:href="@{'/manage/giay-chi-tiet/viewUpdate/' + ${items.idCTG}}">
+                                        <a class="me-2" th:href="@{'/manage/giay-chi-tiet/viewUpdate/' + ${items.idCTG}}">
                                             <img src="/images/img/icons/edit.svg" alt="img"/>
                                         </a>
-                                        <a class="me-3" th:href="@{'/manage/giay-chi-tiet/delete/' + ${items.idCTG}}">
+                                        <a class="me-2 delete-button" th:data-delete-url="@{'/manage/giay-chi-tiet/delete/' + ${items.idCTG}}">
                                             <img src="/images/img/icons/delete.svg" alt="img"/>
                                         </a>
                                     </td>
+                                    <td th:text="${items.tgThem}"></td>
+                                    <td th:text="${items.tgSua}"></td>
+
                                 </tr>
                                 </tbody>
                             </table>
@@ -524,5 +526,62 @@
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
 <script src="/js/script.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Lấy thẻ nút in bằng id
+        var printButton = document.getElementById("printButton");
+
+        // Thêm sự kiện click cho nút
+        printButton.addEventListener("click", function() {
+            // Gọi hàm in mặc định của trình duyệt
+            window.print();
+        });
+    });
+</script>
+<script>
+    // Bắt sự kiện click trên nút "Xóa"
+    document.querySelectorAll(".delete-button").forEach(function (button) {
+        button.addEventListener("click", function (event) {
+            event.preventDefault(); // Ngăn chặn thực hiện chuyển hướng mặc định
+            const deleteUrl = button.getAttribute("data-delete-url");
+            showConfirmationDialog(deleteUrl);
+        });
+    });
+
+    // Hàm hiển thị mã thông báo xác nhận
+    function showConfirmationDialog(deleteUrl) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!",
+            confirmButtonClass: "btn btn-primary",
+            cancelButtonClass: "btn btn-danger ml-1",
+            buttonsStyling: false
+        }).then(function (result) {
+            if (result.value) {
+                // Chuyển hướng đến URL xóa
+                window.location.href = deleteUrl;
+            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                // Xử lý khi người dùng hủy bỏ
+                Swal.fire({
+                    title: "Cancelled",
+                    text: "Your imaginary file is safe :)",
+                    type: "error",
+                    confirmButtonClass: "btn btn-success"
+                });
+            }
+        });
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $('#filter_inputs').slideToggle("slow");
+        $('#filter_search').toggleClass("setclose");
+    });
+</script>
 </body>
 </html>

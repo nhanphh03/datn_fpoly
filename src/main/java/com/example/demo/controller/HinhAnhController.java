@@ -1,12 +1,22 @@
 package com.example.demo.controller;
 
+import com.example.demo.config.ExcelExporterHinhAnh;
+import com.example.demo.config.ExcelExporterSize;
+import com.example.demo.config.PDFExporterHinhAnh;
+import com.example.demo.config.PDFExporterSizes;
 import com.example.demo.model.HinhAnh;
+import com.example.demo.model.Size;
 import com.example.demo.service.HinhAnhService;
+import com.lowagie.text.DocumentException;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RequestMapping("/manage")
@@ -78,5 +88,38 @@ public class HinhAnhController {
             hinhAnhService.save(hinhAnhDb);
         }
         return "redirect:/manage/hinh-anh";
+    }
+
+    @GetMapping("/hinhAnh/export/pdf")
+    public void exportToPDFHinhAnh(HttpServletResponse response) throws DocumentException, IOException {
+        response.setContentType("application/pdf");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=hinhAnh_" + currentDateTime + ".pdf";
+        response.setHeader(headerKey, headerValue);
+
+        List<HinhAnh> listHinhAnh = hinhAnhService.getAllHinhAnh();
+
+        PDFExporterHinhAnh exporter = new PDFExporterHinhAnh(listHinhAnh);
+        exporter.export(response);
+    }
+
+    @GetMapping("/hinhAnh/export/excel")
+    public void exportToExcelSize(HttpServletResponse response) throws IOException {
+        response.setContentType("application/octet-stream");
+        DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+        String currentDateTime = dateFormatter.format(new Date());
+
+        String headerKey = "Content-Disposition";
+        String headerValue = "attachment; filename=hinhAnh_" + currentDateTime + ".xlsx";
+        response.setHeader(headerKey, headerValue);
+
+        List<HinhAnh> lisHinhAnh = hinhAnhService.getAllHinhAnh();
+
+        ExcelExporterHinhAnh excelExporter = new ExcelExporterHinhAnh(lisHinhAnh);
+
+        excelExporter.export(response);
     }
 }
