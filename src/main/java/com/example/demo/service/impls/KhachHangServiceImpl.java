@@ -31,11 +31,10 @@ public class KhachHangServiceImpl implements KhachHangService {
     }
 
     @Override
-    public KhachHang addKhachHang(KhachHang khachHang) {
-        return khachHangRepository.save(khachHang);
     public List<KhachHang> getAllKhachHang() {
         return khachHangRepository.findAll();
     }
+
 
     @Override
     public void save(KhachHang khachHang) {
