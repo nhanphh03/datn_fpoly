@@ -250,11 +250,7 @@
                         <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="saleslist.html">Sales List</a></li>
-                            <li><a href="pos.html">POS</a></li>
-                            <li><a href="pos.html">New Sales</a></li>
-                            <li><a href="salesreturnlists.html">Sales Return List</a></li>
-                            <li><a href="createsalesreturns.html">New Sales Return</a></li>
+                            <li><a href="/ban-hang/hien-thi">Bán hàng</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -280,14 +276,9 @@
                         <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản Lý Khách Hàng</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="customerlist.html">Customer List</a></li>
-                            <li><a href="addcustomer.html">Add Customer </a></li>
-                            <li><a href="supplierlist.html">Supplier List</a></li>
-                            <li><a href="addsupplier.html">Add Supplier </a></li>
-                            <li><a href="userlist.html">User List</a></li>
-                            <li><a href="adduser.html">Add User</a></li>
-                            <li><a href="storelist.html">Store List</a></li>
-                            <li><a href="addstore.html">Add Store</a></li>
+                            <li><a href="/manage/khach-hang">Khách Hàng</a></li>
+                            <li><a href="/manage/dia-chi">Địa Chỉ </a></li>
+                            <li><a href="/manage/loai-khach-hang">Loại Khách Hàng</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -304,19 +295,13 @@
                         <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản Lý Nhân Viên</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="customerlist.html">Customer List</a></li>
-                            <li><a href="addcustomer.html">Add Customer </a></li>
-                            <li><a href="supplierlist.html">Supplier List</a></li>
-                            <li><a href="addsupplier.html">Add Supplier </a></li>
-                            <li><a href="userlist.html">User List</a></li>
-                            <li><a href="adduser.html">Add User</a></li>
-                            <li><a href="storelist.html">Store List</a></li>
-                            <li><a href="addstore.html">Add Store</a></li>
+                            <li><a href="/manage/chuc-vu">Chức Vụ</a></li>
+                            <li><a href="/manage/nhan-vien">Nhân Viên</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img" /><span>
+                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
                     Quản Lý Voucher</span
                         >
                             <span class="menu-arrow"></span
@@ -339,7 +324,8 @@
                     <h6>Quản Lý Giày</h6>
                 </div>
                 <div class="page-btn">
-                    <a href="/manage/giay/viewAdd" class="btn btn-added"><img src="/images/img/icons/plus.svg" alt="img" class="me-1"/>Thêm Giày</a>
+                    <a href="/manage/giay/viewAdd" class="btn btn-added"><img src="/images/img/icons/plus.svg" alt="img"
+                                                                              class="me-1"/>Thêm Giày</a>
                 </div>
                 <div class="page-btn">
                     <a href="/manage/giay-chi-tiet" class="btn btn-added">List Giày Chi Tiết</a>
@@ -367,25 +353,25 @@
                             <ul>
                                 <li>
                                     <a th:href="@{/manage/giay/export/pdf}"
-                                            data-bs-toggle="tooltip"
-                                            data-bs-placement="top"
-                                            title="pdf"
+                                       data-bs-toggle="tooltip"
+                                       data-bs-placement="top"
+                                       title="pdf"
                                     ><img src="/images/img/icons/pdf.svg" alt="img"
                                     /></a>
                                 </li>
                                 <li>
                                     <a th:href="@{/manage/giay/export/excel}"
-                                            data-bs-toggle="tooltip"
-                                            data-bs-placement="top"
-                                            title="excel"
+                                       data-bs-toggle="tooltip"
+                                       data-bs-placement="top"
+                                       title="excel"
                                     ><img src="/images/img/icons/excel.svg" alt="img"
                                     /></a>
                                 </li>
                                 <li>
                                     <a id="printButton"
-                                            data-bs-toggle="tooltip"
-                                            data-bs-placement="top"
-                                            title="print"
+                                       data-bs-toggle="tooltip"
+                                       data-bs-placement="top"
+                                       title="print"
                                     ><img src="/images/img/icons/printer.svg" alt="img"
                                     /></a>
                                 </li>
@@ -400,7 +386,7 @@
                                     <div class="row">
                                         <div class="col-lg-2 col-sm-6 col-12">
                                             <div class="form-group">
-                                                <select class="select">
+                                                <select class="select" id="giayFilterMa">
                                                     <option>Mã Giày</option>
                                                     <option th:each="loc : ${giay}" th:value="${loc.maGiay}"
                                                             th:text="${loc.maGiay}"></option>
@@ -409,26 +395,26 @@
                                         </div>
                                         <div class="col-lg-2 col-sm-6 col-12">
                                             <div class="form-group">
-                                                <select class="select">
+                                                <select class="select" id="giayFilterTen">
                                                     <option>Tên Giày</option>
                                                     <option th:each="loc : ${giay}" th:value="${loc.tenGiay}"
                                                             th:text="${loc.tenGiay}"></option>
                                                 </select>
                                             </div>
                                         </div>
-<!--                                        <div class="col-lg-2 col-sm-6 col-12">-->
-<!--                                            <div class="form-group">-->
-<!--                                                <select class="select">-->
-<!--                                                    <option>Trạng Thái</option>-->
-<!--                                                    <option th:each="loc : ${dsTrangThai.entrySet()}"-->
-<!--                                                            th:value="${loc.key}"-->
-<!--                                                            th:text="${loc.value}"></option>-->
-<!--                                                </select>-->
-<!--                                            </div>-->
-<!--                                        </div>-->
+                                        <!--                                        <div class="col-lg-2 col-sm-6 col-12">-->
+                                        <!--                                            <div class="form-group">-->
+                                        <!--                                                <select class="select">-->
+                                        <!--                                                    <option>Trạng Thái</option>-->
+                                        <!--                                                    <option th:each="loc : ${dsTrangThai.entrySet()}"-->
+                                        <!--                                                            th:value="${loc.key}"-->
+                                        <!--                                                            th:text="${loc.value}"></option>-->
+                                        <!--                                                </select>-->
+                                        <!--                                            </div>-->
+                                        <!--                                        </div>-->
                                         <div class="col-lg-2 col-sm-6 col-12">
                                             <div class="form-group">
-                                                <select class="select">
+                                                <select class="select" id="hangFilterTen">
                                                     <option>Hãng</option>
                                                     <option th:each="loc : ${hang}" th:value="${loc.idHang}"
                                                             th:text="${loc.tenHang}"></option>
@@ -437,9 +423,10 @@
                                         </div>
                                         <div class="col-lg-2 col-sm-6 col-12">
                                             <div class="form-group">
-                                                <select class="select">
+                                                <select class="select" id="chatLieuFilterTen">
                                                     <option>Chất Liệu</option>
-                                                    <option th:each="loc : ${chatLieu}" th:value="${loc.idChatLieu}"
+                                                    <option th:each="loc : ${chatLieu}"
+                                                            th:value="${loc.idChatLieu}"
                                                             th:text="${loc.tenChatLieu}"></option>
                                                 </select>
                                             </div>
@@ -460,15 +447,15 @@
                     </div>
 
                     <div class="table-responsive">
-                        <table class="table datanew">
+                        <table class="table datanew" id="data-table">
                             <thead>
                             <tr>
-<!--                                <th>-->
-<!--                                    <label class="checkboxs">-->
-<!--                                        <input type="checkbox" id="select-all"/>-->
-<!--                                        <span class="checkmarks"></span>-->
-<!--                                    </label>-->
-<!--                                </th>-->
+                                <th>
+                                    <label class="checkboxs">
+                                        <input type="checkbox" id="select-all"/>
+                                        <span class="checkmarks"></span>
+                                    </label>
+                                </th>
                                 <th>Mã Giày</th>
                                 <th>Tên Giày</th>
                                 <th>Trạng Thái</th>
@@ -482,12 +469,12 @@
                             </thead>
                             <tbody>
                             <tr th:each="items : ${giay}">
-<!--                                <td>-->
-<!--                                    <label class="checkboxs">-->
-<!--                                        <input type="checkbox"/>-->
-<!--                                        <span class="checkmarks"></span>-->
-<!--                                    </label>-->
-<!--                                </td>-->
+                                <td>
+                                    <label class="checkboxs">
+                                        <input type="checkbox"/>
+                                        <span class="checkmarks"></span>
+                                    </label>
+                                </td>
                                 <td th:text="${items.maGiay}"></td>
                                 <td th:text="${items.tenGiay}"></td>
                                 <td>
@@ -503,7 +490,8 @@
                                     <a class="me-2" th:href="@{'/manage/giay/viewUpdate/' + ${items.idGiay}}">
                                         <img src="/images/img/icons/edit.svg" alt="img"/>
                                     </a>
-                                    <a class="me-2 delete-button" th:data-delete-url="@{'/manage/giay/delete/' + ${items.idGiay}}">
+                                    <a class="me-2 delete-button"
+                                       th:data-delete-url="@{'/manage/giay/delete/' + ${items.idGiay}}">
                                         <img src="/images/img/icons/delete.svg" alt="img"/>
                                     </a>
                                 </td>
@@ -538,12 +526,12 @@
 
 <script src="/js/script.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         // Lấy thẻ nút in bằng id
         var printButton = document.getElementById("printButton");
 
         // Thêm sự kiện click cho nút
-        printButton.addEventListener("click", function() {
+        printButton.addEventListener("click", function () {
             // Gọi hàm in mặc định của trình duyệt
             window.print();
         });
@@ -592,6 +580,76 @@
     $(document).ready(function () {
         $('#filter_inputs').slideToggle("slow");
         $('#filter_search').toggleClass("setclose");
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        // Lắng nghe sự kiện thay đổi trong dropdown kích thước
+        $("#giayFilterMa").change(function () {
+            var maGiay = $(this).val();
+
+            // Ẩn tất cả các dòng trong bảng
+            $("#data-table tbody tr").hide();
+
+            // Hiển thị các dòng có giá trị kích thước tương ứng
+            $("#data-table tbody tr").each(function () {
+                var ma = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
+                if (ma === maGiay || maGiay === "Mã Giày") {
+                    $(this).show();
+                }
+            });
+            console.log(maGiay);
+
+        });
+        //
+        $("#giayFilterTen").change(function () {
+            var tenGiay = $(this).val();
+
+            // Ẩn tất cả các dòng trong bảng
+            $("#data-table tbody tr").hide();
+
+            // Hiển thị các dòng có giá trị kích thước tương ứng
+            $("#data-table tbody tr").each(function () {
+                var ten = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
+                if (ten === tenGiay || tenGiay === "Tên Giày") {
+                    $(this).show();
+                }
+            });
+            console.log(tenGiay);
+
+        });
+        //
+        $("#hangFilterTen").change(function () {
+            var hangTen = $(this).find(":selected").text();
+            // Ẩn tất cả các dòng trong bảng
+            $("#data-table tbody tr").hide();
+
+            // Hiển thị các dòng có giá trị kích thước tương ứng
+            $("#data-table tbody tr").each(function () {
+                var hang = $(this).find("td:eq(4)").text(); // Vị trí cột chứa giá trị kích thước
+                if (hang === hangTen || hangTen === "Hãng") {
+                    $(this).show();
+                }
+            });
+            console.log(hangTen);
+        });
+        //
+        $("#chatLieuFilterTen").change(function () {
+            var chatLieuTen = $(this).find(":selected").text();
+
+            // Ẩn tất cả các dòng trong bảng
+            $("#data-table tbody tr").hide();
+
+            // Hiển thị các dòng có giá trị kích thước tương ứng
+            $("#data-table tbody tr").each(function () {
+                var chatLieu = $(this).find("td:eq(5)").text(); // Vị trí cột chứa giá trị kích thước
+                if (chatLieu === chatLieuTen || chatLieuTen === "Chất Liệu") {
+                    $(this).show();
+                }
+            });
+            console.log(chatLieuTen);
+        });
+
     });
 </script>
 </body>

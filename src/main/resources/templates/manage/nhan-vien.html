@@ -239,18 +239,22 @@
                             <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="/manage/chat-lieu">Chất Liệu</a></li>
-                            <li><a href="/manage/giay">Giày</a></li>
+                            <li><a href="/manage/giay" class="active">Giày</a></li>
                             <li><a href="/manage/hang">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
                             <li><a href="/manage/mau-sac">Màu Sắc</a></li>
-                            <li><a href="/manage/size" class="active">Size</a></li>
+                            <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="/ban-hang/hien-thi">Bán hàng</a></li>
+                            <li><a href="saleslist.html">Sales List</a></li>
+                            <li><a href="pos.html">POS</a></li>
+                            <li><a href="pos.html">New Sales</a></li>
+                            <li><a href="salesreturnlists.html">Sales Return List</a></li>
+                            <li><a href="createsalesreturns.html">New Sales Return</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -316,59 +320,232 @@
             </div>
         </div>
     </div>
-</div>
-<form th:object="${size}" method="post" th:action="@{'/manage/size/viewUpdate/' + ${size.idSize}}">
     <div class="page-wrapper">
         <div class="content">
             <div class="page-header">
                 <div class="page-title">
-                    <h4>Update Size </h4>
-                    <h6>Quản Lý Size</h6>
+                    <h4>List Nhân Viên</h4>
+                    <h6>Quản Lý Nhân Viên</h6>
+                </div>
+                <div class="page-btn">
+                    <a href="/manage/nhan-vien/viewAdd" class="btn btn-added"><img src="/images/img/icons/plus.svg" alt="img" class="me-1"/>Thêm Nhân Viên</a>
                 </div>
             </div>
             <div class="card">
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label>Mã Size</label>
-                                <input type="text" th:field="*{maSize}">
+                    <div class="table-top">
+                        <div class="search-set">
+                            <div class="search-path">
+                                <a class="btn btn-filter" id="filter_search">
+                                    <img src="/images/img/icons/filter.svg" alt="img"/>
+                                    <span
+                                    ><img src="/images/img/icons/closes.svg" alt="img"
+                                    /></span>
+                                </a>
+                            </div>
+                            <div class="search-input">
+                                <a class="btn btn-searchset"
+                                ><img src="/images/img/icons/search-white.svg" alt="img"
+                                /></a>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label>Tên Size</label>
-                                <input type="text" th:field="*{soSize}">
+                        <div class="wordset">
+                            <ul>
+                                <li>
+                                    <a
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            title="pdf"
+                                    ><img src="/images/img/icons/pdf.svg" alt="img"
+                                    /></a>
+                                </li>
+                                <li>
+                                    <a
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            title="excel"
+                                    ><img src="/images/img/icons/excel.svg" alt="img"
+                                    /></a>
+                                </li>
+                                <li>
+                                    <a
+                                            data-bs-toggle="tooltip"
+                                            data-bs-placement="top"
+                                            title="print"
+                                    ><img src="/images/img/icons/printer.svg" alt="img"
+                                    /></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="card mb-0" id="filter_inputs">
+                        <div class="card-body pb-0">
+                            <div class="row">
+                                <div class="col-lg-12 col-sm-12">
+                                    <div class="row">
+                                        <div class="col-lg-2 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <select class="select">
+                                                    <option>Mã Nhân Viên</option>
+                                                    <option th:each="loc : ${nhanVien}" th:value="${loc.maNV}"
+                                                            th:text="${loc.maNV}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <select class="select">
+                                                    <option>Tên Nhân Viên</option>
+                                                    <option th:each="loc : ${nhanVien}" th:value="${loc.hoTenNV}"
+                                                            th:text="${loc.hoTenNV}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <select class="select">
+                                                    <option>Giới Tính</option>
+                                                    <option th:each="loc : ${nhanVien}" th:value="${loc.gioiTinh}"
+                                                            th:text="${loc.gioiTinh}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <select class="select">
+                                                    <option>Ngày Sinh</option>
+                                                    <option th:each="loc : ${nhanVien}" th:value="${loc.ngaySinh}"
+                                                            th:text="${loc.ngaySinh}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <select class="select">
+                                                    <option>SDT NV</option>
+                                                    <option th:each="loc : ${nhanVien}" th:value="${loc.sdtNV}"
+                                                            th:text="${loc.sdtNV}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <select class="select">
+                                                    <option>Ảnh NV</option>
+                                                    <option th:each="loc : ${nhanVien}" th:value="${loc.AnhNV}"
+                                                            th:text="${loc.AnhNV}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <select class="select">
+                                                    <option>Email NV</option>
+                                                    <option th:each="loc : ${nhanVien}" th:value="${loc.emailNV}"
+                                                            th:text="${loc.emailNV}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <select class="select">
+                                                    <option>Địa Chỉ</option>
+                                                    <option th:each="loc : ${nhanVien}" th:value="${loc.diaChi}"
+                                                            th:text="${loc.diaChi}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <select class="select">
+                                                    <option>CCCDNV</option>
+                                                    <option th:each="loc : ${nhanVien}" th:value="${loc.CCCDNV}"
+                                                            th:text="${loc.CCCDNV}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <select class="select">
+                                                    <option>Trạng Thái</option>
+                                                    <option th:each="loc : ${dsTrangThai.entrySet()}"
+                                                            th:value="${loc.key}"
+                                                            th:text="${loc.value}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <select class="select">
+                                                    <option>Loại Khách Hàng</option>
+                                                    <option th:each="loc : ${loaiKhachHang}" th:value="${loc.idLKH}"
+                                                            th:text="${loc.tenLKH}"></option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-1 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <a class="btn btn-filters ms-auto"
+                                                ><img
+                                                        src="/images/img/icons/search-whites.svg"
+                                                        alt="img"
+                                                /></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-<!--                        <div class="col-lg-6 col-sm-6 col-12">-->
-<!--                            <div class="form-group" >-->
-<!--                                <label>Thời Gian Thêm</label>-->
-<!--                                <input disabled="true" type="text" id="tgThem"-->
-<!--                                       name="tgThem"-->
-<!--                                       th:value="${currentTime}"-->
-<!--                                       readonly="readonly" th:field="*{tgThem}"/>-->
-<!--                            </div>-->
-<!--                        </div>-->
-                        <div class="col-lg-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label>Trạng Thái</label>
-                                <select class="select" th:field="*{trangThai}">
-                                    <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                            th:text="${loc.value}"></option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <button type="submit" class="btn btn-submit me-2">Submit</button>
-                            <a href="/manage/size" class="btn btn-cancel">Cancel</a>
-                        </div>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table datanew">
+                            <thead>
+                            <tr>
+                                <th>Mã Nhân Viên</th>
+                                <th>Tên Giày</th>
+                                <th>Trạng Thái</th>
+                                <th>Hãng</th>
+                                <th>Chất Liệu</th>
+                                <th>Thời Gian Thêm</th>
+                                <th>Thời Gian Sửa</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="items : ${giay}">
+                                <td th:text="${items.maGiay}"></td>
+                                <td th:text="${items.tenGiay}"></td>
+                                <td>
+                                    <p th:if="${items.trangThai == 1}">Hoạt Động</p>
+                                    <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
+                                </td>
+                                <td th:text="${items.hang.tenHang}"></td>
+                                <td th:text="${items.chatLieu.tenChatLieu}"></td>
+                                <td th:text="${items.tgThem}"></td>
+                                <td th:text="${items.tgSua}"></td>
+                                <td>
+                                    <a class="me-3" th:href="@{'/manage/giay/detail/' + ${items.idGiay}}">
+                                        <img src="/images/img/icons/eye.svg" alt="img"/>
+                                    </a>
+                                    <a class="me-3" th:href="@{'/manage/giay/viewUpdate/' + ${items.idGiay}}">
+                                        <img src="/images/img/icons/edit.svg" alt="img"/>
+                                    </a>
+                                    <a class="" th:href="@{'/manage/giay/delete/' + ${items.idGiay}}">
+                                        <img src="/images/img/icons/delete.svg" alt="img"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</form>
+</div>
+
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
