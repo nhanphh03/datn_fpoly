@@ -46,7 +46,7 @@ public class SizeServiceImpl implements SizeService {
             return sizeRepository.findAll();
         }
         // Thực hiện truy vấn hoặc logic lọc dữ liệu dựa trên selectedSize
-        return sizeRepository.findBySoSizeAndMaSize(selectedSize, maSize);
+        return sizeRepository.findBySoSizeOrMaSize(selectedSize, maSize);
     }
 
 }
