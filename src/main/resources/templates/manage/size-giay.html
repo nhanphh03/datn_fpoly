@@ -382,7 +382,7 @@
                                 <div class="row">
                                     <div class="col-lg-2 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <select class="select" name="maSize">
+                                            <select class="select" name="maSize" id="sizeFilterMa">
                                                 <option value="Mã Size">Mã Size</option>
                                                 <option th:each="loc : ${sizeAll}" th:value="${loc.maSize}"
                                                         th:text="${loc.maSize}"></option>
@@ -391,8 +391,8 @@
                                     </div>
                                     <div class="col-lg-2 col-sm-6 col-12">
                                         <div class="form-group">
-                                            <select class="select" name="selectedSize">
-                                                <option value="">Size</option>
+                                            <select class="select" name="selectedSize" id="sizeFilter">
+                                                <option>Size</option>
                                                 <option th:each="loc : ${sizeAll}" th:value="${loc.soSize}"
                                                         th:text="${loc.soSize}"></option>
                                             </select>
@@ -529,32 +529,32 @@
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
 <script src="/js/script.js"></script>
-<script>
-    // Lấy thẻ select bằng id
-    var sizeFilter = document.getElementById("sizeFilter");
+<!--<script>-->
+<!--    // Lấy thẻ select bằng id-->
+<!--    var sizeFilter = document.getElementById("sizeFilter");-->
 
-    // Thêm sự kiện 'change' cho thẻ select
-    sizeFilter.addEventListener("change", function () {
-        // Lấy giá trị đã chọn từ combobox
-        var selectedSize = sizeFilter.value;
+<!--    // Thêm sự kiện 'change' cho thẻ select-->
+<!--    sizeFilter.addEventListener("change", function () {-->
+<!--        // Lấy giá trị đã chọn từ combobox-->
+<!--        var selectedSize = sizeFilter.value;-->
 
-        // Lọc và hiển thị dữ liệu dựa trên giá trị đã chọn
-        var tableRows = document.querySelectorAll(".datanew tbody tr");
+<!--        // Lọc và hiển thị dữ liệu dựa trên giá trị đã chọn-->
+<!--        var tableRows = document.querySelectorAll(".datanew tbody tr");-->
 
-        for (var i = 0; i < tableRows.length; i++) {
-            var row = tableRows[i];
-            var sizeCell = row.querySelector("td:nth-child(3)"); // Giả sử cột chứa size là cột thứ 3
+<!--        for (var i = 0; i < tableRows.length; i++) {-->
+<!--            var row = tableRows[i];-->
+<!--            var sizeCell = row.querySelector("td:nth-child(3)"); // Giả sử cột chứa size là cột thứ 3-->
 
-            if (selectedSize === "Size" || sizeCell.textContent === selectedSize) {
-                // Hiển thị dòng nếu giá trị đã chọn là "Size" hoặc trùng với giá trị size của dòng
-                row.style.display = "";
-            } else {
-                // Ẩn dòng nếu không trùng khớp
-                row.style.display = "none";
-            }
-        }
-    });
-</script>
+<!--            if (selectedSize === "Size" || sizeCell.textContent === selectedSize) {-->
+<!--                // Hiển thị dòng nếu giá trị đã chọn là "Size" hoặc trùng với giá trị size của dòng-->
+<!--                row.style.display = "";-->
+<!--            } else {-->
+<!--                // Ẩn dòng nếu không trùng khớp-->
+<!--                row.style.display = "none";-->
+<!--            }-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Lấy thẻ nút in bằng id
@@ -580,6 +580,21 @@
             $("#data-table tbody tr").each(function () {
                 var sizeColumn = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
                 if (sizeColumn === selectedSize || selectedSize === "Size") {
+                    $(this).show();
+                }
+            });
+        });
+        //
+        $("#sizeFilterMa").change(function () {
+            var selectedSizeMa = $(this).val();
+
+            // Ẩn tất cả các dòng trong bảng
+            $("#data-table tbody tr").hide();
+
+            // Hiển thị các dòng có giá trị kích thước tương ứng
+            $("#data-table tbody tr").each(function () {
+                var sizeColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
+                if (sizeColumn === selectedSizeMa || selectedSizeMa === "Mã Size") {
                     $(this).show();
                 }
             });
