@@ -33,4 +33,12 @@ public class ChatLieuServiceImpl implements ChatLieuService {
     public ChatLieu getByIdChatLieu(UUID id) {
         return chatLieuRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public List<ChatLieu> fillterChatLieu(String maCL, String tenCL) {
+        if("Mã Chất Liệu".equals(maCL) && "Tên Chất Liệu".equals(tenCL)){
+            return chatLieuRepository.findAll();
+        }
+        return chatLieuRepository.findByMaChatLieuOrTenChatLieu(maCL, tenCL);
+    }
 }

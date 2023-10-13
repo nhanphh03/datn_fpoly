@@ -416,4 +416,19 @@ public class GiayChiTietController {
 
         excelExporter.export(response);
     }
+
+    @GetMapping("/giayct/filter")
+    public String searchGiay(Model model, @RequestParam(name = "searchTerm") String searchTerm) {
+        List<ChiTietGiay> filteredGiayCTs;
+        if ("Giày".equals(searchTerm) && "Size".equals(searchTerm) && "Màu Sắc".equals(searchTerm)) {
+            // Nếu người dùng chọn "Tất cả", hiển thị tất cả dữ liệu
+            filteredGiayCTs = giayChiTietService.getAllChiTietGiay();
+        } else {
+            // Thực hiện lọc dữ liệu dựa trên selectedSize
+            filteredGiayCTs = giayChiTietService.fillterGCT(searchTerm);
+        }
+        model.addAttribute("giayCT", filteredGiayCTs);
+        model.addAttribute("giayCTAll", giayChiTietService.getAllChiTietGiay());
+        return "manage/giay";
+    }
 }

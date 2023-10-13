@@ -118,4 +118,23 @@ public class ChatLieuController {
 
         excelExporter.export(response);
     }
+
+    @GetMapping("/chatLieu/filter")
+    public String filterData(Model model,
+                             @RequestParam(value = "maCL", required = false) String maCL,
+                             @RequestParam(value = "tenCL", required = false) String tenCL) {
+        // Thực hiện lọc dữ liệu dựa trên selectedSize (và trạng thái nếu cần)
+        List<ChatLieu> filteredChatLieus;
+        if ("Mã Chất Liệu".equals(maCL) && "Tên Chất Liệu".equals(tenCL)) {
+            // Nếu người dùng chọn "Tất cả", hiển thị tất cả dữ liệu
+            filteredChatLieus = chatLieuService.getAllChatLieu();
+        } else {
+            // Thực hiện lọc dữ liệu dựa trên selectedSize
+            filteredChatLieus = chatLieuService.fillterChatLieu(maCL, tenCL);
+        }
+        model.addAttribute("chatLieu", filteredChatLieus);
+        model.addAttribute("chatLieuAll", chatLieuService.getAllChatLieu());
+
+        return "manage/chat-lieu"; // Trả về mẫu HTML chứa bảng dữ liệu sau khi lọc
+    }
 }

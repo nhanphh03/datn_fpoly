@@ -118,4 +118,23 @@ public class HangController {
 
         excelExporter.export(response);
     }
+
+    @GetMapping("/hang/filter")
+    public String filterData(Model model,
+                             @RequestParam(value = "maHang", required = false) String maHang,
+                             @RequestParam(value = "tenHang", required = false) String tenHang) {
+        // Thực hiện lọc dữ liệu dựa trên selectedSize (và trạng thái nếu cần)
+        List<Hang> filteredHangs;
+        if ("Mã Hãng".equals(maHang) && "Tên Hãng".equals(tenHang)) {
+            // Nếu người dùng chọn "Tất cả", hiển thị tất cả dữ liệu
+            filteredHangs = hangService.getALlHang();
+        } else {
+            // Thực hiện lọc dữ liệu dựa trên selectedSize
+            filteredHangs = hangService.fillterHang(maHang, tenHang);
+        }
+        model.addAttribute("hang", filteredHangs);
+        model.addAttribute("hangAll", hangService.getALlHang());
+
+        return "manage/hang"; // Trả về mẫu HTML chứa bảng dữ liệu sau khi lọc
+    }
 }

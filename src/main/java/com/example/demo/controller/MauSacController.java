@@ -118,4 +118,23 @@ public class MauSacController {
 
         excelExporter.export(response);
     }
+
+    @GetMapping("/mauSac/filter")
+    public String filterData(Model model,
+                             @RequestParam(value = "maMau", required = false) String maMau,
+                             @RequestParam(value = "tenMau", required = false) String tenMau) {
+        // Thực hiện lọc dữ liệu dựa trên selectedSize (và trạng thái nếu cần)
+        List<MauSac> filteredMauSacs;
+        if ("Mã Màu".equals(maMau) && "Tên Màu".equals(tenMau)) {
+            // Nếu người dùng chọn "Tất cả", hiển thị tất cả dữ liệu
+            filteredMauSacs = mauSacService.getALlMauSac();
+        } else {
+            // Thực hiện lọc dữ liệu dựa trên selectedSize
+            filteredMauSacs = mauSacService.filterMauSac(maMau, tenMau);
+        }
+        model.addAttribute("mauSac", filteredMauSacs);
+        model.addAttribute("mauSacAll", mauSacService.getALlMauSac());
+
+        return "manage/mau-sac"; // Trả về mẫu HTML chứa bảng dữ liệu sau khi lọc
+    }
 }

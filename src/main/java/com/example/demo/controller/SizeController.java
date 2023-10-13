@@ -122,7 +122,7 @@ public class SizeController {
         excelExporter.export(response);
     }
 
-    @GetMapping("/filter")
+    @GetMapping("/size/filter")
     public String filterData(Model model,
                              @RequestParam(value = "selectedSize", required = false) Integer selectedSize,
                              @RequestParam(value = "maSize", required = false) String maSize) {

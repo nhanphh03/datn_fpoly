@@ -16,4 +16,6 @@ public interface GiayService {
     public Giay getByIdGiay(UUID id);
 
     public Giay getByName(String name);
+
+    public List<Giay> fillterGiay(String searchTerm);
 }
