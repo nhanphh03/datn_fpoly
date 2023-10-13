@@ -110,8 +110,10 @@ public class BanHangController {
 
     @GetMapping("/search")
     public String search(@RequestParam(value = "keyword", required = false) String keyword,Model model){
+
         List<GiayViewModel> list = giayViewModelService.getAll("Nike Jordan");
         model.addAttribute("listSanPham",giayViewModelService.getAll("Nike Jordan"));
+
         for (GiayViewModel giayViewModel:list){
             System.out.println(giayViewModel.getMauSac());
         }
