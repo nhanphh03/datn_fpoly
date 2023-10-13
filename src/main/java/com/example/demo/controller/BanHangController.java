@@ -5,9 +5,11 @@ import com.example.demo.model.HoaDon;
 import com.example.demo.service.CTGViewModelService;
 import com.example.demo.service.CreateBarCode;
 import com.example.demo.service.GiayChiTietService;
+import com.example.demo.service.GiayViewModelService;
 import com.example.demo.service.HangService;
 import com.example.demo.service.HoaDonService;
 import com.example.demo.viewModel.CTGViewModel;
+import com.example.demo.viewModel.GiayViewModel;
 import com.google.zxing.BinaryBitmap;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.MultiFormatReader;
@@ -63,6 +65,9 @@ public class BanHangController {
     @Autowired
     private CreateBarCode createBarCode;
 
+    @Autowired
+    private GiayViewModelService giayViewModelService;
+
     @GetMapping("/offline")
     public String offline(){
         return "manage/activities";
@@ -71,11 +76,7 @@ public class BanHangController {
 
     @GetMapping("/hien-thi")
     public String hienThi(Model model){
-
-        List<CTGViewModel> listCTGViewModel = ctgViewModelService.getAll();
-        model.addAttribute("listSanPham",listCTGViewModel);
         model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
-//        model.addAttribute("listHang", hangService.getALlHang());
         return "offline/index";
     }
 
@@ -95,8 +96,6 @@ public class BanHangController {
         } else {
             session.setAttribute("message", "Quá số lượng");
         }
-        List<CTGViewModel> listCTGViewModel = ctgViewModelService.getAll();
-        model.addAttribute("listSanPham",listCTGViewModel);
         model.addAttribute("listHoaDon", listHD);
         return "redirect:/ban-hang/hien-thi";
     }
@@ -109,7 +108,16 @@ public class BanHangController {
         return "redirect:/ban-hang/hien-thi";
     }
 
-
+    @GetMapping("/search")
+    public String search(@RequestParam(value = "keyword", required = false) String keyword,Model model){
+        List<GiayViewModel> list = giayViewModelService.getAll("Nike Jordan");
+        model.addAttribute("listSanPham",giayViewModelService.getAll("Nike Jordan"));
+        for (GiayViewModel giayViewModel:list){
+            System.out.println(giayViewModel.getMauSac());
+        }
+        model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
+        return "offline/index";
+    }
 
     @GetMapping("/chon-size/{idChiTietGiay}")
     public String chonSize(@PathVariable(value = "idChiTietGiay") UUID idChiTietGiay, Model model){
