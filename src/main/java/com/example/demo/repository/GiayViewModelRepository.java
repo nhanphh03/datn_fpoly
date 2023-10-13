@@ -14,7 +14,7 @@ public interface GiayViewModelRepository extends JpaRepository<GiayViewModel, UU
 
     @Query(value = "SELECT  ctg.id_giay, " +
             "g.ten_giay, " +
-            "SUM(ctg.so_luong) AS \"sl_ton\", " +
+            "SUM(ctg.so_luong) AS sl_ton, " +
             "ctg.gia_ban, " +
             "a.url1, " +
             "ms.ten_mau " +
