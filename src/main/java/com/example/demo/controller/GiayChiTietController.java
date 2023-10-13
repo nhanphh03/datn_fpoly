@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -38,11 +40,16 @@ public class GiayChiTietController {
     @Autowired
     private HinhAnhService hinhAnhService;
     @Autowired
+    private HttpServletRequest httpServletRequest;
+    @Autowired
+    private CreateBarCode createBarCode;
+
     private HangService hangService;
     @Autowired
     private ChatLieuService chatLieuService;
     @Autowired
     private HttpSession httpSession;
+
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -384,6 +391,19 @@ public class GiayChiTietController {
         return "redirect:/manage/giay-chi-tiet";
     }
 
+    @GetMapping("/barCodeTest")
+    public ResponseEntity<?> createBarCode() {
+        List<ChiTietGiay> chiTietGiays = giayChiTietService.getAllChiTietGiay();
+        if (chiTietGiays != null && !chiTietGiays.isEmpty()) {
+            for (ChiTietGiay chiTietGiay : chiTietGiays) {
+                createBarCode.saveBarcodeImage(chiTietGiay, 300, 200);
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+
+        return ResponseEntity.ok("Tải ảnh thành công");
+    }
     @GetMapping("/giayCT/export/pdf")
     public void exportToPDFCTGiay(HttpServletResponse response) throws DocumentException, IOException {
         response.setContentType("application/pdf");
@@ -415,6 +435,7 @@ public class GiayChiTietController {
         ExcelExporterCTGiay excelExporter = new ExcelExporterCTGiay(listCTGiay);
 
         excelExporter.export(response);
+
     }
 
     @GetMapping("/giayct/filter")

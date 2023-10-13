@@ -39,6 +39,7 @@ public class KhachHangServiceImpl implements KhachHangService {
         return khachHangRepository.findAll();
     }
 
+
     @Override
     public void save(KhachHang khachHang) {
         khachHangRepository.save(khachHang);

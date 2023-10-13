@@ -56,4 +56,7 @@ public class DiaChiKH {
 
     @Column(name = "tg_Sua")
     private Date tgSua;
+
+    @Column(name = "mien")
+    private String mien;
 }

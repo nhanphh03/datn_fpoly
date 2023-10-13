@@ -238,20 +238,82 @@
                 <div class="col-lg-8 col-sm-12 tabs_wrapper">
                     <div class="page-header ">
                         <div class="page-title">
-                            <h4>Categories</h4>
+                            <h4>Bán hàng tại quầy</h4>
                             <h6>Manage your purchases</h6>
                         </div>
                     </div>
-                    <ul class=" tabs owl-carousel owl-theme owl-product  border-0 ">
-                        <th:block th:each="listHang : ${listHang}">
-                            <li th:id="${listHang.tenHang}">
-                                <div class="product-details ">
-                                    <img th:src="@{'/images/logoBrands/'+${listHang.logoHang} +''}" style=" width: auto; height: auto" alt="img">
-                                    <h6>[[${listHang.tenHang}]]</h6>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-top">
+                                <form method="get" action="/ban-hang/search">
+                                    <div class="search-set">
+                                        <div class="search-path">
+                                            <a class="btn btn-filter" id="filter_search">
+                                                <img src="/images/img/icons/filter.svg" alt="img">
+                                                <span><img src="/images/img/icons/closes.svg" alt="img"></span>
+                                            </a>
+                                        </div>
+                                        <div>
+                                            <button class="btn btn-searchset" type="submit"><img src="/images/img/icons/search-white.svg"
+                                                                              alt="img" ></button>
+                                            <div >
+                                                <input
+                                                    type="search" class="form-control form-control-sm" name="keyword"
+                                                    placeholder="Search..." aria-controls="DataTables_Table_0">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <div class="wordset">
+                                    <ul>
+                                        <li>
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
+                                                    src="/images/img/icons/pdf.svg" alt="img"></a>
+                                        </li>
+                                        <li>
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
+                                                    src="/images/img/icons/excel.svg" alt="img"></a>
+                                        </li>
+                                        <li>
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
+                                                    src="/images/img/icons/printer.svg" alt="img"></a>
+                                        </li>
+                                    </ul>
                                 </div>
-                            </li>
-                        </th:block>
-                    </ul>
+                            </div>
+                            <div class="card" id="filter_inputs">
+                                <div class="card-body pb-0">
+                                    <div class="row">
+                                        <div class="col-lg-5 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <select class="select" id="sizeFilter">
+                                                    <option>Size</option>
+                                                    <!--                                                <option th:each="loc : ${size}" th:value="${loc.soSize}"-->
+                                                    <!--                                                        th:text="${loc.soSize}"></option>-->
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-5 col-sm-6 col-12">
+                                            <div class="form-group">
+                                                <select class="select">
+                                                    <option>Trạng Thái</option>
+                                                    <!--                                                <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+                                                    <!--                                                        th:text="${loc.value}"></option>-->
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-2 col-sm-6 col-12 ms-auto">
+                                            <div class="form-group">
+                                                <button type="submit" class="btn btn-filters ms-auto"><img
+                                                        src="/images/img/icons/search-whites.svg"
+                                                        alt="img"></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="tabs_container">
                         <div class="row">
                             <th:block th:each="product : ${listSanPham}">
@@ -259,18 +321,20 @@
                                     <div class="tab_content active">
                                         <div class="productset flex-fill active">
                                             <div class="productsetimg">
-                                                <img th:src="@{'/images/imgsProducts/'+ ${product.hinhAnh}}" alt="img">
-                                                <h6>[[${product.slTon}]]</h6>
+                                                <img th:src="@{'/images/imgsProducts/'+ ${product.hinhAnh}}"
+                                                     alt="img">
+                                                <h6>[[${product.soLuong}]]</h6>
                                                 <div class="check-product">
                                                     <i class="fa fa-check"></i>
                                                 </div>
                                             </div>
                                             <div class="productsetcontent">
-                                                <h5>[[${product.soLuongDaBan}]] sold</h5>
-                                                <h4>[[${product.tenGiay}]]</h4>
-                                                <h6>[[${product.minPrice}]]</h6>
-                                                <a th:href="@{'/mua-hang/chon-size/' + ${product.idChiTietGiay} }"
-                                                   class="btn btn-outline-warning m-3" data-bs-toggle="modal" data-bs-target="#chonSize">
+                                                <h3>[[${product.tenGiay}]]</h3>
+                                                <h3 th:text="${#numbers.formatDecimal(product.giaBan, 0, 0)+ '$'}"></h3>
+                                                <h4 th:text="${product.mauSac}"></h4>
+                                                <a th:href="@{'/mua-hang/chon-size/' + ${product.idGiay} }"
+                                                   class="btn btn-outline-warning m-3" data-bs-toggle="modal"
+                                                   data-bs-target="#chonSize">
                                                     Chọn</a>
                                             </div>
                                         </div>
@@ -304,7 +368,7 @@
                                             <li class="nav-item">
                                                 <label class="text-center ms-2">
                                                     <a class="btn btn-outline-dark"
-                                                       th:href="@{'/ban-hang/cart/hoadon/' + ${items.getIdHD()}}"
+                                                       th:href="@{'/ban-hang/cart/hoadon/'+ ${items.getIdHD()}}"
                                                        th:text="${items.maHD}">
                                                     </a>
                                                 </label>
@@ -321,7 +385,8 @@
                                             src="/images/img/icons/delete-2.svg" alt="img"></a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false"
+                                    <a href="javascript:void(0);" data-bs-toggle="dropdown"
+                                       aria-expanded="false"
                                        class="dropset">
                                         <img src="/images/img/icons/ellipise1.svg" alt="img">
                                     </a>
@@ -392,19 +457,23 @@
                                             </div>
                                             <div class="productcontet">
                                                 <h4>Pineapple
-                                                    <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"
-                                                       data-bs-target="#edit"><img src="/images/img/icons/edit-5.svg"
-                                                                                   alt="img"></a>
+                                                    <a href="javascript:void(0);" class="ms-2"
+                                                       data-bs-toggle="modal"
+                                                       data-bs-target="#edit"><img
+                                                            src="/images/img/icons/edit-5.svg"
+                                                            alt="img"></a>
                                                 </h4>
                                                 <div class="productlinkset">
                                                     <h5>PT001</h5>
                                                 </div>
                                                 <div class="increment-decrement">
                                                     <div class="input-groups">
-                                                        <input type="button" value="-" class="button-minus dec button">
+                                                        <input type="button" value="-"
+                                                               class="button-minus dec button">
                                                         <input type="text" name="child" value="0"
                                                                class="quantity-field">
-                                                        <input type="button" value="+" class="button-plus inc button ">
+                                                        <input type="button" value="+"
+                                                               class="button-plus inc button ">
                                                     </div>
                                                 </div>
                                             </div>
@@ -422,19 +491,23 @@
                                             </div>
                                             <div class="productcontet">
                                                 <h4>Green Nike
-                                                    <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"
-                                                       data-bs-target="#edit"><img src="/images/img/icons/edit-5.svg"
-                                                                                   alt="img"></a>
+                                                    <a href="javascript:void(0);" class="ms-2"
+                                                       data-bs-toggle="modal"
+                                                       data-bs-target="#edit"><img
+                                                            src="/images/img/icons/edit-5.svg"
+                                                            alt="img"></a>
                                                 </h4>
                                                 <div class="productlinkset">
                                                     <h5>PT001</h5>
                                                 </div>
                                                 <div class="increment-decrement">
                                                     <div class="input-groups">
-                                                        <input type="button" value="-" class="button-minus dec button">
+                                                        <input type="button" value="-"
+                                                               class="button-minus dec button">
                                                         <input type="text" name="child" value="0"
                                                                class="quantity-field">
-                                                        <input type="button" value="+" class="button-plus inc button ">
+                                                        <input type="button" value="+"
+                                                               class="button-plus inc button ">
                                                     </div>
                                                 </div>
                                             </div>
@@ -452,19 +525,23 @@
                                             </div>
                                             <div class="productcontet">
                                                 <h4>Banana
-                                                    <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"
-                                                       data-bs-target="#edit"><img src="/images/img/icons/edit-5.svg"
-                                                                                   alt="img"></a>
+                                                    <a href="javascript:void(0);" class="ms-2"
+                                                       data-bs-toggle="modal"
+                                                       data-bs-target="#edit"><img
+                                                            src="/images/img/icons/edit-5.svg"
+                                                            alt="img"></a>
                                                 </h4>
                                                 <div class="productlinkset">
                                                     <h5>PT001</h5>
                                                 </div>
                                                 <div class="increment-decrement">
                                                     <div class="input-groups">
-                                                        <input type="button" value="-" class="button-minus dec button">
+                                                        <input type="button" value="-"
+                                                               class="button-minus dec button">
                                                         <input type="text" name="child" value="0"
                                                                class="quantity-field">
-                                                        <input type="button" value="+" class="button-plus inc button ">
+                                                        <input type="button" value="+"
+                                                               class="button-plus inc button ">
                                                     </div>
                                                 </div>
                                             </div>
@@ -482,19 +559,23 @@
                                             </div>
                                             <div class="productcontet">
                                                 <h4>Strawberry
-                                                    <a href="javascript:void(0);" class="ms-2" data-bs-toggle="modal"
-                                                       data-bs-target="#edit"><img src="/images/img/icons/edit-5.svg"
-                                                                                   alt="img"></a>
+                                                    <a href="javascript:void(0);" class="ms-2"
+                                                       data-bs-toggle="modal"
+                                                       data-bs-target="#edit"><img
+                                                            src="/images/img/icons/edit-5.svg"
+                                                            alt="img"></a>
                                                 </h4>
                                                 <div class="productlinkset">
                                                     <h5>PT001</h5>
                                                 </div>
                                                 <div class="increment-decrement">
                                                     <div class="input-groups">
-                                                        <input type="button" value="-" class="button-minus dec button">
+                                                        <input type="button" value="-"
+                                                               class="button-minus dec button">
                                                         <input type="text" name="child" value="0"
                                                                class="quantity-field">
-                                                        <input type="button" value="+" class="button-plus inc button ">
+                                                        <input type="button" value="+"
+                                                               class="button-plus inc button ">
                                                     </div>
                                                 </div>
                                             </div>
@@ -554,16 +635,20 @@
                             <div class="btn-pos">
                                 <ul>
                                     <li>
-                                        <a class="btn"><img src="/images/img/icons/pause1.svg" alt="img" class="me-1">Hold</a>
+                                        <a class="btn"><img src="/images/img/icons/pause1.svg" alt="img"
+                                                            class="me-1">Hold</a>
                                     </li>
                                     <li>
-                                        <a class="btn"><img src="/images/img/icons/edit-6.svg" alt="img" class="me-1">Quotation</a>
+                                        <a class="btn"><img src="/images/img/icons/edit-6.svg" alt="img"
+                                                            class="me-1">Quotation</a>
                                     </li>
                                     <li>
-                                        <a class="btn"><img src="/images/img/icons/trash12.svg" alt="img" class="me-1">Void</a>
+                                        <a class="btn"><img src="/images/img/icons/trash12.svg" alt="img"
+                                                            class="me-1">Void</a>
                                     </li>
                                     <li>
-                                        <a class="btn"><img src="/images/img/icons/wallet1.svg" alt="img" class="me-1">Payment</a>
+                                        <a class="btn"><img src="/images/img/icons/wallet1.svg" alt="img"
+                                                            class="me-1">Payment</a>
                                     </li>
                                     <li>
                                         <a class="btn" data-bs-toggle="modal" data-bs-target="#recents"><img
@@ -656,7 +741,8 @@
                     <input type="text">
                 </div>
                 <div class="para-set">
-                    <p>The current order will be set on hold. You can retreive this order from the pending order button.
+                    <p>The current order will be set on hold. You can retreive this order from the pending order
+                        button.
                         Providing a reference to it might help you to identify the order more quickly.</p>
                 </div>
                 <div class="col-lg-12">
@@ -836,12 +922,15 @@
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="payment-tab" data-bs-toggle="tab" data-bs-target="#payment"
-                                    type="button" aria-controls="payment" aria-selected="false" role="tab">Payment
+                            <button class="nav-link" id="payment-tab" data-bs-toggle="tab"
+                                    data-bs-target="#payment"
+                                    type="button" aria-controls="payment" aria-selected="false" role="tab">
+                                Payment
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="return-tab" data-bs-toggle="tab" data-bs-target="#return"
+                            <button class="nav-link" id="return-tab" data-bs-toggle="tab"
+                                    data-bs-target="#return"
                                     type="button" aria-controls="return" aria-selected="false" role="tab">Return
                             </button>
                         </li>
@@ -852,8 +941,9 @@
                             <div class="table-top">
                                 <div class="search-set">
                                     <div class="search-input">
-                                        <a class="btn btn-searchset"><img src="/images/img/icons/search-white.svg"
-                                                                          alt="img"></a>
+                                        <a class="btn btn-searchset"><img
+                                                src="/images/img/icons/search-white.svg"
+                                                alt="img"></a>
                                     </div>
                                 </div>
                                 <div class="wordset">
@@ -863,11 +953,13 @@
                                                     src="/images/img/icons/pdf.svg" alt="img"></a>
                                         </li>
                                         <li>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                               title="excel"><img
                                                     src="/images/img/icons/excel.svg" alt="img"></a>
                                         </li>
                                         <li>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                               title="print"><img
                                                     src="/images/img/icons/printer.svg" alt="img"></a>
                                         </li>
                                     </ul>
@@ -1012,8 +1104,9 @@
                             <div class="table-top">
                                 <div class="search-set">
                                     <div class="search-input">
-                                        <a class="btn btn-searchset"><img src="/images/img/icons/search-white.svg"
-                                                                          alt="img"></a>
+                                        <a class="btn btn-searchset"><img
+                                                src="/images/img/icons/search-white.svg"
+                                                alt="img"></a>
                                     </div>
                                 </div>
                                 <div class="wordset">
@@ -1023,11 +1116,13 @@
                                                     src="/images/img/icons/pdf.svg" alt="img"></a>
                                         </li>
                                         <li>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                               title="excel"><img
                                                     src="/images/img/icons/excel.svg" alt="img"></a>
                                         </li>
                                         <li>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                               title="print"><img
                                                     src="/images/img/icons/printer.svg" alt="img"></a>
                                         </li>
                                     </ul>
@@ -1172,8 +1267,9 @@
                             <div class="table-top">
                                 <div class="search-set">
                                     <div class="search-input">
-                                        <a class="btn btn-searchset"><img src="/images/img/icons/search-white.svg"
-                                                                          alt="img"></a>
+                                        <a class="btn btn-searchset"><img
+                                                src="/images/img/icons/search-white.svg"
+                                                alt="img"></a>
                                     </div>
                                 </div>
                                 <div class="wordset">
@@ -1183,11 +1279,13 @@
                                                     src="/images/img/icons/pdf.svg" alt="img"></a>
                                         </li>
                                         <li>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                               title="excel"><img
                                                     src="/images/img/icons/excel.svg" alt="img"></a>
                                         </li>
                                         <li>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
+                                            <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                               title="print"><img
                                                     src="/images/img/icons/printer.svg" alt="img"></a>
                                         </li>
                                     </ul>
@@ -1348,15 +1446,15 @@
             <div class="modal-body">
                 <div class="row m-3">
                     <div class="col-6">
-<!--                        <img th:src="@{'/images/imgsProducts/'+ ${chiTietGiay.hinhAnh.url1}+ ''}" alt="" height="400"-->
-<!--                             width="300">-->
+                        <!--                        <img th:src="@{'/images/imgsProducts/'+ ${chiTietGiay.hinhAnh.url1}+ ''}" alt="" height="400"-->
+                        <!--                             width="300">-->
                     </div>
                     <div class="col-6">
                         <div class="container">
                             <div class="row">
-<!--                                <div class="text-left fs-2 fw-bolder">-->
-<!--                                    <label th:text="${chiTietGiay.giay.hang.tenHang}">Thương hiệu :</label>-->
-<!--                                </div>-->
+                                <!--                                <div class="text-left fs-2 fw-bolder">-->
+                                <!--                                    <label th:text="${chiTietGiay.giay.hang.tenHang}">Thương hiệu :</label>-->
+                                <!--                                </div>-->
                                 <div class="text-left ">
                                     <label th:text="${sizeList}"></label>
                                 </div>
@@ -1364,53 +1462,53 @@
                                     <label>Thương hiệu: ${giayDistinct.nameBrand}</label>
                                 </div>
                             </div>
-<!--                            <div class="row">-->
-<!--                                <div class="product__details__option">-->
-<!--                                    <div class="product__details__option__size">-->
-<!--                                        <span>Size :</span>-->
-<!--&lt;!&ndash;                                        <c:forEach items="${listSize}" var="size">&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <a href="/mua-hang/cart/view/chonSize/${giayDistinct.giay.id}/${size.id}"&ndash;&gt;-->
-<!--&lt;!&ndash;                                               class="btn btn-light">${size.soSize}</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                                        </c:forEach>&ndash;&gt;-->
-<!--                                    </div>-->
-<!--                                    <div class="mt-3">-->
-<!--                                        <form action="/mua-hang/cart/add" method="get">-->
-<!--                                            <div class="product__details__option__color">-->
-<!--                                                <span class="">Color :</span>-->
-<!--&lt;!&ndash;                                                <c:forEach items="${listColor}" var="color">&ndash;&gt;-->
-<!--&lt;!&ndash;                                                    <input type="button" class="m-2 color-option"&ndash;&gt;-->
-<!--&lt;!&ndash;                                                           style="background-color: ${color.mauSac.ten};&ndash;&gt;-->
-<!--&lt;!&ndash;                                                                           width: 40px; height: 30px; display: inline-block; color: transparent;"/>&ndash;&gt;-->
-<!--&lt;!&ndash;                                                    <input type="hidden" name="idChiTietGiay"&ndash;&gt;-->
-<!--&lt;!&ndash;                                                           value="${color.id}">&ndash;&gt;-->
-<!--&lt;!&ndash;                                                </c:forEach>&ndash;&gt;-->
-<!--                                            </div>-->
-<!--                                            <div class="">-->
-<!--                                                <span>Số lượng</span>-->
-<!--                                                <input type="number" name="soLuong" value="1"-->
-<!--                                                       class="form-control"/>-->
-<!--                                            </div>-->
-<!--                                            <div class="mt-2">-->
-<!--                                                <span>Có ${giayDistinct.remindProducts}</span>-->
-<!--                                                <span>Sản phẩm có sẵn</span>-->
-<!--                                            </div>-->
+                            <!--                            <div class="row">-->
+                            <!--                                <div class="product__details__option">-->
+                            <!--                                    <div class="product__details__option__size">-->
+                            <!--                                        <span>Size :</span>-->
+                            <!--&lt;!&ndash;                                        <c:forEach items="${listSize}" var="size">&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                            <a href="/mua-hang/cart/view/chonSize/${giayDistinct.giay.id}/${size.id}"&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                               class="btn btn-light">${size.soSize}</a>&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                        </c:forEach>&ndash;&gt;-->
+                            <!--                                    </div>-->
+                            <!--                                    <div class="mt-3">-->
+                            <!--                                        <form action="/mua-hang/cart/add" method="get">-->
+                            <!--                                            <div class="product__details__option__color">-->
+                            <!--                                                <span class="">Color :</span>-->
+                            <!--&lt;!&ndash;                                                <c:forEach items="${listColor}" var="color">&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                                    <input type="button" class="m-2 color-option"&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                                           style="background-color: ${color.mauSac.ten};&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                                                           width: 40px; height: 30px; display: inline-block; color: transparent;"/>&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                                    <input type="hidden" name="idChiTietGiay"&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                                           value="${color.id}">&ndash;&gt;-->
+                            <!--&lt;!&ndash;                                                </c:forEach>&ndash;&gt;-->
+                            <!--                                            </div>-->
+                            <!--                                            <div class="">-->
+                            <!--                                                <span>Số lượng</span>-->
+                            <!--                                                <input type="number" name="soLuong" value="1"-->
+                            <!--                                                       class="form-control"/>-->
+                            <!--                                            </div>-->
+                            <!--                                            <div class="mt-2">-->
+                            <!--                                                <span>Có ${giayDistinct.remindProducts}</span>-->
+                            <!--                                                <span>Sản phẩm có sẵn</span>-->
+                            <!--                                            </div>-->
 
-<!--                                            <button type="submit" class="btn btn-secondary btn-center mt-3">Thêm-->
-<!--                                                giỏ hàng-->
-<!--                                            </button>-->
-<!--                                        </form>-->
-<!--                                    </div>-->
+                            <!--                                            <button type="submit" class="btn btn-secondary btn-center mt-3">Thêm-->
+                            <!--                                                giỏ hàng-->
+                            <!--                                            </button>-->
+                            <!--                                        </form>-->
+                            <!--                                    </div>-->
 
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <!--                        </div>-->
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
@@ -1430,5 +1528,11 @@
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
 <script src="/js/script.js"></script>
+<script>
+    // $(document).ready(function () {
+    //     $('#filter_inputs').slideToggle("slow");
+    //     $('#filter_search').toggleClass("setclose");
+    // });
+</script>
 </body>
 </html>
