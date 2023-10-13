@@ -245,7 +245,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="table-top">
-                                <form method="get" action="/mua-hang/search">
+                                <form method="get" action="/ban-hang/search">
                                     <div class="search-set">
                                         <div class="search-path">
                                             <a class="btn btn-filter" id="filter_search">
@@ -253,9 +253,14 @@
                                                 <span><img src="/images/img/icons/closes.svg" alt="img"></span>
                                             </a>
                                         </div>
-                                        <div class="search-input">
-                                            <a class="btn btn-searchset"><img src="/images/img/icons/search-white.svg"
-                                                                              alt="img"></a>
+                                        <div>
+                                            <button class="btn btn-searchset" type="submit"><img src="/images/img/icons/search-white.svg"
+                                                                              alt="img" ></button>
+                                            <div >
+                                                <input
+                                                    type="search" class="form-control form-control-sm" name="keyword"
+                                                    placeholder="Search..." aria-controls="DataTables_Table_0">
+                                            </div>
                                         </div>
                                     </div>
                                 </form>
@@ -318,16 +323,16 @@
                                             <div class="productsetimg">
                                                 <img th:src="@{'/images/imgsProducts/'+ ${product.hinhAnh}}"
                                                      alt="img">
-                                                <h6>[[${product.slTon}]]</h6>
+                                                <h6>[[${product.soLuong}]]</h6>
                                                 <div class="check-product">
                                                     <i class="fa fa-check"></i>
                                                 </div>
                                             </div>
                                             <div class="productsetcontent">
-                                                <h5>[[${product.soLuongDaBan}]] sold</h5>
-                                                <h4>[[${product.tenGiay}]]</h4>
-                                                <h6>[[${product.minPrice}]]</h6>
-                                                <a th:href="@{'/mua-hang/chon-size/' + ${product.idChiTietGiay} }"
+                                                <h3>[[${product.tenGiay}]]</h3>
+                                                <h3 th:text="${#numbers.formatDecimal(product.giaBan, 0, 0)+ '$'}"></h3>
+                                                <h4 th:text="${product.mauSac}"></h4>
+                                                <a th:href="@{'/mua-hang/chon-size/' + ${product.idGiay} }"
                                                    class="btn btn-outline-warning m-3" data-bs-toggle="modal"
                                                    data-bs-target="#chonSize">
                                                     Chọn</a>
@@ -1524,10 +1529,10 @@
 
 <script src="/js/script.js"></script>
 <script>
-    $(document).ready(function () {
-        $('#filter_inputs').slideToggle("slow");
-        $('#filter_search').toggleClass("setclose");
-    });
+    // $(document).ready(function () {
+    //     $('#filter_inputs').slideToggle("slow");
+    //     $('#filter_search').toggleClass("setclose");
+    // });
 </script>
 </body>
 </html>
