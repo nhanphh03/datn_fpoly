@@ -317,13 +317,13 @@
             </div>
         </div>
     </div>
-    <form th:object="${diaChi}" method="post" th:action="@{/manage/dia-chi/viewAdd/add}">
+    <form th:object="${nhanVien}" method="post" th:action="@{/manage/nhan-vien/viewAdd/add}">
         <div class="page-wrapper">
             <div class="content">
                 <div class="page-header">
                     <div class="page-title">
-                        <h4>Thêm Địa Chỉ</h4>
-                        <h6>Quản Lý Địa Chỉ</h6>
+                        <h4>Thêm Nhân Viên</h4>
+                        <h6>Quản Lý Nhân Viên</h6>
                     </div>
                 </div>
 
@@ -332,61 +332,89 @@
                         <div class="row">
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Mã Địa Chỉ</label>
-                                    <input type="text" th:field="*{maDC}">
+                                    <label>Mã Nhân Viên</label>
+                                    <input type="text" th:field="*{maNV}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Tên Địa Chỉ</label>
-                                    <input type="text" th:field="*{tenDC}">
+                                    <label>Tên Nhân Viên</label>
+                                    <input type="text" th:field="*{hoTenNV}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Xã Phường</label>
-                                    <input type="text" th:field="*{xaPhuong}">
+                                    <label>Giới Tính</label>
+                                    <input type="text" th:field="*{gioiTinh}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Quận Huyện</label>
-                                    <input type="text" th:field="*{quanHuyen}">
+                                    <label>Ngày Sinh</label>
+                                    <input type="text" th:field="*{ngaySinh}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Tỉnh Thành Phố</label>
-                                    <input type="text" th:field="*{tinhTP}">
+                                    <label>SDT Nhân Viên</label>
+                                    <input type="text" th:field="*{sdtNV}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Mô Tả</label>
-                                    <input type="text" th:field="*{moTa}">
+                                    <label>Ảnh Nhân Viên</label>
+                                    <input type="text" th:field="*{AnhNV}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Địa Chỉ Chi Tiết</label>
-                                    <input type="text" th:field="*{diaChiChiTiet}">
+                                    <label>Email Nhân Viên</label>
+                                    <input type="text" th:field="*{emailNV}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Miền</label>
-                                    <input type="text" th:field="*{mien}">
+                                    <label>Địa Chỉ</label>
+                                    <input type="text" th:field="*{diaChi}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Khách Hàng</label>
-                                    <select class="select" th:field="*{khachHang}" id="loc" name="loc">
-                                        <option th:each="loc : ${khachHang}" th:value="${loc.idKH}"
-                                                th:text="${loc.hoTenKH}"></option>
+                                    <label>Căn Cước Công Dân</label>
+                                    <input type="text" th:field="*{CCCDNV}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Mật Khẩu</label>
+                                    <input type="text" th:field="*{matKhau}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Chức Vụ</label>
+                                    <select class="select" th:field="*{chucVu}" id="loc" name="loc">
+                                        <option th:each="loc : ${chucVu}" th:value="${loc.idCV}"
+                                                th:text="${loc.tenCV}"></option>
                                     </select>
                                 </div>
                             </div>
+<!--                            <div class="col-lg-3 col-sm-2 col-2 ps-0">-->
+<!--                                <div class="add-icon">-->
+<!--                                    <a href="javascript:void(0);" id="modal-hang" data-toggle="modal"-->
+<!--                                       data-target="#myModal"><img-->
+<!--                                            src="/images/img/icons/plus1.svg"-->
+<!--                                            alt="img"></a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-lg-3 col-sm-2 col-2 ps-0">-->
+<!--                                <div class="add-icon">-->
+<!--                                    <a href="javascript:void(0);" id="modal-nhanVien" data-toggle="modal"-->
+<!--                                       data-target="#myModal"><img-->
+<!--                                            src="/images/img/icons/plus1.svg"-->
+<!--                                            alt="img"></a>-->
+<!--                                </div>-->
+<!--                            </div>-->
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Trạng Thái</label>
@@ -398,7 +426,7 @@
                             </div>
                             <div class="col-lg-12">
                                 <button type="submit" class="btn btn-submit me-2">Submit</button>
-                                <a href="/manage/dia-chi" class="btn btn-cancel">Cancel</a>
+                                <a href="/manage/nhan-vien" class="btn btn-cancel">Cancel</a>
                             </div>
                         </div>
                     </div>
@@ -407,6 +435,8 @@
         </div>
     </form>
 </div>
+<!-- Modal Hãng-->
+<!-- Modal ChatLieu-->
 
 <script src="/js/jquery-3.6.0.min.js"></script>
 
