@@ -190,7 +190,7 @@ public class AuthController {
         khachHang.setTgThem(date);
         LoaiKhachHang loaiKhachHang = loaiKHService.findByTenLKH("Sat");
         khachHang.setLoaiKhachHang(loaiKhachHang);
-        khachHangService.addKhachHang(khachHang);
+        khachHangService.save(khachHang);
 
         String numberOTP = generateRandomNumbers();
 
@@ -217,7 +217,7 @@ public class AuthController {
 
         if (OTPNumber.equals(OTPUser)){
             KHRegiter.setTrangThai(1);
-            khachHangService.addKhachHang(KHRegiter);
+            khachHangService.save(KHRegiter);
             session.invalidate();
             return"online/login";
         }else {
