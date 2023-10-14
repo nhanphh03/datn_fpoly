@@ -1,9 +1,7 @@
 package com.example.demo.buyerController;
 
-import com.example.demo.model.ChiTietGiay;
-import com.example.demo.model.Giay;
-import com.example.demo.model.HinhAnh;
-import com.example.demo.model.KhachHang;
+import com.example.demo.model.*;
+import com.example.demo.service.GHCTService;
 import com.example.demo.service.GiayChiTietService;
 import com.example.demo.service.GiayService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -14,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +34,9 @@ public class DetailProductController {
     @Autowired
     private GiayService giayService;
 
+    @Autowired
+    private GHCTService ghctService;
+
 //    @Autowired
 //    private GioHang;
 
@@ -49,10 +51,22 @@ public class DetailProductController {
         if (khachHang != null){
             String fullName = khachHang.getHoTenKH();
             model.addAttribute("fullNameLogin", fullName);
-            return "online/detail-product";
+            GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
+
+            List<GioHangChiTiet> listGHCTActive = ghctService.findByGHActive(gioHang);
+
+            Integer sumProductInCart = listGHCTActive.size();
+            model.addAttribute("sumProductInCart", sumProductInCart);
+
+        }else {
+            model.addAttribute("messageLoginOrSignin", true);
         }
 
         Giay giay = giayService.getByIdGiay(idGiay);
+        session.removeAttribute("idGiayDetail");
+
+        session.setAttribute("idGiayDetail", giay.getIdGiay());
+
 
         List<ChiTietGiay> listCTGByGiay = giayChiTietService.getCTGByGiayActive(giay);
 
@@ -73,6 +87,12 @@ public class DetailProductController {
 
         Double minPrice = minPriceByGiay.get();
 
+        String material = giay.getChatLieu().getTenChatLieu();
+        model.addAttribute("material", material);
+
+        String brand = giay.getHang().getTenHang();
+        model.addAttribute("nameBrand", brand);
+
         model.addAttribute("product", giay);
         model.addAttribute("minPrice", minPrice);
         model.addAttribute("maxPrice", maxPrice);
@@ -83,14 +103,16 @@ public class DetailProductController {
         model.addAttribute("listHA", listHinhAnh);
 
 
-
-
-
-
-
-
-
         return "online/detail-product";
+    }
+
+
+    @GetMapping("/shop/addProductCart")
+    public String handleAddToCart(@RequestParam("idDProduct") String idDProduct, Model model) {
+
+        UUID idGiay = (UUID) session.getAttribute("idGiayDetail");
+
+        return getFormDetail(model,idGiay);
     }
 
 }

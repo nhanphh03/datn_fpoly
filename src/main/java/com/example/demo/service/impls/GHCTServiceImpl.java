@@ -18,7 +18,7 @@ public class GHCTServiceImpl implements GHCTService {
     private GHCTRepository ghctRepository;
 
     @Override
-    public List<GioHangChiTiet> findByGH(GioHang gioHang) {
+    public List<GioHangChiTiet> findByGHActive(GioHang gioHang) {
         return ghctRepository.findByTrangThaiAndAndGioHang(1, gioHang);
     }
 }
