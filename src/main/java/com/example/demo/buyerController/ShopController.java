@@ -47,29 +47,22 @@ public class ShopController {
         showDataBuyerShop(model);
 
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
-
         if (khachHang != null){
             String fullName = khachHang.getHoTenKH();
             model.addAttribute("fullNameLogin", fullName);
+
             GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
 
-            List<GioHangChiTiet> listGHCTActive = ghctService.findByGH(gioHang);
+            List<GioHangChiTiet> listGHCTActive = ghctService.findByGHActive(gioHang);
 
             Integer sumProductInCart = listGHCTActive.size();
             model.addAttribute("sumProductInCart", sumProductInCart);
 
-            Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-
-            Page<CTGViewModel> page = ctgViewModelService.getAllPage(pageable);
-
-            model.addAttribute("totalPage", page.getTotalPages());
-            model.addAttribute("listCTGModel", page.getContent());
-
-
-            List<CTGViewModel> listCTGModelSoldOff = ctgViewModelService.getAllSoldOff();
-            model.addAttribute("listCTGModelSoldOff", listCTGModelSoldOff);
-            return "online/shop";
+        }else {
+            model.addAttribute("messageLoginOrSignin", true);
         }
+
+        model.addAttribute("messageLoginOrSignin", true);
 
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
 
