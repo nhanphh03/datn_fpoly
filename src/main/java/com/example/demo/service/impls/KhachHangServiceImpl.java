@@ -30,6 +30,8 @@ public class KhachHangServiceImpl implements KhachHangService {
         return khachHangRepository.findByEmailKH(email);
     }
 
+
+
     @Override
     public KhachHang addKhachHang(KhachHang khachHang) {
         return khachHangRepository.save(khachHang);
@@ -53,5 +55,10 @@ public class KhachHangServiceImpl implements KhachHangService {
     @Override
     public KhachHang getByIdKhachHang(UUID id) {
         return khachHangRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public void addKhachHang(KhachHang khachHang) {
+
     }
 }

@@ -148,7 +148,6 @@ public class GiayController {
         List<ChiTietGiay> listCTGByGiay = giayChiTietService.getCTGByGiay(giay);
         model.addAttribute("chiTietGiayList", listCTGByGiay);
         model.addAttribute("idGiay", id);
-        //
         List<Giay> giayList = giayService.getAllGiay();
         List<Size> sizeList = sizeService.getAllSize();
         List<MauSac> mauSacList = mauSacService.getALlMauSac();
