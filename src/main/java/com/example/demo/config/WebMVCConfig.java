@@ -1,11 +1,14 @@
 package com.example.demo.config;
 
 
+import com.example.demo.interceptor.BuyerLoginInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
@@ -14,6 +17,16 @@ import java.util.Locale;
 
 @Configuration
 public class WebMVCConfig  implements WebMvcConfigurer {
+
+    @Autowired
+    private BuyerLoginInterceptor buyerLoginInterceptor;
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(buyerLoginInterceptor)
+                .addPathPatterns("/buyer/cart/**","/buyer/checkout/**", "/buyer/setting/**")
+                .excludePathPatterns("/buyer/login/**", "/buyer/register/**");
+    }
 
     @Bean("messageSource")
     public MessageSource loadMessageSource(){

@@ -103,7 +103,7 @@
           <a href="#" class="search-switch"><img src="/images/img/icon/search.png" alt=""></a>
           <a href="#"><img src="/images/img/icon/heart.png" alt=""></a>
 
-          <a th:href="@{'/viewsUsers/shopping-cart'}" style="position: relative; display: inline-block; ">
+          <a th:href="@{'/buyer/cart'}" style="position: relative; display: inline-block; ">
             <img src="/images/img/icon/cart.png" alt="">
             <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
           </a>
@@ -117,7 +117,7 @@
 
 <!-- Shop Details Section Begin -->
 <section class="shop-details">
-  <form th:object="${product}" action="/viewsUsers/shop-details/addToCart"  method="get" >
+  <form th:object="${product}"   method="" >
     <div class="product__details__pic">
       <div class="container">
         <div class="row">
@@ -202,58 +202,50 @@
               <h3 class="price-range" th:text="${minPrice} + ' ' + '-' + ' ' + ${maxPrice}" ></h3>
               <h3 id="price_product"></h3>
               <p th:text="${product.moTa}"></p>
+              <div style="display: flex; margin-left: 215px">
+                <p th:text="'Material : ' + ${material}"></p>
+                <p style="margin-left: 50px; margin-right: 50px">|</p>
+                <p th:text="'Brand : ' + ${nameBrand}"></p>
+              </div>
+
               <div class="product__details__option">
-                <div class="product__details__option__size">
+                <div class="product__details__option__size" style="margin-left: 50px">
                   <span>Variation :</span>
                   <br>
                   <span>----------------------------------</span>
                   <div class="label-container" style="display: flex; flex-wrap: wrap; justify-content: center; ">
-<!--                    <th:block th:each="X : ${listProducts}">-->
-<!--                      <label class="label" style="width: 200px; margin: 5px; font-weight: unset; font-size: small;" th:text="${x.size.soSize} + ' ' + ${x.mauSac.tenMau}">-->
-<!--                         <input data-idProduct="${x.idCTG}" type="radio" data-price="${x.giaBan}" data-remind="${x.soLuong}">-->
-<!--                      </label>-->
-<!--                    </th:block>-->
+                    <th:block th:each="x : ${listProducts}">
+                      <label th:name="${x.idCTG}" class="label" style="width: 200px; margin: 5px; font-weight: unset; font-size: small;" th:text="${x.mauSac.tenMau} + ' ' + ${x.size.soSize}">
+                        <input type="radio" name="idDProduct" th:value="${x.idCTG}" th:data-price="${x.giaBan}" th:data-remind="${x.soLuong}">
+                      </label>
+                    </th:block>
                   </div>
                 </div>
                 <br>
-                <input name="idDProduct" id="idDetailProduct" value="" type="hidden">
-<!--                <%&#45;&#45;                                <div class="product__details__option__size" style=" display: flex;padding-left: 30% ">&#45;&#45;%>-->
-<!--                <%&#45;&#45;                                    <select style="margin-right: 100px" onchange="window.location.href = this.value;">&#45;&#45;%>-->
-<!--                  <%&#45;&#45;                                        <option value="#">Sole Material</option>&#45;&#45;%>-->
-<!--                  <%&#45;&#45;                                        <c:forEach items="${listCLDG}" var="dg" >&#45;&#45;%>-->
-<!--                    <%&#45;&#45;                                            <option value="#">${dg.ten}</option>&#45;&#45;%>-->
-<!--                    <%&#45;&#45;                                        </c:forEach>&#45;&#45;%>-->
-<!--                  <%&#45;&#45;                                    </select>&#45;&#45;%>-->
-<!--                <%&#45;&#45;                                    <span></span>&#45;&#45;%>-->
-<!--                <%&#45;&#45;                                    <select style="margin-left: 100px" onchange="window.location.href = this.value;">&#45;&#45;%>-->
-<!--                  <%&#45;&#45;                                        <option>Body Material</option>&#45;&#45;%>-->
-<!--                  <%&#45;&#45;                                        <c:forEach items="${listCLTG}" var="tg" >&#45;&#45;%>-->
-<!--                    <%&#45;&#45;                                            <option value="#">${tg.ten}</option>&#45;&#45;%>-->
-<!--                    <%&#45;&#45;                                        </c:forEach>&#45;&#45;%>-->
-<!--                  <%&#45;&#45;                                    </select>&#45;&#45;%>-->
-<!--                <%&#45;&#45;                                </div>&#45;&#45;%>-->
               </div>
               <div class="product__details__cart__option">
                 <div class="quantity">
                   <p style="display: inline-block; margin: 0;">Quantity :</p>
                   <div  style="display: inline-block; ">
-                    <input name="quantityProduct" style="width: 80px;" type="number" class="form-control" placeholder="Enter quantity" aria-label="Quantity" min="1" value="1">
+                    <input id="quantityInput" style="width: 80px;" type="number" class="form-control" placeholder="Enter quantity" aria-label="Quantity" min="1" value="1">
                   </div>
                   <p class="sum-remind" style="display: inline-block; margin: 0;" th:text="${sunProductAvaible}"></p>
                   <p style="display: inline-block; margin: 0;"><span id="quantity_remind"></span></p>
                   <p style="display: inline-block; margin: 0;">Pieces available</p>
                 </div>
               </div>
+
               <div class="product__details__cart__option">
                 <button  class="primary-btn">buy now</button>
-                <button  style="color: white" id="addToCartButton" class="primary-btn" >add to cart</button>
+                <a  style="color: white" id="addToCartButton" class="primary-btn" >add to cart</a>
               </div>
+
               <div class="product__details__btns__option">
                 <a href=""><i class="fa fa-heart"></i>add to wishlist</a>
               </div>
+
               <div class="product__details__last__option">
                 <h5><span>Guaranteed Safe Checkout</span></h5>
-                <img src="/images/img/shop-details/details-payment.png" alt="">
                 <ul>
                   <li><span>SKU:</span> 3812912</li>
                   <li><span>Categories:</span> Clothes</li>
@@ -495,28 +487,33 @@
 </div>
 <!-- Search End -->
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!--<%&#45;&#45;<script>&#45;&#45;%>-->
-<!--<%&#45;&#45;     alert("Please login to add the product to cart");&#45;&#45;%>-->
-<!--<%&#45;&#45;</script>&#45;&#45;%>-->
-
 
 <!--<script>-->
-<!--  const addToCartButton = document.getElementById('addToCartButton');-->
-<!--  const idDetailProduct = document.getElementById('idDetailProduct');-->
+<!--     alert("Please login to add the product to cart");-->
+<!--</script>-->
 
-<!--  addToCartButton.addEventListener('click', () => {-->
-<!--    const productId = idDetailProduct.value;-->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  document.getElementById("addToCartButton").addEventListener("click", function () {
+    var quantity = document.getElementById("quantityInput").value;
 
-<!--    if (productId) {-->
-<!--      // Thêm sản phẩm vào giỏ hàng-->
-<!--      alert('Sản phẩm đã được thêm vào giỏ hàng.');-->
-<!--    } else {-->
-<!--      event.preventDefault();-->
-<!--      alert('Chưa chọn sản phẩm.');-->
-<!--    }-->
-<!--  });-->
-<!--&lt;!&ndash;</script>&ndash;&gt;-->
+    var selectedLabel = document.querySelector(".label.active");
+
+    if (selectedLabel) {
+      var labelName = selectedLabel.getAttribute("name");
+
+      window.location.href = '/buyer/shop/addProductCart?idDProduct=' + labelName + '&quantity=' + quantity;
+
+    } else {
+      alert("Vui lòng chọn một sản phẩm trước khi thêm vào giỏ hàng.");
+      event.preventDefault();
+    }
+  });
+</script>
+
+
+
+
 <!--<script>-->
 <!--  document.addEventListener("DOMContentLoaded", function() {-->
 <!--    const labels = document.querySelectorAll(".label");-->
@@ -556,6 +553,7 @@
 <!--        });-->
 <!--    });-->
 <!--</script>-->
+
 <!--<script>-->
 <!--  var quantityInput = document.getElementById("quantityInput");-->
 <!--  var maxQuantity = quantityInput.getAttribute("data-max-quantity");-->
@@ -573,6 +571,7 @@
 <!--</script>-->
 
 <!-- Js Plugins -->
+
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/jquery.nice-select.min.js"></script>
