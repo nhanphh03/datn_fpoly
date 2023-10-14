@@ -42,14 +42,15 @@ public class HomeController {
             model.addAttribute("fullNameLogin", fullName);
             GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
 
-            List<GioHangChiTiet> listGHCTActive = ghctService.findByGH(gioHang);
+            List<GioHangChiTiet> listGHCTActive = ghctService.findByGHActive(gioHang);
 
             Integer sumProductInCart = listGHCTActive.size();
             model.addAttribute("sumProductInCart", sumProductInCart);
-            return "online/index";
+
+        }else {
+            model.addAttribute("messageLoginOrSignin", true);
         }
 
-        model.addAttribute("messageLoginOrSignin", true);
         List<CTGViewModel> listCTGViewModel = ctgViewModelService.getAll();
         model.addAttribute("listCTGModel",listCTGViewModel);
         return "online/index";

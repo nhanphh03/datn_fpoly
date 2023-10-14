@@ -54,7 +54,7 @@ public class KhachHang {
     private String matKhau;
 
     @Column(name = "CCCD_KH")
-    private int CCCDKH;
+    private String CCCDKH;
 
     @Column(name = "trang_Thai")
     private int trangThai;
