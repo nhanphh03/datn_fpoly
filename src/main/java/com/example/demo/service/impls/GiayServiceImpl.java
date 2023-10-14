@@ -38,4 +38,12 @@ public class GiayServiceImpl implements GiayService {
     public Giay getByName(String name) {
         return giayRepository.findByTenGiay(name);
     }
+
+    @Override
+    public List<Giay> fillterGiay(String searchTerm) {
+        if ("Mã Giày".equals(searchTerm) && "Tên Giày".equals(searchTerm) && "Hãng".equals(searchTerm) && "Chất Liệu".equals(searchTerm)) {
+            return giayRepository.findAll();
+        }
+        return giayRepository.customSearch(searchTerm);
+    }
 }

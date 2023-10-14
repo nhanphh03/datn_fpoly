@@ -379,48 +379,59 @@
                         </div>
                     </div>
 
-                    <div class="card mb-0" id="filter_inputs">
-                        <div class="card-body pb-0">
-                            <div class="row">
-                                <div class="col-lg-12 col-sm-12">
-                                    <div class="row">
-                                        <div class="col-lg-2 col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <select class="select" id="giayFilterMa">
-                                                    <option>Mã Giày</option>
-                                                    <option th:each="loc : ${giay}" th:value="${loc.maGiay}"
-                                                            th:text="${loc.maGiay}"></option>
-                                                </select>
+                    <form method="get" th:action="@{/manage/giayct/filter}">
+                        <div class="card mb-0" id="filter_inputs">
+                            <div class="card-body pb-0">
+                                <div class="row">
+                                    <div class="col-lg-12 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-lg-2 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <select class="select" id="giayFilterMa" name="searchTerm">
+                                                        <option>Mã Giày</option>
+                                                        <option th:each="loc : ${giay}" th:value="${loc.maGiay}"
+                                                                th:text="${loc.maGiay}"></option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-2 col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <select class="select" id="giayFilterTen">
-                                                    <option>Tên Giày</option>
-                                                    <option th:each="loc : ${giay}" th:value="${loc.tenGiay}"
-                                                            th:text="${loc.tenGiay}"></option>
-                                                </select>
+                                            <div class="col-lg-2 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <select class="select" id="giayFilterTen"  name="searchTerm">
+                                                        <option>Tên Giày</option>
+                                                        <option th:each="loc : ${giay}" th:value="${loc.tenGiay}"
+                                                                th:text="${loc.tenGiay}"></option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <!--                                        <div class="col-lg-2 col-sm-6 col-12">-->
-                                        <!--                                            <div class="form-group">-->
-                                        <!--                                                <select class="select">-->
-                                        <!--                                                    <option>Trạng Thái</option>-->
-                                        <!--                                                    <option th:each="loc : ${dsTrangThai.entrySet()}"-->
-                                        <!--                                                            th:value="${loc.key}"-->
-                                        <!--                                                            th:text="${loc.value}"></option>-->
-                                        <!--                                                </select>-->
-                                        <!--                                            </div>-->
-                                        <!--                                        </div>-->
-                                        <div class="col-lg-2 col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <select class="select" id="hangFilterTen">
-                                                    <option>Hãng</option>
-                                                    <option th:each="loc : ${hang}" th:value="${loc.idHang}"
-                                                            th:text="${loc.tenHang}"></option>
-                                                </select>
+                                            <!--                                        <div class="col-lg-2 col-sm-6 col-12">-->
+                                            <!--                                            <div class="form-group">-->
+                                            <!--                                                <select class="select">-->
+                                            <!--                                                    <option>Trạng Thái</option>-->
+                                            <!--                                                    <option th:each="loc : ${dsTrangThai.entrySet()}"-->
+                                            <!--                                                            th:value="${loc.key}"-->
+                                            <!--                                                            th:text="${loc.value}"></option>-->
+                                            <!--                                                </select>-->
+                                            <!--                                            </div>-->
+                                            <!--                                        </div>-->
+                                            <div class="col-lg-2 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <select class="select" id="hangFilterTen" name="searchTerm">
+                                                        <option>Hãng</option>
+                                                        <option th:each="loc : ${hang}" th:value="${loc.idHang}"
+                                                                th:text="${loc.tenHang}"></option>
+                                                    </select>
+                                                </div>
                                             </div>
-                                        </div>
+
+                                            <div class="col-lg-2 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <select class="select" id="chatLieuFilterTen" name="searchTerm">
+                                                        <option>Chất Liệu</option>
+                                                        <option th:each="loc : ${chatLieu}" th:value="${loc.idChatLieu}"
+                                                                th:text="${loc.tenChatLieu}"></option>
+                                                    </select>
+                                                </div>
+                                     </div>
                                         <div class="col-lg-2 col-sm-6 col-12">
                                             <div class="form-group">
                                                 <select class="select" id="chatLieuFilterTen">
@@ -430,21 +441,21 @@
                                                             th:text="${loc.tenChatLieu}"></option>
                                                 </select>
                                             </div>
-                                        </div>
-                                        <div class="col-lg-4 col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <a class="btn btn-filters ms-auto"
-                                                ><img
-                                                        src="/images/img/icons/search-whites.svg"
-                                                        alt="img"
-                                                /></a>
+                                            <div class="col-lg-4 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <button type="submit" class="btn btn-filters ms-auto"
+                                                    ><img
+                                                            src="/images/img/icons/search-whites.svg"
+                                                            alt="img"
+                                                    /></button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </form>
 
                     <div class="table-responsive">
                         <table class="table datanew" id="data-table">

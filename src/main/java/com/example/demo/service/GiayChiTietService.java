@@ -25,6 +25,9 @@ public interface GiayChiTietService {
     List<HinhAnh> listHinhAnhByGiay(Giay giay);
     //Double maxPriceGiay(Giay giay);
 
+    public List<ChiTietGiay> fillterCTG(String searchTerm);
+
+    public List<ChiTietGiay> fillterGCT(String searchTerm);
 
 
 }
