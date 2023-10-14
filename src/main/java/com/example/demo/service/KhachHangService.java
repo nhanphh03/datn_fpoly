@@ -12,6 +12,7 @@ public interface KhachHangService{
 
     KhachHang checkEmail(String email);
 
+
     public List<KhachHang> getAllKhachHang();
 
     public void save(KhachHang khachHang);
