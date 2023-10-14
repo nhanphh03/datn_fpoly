@@ -189,4 +189,19 @@ public class GiayController {
 
         excelExporter.export(response);
     }
+
+    @GetMapping("/giay/filter")
+    public String searchGiay(Model model, @RequestParam(name = "searchTerm") String searchTerm) {
+        List<Giay> filteredGiays;
+        if ("Mã Giày".equals(searchTerm) && "Tên Giày".equals(searchTerm) && "Hãng".equals(searchTerm) && "Chất Liệu".equals(searchTerm)) {
+            // Nếu người dùng chọn "Tất cả", hiển thị tất cả dữ liệu
+            filteredGiays = giayService.getAllGiay();
+        } else {
+            // Thực hiện lọc dữ liệu dựa trên selectedSize
+            filteredGiays = giayService.fillterGiay(searchTerm);
+        }
+        model.addAttribute("giay", filteredGiays);
+        model.addAttribute("giayAll", giayService.getAllGiay());
+        return "manage/giay";
+    }
 }
