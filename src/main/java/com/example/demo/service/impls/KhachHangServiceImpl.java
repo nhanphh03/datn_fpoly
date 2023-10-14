@@ -56,4 +56,9 @@ public class KhachHangServiceImpl implements KhachHangService {
     public KhachHang getByIdKhachHang(UUID id) {
         return khachHangRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public void addKhachHang(KhachHang khachHang) {
+
+    }
 }

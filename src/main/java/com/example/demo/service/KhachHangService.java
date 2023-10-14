@@ -20,4 +20,6 @@ public interface KhachHangService{
     public void deteleByIdKhachHang(UUID id);
 
     public KhachHang getByIdKhachHang(UUID id);
+
+    void addKhachHang(KhachHang khachHang);
 }
