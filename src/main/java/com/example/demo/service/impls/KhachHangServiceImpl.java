@@ -30,10 +30,6 @@ public class KhachHangServiceImpl implements KhachHangService {
         return khachHangRepository.findByEmailKH(email);
     }
 
-    @Override
-    public KhachHang addKhachHang(KhachHang khachHang) {
-        return khachHangRepository.save(khachHang);
-    }
 
     public List<KhachHang> getAllKhachHang() {
         return khachHangRepository.findAll();
