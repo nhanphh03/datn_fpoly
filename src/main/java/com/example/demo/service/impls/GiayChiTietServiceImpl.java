@@ -57,8 +57,21 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
         return giayChiTietRepository.findDistinctByGiay(giay);
     }
 
+    @Override
+    public List<ChiTietGiay> fillterCTG(String searchTerm) {
+        if ("Size".equals(searchTerm) && "Màu Sắc".equals(searchTerm)) {
+            return giayChiTietRepository.findAll();
+        }
+        return giayChiTietRepository.customSearchCTG(searchTerm);
+    }
 
-
+    @Override
+    public List<ChiTietGiay> fillterGCT(String searchTerm) {
+        if ("Size".equals(searchTerm) && "Màu Sắc".equals(searchTerm) && "Giày".equals(searchTerm)) {
+            return giayChiTietRepository.findAll();
+        }
+        return giayChiTietRepository.customSearchGCT(searchTerm);
+    }
 
 
 }
