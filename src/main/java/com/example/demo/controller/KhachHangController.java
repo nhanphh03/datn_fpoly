@@ -53,21 +53,8 @@ public class KhachHangController {
 
             @PostMapping("/khach-hang/viewAdd/add")
             public String addkhachHang(@ModelAttribute("khachHang") KhachHang khachHang) {
-                KhachHang khachHang1 = new KhachHang();
-                khachHang1.setMaKH(khachHang.getMaKH());
-                khachHang1.setHoTenKH(khachHang.getHoTenKH());
-                khachHang1.setAnhKH(khachHang.getAnhKH());
-                khachHang1.setDiaChi(khachHang.getDiaChi());
-                khachHang1.setEmailKH(khachHang.getEmailKH());
-                khachHang1.setMatKhau(khachHang.getMatKhau());
-                khachHang1.setSdtKH(khachHang.getSdtKH());
-                khachHang1.setCCCDKH(khachHang.getCCCDKH());
-                khachHang1.setGioiTinh(khachHang.getGioiTinh());
-                khachHang1.setNgaySinh(khachHang.getNgaySinh());
-                khachHang1.setTgThem(new Date());
-                khachHang1.setTrangThai(khachHang.getTrangThai());
-                khachHang1.setLoaiKhachHang(khachHang.getLoaiKhachHang());
-                khachHangService.save(khachHang1);
+                khachHang.setTgThem(new Date());
+                khachHangService.save(khachHang);
                 return "redirect:/manage/khach-hang";
             }
 

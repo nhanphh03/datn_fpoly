@@ -16,7 +16,7 @@ public class DiaChiServicelmpl implements DiaChiKHService {
     private DiaChiRepsitory diaChiRepsitory;
     @Override
     public List<DiaChiKH> getAllDiaChiKH() {
-        return diaChiRepsitory.findByTrangThai(1);
+        return diaChiRepsitory.findAll();
     }
 
     @Override

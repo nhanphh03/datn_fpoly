@@ -12,6 +12,7 @@ public interface KhachHangService{
 
     KhachHang checkEmail(String email);
 
+
     public List<KhachHang> getAllKhachHang();
 
     public void save(KhachHang khachHang);
@@ -19,4 +20,6 @@ public interface KhachHangService{
     public void deteleByIdKhachHang(UUID id);
 
     public KhachHang getByIdKhachHang(UUID id);
+
+    void addKhachHang(KhachHang khachHang);
 }
