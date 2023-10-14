@@ -8,5 +8,7 @@ import java.util.UUID;
 
 public interface GHCTService {
 
-    List<GioHangChiTiet> findByGH(GioHang gioHang);
+    List<GioHangChiTiet> findByGHActive(GioHang gioHang);
+
+
 }
