@@ -148,7 +148,6 @@ public class GiayController {
         List<ChiTietGiay> listCTGByGiay = giayChiTietService.getCTGByGiay(giay);
         model.addAttribute("chiTietGiayList", listCTGByGiay);
         model.addAttribute("idGiay", id);
-        //
         List<Giay> giayList = giayService.getAllGiay();
         List<Size> sizeList = sizeService.getAllSize();
         List<MauSac> mauSacList = mauSacService.getALlMauSac();
@@ -189,5 +188,20 @@ public class GiayController {
         ExcelExporterGiays excelExporter = new ExcelExporterGiays(lisGiay);
 
         excelExporter.export(response);
+    }
+
+    @GetMapping("/giay/filter")
+    public String searchGiay(Model model, @RequestParam(name = "searchTerm") String searchTerm) {
+        List<Giay> filteredGiays;
+        if ("Mã Giày".equals(searchTerm) && "Tên Giày".equals(searchTerm) && "Hãng".equals(searchTerm) && "Chất Liệu".equals(searchTerm)) {
+            // Nếu người dùng chọn "Tất cả", hiển thị tất cả dữ liệu
+            filteredGiays = giayService.getAllGiay();
+        } else {
+            // Thực hiện lọc dữ liệu dựa trên selectedSize
+            filteredGiays = giayService.fillterGiay(searchTerm);
+        }
+        model.addAttribute("giay", filteredGiays);
+        model.addAttribute("giayAll", giayService.getAllGiay());
+        return "manage/giay";
     }
 }

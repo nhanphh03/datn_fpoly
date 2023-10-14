@@ -16,4 +16,6 @@ public interface MauSacService {
     public MauSac getByIdMauSac(UUID id);
 
     List<MauSac> getMauSacActive();
+
+    public List<MauSac> filterMauSac(String maMau, String tenMau);
 }

@@ -10,4 +10,6 @@ import java.util.UUID;
 public interface HangRepository extends JpaRepository<Hang, UUID> {
 
     List<Hang> getByTrangThai(int trangThai);
+
+    List<Hang> findByMaHangOrTenHang(String maHang, String tenHang);
 }
