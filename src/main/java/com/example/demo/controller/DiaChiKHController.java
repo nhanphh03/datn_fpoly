@@ -59,11 +59,10 @@ public class DiaChiKHController {
         diaChiKH1.setDiaChiChiTiet(diaChiKH.getDiaChiChiTiet());
         diaChiKH1.setQuanHuyen(diaChiKH.getQuanHuyen());
         diaChiKH1.setTgThem(new Date());
-        diaChiKH1.setTgSua(new Date());
         diaChiKH1.setTrangThai(diaChiKH.getTrangThai());
         diaChiKH1.setKhachHang(diaChiKH.getKhachHang());
-        diaChiKHService.save(diaChiKH);
-        return "redirect:/dia-chi";
+        diaChiKHService.save(diaChiKH1);
+        return "redirect:/manage/dia-chi";
     }
 
     @GetMapping("/dia-chi/delete/{id}")
@@ -97,12 +96,11 @@ public class DiaChiKHController {
             diaChiKHdb.setMien(diaChiKH.getMien());
             diaChiKHdb.setDiaChiChiTiet(diaChiKH.getDiaChiChiTiet());
             diaChiKHdb.setTrangThai(diaChiKH.getTrangThai());
-            diaChiKHdb.setTgThem(diaChiKH.getTgThem());
-            diaChiKHdb.setTgSua(diaChiKH.getTgSua());
+            diaChiKHdb.setTgSua(new Date());
             diaChiKHdb.setKhachHang(diaChiKH.getKhachHang());
             diaChiKHService.save(diaChiKHdb);
         }
-        return "redirect:/dia-chi";
+        return "redirect:/manage/dia-chi";
     }
 
 }

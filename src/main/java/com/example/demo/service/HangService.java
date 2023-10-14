@@ -16,4 +16,6 @@ public interface HangService {
 
     public List<Hang> getAllActive();
 
+    public List<Hang> fillterHang(String maHang, String tenHang);
+
 }

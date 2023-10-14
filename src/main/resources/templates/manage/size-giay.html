@@ -276,14 +276,9 @@
                         <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản Lý Khách Hàng</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="customerlist.html">Customer List</a></li>
-                            <li><a href="addcustomer.html">Add Customer </a></li>
-                            <li><a href="supplierlist.html">Supplier List</a></li>
-                            <li><a href="addsupplier.html">Add Supplier </a></li>
-                            <li><a href="userlist.html">User List</a></li>
-                            <li><a href="adduser.html">Add User</a></li>
-                            <li><a href="storelist.html">Store List</a></li>
-                            <li><a href="addstore.html">Add Store</a></li>
+                            <li><a href="/manage/khach-hang">Khách Hàng</a></li>
+                            <li><a href="/manage/dia-chi">Địa Chỉ </a></li>
+                            <li><a href="/manage/loai-khach-hang">Loại Khách Hàng</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -300,14 +295,8 @@
                         <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản Lý Nhân Viên</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="customerlist.html">Customer List</a></li>
-                            <li><a href="addcustomer.html">Add Customer </a></li>
-                            <li><a href="supplierlist.html">Supplier List</a></li>
-                            <li><a href="addsupplier.html">Add Supplier </a></li>
-                            <li><a href="userlist.html">User List</a></li>
-                            <li><a href="adduser.html">Add User</a></li>
-                            <li><a href="storelist.html">Store List</a></li>
-                            <li><a href="addstore.html">Add Store</a></li>
+                            <li><a href="/manage/chuc-vu">Chức Vụ</a></li>
+                            <li><a href="/manage/nhan-vien">Nhân Viên</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -376,7 +365,7 @@
                         </div>
                     </div>
 
-                    <form method="get" th:action="@{/manage/filter}">
+                    <form method="get" th:action="@{/manage/size/filter}">
                         <div class="card" id="filter_inputs">
                             <div class="card-body pb-0">
                                 <div class="row">

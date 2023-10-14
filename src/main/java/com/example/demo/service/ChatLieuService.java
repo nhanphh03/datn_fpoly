@@ -13,4 +13,6 @@ public interface ChatLieuService {
     public void deleteByIdChatLieu(UUID id);
 
     public ChatLieu getByIdChatLieu(UUID id);
+
+    public List<ChatLieu> fillterChatLieu(String maCL, String tenCL);
 }

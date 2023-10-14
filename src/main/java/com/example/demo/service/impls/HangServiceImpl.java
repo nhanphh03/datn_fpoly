@@ -13,6 +13,7 @@ import java.util.UUID;
 public class HangServiceImpl implements HangService {
     @Autowired
     private HangRepository hangRepository;
+
     @Override
     public List<Hang> getALlHang() {
         return hangRepository.findAll();
@@ -36,5 +37,13 @@ public class HangServiceImpl implements HangService {
     @Override
     public List<Hang> getAllActive() {
         return hangRepository.getByTrangThai(1);
+    }
+
+    @Override
+    public List<Hang> fillterHang(String maHang, String tenHang) {
+        if ("Mã Hãng".equals(maHang) && "Tên Hãng".equals(tenHang)) {
+            return hangRepository.findAll();
+        }
+        return hangRepository.findByMaHangOrTenHang(maHang, tenHang);
     }
 }
