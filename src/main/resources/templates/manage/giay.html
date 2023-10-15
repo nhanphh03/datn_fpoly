@@ -396,7 +396,7 @@
                                             </div>
                                             <div class="col-lg-2 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <select class="select" id="giayFilterTen"  name="searchTerm">
+                                                    <select class="select" id="giayFilterTen" name="searchTerm">
                                                         <option>Tên Giày</option>
                                                         <option th:each="loc : ${giay}" th:value="${loc.tenGiay}"
                                                                 th:text="${loc.tenGiay}"></option>
@@ -431,15 +431,6 @@
                                                                 th:text="${loc.tenChatLieu}"></option>
                                                     </select>
                                                 </div>
-                                     </div>
-                                        <div class="col-lg-2 col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <select class="select" id="chatLieuFilterTen">
-                                                    <option>Chất Liệu</option>
-                                                    <option th:each="loc : ${chatLieu}"
-                                                            th:value="${loc.idChatLieu}"
-                                                            th:text="${loc.tenChatLieu}"></option>
-                                                </select>
                                             </div>
                                             <div class="col-lg-4 col-sm-6 col-12">
                                                 <div class="form-group">

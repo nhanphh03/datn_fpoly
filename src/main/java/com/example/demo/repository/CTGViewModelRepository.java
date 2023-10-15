@@ -118,4 +118,30 @@ public interface CTGViewModelRepository extends JpaRepository<CTGViewModel, UUID
             "    g.ten_giay,\n" +
             "    a.url1;", nativeQuery = true)
     List<CTGViewModel> getAllOutOfStock();
+
+    @Query(value = "SELECT\n" +
+            "    ctg.id_giay,\n" +
+            "    MIN(ctg.gia_ban) AS min_price,\n" +
+            "    g.ten_giay,\n" +
+            "    SUM(ctg.so_luong) AS sl_ton,\n" +
+            "    a.url1,\n" +
+            "    COALESCE(SUM(cthd.so_luong), 0) AS so_Luong_Da_Ban\n" +
+            "FROM\n" +
+            "    chi_tiet_giay ctg\n" +
+            "JOIN\n" +
+            "    giay g ON g.id_giay = ctg.id_giay\n" +
+            "JOIN\n" +
+            "    hinh_anh a ON a.id_hinh_anh = ctg.id_hinh_anh\n" +
+            "LEFT JOIN\n" +
+            "    hoa_don_chi_tiet cthd ON cthd.id_ctg = ctg.id_chi_tiet_giay\n" +
+            "WHERE\n" +
+            "    ctg.id_giay like ?1 \n" +
+            "    AND ctg.id_hinh_anh IS NOT NULL\n" +
+            "\tAND g.trang_thai Like 1\n" +
+            "\tAND ctg.trang_thai like 1\n" +
+            "GROUP BY\n" +
+            "    ctg.id_giay,\n" +
+            "    g.ten_giay,\n" +
+            "    a.url1;", nativeQuery = true)
+    CTGViewModel findByGiay(UUID idGiay);
 }
