@@ -110,70 +110,19 @@ public class BanHangController {
 
     @GetMapping("/search")
     public String search(@RequestParam(value = "keyword", required = false) String keyword,Model model){
-
-        List<GiayViewModel> list = giayViewModelService.getAll("Nike Jordan");
-        model.addAttribute("listSanPham",giayViewModelService.getAll("Nike Jordan"));
-
-        for (GiayViewModel giayViewModel:list){
-            System.out.println(giayViewModel.getMauSac());
-        }
+        List<GiayViewModel> list = giayViewModelService.getAll(keyword);
+        model.addAttribute("listSanPham",list);
         model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
         return "offline/index";
     }
 
-    @GetMapping("/chon-size/{idChiTietGiay}")
+    @GetMapping("/chon-size/{idChiTietGiay}/{mauSac}")
     public String chonSize(@PathVariable(value = "idChiTietGiay") UUID idChiTietGiay, Model model){
         ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(idChiTietGiay);
         System.out.printf(chiTietGiay.toString());
         model.addAttribute("sizeList","1234");
         return "offline/index";
     }
-    @PostMapping("/scanBarcode")
-    public String scanBarcode(@RequestParam("file") MultipartFile file) {
-        try {
-            // Đọc ảnh từ MultipartFile
-            BufferedImage image = ImageIO.read(file.getInputStream());
-            String barcode = decodeBarcode(image);
 
-            // Trả về chuỗi barcode đã quét được
-            return "Mã barcode quét được: " + barcode;
-        } catch (IOException | NotFoundException e) {
-            return "Lỗi khi xử lý ảnh hoặc quét mã barcode: " + e.getMessage();
-        }
-    }
-
-    private String decodeBarcode(BufferedImage image) throws NotFoundException {
-        // Tạo đối tượng BinaryBitmap từ ảnh
-        BinaryBitmap binaryBitmap = new BinaryBitmap(new HybridBinarizer(new BufferedImageLuminanceSource(image)));
-
-        // Thiết lập cấu hình quét mã barcode
-        Map<DecodeHintType, Object> hints = new Hashtable<>();
-        hints.put(DecodeHintType.CHARACTER_SET, "UTF-8");
-
-        // Quét mã barcode từ ảnh
-        Result result = new MultiFormatReader().decode(binaryBitmap, hints);
-
-        return result.getText();
-    }
-//    @PostMapping("/uploadQrCode")
-//    public String uploadQrCode(@RequestParam("qrCodeFile") MultipartFile qrCodeFile, RedirectAttributes redirectAttributes) {
-//        if(qrCodeFile.isEmpty()) {
-//            redirectAttributes.addFlashAttribute("errorMessage", "Please choose file to upload.");
-//            return "redirect:/";
-//        }
-//
-//        try {
-////            String qrContent = qrCodeService.decodeQR(qrCodeFile.getBytes());
-////            String qrContent = createBarCode.saveBarcodeImage();
-//            redirectAttributes.addFlashAttribute("successMessage", "File upload successfully.");
-////            redirectAttributes.addFlashAttribute("qrContent", "Your QR Code Content:" + qrContent);
-//            return "redirect:/";
-//        } catch (IOException e) {
-////            logger.error(e.getMessage(), e);
-//            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
-//        }
-//
-//        return "redirect:/";
-//    }
 
 }
