@@ -20,8 +20,8 @@ public interface GiayViewModelRepository extends JpaRepository<GiayViewModel, UU
             "JOIN MauSac ms ON ctg.mauSac.idMau = ms.idMau " +
             "WHERE g.trangThai = 1 " +
             "AND ctg.trangThai = 1 " +
-            "AND g.tenGiay LIKE %:tenGiay% " +
+            "AND g.tenGiay LIKE %:keyword% " +
             "GROUP BY g.idGiay, g.tenGiay, a.url1, ctg.giaBan, ms.tenMau")
-    List<GiayViewModel> searchByTenGiay(@Param("tenGiay") String keyword);
+    List<GiayViewModel> searchByTenGiay(@Param("keyword") String keyword);
 
 }
