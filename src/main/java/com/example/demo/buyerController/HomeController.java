@@ -46,6 +46,7 @@ public class HomeController {
 
             Integer sumProductInCart = listGHCTActive.size();
             model.addAttribute("sumProductInCart", sumProductInCart);
+            model.addAttribute("heartLogged", true);
 
         }else {
             model.addAttribute("messageLoginOrSignin", true);

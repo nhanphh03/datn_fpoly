@@ -15,5 +15,7 @@ public interface CTGViewModelService {
 
     public List<CTGViewModel> getAllSoldOff();
 
+    CTGViewModel findByIDGiay(UUID idGiay);
+
 
 }
