@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.ChucVu;
-import com.example.demo.model.DiaChiKH;
-import com.example.demo.model.KhachHang;
-import com.example.demo.model.NhanVien;
+import com.example.demo.model.*;
 import com.example.demo.service.ChucVuService;
 import com.example.demo.service.NhanVienService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +40,7 @@ public class NhanVienController {
     public String viewAddNhanVien(Model model) {
         List<ChucVu> chucVus = chucVuService.getAllChucVu();
         model.addAttribute("nhanVien", new NhanVien());
-        model.addAttribute("khachHang", chucVus);
+        model.addAttribute("chucVu", chucVus);
         return "manage/add-nhan-vien";
     }
 

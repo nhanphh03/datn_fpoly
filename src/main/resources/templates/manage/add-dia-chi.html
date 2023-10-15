@@ -22,6 +22,7 @@
 
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/plugins/alertify/alertify.min.css"/>
 
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -238,23 +239,19 @@
                         <a href="javascript:void(0);"><img src="/images/img/icons/product.svg" alt="img"><span> Quản lý Giày</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="/manage/chat-lieu" class="active">Chất Liệu</a></li>
-                            <li><a href="/manage/giay">Giày</a></li>
+                            <li><a href="/manage/chat-lieu">Chất Liệu</a></li>
+                            <li><a href="/manage/giay" class="active">Giày</a></li>
                             <li><a href="/manage/hang">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
                             <li><a href="/manage/mau-sac">Màu Sắc</a></li>
-                            <li><a href="/manage/size" >Size</a></li>
+                            <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="saleslist.html">Sales List</a></li>
-                            <li><a href="pos.html">POS</a></li>
-                            <li><a href="pos.html">New Sales</a></li>
-                            <li><a href="salesreturnlists.html">Sales Return List</a></li>
-                            <li><a href="createsalesreturns.html">New Sales Return</a></li>
+                            <li><a href="/ban-hang/hien-thi">Bán hàng</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -305,7 +302,7 @@
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img" /><span>
+                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
                     Quản Lý Voucher</span
                         >
                             <span class="menu-arrow"></span
@@ -325,8 +322,8 @@
             <div class="content">
                 <div class="page-header">
                     <div class="page-title">
-                        <h4>Thêm Điạ Chỉ</h4>
-                        <h6>Quản Lý Khách Hàng</h6>
+                        <h4>Thêm Địa Chỉ</h4>
+                        <h6>Quản Lý Địa Chỉ</h6>
                     </div>
                 </div>
 
@@ -335,7 +332,7 @@
                         <div class="row">
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Mã Dịa Chỉ</label>
+                                    <label>Mã Địa Chỉ</label>
                                     <input type="text" th:field="*{maDC}">
                                 </div>
                             </div>
@@ -371,23 +368,14 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Miền</label>
-                                    <input type="text" th:field="*{mien}">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
                                     <label>Địa Chỉ Chi Tiết</label>
                                     <input type="text" th:field="*{diaChiChiTiet}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Trạng Thái</label>
-                                    <select class="select" th:field="*{trangThai}">
-                                        <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                                th:text="${loc.value}"></option>
-                                    </select>
+                                    <label>Miền</label>
+                                    <input type="text" th:field="*{mien}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -399,6 +387,15 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Trạng Thái</label>
+                                    <select class="select" th:field="*{trangThai}" id="trangthai" name="trangThai">
+                                        <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
+                                                th:text="${loc.value}"></option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="col-lg-12">
                                 <button type="submit" class="btn btn-submit me-2">Submit</button>
                                 <a href="/manage/dia-chi" class="btn btn-cancel">Cancel</a>
@@ -406,12 +403,10 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </form>
 </div>
-
 
 <script src="/js/jquery-3.6.0.min.js"></script>
 
@@ -420,6 +415,7 @@
 <script src="/js/jquery.slimscroll.min.js"></script>
 
 <script src="/js/jquery.dataTables.min.js"></script>
+
 <script src="/js/dataTables.bootstrap4.min.js"></script>
 
 <script src="/js/bootstrap.bundle.min.js"></script>
@@ -427,8 +423,14 @@
 <script src="/plugins/select2/js/select2.min.js"></script>
 
 <script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
+
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
+<script src="/plugins/alertify/alertify.min.js"></script>
+
+<script src="/plugins/alertify/custom-alertify.min.js"></script>
+
 <script src="/js/script.js"></script>
+
 </body>
 </html>

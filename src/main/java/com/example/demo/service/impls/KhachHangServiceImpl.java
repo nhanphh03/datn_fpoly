@@ -22,7 +22,7 @@ public class KhachHangServiceImpl implements KhachHangService {
 
     @Override
     public KhachHang checkLoginEmail(String email, String pass) {
-        return khachHangRepository.findByEmailKHAndTrangThaiAndMatKhau(email, 1 ,pass);
+        return khachHangRepository.findByEmailKHAndTrangThaiAndMatKhau(email, 1, pass);
     }
 
     @Override
@@ -30,11 +30,9 @@ public class KhachHangServiceImpl implements KhachHangService {
         return khachHangRepository.findByEmailKH(email);
     }
 
-    @Override
     public List<KhachHang> getAllKhachHang() {
         return khachHangRepository.findAll();
     }
-
 
     @Override
     public void save(KhachHang khachHang) {
@@ -53,6 +51,6 @@ public class KhachHangServiceImpl implements KhachHangService {
 
     @Override
     public void addKhachHang(KhachHang khachHang) {
-
+         khachHangRepository.save(khachHang);
     }
 }

@@ -22,6 +22,7 @@
 
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/plugins/alertify/alertify.min.css"/>
 
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -316,208 +317,110 @@
             </div>
         </div>
     </div>
-    <div class="page-wrapper">
-        <div class="content">
-            <div class="page-header">
-                <div class="page-title">
-                    <h4>List Giày</h4>
-                    <h6>Quản Lý Giày</h6>
-                </div>
-                <div class="page-btn">
-                    <a href="/manage/giay/viewAdd" class="btn btn-added"><img src="/images/img/icons/plus.svg" alt="img"
-                                                                              class="me-1"/>Thêm Giày</a>
-                </div>
-                <div class="page-btn">
-                    <a href="/manage/giay-chi-tiet" class="btn btn-added">List Giày Chi Tiết</a>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-body">
-                    <div class="table-top">
-                        <div class="search-set">
-                            <div class="search-path">
-                                <a class="btn btn-filter" id="filter_search">
-                                    <img src="/images/img/icons/filter.svg" alt="img"/>
-                                    <span
-                                    ><img src="/images/img/icons/closes.svg" alt="img"
-                                    /></span>
-                                </a>
-                            </div>
-                            <div class="search-input">
-                                <a class="btn btn-searchset"
-                                ><img src="/images/img/icons/search-white.svg" alt="img"
-                                /></a>
-                            </div>
-                        </div>
-                        <div class="wordset">
-                            <ul>
-                                <li>
-                                    <a th:href="@{/manage/giay/export/pdf}"
-                                       data-bs-toggle="tooltip"
-                                       data-bs-placement="top"
-                                       title="pdf"
-                                    ><img src="/images/img/icons/pdf.svg" alt="img"
-                                    /></a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/manage/giay/export/excel}"
-                                       data-bs-toggle="tooltip"
-                                       data-bs-placement="top"
-                                       title="excel"
-                                    ><img src="/images/img/icons/excel.svg" alt="img"
-                                    /></a>
-                                </li>
-                                <li>
-                                    <a id="printButton"
-                                       data-bs-toggle="tooltip"
-                                       data-bs-placement="top"
-                                       title="print"
-                                    ><img src="/images/img/icons/printer.svg" alt="img"
-                                    /></a>
-                                </li>
-                            </ul>
-                        </div>
+    <form th:object="${khachHang}" method="post" th:action="@{/manage/khach-hang/viewAdd/add}">
+        <div class="page-wrapper">
+            <div class="content">
+                <div class="page-header">
+                    <div class="page-title">
+                        <h4>Thêm Khách Hàng</h4>
+                        <h6>Quản Lý Khách Hàng</h6>
                     </div>
+                </div>
 
-                    <form method="get" th:action="@{/manage/giayct/filter}">
-                        <div class="card mb-0" id="filter_inputs">
-                            <div class="card-body pb-0">
-                                <div class="row">
-                                    <div class="col-lg-12 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-lg-2 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <select class="select" id="giayFilterMa" name="searchTerm">
-                                                        <option>Mã Giày</option>
-                                                        <option th:each="loc : ${giay}" th:value="${loc.maGiay}"
-                                                                th:text="${loc.maGiay}"></option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-2 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <select class="select" id="giayFilterTen"  name="searchTerm">
-                                                        <option>Tên Giày</option>
-                                                        <option th:each="loc : ${giay}" th:value="${loc.tenGiay}"
-                                                                th:text="${loc.tenGiay}"></option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <!--                                        <div class="col-lg-2 col-sm-6 col-12">-->
-                                            <!--                                            <div class="form-group">-->
-                                            <!--                                                <select class="select">-->
-                                            <!--                                                    <option>Trạng Thái</option>-->
-                                            <!--                                                    <option th:each="loc : ${dsTrangThai.entrySet()}"-->
-                                            <!--                                                            th:value="${loc.key}"-->
-                                            <!--                                                            th:text="${loc.value}"></option>-->
-                                            <!--                                                </select>-->
-                                            <!--                                            </div>-->
-                                            <!--                                        </div>-->
-                                            <div class="col-lg-2 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <select class="select" id="hangFilterTen" name="searchTerm">
-                                                        <option>Hãng</option>
-                                                        <option th:each="loc : ${hang}" th:value="${loc.idHang}"
-                                                                th:text="${loc.tenHang}"></option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-lg-2 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <select class="select" id="chatLieuFilterTen" name="searchTerm">
-                                                        <option>Chất Liệu</option>
-                                                        <option th:each="loc : ${chatLieu}" th:value="${loc.idChatLieu}"
-                                                                th:text="${loc.tenChatLieu}"></option>
-                                                    </select>
-                                                </div>
-                                     </div>
-                                        <div class="col-lg-2 col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <select class="select" id="chatLieuFilterTen">
-                                                    <option>Chất Liệu</option>
-                                                    <option th:each="loc : ${chatLieu}"
-                                                            th:value="${loc.idChatLieu}"
-                                                            th:text="${loc.tenChatLieu}"></option>
-                                                </select>
-                                            </div>
-                                            <div class="col-lg-4 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <button type="submit" class="btn btn-filters ms-auto"
-                                                    ><img
-                                                            src="/images/img/icons/search-whites.svg"
-                                                            alt="img"
-                                                    /></button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Mã Khách Hàng</label>
+                                    <input type="text" th:field="*{maKH}">
                                 </div>
                             </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Tên Khách Hàng</label>
+                                    <input type="text" th:field="*{hoTenKH}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Giới Tính</label>
+                                    <input type="text" th:field="*{gioiTinh}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Ngày Sinh</label>
+                                    <input type="text" th:field="*{ngaySinh}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>SDT</label>
+                                    <input type="text" th:field="*{sdtKH}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Ảnh</label>
+                                    <input type="text" th:field="*{AnhKH}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input type="text" th:field="*{emailKH}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Địa Chỉ</label>
+                                    <input type="text" th:field="*{diaChi}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Căn Cước Công Dân</label>
+                                    <input type="text" th:field="*{CCCDKH}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Mật Khẩu</label>
+                                    <input type="text" th:field="*{matKhau}">
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Loại Khách Hàng</label>
+                                    <select class="select" th:field="*{loaiKhachHang}" id="loc" name="loc">
+                                        <option th:each="loc : ${loaiKhachHang}" th:value="${loc.idLKH}"
+                                                th:text="${loc.tenLKH}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Trạng Thái</label>
+                                    <select class="select" th:field="*{trangThai}" id="trangthai" name="trangThai">
+                                        <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
+                                                th:text="${loc.value}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <button type="submit" class="btn btn-submit me-2">Submit</button>
+                                <a href="/manage/khach-hang" class="btn btn-cancel">Cancel</a>
+                            </div>
                         </div>
-                    </form>
-
-                    <div class="table-responsive">
-                        <table class="table datanew" id="data-table">
-                            <thead>
-                            <tr>
-                                <th>
-                                    <label class="checkboxs">
-                                        <input type="checkbox" id="select-all"/>
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </th>
-                                <th>Mã Giày</th>
-                                <th>Tên Giày</th>
-                                <th>Trạng Thái</th>
-                                <th>Hãng</th>
-                                <th>Chất Liệu</th>
-                                <th>Action</th>
-                                <th>Thời Gian Thêm</th>
-                                <th>Thời Gian Sửa</th>
-
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="items : ${giay}">
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox"/>
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td th:text="${items.maGiay}"></td>
-                                <td th:text="${items.tenGiay}"></td>
-                                <td>
-                                    <p th:if="${items.trangThai == 1}">Hoạt Động</p>
-                                    <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
-                                </td>
-                                <td th:text="${items.hang.tenHang}"></td>
-                                <td th:text="${items.chatLieu.tenChatLieu}"></td>
-                                <td>
-                                    <a class="me-2" th:href="@{'/manage/giay/detail/' + ${items.idGiay}}">
-                                        <img src="/images/img/icons/eye.svg" alt="img"/>
-                                    </a>
-                                    <a class="me-2" th:href="@{'/manage/giay/viewUpdate/' + ${items.idGiay}}">
-                                        <img src="/images/img/icons/edit.svg" alt="img"/>
-                                    </a>
-                                    <a class="me-2 delete-button"
-                                       th:data-delete-url="@{'/manage/giay/delete/' + ${items.idGiay}}">
-                                        <img src="/images/img/icons/delete.svg" alt="img"/>
-                                    </a>
-                                </td>
-                                <td th:text="${items.tgThem}"></td>
-                                <td th:text="${items.tgSua}"></td>
-
-                            </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
+<!-- Modal Hãng-->
+<!-- Modal ChatLieu-->
 
 <script src="/js/jquery-3.6.0.min.js"></script>
 
@@ -526,6 +429,7 @@
 <script src="/js/jquery.slimscroll.min.js"></script>
 
 <script src="/js/jquery.dataTables.min.js"></script>
+
 <script src="/js/dataTables.bootstrap4.min.js"></script>
 
 <script src="/js/bootstrap.bundle.min.js"></script>
@@ -533,135 +437,14 @@
 <script src="/plugins/select2/js/select2.min.js"></script>
 
 <script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
+
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
+<script src="/plugins/alertify/alertify.min.js"></script>
+
+<script src="/plugins/alertify/custom-alertify.min.js"></script>
+
 <script src="/js/script.js"></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Lấy thẻ nút in bằng id
-        var printButton = document.getElementById("printButton");
 
-        // Thêm sự kiện click cho nút
-        printButton.addEventListener("click", function () {
-            // Gọi hàm in mặc định của trình duyệt
-            window.print();
-        });
-    });
-</script>
-<script>
-    // Bắt sự kiện click trên nút "Xóa"
-    document.querySelectorAll(".delete-button").forEach(function (button) {
-        button.addEventListener("click", function (event) {
-            event.preventDefault(); // Ngăn chặn thực hiện chuyển hướng mặc định
-            const deleteUrl = button.getAttribute("data-delete-url");
-            showConfirmationDialog(deleteUrl);
-        });
-    });
-
-    // Hàm hiển thị mã thông báo xác nhận
-    function showConfirmationDialog(deleteUrl) {
-        Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
-            type: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!",
-            confirmButtonClass: "btn btn-primary",
-            cancelButtonClass: "btn btn-danger ml-1",
-            buttonsStyling: false
-        }).then(function (result) {
-            if (result.value) {
-                // Chuyển hướng đến URL xóa
-                window.location.href = deleteUrl;
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-                // Xử lý khi người dùng hủy bỏ
-                Swal.fire({
-                    title: "Cancelled",
-                    text: "Your imaginary file is safe :)",
-                    type: "error",
-                    confirmButtonClass: "btn btn-success"
-                });
-            }
-        });
-    }
-</script>
-<script>
-    $(document).ready(function () {
-        $('#filter_inputs').slideToggle("slow");
-        $('#filter_search').toggleClass("setclose");
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        // Lắng nghe sự kiện thay đổi trong dropdown kích thước
-        $("#giayFilterMa").change(function () {
-            var maGiay = $(this).val();
-
-            // Ẩn tất cả các dòng trong bảng
-            $("#data-table tbody tr").hide();
-
-            // Hiển thị các dòng có giá trị kích thước tương ứng
-            $("#data-table tbody tr").each(function () {
-                var ma = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
-                if (ma === maGiay || maGiay === "Mã Giày") {
-                    $(this).show();
-                }
-            });
-            console.log(maGiay);
-
-        });
-        //
-        $("#giayFilterTen").change(function () {
-            var tenGiay = $(this).val();
-
-            // Ẩn tất cả các dòng trong bảng
-            $("#data-table tbody tr").hide();
-
-            // Hiển thị các dòng có giá trị kích thước tương ứng
-            $("#data-table tbody tr").each(function () {
-                var ten = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
-                if (ten === tenGiay || tenGiay === "Tên Giày") {
-                    $(this).show();
-                }
-            });
-            console.log(tenGiay);
-
-        });
-        //
-        $("#hangFilterTen").change(function () {
-            var hangTen = $(this).find(":selected").text();
-            // Ẩn tất cả các dòng trong bảng
-            $("#data-table tbody tr").hide();
-
-            // Hiển thị các dòng có giá trị kích thước tương ứng
-            $("#data-table tbody tr").each(function () {
-                var hang = $(this).find("td:eq(4)").text(); // Vị trí cột chứa giá trị kích thước
-                if (hang === hangTen || hangTen === "Hãng") {
-                    $(this).show();
-                }
-            });
-            console.log(hangTen);
-        });
-        //
-        $("#chatLieuFilterTen").change(function () {
-            var chatLieuTen = $(this).find(":selected").text();
-
-            // Ẩn tất cả các dòng trong bảng
-            $("#data-table tbody tr").hide();
-
-            // Hiển thị các dòng có giá trị kích thước tương ứng
-            $("#data-table tbody tr").each(function () {
-                var chatLieu = $(this).find("td:eq(5)").text(); // Vị trí cột chứa giá trị kích thước
-                if (chatLieu === chatLieuTen || chatLieuTen === "Chất Liệu") {
-                    $(this).show();
-                }
-            });
-            console.log(chatLieuTen);
-        });
-
-    });
-</script>
 </body>
 </html>

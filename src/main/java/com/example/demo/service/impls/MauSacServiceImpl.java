@@ -38,4 +38,12 @@ public class MauSacServiceImpl implements MauSacService {
     public List<MauSac> getMauSacActive() {
         return mauSacRepository.findByTrangThai(1);
     }
+
+    @Override
+    public List<MauSac> filterMauSac(String maMau, String tenMau) {
+        if ("Mã Màu".equals(maMau) && "Tên Màu".equals(tenMau)) {
+            return mauSacRepository.findAll();
+        }
+        return mauSacRepository.findByMaMauOrTenMau(maMau, tenMau);
+    }
 }
