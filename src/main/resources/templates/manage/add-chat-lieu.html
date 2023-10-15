@@ -333,12 +333,20 @@
                             <div class="form-group">
                                 <label>Mã Chất Liệu</label>
                                 <input type="text" th:field="*{maChatLieu}">
+                                <br><br>
+                                <strong th:if="${#fields.hasErrors('maChatLieu')}"
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert" th:errors="*{maChatLieu}"></strong>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Tên Chất Liệu</label>
                                 <input type="text" th:field="*{tenChatLieu}">
+                                <br><br>
+                                <strong th:if="${#fields.hasErrors('tenChatLieu')}"
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert" th:errors="*{tenChatLieu}"></strong>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">

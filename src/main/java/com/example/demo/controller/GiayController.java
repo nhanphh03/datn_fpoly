@@ -8,9 +8,11 @@ import com.example.demo.model.*;
 import com.example.demo.service.*;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -47,6 +49,7 @@ public class GiayController {
     @GetMapping("/giay")
     public String dsGiay(Model model) {
         List<Giay> giay = giayService.getAllGiay();
+        Collections.sort(giay, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         List<Hang> hangs = hangService.getALlHang();
         List<ChatLieu> chatLieus = chatLieuService.getAllChatLieu();
         model.addAttribute("giay", giay);
@@ -57,20 +60,36 @@ public class GiayController {
 
     @GetMapping("/giay/viewAdd")
     public String viewAddGiay(Model model) {
-        List<Hang> hangs = hangService.getALlHang();
-        List<ChatLieu> chatLieus = chatLieuService.getAllChatLieu();
+        List<Hang> hangList = hangService.getALlHang();
+        Collections.sort(hangList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("hang", hangList);
+        //
+        List<ChatLieu> chatLieuList = chatLieuService.getAllChatLieu();
+        Collections.sort(chatLieuList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("chatLieu", chatLieuList);
+        //
         model.addAttribute("giay", new Giay());
         model.addAttribute("hangAdd", new Hang());
         model.addAttribute("chatLieuAdd", new ChatLieu());
-        model.addAttribute("hang", hangs);
-        model.addAttribute("chatLieu", chatLieus);
-        System.out.println(hangs);
-        System.out.println(chatLieus);
         return "manage/add-giay";
     }
 
     @PostMapping("/giay/viewAdd/add")
-    public String addGiay(@ModelAttribute("giay") Giay giay) {
+    public String addGiay(@Valid @ModelAttribute("giay") Giay giay, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            List<Hang> hangList = hangService.getALlHang();
+            Collections.sort(hangList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+            model.addAttribute("hang", hangList);
+            //
+            List<ChatLieu> chatLieuList = chatLieuService.getAllChatLieu();
+            Collections.sort(chatLieuList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+            model.addAttribute("chatLieu", chatLieuList);
+            //
+            model.addAttribute("giay", new Giay());
+            model.addAttribute("hangAdd", new Hang());
+            model.addAttribute("chatLieuAdd", new ChatLieu());
+            return "manage/add-giay";
+        }
         Giay giay1 = new Giay();
         giay1.setMaGiay(giay.getMaGiay());
         giay1.setTenGiay(giay.getTenGiay());
@@ -120,8 +139,15 @@ public class GiayController {
         List<Hang> hang = hangService.getALlHang();
         List<ChatLieu> chatLieu = chatLieuService.getAllChatLieu();
         model.addAttribute("giay", giay);
-        model.addAttribute("hang", hang);
-        model.addAttribute("chatLieu", chatLieu);
+        //
+        List<Hang> hangList = hangService.getALlHang();
+        Collections.sort(hangList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("hang", hangList);
+        //
+        List<ChatLieu> chatLieuList = chatLieuService.getAllChatLieu();
+        Collections.sort(chatLieuList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("chatLieu", chatLieuList);
+        //
         model.addAttribute("hangAdd", new Hang());
         model.addAttribute("chatLieuAdd", new ChatLieu());
         return "manage/update-giay";
@@ -146,6 +172,7 @@ public class GiayController {
     public String detail(@PathVariable UUID id, Model model) {
         Giay giay = giayService.getByIdGiay(id);
         List<ChiTietGiay> listCTGByGiay = giayChiTietService.getCTGByGiay(giay);
+        Collections.sort(listCTGByGiay, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("chiTietGiayList", listCTGByGiay);
         model.addAttribute("idGiay", id);
         List<Giay> giayList = giayService.getAllGiay();

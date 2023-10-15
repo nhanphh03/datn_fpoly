@@ -14,6 +14,8 @@ public interface GiayChiTietService {
 
     public void save(ChiTietGiay chiTietGiay);
 
+    public void update(ChiTietGiay chiTietGiay);
+
     public void deleteByIdChiTietGiay(UUID id);
 
     public ChiTietGiay getByIdChiTietGiay(UUID id);

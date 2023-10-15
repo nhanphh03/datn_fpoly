@@ -33,6 +33,11 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
     }
 
     @Override
+    public void update(ChiTietGiay chiTietGiay) {
+        giayChiTietRepository.save(chiTietGiay);
+    }
+
+    @Override
     public void deleteByIdChiTietGiay(UUID id) {
         giayChiTietRepository.deleteById(id);
     }
