@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SNEAKER SHOP</title>
+
+    <link rel="icon" href="/img/logo-favicon.png" type="image/x-icon">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/cssx/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/style.css" type="text/css">
+</head>
+
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!-- Header Section Begin -->
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-7">
+                    <div class="header__top__left">
+                        <p>Welcome to the shopping experience</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-5">
+                    <div class="header__top__right">
+
+                        <!--Name Buyer Begin-->
+                        <div class="header__top__hover">
+                            <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
+                            <ul>
+                                <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
+                                <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
+                            </ul>
+                        </div>
+                        <!--Name Buyer End-->
+
+
+                        <div class="header__top__links"  >
+                            <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Login</a>
+                            <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Register</a>
+                        </div>
+
+                        <div class="header__top__hover">
+                            <span>EN<i class="arrow_carrot-down"></i></span>
+                            <ul>
+                                <li><a href="?language=vi">VI</a></li>
+                                <li><a href="?language=ge">GE</a></li>
+                                <li><a href="?language=en">EN</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <div class="header__logo">
+                    <a th:href="@{'/buyer/homeBuyer'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <nav class="header__menu mobile-menu">
+                    <ul>
+                        <li><a th:href="@{'/buyer/homeBuyer'}" >Home</a></li>
+                        <li class="active"><a th:href="@{'/buyer/shop'}" >Shop</a></li>
+                        <li><a th:href="@{'/buyer/about'}">About Us</a></li>
+                        <li><a th:href="@{'/buyer/blog'}">Blog</a>
+                            <ul class="dropdown">
+                                <li><a th:href="@{'/buyer/blog/blog-details'}">Blog Details</a></li>
+                            </ul>
+                        </li>
+                        <li><a th:href="@{'/buyer/contact'}">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="header__nav__option">
+                    <a href="#" class="search-switch"><img src="/images/img/icon/search.png" alt=""></a>
+                    <a th:href="@{'/buyer/fa&recently'}"><img src="/images/img/icon/heart2.png" alt=""></a>
+
+                    <a th:href="@{'/buyer/cart'}" style="position: relative; display: inline-block; ">
+                        <img src="/images/img/icon/cart.png" alt="">
+                        <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="canvas__open"><i class="fa fa-bars"></i></div>
+    </div>
+</header>
+<!-- Header Section End -->
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Favourite & Rencently Viewed</h4>
+                    <div class="breadcrumb__links">
+                        <a th:href="@{'/buyer/homeBuyer'}" >Home</a>
+                        <a th:href="@{'/buyer/shop'}" >Shop</a>
+                        <span>Favourite & Rencently Viewed</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Shop Section Begin -->
+<section class="shop spad">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="shop__sidebar">
+                    <div class="shop__sidebar__search">
+                        <form action="#">
+                            <input type="text" placeholder="Search...">
+                            <button type="submit"><span class="icon_search"></span></button>
+                        </form>
+                    </div>
+                    <div class="shop__sidebar__accordion">
+                        <div class="accordion" id="accordionExample">
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseOne">Categories</a>
+                                </div>
+                                <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shop__sidebar__categories">
+                                            <ul class="nice-scroll" style="height: 20%">
+                                                <li data-filter="*"><a href="#">All Product(20)</a></li>
+                                                <li><a href="#">Best Seller (20)</a></li>
+                                                <li><a href="#">New Arrivals (20)</a></li>
+                                                <li><a href="#">Collections (20)</a></li>
+                                                <li><a href="#">Sale off 20%  (20)</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseTwo">Branding</a>
+                                </div>
+                                <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shop__sidebar__brand">
+                                            <ul>
+                                                <li class="active" data-filter="*"><a >All Branding</a></li>
+                                                <th:block th:each="a : ${listBrand}">
+                                                    <li><a  th:href="@{'/shop/brand/' + ${a.idHang}}" th:text="${a.tenHang}" > </a></li>
+                                                </th:block>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseThree">Filter Price</a>
+                                </div>
+                                <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shop__sidebar__price">
+                                            <ul>
+                                                <li><a href="#">$0.00 - $50.00</a></li>
+                                                <li><a href="#">$50.00 - $100.00</a></li>
+                                                <li><a href="#">$100.00 - $150.00</a></li>
+                                                <li><a href="#">$150.00 - $200.00</a></li>
+                                                <li><a href="#">$200.00 - $250.00</a></li>
+                                                <li><a href="#">250.00+</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseFour">Size</a>
+                                </div>
+                                <div id="collapseFour" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shop__sidebar__size">
+                                            <th:block th:each="a : ${listSize}">
+                                                <label>
+                                                    <li><a  th:href="@{'/shop/size/' + ${a.idSize}}" th:text="${a.soSize}" > </a></li>
+                                                </label>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseFive">Color</a>
+                                </div>
+                                <div id="collapseFive" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shop__sidebar__color">
+                                            <th:block th:each="a : ${listColor}">
+                                                <a  th:href="@{'/shop/size/' + ${a.idMau}}">
+                                                    <label style="background-color: ${a.tenMau};">
+                                                        <input type="radio" >
+                                                    </label>
+                                                </a>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card">
+                                <div class="card-heading">
+                                    <a data-toggle="collapse" data-target="#collapseSix">Tags</a>
+                                </div>
+                                <div id="collapseSix" class="collapse show" data-parent="#accordionExample">
+                                    <div class="card-body">
+                                        <div class="shop__sidebar__tags">
+                                            <a href="#">Product</a>
+                                            <a href="#">Bags</a>
+                                            <a href="#">Shoes</a>
+                                            <a href="#">Fashion</a>
+                                            <a href="#">Clothing</a>
+                                            <a href="#">Hats</a>
+                                            <a href="#">Accessories</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="shop__product__option">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="shop__product__option__left">
+                                <p>Showing 1–12 of 126 results</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="shop__product__option__right">
+                                <p>Sort by Price:</p>
+                                <select>
+                                    <option value="">Low To High</option>
+                                    <option value="">$0 - $55</option>
+                                    <option value="">$55 - $100</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="breadcrumb__text" style="text-align: center;">
+                    <h4>Favourite Product</h4>
+                    <br>
+                </div>
+                <div class="row">
+
+                <!--Show product FA begin-->
+                    <th:block th:each="product : ${listFA}">
+
+                        <div   class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" style="border-radius: 10px;"  th:attr="data-setbg=@{'/images/imgsProducts/' + ${product.hinhAnh}}">
+                                    <ul class="product__hover">
+                                        <li><a th:href="@{'/buyer/heart/' + ${product.giay.idGiay}}"><img src="/images/img/icon/heart2.png" alt=""><span>Favourite</span></a></li>
+                                        <li><a href="#"><img src="/images/img/icon/compare.png" alt=""><span>Compare</span></a></li>
+                                        <li><a th:href="@{'/buyer/shop-details/' + ${product.giay.idGiay}}"><img src="/images/img/icon/view.png" alt=""><span>Views Detail</span></a></li>
+                                    </ul>
+                                </div>
+                                <div >
+                                    <h6 style="margin-top:  10px; margin-bottom: 10px " th:text="${product.giay.tenGiay}"></h6>
+                                    <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="${product.minPrice}  + ' ' + '$'"></h5>
+                                    <div class="product__color__select" style="display: flex">
+                                        <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'pieces available'"></h6>
+                                        <h6 style="font-style: italic; font-size: 12px ;margin-left: 100px;" th:text="${product.soLuongDaBan} + ' ' + '  Sold'"></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </th:block>
+                <!--Show product FA begin-->
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="product__pagination">
+                            <a class="active" href="#">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <span>...</span>
+                            <a href="#">21</a>
+                        </div>
+                    </div>
+                </div>
+
+                <br>
+                <br>
+                <br>
+
+                <div class="shop__product__option">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="shop__product__option__left">
+                                <p>Showing 1–12 of 126 results</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="shop__product__option__right">
+                                <p>Sort by Price:</p>
+                                <select>
+                                    <option value="">Low To High</option>
+                                    <option value="">$0 - $55</option>
+                                    <option value="">$55 - $100</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="breadcrumb__text" style="text-align: center;">
+                    <h4>Recently Viewed</h4>
+                    <br>
+                </div>
+                <div class="row">
+
+                    <!--Show product FA begin-->
+                    <th:block th:each="product : ${listRencently}">
+
+                        <div   class="col-lg-4 col-md-6 col-sm-6">
+                            <div class="product__item">
+                                <div class="product__item__pic set-bg" style="border-radius: 10px;"  th:attr="data-setbg=@{'/images/imgsProducts/' + ${product.hinhAnh}}">
+                                    <ul class="product__hover">
+                                        <li><a href="#"><img src="/images/img/icon/heart.png" alt=""><span>Favourite</span></a></li>
+                                        <li><a href="#"><img src="/images/img/icon/compare.png" alt=""><span>Compare</span></a></li>
+                                        <li><a th:href="@{'/buyer/shop-details/' + ${product.giay.idGiay}}"><img src="/images/img/icon/view.png" alt=""><span>Views Detail</span></a></li>
+                                    </ul>
+                                </div>
+                                <div >
+                                    <h6 style="margin-top:  10px; margin-bottom: 10px " th:text="${product.giay.tenGiay}"></h6>
+                                    <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="${product.minPrice}  + ' ' + '$'"></h5>
+                                    <div class="product__color__select" style="display: flex">
+                                        <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'pieces available'"></h6>
+                                        <h6 style="font-style: italic; font-size: 12px ;margin-left: 100px;" th:text="${product.soLuongDaBan} + ' ' + '  Sold'"></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </th:block>
+                    <!--Show product FA begin-->
+
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="product__pagination">
+                            <a class="active" href="#">1</a>
+                            <a href="#">2</a>
+                            <a href="#">3</a>
+                            <span>...</span>
+                            <a href="#">21</a>
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shop Section End -->
+
+<!-- Footer Section Begin -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="footer__about">
+                    <div class="footer__logo">
+                        <a href="#"><img src="/images/img/footer-logo.png" alt=""></a>
+                    </div>
+                    <p>The customer is at the heart of our unique business model, which includes design.</p>
+                    <a href="#"><img src="/images/img/payment.png" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h6>Shopping</h6>
+                    <ul>
+                        <li><a href="#">Clothing Store</a></li>
+                        <li><a href="#">Trending Shoes</a></li>
+                        <li><a href="#">Accessories</a></li>
+                        <li><a href="#">Sale</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h6>Shopping</h6>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Payment Methods</a></li>
+                        <li><a href="#">Delivary</a></li>
+                        <li><a href="#">Return & Exchanges</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+                <div class="footer__widget">
+                    <h6>NewLetter</h6>
+                    <div class="footer__newslatter">
+                        <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+                        <form action="#">
+                            <input type="text" placeholder="Your email">
+                            <button type="submit"><span class="icon_mail_alt"></span></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="footer__copyright__text">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    <p>Copyright ©
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>2020
+                        All rights reserved | This template is made with <i class="fa fa-heart-o"
+                                                                            aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    </p>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer Section End -->
+
+<!-- Search Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
+    </div>
+</div>
+<!-- Search End -->
+
+<!-- Js Plugins -->
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.nice-select.min.js"></script>
+<script src="/js/jquery.nicescroll.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/jquery.countdown.min.js"></script>
+<script src="/js/jquery.slicknav.js"></script>
+<script src="/js/mixitup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+
+</html>

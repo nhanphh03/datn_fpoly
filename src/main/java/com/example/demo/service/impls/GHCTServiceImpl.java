@@ -21,4 +21,9 @@ public class GHCTServiceImpl implements GHCTService {
     public List<GioHangChiTiet> findByGHActive(GioHang gioHang) {
         return ghctRepository.findByTrangThaiAndAndGioHang(1, gioHang);
     }
+
+    @Override
+    public void addNewGHCT(GioHangChiTiet gioHangChiTiet) {
+        ghctRepository.save(gioHangChiTiet);
+    }
 }
