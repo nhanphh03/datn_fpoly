@@ -27,6 +27,7 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
 
     <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/quagga"></script>
 </head>
 <body>
 <div id="global-loader">
@@ -267,6 +268,9 @@
                                 <div class="wordset">
                                     <ul>
                                         <li>
+                                            <div id="reader"></div>
+                                        </li>
+                                        <li>
                                             <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
                                                     src="/images/img/icons/pdf.svg" alt="img"></a>
                                         </li>
@@ -332,7 +336,7 @@
                                                 <h3>[[${product.tenGiay}]]</h3>
                                                 <h3 th:text="${#numbers.formatDecimal(product.giaBan, 0, 0)+ '$'}"></h3>
                                                 <h4 th:text="${product.mauSac}"></h4>
-                                                <a th:href="@{'/mua-hang/chon-size/' + ${product.idGiay} }"
+                                                <a th:href="@{'/mua-hang/chon-size/' + ${product.idGiay}+'/'+${product.mauSac} }"
                                                    class="btn btn-outline-warning m-3" data-bs-toggle="modal"
                                                    data-bs-target="#chonSize">
                                                     Chọn</a>
@@ -1533,6 +1537,46 @@
     //     $('#filter_inputs').slideToggle("slow");
     //     $('#filter_search').toggleClass("setclose");
     // });
+</script>
+<script type="text/javascript">
+    // import Quagga from 'quagga';
+    // Đảm bảo QuaggaJS đã được tải
+    if (typeof Quagga === 'undefined') {
+        console.error('QuaggaJS chưa được tải.');
+    } else {
+        Quagga.init({
+            inputStream: {
+                name: "Live",
+                type: "LiveStream",
+                target: document.querySelector('#reader'),
+                constraints: {
+                    width: 640,
+                    height: 480,
+                    facingMode: "environment"
+                },
+            },
+            decoder: {
+                readers: ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", "code_39_vin_reader", "codabar_reader", "upc_reader", "upc_e_reader", "i2of5_reader"]
+            }
+        }, function (err) {
+            if (err) {
+                console.error(err);
+                return;
+            }
+            console.log("QuaggaJS đã sẵn sàng để quét mã vạch và mã QR.");
+            Quagga.start();
+        });
+
+        Quagga.onDetected(function (result) {
+
+            console.log("Mã quét:", result.codeResult);
+            console.log("Mã quét 2:", result.codeResult.id);
+            console.log("Mã quét 3:", result);
+            //chuyn duong dan url den trng /ok
+            window.location.href =  `/ok/${result.codedRect}`;
+            alert("Quét mã thành công " + result )
+        });
+    }
 </script>
 </body>
 </html>
