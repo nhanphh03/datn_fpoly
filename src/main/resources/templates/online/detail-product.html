@@ -101,7 +101,7 @@
       <div class="col-lg-3 col-md-3">
         <div class="header__nav__option">
           <a href="#" class="search-switch"><img src="/images/img/icon/search.png" alt=""></a>
-          <a href="#"><img src="/images/img/icon/heart.png" alt=""></a>
+          <a th:href="@{'/buyer/fa&recently'}"><img src="/images/img/icon/heart2.png" alt=""></a>
 
           <a th:href="@{'/buyer/cart'}" style="position: relative; display: inline-block; ">
             <img src="/images/img/icon/cart.png" alt="">
@@ -235,13 +235,13 @@
                 </div>
               </div>
 
-              <div class="product__details__cart__option">
+              <div th:if="${buyNowAddCartLogged}" class="product__details__cart__option">
                 <button  class="primary-btn">buy now</button>
                 <a  style="color: white" id="addToCartButton" class="primary-btn" >add to cart</a>
               </div>
 
-              <div class="product__details__btns__option">
-                <a href=""><i class="fa fa-heart"></i>add to wishlist</a>
+              <div th:if="${heartLogged}" class="product__details__btns__option">
+                <a th:href="@{'/buyer/detail/heart/' + ${product.idGiay}}"><i class="fa fa-heart"></i>add to wishlist</a>
               </div>
 
               <div class="product__details__last__option">

@@ -56,16 +56,15 @@ public class ShopController {
             List<GioHangChiTiet> listGHCTActive = ghctService.findByGHActive(gioHang);
 
             Integer sumProductInCart = listGHCTActive.size();
+            model.addAttribute("heartLogged", true);
             model.addAttribute("sumProductInCart", sumProductInCart);
 
         }else {
             model.addAttribute("messageLoginOrSignin", true);
         }
 
-        model.addAttribute("messageLoginOrSignin", true);
 
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
-
         Page<CTGViewModel> page = ctgViewModelService.getAllPage(pageable);
 
         model.addAttribute("totalPage", page.getTotalPages());
@@ -75,14 +74,16 @@ public class ShopController {
         List<CTGViewModel> listCTGModelSoldOff = ctgViewModelService.getAllSoldOff();
         model.addAttribute("listCTGModelSoldOff", listCTGModelSoldOff);
 
-        //listHang
         return "online/shop";
     }
+
+
+
     private void showDataBuyerShop(Model model){
         List<Hang> listHang = hangService.getAllActive();
         model.addAttribute("listBrand", listHang);
 
-        List<Size> listSize = sizeService.getAllSize();
+        List<Size> listSize = sizeService.getAllSizeActiveOrderByName();
         model.addAttribute("listSize", listSize);
 
         List<MauSac> listColor = mauSacService.getMauSacActive();
