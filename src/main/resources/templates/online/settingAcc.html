@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SNEAKER SHOP</title>
+    <link rel="icon" href="/img/logo-favicon.png" type="image/x-icon">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/cssx/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/style.css" type="text/css">
+</head>
+
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+    <div class="loader"></div>
+</div>
+
+<!-- Header Section BegiAccount  -->
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-7">
+                    <div class="header__top__left">
+                        <p>Welcome to the shopping experience</p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-5">
+                    <div class="header__top__right">
+
+                        <!--Name Buyer Begin-->
+                        <div class="header__top__hover">
+                            <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
+                            <ul>
+                                <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
+                                <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
+                            </ul>
+                        </div>
+                        <!--Name Buyer End-->
+
+
+                        <div class="header__top__links"  >
+                            <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Login</a>
+                            <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Register</a>
+                        </div>
+
+                        <div class="header__top__hover">
+                            <span>EN<i class="arrow_carrot-down"></i></span>
+                            <ul>
+                                <li><a href="?language=vi">VI</a></li>
+                                <li><a href="?language=ge">GE</a></li>
+                                <li><a href="?language=en">EN</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <div class="header__logo">
+                    <a th:href="@{'/buyer/homeBuyer'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <nav class="header__menu mobile-menu">
+                    <ul>
+                        <li><a th:href="@{'/buyer/homeBuyer'}" >Home</a></li>
+                        <li><a th:href="@{'/buyer/shop'}" >Shop</a></li>
+                        <li><a th:href="@{'/buyer/about'}">About Us</a></li>
+                        <li><a th:href="@{'/buyer/blog'}">Blog</a>
+                            <ul class="dropdown">
+                                <li><a th:href="@{'/buyer/blog/blog-details'}">Blog Details</a></li>
+                            </ul>
+                        </li>
+                        <li><a th:href="@{'/buyer/contact'}">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="header__nav__option">
+                    <a href="#" class="search-switch"><img src="/images/img/icon/search.png" alt=""></a>
+                    <a th:href="@{'/buyer/fa&recently'}"><img src="/images/img/icon/heart2.png" alt=""></a>
+
+                    <a th:href="@{'/buyer/cart'}" style="position: relative; display: inline-block; ">
+                        <img src="/images/img/icon/cart.png" alt="">
+                        <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
+                    </a>
+
+                </div>
+            </div>
+        </div>
+        <div class="canvas__open"><i class="fa fa-bars"></i></div>
+    </div>
+</header>
+<!-- Header Section End -->
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Shop</h4>
+                    <div class="breadcrumb__links">
+                        <a th:href="@{'/buyer/homeBuyer'}" >Home</a>
+                        <span>Setting Profile</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Shop Section Begin -->
+<section class="shop spad" style="margin-top: -70px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3">
+                <div class="shop__sidebar__search">
+                    <form action="#">
+                        <input type="text" placeholder="Search...">
+                        <button type="submit"><span class="icon_search"></span></button>
+                    </form>
+                </div>
+                <div class="shop__sidebar__accordion">
+                    <div class="accordion" id="accordionExample">
+                        <div class="card">
+                            <div class="card-heading">
+                                <a data-toggle="collapse" data-target="#collapseOne">My Account</a>
+                            </div>
+                            <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                                <div class="card-body">
+                                    <div class="shop__sidebar__categories">
+                                        <ul class="nice-scroll" style="height: 20%">
+                                            <li><a href="#">My profile</a></li>
+                                            <li><a href="#">Banks & Carts</a></li>
+                                            <li><a href="#">Addresses</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-heading">
+                                <a href="#">My Purchases</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-heading">
+                                <a href="#">Notifications</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-heading">
+                                <a href="#">My Vouchers</a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-heading">
+                                <a href="#">My Coins</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-9">
+                <div class="card">
+                    <div class="card-body" >
+
+                        <div class="row" style="background-color: #f3f2ee; height: 100px; width: 803px; margin-left: 2px; border-radius: 5px;">
+                            <img src="/images/imgRanks/Silver" alt="" style="margin-left: 700px; width: 50px; height: 50xp;">
+                            <img src="/images/imgsKhachHang/Avatar/CEO.jpg" alt="" style="height: 110px; width: 110px; border-radius: 50% ; margin-left: 10px; margin-top: 0px;">
+
+                            <h4 style="margin-top: 60px; margin-left: 70px;">Pham Huu Nhan</h4>
+                            <p style=" margin-left: 230px; margin-top: 20px;">Thanh vien tu 19/09/2003</p>
+
+                        </div>
+
+                        <div class="row" style="  width: 803px; margin-left: 2px; border-radius: 5px; margin-top: 40px;">
+
+                            <div class="form-group" style="margin-left: 50px; margin-top: 50px; width: 300px;">
+                                <label>Fullname</label>
+                                <br>
+                                <input class="form-control" type="text" placeholder="nhan Pham">
+                            </div>
+                            <div class="form-group" style="margin-left: 50px; margin-top: 50px; width: 300px;">
+                                <label>Gender</label>
+                                <br>
+                                <input type="text" class="form-control" placeholder="Male">
+                            </div>
+                            <br>
+                            <div class="form-group" style="margin-left: 50px; margin-top: 10px;  width: 300px;">
+                                <label>Date of birth :</label>
+                                <br>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group" style="margin-left: 50px; margin-top: 10px; width: 300px;">
+                                <label>ID CCCD :</label>
+                                <br>
+                                <input type="text" placeholder="038203023900" class="form-control">
+                            </div>
+                            <br>
+                            <div class="form-group" style="margin-left: 50px; margin-top: 10px;  width: 300px;">
+                                <label>Email :</label>
+                                <br>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group" style="margin-left: 50px; margin-top: 10px;  width: 300px;">
+                                <label>Phone :</label>
+                                <br>
+                                <input type="text" class="form-control" placeholder="+1452 876 5432">
+                            </div>
+                            <br>
+
+                        </div>
+                        <div class="row" style="  width: 803px; margin-left: 2px; border-radius: 5px; margin-top: 20px;">
+                            <button class="btn btn-success" style="height: 50px; width: 100px;">Submit</button>
+                            <p style="margin-left: 300px;margin-top: 12px;">Choose CCCD:</p>
+                            <input type ="file" class="btn btn-success" style="height: 50px; width: 250px; margin-left: 20px;">
+                        </div>
+                        <div class="row" style="height: 1px; width: 100%; background-color: black; margin: 30px 0 10px 7px;"></div>
+
+                        <h5 style="margin-top: 20px; font-weight: 100; ">Change Password</h5>
+                        <div class="row" style=" width: 803px; margin-left: 2px; border-radius: 5px; margin-top: 20px;">
+                            <div class="form-group" style="margin-left: 50px; margin-top: 10px;  width: 300px;">
+                                <label>Old Password :</label>
+                                <br>
+                                <input type="password" class="form-control">
+                            </div>
+                            <div class="form-group" style="margin-left: 50px; margin-top: 10px;  width: 300px;">
+                                <label>New Password :</label>
+                                <br>
+                                <input type="text" class="form-control">
+                            </div>
+                            <div class="form-group" style="margin-left: 50px; margin-top: 10px;  width: 300px;">
+                                <label>Phone :</label>
+                                <br>
+                                <input type="text" class="form-control" >
+                            </div>
+                            <br>
+                        </div>
+                        <div class="row" style="  width: 803px; margin-left: 2px; border-radius: 5px; margin-top: 20px;">
+                            <button class="btn btn-success" style="height: 50px; width: 100px;">Submit</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Shop Section End -->
+
+<!-- Footer Section Begin -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <div class="footer__about">
+                    <div class="footer__logo">
+                        <a href="#"><img src="/images/img/footer-logo.png" alt=""></a>
+                    </div>
+                    <p>The customer is at the heart of our unique business model, which includes design.</p>
+                    <a href="#"><img src="/images/img/payment.png" alt=""></a>
+                </div>
+            </div>
+            <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h6>Shopping</h6>
+                    <ul>
+                        <li><a href="#">Clothing Store</a></li>
+                        <li><a href="#">Trending Shoes</a></li>
+                        <li><a href="#">Accessories</a></li>
+                        <li><a href="#">Sale</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-6">
+                <div class="footer__widget">
+                    <h6>Shopping</h6>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Payment Methods</a></li>
+                        <li><a href="#">Delivary</a></li>
+                        <li><a href="#">Return & Exchanges</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+                <div class="footer__widget">
+                    <h6>NewLetter</h6>
+                    <div class="footer__newslatter">
+                        <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+                        <form action="#">
+                            <input type="text" placeholder="Your email">
+                            <button type="submit"><span class="icon_mail_alt"></span></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="footer__copyright__text">
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    <p>Copyright ©
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>
+                        2020
+                        All rights reserved | This template is made with <i class="fa fa-heart-o"
+                                                                            aria-hidden="true"></i> by <a
+                                href="https://colorlib.com" target="_blank">Colorlib</a>
+                    </p>
+                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- Footer Section End -->
+
+<!-- Search Begin -->
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
+    </div>
+</div>
+<!-- Search End -->
+
+<!-- Js Plugins -->
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.nice-select.min.js"></script>
+<script src="/js/jquery.nicescroll.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/jquery.countdown.min.js"></script>
+<script src="/js/jquery.slicknav.js"></script>
+<script src="/js/mixitup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/main.js"></script>
+</body>
+
+</html>

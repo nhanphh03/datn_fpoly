@@ -58,6 +58,11 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
     }
 
     @Override
+    public List<ChiTietGiay> getCTGByGiaySoldOut(Giay giay) {
+        return giayChiTietRepository.findByTrangThaiAndGiay(2, giay);
+    }
+
+    @Override
     public List<HinhAnh> listHinhAnhByGiay(Giay giay) {
         return giayChiTietRepository.findDistinctByGiay(giay);
     }
