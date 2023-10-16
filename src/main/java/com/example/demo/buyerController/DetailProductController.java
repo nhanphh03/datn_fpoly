@@ -45,6 +45,54 @@ public class DetailProductController {
 
 
 
+    @GetMapping("/shop-details/sold/{idGiay}")
+    private String getFormDetailSold(Model model,@PathVariable UUID idGiay){
+
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+
+        Giay giay = giayService.getByIdGiay(idGiay);
+
+        checkKHLogged(model, khachHang, giay);
+
+        model.addAttribute("buyReceiveMail", true);
+        model.addAttribute("buyNowAddCartLogged", false);
+
+        List<ChiTietGiay> listCTGByGiay = giayChiTietService.getCTGByGiaySoldOut(giay);
+
+        Optional<Double> maxPriceByGiay = listCTGByGiay.stream()
+                .map(ChiTietGiay :: getGiaBan)
+                .max(Double :: compare);
+
+        Double maxPrice = maxPriceByGiay.get();
+
+        int sumCTGByGiay = listCTGByGiay.stream()
+                .mapToInt(ChiTietGiay::getSoLuong)
+                .sum();
+
+        Optional<Double> minPriceByGiay = listCTGByGiay.stream()
+                .map(ChiTietGiay :: getGiaBan)
+                .min(Double :: compare);
+
+        Double minPrice = minPriceByGiay.get();
+
+        String material = giay.getChatLieu().getTenChatLieu();
+        model.addAttribute("material", material);
+
+        String brand = giay.getHang().getTenHang();
+        model.addAttribute("nameBrand", brand);
+
+        model.addAttribute("product", giay);
+        model.addAttribute("minPrice", minPrice);
+        model.addAttribute("maxPrice", maxPrice);
+        model.addAttribute("sunProductAvaible", sumCTGByGiay);
+        model.addAttribute("listProducts", listCTGByGiay);
+
+        List<HinhAnh> listHinhAnh = giayChiTietService.listHinhAnhByGiay(giay);
+        model.addAttribute("listHA", listHinhAnh);
+
+        //addToLuotXemFA(khachHang, idGiay, giay, minPrice, sumCTGByGiay, 1);
+        return "online/detail-product";
+    }
 
     @GetMapping("/shop-details/{idGiay}")
     private String getFormDetail(Model model,@PathVariable UUID idGiay){
@@ -54,24 +102,7 @@ public class DetailProductController {
 
         Giay giay = giayService.getByIdGiay(idGiay);
 
-        if (khachHang != null){
-            String fullName = khachHang.getHoTenKH();
-            model.addAttribute("fullNameLogin", fullName);
-            GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
-
-            List<GioHangChiTiet> listGHCTActive = ghctService.findByGHActive(gioHang);
-            model.addAttribute("heartLogged", true);
-            model.addAttribute("buyNowAddCartLogged", true);
-            Integer sumProductInCart = listGHCTActive.size();
-            model.addAttribute("sumProductInCart", sumProductInCart);
-
-        }else {
-            model.addAttribute("messageLoginOrSignin", true);
-        }
-
-        session.removeAttribute("idGiayDetail");
-
-        session.setAttribute("idGiayDetail", giay.getIdGiay());
+        checkKHLogged(model, khachHang, giay);
 
         List<ChiTietGiay> listCTGByGiay = giayChiTietService.getCTGByGiayActive(giay);
 
@@ -110,8 +141,27 @@ public class DetailProductController {
         return "online/detail-product";
     }
 
+    private void checkKHLogged(Model model, KhachHang khachHang, Giay giay){
+        if (khachHang != null){
+            String fullName = khachHang.getHoTenKH();
+            model.addAttribute("fullNameLogin", fullName);
+            GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
 
+            List<GioHangChiTiet> listGHCTActive = ghctService.findByGHActive(gioHang);
+            model.addAttribute("heartLogged", true);
 
+            Integer sumProductInCart = listGHCTActive.size();
+            model.addAttribute("sumProductInCart", sumProductInCart);
+            model.addAttribute("buyNowAddCartLogged", true);
+
+        }else {
+            model.addAttribute("messageLoginOrSignin", true);
+        }
+
+        session.removeAttribute("idGiayDetail");
+
+        session.setAttribute("idGiayDetail", giay.getIdGiay());
+    }
 
     @GetMapping("/shop/addProductCart")
     public String handleAddToCart(@RequestParam("idDProduct") UUID idDProduct,
@@ -160,6 +210,7 @@ public class DetailProductController {
 
         return "redirect:/buyer/shop-details/" + idGiay;
     }
+
 
     @GetMapping("/heart/{idGiay}")
     private String addToHeartShop(Model model,@PathVariable UUID idGiay){

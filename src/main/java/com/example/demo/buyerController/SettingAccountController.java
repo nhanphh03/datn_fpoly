@@ -1,10 +1,10 @@
 package com.example.demo.buyerController;
 
+
 import com.example.demo.model.GioHang;
 import com.example.demo.model.GioHangChiTiet;
 import com.example.demo.model.KhachHang;
 import com.example.demo.service.GHCTService;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,10 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/buyer")
-public class CartController {
-
-    @Autowired
-    private HttpServletRequest request;
+public class SettingAccountController {
 
     @Autowired
     private HttpSession session;
@@ -27,8 +24,9 @@ public class CartController {
     @Autowired
     private GHCTService ghctService;
 
-    @GetMapping("/cart")
-    private String getShoppingCart(Model model){
+    @GetMapping("/setting")
+    private String getSettingAccount(Model model){
+
 
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
         GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
@@ -38,10 +36,7 @@ public class CartController {
         Integer sumProductInCart = listGHCTActive.size();
         model.addAttribute("sumProductInCart", sumProductInCart);
 
-        model.addAttribute("listCartDetail", listGHCTActive);
-
-
-
-        return "/online/shopping-cart";
+        return "online/settingAcc";
     }
 }
+
