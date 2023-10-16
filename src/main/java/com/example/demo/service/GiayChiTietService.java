@@ -14,6 +14,8 @@ public interface GiayChiTietService {
 
     public void save(ChiTietGiay chiTietGiay);
 
+    public void update(ChiTietGiay chiTietGiay);
+
     public void deleteByIdChiTietGiay(UUID id);
 
     public ChiTietGiay getByIdChiTietGiay(UUID id);
@@ -21,6 +23,8 @@ public interface GiayChiTietService {
     public List<ChiTietGiay> getCTGByGiay(Giay giay);
 
     List<ChiTietGiay> getCTGByGiayActive(Giay giay);
+
+    List<ChiTietGiay> getCTGByGiaySoldOut(Giay giay);
 
     List<HinhAnh> listHinhAnhByGiay(Giay giay);
     //Double maxPriceGiay(Giay giay);

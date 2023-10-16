@@ -2,6 +2,7 @@ package com.example.demo.model;
 
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,12 +24,15 @@ public class Hang {
     @Column(name ="id_Hang")
     private UUID idHang;
 
+    @NotEmpty(message = "Không được để trống Mã")
     @Column(name = "ma_Hang")
     private String maHang;
 
+    @NotEmpty(message = "Không được để trống Tên")
     @Column(name="ten_Hang")
     private String tenHang;
 
+    @NotEmpty(message = "Không được để trống Logo")
     @Column(name="logo_Hang")
     private String logoHang;
 

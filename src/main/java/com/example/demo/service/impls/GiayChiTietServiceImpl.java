@@ -33,6 +33,11 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
     }
 
     @Override
+    public void update(ChiTietGiay chiTietGiay) {
+        giayChiTietRepository.save(chiTietGiay);
+    }
+
+    @Override
     public void deleteByIdChiTietGiay(UUID id) {
         giayChiTietRepository.deleteById(id);
     }
@@ -50,6 +55,11 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
     @Override
     public List<ChiTietGiay> getCTGByGiayActive(Giay giay) {
         return giayChiTietRepository.findByTrangThaiAndGiay(1, giay);
+    }
+
+    @Override
+    public List<ChiTietGiay> getCTGByGiaySoldOut(Giay giay) {
+        return giayChiTietRepository.findByTrangThaiAndGiay(2, giay);
     }
 
     @Override

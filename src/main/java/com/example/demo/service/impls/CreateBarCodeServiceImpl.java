@@ -32,7 +32,7 @@ public class CreateBarCodeServiceImpl implements CreateBarCode {
     @Override
     public void saveBarcodeImage(ChiTietGiay chiTietGiay, int width, int height) {
         try {
-            String qrCodePath = "H:\\TaiLieuDuAnTotNghiep\\anhBarCode\\";
+            String qrCodePath = "C:\\Users\\Lvh9x\\Downloads\\Barcode\\";
             String qrCodeName = qrCodePath + chiTietGiay.getGiay().getTenGiay()+chiTietGiay.getIdCTG() +  ".png";
 
             Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<>();

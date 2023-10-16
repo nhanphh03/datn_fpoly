@@ -332,13 +332,19 @@
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Mã Màu</label>
-                                <input type="text" th:field="*{maMau}">
+                                <input type="text" th:field="*{maMau}"><br><br>
+                                <strong th:if="${#fields.hasErrors('maMau')}"
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert" th:errors="*{maMau}"></strong>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Tên Màu</label>
-                                <input type="text" th:field="*{tenMau}">
+                                <input type="text" th:field="*{tenMau}"><br><br>
+                                <strong th:if="${#fields.hasErrors('tenMau')}"
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert" th:errors="*{tenMau}"></strong>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
