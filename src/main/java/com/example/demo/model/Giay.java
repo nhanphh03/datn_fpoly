@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,9 +33,12 @@ public class Giay {
     @JoinColumn(name = "id_ChatLieu")
     private ChatLieu chatLieu;
 
+    @NotEmpty(message = "Mã giày không được trống")
     @Column(name = "ma_Giay")
     private String maGiay;
 
+    @NotEmpty(message = "Tên giày không được trống")
+    @Size(max = 255, message = "Tên giày không được quá 255 ký tự")
     @Column(name = "ten_Giay")
     private String tenGiay;
 

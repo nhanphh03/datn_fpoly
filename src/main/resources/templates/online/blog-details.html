@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
   <meta name="description" content="Male_Fashion Template">
   <meta name="keywords" content="Male_Fashion, unica, creative, html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>COFFEE SOUL</title>
-
-  <!-- Google Font -->
+  <title>SNEAKER SHOP</title>
   <link rel="icon" href="/img/logo-favicon.png" type="image/x-icon">
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
         rel="stylesheet">
 
@@ -22,8 +22,6 @@
   <link rel="stylesheet" href="/cssx/owl.carousel.min.css" type="text/css">
   <link rel="stylesheet" href="/cssx/slicknav.min.css" type="text/css">
   <link rel="stylesheet" href="/cssx/style.css" type="text/css">
-
-
 </head>
 
 <body>
@@ -44,6 +42,8 @@
         </div>
         <div class="col-lg-6 col-md-5">
           <div class="header__top__right">
+
+            <!--Name Buyer Begin-->
             <div class="header__top__hover">
               <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
               <ul>
@@ -51,8 +51,14 @@
                 <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
               </ul>
             </div>
+            <!--Name Buyer End-->
+
+
             <div class="header__top__links"  >
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Login</a>
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Register</a>
             </div>
+
             <div class="header__top__hover">
               <span>EN<i class="arrow_carrot-down"></i></span>
               <ul>
@@ -77,11 +83,11 @@
         <nav class="header__menu mobile-menu">
           <ul>
             <li><a th:href="@{'/buyer/homeBuyer'}" >Home</a></li>
-            <li class="active"><a th:href="@{'/buyer/shop'}" >Shop</a></li>
+            <li><a th:href="@{'/buyer/shop'}" >Shop</a></li>
             <li><a th:href="@{'/buyer/about'}">About Us</a></li>
             <li><a th:href="@{'/buyer/blog'}">Blog</a>
               <ul class="dropdown">
-                <li><a th:href="@{'/buyer/blog/blog-details'}">Blog Details</a></li>
+                <li class="active"><a th:href="@{'/buyer/blog/blog-details'}">Blog Details</a></li>
               </ul>
             </li>
             <li><a th:href="@{'/buyer/contact'}">Contact</a></li>
@@ -97,6 +103,7 @@
             <img src="/images/img/icon/cart.png" alt="">
             <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
           </a>
+
         </div>
       </div>
     </div>
@@ -105,124 +112,134 @@
 </header>
 <!-- Header Section End -->
 
-<!-- Breadcrumb Section Begin -->
-<section class="breadcrumb-option">
+<!-- Blog Details Hero Begin -->
+<section class="blog-hero spad">
   <div class="container">
-    <div class="row">
+    <div class="row d-flex justify-content-center">
+      <div class="col-lg-9 text-center">
+        <div class="blog__hero__text">
+          <h2>Are you one of the thousands of Iphone owners who has no idea</h2>
+          <ul>
+            <li>By Deercreative</li>
+            <li>February 21, 2019</li>
+            <li>8 Comments</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Blog Details Hero End -->
+
+<!-- Blog Details Section Begin -->
+<section class="blog-details spad">
+  <div class="container">
+    <div class="row d-flex justify-content-center">
       <div class="col-lg-12">
-        <div class="breadcrumb__text">
-          <h4>Shop</h4>
-          <div class="breadcrumb__links">
-            <a th:href="@{'/buyer/homeBuyer'}" >Home</a>
-            <a th:href="@{'/buyer/shop'}" >Shop</a>
-            <span>Shopping Cart</span>
-          </div>
+        <div class="blog__details__pic">
+          <img src="/images/img/blog/details/blog-details.jpg" alt="">
         </div>
       </div>
-    </div>
-  </div>
-</section>
-<!-- Breadcrumb Section End -->
-
-<!-- Shopping Cart Section Begin -->
-<section class="shopping-cart spad">
-
-  <div class="container">
-    <div class="row">
       <div class="col-lg-8">
-        <div class="shopping__cart__table">
-          <table>
-            <thead>
-            <tr>
-              <th><input  onclick="selectAllRows()"  class="check" type="checkbox"  style="margin-right: 20px"></th>
-              <th>Product</th>
-              <th>Variations</th>
-              <th>Quantity</th>
-              <th>Total</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <th:block th:each="x : ${listCartDetail}">
-
-              <tr id="productId" th:value="${x.chiTietGiay.idCTG}">
-                <form  method="post" >
-                  <td><input name="selectedProducts" type="checkbox" th:value="${x.chiTietGiay.idCTG}"></td>
-                  <td class="product__cart__item">
-                    <div class="product__cart__item__pic">
-                      <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay}}"> <img style="width:90px; height:90px;" th:src="@{'/images/imgsProducts/' + ${x.chiTietGiay.hinhAnh.url1}}"></a>
-                    </div>
-                    <div class="product__cart__item__text">
-                      <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay}}">
-                        <h6 th:text="${x.chiTietGiay.giay.tenGiay}"></h6>
-                      </a>
-                      <h5 class="cart__price" th:text="${x.chiTietGiay.giaBan}"></h5>
-                    </div>
-
-                  </td>
-                  <td class="cart__price">
-                    <div  style="position: absolute;padding-top: -30px">
-                      <span id="showButton" style="font-weight: normal; font-size: medium;">Options :</span>
-                      <div id="hiddenDiv" style="display: none; height: 100px; width: 200px; background-color: aquamarine;">
-                      </div>
-                    </div>
-                  </td>
-                  <td class="quantity__item">
-                    <div class="quantity">
-                      <div class="pro-qty-2">
-                        <input  type="text"  id="quantityInput_" th:value="${x.soLuong}">
-                      </div>
-                    </div>
-                  </td>
-                  <td class="cart__price" id="totalAmount" th:text="'$ ' + ${x.chiTietGiay.giaBan * x.soLuong}"></td>
-                  <td class="cart__close"><a th:href="@{'/buyer/cart/delete/' + ${x.chiTietGiay.giay.idGiay}}" id="deleteToCartButton" style="border-radius: 20% ; " ><i class="fa fa-close"></i></a></td>
-
-                </form>
-              </tr>
-
-            </th:block>
-
-            </tbody>
-          </table>
-        </div>
-        <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="continue__btn">
-              <a th:href="@{'/buyer/shop'}" >Shop</a>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="continue__btn update__btn">
-              <a href="#"><i class="fa fa-spinner"></i>Update Cart</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="cart__discount">
-          <h6>Discount codes</h6>
-          <form action="#">
-            <input type="text" placeholder="Coupon code">
-            <button type="submit">Apply</button>
-          </form>
-        </div>
-        <div class="cart__total">
-          <form action="/checkout" method="Post">
-            <h6>Cart total</h6>
+        <div class="blog__details__content">
+          <div class="blog__details__share">
+            <span>share</span>
             <ul>
-              <li>Subtotal <span>$ 169.50</span></li>
-              <li>Total <span>$ 169.50</span></li>
+              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="#" class="youtube"><i class="fa fa-youtube-play"></i></a></li>
+              <li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
             </ul>
-            <button style="margin: auto" type="submit" class="primary-btn">Proceed to checkout</button>
-          </form>
+          </div>
+          <div class="blog__details__text">
+            <p>Hydroderm is the highly desired anti-aging cream on the block. This serum restricts the
+              occurrence of early aging sings on the skin and keeps the skin younger, tighter and
+              healthier. It reduces the wrinkles and loosening of skin. This cream nourishes the skin
+              and brings back the glow that had lost in the run of hectic years.</p>
+            <p>The most essential ingredient that makes hydroderm so effective is Vyo-Serum, which is a
+              product of natural selected proteins. This concentrate works actively in bringing about
+              the natural youthful glow of the skin. It tightens the skin along with its moisturizing
+              effect on the skin. The other important ingredient, making hydroderm so effective is
+              “marine collagen” which along with Vyo-Serum helps revitalize the skin.</p>
+          </div>
+          <div class="blog__details__quote">
+            <i class="fa fa-quote-left"></i>
+            <p>“When designing an advertisement for a particular product many things should be
+              researched like where it should be displayed.”</p>
+            <h6>_ John Smith _</h6>
+          </div>
+          <div class="blog__details__text">
+            <p>Vyo-Serum along with tightening the skin also reduces the fine lines indicating aging of
+              skin. Problems like dark circles, puffiness, and crow’s feet can be control from the
+              strong effects of this serum.</p>
+            <p>Hydroderm is a multi-functional product that helps in reducing the cellulite and giving
+              the body a toned shape, also helps in cleansing the skin from the root and not letting
+              the pores clog, nevertheless also let’s sweeps out the wrinkles and all signs of aging
+              from the sensitive near the eyes.</p>
+          </div>
+          <div class="blog__details__option">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="blog__details__author">
+                  <div class="blog__details__author__pic">
+                    <img src="/images/img/blog/details/blog-author.jpg" alt="">
+                  </div>
+                  <div class="blog__details__author__text">
+                    <h5>Aiden Blair</h5>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="blog__details__tags">
+                  <a href="#">#Fashion</a>
+                  <a href="#">#Trending</a>
+                  <a href="#">#2020</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="blog__details__btns">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <a href="" class="blog__details__btns__item">
+                  <p><span class="arrow_left"></span> Previous Pod</p>
+                  <h5>It S Classified How To Utilize Free Classified Ad Sites</h5>
+                </a>
+              </div>
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                <a href="" class="blog__details__btns__item blog__details__btns__item--next">
+                  <p>Next Pod <span class="arrow_right"></span></p>
+                  <h5>Tips For Choosing The Perfect Gloss For Your Lips</h5>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="blog__details__comment">
+            <h4>Leave A Comment</h4>
+            <form action="#">
+              <div class="row">
+                <div class="col-lg-4 col-md-4">
+                  <input type="text" placeholder="Name">
+                </div>
+                <div class="col-lg-4 col-md-4">
+                  <input type="text" placeholder="Email">
+                </div>
+                <div class="col-lg-4 col-md-4">
+                  <input type="text" placeholder="Phone">
+                </div>
+                <div class="col-lg-12 text-center">
+                  <textarea placeholder="Comment"></textarea>
+                  <button type="submit" class="site-btn">Post Comment</button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </div>
-
-
 </section>
-<!-- Shopping Cart Section End -->
+<!-- Blog Details Section End -->
 
 <!-- Footer Section Begin -->
 <footer class="footer">
@@ -279,9 +296,11 @@
           <p>Copyright ©
             <script>
               document.write(new Date().getFullYear());
-            </script>2020
+            </script>
+            2020
             All rights reserved | This template is made with <i class="fa fa-heart-o"
-                                                                aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                                                aria-hidden="true"></i> by <a
+                    href="https://colorlib.com" target="_blank">Colorlib</a>
           </p>
           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         </div>
@@ -301,73 +320,6 @@
   </div>
 </div>
 <!-- Search End -->
-<div if="${message}" class="alert alert-success" role="alert">
-    <span text="${message}"></span>
-</div>
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
-
-
-<!--<script>-->
-<!--  const showButton = document.getElementById('showButton');-->
-<!--  const hiddenDiv = document.getElementById('hiddenDiv');-->
-
-<!--  document.addEventListener('click', function(event) {-->
-<!--    if (!showButton.contains(event.target) && !hiddenDiv.contains(event.target)) {-->
-<!--      hiddenDiv.style.display = 'none';-->
-<!--    }-->
-<!--  });-->
-
-<!--  showButton.addEventListener('click', function() {-->
-<!--    hiddenDiv.style.display = 'block';-->
-<!--    event.stopPropagation(); // Ngăn chặn sự kiện click lan truyền lên body/document-->
-<!--  });-->
-
-<!--  hiddenDiv.addEventListener('click', function(event) {-->
-<!--    event.stopPropagation(); // Ngăn chặn sự kiện click lan truyền lên body/document-->
-<!--  });-->
-
-<!--</script>-->
-
-<!--<script>-->
-<!--  function selectAllRows() {-->
-<!--    var checkboxes = document.querySelectorAll('tbody input[type="checkbox"]');-->
-<!--    var selectAllCheckbox = document.querySelector('thead input.check');-->
-
-<!--    checkboxes.forEach(function(checkbox) {-->
-<!--      checkbox.checked = selectAllCheckbox.checked;-->
-<!--    });-->
-<!--  }-->
-<!--</script>-->
-
-<!--<script>-->
-<!--  $(document).ready(function() {-->
-<!--    $(".deleteToCartButton").click(function(event) {-->
-<!--      event.preventDefault();  // Ngăn chặn hành vi mặc định của button-->
-
-<!--      var idProduct = $(this).closest("tr").attr("id");  // Lấy ID sản phẩm từ thuộc tính id của phần tử tr-->
-
-<!--      // Gửi yêu cầu AJAX đến Controller-->
-<!--      $.ajax({-->
-<!--        url: "/deleteToCartButton/" + idProduct,-->
-<!--        type: "POST",-->
-<!--        success: function(response) {-->
-<!--          // Hiển thị thông báo thành công-->
-<!--          $("#alertMessage").text(response).show();-->
-<!--          // Cập nhật danh sách giỏ hàng (nếu cần)-->
-<!--          // ...-->
-<!--        },-->
-<!--        error: function(xhr, status, error) {-->
-<!--          // Xử lý lỗi (nếu có)-->
-<!--          alert("Error occurred while removing the product from cart");-->
-<!--        }-->
-<!--      });-->
-<!--    });-->
-<!--  });-->
-<!--</script>-->
 
 <!-- Js Plugins -->
 <script src="/js/jquery-3.3.1.min.js"></script>

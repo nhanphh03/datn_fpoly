@@ -240,6 +240,11 @@
                 <a  style="color: white" id="addToCartButton" class="primary-btn" >add to cart</a>
               </div>
 
+              <div th:if="${buyReceiveMail}" class="product__details__cart__option">
+                <a  style="color: white" id="addToCartButton" class="primary-btn" >Receive email when in stock</a>
+              </div>
+
+
               <div th:if="${heartLogged}" class="product__details__btns__option">
                 <a th:href="@{'/buyer/detail/heart/' + ${product.idGiay}}"><i class="fa fa-heart"></i>add to wishlist</a>
               </div>
