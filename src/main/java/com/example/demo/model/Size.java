@@ -1,10 +1,8 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.*;
+import lombok.*;
 
 import java.util.Date;
 import java.util.UUID;
@@ -22,9 +20,13 @@ public class Size {
     @Column(name ="id_Size")
     private UUID idSize;
 
+    @NotEmpty(message = "Không được để trống Mã")
     @Column(name = "ma_Size")
     private String maSize;
 
+    @Min(value = 1, message = "Size phải lớn hơn 0")
+    @Max(value = 50, message = "Size phải nhỏ hơn 50")
+    @NotNull(message = "Không được để trống Size")
     @Column(name="so_Size")
     private int soSize;
 
