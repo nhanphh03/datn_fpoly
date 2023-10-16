@@ -70,7 +70,6 @@ public class ShopController {
         model.addAttribute("totalPage", page.getTotalPages());
         model.addAttribute("listCTGModel", page.getContent());
 
-
         List<CTGViewModel> listCTGModelSoldOff = ctgViewModelService.getAllSoldOff();
         model.addAttribute("listCTGModelSoldOff", listCTGModelSoldOff);
 

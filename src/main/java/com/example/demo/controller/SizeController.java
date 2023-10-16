@@ -2,13 +2,16 @@ package com.example.demo.controller;
 
 import com.example.demo.config.ExcelExporterSize;
 import com.example.demo.config.PDFExporterSizes;
+import com.example.demo.model.HinhAnh;
 import com.example.demo.model.Size;
 import com.example.demo.service.SizeService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -38,7 +41,9 @@ public class SizeController {
     @GetMapping("/size")
     public String dsSize(Model model) {
         List<Size> size = sizeService.getAllSize();
+        Collections.sort(size, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("size", size);
+        //
         model.addAttribute("sizeAll", sizeService.getAllSize());
         return "manage/size-giay";
     }
@@ -50,7 +55,10 @@ public class SizeController {
     }
 
     @PostMapping("/size/viewAdd/add")
-    public String addSize(@ModelAttribute("size") Size size) {
+    public String addSize(@Valid @ModelAttribute("size") Size size, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "manage/add-size";
+        }
         Size sizeAdd = new Size();
         sizeAdd.setMaSize(size.getMaSize());
         sizeAdd.setSoSize(size.getSoSize());

@@ -436,8 +436,8 @@
                                 <td th:text="${items.maMau}"></td>
                                 <td th:text="${items.tenMau}"></td>
                                 <td>
-                                    <p th:if="${items.trangThai == 1}">Hoạt Động</p>
-                                    <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
+                                    <span th:if="${items.trangThai == 1}" class="badges bg-lightgreen">Hoạt Động</span>
+                                    <span th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</span>
                                 </td>
                                 <td>
                                     <a class="me-3" th:href="@{'/manage/mau-sac/viewUpdate/' + ${items.idMau}}">

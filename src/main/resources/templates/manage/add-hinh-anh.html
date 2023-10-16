@@ -336,6 +336,10 @@
                                        onchange="previewImage(event)">
                                 <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
                                              style="display: none; max-width: 300px; max-height: 300px;">
+                                <br><br>
+                                <strong th:if="${#fields.hasErrors('url1')}"
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert" th:errors="*{url1}"></strong>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
@@ -344,7 +348,10 @@
                                 <input th:field="*{url2}" type="file" id="anh2" accept="image/*"
                                        onchange="previewImage(event)">
                                 <br><br><img id="anh22" src="#" alt="Ảnh mô tả"
-                                             style="display: none; max-width: 300px; max-height: 300px;">
+                                             style="display: none; max-width: 300px; max-height: 300px;"><br><br>
+                                <strong th:if="${#fields.hasErrors('url2')}"
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert" th:errors="*{url2}"></strong>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
@@ -353,7 +360,10 @@
                                 <input th:field="*{url3}" type="file" id="anh3" accept="image/*"
                                        onchange="previewImage(event)">
                                 <br><br><img id="anh33" src="#" alt="Ảnh mô tả"
-                                             style="display: none; max-width: 300px; max-height: 300px;">
+                                             style="display: none; max-width: 300px; max-height: 300px;"><br><br>
+                                <strong th:if="${#fields.hasErrors('url3')}"
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert" th:errors="*{url3}"></strong>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
@@ -362,7 +372,10 @@
                                 <input th:field="*{url4}" type="file" id="anh4" accept="image/*"
                                        onchange="previewImage(event)">
                                 <br><br><img id="anh44" src="#" alt="Ảnh mô tả"
-                                             style="display: none; max-width: 300px; max-height: 300px;">
+                                             style="display: none; max-width: 300px; max-height: 300px;"><br><br>
+                                <strong th:if="${#fields.hasErrors('url4')}"
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert" th:errors="*{url4}"></strong>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">

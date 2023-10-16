@@ -9,9 +9,11 @@ import com.example.demo.model.Size;
 import com.example.demo.service.ChatLieuService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -36,6 +38,7 @@ public class ChatLieuController {
     @GetMapping("/chat-lieu")
     public String dsChatLieu(Model model) {
         List<ChatLieu> chatLieu = chatLieuService.getAllChatLieu();
+        Collections.sort(chatLieu, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("chatLieu", chatLieu);
         return "manage/chat-lieu";
     }
@@ -47,7 +50,10 @@ public class ChatLieuController {
     }
 
     @PostMapping("/chat-lieu/viewAdd/add")
-    public String addChatLieu(@ModelAttribute("chatLieu") ChatLieu chatLieu) {
+    public String addChatLieu(@Valid @ModelAttribute("chatLieu") ChatLieu chatLieu, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "manage/add-chat-lieu";
+        }
         ChatLieu chatLieu1 = new ChatLieu();
         chatLieu1.setMaChatLieu(chatLieu.getMaChatLieu());
         chatLieu1.setTenChatLieu(chatLieu.getTenChatLieu());

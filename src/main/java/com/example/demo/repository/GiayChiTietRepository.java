@@ -19,7 +19,6 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
 
     List<ChiTietGiay> findByTrangThaiAndGiay(int trangThai, Giay giay);
 
-
     @Query(value = "SELECT DISTINCT ctg.hinhAnh FROM ChiTietGiay ctg WHERE ctg.giay = ?1")
     List<HinhAnh> findDistinctByGiay(Giay giay);
 
