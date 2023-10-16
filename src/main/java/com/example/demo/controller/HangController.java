@@ -7,9 +7,11 @@ import com.example.demo.model.Size;
 import com.example.demo.service.HangService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -34,6 +36,7 @@ public class HangController {
     @GetMapping("/hang")
     public String dsHang(Model model) {
         List<Hang> hang = hangService.getALlHang();
+        Collections.sort(hang, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("hang", hang);
         return "manage/hang";
     }
@@ -45,7 +48,10 @@ public class HangController {
     }
 
     @PostMapping("/hang/viewAdd/add")
-    public String addHang(@ModelAttribute("hang") Hang hang) {
+    public String addHang(@Valid @ModelAttribute("hang") Hang hang, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "manage/add-hang";
+        }
         Hang hang1 = new Hang();
         hang1.setLogoHang(hang.getLogoHang());
         hang1.setMaHang(hang.getMaHang());

@@ -1,6 +1,8 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +12,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name= "Chi_Tiet_Giay")
+@Table(name = "Chi_Tiet_Giay")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -39,18 +41,23 @@ public class ChiTietGiay {
     @JoinColumn(name = "id_Mau")
     private MauSac mauSac;
 
-    @Column(name= "nam_San_Xuat")
+    @NotNull(message = "Không được để trống")
+    @Column(name = "nam_San_Xuat")
     private int namSX;
 
-    @Column(name  = "nam_Bao_Hanh")
+    @NotNull(message = "Không được để trống")
+    @Column(name = "nam_Bao_Hanh")
     private int namBH;
 
+    @NotNull(message = "Không được để trống")
     @Column(name = "trong_Luong")
     private int trongLuong;
 
+    @NotNull(message = "Không được để trống")
     @Column(name = "gia_Ban")
     private double giaBan;
 
+    @NotNull(message = "Không được để trống")
     @Column(name = "so_Luong")
     private int soLuong;
 
@@ -69,5 +76,6 @@ public class ChiTietGiay {
     @Column(name = "LD_Sua")
     private String lyDoSua;
 
-
+    @Column(name = "barCode")
+    private String barcode;
 }

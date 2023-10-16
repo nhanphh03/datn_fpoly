@@ -335,19 +335,30 @@
                                 <input th:field="*{logoHang}" type="file" id="imageInput" accept="image/*"
                                        onchange="previewImage(event)">
                                 <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
-                                             style="display: none; max-width: 150px; max-height: 150px;">
+                                             style="display: none; max-width: 150px; max-height: 150px;"><br><br>
+                                <strong th:if="${#fields.hasErrors('logoHang')}"
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert" th:errors="*{logoHang}"></strong>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
-                                <label>Mã Hãng</label>
+                                <label>Mã Hãng</label><br><br>
                                 <input type="text" th:field="*{maHang}">
+                                <br><br>
+                                <strong th:if="${#fields.hasErrors('maHang')}"
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert" th:errors="*{maHang}"></strong>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
-                                <label>Tên Hãng</label>
+                                <label>Tên Hãng</label><br><br>
                                 <input type="text" th:field="*{tenHang}">
+                                <br><br>
+                                <strong th:if="${#fields.hasErrors('tenHang')}"
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert" th:errors="*{tenHang}"></strong>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
