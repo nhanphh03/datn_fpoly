@@ -1,5 +1,6 @@
 package com.example.demo.service.impls;
 
+import com.example.demo.model.ChucVu;
 import com.example.demo.model.NhanVien;
 import com.example.demo.repository.NhanVienRepsitory;
 import com.example.demo.service.NhanVienService;
@@ -13,6 +14,17 @@ import java.util.UUID;
 public class NhanVienServiceImpl implements NhanVienService {
     @Autowired
     private NhanVienRepsitory nhanVienRepsitory;
+
+    @Override
+    public NhanVien checkByEmailAndChucVuAndPass(String email, String pass, ChucVu chucVu) {
+        return nhanVienRepsitory.findByEmailNVAndMatKhauAndChucVuAndTrangThai(email, pass, chucVu, 1);
+    }
+
+    @Override
+    public NhanVien checkBySDTAndChucVuAndPass(String sdt, String pass, ChucVu chucVu) {
+        return nhanVienRepsitory.findBySdtNVAndMatKhauAndChucVuAndTrangThai(sdt, pass, chucVu, 1);
+    }
+
     @Override
     public List<NhanVien> getAllNhanVien() {
         return nhanVienRepsitory.findAll();

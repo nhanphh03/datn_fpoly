@@ -2,6 +2,9 @@ package com.example.demo.config;
 
 
 import com.example.demo.interceptor.BuyerLoginInterceptor;
+import com.example.demo.interceptor.ManageLoginInterceptor;
+import com.example.demo.interceptor.ShipperLoginInterceptor;
+import com.example.demo.interceptor.StaffLoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -21,11 +24,29 @@ public class WebMVCConfig  implements WebMvcConfigurer {
     @Autowired
     private BuyerLoginInterceptor buyerLoginInterceptor;
 
+    @Autowired
+    private StaffLoginInterceptor staffLoginInterceptor;
+
+    @Autowired
+    private ShipperLoginInterceptor shipperLoginInterceptor;
+
+    @Autowired
+    private ManageLoginInterceptor manageLoginInterceptor;
+
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(buyerLoginInterceptor)
-                .addPathPatterns("/buyer/cart/**","/buyer/checkout/**", "/buyer/setting/**", "/buyer/fa&recently/**")
+                .addPathPatterns("/buyer/cart/**","/buyer/checkout/**", "/buyer/setting/**", "/buyer/fa&recently/**", "/buyer/purchase/**")
                 .excludePathPatterns("/buyer/login/**", "/buyer/register/**");
+        registry.addInterceptor(manageLoginInterceptor)
+                .addPathPatterns("/manage/**")
+                .excludePathPatterns("/login");
+        registry.addInterceptor(shipperLoginInterceptor)
+                .addPathPatterns("/order/**")
+                .excludePathPatterns("/login");
+        registry.addInterceptor(staffLoginInterceptor)
+                .addPathPatterns("/sell/**")
+                .excludePathPatterns("/login");
     }
 
     @Bean("messageSource")
