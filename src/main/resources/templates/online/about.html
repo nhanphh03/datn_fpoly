@@ -46,6 +46,7 @@
             <div class="header__top__hover">
               <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
               <ul>
+                <li><a th:href="@{'/buyer/purchase'}" >Purchase</a></li>
                 <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
                 <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
               </ul>
@@ -75,13 +76,13 @@
     <div class="row">
       <div class="col-lg-3 col-md-3">
         <div class="header__logo">
-          <a th:href="@{'/buyer/homeBuyer'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
+          <a th:href="@{'/buyer/home'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
         </div>
       </div>
       <div class="col-lg-6 col-md-6">
         <nav class="header__menu mobile-menu">
           <ul>
-            <li><a th:href="@{'/buyer/homeBuyer'}" >Home</a></li>
+            <li><a th:href="@{'/buyer/home'}" >Home</a></li>
             <li><a th:href="@{'/buyer/shop'}" >Shop</a></li>
             <li class="active"><a th:href="@{'/buyer/about'}">About Us</a></li>
             <li><a th:href="@{'/buyer/blog'}">Blog</a>
@@ -119,7 +120,7 @@
         <div class="breadcrumb__text">
           <h4>About Us</h4>
           <div class="breadcrumb__links">
-            <a th:href="@{'/buyer/homeBuyer'}">Home</a>
+            <a th:href="@{'/buyer/home'}">Home</a>
             <span>About Us</span>
           </div>
         </div>

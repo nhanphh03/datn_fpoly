@@ -8,4 +8,5 @@ import java.util.UUID;
 @Repository
 public interface ChucVuRepsitory extends JpaRepository<ChucVu, UUID> {
 
+    ChucVu findByMaCV(String maCV);
 }
