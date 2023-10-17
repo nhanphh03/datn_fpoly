@@ -41,23 +41,22 @@ public class ChiTietGiay {
     @JoinColumn(name = "id_Mau")
     private MauSac mauSac;
 
-    @NotNull(message = "Không được để trống")
+
     @Column(name = "nam_San_Xuat")
     private int namSX;
 
-    @NotNull(message = "Không được để trống")
+
     @Column(name = "nam_Bao_Hanh")
     private int namBH;
 
-    @NotNull(message = "Không được để trống")
+
     @Column(name = "trong_Luong")
     private int trongLuong;
 
-    @NotNull(message = "Không được để trống")
     @Column(name = "gia_Ban")
     private double giaBan;
 
-    @NotNull(message = "Không được để trống")
+
     @Column(name = "so_Luong")
     private int soLuong;
 

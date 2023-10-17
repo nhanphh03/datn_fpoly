@@ -22,6 +22,15 @@
     <link rel="stylesheet" href="/cssx/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="/cssx/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="/cssx/style.css" type="text/css">
+
+    <style>
+        .delete:hover{
+            color: #ff0000;
+        }
+        .delete{
+            color: black;
+        }
+    </style>
 </head>
 
 <body>
@@ -153,9 +162,8 @@
                                 <div class="card-body">
                                     <div class="shop__sidebar__categories">
                                         <ul class="nice-scroll" style="height: 20%">
-                                            <li><a href="#">My profile</a></li>
-                                            <li><a href="#">Banks & Carts</a></li>
-                                            <li><a href="#">Addresses</a></li>
+                                            <li><a href="/buyer/setting">My profile</a></li>
+                                            <li><a href="/buyer/addresses">Addresses</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -163,29 +171,31 @@
                         </div>
                         <div class="card">
                             <div class="card-heading">
-                                <a href="#">My Purchases</a>
+                                <a href="/buyer/purchase">My Purchases</a>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-heading">
-                                <a href="#">Notifications</a>
+                                <a href="/buyer/notification">Notifications</a>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-heading">
-                                <a href="#">My Vouchers</a>
+                                <a href="/buyer/voucher">My Vouchers</a>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-heading">
-                                <a href="#">My Coins</a>
+                                <a href="/buyer/coins">My Coins</a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-lg-9">
-                <div class="card">
+
+<!--                Setting Account Begin-->
+                <div th:if="${pagesettingAccount}" class="card">
                     <div class="card-body" >
 
                         <div class="row" style="background-color: #f3f2ee; height: 100px; width: 803px; margin-left: 2px;  border-radius: 5px;">
@@ -266,6 +276,171 @@
 
                     </div>
                 </div>
+<!--                Setting Account End-->
+
+<!--                Address Begin-->
+                <div th:if="${pageAddressesUser}" class="card">
+                    <div class="card-body">
+
+                        <div class="row"
+                             style="background-color: #f3f2ee; height: 80px; width: 836px; border-radius: 5px; margin-top: -10px;">
+                            <p style="font-size: 14pt; margin-top: 26px; margin-left: 30px;">My Addresses</p>
+                            <button style="height: 40px; width: 200px; margin-left: 450px; margin-top: 20px;"> + add
+                                new address</button>
+                        </div>
+                        <div class="row"
+                             style="margin-top: 5px; background-color: #f3f2ee; width: 836px ;  border-radius: 5px; height: 175px;">
+                            <div>
+                                <div style="display: flex;">
+                                    <h3
+                                            style="margin-top: 20px; margin-left: 30px; color:black; font-weight: 600 ; font-size: 1.4rem; line-height: 1.5rem;">
+                                        Phạm Hữu Nhân</h3>
+                                    <span
+                                            style="font-size: 1.8rem; margin-top: 10px; margin-left: 10px; font-weight: 100;">
+                                            | </span>
+                                    <h3 style="margin-top: 23px; font-size: 1.1rem; margin-left: 10px;">0987654321
+                                    </h3>
+
+                                    <a href="" style="color: black; margin-top: 30px; margin-left: 440px;">Edit</a>
+                                </div>
+                                <p style="margin-top: 10px; margin-left: 30px; font-size: 1rem;">Số 7, Ngõ 193/192/10</p>
+                                <p style=" margin-left: 30px; font-size: 1rem; position: relative; top: -15px;">Phường Phú Diễn, quận Bắc Từ Liên, Hà Nội</p>
+                                <button style="margin-left: 30px; margin-bottom: 10px; position: relative;top : -15px;" >Default</button>
+                            </div>
+                        </div>
+                        <div class="row"
+                             style="margin-top: 5px; background-color: #f3f2ee; width: 836px ;  border-radius: 5px; height: 130px;">
+                            <div>
+                                <div style="display: flex;">
+                                    <h3
+                                            style="margin-top: 20px; margin-left: 30px; color:black; font-weight: 600 ; font-size: 1.4rem; line-height: 1.5rem;">
+                                        Phạm Hữu Nhân</h3>
+                                    <span
+                                            style="font-size: 1.8rem; margin-top: 10px; margin-left: 10px; font-weight: 100;">
+                                            | </span>
+                                    <h3 style="margin-top: 23px; font-size: 1.1rem; margin-left: 10px;">0987654321
+                                    </h3>
+
+                                    <a href="" style="color: black; margin-top: 30px; margin-left: 398px;">Edit</a>
+                                    <a href="" class="delete" style=" margin-top: 30px; margin-left: 10px; ">Delete</a>
+                                </div>
+                                <p style="margin-top: 10px; margin-left: 30px; font-size: 1rem;">Số 7, Ngõ 193/192/10</p>
+                                <button style="margin-left: 700px; position: relative; top: -40px;"> Set as default</button>
+                                <p style=" margin-left: 30px; font-size: 1rem; position: relative; top: -30px; position: relative; top: -40px;">Phường Phú Diễn, quận Bắc Từ Liên, Hà Nội</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+<!--                Address End-->
+
+<!--                Purchase Begin-->
+                <div th:if="${pagePurchaseUser}" class="card">
+                    <div class="card-body" >
+
+                        <div class="row" style="background-color: #f3f2ee; height: 81px; width: 836px; border-radius: 5px; margin-top: -10px;">
+                            <nav class="header__menu mobile-menu" >
+                                <ul>
+                                    <li th:class="${type1}" style="margin-left: 50px; margin-right: 52px;"><a th:href="@{'/buyer/purchase/all'}" >All</a></li>
+                                    <li th:class="${type2}" style="margin-right: 52px;"><a th:href="@{'/buyer/purchase/pay'}" >To Pay</a></li>
+                                    <li th:class="${type3}" style="margin-right: 52px;"><a th:href="@{'/buyer/purchase/ship'}">To Ship</a></li>
+                                    <li th:class="${type4}" style="margin-right: 52px;"><a th:href="@{'/buyer/purchase/receive'}">To Receive</a></li>
+                                    <li th:class="${type5}" style="margin-right: 52px;"><a th:href="@{'/buyer/purchase/completed'}">Completed</a></li>
+                                    <li th:class="${type6}" style="margin-right: 52px;"><a th:href="@{'/buyer/purchase/refund'}">Return Refund</a></li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <!-- ALL begin -->
+                        <div th:if="${purchaseAll}" class="row" style="background-color: #f3f2ee; width: 836px ; height: 50px; border-radius: 5px; margin-top: 10px;margin-bottom: 10px;"
+                             <p>Form Search</p>
+                        </div>
+                        <div th:if="${purchaseAll}" class="row" style="background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;">
+                            <p>Form All</p>
+                        </div>
+                        <!-- ALL end -->
+
+
+                        <!-- to pay begin -->
+                        <div th:if="${purchasePay}" class="row" style="margin-top: 10px; background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;">
+                            <p>Form Pay</p>
+                        </div>
+                        <!-- to pay end -->
+
+
+                        <!-- to ship begin -->
+                         <div th:if="${purchaseShip}"  class="row" style="margin-top: 10px;background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;">
+                             <p>Form Ship</p>
+                         </div>
+                        <!-- to ship end -->
+
+
+                        <!-- to recceive begin -->
+                         <div th:if="${purchaseReceive}" class="row" style="margin-top: 10px;background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;">
+                             <p>Form Receive</p>
+                         </div>
+                        <!-- to recceive end -->
+
+
+                        <!-- to completed begin -->
+                         <div th:if="${purchaseCompleted}" class="row" style="margin-top: 10px;background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;">
+                             <p>Form Completed</p>
+                         </div>
+                        <!-- to completed end -->
+
+
+                        <!-- to return refund begin -->
+                         <div th:if="${purchaseRefund}"  class="row" style="margin-top: 10px;background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;">
+                             <p>Form Refund</p>
+                         </div>
+                        <!-- to return refund end -->
+
+                    </div>
+                </div>
+<!--                Purchase End-->
+
+<!--                Notification Begin-->
+                <div th:if="${pageNotificationUser}" class="card">
+                    <div class="card-body">
+
+                        <div class="row" style="background-color: #f3f2ee; height: 80px; width: 836px; border-radius: 5px; margin-top: -10px;">
+                        </div>
+                        <div class="row"
+                             style="margin-top: 5px; background-color: #f3f2ee; width: 836px ;  border-radius: 5px; height: 175px;">
+                        </div>
+
+                    </div>
+                </div>
+<!--                Notification End-->
+
+<!--                Voucher Begin-->
+                <div th:if="${pageVoucherUser}" class="card">
+                    <div class="card-body">
+
+                        <div class="row" style="background-color: #f3f2ee; height: 80px; width: 836px; border-radius: 5px; margin-top: -10px;">
+                        </div>
+                        <div class="row"
+                             style="margin-top: 5px; background-color: #f3f2ee; width: 836px ;  border-radius: 5px; height: 175px;">
+                        </div>
+
+                    </div>
+                </div>
+<!--                Voucher End-->
+
+<!--                Coins Begin-->
+                <div th:if="${pageCoinsUser}" class="card">
+                    <div class="card-body">
+
+                        <div class="row" style="background-color: #f3f2ee; height: 80px; width: 836px; border-radius: 5px; margin-top: -10px;">
+                        </div>
+                        <div class="row"
+                             style="margin-top: 5px; background-color: #f3f2ee; width: 836px ;  border-radius: 5px; height: 175px;">
+                        </div>
+
+                    </div>
+                </div>
+<!--                Coins End-->
+
             </div>
         </div>
     </div>

@@ -30,6 +30,9 @@ public class DiaChiKH {
     @Column(name = "ma_Dia_Chi")
     private String maDC;
 
+    @Column(name ="sdt_Nguoi_Nhan")
+    private String sdtNguoiNhan;
+
     @Column(name="ten_Dia_Chi")
     private String tenDC;
 
