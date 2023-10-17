@@ -1,15 +1,15 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
   <meta name="description" content="Male_Fashion Template">
   <meta name="keywords" content="Male_Fashion, unica, creative, html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>COFFEE SOUL</title>
-
-  <!-- Google Font -->
+  <title>SNEAKER SHOP</title>
   <link rel="icon" href="/img/logo-favicon.png" type="image/x-icon">
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
         rel="stylesheet">
 
@@ -22,8 +22,6 @@
   <link rel="stylesheet" href="/cssx/owl.carousel.min.css" type="text/css">
   <link rel="stylesheet" href="/cssx/slicknav.min.css" type="text/css">
   <link rel="stylesheet" href="/cssx/style.css" type="text/css">
-
-
 </head>
 
 <body>
@@ -32,7 +30,7 @@
   <div class="loader"></div>
 </div>
 
-<!-- Header Section Begin -->
+<!-- Header Section BegiAccount  -->
 <header class="header">
   <div class="header__top">
     <div class="container">
@@ -44,6 +42,8 @@
         </div>
         <div class="col-lg-6 col-md-5">
           <div class="header__top__right">
+
+            <!--Name Buyer Begin-->
             <div class="header__top__hover">
               <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
               <ul>
@@ -52,8 +52,14 @@
                 <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
               </ul>
             </div>
+            <!--Name Buyer End-->
+
+
             <div class="header__top__links"  >
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Login</a>
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Register</a>
             </div>
+
             <div class="header__top__hover">
               <span>EN<i class="arrow_carrot-down"></i></span>
               <ul>
@@ -78,7 +84,7 @@
         <nav class="header__menu mobile-menu">
           <ul>
             <li><a th:href="@{'/buyer/home'}" >Home</a></li>
-            <li class="active"><a th:href="@{'/buyer/shop'}" >Shop</a></li>
+            <li><a th:href="@{'/buyer/shop'}" >Shop</a></li>
             <li><a th:href="@{'/buyer/about'}">About Us</a></li>
             <li><a th:href="@{'/buyer/blog'}">Blog</a>
               <ul class="dropdown">
@@ -98,6 +104,7 @@
             <img src="/images/img/icon/cart.png" alt="">
             <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
           </a>
+
         </div>
       </div>
     </div>
@@ -108,6 +115,7 @@
 
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-option">
+
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
@@ -115,8 +123,7 @@
           <h4>Shop</h4>
           <div class="breadcrumb__links">
             <a th:href="@{'/buyer/home'}" >Home</a>
-            <a th:href="@{'/buyer/shop'}" >Shop</a>
-            <span>Shopping Cart</span>
+            <span>Setting Profile</span>
           </div>
         </div>
       </div>
@@ -125,105 +132,124 @@
 </section>
 <!-- Breadcrumb Section End -->
 
-<!-- Shopping Cart Section Begin -->
-<section class="shopping-cart spad">
-
+<!-- Shop Section Begin -->
+<section class="shop spad" style="margin-top: -70px;">
   <div class="container">
+
+
     <div class="row">
-      <div class="col-lg-8">
-        <div class="shopping__cart__table">
-          <table>
-            <thead>
-            <tr>
-              <th><input  onclick="selectAllRows()"  class="check" type="checkbox"  style="margin-right: 20px"></th>
-              <th>Product</th>
-              <th>Variations</th>
-              <th>Quantity</th>
-              <th>Total</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <th:block th:each="x : ${listCartDetail}">
-
-              <tr id="productId" th:value="${x.chiTietGiay.idCTG}">
-                <form  method="post" >
-                  <td><input name="selectedProducts" type="checkbox" th:value="${x.chiTietGiay.idCTG}"></td>
-                  <td class="product__cart__item">
-                    <div class="product__cart__item__pic">
-                      <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay}}"> <img style="width:90px; height:90px;" th:src="@{'/images/imgsProducts/' + ${x.chiTietGiay.hinhAnh.url1}}"></a>
-                    </div>
-                    <div class="product__cart__item__text">
-                      <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay}}">
-                        <h6 th:text="${x.chiTietGiay.giay.tenGiay}"></h6>
-                      </a>
-                      <h5 class="cart__price" th:text="${x.chiTietGiay.giaBan}"></h5>
-                    </div>
-
-                  </td>
-                  <td class="cart__price">
-                    <div  style="position: absolute;padding-top: -30px">
-                      <span id="showButton" style="font-weight: normal; font-size: medium;">Options :</span>
-                      <div id="hiddenDiv" style="display: none; height: 100px; width: 200px; background-color: aquamarine;">
-                      </div>
-                    </div>
-                  </td>
-                  <td class="quantity__item">
-                    <div class="quantity">
-                      <div class="pro-qty-2">
-                        <input  type="text"  id="quantityInput_" th:value="${x.soLuong}">
-                      </div>
-                    </div>
-                  </td>
-                  <td class="cart__price" id="totalAmount" th:text="'$ ' + ${x.chiTietGiay.giaBan * x.soLuong}"></td>
-                  <td class="cart__close"><a th:href="@{'/buyer/cart/delete/' + ${x.chiTietGiay.giay.idGiay}}" id="deleteToCartButton" style="border-radius: 20% ; " ><i class="fa fa-close"></i></a></td>
-
-                </form>
-              </tr>
-
-            </th:block>
-
-            </tbody>
-          </table>
+      <div class="col-lg-3">
+        <div class="shop__sidebar__search">
+          <form action="#">
+            <input type="text" placeholder="Search...">
+            <button type="submit"><span class="icon_search"></span></button>
+          </form>
         </div>
-        <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="continue__btn">
-              <a th:href="@{'/buyer/shop'}" >Shop</a>
+        <div class="shop__sidebar__accordion">
+          <div class="accordion" id="accordionExample">
+            <div class="card">
+              <div class="card-heading">
+                <a data-toggle="collapse" data-target="#collapseOne">My Account</a>
+              </div>
+              <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
+                <div class="card-body">
+                  <div class="shop__sidebar__categories">
+                    <ul class="nice-scroll" style="height: 20%">
+                      <li><a href="#">My profile</a></li>
+                      <li><a href="#">Banks & Carts</a></li>
+                      <li><a href="#">Addresses</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="continue__btn update__btn">
-              <a href="#"><i class="fa fa-spinner"></i>Update Cart</a>
+            <div class="card">
+              <div class="card-heading">
+                <a th:href="@{'/buyer/purchase'}">My Purchases</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-heading">
+                <a href="#">Notifications</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-heading">
+                <a href="#">My Vouchers</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-heading">
+                <a href="#">My Coins</a>
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-lg-4">
-        <div class="cart__discount">
-          <h6>Discount codes</h6>
-          <form action="#">
-            <input type="text" placeholder="Coupon code">
-            <button type="submit">Apply</button>
-          </form>
+      <div class="col-lg-9">
+
+        <div class="card">
+          <div class="card-body" >
+
+            <div class="row" style="background-color: #f3f2ee; height: 81px; width: 836px; border-radius: 5px; margin-top: -10px;">
+              <nav class="header__menu mobile-menu" >
+                <ul>
+                  <li style="margin-left: 50px; margin-right: 52px;"><a th:href="@{'/buyer/homeBuyer'}" >All</a></li>
+                  <li style="margin-right: 52px;"><a th:href="@{'/buyer/shop'}" >To Pay</a></li>
+                  <li style="margin-right: 52px;"><a th:href="@{'/buyer/about'}">To Ship</a></li>
+                  <li style="margin-right: 52px;"><a th:href="@{'/buyer/blog'}">To Receive</a></li>
+                  <li style="margin-right: 52px;"><a th:href="@{'/buyer/contact'}">Completed</a></li>
+                  <li style="margin-right: 52px;"><a th:href="@{'/buyer/contact'}">Return Refund</a></li>
+                </ul>
+              </nav>
+            </div>
+
+            <!-- ALL begin -->
+            <!-- <div class="row" style="background-color: #f3f2ee; width: 836px ; height: 50px; border-radius: 5px; margin-top: 10px;margin-bottom: 10px;"></div>
+            <div class="row" style="background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;"></div> -->
+            <!-- ALL end -->
+
+
+            <!-- to pay begin -->
+            <div class="row" style="margin-top: 10px; background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;"></div>
+            <!-- to pay end -->
+
+
+            <!-- to ship begin -->
+            <!-- <div class="row" style="margin-top: 10px;background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;"></div> -->
+            <!-- to ship end -->
+
+
+            <!-- to recceive begin -->
+            <!-- <div class="row" style="margin-top: 10px;background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;"></div> -->
+            <!-- to recceive end -->
+
+
+            <!-- to completed begin -->
+            <!-- <div class="row" style="margin-top: 10px;background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;"></div> -->
+            <!-- to completed end -->
+
+
+            <!-- to return refund begin -->
+            <!-- <div class="row" style="margin-top: 10px;background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;"></div> -->
+            <!-- to return refund end -->
+
+          </div>
         </div>
-        <div class="cart__total">
-          <form action="/checkout" method="Post">
-            <h6>Cart total</h6>
-            <ul>
-              <li>Subtotal <span>$ 169.50</span></li>
-              <li>Total <span>$ 169.50</span></li>
-            </ul>
-            <button style="margin: auto" type="submit" class="primary-btn">Proceed to checkout</button>
-          </form>
-        </div>
+
+
+
+
+
+
+
       </div>
     </div>
+
+
   </div>
-
-
 </section>
-<!-- Shopping Cart Section End -->
+<!-- Shop Section End -->
 
 <!-- Footer Section Begin -->
 <footer class="footer">
@@ -280,9 +306,11 @@
           <p>Copyright ©
             <script>
               document.write(new Date().getFullYear());
-            </script>2020
+            </script>
+            2020
             All rights reserved | This template is made with <i class="fa fa-heart-o"
-                                                                aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                                                aria-hidden="true"></i> by <a
+                    href="https://colorlib.com" target="_blank">Colorlib</a>
           </p>
           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         </div>
@@ -302,73 +330,6 @@
   </div>
 </div>
 <!-- Search End -->
-<div if="${message}" class="alert alert-success" role="alert">
-    <span text="${message}"></span>
-</div>
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
-
-
-<!--<script>-->
-<!--  const showButton = document.getElementById('showButton');-->
-<!--  const hiddenDiv = document.getElementById('hiddenDiv');-->
-
-<!--  document.addEventListener('click', function(event) {-->
-<!--    if (!showButton.contains(event.target) && !hiddenDiv.contains(event.target)) {-->
-<!--      hiddenDiv.style.display = 'none';-->
-<!--    }-->
-<!--  });-->
-
-<!--  showButton.addEventListener('click', function() {-->
-<!--    hiddenDiv.style.display = 'block';-->
-<!--    event.stopPropagation(); // Ngăn chặn sự kiện click lan truyền lên body/document-->
-<!--  });-->
-
-<!--  hiddenDiv.addEventListener('click', function(event) {-->
-<!--    event.stopPropagation(); // Ngăn chặn sự kiện click lan truyền lên body/document-->
-<!--  });-->
-
-<!--</script>-->
-
-<!--<script>-->
-<!--  function selectAllRows() {-->
-<!--    var checkboxes = document.querySelectorAll('tbody input[type="checkbox"]');-->
-<!--    var selectAllCheckbox = document.querySelector('thead input.check');-->
-
-<!--    checkboxes.forEach(function(checkbox) {-->
-<!--      checkbox.checked = selectAllCheckbox.checked;-->
-<!--    });-->
-<!--  }-->
-<!--</script>-->
-
-<!--<script>-->
-<!--  $(document).ready(function() {-->
-<!--    $(".deleteToCartButton").click(function(event) {-->
-<!--      event.preventDefault();  // Ngăn chặn hành vi mặc định của button-->
-
-<!--      var idProduct = $(this).closest("tr").attr("id");  // Lấy ID sản phẩm từ thuộc tính id của phần tử tr-->
-
-<!--      // Gửi yêu cầu AJAX đến Controller-->
-<!--      $.ajax({-->
-<!--        url: "/deleteToCartButton/" + idProduct,-->
-<!--        type: "POST",-->
-<!--        success: function(response) {-->
-<!--          // Hiển thị thông báo thành công-->
-<!--          $("#alertMessage").text(response).show();-->
-<!--          // Cập nhật danh sách giỏ hàng (nếu cần)-->
-<!--          // ...-->
-<!--        },-->
-<!--        error: function(xhr, status, error) {-->
-<!--          // Xử lý lỗi (nếu có)-->
-<!--          alert("Error occurred while removing the product from cart");-->
-<!--        }-->
-<!--      });-->
-<!--    });-->
-<!--  });-->
-<!--</script>-->
 
 <!-- Js Plugins -->
 <script src="/js/jquery-3.3.1.min.js"></script>
