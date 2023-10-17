@@ -47,6 +47,7 @@
                         <div class="header__top__hover">
                             <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
                             <ul>
+                                <li><a th:href="@{'/buyer/purchase'}" >Purchase</a></li>
                                 <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
                                 <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
                             </ul>
@@ -76,13 +77,13 @@
         <div class="row">
             <div class="col-lg-3 col-md-3">
                 <div class="header__logo">
-                    <a th:href="@{'/buyer/homeBuyer'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
+                    <a th:href="@{'/buyer/home'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <nav class="header__menu mobile-menu">
                     <ul>
-                        <li><a th:href="@{'/buyer/homeBuyer'}" >Home</a></li>
+                        <li><a th:href="@{'/buyer/home'}" >Home</a></li>
                         <li><a th:href="@{'/buyer/shop'}" >Shop</a></li>
                         <li><a th:href="@{'/buyer/about'}">About Us</a></li>
                         <li><a th:href="@{'/buyer/blog'}">Blog</a>
@@ -121,7 +122,7 @@
                 <div class="breadcrumb__text">
                     <h4>Shop</h4>
                     <div class="breadcrumb__links">
-                        <a th:href="@{'/buyer/homeBuyer'}" >Home</a>
+                        <a th:href="@{'/buyer/home'}" >Home</a>
                         <span>Setting Profile</span>
                     </div>
                 </div>
@@ -187,8 +188,8 @@
                 <div class="card">
                     <div class="card-body" >
 
-                        <div class="row" style="background-color: #f3f2ee; height: 100px; width: 803px; margin-left: 2px; border-radius: 5px;">
-                            <img src="/images/imgRanks/Silver" alt="" style="margin-left: 700px; width: 50px; height: 50xp;">
+                        <div class="row" style="background-color: #f3f2ee; height: 100px; width: 803px; margin-left: 2px;  border-radius: 5px;">
+                            <img src="/images/imgRanks/Gold.png" alt="" style="margin-left: 700px; width: 50px; height: 50xp;">
                             <img src="/images/imgsKhachHang/Avatar/CEO.jpg" alt="" style="height: 110px; width: 110px; border-radius: 50% ; margin-left: 10px; margin-top: 0px;">
 
                             <h4 style="margin-top: 60px; margin-left: 70px;">Pham Huu Nhan</h4>
@@ -201,7 +202,7 @@
                             <div class="form-group" style="margin-left: 50px; margin-top: 50px; width: 300px;">
                                 <label>Fullname</label>
                                 <br>
-                                <input class="form-control" type="text" placeholder="nhan Pham">
+                                <input class="form-control" type="text" placeholder="Nhan Pham">
                             </div>
                             <div class="form-group" style="margin-left: 50px; margin-top: 50px; width: 300px;">
                                 <label>Gender</label>
@@ -212,7 +213,7 @@
                             <div class="form-group" style="margin-left: 50px; margin-top: 10px;  width: 300px;">
                                 <label>Date of birth :</label>
                                 <br>
-                                <input type="text" class="form-control">
+                                <input type="date" class="form-control">
                             </div>
                             <div class="form-group" style="margin-left: 50px; margin-top: 10px; width: 300px;">
                                 <label>ID CCCD :</label>
@@ -223,12 +224,12 @@
                             <div class="form-group" style="margin-left: 50px; margin-top: 10px;  width: 300px;">
                                 <label>Email :</label>
                                 <br>
-                                <input type="text" class="form-control">
+                                <input placeholder="nhan@gmail.com" type="text" class="form-control">
                             </div>
                             <div class="form-group" style="margin-left: 50px; margin-top: 10px;  width: 300px;">
                                 <label>Phone :</label>
                                 <br>
-                                <input type="text" class="form-control" placeholder="+1452 876 5432">
+                                <input type="text" class="form-control" placeholder="+8438 432 9003">
                             </div>
                             <br>
 

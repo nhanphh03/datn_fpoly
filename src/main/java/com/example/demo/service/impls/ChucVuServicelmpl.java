@@ -34,4 +34,9 @@ public class ChucVuServicelmpl implements ChucVuService {
     public ChucVu getByIdChucVu(UUID id) {
         return chucVuRepsitory.findById(id).orElse(null);
     }
+
+    @Override
+    public ChucVu findByMaCV(String maCV) {
+        return chucVuRepsitory.findByMaCV(maCV);
+    }
 }

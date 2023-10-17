@@ -46,6 +46,7 @@
             <div class="header__top__hover">
               <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
               <ul>
+                <li><a th:href="@{'/buyer/purchase'}" >Purchase</a></li>
                 <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
                 <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
               </ul>
@@ -119,7 +120,7 @@
         <div class="breadcrumb__text">
           <h4>Shop</h4>
           <div class="breadcrumb__links">
-            <a th:href="@{'/buyer/homeBuyer'}" >Home</a>
+            <a th:href="@{'/buyer/home'}" >Home</a>
             <span>Shop</span>
           </div>
         </div>
