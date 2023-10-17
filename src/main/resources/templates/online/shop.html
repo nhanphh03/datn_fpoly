@@ -76,14 +76,14 @@
     <div class="row">
       <div class="col-lg-3 col-md-3">
         <div class="header__logo">
-          <a th:href="@{'/buyer/homeBuyer'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
+          <a th:href="@{'/buyer/home'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
         </div>
       </div>
       <div class="col-lg-6 col-md-6">
         <nav class="header__menu mobile-menu">
           <ul>
-            <li><a th:href="@{'/buyer/homeBuyer'}" >Home</a></li>
-            <li class="active"><a th:href="@{'/buyer/shop'}" >Shop</a></li>
+            <li><a th:href="@{'/buyer/home'}" >Home</a></li>
+            <li><a th:href="@{'/buyer/shop'}" >Shop</a></li>
             <li><a th:href="@{'/buyer/about'}">About Us</a></li>
             <li><a th:href="@{'/buyer/blog'}">Blog</a>
               <ul class="dropdown">
@@ -152,11 +152,11 @@
                   <div class="card-body">
                     <div class="shop__sidebar__categories">
                       <ul class="nice-scroll" style="height: 20%">
-                        <li data-filter="*"><a href="#">All Product(20)</a></li>
-                        <li><a href="#">Best Seller (20)</a></li>
-                        <li><a href="#">New Arrivals (20)</a></li>
-                        <li><a href="#">Collections (20)</a></li>
-                        <li><a href="#">Sale off 20%  (20)</a></li>
+                        <li><a href="/buyer/shop">All Product</a></li>
+                        <li><a href="#">Best Seller</a></li>
+                        <li><a href="#">New Arrivals </a></li>
+                        <li><a href="#">Collections</a></li>
+                        <li><a href="#">Sale off</a></li>
                       </ul>
                     </div>
                   </div>
@@ -170,9 +170,9 @@
                   <div class="card-body">
                     <div class="shop__sidebar__brand">
                       <ul>
-                        <li class="active" data-filter="*"><a >All Branding</a></li>
+                        <li class="active" data-filter="*"><a href="/buyer/shop" >All Branding</a></li>
                         <th:block th:each="a : ${listBrand}">
-                          <li><a  th:href="@{'/shop/brand/' + ${a.idHang}}" th:text="${a.tenHang}" > </a></li>
+                          <li><a  th:href="@{'/buyer/shop/brand/' + ${a.idHang}}" th:text="${a.tenHang}" > </a></li>
                         </th:block>
                       </ul>
                     </div>
@@ -259,16 +259,16 @@
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6">
               <div class="shop__product__option__left">
-                <p> Showing 1 – 9 of 77 Results</p>
+                <p  th:text="'Show 1 - 9 of ' + ${sumProduct} + ' Result'"> </p>
               </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
               <div class="shop__product__option__right">
                 <p>Sort by Price:</p>
                 <select onchange="window.location.href = this.value;">
-                  <option>${ChooseAnOption}</option>
-                  <option value="/viewsUsers/usersShop/LowToHigh">Low To High</option>
-                  <option value="/viewsUsers/usersShop/HighToLow">High To Low</option>
+                  <option>Choose option</option>
+                  <option value="/buyer/shop/lowToHigh">Low To High</option>
+                  <option value="/buyer/shop/highToLow">High To Low</option>
                 </select>
               </div>
             </div>
@@ -306,15 +306,27 @@
 
         <div class="row">
           <div class="col-lg-12">
-            <div class="product__pagination">
-
+            <div th:if="${pageNumber}" class="product__pagination">
 
               <th:block th:each="i : ${#numbers.sequence(1, totalPage)}">
                 <a class="active" th:href="@{'/buyer/shop?pageNum=' + ${i}}" th:text="${i}"></a>
               </th:block>
 
-
             </div>
+
+            <div th:if="${pageNumberHTL}" class="product__pagination">
+              <th:block th:each="i : ${#numbers.sequence(1, totalPageHTL)}">
+                <a class="active" th:href="@{'/buyer/shop/highToLow?pageNum=' + ${i}}" th:text="${i}"></a>
+              </th:block>
+            </div>
+            <div th:if="${pageNumberLTH}" class="product__pagination">
+              <th:block th:each="i : ${#numbers.sequence(1, totalPageLTH)}">
+                <a class="active" th:href="@{'/buyer/shop/lowToHigh?pageNum=' + ${i}}" th:text="${i}"></a>
+              </th:block>
+            </div>
+
+
+
           </div>
         </div>
 
