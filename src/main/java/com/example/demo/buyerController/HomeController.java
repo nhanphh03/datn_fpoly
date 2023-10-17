@@ -33,7 +33,7 @@ public class HomeController {
     @Autowired
     private GHCTService ghctService;
 
-    @RequestMapping(value = {"", "/", "/indexBuyer", "/homeBuyer"})
+    @RequestMapping(value = {"", "/", "/home"})
     public String home(Model model){
 
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
