@@ -17,4 +17,6 @@ public interface ChucVuService {
 
     public ChucVu getByIdChucVu(UUID id);
 
+    ChucVu findByMaCV(String maCV);
+
 }

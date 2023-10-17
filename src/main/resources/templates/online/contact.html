@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="zxx" xmlns:th="http://www.thymeleaf.org">
+
 <head>
   <meta charset="UTF-8">
   <meta name="description" content="Male_Fashion Template">
   <meta name="keywords" content="Male_Fashion, unica, creative, html">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>COFFEE SOUL</title>
+  <title>SNEAKER SHOP</title>
+
+  <link rel="icon" href="/img/logo-favicon.png" type="image/x-icon">
 
   <!-- Google Font -->
-  <link rel="icon" href="/img/logo-favicon.png" type="image/x-icon">
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
         rel="stylesheet">
 
@@ -22,8 +24,6 @@
   <link rel="stylesheet" href="/cssx/owl.carousel.min.css" type="text/css">
   <link rel="stylesheet" href="/cssx/slicknav.min.css" type="text/css">
   <link rel="stylesheet" href="/cssx/style.css" type="text/css">
-
-
 </head>
 
 <body>
@@ -44,6 +44,8 @@
         </div>
         <div class="col-lg-6 col-md-5">
           <div class="header__top__right">
+
+            <!--Name Buyer Begin-->
             <div class="header__top__hover">
               <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
               <ul>
@@ -52,8 +54,14 @@
                 <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
               </ul>
             </div>
+            <!--Name Buyer End-->
+
+
             <div class="header__top__links"  >
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Login</a>
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Register</a>
             </div>
+
             <div class="header__top__hover">
               <span>EN<i class="arrow_carrot-down"></i></span>
               <ul>
@@ -78,14 +86,14 @@
         <nav class="header__menu mobile-menu">
           <ul>
             <li><a th:href="@{'/buyer/home'}" >Home</a></li>
-            <li class="active"><a th:href="@{'/buyer/shop'}" >Shop</a></li>
+            <li><a th:href="@{'/buyer/shop'}" >Shop</a></li>
             <li><a th:href="@{'/buyer/about'}">About Us</a></li>
             <li><a th:href="@{'/buyer/blog'}">Blog</a>
               <ul class="dropdown">
                 <li><a th:href="@{'/buyer/blog/blog-details'}">Blog Details</a></li>
               </ul>
             </li>
-            <li><a th:href="@{'/buyer/contact'}">Contact</a></li>
+            <li class="active"><a th:href="@{'/buyer/contact'}">Contact</a></li>
           </ul>
         </nav>
       </div>
@@ -98,6 +106,7 @@
             <img src="/images/img/icon/cart.png" alt="">
             <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
           </a>
+
         </div>
       </div>
     </div>
@@ -106,124 +115,60 @@
 </header>
 <!-- Header Section End -->
 
-<!-- Breadcrumb Section Begin -->
-<section class="breadcrumb-option">
+<!-- Map Begin -->
+<div class="map">
+  <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d111551.9926412813!2d-90.27317134641879!3d38.606612219170856!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited%20States!5e0!3m2!1sen!2sbd!4v1597926938024!5m2!1sen!2sbd"
+          height="500" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+</div>
+<!-- Map End -->
+
+<!-- Contact Section Begin -->
+<section class="contact spad">
   <div class="container">
     <div class="row">
-      <div class="col-lg-12">
-        <div class="breadcrumb__text">
-          <h4>Shop</h4>
-          <div class="breadcrumb__links">
-            <a th:href="@{'/buyer/home'}" >Home</a>
-            <a th:href="@{'/buyer/shop'}" >Shop</a>
-            <span>Shopping Cart</span>
+      <div class="col-lg-6 col-md-6">
+        <div class="contact__text">
+          <div class="section-title">
+            <span>Information</span>
+            <h2>Contact Us</h2>
+            <p>As you might expect of a company that began as a high-end interiors contractor, we pay
+              strict attention.</p>
           </div>
+          <ul>
+            <li>
+              <h4>Ha Noi</h4>
+              <p>94 P. Ngoc Ha, Ngoc Ho, Ba Dinh, Ha Noi 10000, Viet Nam<br/>+84 38-432-9003</p>
+            </li>
+            <li>
+              <h4>Ho Chi Minh City</h4>
+              <p>88 Le Lai Street, Pham Ngu Lao, Quan 1, Ho Chi Minh City , Viet Nam<br/>+84 38-5511-473
+              </p>
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-<!-- Breadcrumb Section End -->
-
-<!-- Shopping Cart Section Begin -->
-<section class="shopping-cart spad">
-
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8">
-        <div class="shopping__cart__table">
-          <table>
-            <thead>
-            <tr>
-              <th><input  onclick="selectAllRows()"  class="check" type="checkbox"  style="margin-right: 20px"></th>
-              <th>Product</th>
-              <th>Variations</th>
-              <th>Quantity</th>
-              <th>Total</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <th:block th:each="x : ${listCartDetail}">
-
-              <tr id="productId" th:value="${x.chiTietGiay.idCTG}">
-                <form  method="post" >
-                  <td><input name="selectedProducts" type="checkbox" th:value="${x.chiTietGiay.idCTG}"></td>
-                  <td class="product__cart__item">
-                    <div class="product__cart__item__pic">
-                      <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay}}"> <img style="width:90px; height:90px;" th:src="@{'/images/imgsProducts/' + ${x.chiTietGiay.hinhAnh.url1}}"></a>
-                    </div>
-                    <div class="product__cart__item__text">
-                      <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay}}">
-                        <h6 th:text="${x.chiTietGiay.giay.tenGiay}"></h6>
-                      </a>
-                      <h5 class="cart__price" th:text="${x.chiTietGiay.giaBan}"></h5>
-                    </div>
-
-                  </td>
-                  <td class="cart__price">
-                    <div  style="position: absolute;padding-top: -30px">
-                      <span id="showButton" style="font-weight: normal; font-size: medium;">Options :</span>
-                      <div id="hiddenDiv" style="display: none; height: 100px; width: 200px; background-color: aquamarine;">
-                      </div>
-                    </div>
-                  </td>
-                  <td class="quantity__item">
-                    <div class="quantity">
-                      <div class="pro-qty-2">
-                        <input  type="text"  id="quantityInput_" th:value="${x.soLuong}">
-                      </div>
-                    </div>
-                  </td>
-                  <td class="cart__price" id="totalAmount" th:text="'$ ' + ${x.chiTietGiay.giaBan * x.soLuong}"></td>
-                  <td class="cart__close"><a th:href="@{'/buyer/cart/delete/' + ${x.chiTietGiay.giay.idGiay}}" id="deleteToCartButton" style="border-radius: 20% ; " ><i class="fa fa-close"></i></a></td>
-
-                </form>
-              </tr>
-
-            </th:block>
-
-            </tbody>
-          </table>
-        </div>
-        <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="continue__btn">
-              <a th:href="@{'/buyer/shop'}" >Shop</a>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="continue__btn update__btn">
-              <a href="#"><i class="fa fa-spinner"></i>Update Cart</a>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="cart__discount">
-          <h6>Discount codes</h6>
+      <div class="col-lg-6 col-md-6">
+        <div class="contact__form">
           <form action="#">
-            <input type="text" placeholder="Coupon code">
-            <button type="submit">Apply</button>
-          </form>
-        </div>
-        <div class="cart__total">
-          <form action="/checkout" method="Post">
-            <h6>Cart total</h6>
-            <ul>
-              <li>Subtotal <span>$ 169.50</span></li>
-              <li>Total <span>$ 169.50</span></li>
-            </ul>
-            <button style="margin: auto" type="submit" class="primary-btn">Proceed to checkout</button>
+            <div class="row">
+              <div class="col-lg-6">
+                <input type="text" placeholder="Name">
+              </div>
+              <div class="col-lg-6">
+                <input type="text" placeholder="Email">
+              </div>
+              <div class="col-lg-12">
+                <textarea placeholder="Message"></textarea>
+                <button type="submit" class="site-btn">Send Message</button>
+              </div>
+            </div>
           </form>
         </div>
       </div>
     </div>
   </div>
-
-
 </section>
-<!-- Shopping Cart Section End -->
+<!-- Contact Section End -->
 
 <!-- Footer Section Begin -->
 <footer class="footer">
@@ -232,10 +177,10 @@
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="footer__about">
           <div class="footer__logo">
-            <a href="#"><img src="/images/img/footer-logo.png" alt=""></a>
+            <a href="#"><img src="img/footer-logo.png" alt=""></a>
           </div>
           <p>The customer is at the heart of our unique business model, which includes design.</p>
-          <a href="#"><img src="/images/img/payment.png" alt=""></a>
+          <a href="#"><img src="img/payment.png" alt=""></a>
         </div>
       </div>
       <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
@@ -280,9 +225,11 @@
           <p>Copyright ©
             <script>
               document.write(new Date().getFullYear());
-            </script>2020
+            </script>
+            2020
             All rights reserved | This template is made with <i class="fa fa-heart-o"
-                                                                aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                                                                aria-hidden="true"></i> by <a
+                    href="https://colorlib.com" target="_blank">Colorlib</a>
           </p>
           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         </div>
@@ -302,73 +249,6 @@
   </div>
 </div>
 <!-- Search End -->
-<div if="${message}" class="alert alert-success" role="alert">
-    <span text="${message}"></span>
-</div>
-
-
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-
-
-
-<!--<script>-->
-<!--  const showButton = document.getElementById('showButton');-->
-<!--  const hiddenDiv = document.getElementById('hiddenDiv');-->
-
-<!--  document.addEventListener('click', function(event) {-->
-<!--    if (!showButton.contains(event.target) && !hiddenDiv.contains(event.target)) {-->
-<!--      hiddenDiv.style.display = 'none';-->
-<!--    }-->
-<!--  });-->
-
-<!--  showButton.addEventListener('click', function() {-->
-<!--    hiddenDiv.style.display = 'block';-->
-<!--    event.stopPropagation(); // Ngăn chặn sự kiện click lan truyền lên body/document-->
-<!--  });-->
-
-<!--  hiddenDiv.addEventListener('click', function(event) {-->
-<!--    event.stopPropagation(); // Ngăn chặn sự kiện click lan truyền lên body/document-->
-<!--  });-->
-
-<!--</script>-->
-
-<!--<script>-->
-<!--  function selectAllRows() {-->
-<!--    var checkboxes = document.querySelectorAll('tbody input[type="checkbox"]');-->
-<!--    var selectAllCheckbox = document.querySelector('thead input.check');-->
-
-<!--    checkboxes.forEach(function(checkbox) {-->
-<!--      checkbox.checked = selectAllCheckbox.checked;-->
-<!--    });-->
-<!--  }-->
-<!--</script>-->
-
-<!--<script>-->
-<!--  $(document).ready(function() {-->
-<!--    $(".deleteToCartButton").click(function(event) {-->
-<!--      event.preventDefault();  // Ngăn chặn hành vi mặc định của button-->
-
-<!--      var idProduct = $(this).closest("tr").attr("id");  // Lấy ID sản phẩm từ thuộc tính id của phần tử tr-->
-
-<!--      // Gửi yêu cầu AJAX đến Controller-->
-<!--      $.ajax({-->
-<!--        url: "/deleteToCartButton/" + idProduct,-->
-<!--        type: "POST",-->
-<!--        success: function(response) {-->
-<!--          // Hiển thị thông báo thành công-->
-<!--          $("#alertMessage").text(response).show();-->
-<!--          // Cập nhật danh sách giỏ hàng (nếu cần)-->
-<!--          // ...-->
-<!--        },-->
-<!--        error: function(xhr, status, error) {-->
-<!--          // Xử lý lỗi (nếu có)-->
-<!--          alert("Error occurred while removing the product from cart");-->
-<!--        }-->
-<!--      });-->
-<!--    });-->
-<!--  });-->
-<!--</script>-->
 
 <!-- Js Plugins -->
 <script src="/js/jquery-3.3.1.min.js"></script>

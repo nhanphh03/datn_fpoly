@@ -24,6 +24,8 @@ public interface GiayChiTietService {
 
     List<ChiTietGiay> getCTGByGiayActive(Giay giay);
 
+    List<ChiTietGiay> getCTGByGiaySoldOut(Giay giay);
+
     List<HinhAnh> listHinhAnhByGiay(Giay giay);
     //Double maxPriceGiay(Giay giay);
 

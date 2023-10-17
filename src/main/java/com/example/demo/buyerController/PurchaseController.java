@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/buyer")
-public class CartController {
+public class PurchaseController {
 
     @Autowired
     private HttpServletRequest request;
@@ -27,8 +27,8 @@ public class CartController {
     @Autowired
     private GHCTService ghctService;
 
-    @GetMapping("/cart")
-    private String getShoppingCart(Model model){
+    @GetMapping("/purchase")
+    private String getPurchase(Model model){
 
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
         GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
@@ -42,6 +42,6 @@ public class CartController {
 
 
 
-        return "/online/shopping-cart";
+        return "/online/purchase";
     }
 }

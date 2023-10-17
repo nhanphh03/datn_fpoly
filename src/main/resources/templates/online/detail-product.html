@@ -51,6 +51,7 @@
             <div class="header__top__hover">
               <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
               <ul>
+                <li><a th:href="@{'/buyer/purchase'}" >Purchase</a></li>
                 <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
                 <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
               </ul>
@@ -80,13 +81,13 @@
     <div class="row">
       <div class="col-lg-3 col-md-3">
         <div class="header__logo">
-          <a th:href="@{'/buyer/homeBuyer'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
+          <a th:href="@{'/buyer/home'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
         </div>
       </div>
       <div class="col-lg-6 col-md-6">
         <nav class="header__menu mobile-menu">
           <ul>
-            <li><a th:href="@{'/buyer/homeBuyer'}" >Home</a></li>
+            <li><a th:href="@{'/buyer/home'}" >Home</a></li>
             <li class="active"><a th:href="@{'/buyer/shop'}" >Shop</a></li>
             <li><a th:href="@{'/buyer/about'}">About Us</a></li>
             <li><a th:href="@{'/buyer/blog'}">Blog</a>
@@ -239,6 +240,11 @@
                 <button  class="primary-btn">buy now</button>
                 <a  style="color: white" id="addToCartButton" class="primary-btn" >add to cart</a>
               </div>
+
+              <div th:if="${buyReceiveMail}" class="product__details__cart__option">
+                <a  style="color: white" id="addToCartButton" class="primary-btn" >Receive email when in stock</a>
+              </div>
+
 
               <div th:if="${heartLogged}" class="product__details__btns__option">
                 <a th:href="@{'/buyer/detail/heart/' + ${product.idGiay}}"><i class="fa fa-heart"></i>add to wishlist</a>
