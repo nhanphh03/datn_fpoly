@@ -15,8 +15,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -142,5 +144,19 @@ public class ChatLieuController {
         model.addAttribute("chatLieuAll", chatLieuService.getAllChatLieu());
 
         return "manage/chat-lieu"; // Trả về mẫu HTML chứa bảng dữ liệu sau khi lọc
+    }
+
+    @PostMapping("/chatLieu/import")
+    public String importData(@RequestParam("file") MultipartFile file) {
+        if (file != null && !file.isEmpty()) {
+            try {
+                InputStream excelFile = file.getInputStream();
+                chatLieuService.importDataFromExcel(excelFile); // Gọi phương thức nhập liệu từ Excel
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Xử lý lỗi
+            }
+        }
+        return "redirect:/manage/chat-lieu"; // Chuyển hướng sau khi nhập liệu thành công hoặc không thành công
     }
 }

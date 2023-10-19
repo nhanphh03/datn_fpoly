@@ -5,6 +5,7 @@ import com.example.demo.model.Giay;
 import com.example.demo.model.HinhAnh;
 import org.springframework.data.jpa.repository.Query;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -32,6 +33,8 @@ public interface GiayChiTietService {
     public List<ChiTietGiay> fillterCTG(String searchTerm);
 
     public List<ChiTietGiay> fillterGCT(String searchTerm);
+
+    public void importDataFromExcel(InputStream excelFile);
 
 
 }
