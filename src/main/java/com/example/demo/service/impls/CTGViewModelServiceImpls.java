@@ -36,4 +36,19 @@ public class CTGViewModelServiceImpls implements CTGViewModelService {
     public CTGViewModel findByIDGiay(UUID idGiay) {
         return ctgViewModelRepository.findByGiay(idGiay);
     }
+
+    @Override
+    public List<CTGViewModel> findByIDHang(String idHang) {
+        return ctgViewModelRepository.findByHang(idHang);
+    }
+
+    @Override
+    public Page<CTGViewModel> getAllByPriceHighToLow(Pageable pageable) {
+        return ctgViewModelRepository.listCTGVMHTL(pageable);
+    }
+
+    @Override
+    public Page<CTGViewModel> getAllByPriceLowToHigh(Pageable pageable) {
+        return ctgViewModelRepository.listCTGVMLTH(pageable);
+    }
 }
