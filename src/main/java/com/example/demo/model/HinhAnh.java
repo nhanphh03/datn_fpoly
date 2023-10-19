@@ -38,9 +38,6 @@ public class HinhAnh {
     @Column(name = "url4")
     private String url4;
 
-    @Column(name = "url5")
-    private String url5;
-
     @Column(name = "trang_Thai")
     private int trangThai;
 
