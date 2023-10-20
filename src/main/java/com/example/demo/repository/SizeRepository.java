@@ -15,4 +15,6 @@ public interface SizeRepository extends JpaRepository<Size, UUID> {
     List<Size> findByTrangThaiOrderByMaSize(int trangThai);
 
     List<Size> findBySoSizeOrMaSize(Integer selectedSize,String maSize);
+
+    Size findBySoSize(int soSize);
 }
