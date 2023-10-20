@@ -10,6 +10,6 @@ import java.util.UUID;
 
 @Repository
 public interface HoaDonRepository extends JpaRepository<HoaDon , UUID> {
-    @Query(value = "select * from Hoa_Don where trang_thai = 1 ",nativeQuery = true)
+    @Query(value = "select * from Hoa_Don where trang_thai = 3 ",nativeQuery = true)
     List<HoaDon> listChuaThanhToan();
 }
