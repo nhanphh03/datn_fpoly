@@ -385,60 +385,6 @@
         <div class="col-lg-2 col-sm-6 col-12">
          <div class="form-group">
           <select class="select">
-           <option>Xã Phường</option>
-           <option th:each="loc : ${diaChi}" th:value="${loc.xaPhuong}"
-                   th:text="${loc.xaPhuong}"></option>
-          </select>
-         </div>
-        </div>
-        <div class="col-lg-2 col-sm-6 col-12">
-         <div class="form-group">
-          <select class="select">
-           <option>Quận Huyện</option>
-           <option th:each="loc : ${diaChi}" th:value="${loc.quanHuyen}"
-                   th:text="${loc.quanHuyen}"></option>
-          </select>
-         </div>
-        </div>
-        <div class="col-lg-2 col-sm-6 col-12">
-         <div class="form-group">
-          <select class="select">
-           <option>Thành Phố</option>
-           <option th:each="loc : ${diaChi}" th:value="${loc.tinhTP}"
-                   th:text="${loc.tinhTP}"></option>
-          </select>
-         </div>
-        </div>
-        <div class="col-lg-2 col-sm-6 col-12">
-         <div class="form-group">
-          <select class="select">
-           <option>Mô Tả</option>
-           <option th:each="loc : ${diaChi}" th:value="${loc.moTa}"
-                   th:text="${loc.moTa}"></option>
-          </select>
-         </div>
-        </div>
-        <div class="col-lg-2 col-sm-6 col-12">
-         <div class="form-group">
-          <select class="select">
-           <option>Miền</option>
-           <option th:each="loc : ${diaChi}" th:value="${loc.mien}"
-                   th:text="${loc.mien}"></option>
-          </select>
-         </div>
-        </div>
-        <div class="col-lg-2 col-sm-6 col-12">
-         <div class="form-group">
-          <select class="select">
-           <option>Địa Chỉ Chi Tiết</option>
-           <option th:each="loc : ${diaChi}" th:value="${loc.diaChiChiTiet}"
-                   th:text="${loc.diaChiChiTiet}"></option>
-          </select>
-         </div>
-        </div>
-        <div class="col-lg-2 col-sm-6 col-12">
-         <div class="form-group">
-          <select class="select">
            <option>Trạng Thái</option>
            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
                    th:text="${loc.value}"></option>
