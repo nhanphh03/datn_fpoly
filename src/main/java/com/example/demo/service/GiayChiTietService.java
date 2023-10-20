@@ -1,8 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.model.ChiTietGiay;
-import com.example.demo.model.Giay;
-import com.example.demo.model.HinhAnh;
+import com.example.demo.model.*;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
@@ -33,5 +31,8 @@ public interface GiayChiTietService {
 
     public List<ChiTietGiay> fillterGCT(String searchTerm);
 
+    List<Size> findDistinctSizeByGiay(Giay giay);
+
+    List<MauSac> findDistinctMauSacByGiay(Giay giay);
 
 }
