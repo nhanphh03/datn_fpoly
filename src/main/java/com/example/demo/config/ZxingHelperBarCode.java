@@ -19,6 +19,7 @@ public class ZxingHelperBarCode {
 
     public static void saveBarcodeImage(UUID id, int width, int height) {
         try {
+            String qrCodePath = "C:\\Users\\Lvh9x\\Documents\\GitHub\\SD74---Sneaker-Shop\\src\\main\\resources\\static\\images\\imgsBarcode\\";
             String qrCodePath = "/src/main/resources/static/images/imgsBarcode/";
             String qrCodeName = qrCodePath + id +  ".png";
             System.out.println(qrCodeName);

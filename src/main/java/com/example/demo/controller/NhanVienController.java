@@ -26,7 +26,13 @@ public class NhanVienController {
         dsTrangThai.put(0, "Không hoạt động");
         return dsTrangThai;
     }
-
+    @ModelAttribute("dsGioiTinh")
+    public Map<Integer, String> getDsGioiTinh() {
+        Map<Integer, String> dsGioiTinh = new HashMap<>();
+        dsGioiTinh.put(1, "Nam");
+        dsGioiTinh.put(0, "Nữ");
+        return dsGioiTinh;
+    }
     @GetMapping("/nhan-vien")
     public String dsNhanVien(Model model) {
         List<NhanVien> nhanViens = nhanVienService.getAllNhanVien();
@@ -46,21 +52,8 @@ public class NhanVienController {
 
     @PostMapping("/nhan-vien/viewAdd/add")
     public String addNhanVien(@ModelAttribute("nhanVien") NhanVien nhanVien) {
-        NhanVien nhanVien1 = new NhanVien();
-        nhanVien1.setMaNV(nhanVien.getMaNV());
-        nhanVien1.setHoTenNV(nhanVien.getHoTenNV());
-        nhanVien1.setAnhNV(nhanVien.getAnhNV());
-        nhanVien1.setCCCDNV(nhanVien.getCCCDNV());
-        nhanVien1.setDiaChi(nhanVien.getDiaChi());
-        nhanVien1.setEmailNV(nhanVien.getEmailNV());
-        nhanVien1.setMatKhau(nhanVien.getMatKhau());
-        nhanVien1.setSdtNV(nhanVien.getSdtNV());
-        nhanVien1.setGioiTinh(nhanVien.getGioiTinh());
-        nhanVien1.setNgaySinh(nhanVien.getNgaySinh());
-        nhanVien1.setTgThem(new Date());
-        nhanVien1.setTrangThai(nhanVien.getTrangThai());
-        nhanVien1.setChucVu(nhanVien.getChucVu());
-        nhanVienService.save(nhanVien1);
+        nhanVien.setTgThem(new Date());
+        nhanVienService.save(nhanVien);
         return "redirect:/manage/nhan-vien";
     }
 

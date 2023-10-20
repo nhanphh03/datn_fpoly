@@ -1,13 +1,20 @@
 package com.example.demo.controller;
 
+import com.example.demo.config.PDFExporterMauSac;
 import com.example.demo.model.ChatLieu;
 import com.example.demo.model.ChucVu;
+import com.example.demo.model.MauSac;
 import com.example.demo.service.ChucVuService;
+import com.lowagie.text.DocumentException;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RequestMapping("manage")
@@ -76,6 +83,7 @@ public class ChucVuController {
         }
         return "redirect:/manage/chuc-vu";
     }
+
 
 
 }
