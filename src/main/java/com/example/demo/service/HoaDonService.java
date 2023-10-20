@@ -11,5 +11,5 @@ public interface HoaDonService {
 
     void add(HoaDon hoaDon);
 
-    Optional<HoaDon> getOne(UUID id);
+    HoaDon getOne(UUID id);
 }
