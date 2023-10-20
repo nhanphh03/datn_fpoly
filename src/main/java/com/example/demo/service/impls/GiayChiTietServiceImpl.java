@@ -1,12 +1,20 @@
 package com.example.demo.service.impls;
 
 import com.example.demo.model.*;
+import com.example.demo.repository.*;
 import com.example.demo.repository.GiayChiTietRepository;
 import com.example.demo.repository.GiayRepository;
 import com.example.demo.service.GiayChiTietService;
+import org.apache.poi.ss.usermodel.CellType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.InputStream;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,6 +26,18 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
 
     @Autowired
     private GiayRepository giayRepository;
+
+    @Autowired
+    private SizeRepository sizeRepository;
+
+    @Autowired
+    private MauSacRepository mauSacRepository;
+
+    @Autowired
+    private HinhAnhRepository hinhAnhRepository;
+
+    @Autowired
+    private HangRepository hangRepository;
 
     @Override
     public List<ChiTietGiay> getAllChiTietGiay() {
@@ -81,11 +101,66 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
     }
 
     @Override
+    public void importDataFromExcel(InputStream excelFile) {
+        try (Workbook workbook = new XSSFWorkbook(excelFile)) {
+            Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên (index 0)
+
+            for (Row row : sheet) {
+                if (row.getRowNum() == 0) {
+                    // Bỏ qua hàng đầu tiên nếu nó là tiêu đề
+                    continue;
+                }
+                ChiTietGiay chiTietGiay = new ChiTietGiay();
+
+                // Đối tượng Giay
+                String giayName = row.getCell(0).getStringCellValue(); // Cột 2 trong tệp Excel
+                Giay giay = giayRepository.findByTenGiay(giayName); // Tìm đối tượng Giay theo tên
+                chiTietGiay.setGiay(giay);
+
+                // Đối tượng HinhAnh
+                String hinhAnhName = row.getCell(1).getStringCellValue(); // Cột 3 trong tệp Excel
+                HinhAnh hinhAnh = hinhAnhRepository.findByMaAnh(hinhAnhName); // Tìm đối tượng HinhAnh theo tên
+                chiTietGiay.setHinhAnh(hinhAnh);
+
+                // Đối tượng Size
+                // Đối tượng Size
+                int soSize = (int) row.getCell(1).getNumericCellValue(); // Cột 1 trong tệp Excel
+                Size size = sizeRepository.findBySoSize(soSize); // Tìm đối tượng Size theo soSize
+                chiTietGiay.setSize(size);
+
+                // Đối tượng MauSac
+                String mauSacName = row.getCell(3).getStringCellValue(); // Cột 4 trong tệp Excel
+                MauSac mauSac = mauSacRepository.findByTenMau(mauSacName); // Tìm đối tượng MauSac theo tên
+                chiTietGiay.setMauSac(mauSac);
+                //
+                if (row.getCell(4).getCellType() == CellType.NUMERIC) {
+                    chiTietGiay.setNamSX((int) row.getCell(4).getNumericCellValue()); // Chuyển đổi thành kiểu int
+                }
+                if (row.getCell(5).getCellType() == CellType.NUMERIC) {
+                    chiTietGiay.setNamBH((int) row.getCell(5).getNumericCellValue()); // Chuyển đổi thành kiểu int
+                }
+                if (row.getCell(6).getCellType() == CellType.NUMERIC) {
+                    chiTietGiay.setTrongLuong((int) row.getCell(6).getNumericCellValue()); // Chuyển đổi thành kiểu int
+                }
+                if (row.getCell(7).getCellType() == CellType.NUMERIC) {
+                    chiTietGiay.setGiaBan((double) row.getCell(7).getNumericCellValue()); // Chuyển đổi thành kiểu int
+                }
+                if (row.getCell(8).getCellType() == CellType.NUMERIC) {
+                    chiTietGiay.setSoLuong((int) row.getCell(8).getNumericCellValue()); // Chuyển đổi thành kiểu int
+                }
+                //
+                chiTietGiay.setTgThem(new Date());
+                chiTietGiay.setTrangThai(1);
+                giayChiTietRepository.save(chiTietGiay);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Xử lý lỗi nếu cần
+        }
     public List<Size> findDistinctSizeByGiay(Giay giay) {
         return giayChiTietRepository.findDistinctSizeByGiayAndTrangThai(giay);
     }
 
-    @Override
     public List<MauSac> findDistinctMauSacByGiay(Giay giay) {
         return giayChiTietRepository.findDistinctMauSacByGiayAndTrangThai(giay);
     }
