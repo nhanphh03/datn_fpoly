@@ -346,7 +346,7 @@
       <div class="wordset">
        <ul>
         <li>
-         <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
+         <a  th:href="@{/manage/chucVu/export/pdf}"  data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
                  src="/images/img/icons/pdf.svg" alt="img"></a>
         </li>
         <li>
@@ -382,15 +382,15 @@
           </select>
          </div>
         </div>
-        <div class="col-lg-2 col-sm-6 col-12">
-         <div class="form-group">
-          <select class="select">
-           <option>Trạng Thái</option>
-           <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                   th:text="${loc.value}"></option>
-          </select>
-         </div>
-        </div>
+<!--        <div class="col-lg-2 col-sm-6 col-12">-->
+<!--         <div class="form-group">-->
+<!--          <select class="select">-->
+<!--           <option>Trạng Thái</option>-->
+<!--           <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+<!--                   th:text="${loc.value}"></option>-->
+<!--          </select>-->
+<!--         </div>-->
+<!--        </div>-->
         <div class="col-lg-1 col-sm-6 col-12 ms-auto">
          <div class="form-group">
           <a class="btn btn-filters ms-auto"><img

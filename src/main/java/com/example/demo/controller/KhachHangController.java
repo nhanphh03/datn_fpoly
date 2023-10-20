@@ -6,6 +6,7 @@ import com.example.demo.model.LoaiKhachHang;
 import com.example.demo.model.NhanVien;
 import com.example.demo.service.KhachHangService;
 import com.example.demo.service.LoaiKhachHangService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,18 +21,19 @@ public class KhachHangController {
     private KhachHangService khachHangService;
     @Autowired
     private LoaiKhachHangService loaiKhachHangService;
-
-//    @GetMapping("/khach-hang")
-//    public String dsKhachHang() {
-//
-//        return "manage/khach-hang";
-//    }
             @ModelAttribute("dsTrangThai")
             public Map<Integer, String> getDsTrangThai() {
                 Map<Integer, String> dsTrangThai = new HashMap<>();
                 dsTrangThai.put(1, "Hoạt động");
                 dsTrangThai.put(0, "Không hoạt động");
                 return dsTrangThai;
+            }
+            @ModelAttribute("dsGioiTinh")
+            public Map<Integer, String> getDsGioiTinh() {
+                Map<Integer, String> dsGioiTinh = new HashMap<>();
+                dsGioiTinh.put(1, "Nam");
+                dsGioiTinh.put(0, "Nữ");
+                return dsGioiTinh;
             }
 
         @GetMapping("/khach-hang")
