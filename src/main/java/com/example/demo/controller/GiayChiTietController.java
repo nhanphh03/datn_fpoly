@@ -15,12 +15,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.servlet.view.RedirectView;
 import org.thymeleaf.util.StringUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -225,6 +227,13 @@ public class GiayChiTietController {
         chiTietGiay2.setSize(chiTietGiay.getSize());
         chiTietGiay2.setTgThem(new Date());
         giayChiTietService.save(chiTietGiay2);
+        // Lấy id đã được tạo sau khi thêm sản phẩm mới
+        UUID idNew = chiTietGiay2.getIdCTG();
+        String barcodeNew = idNew.toString();
+        chiTietGiay2.setBarcode(barcodeNew);
+        // Cập nhật thông tin sản phẩm giày
+        ZxingHelperBarCode.saveBarcodeImage(idNew, 200, 100); // Tạo và lưu mã vạch
+        giayChiTietService.update(chiTietGiay2);
         ////
         return new RedirectView("/manage/giayCT/detail/" + idGiay);
     }
@@ -518,5 +527,33 @@ public class GiayChiTietController {
         model.addAttribute("giayCT", filteredGiayCTs);
         model.addAttribute("giayCTAll", giayChiTietService.getAllChiTietGiay());
         return "manage/giay";
+    }
+
+    @PostMapping("/giayCT/import")
+    public String importDataGiayCT(@RequestParam("file") MultipartFile file) {
+        if (file != null && !file.isEmpty()) {
+            try {
+                InputStream excelFile = file.getInputStream();
+                giayChiTietService.importDataFromExcel(excelFile); // Gọi phương thức nhập liệu từ Excel
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Xử lý lỗi
+            }
+        }
+        return "redirect:/manage/giay-chi-tiet"; // Chuyển hướng sau khi nhập liệu thành công hoặc không thành công
+    }
+
+    @PostMapping("/CTGiay/import")
+    public String importDataCTGiay(@RequestParam("file") MultipartFile file) {
+        if (file != null && !file.isEmpty()) {
+            try {
+                InputStream excelFile = file.getInputStream();
+                giayChiTietService.importDataFromExcel(excelFile); // Gọi phương thức nhập liệu từ Excel
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Xử lý lỗi
+            }
+        }
+        return "redirect:/manage/giay-chi-tiet"; // Chuyển hướng sau khi nhập liệu thành công hoặc không thành công
     }
 }
