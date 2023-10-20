@@ -326,10 +326,19 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
+                        <div class="col-lg-12 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Mã</label>
+                                <input type="text" th:field="*{maAnh}">
+                                <strong th:if="${#fields.hasErrors('maAnh')}"
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert" th:errors="*{maAnh}"></strong>
+                            </div>
+                        </div><br>
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Ảnh 1</label>
-                                <input th:field="*{url1}" type="file" id="imageInput" accept="image/*"
+                                <input name="anh1" th:field="*{url1}" type="file" id="imageInput" accept="image/*"
                                        onchange="previewImage(event)">
                                 <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
                                              style="display: none; max-width: 300px; max-height: 300px;">
@@ -342,7 +351,7 @@
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Ảnh 2</label>
-                                <input th:field="*{url2}" type="file" id="anh2" accept="image/*"
+                                <input name="anh2" th:field="*{url2}" type="file" id="anh2" accept="image/*"
                                        onchange="previewImage(event)">
                                 <br><br><img id="anh22" src="#" alt="Ảnh mô tả"
                                              style="display: none; max-width: 300px; max-height: 300px;"><br><br>
@@ -354,7 +363,7 @@
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Ảnh 3</label>
-                                <input th:field="*{url3}" type="file" id="anh3" accept="image/*"
+                                <input name="anh3" th:field="*{url3}" type="file" id="anh3" accept="image/*"
                                        onchange="previewImage(event)">
                                 <br><br><img id="anh33" src="#" alt="Ảnh mô tả"
                                              style="display: none; max-width: 300px; max-height: 300px;"><br><br>
@@ -366,7 +375,7 @@
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Ảnh 4</label>
-                                <input th:field="*{url4}" type="file" id="anh4" accept="image/*"
+                                <input name="anh4" th:field="*{url4}" type="file" id="anh4" accept="image/*"
                                        onchange="previewImage(event)">
                                 <br><br><img id="anh44" src="#" alt="Ảnh mô tả"
                                              style="display: none; max-width: 300px; max-height: 300px;"><br><br>

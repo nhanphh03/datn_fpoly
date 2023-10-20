@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.model.ChatLieu;
 import com.example.demo.model.Giay;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,4 +19,6 @@ public interface GiayService {
     public Giay getByName(String name);
 
     public List<Giay> fillterGiay(String searchTerm);
+
+    public void importDataFromExcel(InputStream excelFile);
 }

@@ -215,9 +215,18 @@
                   <br>
                   <span>----------------------------------</span>
                   <div class="label-container" style="display: flex; flex-wrap: wrap; justify-content: center; ">
-                    <th:block th:each="x : ${listProducts}">
-                      <label th:name="${x.idCTG}" class="label" style="width: 200px; margin: 5px; font-weight: unset; font-size: small;" th:text="${x.mauSac.tenMau} + ' ' + ${x.size.soSize}">
-                        <input type="radio" name="idDProduct" th:value="${x.idCTG}" th:data-price="${x.giaBan}" th:data-remind="${x.soLuong}">
+                    <th:block th:each="x : ${listMauSacByGiay}">
+                      <label th:name="${x.idMau}" class="label" style="width: 200px; margin: 5px; font-weight: unset; font-size: small;" th:text="${x.tenMau}">
+                        <input type="radio" name="idDProduct" th:value="${x.idMau}">
+                      </label>
+                    </th:block>
+                  </div>
+                  <span>----------------------------------</span>
+                  <br>
+                  <div class="label-container" style="display: flex; flex-wrap: wrap; justify-content: center; ">
+                    <th:block th:each="x : ${listSizeByGiay}">
+                      <label th:name="${x.idSize}" class="label" style="width: 200px; margin: 5px; font-weight: unset; font-size: small;" th:text="${x.soSize}">
+                        <input type="radio" name="idDProduct" th:value="${x.idSize}">
                       </label>
                     </th:block>
                   </div>

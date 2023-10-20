@@ -57,6 +57,7 @@ public class AuthController {
 
     @GetMapping("/login")
     public String getFormBuyerLogin(){
+
        return "online/login";
     }
 
