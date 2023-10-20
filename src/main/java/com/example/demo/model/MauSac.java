@@ -18,13 +18,17 @@ import java.util.UUID;
 @NoArgsConstructor
 public class MauSac {
 
+    //Nhan Pham Ngu
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO )
     @Column(name ="id_Mau")
     private UUID idMau;
 
     @NotEmpty(message = "Không được để trống Mã")
-    @Column(name = "ma_Mau")
+    @Column(name = "ma")
+    private String ma;
+
+    @Column(name="ma_Mau")
     private String maMau;
 
     @NotEmpty(message = "Không được để trống Tên")

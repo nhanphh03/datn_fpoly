@@ -28,7 +28,10 @@ public class DiaChiKHController {
         dsTrangThai.put(1, "Hoạt động");
         dsTrangThai.put(0, "Không hoạt động");
         return dsTrangThai;
+
     }
+
+
 
     @GetMapping("/dia-chi")
     public String dsDiaChiKH(Model model) {
@@ -52,7 +55,7 @@ public class DiaChiKHController {
         DiaChiKH diaChiKH1 = new DiaChiKH();
         diaChiKH1.setMaDC(diaChiKH.getMaDC());
         diaChiKH1.setTenDC(diaChiKH.getTenDC());
-        diaChiKH1.setQuanHuyen(diaChiKH.getQuanHuyen());
+        diaChiKH1.setXaPhuong(diaChiKH.getXaPhuong());
         diaChiKH1.setTinhTP(diaChiKH.getTinhTP());
         diaChiKH1.setMoTa(diaChiKH.getMoTa());
         diaChiKH1.setMien(diaChiKH.getMien());

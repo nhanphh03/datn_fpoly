@@ -30,4 +30,9 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
 
     List<ChiTietGiay> findByMauSac(MauSac mauSac);
 
+    @Query(value = "SELECT DISTINCT ctg.size FROM ChiTietGiay ctg WHERE ctg.giay = ?1 AND ctg.trangThai = 1 ORDER BY ctg.size.soSize")
+    List<Size> findDistinctSizeByGiayAndTrangThai(Giay giay);
+
+    @Query(value = "SELECT DISTINCT ctg.mauSac FROM ChiTietGiay ctg WHERE ctg.giay = ?1 AND ctg.trangThai = 1 ")
+    List<MauSac> findDistinctMauSacByGiayAndTrangThai(Giay giay);
 }

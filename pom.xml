@@ -152,8 +152,8 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>16</source>
-                    <target>16</target>
+                    <source>15</source>
+                    <target>15</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -308,6 +308,8 @@
                 <configuration>
                     <source>15</source>
                     <target>15</target>
+                </configuration>
+            </plugin>
                     <source>16</source>
                     <target>16</target>
                 </configuration>
@@ -416,6 +418,16 @@
                 <configuration>
                     <source>15</source>
                     <target>15</target>
+                    <source>16</source>
+                    <target>16</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>16</source>
+                    <target>16</target>
                 </configuration>
             </plugin>
 
