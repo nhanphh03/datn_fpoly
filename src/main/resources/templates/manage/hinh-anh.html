@@ -246,12 +246,9 @@
                             <li><a href="/manage/size" >Size</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                            <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="/ban-hang/hien-thi">Bán hàng</a></li>
-                        </ul>
+                    <li>
+                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
+                        </a>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
@@ -366,15 +363,15 @@
                     <div class="card" id="filter_inputs">
                         <div class="card-body pb-0">
                             <div class="row">
-                                <div class="col-lg-2 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <select class="select">
-                                            <option>Trạng Thái</option>
-                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                                    th:text="${loc.value}"></option>
-                                        </select>
-                                    </div>
-                                </div>
+<!--                                <div class="col-lg-2 col-sm-6 col-12">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <select class="select">-->
+<!--                                            <option>Trạng Thái</option>-->
+<!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+<!--                                                    th:text="${loc.value}"></option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                                 <div class="col-lg-1 col-sm-6 col-12 ms-auto">
                                     <div class="form-group">
                                         <a class="btn btn-filters ms-auto"><img
@@ -396,6 +393,7 @@
                                         <span class="checkmarks"></span>
                                     </label>
                                 </th>
+                                <th>Mã</th>
                                 <th>Ảnh 1</th>
                                 <th>Ảnh 2</th>
                                 <th>Ảnh 3</th>
@@ -415,13 +413,14 @@
                                             <span class="checkmarks"></span>
                                         </label>
                                     </td>
+                                    <td th:text="${items.maAnh}"></td>
                                     <td><img th:src="@{'/images/imgsProducts/'+ ${items.url1}}"></td>
                                     <td><img th:src="@{'/images/imgsProducts/'+ ${items.url2}}"></td>
                                     <td><img th:src="@{'/images/imgsProducts/'+ ${items.url3}}"></td>
                                     <td><img th:src="@{'/images/imgsProducts/'+ ${items.url4}}"></td>
                                     <td>
-                                        <p th:if="${items.trangThai == 1}">Hoạt Động</p>
-                                        <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
+                                        <span th:if="${items.trangThai == 1}" class="badges bg-lightgreen">Hoạt Động</span>
+                                        <span th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</span>
                                     </td>
                                     <td>
                                         <a class="me-3" th:href="@{'/manage/hinh-anh/viewUpdate/' + ${items.idGiay}}">
@@ -511,11 +510,11 @@
         });
     }
 </script>
-<script>
-    $(document).ready(function () {
-        $('#filter_inputs').slideToggle("slow");
-        $('#filter_search').toggleClass("setclose");
-    });
-</script>
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+<!--        $('#filter_inputs').slideToggle("slow");-->
+<!--        $('#filter_search').toggleClass("setclose");-->
+<!--    });-->
+<!--</script>-->
 </body>
 </html>

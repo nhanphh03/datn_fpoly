@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,14 +18,20 @@ import java.util.UUID;
 @NoArgsConstructor
 public class MauSac {
 
+    //Nhan Pham Ngu
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO )
     @Column(name ="id_Mau")
     private UUID idMau;
 
-    @Column(name = "ma_Mau")
+    @NotEmpty(message = "Không được để trống Mã")
+    @Column(name = "ma")
+    private String ma;
+
+    @Column(name="ma_Mau")
     private String maMau;
 
+    @NotEmpty(message = "Không được để trống Tên")
     @Column(name="ten_Mau")
     private String tenMau;
 

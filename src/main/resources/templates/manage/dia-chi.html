@@ -238,7 +238,7 @@
       <a href="javascript:void(0);"><img src="/images/img/icons/product.svg" alt="img"><span> Quản lý Giày</span>
        <span class="menu-arrow"></span></a>
       <ul>
-       <li><a href="/manage/chat-lieu" class="active">Chất Liệu</a></li>
+       <li><a href="/manage/chat-lieu" >Chất Liệu</a></li>
        <li><a href="/manage/giay">Giày</a></li>
        <li><a href="/manage/hang">Hãng</a></li>
        <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
@@ -246,16 +246,9 @@
        <li><a href="/manage/size" >Size</a></li>
       </ul>
      </li>
-     <li class="submenu">
-      <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-       <span class="menu-arrow"></span></a>
-      <ul>
-       <li><a href="saleslist.html">Sales List</a></li>
-       <li><a href="pos.html">POS</a></li>
-       <li><a href="pos.html">New Sales</a></li>
-       <li><a href="salesreturnlists.html">Sales Return List</a></li>
-       <li><a href="createsalesreturns.html">New Sales Return</a></li>
-      </ul>
+     <li>
+      <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
+      </a>
      </li>
      <li class="submenu">
       <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
@@ -281,7 +274,7 @@
        <span class="menu-arrow"></span></a>
       <ul>
        <li><a href="/manage/khach-hang">Khách Hàng</a></li>
-       <li><a href="/manage/dia-chi">Địa Chỉ </a></li>
+       <li><a href="/manage/dia-chi" class="active">Địa Chỉ </a></li>
        <li><a href="/manage/loai-khach-hang">Loại Khách Hàng</a></li>
       </ul>
      </li>
@@ -386,60 +379,6 @@
            <option>Tên Địa Chỉ</option>
            <option th:each="loc : ${diaChi}" th:value="${loc.tenDC}"
                    th:text="${loc.tenDC}"></option>
-          </select>
-         </div>
-        </div>
-        <div class="col-lg-2 col-sm-6 col-12">
-         <div class="form-group">
-          <select class="select">
-           <option>Xã Phường</option>
-           <option th:each="loc : ${diaChi}" th:value="${loc.xaPhuong}"
-                   th:text="${loc.xaPhuong}"></option>
-          </select>
-         </div>
-        </div>
-        <div class="col-lg-2 col-sm-6 col-12">
-         <div class="form-group">
-          <select class="select">
-           <option>Quận Huyện</option>
-           <option th:each="loc : ${diaChi}" th:value="${loc.quanHuyen}"
-                   th:text="${loc.quanHuyen}"></option>
-          </select>
-         </div>
-        </div>
-        <div class="col-lg-2 col-sm-6 col-12">
-         <div class="form-group">
-          <select class="select">
-           <option>Thành Phố</option>
-           <option th:each="loc : ${diaChi}" th:value="${loc.tinhTP}"
-                   th:text="${loc.tinhTP}"></option>
-          </select>
-         </div>
-        </div>
-        <div class="col-lg-2 col-sm-6 col-12">
-         <div class="form-group">
-          <select class="select">
-           <option>Mô Tả</option>
-           <option th:each="loc : ${diaChi}" th:value="${loc.moTa}"
-                   th:text="${loc.moTa}"></option>
-          </select>
-         </div>
-        </div>
-        <div class="col-lg-2 col-sm-6 col-12">
-         <div class="form-group">
-          <select class="select">
-           <option>Miền</option>
-           <option th:each="loc : ${diaChi}" th:value="${loc.mien}"
-                   th:text="${loc.mien}"></option>
-          </select>
-         </div>
-        </div>
-        <div class="col-lg-2 col-sm-6 col-12">
-         <div class="form-group">
-          <select class="select">
-           <option>Địa Chỉ Chi Tiết</option>
-           <option th:each="loc : ${diaChi}" th:value="${loc.diaChiChiTiet}"
-                   th:text="${loc.diaChiChiTiet}"></option>
           </select>
          </div>
         </div>

@@ -246,12 +246,9 @@
                             <li><a href="/manage/size" >Size</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                            <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="/ban-hang/hien-thi">Bán hàng</a></li>
-                        </ul>
+                    <li>
+                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
+                        </a>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
@@ -333,12 +330,20 @@
                             <div class="form-group">
                                 <label>Mã Chất Liệu</label>
                                 <input type="text" th:field="*{maChatLieu}">
+                                <br><br>
+                                <strong th:if="${#fields.hasErrors('maChatLieu')}"
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert" th:errors="*{maChatLieu}"></strong>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Tên Chất Liệu</label>
                                 <input type="text" th:field="*{tenChatLieu}">
+                                <br><br>
+                                <strong th:if="${#fields.hasErrors('tenChatLieu')}"
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert" th:errors="*{tenChatLieu}"></strong>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">

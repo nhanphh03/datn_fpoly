@@ -10,5 +10,7 @@ public interface GHCTService {
 
     List<GioHangChiTiet> findByGHActive(GioHang gioHang);
 
+    void addNewGHCT(GioHangChiTiet gioHangChiTiet);
+
 
 }

@@ -15,5 +15,13 @@ public interface CTGViewModelService {
 
     public List<CTGViewModel> getAllSoldOff();
 
+    CTGViewModel findByIDGiay(UUID idGiay);
+
+    List<CTGViewModel> findByIDHang(String idHang);
+
+    Page<CTGViewModel> getAllByPriceHighToLow(Pageable pageable);
+
+    Page<CTGViewModel> getAllByPriceLowToHigh(Pageable pageable);
+
 
 }

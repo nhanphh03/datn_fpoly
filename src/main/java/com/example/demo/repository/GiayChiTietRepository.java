@@ -1,9 +1,7 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.ChiTietGiay;
-import com.example.demo.model.HinhAnh;
+import com.example.demo.model.*;
 import com.example.demo.viewModel.CTGViewModel;
-import com.example.demo.model.Giay;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,7 +17,6 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
 
     List<ChiTietGiay> findByTrangThaiAndGiay(int trangThai, Giay giay);
 
-
     @Query(value = "SELECT DISTINCT ctg.hinhAnh FROM ChiTietGiay ctg WHERE ctg.giay = ?1")
     List<HinhAnh> findDistinctByGiay(Giay giay);
 
@@ -28,4 +25,10 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
 
     @Query("SELECT g FROM ChiTietGiay g WHERE g.size.soSize = :searchTerm OR g.mauSac.tenMau = :searchTerm OR g.giay.tenGiay = :searchTerm")
     List<ChiTietGiay> customSearchGCT(@Param("searchTerm") String searchTerm);
+
+    @Query(value = "SELECT DISTINCT ctg.size FROM ChiTietGiay ctg WHERE ctg.giay = ?1 AND ctg.trangThai = 1 ORDER BY ctg.size.soSize")
+    List<Size> findDistinctSizeByGiayAndTrangThai(Giay giay);
+
+    @Query(value = "SELECT DISTINCT ctg.mauSac FROM ChiTietGiay ctg WHERE ctg.giay = ?1 AND ctg.trangThai = 1 ")
+    List<MauSac> findDistinctMauSacByGiayAndTrangThai(Giay giay);
 }

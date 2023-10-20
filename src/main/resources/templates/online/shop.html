@@ -7,7 +7,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>SNEAKER SHOP</title>
-
   <link rel="icon" href="/img/logo-favicon.png" type="image/x-icon">
   <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
@@ -47,6 +46,7 @@
             <div class="header__top__hover">
               <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
               <ul>
+                <li><a th:href="@{'/buyer/purchase'}" >Purchase</a></li>
                 <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
                 <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
               </ul>
@@ -76,14 +76,14 @@
     <div class="row">
       <div class="col-lg-3 col-md-3">
         <div class="header__logo">
-          <a th:href="@{'/buyer/homeBuyer'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
+          <a th:href="@{'/buyer/home'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
         </div>
       </div>
       <div class="col-lg-6 col-md-6">
         <nav class="header__menu mobile-menu">
           <ul>
-            <li><a th:href="@{'/buyer/homeBuyer'}" >Home</a></li>
-            <li class="active"><a th:href="@{'/buyer/shop'}" >Shop</a></li>
+            <li><a th:href="@{'/buyer/home'}" >Home</a></li>
+            <li><a th:href="@{'/buyer/shop'}" >Shop</a></li>
             <li><a th:href="@{'/buyer/about'}">About Us</a></li>
             <li><a th:href="@{'/buyer/blog'}">Blog</a>
               <ul class="dropdown">
@@ -97,7 +97,7 @@
       <div class="col-lg-3 col-md-3">
         <div class="header__nav__option">
           <a href="#" class="search-switch"><img src="/images/img/icon/search.png" alt=""></a>
-          <a href="#"><img src="/images/img/icon/heart.png" alt=""></a>
+          <a th:href="@{'/buyer/fa&recently'}"><img src="/images/img/icon/heart2.png" alt=""></a>
 
           <a th:href="@{'/buyer/cart'}" style="position: relative; display: inline-block; ">
             <img src="/images/img/icon/cart.png" alt="">
@@ -120,7 +120,7 @@
         <div class="breadcrumb__text">
           <h4>Shop</h4>
           <div class="breadcrumb__links">
-            <a th:href="@{'/buyer/homeBuyer'}" >Home</a>
+            <a th:href="@{'/buyer/home'}" >Home</a>
             <span>Shop</span>
           </div>
         </div>
@@ -152,11 +152,11 @@
                   <div class="card-body">
                     <div class="shop__sidebar__categories">
                       <ul class="nice-scroll" style="height: 20%">
-                        <li data-filter="*"><a href="#">All Product(20)</a></li>
-                        <li><a href="#">Best Seller (20)</a></li>
-                        <li><a href="#">New Arrivals (20)</a></li>
-                        <li><a href="#">Collections (20)</a></li>
-                        <li><a href="#">Sale off 20%  (20)</a></li>
+                        <li><a href="/buyer/shop">All Product</a></li>
+                        <li><a href="#">Best Seller</a></li>
+                        <li><a href="#">New Arrivals </a></li>
+                        <li><a href="#">Collections</a></li>
+                        <li><a href="#">Sale off</a></li>
                       </ul>
                     </div>
                   </div>
@@ -170,9 +170,9 @@
                   <div class="card-body">
                     <div class="shop__sidebar__brand">
                       <ul>
-                        <li class="active" data-filter="*"><a >All Branding</a></li>
+                        <li class="active" data-filter="*"><a href="/buyer/shop" >All Branding</a></li>
                         <th:block th:each="a : ${listBrand}">
-                          <li><a  th:href="@{'/shop/brand/' + ${a.idHang}}" th:text="${a.tenHang}" > </a></li>
+                          <li><a  th:href="@{'/buyer/shop/brand/' + ${a.idHang}}" th:text="${a.tenHang}" > </a></li>
                         </th:block>
                       </ul>
                     </div>
@@ -259,16 +259,16 @@
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6">
               <div class="shop__product__option__left">
-                <p> Showing 1 – 9 of 77 Results</p>
+                <p  th:text="'Show 1 - 9 of ' + ${sumProduct} + ' Result'"> </p>
               </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
               <div class="shop__product__option__right">
                 <p>Sort by Price:</p>
                 <select onchange="window.location.href = this.value;">
-                  <option>${ChooseAnOption}</option>
-                  <option value="/viewsUsers/usersShop/LowToHigh">Low To High</option>
-                  <option value="/viewsUsers/usersShop/HighToLow">High To Low</option>
+                  <option>Choose option</option>
+                  <option value="/buyer/shop/lowToHigh">Low To High</option>
+                  <option value="/buyer/shop/highToLow">High To Low</option>
                 </select>
               </div>
             </div>
@@ -284,9 +284,9 @@
                 <div class="product__item">
                   <div class="product__item__pic set-bg" style="border-radius: 10px;"  th:attr="data-setbg=@{'/images/imgsProducts/' + ${product.hinhAnh}}">
                     <ul class="product__hover">
-                      <li><a href="#"><img src="/images/img/icon/heart.png" alt=""><span>Favourite</span></a></li>
+                      <li th:if="${heartLogged}"><a th:href="@{'/buyer/heart/' + ${product.idGiay}}" ><img src="/images/img/icon/heart.png" alt=""><span>Favourite</span></a></li>
                       <li><a href="#"><img src="/images/img/icon/compare.png" alt=""><span>Compare</span></a></li>
-                      <li><a th:href="@{'/buyer/shop-details/' + ${product.idGiay}}"><img src="/images/img/icon/view.png" alt=""><span>Views Detail</span></a></li>
+                      <li ><a th:href="@{'/buyer/shop-details/' + ${product.idGiay}}"><img src="/images/img/icon/view.png" alt=""><span>Views Detail</span></a></li>
                     </ul>
                   </div>
                   <div >
@@ -306,15 +306,27 @@
 
         <div class="row">
           <div class="col-lg-12">
-            <div class="product__pagination">
-
+            <div th:if="${pageNumber}" class="product__pagination">
 
               <th:block th:each="i : ${#numbers.sequence(1, totalPage)}">
                 <a class="active" th:href="@{'/buyer/shop?pageNum=' + ${i}}" th:text="${i}"></a>
               </th:block>
 
-
             </div>
+
+            <div th:if="${pageNumberHTL}" class="product__pagination">
+              <th:block th:each="i : ${#numbers.sequence(1, totalPageHTL)}">
+                <a class="active" th:href="@{'/buyer/shop/highToLow?pageNum=' + ${i}}" th:text="${i}"></a>
+              </th:block>
+            </div>
+            <div th:if="${pageNumberLTH}" class="product__pagination">
+              <th:block th:each="i : ${#numbers.sequence(1, totalPageLTH)}">
+                <a class="active" th:href="@{'/buyer/shop/lowToHigh?pageNum=' + ${i}}" th:text="${i}"></a>
+              </th:block>
+            </div>
+
+
+
           </div>
         </div>
 
@@ -328,30 +340,21 @@
           <th:block th:each="product : ${listCTGModelSoldOff}">
             <div   class="col-lg-4 col-md-6 col-sm-6">
               <div class="product__item">
-                <img style="position: absolute;z-index: 1;" src="/images/img/SoldOut.png">
+                <img style="position: absolute;z-index: 1; height: 100px; width: 160px;" src="/images/img/soldOut2.png">
 
                 <div class="product__item__pic set-bg" style="border-radius: 10px;"  th:attr="data-setbg=@{'/images/imgsProducts/' + ${product.hinhAnh}}">
                   <ul class="product__hover">
-                    <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a></li>
-                    <li><a href="#"><img src="/images/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
-                    <li><a th:href="@{'/shop-details/' + ${product.idGiay}}"><img src="/images/img/icon/search.png" alt=""></a></li>
+                    <li th:if="${heartLogged}"><a th:href="@{'/buyer/heart/' + ${product.idGiay}}" ><img src="/images/img/icon/heart.png" alt=""><span>Favourite</span></a></li>
+                    <li><a href="#"><img src="/images/img/icon/compare.png" alt=""><span>Compare</span></a></li>
+                    <li ><a th:href="@{'/buyer/shop-details/sold/' + ${product.idGiay}}"><img src="/images/img/icon/view.png" alt=""><span>Views Detail</span></a></li>
                   </ul>
                 </div>
-                <div class="product__item__text">
-                  <h6 th:text="${product.tenGiay}"></h6>
-                  <a href="#" class="add-cart">[(#{lable.shop.addToCard})]</a>
-                  <h5 th:text="${product.slTon}"></h5>
-                  <h6 th:text="${product.soLuongDaBan} + ' ' + '  Sold'"></h6>
-                  <div class="product__color__select">
-                    <label for="pc-4">
-                      <input type="radio" id="pc-4">
-                    </label>
-                    <label class="active black" for="pc-5">
-                      <input type="radio" id="pc-5">
-                    </label>
-                    <label class="grey" for="pc-6">
-                      <input type="radio" id="pc-6">
-                    </label>
+                <div >
+                  <h6 style="margin-top:  10px; margin-bottom: 10px " th:text="${product.tenGiay}"></h6>
+                  <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="${product.minPrice}  + ' ' + '$'"></h5>
+                  <div class="product__color__select" style="display: flex">
+                    <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'pieces available'"></h6>
+                    <h6 style="font-style: italic; font-size: 12px ;margin-left: 100px;" th:text="${product.soLuongDaBan} + ' ' + '  Sold'"></h6>
                   </div>
                 </div>
               </div>

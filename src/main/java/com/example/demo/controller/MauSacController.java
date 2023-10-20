@@ -9,12 +9,16 @@ import com.example.demo.model.Size;
 import com.example.demo.service.MauSacService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -36,6 +40,7 @@ public class MauSacController {
     @GetMapping("/mau-sac")
     public String dsMauSac(Model model) {
         List<MauSac> mauSac = mauSacService.getALlMauSac();
+        Collections.sort(mauSac, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("mauSac", mauSac);
         return "manage/mau-sac";
     }
@@ -47,7 +52,10 @@ public class MauSacController {
     }
 
     @PostMapping("/mau-sac/viewAdd/add")
-    public String addMauSac(@ModelAttribute("mauSac") MauSac mauSac) {
+    public String addMauSac(@Valid @ModelAttribute("mauSac") MauSac mauSac, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "manage/add-mau-sac";
+        }
         MauSac mauSac1 = new MauSac();
         mauSac1.setMaMau(mauSac.getMaMau());
         mauSac1.setTenMau(mauSac.getTenMau());
@@ -136,5 +144,19 @@ public class MauSacController {
         model.addAttribute("mauSacAll", mauSacService.getALlMauSac());
 
         return "manage/mau-sac"; // Trả về mẫu HTML chứa bảng dữ liệu sau khi lọc
+    }
+
+    @PostMapping("/mauSac/import")
+    public String importData(@RequestParam("file") MultipartFile file) {
+        if (file != null && !file.isEmpty()) {
+            try {
+                InputStream excelFile = file.getInputStream();
+                mauSacService.importDataFromExcel(excelFile); // Gọi phương thức nhập liệu từ Excel
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Xử lý lỗi
+            }
+        }
+        return "redirect:/manage/mau-sac"; // Chuyển hướng sau khi nhập liệu thành công hoặc không thành công
     }
 }

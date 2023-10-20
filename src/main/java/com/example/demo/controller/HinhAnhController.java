@@ -9,12 +9,18 @@ import com.example.demo.model.Size;
 import com.example.demo.service.HinhAnhService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -36,6 +42,7 @@ public class HinhAnhController {
     @GetMapping("/hinh-anh")
     public String dsHinhAnh(Model model) {
         List<HinhAnh> hinhAnh = hinhAnhService.getAllHinhAnh();
+        Collections.sort(hinhAnh, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("hinhAnh", hinhAnh);
         return "manage/hinh-anh";
     }
@@ -47,8 +54,31 @@ public class HinhAnhController {
     }
 
     @PostMapping("/hinh-anh/viewAdd/add")
-    public String addHinhAnh(@ModelAttribute("hinhAnh") HinhAnh hinhAnh) {
+    public String addHinhAnh(@Valid @ModelAttribute("hinhAnh") HinhAnh hinhAnh, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "manage/add-hinh-anh";
+        }
+        // Xác định thư mục lưu trữ hình ảnh trong dự án
+        String uploadDir = "src/main/resources/static/images/imgsProducts/";
+
+        // Thư mục trên máy chủ
+        File uploadPath = new File(uploadDir);
+
+        // Tạo thư mục nếu nó không tồn tại
+        if (!uploadPath.exists()) {
+            uploadPath.mkdirs();
+        }
+        // Lưu hình ảnh vào thư mục
+        try {
+            String fileName = UUID.randomUUID().toString() + ".jpg"; // Tạo tên file duy nhất
+            Path filePath = Paths.get(uploadPath.getAbsolutePath(), fileName);
+            Files.write(filePath, hinhAnh.getUrl1().getBytes());
+        } catch (IOException e) {
+            // Xử lý lỗi nếu có
+            e.printStackTrace();
+        }
         HinhAnh hinhAnh1 = new HinhAnh();
+        hinhAnh1.setMaAnh(hinhAnh.getMaAnh());
         hinhAnh1.setUrl1(hinhAnh.getUrl1());
         hinhAnh1.setUrl2(hinhAnh.getUrl2());
         hinhAnh1.setUrl3(hinhAnh.getUrl3());

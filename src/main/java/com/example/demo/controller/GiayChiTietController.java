@@ -1,27 +1,28 @@
 package com.example.demo.controller;
 
-import com.example.demo.config.ExcelExporterCTGiay;
-import com.example.demo.config.ExcelExporterSize;
-import com.example.demo.config.PDFExporterCTGiay;
-import com.example.demo.config.PDFExporterSizes;
+import com.example.demo.config.*;
 import com.example.demo.model.*;
 import com.example.demo.service.*;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.servlet.view.RedirectView;
 import org.thymeleaf.util.StringUtils;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -40,10 +41,8 @@ public class GiayChiTietController {
     @Autowired
     private HinhAnhService hinhAnhService;
     @Autowired
-    private HttpServletRequest httpServletRequest;
-    @Autowired
     private CreateBarCode createBarCode;
-
+    @Autowired
     private HangService hangService;
     @Autowired
     private ChatLieuService chatLieuService;
@@ -69,6 +68,7 @@ public class GiayChiTietController {
     @GetMapping("/giay-chi-tiet")
     public String dsGiayChiTiet(Model model) {
         List<ChiTietGiay> items = giayChiTietService.getAllChiTietGiay();
+        Collections.sort(items, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         List<Giay> giayList = giayService.getAllGiay();
         List<Size> sizeList = sizeService.getAllSize();
         List<MauSac> mauSacList = mauSacService.getALlMauSac();
@@ -95,11 +95,23 @@ public class GiayChiTietController {
 
     @GetMapping("/giay-chi-tiet/viewAdd")
     public String viewAddGiayChiTiet(Model model) {
+        List<HinhAnh> hinhAnhList = hinhAnhService.getAllHinhAnh();
+        Collections.sort(hinhAnhList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("hinhAnh", hinhAnhList);
+        //
+        List<Giay> giayList = giayService.getAllGiay();
+        Collections.sort(giayList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("giay", giayList);
+        //
+        List<MauSac> mauSacList = mauSacService.getALlMauSac();
+        Collections.sort(mauSacList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("mauSac", mauSacList);
+        //
+        List<Size> sizeList = sizeService.getAllSize();
+        Collections.sort(sizeList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("size", sizeList);
+        //
         model.addAttribute("giayChiTiet", new ChiTietGiay());
-        model.addAttribute("giay", giayService.getAllGiay());
-        model.addAttribute("mauSac", mauSacService.getALlMauSac());
-        model.addAttribute("size", sizeService.getAllSize());
-        model.addAttribute("hinhAnh", hinhAnhService.getAllHinhAnh());
         model.addAttribute("giayAdd", new Giay());
         model.addAttribute("mauSacAdd", new MauSac());
         model.addAttribute("sizeAdd", new Size());
@@ -113,14 +125,23 @@ public class GiayChiTietController {
 
     @GetMapping("/chi-tiet-giay/viewAdd/{id}")
     public String viewAddChiTietGiay(@PathVariable UUID id, Model model) {
+        List<HinhAnh> hinhAnhList = hinhAnhService.getAllHinhAnh();
+        Collections.sort(hinhAnhList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("hinhAnh", hinhAnhList);
+        //
+        List<MauSac> mauSacList = mauSacService.getALlMauSac();
+        Collections.sort(mauSacList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("mauSac", mauSacList);
+        //
+        List<Size> sizeList = sizeService.getAllSize();
+        Collections.sort(sizeList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("size", sizeList);
+        //
         httpSession.removeAttribute("idViewAddCTG");
         httpSession.setAttribute("idViewAddCTG", id);
         Giay giay = giayService.getByIdGiay(id);
         model.addAttribute("chiTietGiay", new ChiTietGiay());
         model.addAttribute("giay", giay);
-        model.addAttribute("mauSac", mauSacService.getALlMauSac());
-        model.addAttribute("size", sizeService.getAllSize());
-        model.addAttribute("hinhAnh", hinhAnhService.getAllHinhAnh());
         model.addAttribute("giayAdd", new Giay());
         model.addAttribute("mauSacAdd", new MauSac());
         model.addAttribute("sizeAdd", new Size());
@@ -134,7 +155,36 @@ public class GiayChiTietController {
 
 
     @PostMapping("/giay-chi-tiet/viewAdd/add")
-    public String addGiayChiTiet(@ModelAttribute("giayChiTiet") ChiTietGiay chiTietGiay) {
+    public String addGiayChiTiet(@Valid @ModelAttribute("giayChiTiet") ChiTietGiay chiTietGiay,
+                                 BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            List<HinhAnh> hinhAnhList = hinhAnhService.getAllHinhAnh();
+            Collections.sort(hinhAnhList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+            model.addAttribute("hinhAnh", hinhAnhList);
+            //
+            List<Giay> giayList = giayService.getAllGiay();
+            Collections.sort(giayList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+            model.addAttribute("giay", giayList);
+            //
+            List<MauSac> mauSacList = mauSacService.getALlMauSac();
+            Collections.sort(mauSacList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+            model.addAttribute("mauSac", mauSacList);
+            //
+            List<Size> sizeList = sizeService.getAllSize();
+            Collections.sort(sizeList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+            model.addAttribute("size", sizeList);
+            //
+            model.addAttribute("giayChiTiet", new ChiTietGiay());
+            model.addAttribute("giayAdd", new Giay());
+            model.addAttribute("mauSacAdd", new MauSac());
+            model.addAttribute("sizeAdd", new Size());
+            model.addAttribute("hinhAnhAdd", new HinhAnh());
+            model.addAttribute("hangAdd", new Hang());
+            model.addAttribute("chatLieuAdd", new ChatLieu());
+            model.addAttribute("hang", hangService.getALlHang());
+            model.addAttribute("chatLieu", chatLieuService.getAllChatLieu());
+            return "manage/add-giay-chi-tiet";
+        }
         ChiTietGiay chiTietGiay1 = new ChiTietGiay();
         chiTietGiay1.setGiay(chiTietGiay.getGiay());
         chiTietGiay1.setNamSX(chiTietGiay.getNamSX());
@@ -148,7 +198,13 @@ public class GiayChiTietController {
         chiTietGiay1.setSize(chiTietGiay.getSize());
         chiTietGiay1.setTgThem(new Date());
         giayChiTietService.save(chiTietGiay1);
-
+        // Lấy id đã được tạo sau khi thêm sản phẩm mới
+        UUID idNew = chiTietGiay1.getIdCTG();
+        String barcodeNew = idNew.toString();
+        chiTietGiay1.setBarcode(barcodeNew);
+        // Cập nhật thông tin sản phẩm giày
+        ZxingHelperBarCode.saveBarcodeImage(idNew, 200, 100); // Tạo và lưu mã vạch
+        giayChiTietService.update(chiTietGiay1);
         return "redirect:/manage/giay-chi-tiet";
     }
 
@@ -171,6 +227,13 @@ public class GiayChiTietController {
         chiTietGiay2.setSize(chiTietGiay.getSize());
         chiTietGiay2.setTgThem(new Date());
         giayChiTietService.save(chiTietGiay2);
+        // Lấy id đã được tạo sau khi thêm sản phẩm mới
+        UUID idNew = chiTietGiay2.getIdCTG();
+        String barcodeNew = idNew.toString();
+        chiTietGiay2.setBarcode(barcodeNew);
+        // Cập nhật thông tin sản phẩm giày
+        ZxingHelperBarCode.saveBarcodeImage(idNew, 200, 100); // Tạo và lưu mã vạch
+        giayChiTietService.update(chiTietGiay2);
         ////
         return new RedirectView("/manage/giayCT/detail/" + idGiay);
     }
@@ -355,10 +418,22 @@ public class GiayChiTietController {
     public String viewUpdateGiayChiTiet(@PathVariable UUID id, Model model) {
         ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(id);
         model.addAttribute("giayChiTiet", chiTietGiay);
-        model.addAttribute("giay", giayService.getAllGiay());
-        model.addAttribute("mauSac", mauSacService.getALlMauSac());
-        model.addAttribute("size", sizeService.getAllSize());
-        model.addAttribute("hinhAnh", hinhAnhService.getAllHinhAnh());
+        List<HinhAnh> hinhAnhList = hinhAnhService.getAllHinhAnh();
+        Collections.sort(hinhAnhList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("hinhAnh", hinhAnhList);
+        //
+        List<Giay> giayList = giayService.getAllGiay();
+        Collections.sort(giayList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("giay", giayList);
+        //
+        List<MauSac> mauSacList = mauSacService.getALlMauSac();
+        Collections.sort(mauSacList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("mauSac", mauSacList);
+        //
+        List<Size> sizeList = sizeService.getAllSize();
+        Collections.sort(sizeList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("size", sizeList);
+        //
         model.addAttribute("giayAdd", new Giay());
         model.addAttribute("mauSacAdd", new MauSac());
         model.addAttribute("sizeAdd", new Size());
@@ -404,6 +479,7 @@ public class GiayChiTietController {
 
         return ResponseEntity.ok("Tải ảnh thành công");
     }
+
     @GetMapping("/giayCT/export/pdf")
     public void exportToPDFCTGiay(HttpServletResponse response) throws DocumentException, IOException {
         response.setContentType("application/pdf");
@@ -451,5 +527,33 @@ public class GiayChiTietController {
         model.addAttribute("giayCT", filteredGiayCTs);
         model.addAttribute("giayCTAll", giayChiTietService.getAllChiTietGiay());
         return "manage/giay";
+    }
+
+    @PostMapping("/giayCT/import")
+    public String importDataGiayCT(@RequestParam("file") MultipartFile file) {
+        if (file != null && !file.isEmpty()) {
+            try {
+                InputStream excelFile = file.getInputStream();
+                giayChiTietService.importDataFromExcel(excelFile); // Gọi phương thức nhập liệu từ Excel
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Xử lý lỗi
+            }
+        }
+        return "redirect:/manage/giay-chi-tiet"; // Chuyển hướng sau khi nhập liệu thành công hoặc không thành công
+    }
+
+    @PostMapping("/CTGiay/import")
+    public String importDataCTGiay(@RequestParam("file") MultipartFile file) {
+        if (file != null && !file.isEmpty()) {
+            try {
+                InputStream excelFile = file.getInputStream();
+                giayChiTietService.importDataFromExcel(excelFile); // Gọi phương thức nhập liệu từ Excel
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Xử lý lỗi
+            }
+        }
+        return "redirect:/manage/giay-chi-tiet"; // Chuyển hướng sau khi nhập liệu thành công hoặc không thành công
     }
 }

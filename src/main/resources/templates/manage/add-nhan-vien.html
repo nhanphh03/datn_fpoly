@@ -240,19 +240,16 @@
                             <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="/manage/chat-lieu">Chất Liệu</a></li>
-                            <li><a href="/manage/giay" class="active">Giày</a></li>
+                            <li><a href="/manage/giay" >Giày</a></li>
                             <li><a href="/manage/hang">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
                             <li><a href="/manage/mau-sac">Màu Sắc</a></li>
                             <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                            <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="/ban-hang/hien-thi">Bán hàng</a></li>
-                        </ul>
+                    <li>
+                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
+                        </a>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
@@ -297,7 +294,7 @@
                             <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="/manage/chuc-vu">Chức Vụ</a></li>
-                            <li><a href="/manage/nhan-vien">Nhân Viên</a></li>
+                            <li><a href="/manage/nhan-vien"class="active">Nhân Viên</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -345,13 +342,21 @@
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Giới Tính</label>
-                                    <input type="text" th:field="*{gioiTinh}">
+                                    <select class="select" th:field="*{gioiTinh}" id="gioitinh" name="gioitinh">
+                                        <option th:each="loc : ${dsGioiTinh.entrySet()}" th:value="${loc.key}"
+                                                th:text="${loc.value}"></option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Ngày Sinh</label>
-                                    <input type="text" th:field="*{ngaySinh}">
+                                    <div class="input-groupicon">
+                                        <input type="date" th:field="*{ngaySinh}" name="ngaysinh"
+                                               style="width: 100%; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                       font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;"
+                                               th:pattern="yyyy-MM-dd" />
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">

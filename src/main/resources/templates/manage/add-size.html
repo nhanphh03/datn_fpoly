@@ -246,12 +246,9 @@
                             <li><a href="/manage/size" class="active">Size</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                            <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="/ban-hang/hien-thi">Bán hàng</a></li>
-                        </ul>
+                    <li>
+                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
+                        </a>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
@@ -301,7 +298,7 @@
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img" /><span>
+                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
                     Quản Lý Voucher</span
                         >
                             <span class="menu-arrow"></span
@@ -317,28 +314,59 @@
         </div>
     </div>
 </div>
-<form th:object="${size}" method="post" th:action="@{/manage/size/viewAdd/add}">
-    <div class="page-wrapper">
-        <div class="content">
-            <div class="page-header">
-                <div class="page-title">
-                    <h4>Thêm Size </h4>
-                    <h6>Quản Lý Size</h6>
-                </div>
+
+<div class="page-wrapper">
+    <div class="content">
+        <div class="page-header">
+            <div class="page-title">
+                <h4>Thêm Size </h4>
+                <h6>Quản Lý Size</h6>
             </div>
-            <div class="card">
-                <div class="card-body">
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="search-path search-set">
+                    <a class="btn btn-filter" id="filter_search">
+                        <img src="/images/img/icons/sheets.svg" alt="img">
+                        <span><img src="/images/img/icons/closes.svg" alt="img"></span>
+                    </a>
+                </div>
+                <br>
+                <div class="col-lg-12" id="filter_inputs">
+                    <form action="/manage/size/import" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="excelFile"> Upload Excel File</label>
+                            <div class="image-upload">
+                                <input type="file" name="file" onchange="displaySelectedFileName()"/>
+                                <div class="image-uploads" id="selectedFileName">
+                                    <img src="/images/img/icons/upload.svg" alt="img"/>
+                                </div>
+                            </div>
+                            <h4 id="excelFile" style="display: none;"></h4>
+                            <button type="submit" class="btn btn-submit me-2">Submit</button>
+                            <!--                            <a href="/manage/size" class="btn btn-cancel">Cancel</a>-->
+                        </div>
+                    </form>
+                </div>
+
+                <form th:object="${size}" method="post" th:action="@{/manage/size/viewAdd/add}">
                     <div class="row">
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Mã Size</label>
-                                <input type="text" th:field="*{maSize}">
+                                <input type="text" th:field="*{maSize}"><br><br>
+                                <strong th:if="${#fields.hasErrors('maSize')}"
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert" th:errors="*{maSize}"></strong>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Tên Size</label>
-                                <input type="text" th:field="*{soSize}">
+                                <input type="text" th:field="*{soSize}"><br><br>
+                                <strong th:if="${#fields.hasErrors('soSize')}"
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert" th:errors="*{soSize}"></strong>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
@@ -346,7 +374,7 @@
                                 <label>Trạng Thái</label>
                                 <select class="select" th:field="*{trangThai}">
                                     <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                            th:text="${loc.value}"></option>
+                                            th:text="${loc.value}" th:selected="${loc.key == 1}"></option>
                                 </select>
                             </div>
                         </div>
@@ -355,11 +383,12 @@
                             <a href="/manage/size" class="btn btn-cancel">Cancel</a>
                         </div>
                     </div>
-                </div>
+                </form>
+
             </div>
         </div>
     </div>
-</form>
+</div>
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
@@ -377,5 +406,24 @@
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
 <script src="/js/script.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#filter_inputs').slideToggle("slow");
+        $('#filter_search').toggleClass("setclose");
+    });
+
+    //lắng nghe và hiển thị tên tệp được chọn
+    function displaySelectedFileName() {
+        const fileInput = document.getElementById("excelFile");
+        const selectedFileName = document.getElementById("selectedFileName");
+        if (fileInput.files.length > 0) {
+            selectedFileName.textContent = "" + fileInput.files[0].name;
+            selectedFileName.style.display = "block";
+        } else {
+            selectedFileName.textContent = "";
+            selectedFileName.style.display = "none";
+        }
+    }
+</script>
 </body>
 </html>

@@ -14,6 +14,8 @@ public interface SizeRepository extends JpaRepository<Size, UUID> {
 
     List<Size> findByTrangThai(int trangThai);
 
+    List<Size> findByTrangThaiOrderByMaSize(int trangThai);
+
     List<Size> findBySoSizeOrMaSize(Integer selectedSize,String maSize);
     @Query(value = "select ctg \n" +
             "from Size s join ChiTietGiay ctg on ctg.size.idSize = s.idSize \n" +
@@ -22,4 +24,6 @@ public interface SizeRepository extends JpaRepository<Size, UUID> {
             "and ms.tenMau = ?2 \n " +
             "and  ctg.soLuong > 0" )
     List<ChiTietGiay> findByIdGiayAndMauSac2(UUID idGiay, String mauSac);
+
+    Size findBySoSize(int soSize);
 }

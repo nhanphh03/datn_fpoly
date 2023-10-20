@@ -246,12 +246,9 @@
                             <li><a href="/manage/size" >Size</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                            <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="/ban-hang/hien-thi">Bán hàng</a></li>
-                        </ul>
+                    <li>
+                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
+                        </a>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
@@ -332,13 +329,19 @@
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Mã Màu</label>
-                                <input type="text" th:field="*{maMau}">
+                                <input type="text" th:field="*{maMau}"><br><br>
+                                <strong th:if="${#fields.hasErrors('maMau')}"
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert" th:errors="*{maMau}"></strong>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Tên Màu</label>
-                                <input type="text" th:field="*{tenMau}">
+                                <input type="text" th:field="*{tenMau}"><br><br>
+                                <strong th:if="${#fields.hasErrors('tenMau')}"
+                                        class="alert alert-danger alert-dismissible fade show"
+                                        role="alert" th:errors="*{tenMau}"></strong>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">

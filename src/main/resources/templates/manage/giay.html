@@ -246,12 +246,9 @@
                             <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                            <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="/ban-hang/hien-thi">Bán hàng</a></li>
-                        </ul>
+                    <li>
+                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
+                        </a>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
@@ -396,7 +393,7 @@
                                             </div>
                                             <div class="col-lg-2 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <select class="select" id="giayFilterTen"  name="searchTerm">
+                                                    <select class="select" id="giayFilterTen" name="searchTerm">
                                                         <option>Tên Giày</option>
                                                         <option th:each="loc : ${giay}" th:value="${loc.tenGiay}"
                                                                 th:text="${loc.tenGiay}"></option>
@@ -431,15 +428,7 @@
                                                                 th:text="${loc.tenChatLieu}"></option>
                                                     </select>
                                                 </div>
-                                     </div>
-                                        <div class="col-lg-2 col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <select class="select" id="chatLieuFilterTen">
-                                                    <option>Chất Liệu</option>
-                                                    <option th:each="loc : ${chatLieu}"
-                                                            th:value="${loc.idChatLieu}"
-                                                            th:text="${loc.tenChatLieu}"></option>
-                                                </select>
+                                             </div>
                                             </div>
                                             <div class="col-lg-4 col-sm-6 col-12">
                                                 <div class="form-group">
@@ -489,8 +478,8 @@
                                 <td th:text="${items.maGiay}"></td>
                                 <td th:text="${items.tenGiay}"></td>
                                 <td>
-                                    <p th:if="${items.trangThai == 1}">Hoạt Động</p>
-                                    <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
+                                    <span th:if="${items.trangThai == 1}" class="badges bg-lightgreen">Hoạt Động</span>
+                                    <span th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</span>
                                 </td>
                                 <td th:text="${items.hang.tenHang}"></td>
                                 <td th:text="${items.chatLieu.tenChatLieu}"></td>

@@ -246,12 +246,9 @@
                             <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                            <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="/ban-hang/hien-thi">Bán hàng</a></li>
-                        </ul>
+                    <li>
+                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
+                        </a>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
@@ -353,6 +350,10 @@
                                         <option th:each="loc : ${mauSac}" th:value="${loc.idMau}"
                                                 th:text="${loc.tenMau}"></option>
                                     </select>
+<!--                                    <br><br>-->
+<!--                                    <strong th:if="${#fields.hasErrors('mauSac')}"-->
+<!--                                            class="alert alert-danger alert-dismissible fade show"-->
+<!--                                            role="alert" th:errors="*{mauSac}"></strong>-->
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-2 col-2 ps-0">
@@ -370,6 +371,10 @@
                                         <option th:each="loc : ${hinhAnh}" th:value="${loc.idGiay}"
                                                 th:text="${loc.url1}"></option>
                                     </select>
+<!--                                    <br><br>-->
+<!--                                    <strong th:if="${#fields.hasErrors('hinhAnh')}"-->
+<!--                                            class="alert alert-danger alert-dismissible fade show"-->
+<!--                                            role="alert" th:errors="*{hinhAnh}"></strong>-->
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-2 col-2 ps-0">
@@ -387,6 +392,10 @@
                                         <option th:each="loc : ${size}" th:value="${loc.idSize}"
                                                 th:text="${loc.soSize}"></option>
                                     </select>
+<!--                                    <br><br>-->
+<!--                                    <strong th:if="${#fields.hasErrors('size')}"-->
+<!--                                            class="alert alert-danger alert-dismissible fade show"-->
+<!--                                            role="alert" th:errors="*{size}"></strong>-->
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-2 col-2 ps-0">
@@ -401,30 +410,50 @@
                                 <div class="form-group">
                                     <label>Năm Sản Xuất</label>
                                     <input type="text" th:field="*{namSX}">
+<!--                                    <br><br>-->
+<!--                                    <strong th:if="${#fields.hasErrors('namSX')}"-->
+<!--                                            class="alert alert-danger alert-dismissible fade show"-->
+<!--                                            role="alert" th:errors="*{namSX}"></strong>-->
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Năm Bảo Hành</label>
                                     <input type="text" th:field="*{namBH}">
+<!--                                    <br><br>-->
+<!--                                    <strong th:if="${#fields.hasErrors('namBH')}"-->
+<!--                                            class="alert alert-danger alert-dismissible fade show"-->
+<!--                                            role="alert" th:errors="*{namBH}"></strong>-->
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Trọng Lượng</label>
                                     <input type="text" th:field="*{trongLuong}">
+<!--                                    <br><br>-->
+<!--                                    <strong th:if="${#fields.hasErrors('trongLuong')}"-->
+<!--                                            class="alert alert-danger alert-dismissible fade show"-->
+<!--                                            role="alert" th:errors="*{trongLuong}"></strong>-->
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Giá Bán</label>
                                     <input type="text" th:field="*{giaBan}">
+<!--                                    <br><br>-->
+<!--                                    <strong th:if="${#fields.hasErrors('giaBan')}"-->
+<!--                                            class="alert alert-danger alert-dismissible fade show"-->
+<!--                                            role="alert" th:errors="*{giaBan}"></strong>-->
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Số Lượng</label>
                                     <input type="text" th:field="*{soLuong}">
+<!--                                    <br><br>-->
+<!--                                    <strong th:if="${#fields.hasErrors('soLuong')}"-->
+<!--                                            class="alert alert-danger alert-dismissible fade show"-->
+<!--                                            role="alert" th:errors="*{soLuong}"></strong>-->
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
