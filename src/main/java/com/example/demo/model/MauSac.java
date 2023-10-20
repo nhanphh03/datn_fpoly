@@ -25,6 +25,9 @@ public class MauSac {
     private UUID idMau;
 
     @NotEmpty(message = "Không được để trống Mã")
+    @Column(name = "ma_Mau")
+    private String maMau;
+    
     @Column(name = "ma")
     private String ma;
 

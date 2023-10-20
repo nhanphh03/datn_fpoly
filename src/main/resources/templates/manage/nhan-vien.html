@@ -500,9 +500,9 @@
                                 <th>Tên Nhân Viên</th>
                                 <th>Giới Tính</th>
                                 <th>Ngày Sinh</th>
-                                <th>Sdt Nhân Viên</th>
-                                <th>Ảnh Nhân Viên</th>
-                                <th>Email Nhân Viên</th>
+                                <th>Sdt </th>
+                                <th>Ảnh </th>
+                                <th>Email </th>
                                 <th>Địa Chỉ</th>
                                 <th>Căn Cước Công Dân</th>
                                 <th>Mật Khẩu</th>
@@ -517,8 +517,11 @@
                             <tr th:each="items : ${nhanVien}">
                                 <td th:text="${items.maNV}"></td>
                                 <td th:text="${items.hoTenNV}"></td>
-                                <td th:text="${items.gioiTinh}"></td>
-                                <td th:text="${items.ngaySinh}"></td>
+                                <td>
+                                    <p th:if="${items.gioiTinh == 1}">Nam</p>
+                                    <p th:unless="${items.gioiTinh == 1}">Nữ</p>
+                                </td>
+                                <td th:text="${#dates.format(items.ngaySinh, 'yyyy-MM-dd')}"/>
                                 <td th:text="${items.sdtNV}"></td>
                                 <td th:text="${items.AnhNV}"></td>
                                 <td th:text="${items.emailNV}"></td>
