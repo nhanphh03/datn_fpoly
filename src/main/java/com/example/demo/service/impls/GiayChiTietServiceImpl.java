@@ -157,6 +157,7 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
             e.printStackTrace();
             // Xử lý lỗi nếu cần
         }
+    }
     public List<Size> findDistinctSizeByGiay(Giay giay) {
         return giayChiTietRepository.findDistinctSizeByGiayAndTrangThai(giay);
     }
