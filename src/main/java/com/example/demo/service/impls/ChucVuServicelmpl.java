@@ -51,6 +51,6 @@ public class ChucVuServicelmpl implements ChucVuService {
 
     @Override
     public ChucVu findByMaCV(String maCV) {
-        return null;
+        return chucVuRepsitory.findByMaCV(maCV);
     }
 }
