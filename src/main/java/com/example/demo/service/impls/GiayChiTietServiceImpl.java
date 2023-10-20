@@ -1,8 +1,6 @@
 package com.example.demo.service.impls;
 
-import com.example.demo.model.ChiTietGiay;
-import com.example.demo.model.Giay;
-import com.example.demo.model.HinhAnh;
+import com.example.demo.model.*;
 import com.example.demo.repository.GiayChiTietRepository;
 import com.example.demo.repository.GiayRepository;
 import com.example.demo.service.GiayChiTietService;
@@ -10,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -81,6 +78,16 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
             return giayChiTietRepository.findAll();
         }
         return giayChiTietRepository.customSearchGCT(searchTerm);
+    }
+
+    @Override
+    public List<Size> findDistinctSizeByGiay(Giay giay) {
+        return giayChiTietRepository.findDistinctSizeByGiayAndTrangThai(giay);
+    }
+
+    @Override
+    public List<MauSac> findDistinctMauSacByGiay(Giay giay) {
+        return giayChiTietRepository.findDistinctMauSacByGiayAndTrangThai(giay);
     }
 
 

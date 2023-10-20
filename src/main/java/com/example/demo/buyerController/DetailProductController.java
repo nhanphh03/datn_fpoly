@@ -54,8 +54,13 @@ public class DetailProductController {
 
         checkKHLogged(model, khachHang, giay);
 
-        model.addAttribute("buyReceiveMail", true);
-        model.addAttribute("buyNowAddCartLogged", false);
+
+
+        List<Size> listSizeByGiay = giayChiTietService.findDistinctSizeByGiay(giay);
+
+        List<MauSac> listMauSacByGiay = giayChiTietService.findDistinctMauSacByGiay(giay);
+
+
 
         List<ChiTietGiay> listCTGByGiay = giayChiTietService.getCTGByGiaySoldOut(giay);
 
@@ -76,35 +81,37 @@ public class DetailProductController {
         Double minPrice = minPriceByGiay.get();
 
         String material = giay.getChatLieu().getTenChatLieu();
-        model.addAttribute("material", material);
+        List<HinhAnh> listHinhAnh = giayChiTietService.listHinhAnhByGiay(giay);
 
         String brand = giay.getHang().getTenHang();
-        model.addAttribute("nameBrand", brand);
 
+        model.addAttribute("material", material);
+        model.addAttribute("nameBrand", brand);
         model.addAttribute("product", giay);
         model.addAttribute("minPrice", minPrice);
         model.addAttribute("maxPrice", maxPrice);
         model.addAttribute("sunProductAvaible", sumCTGByGiay);
         model.addAttribute("listProducts", listCTGByGiay);
-
-        List<HinhAnh> listHinhAnh = giayChiTietService.listHinhAnhByGiay(giay);
         model.addAttribute("listHA", listHinhAnh);
+        model.addAttribute("listSizeByGiay", listSizeByGiay);
+        model.addAttribute("listMauSacByGiay", listMauSacByGiay);
+        model.addAttribute("buyReceiveMail", true);
+        model.addAttribute("buyNowAddCartLogged", false);
 
-        //addToLuotXemFA(khachHang, idGiay, giay, minPrice, sumCTGByGiay, 1);
         return "online/detail-product";
     }
 
     @GetMapping("/shop-details/{idGiay}")
     private String getFormDetail(Model model,@PathVariable UUID idGiay){
 
-
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
 
         Giay giay = giayService.getByIdGiay(idGiay);
+        List<Size> listSizeByGiay = giayChiTietService.findDistinctSizeByGiay(giay);
+        List<MauSac> listMauSacByGiay = giayChiTietService.findDistinctMauSacByGiay(giay);
+        List<ChiTietGiay> listCTGByGiay = giayChiTietService.getCTGByGiayActive(giay);
 
         checkKHLogged(model, khachHang, giay);
-
-        List<ChiTietGiay> listCTGByGiay = giayChiTietService.getCTGByGiayActive(giay);
 
         Optional<Double> maxPriceByGiay = listCTGByGiay.stream()
                 .map(ChiTietGiay :: getGiaBan)
@@ -121,21 +128,22 @@ public class DetailProductController {
                 .min(Double :: compare);
 
         Double minPrice = minPriceByGiay.get();
-
+        List<HinhAnh> listHinhAnh = giayChiTietService.listHinhAnhByGiay(giay);
         String material = giay.getChatLieu().getTenChatLieu();
-        model.addAttribute("material", material);
-
         String brand = giay.getHang().getTenHang();
-        model.addAttribute("nameBrand", brand);
 
+        model.addAttribute("nameBrand", brand);
+        model.addAttribute("material", material);
         model.addAttribute("product", giay);
         model.addAttribute("minPrice", minPrice);
         model.addAttribute("maxPrice", maxPrice);
         model.addAttribute("sunProductAvaible", sumCTGByGiay);
         model.addAttribute("listProducts", listCTGByGiay);
-
-        List<HinhAnh> listHinhAnh = giayChiTietService.listHinhAnhByGiay(giay);
+        model.addAttribute("listSizeByGiay", listSizeByGiay);
+        model.addAttribute("listMauSacByGiay", listMauSacByGiay);
         model.addAttribute("listHA", listHinhAnh);
+
+
 
         addToLuotXemFA(khachHang, idGiay, giay, minPrice, sumCTGByGiay, 1);
         return "online/detail-product";
