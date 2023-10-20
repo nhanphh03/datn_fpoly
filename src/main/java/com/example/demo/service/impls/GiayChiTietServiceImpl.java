@@ -2,6 +2,8 @@ package com.example.demo.service.impls;
 
 import com.example.demo.model.*;
 import com.example.demo.repository.*;
+import com.example.demo.repository.GiayChiTietRepository;
+import com.example.demo.repository.GiayRepository;
 import com.example.demo.service.GiayChiTietService;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
@@ -14,7 +16,6 @@ import org.springframework.stereotype.Service;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -156,6 +157,12 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
             e.printStackTrace();
             // Xử lý lỗi nếu cần
         }
+    public List<Size> findDistinctSizeByGiay(Giay giay) {
+        return giayChiTietRepository.findDistinctSizeByGiayAndTrangThai(giay);
+    }
+
+    public List<MauSac> findDistinctMauSacByGiay(Giay giay) {
+        return giayChiTietRepository.findDistinctMauSacByGiayAndTrangThai(giay);
     }
 
 

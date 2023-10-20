@@ -1,8 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.model.ChiTietGiay;
-import com.example.demo.model.Giay;
-import com.example.demo.model.HinhAnh;
+import com.example.demo.model.*;
 import org.springframework.data.jpa.repository.Query;
 
 import java.io.InputStream;
@@ -36,5 +34,8 @@ public interface GiayChiTietService {
 
     public void importDataFromExcel(InputStream excelFile);
 
+    List<Size> findDistinctSizeByGiay(Giay giay);
+
+    List<MauSac> findDistinctMauSacByGiay(Giay giay);
 
 }
