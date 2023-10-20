@@ -238,7 +238,7 @@
       <a href="javascript:void(0);"><img src="/images/img/icons/product.svg" alt="img"><span> Quản lý Giày</span>
        <span class="menu-arrow"></span></a>
       <ul>
-       <li><a href="/manage/chat-lieu" class="active">Chất Liệu</a></li>
+       <li><a href="/manage/chat-lieu" >Chất Liệu</a></li>
        <li><a href="/manage/giay">Giày</a></li>
        <li><a href="/manage/hang">Hãng</a></li>
        <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
@@ -246,16 +246,9 @@
        <li><a href="/manage/size" >Size</a></li>
       </ul>
      </li>
-     <li class="submenu">
-      <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-       <span class="menu-arrow"></span></a>
-      <ul>
-       <li><a href="saleslist.html">Sales List</a></li>
-       <li><a href="pos.html">POS</a></li>
-       <li><a href="pos.html">New Sales</a></li>
-       <li><a href="salesreturnlists.html">Sales Return List</a></li>
-       <li><a href="createsalesreturns.html">New Sales Return</a></li>
-      </ul>
+     <li>
+      <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
+      </a>
      </li>
      <li class="submenu">
       <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
@@ -299,7 +292,7 @@
       <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản Lý Nhân Viên</span>
        <span class="menu-arrow"></span></a>
       <ul>
-       <li><a href="/manage/chuc-vu">Chức Vụ</a></li>
+       <li><a href="/manage/chuc-vu" class="active">Chức Vụ</a></li>
        <li><a href="/manage/nhan-vien">Nhân Viên</a></li>
 
       </ul>
@@ -353,7 +346,7 @@
       <div class="wordset">
        <ul>
         <li>
-         <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
+         <a  th:href="@{/manage/chucVu/export/pdf}"  data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
                  src="/images/img/icons/pdf.svg" alt="img"></a>
         </li>
         <li>
@@ -389,15 +382,15 @@
           </select>
          </div>
         </div>
-        <div class="col-lg-2 col-sm-6 col-12">
-         <div class="form-group">
-          <select class="select">
-           <option>Trạng Thái</option>
-           <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                   th:text="${loc.value}"></option>
-          </select>
-         </div>
-        </div>
+<!--        <div class="col-lg-2 col-sm-6 col-12">-->
+<!--         <div class="form-group">-->
+<!--          <select class="select">-->
+<!--           <option>Trạng Thái</option>-->
+<!--           <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+<!--                   th:text="${loc.value}"></option>-->
+<!--          </select>-->
+<!--         </div>-->
+<!--        </div>-->
         <div class="col-lg-1 col-sm-6 col-12 ms-auto">
          <div class="form-group">
           <a class="btn btn-filters ms-auto"><img

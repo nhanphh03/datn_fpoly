@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name= "HinhAnh")
+@Table(name = "HinhAnh")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -36,9 +37,6 @@ public class HinhAnh {
 
     @Column(name = "url4")
     private String url4;
-
-    @Column(name = "url5")
-    private String url5;
 
     @Column(name = "trang_Thai")
     private int trangThai;

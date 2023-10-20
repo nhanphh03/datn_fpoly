@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CTGViewModelServiceImpls implements CTGViewModelService {
@@ -29,5 +30,25 @@ public class CTGViewModelServiceImpls implements CTGViewModelService {
     @Override
     public List<CTGViewModel> getAllSoldOff() {
         return ctgViewModelRepository.getAllOutOfStock();
+    }
+
+    @Override
+    public CTGViewModel findByIDGiay(UUID idGiay) {
+        return ctgViewModelRepository.findByGiay(idGiay);
+    }
+
+    @Override
+    public List<CTGViewModel> findByIDHang(String idHang) {
+        return ctgViewModelRepository.findByHang(idHang);
+    }
+
+    @Override
+    public Page<CTGViewModel> getAllByPriceHighToLow(Pageable pageable) {
+        return ctgViewModelRepository.listCTGVMHTL(pageable);
+    }
+
+    @Override
+    public Page<CTGViewModel> getAllByPriceLowToHigh(Pageable pageable) {
+        return ctgViewModelRepository.listCTGVMLTH(pageable);
     }
 }

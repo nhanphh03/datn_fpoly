@@ -28,7 +28,7 @@ public class CartController {
     private GHCTService ghctService;
 
     @GetMapping("/cart")
-    private String getShoppingCartt(Model model){
+    private String getShoppingCart(Model model){
 
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
         GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
@@ -40,10 +40,7 @@ public class CartController {
 
         model.addAttribute("listCartDetail", listGHCTActive);
 
-        for (GioHangChiTiet x:listGHCTActive
-             ) {
-            System.out.println(x.getChiTietGiay().getGiay().getTenGiay());
-        }
+
 
         return "/online/shopping-cart";
     }

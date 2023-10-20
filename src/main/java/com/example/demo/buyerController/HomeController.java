@@ -33,7 +33,7 @@ public class HomeController {
     @Autowired
     private GHCTService ghctService;
 
-    @RequestMapping(value = {"", "/", "/indexBuyer", "/homeBuyer"})
+    @RequestMapping(value = {"", "/", "/home"})
     public String home(Model model){
 
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
@@ -46,6 +46,7 @@ public class HomeController {
 
             Integer sumProductInCart = listGHCTActive.size();
             model.addAttribute("sumProductInCart", sumProductInCart);
+            model.addAttribute("heartLogged", true);
 
         }else {
             model.addAttribute("messageLoginOrSignin", true);

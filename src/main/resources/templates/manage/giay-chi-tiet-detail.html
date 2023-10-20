@@ -246,12 +246,9 @@
                             <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                            <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="/ban-hang/hien-thi">Bán hàng</a></li>
-                        </ul>
+                    <li>
+                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
+                        </a>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
@@ -301,7 +298,7 @@
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img" /><span>
+                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
                     Quản Lý Voucher</span
                         >
                             <span class="menu-arrow"></span
@@ -316,7 +313,8 @@
             </div>
         </div>
     </div>
-    <form th:object="${giayChiTietDetail}" method="post" th:action="@{'/manage/giay-chi-tiet/detail/'+ ${giayChiTietDetail.idCTG}}">
+    <form th:object="${giayChiTietDetail}" method="post"
+          th:action="@{'/manage/giay-chi-tiet/detail/'+ ${giayChiTietDetail.idCTG}}">
         <div class="page-wrapper">
             <div class="content">
                 <div class="page-header">
@@ -331,10 +329,14 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="bar-code-view">
-                                    <img src="/images/img/barcode1.png" alt="barcode">
-                                    <a class="printimg">
-                                        <img src="/images/img/icons/printer.svg" alt="print">
-                                    </a>
+                                    <div class="row">
+                                        <div class="col-lg-10"><img
+                                                th:src="@{'/images/imgsBarcode/'+ ${giayChiTietDetail.idCTG}+'.png'}"
+                                                alt="barcode"></div>
+                                        <div class="col-lg-2"><a class="printimg">
+                                            <img src="/images/img/icons/printer.svg" alt="print">
+                                        </a></div>
+                                    </div>
                                 </div>
                                 <div class="productdetails">
                                     <ul class="product-bar">
@@ -390,17 +392,18 @@
                                 <div class="slider-product-details">
                                     <div class="owl-carousel owl-theme product-slide">
                                         <div class="slider-product">
-                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url1}}" alt="img" />
+                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url1}}"
+                                                 alt="img"/>
                                         </div>
-<!--                                        <div class="slider-product">-->
-<!--                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url2}}" alt="img" />-->
-<!--                                        </div>-->
-<!--                                        <div class="slider-product">-->
-<!--                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url3}}" alt="img" />-->
-<!--                                        </div>-->
-<!--                                        <div class="slider-product">-->
-<!--                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url4}}" alt="img" />-->
-<!--                                        </div>-->
+                                        <!--                                        <div class="slider-product">-->
+                                        <!--                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url2}}" alt="img" />-->
+                                        <!--                                        </div>-->
+                                        <!--                                        <div class="slider-product">-->
+                                        <!--                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url3}}" alt="img" />-->
+                                        <!--                                        </div>-->
+                                        <!--                                        <div class="slider-product">-->
+                                        <!--                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url4}}" alt="img" />-->
+                                        <!--                                        </div>-->
                                     </div>
                                 </div>
                             </div>

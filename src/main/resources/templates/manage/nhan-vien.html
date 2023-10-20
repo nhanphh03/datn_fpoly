@@ -239,23 +239,16 @@
                             <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="/manage/chat-lieu">Chất Liệu</a></li>
-                            <li><a href="/manage/giay" class="active">Giày</a></li>
+                            <li><a href="/manage/giay" >Giày</a></li>
                             <li><a href="/manage/hang">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
                             <li><a href="/manage/mau-sac">Màu Sắc</a></li>
                             <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                            <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="saleslist.html">Sales List</a></li>
-                            <li><a href="pos.html">POS</a></li>
-                            <li><a href="pos.html">New Sales</a></li>
-                            <li><a href="salesreturnlists.html">Sales Return List</a></li>
-                            <li><a href="createsalesreturns.html">New Sales Return</a></li>
-                        </ul>
+                    <li>
+                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
+                        </a>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
@@ -300,7 +293,7 @@
                             <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="/manage/chuc-vu">Chức Vụ</a></li>
-                            <li><a href="/manage/nhan-vien">Nhân Viên</a></li>
+                            <li><a href="/manage/nhan-vien" class="active">Nhân Viên</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -507,9 +500,9 @@
                                 <th>Tên Nhân Viên</th>
                                 <th>Giới Tính</th>
                                 <th>Ngày Sinh</th>
-                                <th>Sdt Nhân Viên</th>
-                                <th>Ảnh Nhân Viên</th>
-                                <th>Email Nhân Viên</th>
+                                <th>Sdt </th>
+                                <th>Ảnh </th>
+                                <th>Email </th>
                                 <th>Địa Chỉ</th>
                                 <th>Căn Cước Công Dân</th>
                                 <th>Mật Khẩu</th>
@@ -524,8 +517,11 @@
                             <tr th:each="items : ${nhanVien}">
                                 <td th:text="${items.maNV}"></td>
                                 <td th:text="${items.hoTenNV}"></td>
-                                <td th:text="${items.gioiTinh}"></td>
-                                <td th:text="${items.ngaySinh}"></td>
+                                <td>
+                                    <p th:if="${items.gioiTinh == 1}">Nam</p>
+                                    <p th:unless="${items.gioiTinh == 1}">Nữ</p>
+                                </td>
+                                <td th:text="${#dates.format(items.ngaySinh, 'yyyy-MM-dd')}"/>
                                 <td th:text="${items.sdtNV}"></td>
                                 <td th:text="${items.AnhNV}"></td>
                                 <td th:text="${items.emailNV}"></td>

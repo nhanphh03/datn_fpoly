@@ -7,6 +7,9 @@ import java.util.List;
 import java.util.UUID;
 
 public interface SizeService {
+
+    public List<Size> getAllSizeActiveOrderByName();
+
     public List<Size> getAllSize();
 
     public void save(Size size);

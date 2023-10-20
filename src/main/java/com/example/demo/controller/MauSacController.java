@@ -9,9 +9,11 @@ import com.example.demo.model.Size;
 import com.example.demo.service.MauSacService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -36,6 +38,7 @@ public class MauSacController {
     @GetMapping("/mau-sac")
     public String dsMauSac(Model model) {
         List<MauSac> mauSac = mauSacService.getALlMauSac();
+        Collections.sort(mauSac, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("mauSac", mauSac);
         return "manage/mau-sac";
     }
@@ -47,7 +50,10 @@ public class MauSacController {
     }
 
     @PostMapping("/mau-sac/viewAdd/add")
-    public String addMauSac(@ModelAttribute("mauSac") MauSac mauSac) {
+    public String addMauSac(@Valid @ModelAttribute("mauSac") MauSac mauSac, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "manage/add-mau-sac";
+        }
         MauSac mauSac1 = new MauSac();
         mauSac1.setMaMau(mauSac.getMaMau());
         mauSac1.setTenMau(mauSac.getTenMau());

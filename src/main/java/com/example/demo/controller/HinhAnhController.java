@@ -9,9 +9,11 @@ import com.example.demo.model.Size;
 import com.example.demo.service.HinhAnhService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
@@ -36,6 +38,7 @@ public class HinhAnhController {
     @GetMapping("/hinh-anh")
     public String dsHinhAnh(Model model) {
         List<HinhAnh> hinhAnh = hinhAnhService.getAllHinhAnh();
+        Collections.sort(hinhAnh, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("hinhAnh", hinhAnh);
         return "manage/hinh-anh";
     }
@@ -47,7 +50,10 @@ public class HinhAnhController {
     }
 
     @PostMapping("/hinh-anh/viewAdd/add")
-    public String addHinhAnh(@ModelAttribute("hinhAnh") HinhAnh hinhAnh) {
+    public String addHinhAnh(@Valid @ModelAttribute("hinhAnh") HinhAnh hinhAnh, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "manage/add-hinh-anh";
+        }
         HinhAnh hinhAnh1 = new HinhAnh();
         hinhAnh1.setUrl1(hinhAnh.getUrl1());
         hinhAnh1.setUrl2(hinhAnh.getUrl2());

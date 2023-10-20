@@ -18,9 +18,9 @@ public class ZxingHelperBarCode {
 
     public static void saveBarcodeImage(UUID id, int width, int height) {
         try {
-            String qrCodePath = "H:\\DATN-SD74\\SD74---Sneaker-Shop\\src\\main\\resources\\static\\images\\imgsBarCode\\";
+            String qrCodePath = "C:\\Users\\Lvh9x\\Documents\\GitHub\\SD74---Sneaker-Shop\\src\\main\\resources\\static\\images\\imgsBarcode\\";
             String qrCodeName = qrCodePath + id +  ".png";
-
+            System.out.println(qrCodeName);
             Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<>();
             hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
             Writer writer = new Code128Writer();
