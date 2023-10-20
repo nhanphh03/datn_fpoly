@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -49,5 +50,7 @@ public class Giay {
     @Column(name = "tg_Sua")
     private Date tgSua;
 
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "giay")
+    private List<ChiTietGiay> chiTietGiayList;
 
 }
