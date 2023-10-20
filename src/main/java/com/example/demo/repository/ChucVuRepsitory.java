@@ -11,5 +11,6 @@ import java.util.UUID;
 public interface ChucVuRepsitory extends JpaRepository<ChucVu, UUID> {
     List<ChucVu> getByTrangThai(int trangThai);
     List<ChucVu> findByMaCVOrTenCV(String maCV, String tenCV);
+
     ChucVu findByMaCV(String maCV);
 }
