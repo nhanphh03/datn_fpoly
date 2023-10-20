@@ -18,6 +18,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class MauSac {
 
+    //Nhan Pham Ngu
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO )
     @Column(name ="id_Mau")
