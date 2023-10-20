@@ -1,9 +1,13 @@
 package com.example.demo.controller;
 
 import com.example.demo.config.*;
+import com.example.demo.model.ChiTietGiay;
 import com.example.demo.model.Giay;
 import com.example.demo.model.Hang;
 import com.example.demo.model.Size;
+import com.example.demo.repository.GiayChiTietRepository;
+import com.example.demo.service.GiayChiTietService;
+import com.example.demo.service.GiayService;
 import com.example.demo.service.HangService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,6 +30,10 @@ import java.util.*;
 public class HangController {
     @Autowired
     private HangService hangService;
+    @Autowired
+    private GiayService giayService;
+    @Autowired
+    private GiayChiTietService giayChiTietService;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -40,14 +48,16 @@ public class HangController {
         List<Hang> hang = hangService.getALlHang();
         Collections.sort(hang, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("hang", hang);
+        //
+        model.addAttribute("hangAdd", new Hang());
         return "manage/hang";
     }
 
-    @GetMapping("/hang/viewAdd")
-    public String viewAddHang(Model model) {
-        model.addAttribute("hang", new Hang());
-        return "manage/add-hang";
-    }
+//    @GetMapping("/hang/viewAdd")
+//    public String viewAddHang(Model model) {
+//        model.addAttribute("hang", new Hang());
+//        return "manage/add-hang";
+//    }
 
     @PostMapping("/hang/viewAdd/add")
     public String addHang(@Valid @ModelAttribute("hang") Hang hang, BindingResult bindingResult) {
@@ -59,7 +69,7 @@ public class HangController {
         hang1.setMaHang(hang.getMaHang());
         hang1.setTenHang(hang.getTenHang());
         hang1.setTgThem(new Date());
-        hang1.setTrangThai(hang.getTrangThai());
+        hang1.setTrangThai(1);
         hangService.save(hang1);
         return "redirect:/manage/hang";
     }
@@ -70,6 +80,14 @@ public class HangController {
         hang.setTrangThai(0);
         hang.setTgSua(new Date());
         hangService.save(hang);
+        // Cập nhật trạng thái của tất cả sản phẩm chi tiết của hãng thành 0
+        List<Giay> giays = giayService.findByHang(hang);
+        for (Giay giay : giays) {
+            giay.setTrangThai(0);
+            giayService.save(giay);
+        }
+        //List giày mới
+        List<Giay> giaysNew = giayService.findByTrangThai(0);
         return "redirect:/manage/hang";
     }
 
@@ -90,6 +108,14 @@ public class HangController {
             hangDb.setTgSua(new Date());
             hangDb.setTrangThai(hang.getTrangThai());
             hangService.save(hangDb);
+        }
+        // Nếu trạng thái của hãng là 1, hãy cập nhật trạng thái của tất cả sản phẩm chi tiết của hãng thành 1.
+        if (hangDb.getTrangThai() == 1) {
+            List<Giay> giays = giayService.findByHang(hangDb);
+            for (Giay giay : giays) {
+                giay.setTrangThai(1);
+                giayService.save(giay);
+            }
         }
         return "redirect:/manage/hang";
     }

@@ -4,8 +4,11 @@ import com.example.demo.config.ExcelExporterMauSac;
 import com.example.demo.config.ExcelExporterSize;
 import com.example.demo.config.PDFExporterMauSac;
 import com.example.demo.config.PDFExporterSizes;
+import com.example.demo.model.ChiTietGiay;
+import com.example.demo.model.Giay;
 import com.example.demo.model.MauSac;
 import com.example.demo.model.Size;
+import com.example.demo.service.GiayChiTietService;
 import com.example.demo.service.MauSacService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,6 +31,9 @@ import java.util.*;
 public class MauSacController {
     @Autowired
     private MauSacService mauSacService;
+    @Autowired
+    private GiayChiTietService giayChiTietService;
+
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -42,14 +48,16 @@ public class MauSacController {
         List<MauSac> mauSac = mauSacService.getALlMauSac();
         Collections.sort(mauSac, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("mauSac", mauSac);
+        //
+        model.addAttribute("mauSacAdd", new MauSac());
         return "manage/mau-sac";
     }
 
-    @GetMapping("/mau-sac/viewAdd")
-    public String viewAddMauSac(Model model) {
-        model.addAttribute("mauSac", new MauSac());
-        return "manage/add-mau-sac";
-    }
+//    @GetMapping("/mau-sac/viewAdd")
+//    public String viewAddMauSac(Model model) {
+//        model.addAttribute("mauSac", new MauSac());
+//        return "manage/add-mau-sac";
+//    }
 
     @PostMapping("/mau-sac/viewAdd/add")
     public String addMauSac(@Valid @ModelAttribute("mauSac") MauSac mauSac, BindingResult bindingResult) {
@@ -60,7 +68,7 @@ public class MauSacController {
         mauSac1.setMaMau(mauSac.getMaMau());
         mauSac1.setTenMau(mauSac.getTenMau());
         mauSac1.setTgThem(new Date());
-        mauSac1.setTrangThai(mauSac.getTrangThai());
+        mauSac1.setTrangThai(1);
         mauSacService.save(mauSac1);
         return "redirect:/manage/mau-sac";
     }
@@ -71,6 +79,12 @@ public class MauSacController {
         mauSac.setTrangThai(0);
         mauSac.setTgSua(new Date());
         mauSacService.save(mauSac);
+        // Cập nhật trạng thái của tất cả sản phẩm chi tiết của mauSac thành 0
+        List<ChiTietGiay> chiTietGiays = giayChiTietService.findByMauSac(mauSac);
+        for (ChiTietGiay chiTietGiay : chiTietGiays) {
+            chiTietGiay.setTrangThai(0);
+            giayChiTietService.save(chiTietGiay);
+        }
         return "redirect:/manage/mau-sac";
     }
 
@@ -90,6 +104,14 @@ public class MauSacController {
             mauSacDb.setTgSua(new Date());
             mauSacDb.setTrangThai(mauSac.getTrangThai());
             mauSacService.save(mauSacDb);
+        }
+        // Nếu trạng thái của mauSac là 1, hãy cập nhật trạng thái của tất cả sản phẩm chi tiết của mauSac thành 1.
+        if (mauSacDb.getTrangThai() == 1) {
+            List<ChiTietGiay> chiTietGiays = giayChiTietService.findByMauSac(mauSacDb);
+            for (ChiTietGiay chiTietGiay : chiTietGiays) {
+                chiTietGiay.setTrangThai(1);
+                giayChiTietService.save(chiTietGiay);
+            }
         }
         return "redirect:/manage/mau-sac";
     }

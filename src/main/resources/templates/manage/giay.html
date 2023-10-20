@@ -330,6 +330,15 @@
             </div>
             <div class="card">
                 <div class="card-body">
+                    <div class="form-hidden-2" style="display: none">
+                        <form action="/manage/giay/import" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label> Upload Excel File</label>
+                                <input type="file" name="file" onchange="displaySelectedFileName()"/>
+                            </div>
+                            <button type="submit" class="btn btn-submit me-2">Submit</button>
+                        </form>
+                    </div><br>
                     <div class="table-top">
                         <div class="search-set">
                             <div class="search-path">
@@ -348,6 +357,13 @@
                         </div>
                         <div class="wordset">
                             <ul>
+                                <li>
+                                    <a class="btn btn-filter" id="import-excel" data-bs-toggle="tooltip"
+                                       data-bs-placement="top" title="Import Excel">
+                                        <img src="/images/img/icons/upload.svg" alt="img">
+                                        <span><img src="/images/img/icons/closes.svg" alt="img"></span>
+                                    </a>
+                                </li>
                                 <li>
                                     <a th:href="@{/manage/giay/export/pdf}"
                                        data-bs-toggle="tooltip"
@@ -649,6 +665,17 @@
             console.log(chatLieuTen);
         });
 
+    });
+</script>
+<script>
+    document.getElementById("import-excel").addEventListener("click", function () {
+        var form2 = document.querySelector(".form-hidden-2");
+        if (form2.style.display === "none" || form2.style.display === "") {
+            $('.form-hidden-2').slideToggle("slow");
+            form2.style.display = "block";  // Hiển thị form
+        } else {
+            form2.style.display = "none";  // Ẩn form
+        }
     });
 </script>
 </body>

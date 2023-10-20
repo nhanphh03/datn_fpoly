@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import com.example.demo.model.ChatLieu;
 import com.example.demo.model.Giay;
+import com.example.demo.model.Hang;
 
 import java.io.InputStream;
 import java.util.List;
@@ -21,4 +22,10 @@ public interface GiayService {
     public List<Giay> fillterGiay(String searchTerm);
 
     public void importDataFromExcel(InputStream excelFile);
+
+    public List<Giay> findByHang(Hang hang);
+
+    public List<Giay> findByChatLieu(ChatLieu chatLieu);
+
+    public List<Giay> findByTrangThai(int trangThai);
 }

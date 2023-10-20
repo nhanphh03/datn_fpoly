@@ -1,9 +1,7 @@
 package com.example.demo.repository;
 
-import com.example.demo.model.ChiTietGiay;
-import com.example.demo.model.HinhAnh;
+import com.example.demo.model.*;
 import com.example.demo.viewModel.CTGViewModel;
-import com.example.demo.model.Giay;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -27,4 +25,9 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
 
     @Query("SELECT g FROM ChiTietGiay g WHERE g.size.soSize = :searchTerm OR g.mauSac.tenMau = :searchTerm OR g.giay.tenGiay = :searchTerm")
     List<ChiTietGiay> customSearchGCT(@Param("searchTerm") String searchTerm);
+
+    List<ChiTietGiay> findBySize(Size size);
+
+    List<ChiTietGiay> findByMauSac(MauSac mauSac);
+
 }

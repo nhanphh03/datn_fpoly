@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -122,8 +121,7 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
                 chiTietGiay.setHinhAnh(hinhAnh);
 
                 // Đối tượng Size
-                // Đối tượng Size
-                int soSize = (int) row.getCell(1).getNumericCellValue(); // Cột 1 trong tệp Excel
+                int soSize = (int) row.getCell(2).getNumericCellValue(); // Cột 1 trong tệp Excel
                 Size size = sizeRepository.findBySoSize(soSize); // Tìm đối tượng Size theo soSize
                 chiTietGiay.setSize(size);
 
@@ -141,13 +139,11 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
                 if (row.getCell(6).getCellType() == CellType.NUMERIC) {
                     chiTietGiay.setTrongLuong((int) row.getCell(6).getNumericCellValue()); // Chuyển đổi thành kiểu int
                 }
-                if (row.getCell(7).getCellType() == CellType.NUMERIC) {
-                    chiTietGiay.setGiaBan((double) row.getCell(7).getNumericCellValue()); // Chuyển đổi thành kiểu int
-                }
+                chiTietGiay.setGiaBan(row.getCell(7).getNumericCellValue());
                 if (row.getCell(8).getCellType() == CellType.NUMERIC) {
                     chiTietGiay.setSoLuong((int) row.getCell(8).getNumericCellValue()); // Chuyển đổi thành kiểu int
                 }
-                //
+
                 chiTietGiay.setTgThem(new Date());
                 chiTietGiay.setTrangThai(1);
                 giayChiTietRepository.save(chiTietGiay);
@@ -156,6 +152,21 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
             e.printStackTrace();
             // Xử lý lỗi nếu cần
         }
+    }
+
+    @Override
+    public List<ChiTietGiay> findByGiay(Giay giay) {
+        return giayChiTietRepository.findByGiay(giay);
+    }
+
+    @Override
+    public List<ChiTietGiay> findByMauSac(MauSac mauSac) {
+        return giayChiTietRepository.findByMauSac(mauSac);
+    }
+
+    @Override
+    public List<ChiTietGiay> findBySize(Size size) {
+        return giayChiTietRepository.findBySize(size);
     }
 
 

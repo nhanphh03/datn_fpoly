@@ -1,8 +1,6 @@
 package com.example.demo.service;
 
-import com.example.demo.model.ChiTietGiay;
-import com.example.demo.model.Giay;
-import com.example.demo.model.HinhAnh;
+import com.example.demo.model.*;
 import org.springframework.data.jpa.repository.Query;
 
 import java.io.InputStream;
@@ -35,6 +33,12 @@ public interface GiayChiTietService {
     public List<ChiTietGiay> fillterGCT(String searchTerm);
 
     public void importDataFromExcel(InputStream excelFile);
+
+    public List<ChiTietGiay> findByGiay(Giay giay);
+
+    public List<ChiTietGiay> findByMauSac(MauSac mauSac);
+
+    public List<ChiTietGiay> findBySize(Size size);
 
 
 }

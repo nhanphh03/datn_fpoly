@@ -298,7 +298,7 @@
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img" /><span>
+                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
                     Quản Lý Voucher</span
                         >
                             <span class="menu-arrow"></span
@@ -321,14 +321,59 @@
                     <h6>Quản Lý Giày</h6>
                 </div>
                 <div class="page-btn">
-                    <a href="/manage/mau-sac/viewAdd" class="btn btn-added">
+                    <button class="btn btn-added" id="show-form-button">
                         <img src="/images/img/icons/plus.svg" class="me-1" alt="img">Thêm Màu
-                    </a>
+                    </button>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-body">
+                    <div class="hidden-form" style="display: none">
+                        <form th:object="${mauSacAdd}" method="post" th:action="@{/manage/mau-sac/viewAdd/add}">
+                            <div class="row">
+                                <div class="col-lg-2 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Mã Màu</label>
+                                        <input type="text" th:field="*{maMau}"><br><br>
+                                        <strong th:if="${#fields.hasErrors('maMau')}"
+                                                class="alert alert-danger alert-dismissible fade show"
+                                                role="alert" th:errors="*{maMau}"></strong>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Tên Màu</label>
+                                        <input type="text" th:field="*{tenMau}"><br><br>
+                                        <strong th:if="${#fields.hasErrors('tenMau')}"
+                                                class="alert alert-danger alert-dismissible fade show"
+                                                role="alert" th:errors="*{tenMau}"></strong>
+                                    </div>
+                                </div>
+<!--                                <div class="col-lg-6 col-sm-6 col-12">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Trạng Thái</label>-->
+<!--                                        <select class="select" th:field="*{trangThai}">-->
+<!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+<!--                                                    th:text="${loc.value}"></option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+                                <div class="col-lg-12">
+                                    <button type="submit" class="btn btn-submit me-2">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div><br>
+                    <div class="form-hidden-2" style="display: none">
+                        <form action="/manage/mauSac/import" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label> Upload Excel File</label>
+                                <input type="file" name="file" onchange="displaySelectedFileName()"/>
+                            </div>
+                            <button type="submit" class="btn btn-submit me-2">Submit</button>
+                        </form>
+                    </div><br>
                     <div class="table-top">
                         <div class="search-set">
                             <div class="search-path">
@@ -345,15 +390,25 @@
                         <div class="wordset">
                             <ul>
                                 <li>
-                                    <a th:href="@{/manage/mauSac/export/pdf}" data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
+                                    <a class="btn btn-filter" id="import-excel" data-bs-toggle="tooltip"
+                                       data-bs-placement="top" title="Import Excel">
+                                        <img src="/images/img/icons/upload.svg" alt="img">
+                                        <span><img src="/images/img/icons/closes.svg" alt="img"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/manage/mauSac/export/pdf}" data-bs-toggle="tooltip"
+                                       data-bs-placement="top" title="pdf"><img
                                             src="/images/img/icons/pdf.svg" alt="img"></a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/manage/mauSac/export/excel}" data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
+                                    <a th:href="@{/manage/mauSac/export/excel}" data-bs-toggle="tooltip"
+                                       data-bs-placement="top" title="excel"><img
                                             src="/images/img/icons/excel.svg" alt="img"></a>
                                 </li>
                                 <li>
-                                    <a id="printButton" data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
+                                    <a id="printButton" data-bs-toggle="tooltip" data-bs-placement="top"
+                                       title="print"><img
                                             src="/images/img/icons/printer.svg" alt="img"></a>
                                 </li>
                             </ul>
@@ -434,13 +489,15 @@
                                 <td th:text="${items.tenMau}"></td>
                                 <td>
                                     <span th:if="${items.trangThai == 1}" class="badges bg-lightgreen">Hoạt Động</span>
-                                    <span th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</span>
+                                    <span th:unless="${items.trangThai == 1}"
+                                          class="badges bg-lightred">Không Hoạt Động</span>
                                 </td>
                                 <td>
                                     <a class="me-3" th:href="@{'/manage/mau-sac/viewUpdate/' + ${items.idMau}}">
                                         <img src="/images/img/icons/edit.svg" alt="img">
                                     </a>
-                                    <a class="me-3 delete-button" th:data-delete-url="@{'/manage/mau-sac/delete/' + ${items.idMau}}">
+                                    <a class="me-3 delete-button"
+                                       th:data-delete-url="@{'/manage/mau-sac/delete/' + ${items.idMau}}">
                                         <img src="/images/img/icons/delete.svg" alt="img">
                                     </a>
                                 </td>
@@ -474,12 +531,12 @@
 
 <script src="/js/script.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         // Lấy thẻ nút in bằng id
         var printButton = document.getElementById("printButton");
 
         // Thêm sự kiện click cho nút
-        printButton.addEventListener("click", function() {
+        printButton.addEventListener("click", function () {
             // Gọi hàm in mặc định của trình duyệt
             window.print();
         });
@@ -562,6 +619,32 @@
                 }
             });
         });
+    });
+</script>
+<script>
+    //Mở form
+    document.getElementById("show-form-button").addEventListener("click", function () {
+        var form1 = document.querySelector(".hidden-form");
+        var form2 = document.querySelector(".form-hidden-2");
+        if (form1.style.display === "none" || form1.style.display === "" || form2.style.display === "block") {
+            $('.hidden-form').slideToggle("slow");
+            form1.style.display = "block";  // Hiển thị form
+            form2.style.display = "none";
+        } else {
+            form1.style.display = "none";  // Ẩn form
+        }
+    });
+    //
+    document.getElementById("import-excel").addEventListener("click", function () {
+        var form2 = document.querySelector(".form-hidden-2");
+        var form1 = document.querySelector(".hidden-form");
+        if (form2.style.display === "none" || form2.style.display === "" || form1.style.display === "block") {
+            $('.form-hidden-2').slideToggle("slow");
+            form2.style.display = "block";  // Hiển thị form
+            form1.style.display = "none";
+        } else {
+            form2.style.display = "none";  // Ẩn form
+        }
     });
 </script>
 </body>
