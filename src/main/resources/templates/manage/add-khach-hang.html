@@ -9,10 +9,11 @@
     <meta name="author" content="Dreamguys - Bootstrap Admin Template">
     <meta name="robots" content="noindex, nofollow">
     <title>Sneaker Shop - Admin</title>
-
+    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css" />
     <link rel="shortcut icon" type="image/x-icon" href="/images/img/logo.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
 
     <link rel="stylesheet" href="/css/animate.css">
 
@@ -342,13 +343,21 @@
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Giới Tính</label>
-                                    <input type="text" th:field="*{gioiTinh}">
+                                    <select class="select" th:field="*{gioiTinh}" id="gioitinh" name="gioitinh">
+                                        <option th:each="loc : ${dsGioiTinh.entrySet()}" th:value="${loc.key}"
+                                                th:text="${loc.value}"></option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Ngày Sinh</label>
-                                    <input type="text" th:field="*{ngaySinh}">
+                                    <div class="input-groupicon">
+                                        <input type="date" th:field="*{ngaySinh}" name="ngaysinh"
+                                               style="width: 100%; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                       font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;"
+                                               th:pattern="yyyy-MM-dd" />
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -442,6 +451,13 @@
 <script src="/plugins/alertify/custom-alertify.min.js"></script>
 
 <script src="/js/script.js"></script>
+
+<script src="/js/moment.min.js"></script>
+<script src="/js/bootstrap-datetimepicker.min.js"></script>
+
+<script src="/js/jquery.dataTables.min.js"></script>
+
+<script src="/js/dataTables.bootstrap4.min.js"></script>
 
 </body>
 </html>

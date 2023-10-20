@@ -54,7 +54,8 @@ public class DetailProductController {
 
         checkKHLogged(model, khachHang, giay);
 
-
+        model.addAttribute("buyReceiveMail", true);
+        model.addAttribute("buyNowAddCartLogged", false);
 
         List<Size> listSizeByGiay = giayChiTietService.findDistinctSizeByGiay(giay);
 
@@ -93,6 +94,9 @@ public class DetailProductController {
         model.addAttribute("sunProductAvaible", sumCTGByGiay);
         model.addAttribute("listProducts", listCTGByGiay);
         model.addAttribute("listHA", listHinhAnh);
+
+        //addToLuotXemFA(khachHang, idGiay, giay, minPrice, sumCTGByGiay, 1);
+
         model.addAttribute("listSizeByGiay", listSizeByGiay);
         model.addAttribute("listMauSacByGiay", listMauSacByGiay);
         model.addAttribute("buyReceiveMail", true);
@@ -103,6 +107,15 @@ public class DetailProductController {
 
     @GetMapping("/shop-details/{idGiay}")
     private String getFormDetail(Model model,@PathVariable UUID idGiay){
+
+
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+
+        Giay giay = giayService.getByIdGiay(idGiay);
+
+        checkKHLogged(model, khachHang, giay);
+
+        List<ChiTietGiay> listCTGByGiay = giayChiTietService.getCTGByGiayActive(giay);
 
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
 
@@ -128,6 +141,14 @@ public class DetailProductController {
                 .min(Double :: compare);
 
         Double minPrice = minPriceByGiay.get();
+
+
+        String material = giay.getChatLieu().getTenChatLieu();
+        model.addAttribute("material", material);
+
+        String brand = giay.getHang().getTenHang();
+        model.addAttribute("nameBrand", brand);
+
         List<HinhAnh> listHinhAnh = giayChiTietService.listHinhAnhByGiay(giay);
         String material = giay.getChatLieu().getTenChatLieu();
         String brand = giay.getHang().getTenHang();
@@ -139,10 +160,13 @@ public class DetailProductController {
         model.addAttribute("maxPrice", maxPrice);
         model.addAttribute("sunProductAvaible", sumCTGByGiay);
         model.addAttribute("listProducts", listCTGByGiay);
+
+        List<HinhAnh> listHinhAnh = giayChiTietService.listHinhAnhByGiay(giay);
+        model.addAttribute("listHA", listHinhAnh);
+
         model.addAttribute("listSizeByGiay", listSizeByGiay);
         model.addAttribute("listMauSacByGiay", listMauSacByGiay);
         model.addAttribute("listHA", listHinhAnh);
-
 
 
         addToLuotXemFA(khachHang, idGiay, giay, minPrice, sumCTGByGiay, 1);

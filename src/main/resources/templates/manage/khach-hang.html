@@ -10,9 +10,25 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Sneaker Shop - Admin</title>
 
+<!--    <link rel="shortcut icon" type="image/x-icon" href="/images/img/logo.png">-->
+
+<!--    <link rel="stylesheet" href="/css/bootstrap.min.css">-->
+
+<!--    <link rel="stylesheet" href="/css/animate.css">-->
+
+<!--    <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">-->
+
+<!--    <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">-->
+
+<!--    <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">-->
+<!--    <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">-->
+
+<!--    <link rel="stylesheet" href="/css/style.css">-->
+    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css" />
     <link rel="shortcut icon" type="image/x-icon" href="/images/img/logo.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
 
     <link rel="stylesheet" href="/css/animate.css">
 
@@ -22,6 +38,7 @@
 
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/plugins/alertify/alertify.min.css"/>
 
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -371,7 +388,6 @@
                             </ul>
                         </div>
                     </div>
-
                     <div class="card mb-0" id="filter_inputs">
                         <div class="card-body pb-0">
                             <div class="row">
@@ -409,7 +425,8 @@
                                                 <select class="select">
                                                     <option>Ngày Sinh</option>
                                                     <option th:each="loc : ${khachHang}" th:value="${loc.ngaySinh}"
-                                                            th:text="${loc.ngaySinh}"></option>
+                                                            th:text="${loc.ngaySinh}">
+                                                    </option>
                                                 </select>
                                             </div>
                                         </div>
@@ -517,8 +534,11 @@
                             <tr th:each="items : ${khachHang}">
                                 <td th:text="${items.maKH}"></td>
                                 <td th:text="${items.hoTenKH}"></td>
-                                <td th:text="${items.gioiTinh}"></td>
-                                <td th:text="${items.ngaySinh}"></td>
+                                <td>
+                                    <p th:if="${items.gioiTinh == 1}">Nam</p>
+                                    <p th:unless="${items.gioiTinh == 1}">Nữ</p>
+                                </td>
+                                <td th:text="${#dates.format(items.ngaySinh, 'yyyy-MM-dd')}"/>
                                 <td th:text="${items.sdtKH}"></td>
                                 <td th:text="${items.AnhKH}"></td>
                                 <td th:text="${items.emailKH}"></td>
@@ -530,8 +550,8 @@
                                     <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
                                 </td>
                                 <td th:text="${items.loaiKhachHang.tenLKH}"></td>
-                                <td th:text="${items.tgThem}"></td>
-                                <td th:text="${items.tgSua}"></td>
+                                <td th:text="${items.tgThem}"/>
+                                <td th:text="${items.tgSua}"/>
                                 <td>
 <!--                                    <a class="me-3" th:href="@{'/manage/giay/detail/' + ${items.idGiay}}">-->
 <!--                                        <img src="/images/img/icons/eye.svg" alt="img"/>-->
@@ -570,5 +590,7 @@
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
 <script src="/js/script.js"></script>
+<script src="/js/moment.min.js"></script>
+<script src="/js/bootstrap-datetimepicker.min.js"></script>
 </body>
 </html>
