@@ -24,6 +24,16 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
 
     <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .color-box {
+            width: 40px; /* Độ rộng của hộp màu */
+            height: 40px; /* Chiều cao của hộp màu */
+            display: inline-block; /* Hiển thị như một hộp chữ nằm cạnh nhau */
+            border: 1px solid #000; /* Viền xung quanh hộp màu */
+            margin: 0 5px; /* Khoảng cách giữa các hộp màu */
+            border-radius: 50%;
+        }
+    </style>
 </head>
 <body>
 <div id="global-loader">
@@ -334,6 +344,15 @@
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
+                                        <label>Mã</label>
+                                        <input type="text" th:field="*{ma}"><br><br>
+                                        <strong th:if="${#fields.hasErrors('ma')}"
+                                                class="alert alert-danger alert-dismissible fade show"
+                                                role="alert" th:errors="*{ma}"></strong>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-6 col-12">
+                                    <div class="form-group">
                                         <label>Mã Màu</label>
                                         <input type="text" th:field="*{maMau}"><br><br>
                                         <strong th:if="${#fields.hasErrors('maMau')}"
@@ -350,21 +369,22 @@
                                                 role="alert" th:errors="*{tenMau}"></strong>
                                     </div>
                                 </div>
-<!--                                <div class="col-lg-6 col-sm-6 col-12">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <label>Trạng Thái</label>-->
-<!--                                        <select class="select" th:field="*{trangThai}">-->
-<!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
-<!--                                                    th:text="${loc.value}"></option>-->
-<!--                                        </select>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                                <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
+                                <!--                                    <div class="form-group">-->
+                                <!--                                        <label>Trạng Thái</label>-->
+                                <!--                                        <select class="select" th:field="*{trangThai}">-->
+                                <!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+                                <!--                                                    th:text="${loc.value}"></option>-->
+                                <!--                                        </select>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
                                 <div class="col-lg-12">
                                     <button type="submit" class="btn btn-submit me-2">Submit</button>
                                 </div>
                             </div>
                         </form>
-                    </div><br>
+                    </div>
+                    <br>
                     <div class="form-hidden-2" style="display: none">
                         <form action="/manage/mauSac/import" method="post" enctype="multipart/form-data">
                             <div class="form-group">
@@ -373,7 +393,8 @@
                             </div>
                             <button type="submit" class="btn btn-submit me-2">Submit</button>
                         </form>
-                    </div><br>
+                    </div>
+                    <br>
                     <div class="table-top">
                         <div class="search-set">
                             <div class="search-path">
@@ -423,8 +444,8 @@
                                         <div class="form-group">
                                             <select class="select" id="mauSacFilterMa" name="maMau">
                                                 <option>Mã Màu</option>
-                                                <option th:each="loc : ${mauSac}" th:value="${loc.maMau}"
-                                                        th:text="${loc.maMau}"></option>
+                                                <option th:each="loc : ${mauSac}" th:value="${loc.ma}"
+                                                        th:text="${loc.ma}"></option>
                                             </select>
                                         </div>
                                     </div>
@@ -468,6 +489,7 @@
                                         <span class="checkmarks"></span>
                                     </label>
                                 </th>
+                                <th>Mã</th>
                                 <th>Mã Màu</th>
                                 <th>Tên Màu</th>
                                 <th>Trạng Thái</th>
@@ -485,7 +507,10 @@
                                         <span class="checkmarks"></span>
                                     </label>
                                 </td>
-                                <td th:text="${items.maMau}"></td>
+                                <td th:text="${items.ma}"></td>
+                                <td>
+                                    <span class="color-box" th:style="'background-color: ' + ${items.maMau}"></span>
+                                </td>
                                 <td th:text="${items.tenMau}"></td>
                                 <td>
                                     <span th:if="${items.trangThai == 1}" class="badges bg-lightgreen">Hoạt Động</span>
@@ -613,7 +638,7 @@
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var tenColumn = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
+                var tenColumn = $(this).find("td:eq(3)").text(); // Vị trí cột chứa giá trị kích thước
                 if (tenColumn === tenMau || tenMau === "Tên Màu") {
                     $(this).show();
                 }

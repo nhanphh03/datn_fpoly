@@ -34,6 +34,8 @@ public class HangController {
     private GiayService giayService;
     @Autowired
     private GiayChiTietService giayChiTietService;
+    @Autowired
+    private GiayController giayController;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -85,9 +87,8 @@ public class HangController {
         for (Giay giay : giays) {
             giay.setTrangThai(0);
             giayService.save(giay);
+            giayController.deleteGiayById(giay.getIdGiay());
         }
-        //List giày mới
-        List<Giay> giaysNew = giayService.findByTrangThai(0);
         return "redirect:/manage/hang";
     }
 
@@ -115,6 +116,7 @@ public class HangController {
             for (Giay giay : giays) {
                 giay.setTrangThai(1);
                 giayService.save(giay);
+                giayController.updateGiayById(giay.getIdGiay());
             }
         }
         return "redirect:/manage/hang";

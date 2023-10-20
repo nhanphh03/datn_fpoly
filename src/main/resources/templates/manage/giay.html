@@ -338,7 +338,8 @@
                             </div>
                             <button type="submit" class="btn btn-submit me-2">Submit</button>
                         </form>
-                    </div><br>
+                    </div>
+                    <br>
                     <div class="table-top">
                         <div class="search-set">
                             <div class="search-path">
@@ -444,7 +445,6 @@
                                                                 th:text="${loc.tenChatLieu}"></option>
                                                     </select>
                                                 </div>
-                                             </div>
                                             </div>
                                             <div class="col-lg-4 col-sm-6 col-12">
                                                 <div class="form-group">
@@ -460,68 +460,70 @@
                                 </div>
                             </div>
                         </div>
-                    </form>
+                </div>
+                </form>
 
-                    <div class="table-responsive">
-                        <table class="table datanew" id="data-table">
-                            <thead>
-                            <tr>
-                                <th>
-                                    <label class="checkboxs">
-                                        <input type="checkbox" id="select-all"/>
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </th>
-                                <th>Mã Giày</th>
-                                <th>Tên Giày</th>
-                                <th>Trạng Thái</th>
-                                <th>Hãng</th>
-                                <th>Chất Liệu</th>
-                                <th>Action</th>
-                                <th>Thời Gian Thêm</th>
-                                <th>Thời Gian Sửa</th>
+                <div class="table-responsive">
+                    <table class="table datanew" id="data-table">
+                        <thead>
+                        <tr>
+                            <th>
+                                <label class="checkboxs">
+                                    <input type="checkbox" id="select-all"/>
+                                    <span class="checkmarks"></span>
+                                </label>
+                            </th>
+                            <th>Mã Giày</th>
+                            <th>Tên Giày</th>
+                            <th>Trạng Thái</th>
+                            <th>Hãng</th>
+                            <th>Chất Liệu</th>
+                            <th>Action</th>
+                            <th>Thời Gian Thêm</th>
+                            <th>Thời Gian Sửa</th>
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="items : ${giay}">
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox"/>
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
-                                <td th:text="${items.maGiay}"></td>
-                                <td th:text="${items.tenGiay}"></td>
-                                <td>
-                                    <span th:if="${items.trangThai == 1}" class="badges bg-lightgreen">Hoạt Động</span>
-                                    <span th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</span>
-                                </td>
-                                <td th:text="${items.hang.tenHang}"></td>
-                                <td th:text="${items.chatLieu.tenChatLieu}"></td>
-                                <td>
-                                    <a class="me-2" th:href="@{'/manage/giay/detail/' + ${items.idGiay}}">
-                                        <img src="/images/img/icons/eye.svg" alt="img"/>
-                                    </a>
-                                    <a class="me-2" th:href="@{'/manage/giay/viewUpdate/' + ${items.idGiay}}">
-                                        <img src="/images/img/icons/edit.svg" alt="img"/>
-                                    </a>
-                                    <a class="me-2 delete-button"
-                                       th:data-delete-url="@{'/manage/giay/delete/' + ${items.idGiay}}">
-                                        <img src="/images/img/icons/delete.svg" alt="img"/>
-                                    </a>
-                                </td>
-                                <td th:text="${items.tgThem}"></td>
-                                <td th:text="${items.tgSua}"></td>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="items : ${giay}">
+                            <td>
+                                <label class="checkboxs">
+                                    <input type="checkbox"/>
+                                    <span class="checkmarks"></span>
+                                </label>
+                            </td>
+                            <td th:text="${items.maGiay}"></td>
+                            <td th:text="${items.tenGiay}"></td>
+                            <td>
+                                <span th:if="${items.trangThai == 1}" class="badges bg-lightgreen">Hoạt Động</span>
+                                <span th:unless="${items.trangThai == 1}"
+                                      class="badges bg-lightred">Không Hoạt Động</span>
+                            </td>
+                            <td th:text="${items.hang.tenHang}"></td>
+                            <td th:text="${items.chatLieu.tenChatLieu}"></td>
+                            <td>
+                                <a class="me-2" th:href="@{'/manage/giay/detail/' + ${items.idGiay}}">
+                                    <img src="/images/img/icons/eye.svg" alt="img"/>
+                                </a>
+                                <a class="me-2" th:href="@{'/manage/giay/viewUpdate/' + ${items.idGiay}}">
+                                    <img src="/images/img/icons/edit.svg" alt="img"/>
+                                </a>
+                                <a class="me-2 delete-button"
+                                   th:data-delete-url="@{'/manage/giay/delete/' + ${items.idGiay}}">
+                                    <img src="/images/img/icons/delete.svg" alt="img"/>
+                                </a>
+                            </td>
+                            <td th:text="${items.tgThem}"></td>
+                            <td th:text="${items.tgSua}"></td>
 
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <script src="/js/jquery-3.6.0.min.js"></script>

@@ -65,6 +65,7 @@ public class MauSacController {
             return "manage/add-mau-sac";
         }
         MauSac mauSac1 = new MauSac();
+        mauSac1.setMa(mauSac.getMa());
         mauSac1.setMaMau(mauSac.getMaMau());
         mauSac1.setTenMau(mauSac.getTenMau());
         mauSac1.setTgThem(new Date());
@@ -99,6 +100,7 @@ public class MauSacController {
     public String updateMauSac(@PathVariable UUID id, @ModelAttribute("mauSac") MauSac mauSac) {
         MauSac mauSacDb = mauSacService.getByIdMauSac(id);
         if (mauSacDb != null) {
+            mauSacDb.setMa(mauSac.getMa());
             mauSacDb.setMaMau(mauSac.getMaMau());
             mauSacDb.setTenMau(mauSac.getTenMau());
             mauSacDb.setTgSua(new Date());

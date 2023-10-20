@@ -148,6 +148,19 @@ public class GiayController {
         return "redirect:/manage/giay";
     }
 
+    public void deleteGiayById(UUID idGiay) {
+        Giay giay = giayService.getByIdGiay(idGiay);
+        giay.setTrangThai(0);
+        giay.setTgSua(new Date());
+        giayService.save(giay);
+        // Cập nhật trạng thái của tất cả sản phẩm chi tiết của giay thành 0
+        List<ChiTietGiay> chiTietGiays = giayChiTietService.findByGiay(giay);
+        for (ChiTietGiay chiTietGiay : chiTietGiays) {
+            chiTietGiay.setTrangThai(0);
+            giayChiTietService.save(chiTietGiay);
+        }
+    }
+
     @GetMapping("/giay/viewUpdate/{id}")
     public String viewUpdateGiay(@PathVariable UUID id, Model model) {
         Giay giay = giayService.getByIdGiay(id);
@@ -189,6 +202,18 @@ public class GiayController {
             }
         }
         return "redirect:/manage/giay";
+    }
+
+    public void updateGiayById(UUID id) {
+        Giay giayDb = giayService.getByIdGiay(id);
+        // Nếu trạng thái của giay là 1, hãy cập nhật trạng thái của tất cả sản phẩm chi tiết của giay thành 1.
+        if (giayDb.getTrangThai() == 1) {
+            List<ChiTietGiay> chiTietGiays = giayChiTietService.findByGiay(giayDb);
+            for (ChiTietGiay chiTietGiay : chiTietGiays) {
+                chiTietGiay.setTrangThai(1);
+                giayChiTietService.save(chiTietGiay);
+            }
+        }
     }
 
     @GetMapping("/giay/detail/{id}")

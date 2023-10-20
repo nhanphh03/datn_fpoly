@@ -32,6 +32,8 @@ public class ChatLieuController {
     private ChatLieuService chatLieuService;
     @Autowired
     private GiayService giayService;
+    @Autowired
+    private GiayController giayController;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -82,6 +84,7 @@ public class ChatLieuController {
         for (Giay giay : giays) {
             giay.setTrangThai(0);
             giayService.save(giay);
+            giayController.deleteGiayById(giay.getIdGiay());
         }
         return "redirect:/manage/chat-lieu";
     }
@@ -109,6 +112,7 @@ public class ChatLieuController {
             for (Giay giay : giays) {
                 giay.setTrangThai(1);
                 giayService.save(giay);
+                giayController.updateGiayById(giay.getIdGiay());
             }
         }
         return "redirect:/manage/chat-lieu";
