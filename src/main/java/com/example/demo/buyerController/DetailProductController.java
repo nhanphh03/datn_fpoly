@@ -117,12 +117,9 @@ public class DetailProductController {
 
         List<ChiTietGiay> listCTGByGiay = giayChiTietService.getCTGByGiayActive(giay);
 
-        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
-
-        Giay giay = giayService.getByIdGiay(idGiay);
         List<Size> listSizeByGiay = giayChiTietService.findDistinctSizeByGiay(giay);
         List<MauSac> listMauSacByGiay = giayChiTietService.findDistinctMauSacByGiay(giay);
-        List<ChiTietGiay> listCTGByGiay = giayChiTietService.getCTGByGiayActive(giay);
+
 
         checkKHLogged(model, khachHang, giay);
 
@@ -150,8 +147,6 @@ public class DetailProductController {
         model.addAttribute("nameBrand", brand);
 
         List<HinhAnh> listHinhAnh = giayChiTietService.listHinhAnhByGiay(giay);
-        String material = giay.getChatLieu().getTenChatLieu();
-        String brand = giay.getHang().getTenHang();
 
         model.addAttribute("nameBrand", brand);
         model.addAttribute("material", material);
@@ -161,7 +156,6 @@ public class DetailProductController {
         model.addAttribute("sunProductAvaible", sumCTGByGiay);
         model.addAttribute("listProducts", listCTGByGiay);
 
-        List<HinhAnh> listHinhAnh = giayChiTietService.listHinhAnhByGiay(giay);
         model.addAttribute("listHA", listHinhAnh);
 
         model.addAttribute("listSizeByGiay", listSizeByGiay);
