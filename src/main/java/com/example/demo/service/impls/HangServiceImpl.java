@@ -36,6 +36,7 @@ public class HangServiceImpl implements HangService {
 
     @Override
     public List<Hang> getAllActive() {
+
         return hangRepository.getByTrangThai(1);
     }
 
