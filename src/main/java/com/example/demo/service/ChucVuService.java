@@ -23,4 +23,6 @@ public interface ChucVuService {
 
     ChucVu findByMaCV(String maCV);
 
+    ChucVu findByMaCV(String maCV);
+
 }

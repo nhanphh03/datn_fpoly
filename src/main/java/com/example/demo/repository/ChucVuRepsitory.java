@@ -10,10 +10,7 @@ import java.util.UUID;
 @Repository
 public interface ChucVuRepsitory extends JpaRepository<ChucVu, UUID> {
     List<ChucVu> getByTrangThai(int trangThai);
-
-<<<<<<< HEAD
     List<ChucVu> findByMaCVOrTenCV(String maCV, String tenCV);
-=======
     ChucVu findByMaCV(String maCV);
->>>>>>> 249b67ef71ce6d1623fe035c23e19ee9c767c8a0
+    ChucVu findByMaCV(String maCV);
 }

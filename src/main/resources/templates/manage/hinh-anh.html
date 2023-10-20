@@ -363,15 +363,15 @@
                     <div class="card" id="filter_inputs">
                         <div class="card-body pb-0">
                             <div class="row">
-                                <div class="col-lg-2 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <select class="select">
-                                            <option>Trạng Thái</option>
-                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                                    th:text="${loc.value}"></option>
-                                        </select>
-                                    </div>
-                                </div>
+<!--                                <div class="col-lg-2 col-sm-6 col-12">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <select class="select">-->
+<!--                                            <option>Trạng Thái</option>-->
+<!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+<!--                                                    th:text="${loc.value}"></option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                                 <div class="col-lg-1 col-sm-6 col-12 ms-auto">
                                     <div class="form-group">
                                         <a class="btn btn-filters ms-auto"><img
@@ -393,6 +393,7 @@
                                         <span class="checkmarks"></span>
                                     </label>
                                 </th>
+                                <th>Mã</th>
                                 <th>Ảnh 1</th>
                                 <th>Ảnh 2</th>
                                 <th>Ảnh 3</th>
@@ -412,6 +413,7 @@
                                             <span class="checkmarks"></span>
                                         </label>
                                     </td>
+                                    <td th:text="${items.maAnh}"></td>
                                     <td><img th:src="@{'/images/imgsProducts/'+ ${items.url1}}"></td>
                                     <td><img th:src="@{'/images/imgsProducts/'+ ${items.url2}}"></td>
                                     <td><img th:src="@{'/images/imgsProducts/'+ ${items.url3}}"></td>
@@ -508,11 +510,11 @@
         });
     }
 </script>
-<script>
-    $(document).ready(function () {
-        $('#filter_inputs').slideToggle("slow");
-        $('#filter_search').toggleClass("setclose");
-    });
-</script>
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+<!--        $('#filter_inputs').slideToggle("slow");-->
+<!--        $('#filter_search').toggleClass("setclose");-->
+<!--    });-->
+<!--</script>-->
 </body>
 </html>

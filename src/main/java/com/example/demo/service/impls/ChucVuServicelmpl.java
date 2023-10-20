@@ -36,7 +36,6 @@ public class ChucVuServicelmpl implements ChucVuService {
     }
 
     @Override
-<<<<<<< HEAD
     public List<ChucVu> getAllActive() {
         return chucVuRepsitory.getByTrangThai(1);
     }
@@ -47,9 +46,9 @@ public class ChucVuServicelmpl implements ChucVuService {
             return chucVuRepsitory.findAll();
         }
         return chucVuRepsitory.findByMaCVOrTenCV(maCV, tenCV);
-=======
     public ChucVu findByMaCV(String maCV) {
         return chucVuRepsitory.findByMaCV(maCV);
->>>>>>> 249b67ef71ce6d1623fe035c23e19ee9c767c8a0
+    public ChucVu findByMaCV(String maCV) {
+        return chucVuRepsitory.findByMaCV(maCV);
     }
 }

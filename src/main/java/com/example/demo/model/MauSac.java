@@ -26,10 +26,16 @@ public class MauSac {
     @NotEmpty(message = "Không được để trống Mã")
     @Column(name = "ma_Mau")
     private String maMau;
+    
+    @Column(name = "ma")
+    private String ma;
 
     @NotEmpty(message = "Không được để trống Tên")
     @Column(name="ten_Mau")
     private String tenMau;
+
+    @Column(name="ma_Mau")
+    private String maMau;
 
     @Column(name = "trang_Thai")
     private int trangThai;
