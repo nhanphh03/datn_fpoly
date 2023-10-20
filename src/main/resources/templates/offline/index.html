@@ -28,6 +28,7 @@
 
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/quagga"></script>
+    <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
 </head>
 <body>
 <div id="global-loader">
@@ -236,7 +237,7 @@
     <div class="page-wrapper ms-0">
         <div class="content">
             <div class="row">
-                <div class="col-lg-8 col-sm-12 tabs_wrapper">
+                <div class="col-lg-7 col-sm-12 tabs_wrapper">
                     <div class="page-header ">
                         <div class="page-title">
                             <h4>Bán hàng tại quầy</h4>
@@ -255,12 +256,14 @@
                                             </a>
                                         </div>
                                         <div>
-                                            <button class="btn btn-searchset" type="submit"><img src="/images/img/icons/search-white.svg"
-                                                                              alt="img" ></button>
-                                            <div >
+                                            <button class="btn btn-searchset" type="submit"><img
+                                                    src="/images/img/icons/search-white.svg"
+                                                    alt="img"></button>
+                                            <div>
                                                 <input
-                                                    type="search" class="form-control form-control-sm" name="keyword"
-                                                    placeholder="Search..." aria-controls="DataTables_Table_0">
+                                                        type="search" class="form-control form-control-sm"
+                                                        name="keyword"
+                                                        placeholder="Search..." aria-controls="DataTables_Table_0">
                                             </div>
                                         </div>
                                     </div>
@@ -268,21 +271,27 @@
                                 <div class="wordset">
                                     <ul>
                                         <li>
-                                            <div id="reader"></div>
-                                        </li>
-                                        <li>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
-                                                    src="/images/img/icons/pdf.svg" alt="img"></a>
-                                        </li>
-                                        <li>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
-                                                    src="/images/img/icons/excel.svg" alt="img"></a>
-                                        </li>
-                                        <li>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
-                                                    src="/images/img/icons/printer.svg" alt="img"></a>
+                                            <video
+                                                    style="border: 1px solid"
+                                                    id="video"
+                                                    autoplay="true"
+                                                    width="200px"
+                                                    height="120px"
+                                            ></video>
                                         </li>
                                     </ul>
+                                    <!--                                        <li>-->
+                                    <!--                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img-->
+                                    <!--                                                    src="/images/img/icons/pdf.svg" alt="img"></a>-->
+                                    <!--                                        </li>-->
+                                    <!--                                        <li>-->
+                                    <!--                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img-->
+                                    <!--                                                    src="/images/img/icons/excel.svg" alt="img"></a>-->
+                                    <!--                                        </li>-->
+                                    <!--                                        <li>-->
+                                    <!--                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img-->
+                                    <!--                                                    src="/images/img/icons/printer.svg" alt="img"></a>-->
+                                    <!--                                        </li>-->
                                 </div>
                             </div>
                             <div class="card" id="filter_inputs">
@@ -292,17 +301,13 @@
                                             <div class="form-group">
                                                 <select class="select" id="sizeFilter">
                                                     <option>Size</option>
-                                                    <!--                                                <option th:each="loc : ${size}" th:value="${loc.soSize}"-->
-                                                    <!--                                                        th:text="${loc.soSize}"></option>-->
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-lg-5 col-sm-6 col-12">
                                             <div class="form-group">
                                                 <select class="select">
-                                                    <option>Trạng Thái</option>
-                                                    <!--                                                <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
-                                                    <!--                                                        th:text="${loc.value}"></option>-->
+                                                    <option>Hãng</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -336,10 +341,11 @@
                                                 <h3>[[${product.tenGiay}]]</h3>
                                                 <h3 th:text="${#numbers.formatDecimal(product.giaBan, 0, 0)+ '$'}"></h3>
                                                 <h4 th:text="${product.mauSac}"></h4>
-                                                <a th:href="@{'/mua-hang/chon-size/' + ${product.idGiay}+'/'+${product.mauSac} }"
-                                                   class="btn btn-outline-warning m-3" data-bs-toggle="modal"
-                                                   data-bs-target="#chonSize">
+                                                <a
+                                                        th:href="@{'/ban-hang/chon-size/' + ${product.idGiay}+'/'+${product.mauSac} }"
+                                                        class="btn btn-outline-warning m-3">
                                                     Chọn</a>
+
                                             </div>
                                         </div>
                                     </div>
@@ -348,7 +354,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4 col-sm-12 ">
+                <div class="col-lg-5 col-sm-12 ">
                     <div class="order-list">
                         <div class="orderid">
                             <div class="row">
@@ -382,213 +388,86 @@
                                 </div>
                             </nav>
                         </div>
-                        <div class="actionproducts">
-                            <ul>
-                                <li>
-                                    <a href="javascript:void(0);" class="deletebg confirm-text"><img
-                                            src="/images/img/icons/delete-2.svg" alt="img"></a>
-                                </li>
-                                <li>
-                                    <a href="javascript:void(0);" data-bs-toggle="dropdown"
-                                       aria-expanded="false"
-                                       class="dropset">
-                                        <img src="/images/img/icons/ellipise1.svg" alt="img">
-                                    </a>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"
-                                        data-popper-placement="bottom-end">
-                                        <li>
-                                            <a href="#" class="dropdown-item">Action</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="dropdown-item">Another Action</a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="dropdown-item">Something Elses</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
+                        <!--                        <div class="actionproducts">-->
+                        <!--                            <ul>-->
+                        <!--                                <li>-->
+                        <!--                                    <a href="javascript:void(0);" class="deletebg confirm-text"><img-->
+                        <!--                                            src="/images/img/icons/delete-2.svg" alt="img"></a>-->
+                        <!--                                </li>-->
+                        <!--                                <li>-->
+                        <!--                                    <a href="javascript:void(0);" data-bs-toggle="dropdown"-->
+                        <!--                                       aria-expanded="false"-->
+                        <!--                                       class="dropset">-->
+                        <!--                                        <img src="/images/img/icons/ellipise1.svg" alt="img">-->
+                        <!--                                    </a>-->
+                        <!--                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"-->
+                        <!--                                        data-popper-placement="bottom-end">-->
+                        <!--                                        <li>-->
+                        <!--                                            <a href="#" class="dropdown-item">Action</a>-->
+                        <!--                                        </li>-->
+                        <!--                                        <li>-->
+                        <!--                                            <a href="#" class="dropdown-item">Another Action</a>-->
+                        <!--                                        </li>-->
+                        <!--                                        <li>-->
+                        <!--                                            <a href="#" class="dropdown-item">Something Elses</a>-->
+                        <!--                                        </li>-->
+                        <!--                                    </ul>-->
+                        <!--                                </li>-->
+                        <!--                            </ul>-->
+                        <!--                        </div>-->
                     </div>
                     <div class="card card-order">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-12">
-                                    <a href="javascript:void(0);" class="btn btn-adds" data-bs-toggle="modal"
-                                       data-bs-target="#create"><i class="fa fa-plus me-2"></i>Add Customer</a>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="select-split ">
-                                        <div class="select-group w-100">
-                                            <select class="select">
-                                                <option>Walk-in Customer</option>
-                                                <option>Chris Moris</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-12">
-                                    <div class="select-split">
-                                        <div class="select-group w-100">
-                                            <select class="select">
-                                                <option>Product</option>
-                                                <option>Barcode</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="text-end">
-                                        <a class="btn btn-scanner-set"><img src="/images/img/icons/scanner1.svg"
-                                                                            alt="img" class="me-2">Scan bardcode</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="split-card">
-                        </div>
-                        <div class="card-body pt-0">
+                        <div class="card-body pt-0 mt-3">
                             <div class="totalitem">
+                                <h2 class="text-center">Giỏ hàng</h2>
                                 <h4>Total items : 4</h4>
                                 <a href="javascript:void(0);">Clear all</a>
                             </div>
                             <div class="product-table">
-                                <ul class="product-lists">
-                                    <li>
-                                        <div class="productimg">
-                                            <div class="productimgs">
-                                                <img src="/images/img/product/product30.jpg" alt="img">
-                                            </div>
-                                            <div class="productcontet">
-                                                <h4>Pineapple
-                                                    <a href="javascript:void(0);" class="ms-2"
-                                                       data-bs-toggle="modal"
-                                                       data-bs-target="#edit"><img
-                                                            src="/images/img/icons/edit-5.svg"
-                                                            alt="img"></a>
-                                                </h4>
-                                                <div class="productlinkset">
-                                                    <h5>PT001</h5>
+                                <th:block th:each="gioHang : ${gioHang}">
+                                    <ul class="product-lists">
+                                        <li>
+                                            <div class="productimg">
+                                                <div class="productimgs">
+                                                    <img th:src="@{'/images/imgsProducts/'+ ${gioHang.chiTietGiay.hinhAnh.url1}}"
+                                                         alt="img">
                                                 </div>
-                                                <div class="increment-decrement">
-                                                    <div class="input-groups">
-                                                        <input type="button" value="-"
-                                                               class="button-minus dec button">
-                                                        <input type="text" name="child" value="0"
-                                                               class="quantity-field">
-                                                        <input type="button" value="+"
-                                                               class="button-plus inc button ">
+                                                <div class="productcontet">
+                                                    <h4 th:text="${gioHang.chiTietGiay.giay.tenGiay}">
+                                                        <a href="javascript:void(0);" class="ms-2"
+                                                           data-bs-toggle="modal"
+                                                           data-bs-target="#edit"><img
+                                                                src="/images/img/icons/edit-5.svg"
+                                                                alt="img"></a>
+                                                    </h4>
+                                                    <div class="productlinkset">
+                                                        <h5 th:text="${gioHang.chiTietGiay.size.soSize}"></h5>
+                                                    </div>
+                                                    <div class="increment-decrement">
+                                                        <div class="input-groups">
+                                                            <input type="button" value="-"
+                                                                   class="button-minus dec button">
+                                                            <input type="text" name="child"
+                                                                   th:value="${gioHang.soLuong}"
+                                                                   class="quantity-field">
+                                                            <input type="button" value="+"
+                                                                   class="button-plus inc button ">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li>3000.00</li>
-                                    <li><a class="confirm-text" href="javascript:void(0);"><img
-                                            src="/images/img/icons/delete-2.svg" alt="img"></a></li>
-                                </ul>
-                                <ul class="product-lists">
-                                    <li>
-                                        <div class="productimg">
-                                            <div class="productimgs">
-                                                <img src="/images/img/product/product34.jpg" alt="img">
-                                            </div>
-                                            <div class="productcontet">
-                                                <h4>Green Nike
-                                                    <a href="javascript:void(0);" class="ms-2"
-                                                       data-bs-toggle="modal"
-                                                       data-bs-target="#edit"><img
-                                                            src="/images/img/icons/edit-5.svg"
-                                                            alt="img"></a>
-                                                </h4>
-                                                <div class="productlinkset">
-                                                    <h5>PT001</h5>
-                                                </div>
-                                                <div class="increment-decrement">
-                                                    <div class="input-groups">
-                                                        <input type="button" value="-"
-                                                               class="button-minus dec button">
-                                                        <input type="text" name="child" value="0"
-                                                               class="quantity-field">
-                                                        <input type="button" value="+"
-                                                               class="button-plus inc button ">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>3000.00</li>
-                                    <li><a class="confirm-text" href="javascript:void(0);"><img
-                                            src="/images/img/icons/delete-2.svg" alt="img"></a></li>
-                                </ul>
-                                <ul class="product-lists">
-                                    <li>
-                                        <div class="productimg">
-                                            <div class="productimgs">
-                                                <img src="/images/img/product/product35.jpg" alt="img">
-                                            </div>
-                                            <div class="productcontet">
-                                                <h4>Banana
-                                                    <a href="javascript:void(0);" class="ms-2"
-                                                       data-bs-toggle="modal"
-                                                       data-bs-target="#edit"><img
-                                                            src="/images/img/icons/edit-5.svg"
-                                                            alt="img"></a>
-                                                </h4>
-                                                <div class="productlinkset">
-                                                    <h5>PT001</h5>
-                                                </div>
-                                                <div class="increment-decrement">
-                                                    <div class="input-groups">
-                                                        <input type="button" value="-"
-                                                               class="button-minus dec button">
-                                                        <input type="text" name="child" value="0"
-                                                               class="quantity-field">
-                                                        <input type="button" value="+"
-                                                               class="button-plus inc button ">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>3000.00</li>
-                                    <li><a class="confirm-text" href="javascript:void(0);"><img
-                                            src="/images/img/icons/delete-2.svg" alt="img"></a></li>
-                                </ul>
-                                <ul class="product-lists">
-                                    <li>
-                                        <div class="productimg">
-                                            <div class="productimgs">
-                                                <img src="/images/img/product/product31.jpg" alt="img">
-                                            </div>
-                                            <div class="productcontet">
-                                                <h4>Strawberry
-                                                    <a href="javascript:void(0);" class="ms-2"
-                                                       data-bs-toggle="modal"
-                                                       data-bs-target="#edit"><img
-                                                            src="/images/img/icons/edit-5.svg"
-                                                            alt="img"></a>
-                                                </h4>
-                                                <div class="productlinkset">
-                                                    <h5>PT001</h5>
-                                                </div>
-                                                <div class="increment-decrement">
-                                                    <div class="input-groups">
-                                                        <input type="button" value="-"
-                                                               class="button-minus dec button">
-                                                        <input type="text" name="child" value="0"
-                                                               class="quantity-field">
-                                                        <input type="button" value="+"
-                                                               class="button-plus inc button ">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li>3000.00</li>
-                                    <li><a class="confirm-text" href="javascript:void(0);"><img
-                                            src="/images/img/icons/delete-2.svg" alt="img"></a></li>
-                                </ul>
+                                        </li>
+                                        <li>
+                                            <div th:text="${gioHang.donGia}"></div>
+                                        </li>
+                                        <li>
+                                            <a class="btn"
+                                               th:href="@{'/ban-hang/xoa-gio-hang/'+ ${gioHang.chiTietGiay.idCTG}}">
+                                                <img src="/images/img/icons/delete-2.svg" alt="img">
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </th:block>
                             </div>
                         </div>
                         <div class="split-card">
@@ -609,6 +488,40 @@
                                         <h6>60.00$</h6>
                                     </li>
                                 </ul>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <a href="javascript:void(0);" class="btn btn-adds" data-bs-toggle="modal"
+                                           data-bs-target="#create"><i class="fa fa-plus me-2"></i>Add Customer</a>
+                                    </div>
+                                    <!--                                <div class="col-lg-12">-->
+                                    <!--                                    <div class="select-split ">-->
+                                    <!--                                        <div class="select-group w-100">-->
+                                    <!--                                            <select class="select">-->
+                                    <!--                                                <option>Walk-in Customer</option>-->
+                                    <!--                                                <option>Chris Moris</option>-->
+                                    <!--                                            </select>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                    <!--                                </div>-->
+                                    <!--                                <div class="col-lg-12">-->
+                                    <!--                                    <div class="select-split">-->
+                                    <!--                                        <div class="select-group w-100">-->
+                                    <!--                                            <select class="select">-->
+                                    <!--                                                <option>Product</option>-->
+                                    <!--                                                <option>Barcode</option>-->
+                                    <!--                                            </select>-->
+                                    <!--                                        </div>-->
+                                    <!--                                    </div>-->
+                                    <!--                                </div>-->
+                                    <!--                                <div class="col-12">-->
+                                    <!--                                    <div class="text-end">-->
+                                    <!--                                        <a class="btn btn-scanner-set"><img src="/images/img/icons/scanner1.svg"-->
+                                    <!--                                                                            alt="img" class="me-2">Scan bardcode</a>-->
+                                    <!--                                    </div>-->
+                                    <!--                                </div>-->
+                                </div>
                             </div>
                             <div class="setvaluecash">
                                 <ul>
@@ -1437,75 +1350,111 @@
     </div>
 </div>
 
-<div class="modal fade" id="chonSize" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"
+<div th:if="${showModal}" class="modal fade" id="chonSize" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true"
      data-bs-backdrop="static" data-bs-keyboard="false">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Sản phẩm</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <a type="button" href="/ban-hang/hien-thi">
                     <span aria-hidden="true">×</span>
-                </button>
+                </a>
             </div>
             <div class="modal-body">
                 <div class="row m-3">
                     <div class="col-6">
-                        <!--                        <img th:src="@{'/images/imgsProducts/'+ ${chiTietGiay.hinhAnh.url1}+ ''}" alt="" height="400"-->
-                        <!--                             width="300">-->
+                        <img th:src="@{'/images/imgsProducts/'+ ${giay.chiTietGiayList.get(0).hinhAnh.url1}}" alt=""
+                             height="400"
+                             width="300">
                     </div>
                     <div class="col-6">
                         <div class="container">
                             <div class="row">
-                                <!--                                <div class="text-left fs-2 fw-bolder">-->
-                                <!--                                    <label th:text="${chiTietGiay.giay.hang.tenHang}">Thương hiệu :</label>-->
-                                <!--                                </div>-->
-                                <div class="text-left ">
-                                    <label th:text="${sizeList}"></label>
-                                </div>
-                                <div class="text-left ">
-                                    <label>Thương hiệu: ${giayDistinct.nameBrand}</label>
+                                <div class="">
+                                    <div class="text-left fs-2 fw-bolder">
+                                        <label th:text="${giay.tenGiay}"></label>
+                                    </div>
+                                    <div class="text-left fs-3 fw-normal">
+                                        <label th:text="${'Hãng : '+ giay.hang.tenHang}"></label>
+                                    </div>
+                                    <div class="text-left fs-4">
+                                        <form action="/ban-hang/add-to-cart" method="get">
+                                            <div class="">
+                                                <h3>Số lượng</h3>
+                                                <input type="number" name="soLuong" value="1" min="0"
+                                                       class="form-control"/>
+                                            </div>
+                                            <div th:each="listChiTietGiay : ${listChiTietGiay}">
+                                                <div class="col-md-3">
+                                                    <input type="radio" th:name="idChiTietGiay"
+                                                           th:value="${listChiTietGiay.idCTG}"
+                                                           th:text="${listChiTietGiay.size.soSize}"/>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-secondary btn-center mt-3">
+                                                Thêm giỏ hàng
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                            <!--                            <div class="row">-->
-                            <!--                                <div class="product__details__option">-->
-                            <!--                                    <div class="product__details__option__size">-->
-                            <!--                                        <span>Size :</span>-->
-                            <!--&lt;!&ndash;                                        <c:forEach items="${listSize}" var="size">&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                            <a href="/mua-hang/cart/view/chonSize/${giayDistinct.giay.id}/${size.id}"&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                               class="btn btn-light">${size.soSize}</a>&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                        </c:forEach>&ndash;&gt;-->
-                            <!--                                    </div>-->
-                            <!--                                    <div class="mt-3">-->
-                            <!--                                        <form action="/mua-hang/cart/add" method="get">-->
-                            <!--                                            <div class="product__details__option__color">-->
-                            <!--                                                <span class="">Color :</span>-->
-                            <!--&lt;!&ndash;                                                <c:forEach items="${listColor}" var="color">&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                                    <input type="button" class="m-2 color-option"&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                                           style="background-color: ${color.mauSac.ten};&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                                                           width: 40px; height: 30px; display: inline-block; color: transparent;"/>&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                                    <input type="hidden" name="idChiTietGiay"&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                                           value="${color.id}">&ndash;&gt;-->
-                            <!--&lt;!&ndash;                                                </c:forEach>&ndash;&gt;-->
-                            <!--                                            </div>-->
-                            <!--                                            <div class="">-->
-                            <!--                                                <span>Số lượng</span>-->
-                            <!--                                                <input type="number" name="soLuong" value="1"-->
-                            <!--                                                       class="form-control"/>-->
-                            <!--                                            </div>-->
-                            <!--                                            <div class="mt-2">-->
-                            <!--                                                <span>Có ${giayDistinct.remindProducts}</span>-->
-                            <!--                                                <span>Sản phẩm có sẵn</span>-->
-                            <!--                                            </div>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:if="${showModalQuetQR}" class="modal fade" id="quetQR" tabindex="-1" aria-labelledby="exampleModalLabel1"
+     aria-hidden="true"
+     data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Sản phẩm</h5>
+                <a type="button" href="/ban-hang/hien-thi">
+                    <span aria-hidden="true">×</span>
+                </a>
 
-                            <!--                                            <button type="submit" class="btn btn-secondary btn-center mt-3">Thêm-->
-                            <!--                                                giỏ hàng-->
-                            <!--                                            </button>-->
-                            <!--                                        </form>-->
-                            <!--                                    </div>-->
-
-                            <!--                                </div>-->
-                            <!--                            </div>-->
-                            <!--                        </div>-->
+            </div>
+            <div class="modal-body">
+                <div class="row m-3">
+                    <div class="col-6">
+                        <img th:src="@{'/images/imgsProducts/'+ ${quetQR.hinhAnh.url1}}" alt="" height="400"
+                             width="300">
+                    </div>
+                    <div class="col-6">
+                        <div class="container">
+                            <div class="row">
+                                <div class="">
+                                    <div class="text-left fs-2 fw-bolder">
+                                        <label th:text="${quetQR.giay.tenGiay}"></label>
+                                    </div>
+                                    <div class="text-left fs-3 fw-normal">
+                                        <label th:text="${'Hãng : '+ quetQR.giay.hang.tenHang}"></label>
+                                    </div>
+                                    <div class="text-left fs-4 fw-bolder">
+                                        <form action="/ban-hang/add-to-cart" method="get">
+                                            <div class="">
+                                                <span>Số lượng</span>
+                                                <input type="number" name="soLuong" value="1" min="0"
+                                                       class="form-control"/>
+                                            </div>
+                                            <div>
+                                                <input type="radio" th:name="idChiTietGiay" th:value="${quetQR.idCTG}"
+                                                       th:text="${quetQR.size.soSize}" checked="true"/>
+                                            </div>
+                                            <div>
+                                                <label th:text="${quetQR.giaBan}"></label>
+                                            </div>
+                                            <button type="submit" class="btn btn-secondary btn-center mt-3">Thêm
+                                                giỏ hàng
+                                            </button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1538,45 +1487,72 @@
     //     $('#filter_search').toggleClass("setclose");
     // });
 </script>
-<script type="text/javascript">
-    // import Quagga from 'quagga';
-    // Đảm bảo QuaggaJS đã được tải
-    if (typeof Quagga === 'undefined') {
-        console.error('QuaggaJS chưa được tải.');
-    } else {
-        Quagga.init({
-            inputStream: {
-                name: "Live",
-                type: "LiveStream",
-                target: document.querySelector('#reader'),
-                constraints: {
-                    width: 640,
-                    height: 480,
-                    facingMode: "environment"
-                },
-            },
-            decoder: {
-                readers: ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", "code_39_vin_reader", "codabar_reader", "upc_reader", "upc_e_reader", "i2of5_reader"]
-            }
-        }, function (err) {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            console.log("QuaggaJS đã sẵn sàng để quét mã vạch và mã QR.");
-            Quagga.start();
-        });
-
-        Quagga.onDetected(function (result) {
-
-            console.log("Mã quét:", result.codeResult);
-            console.log("Mã quét 2:", result.codeResult.id);
-            console.log("Mã quét 3:", result);
-            //chuyn duong dan url den trng /ok
-            window.location.href =  `/ok/${result.codedRect}`;
-            alert("Quét mã thành công " + result )
-        });
-    }
+<!-- JavaScript để kích hoạt modal mặc định -->
+<script>
+    $(document).ready(function () {
+        $('#chonSize').modal('show');
+    });
 </script>
+<script>
+    $(document).ready(function () {
+        $('#quetQR').modal('show');
+    });
+</script>
+<script type="text/javascript">
+    let scanner = new Instascan.Scanner({video: document.getElementById('video')});
+    Instascan.Camera.getCameras().then(function (cameras) {
+        if (cameras.length > 0) {
+            scanner.start(cameras[0]);
+        } else {
+            alert('Cameras found');
+        }
+    }).catch(function (e) {
+        console.error(e);
+    });
+
+    scanner.addListener("scan", function (idChiTietGiay) {
+        window.location.href = `/ban-hang/quet-qr/${idChiTietGiay}`;
+    });
+</script>
+<!--<script type="text/javascript">-->
+<!--    // import Quagga from 'quagga';-->
+<!--    // Đảm bảo QuaggaJS đã được tải-->
+<!--    if (typeof Quagga === 'undefined') {-->
+<!--        console.error('QuaggaJS chưa được tải.');-->
+<!--    } else {-->
+<!--        Quagga.init({-->
+<!--            inputStream: {-->
+<!--                name: "Live",-->
+<!--                type: "LiveStream",-->
+<!--                target: document.querySelector('#reader'),-->
+<!--                constraints: {-->
+<!--                    width: 640,-->
+<!--                    height: 480,-->
+<!--                    facingMode: "environment"-->
+<!--                },-->
+<!--            },-->
+<!--            decoder: {-->
+<!--                readers: ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", "code_39_vin_reader", "codabar_reader", "upc_reader", "upc_e_reader", "i2of5_reader"]-->
+<!--            }-->
+<!--        }, function (err) {-->
+<!--            if (err) {-->
+<!--                console.error(err);-->
+<!--                return;-->
+<!--            }-->
+<!--            console.log("QuaggaJS đã sẵn sàng để quét mã vạch và mã QR.");-->
+<!--            Quagga.start();-->
+<!--        });-->
+
+<!--        Quagga.onDetected(function (result) {-->
+
+<!--            console.log("Mã quét:", result.codeResult);-->
+<!--            console.log("Mã quét 2:", result.codeResult.id);-->
+<!--            console.log("Mã quét 3:", result);-->
+<!--            //chuyn duong dan url den trng /ok-->
+<!--            window.location.href =  `/ok/${result.codedRect}`;-->
+<!--            alert("Quét mã thành công " + result )-->
+<!--        });-->
+<!--    }-->
+<!--</script>-->
 </body>
 </html>

@@ -23,7 +23,7 @@ public class GiayViewModel {
     @Column(name = "ten_giay")
     private String tenGiay;
 
-    @Column(name = "sl_ton")
+    @Column(name = "so_luong")
     private Long soLuong;
 
     @Column(name = "gia_ban")
