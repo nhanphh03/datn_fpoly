@@ -46,9 +46,11 @@ public class ChucVuServicelmpl implements ChucVuService {
             return chucVuRepsitory.findAll();
         }
         return chucVuRepsitory.findByMaCVOrTenCV(maCV, tenCV);
+
+    }
+
+    @Override
     public ChucVu findByMaCV(String maCV) {
-        return chucVuRepsitory.findByMaCV(maCV);
-    public ChucVu findByMaCV(String maCV) {
-        return chucVuRepsitory.findByMaCV(maCV);
+        return null;
     }
 }
