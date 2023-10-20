@@ -36,6 +36,18 @@ public class ChucVuServicelmpl implements ChucVuService {
     }
 
     @Override
+    public List<ChucVu> getAllActive() {
+        return chucVuRepsitory.getByTrangThai(1);
+    }
+
+    @Override
+    public List<ChucVu> fillterChucVu(String maCV, String tenCV) {
+        if ("Mã Chức Vụ".equals(maCV) && "Tên Chức Vụ".equals(tenCV)) {
+            return chucVuRepsitory.findAll();
+        }
+        return chucVuRepsitory.findByMaCVOrTenCV(maCV, tenCV);
+    public ChucVu findByMaCV(String maCV) {
+        return chucVuRepsitory.findByMaCV(maCV);
     public ChucVu findByMaCV(String maCV) {
         return chucVuRepsitory.findByMaCV(maCV);
     }
