@@ -2,8 +2,11 @@ package com.example.demo.controller;
 
 import com.example.demo.config.ExcelExporterSize;
 import com.example.demo.config.PDFExporterSizes;
+import com.example.demo.model.ChiTietGiay;
+import com.example.demo.model.Giay;
 import com.example.demo.model.HinhAnh;
 import com.example.demo.model.Size;
+import com.example.demo.service.GiayChiTietService;
 import com.example.demo.service.SizeService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,6 +29,8 @@ import java.util.*;
 public class SizeController {
     @Autowired
     private SizeService sizeService;
+    @Autowired
+    private GiayChiTietService giayChiTietService;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -47,25 +52,27 @@ public class SizeController {
         model.addAttribute("size", size);
         //
         model.addAttribute("sizeAll", sizeService.getAllSize());
+        //
+        model.addAttribute("sizeAdd", new Size());
         return "manage/size-giay";
     }
 
-    @GetMapping("/size/viewAdd")
-    public String viewAddSize(Model model) {
-        model.addAttribute("size", new Size());
-        return "manage/add-size";
-    }
+//    @GetMapping("/size/viewAdd")
+//    public String viewAddSize(Model model) {
+//        model.addAttribute("size", new Size());
+//        return "manage/add-size";
+//    }
 
     @PostMapping("/size/viewAdd/add")
     public String addSize(@Valid @ModelAttribute("size") Size size, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return "manage/add-size";
+            return "manage/size";
         }
         Size sizeAdd = new Size();
         sizeAdd.setMaSize(size.getMaSize());
         sizeAdd.setSoSize(size.getSoSize());
         sizeAdd.setTgThem(new Date());
-        sizeAdd.setTrangThai(size.getTrangThai());
+        sizeAdd.setTrangThai(1);
         sizeService.save(sizeAdd);
         return "redirect:/manage/size";
     }
@@ -73,9 +80,16 @@ public class SizeController {
     @GetMapping("/size/delete/{id}")
     public String deleteSize(@PathVariable UUID id) {
         Size size = sizeService.getByIdSize(id);
+        List<ChiTietGiay> chiTietGiayList = giayChiTietService.findBySize(size);
+        //
         size.setTrangThai(0);
         size.setTgSua(new Date());
         sizeService.save(size);
+        // Cập nhật trạng thái của tất cả sản phẩm chi tiết của hãng thành 0
+        for (ChiTietGiay chiTietGiay : chiTietGiayList) {
+            chiTietGiay.setTrangThai(0);
+            giayChiTietService.save(chiTietGiay);
+        }
         return "redirect:/manage/size";
     }
 
@@ -95,6 +109,13 @@ public class SizeController {
             sizeDb.setTgSua(new Date());
             sizeDb.setTrangThai(size.getTrangThai());
             sizeService.save(sizeDb);
+        }
+        if (sizeDb.getTrangThai() == 1) {
+            List<ChiTietGiay> chiTietGiays = giayChiTietService.findBySize(sizeDb);
+            for (ChiTietGiay chiTietGiay : chiTietGiays) {
+                chiTietGiay.setTrangThai(1);
+                giayChiTietService.save(chiTietGiay);
+            }
         }
         return "redirect:/manage/size";
     }
