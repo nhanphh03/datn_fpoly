@@ -118,8 +118,17 @@ public class DetailProductController {
         List<ChiTietGiay> listCTGByGiay = giayChiTietService.getCTGByGiayActive(giay);
 
         List<Size> listSizeByGiay = giayChiTietService.findDistinctSizeByGiay(giay);
+
         List<MauSac> listMauSacByGiay = giayChiTietService.findDistinctMauSacByGiay(giay);
 
+        if (listMauSacByGiay.size() == 1){
+            System.out.println("asjdhkcgvasckljsavca,jcvaslc aschjbaslcasykjkcbgvasc");
+            model.addAttribute("sizeBy1Mau", true);
+            model.addAttribute("listSizeCTG", listCTGByGiay);
+        }else {
+            model.addAttribute("sizeByMoreMau", true);
+            model.addAttribute("listSizeByGiay", listSizeByGiay);
+        }
 
         checkKHLogged(model, khachHang, giay);
 
@@ -139,7 +148,6 @@ public class DetailProductController {
 
         Double minPrice = minPriceByGiay.get();
 
-
         String material = giay.getChatLieu().getTenChatLieu();
         model.addAttribute("material", material);
 
@@ -147,6 +155,8 @@ public class DetailProductController {
         model.addAttribute("nameBrand", brand);
 
         List<HinhAnh> listHinhAnh = giayChiTietService.listHinhAnhByGiay(giay);
+
+
 
         model.addAttribute("nameBrand", brand);
         model.addAttribute("material", material);
@@ -158,35 +168,12 @@ public class DetailProductController {
 
         model.addAttribute("listHA", listHinhAnh);
 
-        model.addAttribute("listSizeByGiay", listSizeByGiay);
+
         model.addAttribute("listMauSacByGiay", listMauSacByGiay);
         model.addAttribute("listHA", listHinhAnh);
 
-
         addToLuotXemFA(khachHang, idGiay, giay, minPrice, sumCTGByGiay, 1);
         return "online/detail-product";
-    }
-
-    private void checkKHLogged(Model model, KhachHang khachHang, Giay giay){
-        if (khachHang != null){
-            String fullName = khachHang.getHoTenKH();
-            model.addAttribute("fullNameLogin", fullName);
-            GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
-
-            List<GioHangChiTiet> listGHCTActive = ghctService.findByGHActive(gioHang);
-            model.addAttribute("heartLogged", true);
-
-            Integer sumProductInCart = listGHCTActive.size();
-            model.addAttribute("sumProductInCart", sumProductInCart);
-            model.addAttribute("buyNowAddCartLogged", true);
-
-        }else {
-            model.addAttribute("messageLoginOrSignin", true);
-        }
-
-        session.removeAttribute("idGiayDetail");
-
-        session.setAttribute("idGiayDetail", giay.getIdGiay());
     }
 
     @GetMapping("/shop/addProductCart")
@@ -237,7 +224,6 @@ public class DetailProductController {
         return "redirect:/buyer/shop-details/" + idGiay;
     }
 
-
     @GetMapping("/heart/{idGiay}")
     private String addToHeartShop(Model model,@PathVariable UUID idGiay){
 
@@ -286,4 +272,28 @@ public class DetailProductController {
             }
         }
     }
+
+
+    private void checkKHLogged(Model model, KhachHang khachHang, Giay giay){
+        if (khachHang != null){
+            String fullName = khachHang.getHoTenKH();
+            model.addAttribute("fullNameLogin", fullName);
+            GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
+
+            List<GioHangChiTiet> listGHCTActive = ghctService.findByGHActive(gioHang);
+            model.addAttribute("heartLogged", true);
+
+            Integer sumProductInCart = listGHCTActive.size();
+            model.addAttribute("sumProductInCart", sumProductInCart);
+            model.addAttribute("buyNowAddCartLogged", true);
+
+        }else {
+            model.addAttribute("messageLoginOrSignin", true);
+        }
+
+        session.removeAttribute("idGiayDetail");
+
+        session.setAttribute("idGiayDetail", giay.getIdGiay());
+    }
+
 }
