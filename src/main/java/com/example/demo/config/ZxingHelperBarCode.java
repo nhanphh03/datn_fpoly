@@ -20,7 +20,7 @@ public class ZxingHelperBarCode {
     public static void saveBarcodeImage(UUID id, int width, int height) {
         try {
             //tring qrCodePath = "C:\\Users\\Lvh9x\\Documents\\GitHub\\SD74---Sneaker-Shop\\src\\main\\resources\\static\\images\\imgsBarcode\\";
-            String qrCodePath = "/src/main/resources/static/images/imgsBarcode/";
+            String qrCodePath = "C:\\imagesBarcode\\";
             String qrCodeName = qrCodePath + id +  ".png";
             System.out.println(qrCodeName);
             Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<>();
