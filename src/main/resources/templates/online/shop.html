@@ -21,6 +21,13 @@
   <link rel="stylesheet" href="/cssx/owl.carousel.min.css" type="text/css">
   <link rel="stylesheet" href="/cssx/slicknav.min.css" type="text/css">
   <link rel="stylesheet" href="/cssx/style.css" type="text/css">
+  <style>
+    .color-box {
+      display: inline-block;
+      border: 1px solid #000;
+      margin: 0 5px;
+    }
+  </style>
 </head>
 
 <body>
@@ -223,7 +230,7 @@
                     <div class="shop__sidebar__color">
                       <th:block th:each="a : ${listColor}">
                         <a  th:href="@{'/shop/size/' + ${a.idMau}}">
-                          <label style="background-color: ${a.tenMau};">
+                          <label class="color-box" th:style="'background-color: ' +  ${a.maMau}">
                             <input type="radio" >
                           </label>
                         </a>
