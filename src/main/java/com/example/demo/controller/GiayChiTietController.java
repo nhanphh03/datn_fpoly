@@ -8,6 +8,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -68,10 +70,10 @@ public class GiayChiTietController {
     @GetMapping("/giay-chi-tiet")
     public String dsGiayChiTiet(Model model) {
         List<ChiTietGiay> items = giayChiTietService.getAllChiTietGiay();
-        Collections.sort(items, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         List<Giay> giayList = giayService.getAllGiay();
         List<Size> sizeList = sizeService.getAllSize();
         List<MauSac> mauSacList = mauSacService.getALlMauSac();
+        Collections.sort(items, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("items", items);
         model.addAttribute("giayList", giayList);
         model.addAttribute("sizeList", sizeList);
@@ -192,7 +194,7 @@ public class GiayChiTietController {
         chiTietGiay1.setTrongLuong(chiTietGiay.getTrongLuong());
         chiTietGiay1.setGiaBan(chiTietGiay.getGiaBan());
         chiTietGiay1.setSoLuong(chiTietGiay.getSoLuong());
-        chiTietGiay1.setTrangThai(chiTietGiay.getTrangThai());
+        chiTietGiay1.setTrangThai(1);
         chiTietGiay1.setMauSac(chiTietGiay.getMauSac());
         chiTietGiay1.setHinhAnh(chiTietGiay.getHinhAnh());
         chiTietGiay1.setSize(chiTietGiay.getSize());
@@ -221,7 +223,7 @@ public class GiayChiTietController {
         chiTietGiay2.setTrongLuong(chiTietGiay.getTrongLuong());
         chiTietGiay2.setGiaBan(chiTietGiay.getGiaBan());
         chiTietGiay2.setSoLuong(chiTietGiay.getSoLuong());
-        chiTietGiay2.setTrangThai(chiTietGiay.getTrangThai());
+        chiTietGiay2.setTrangThai(1);
         chiTietGiay2.setMauSac(chiTietGiay.getMauSac());
         chiTietGiay2.setHinhAnh(chiTietGiay.getHinhAnh());
         chiTietGiay2.setSize(chiTietGiay.getSize());
@@ -254,7 +256,7 @@ public class GiayChiTietController {
         giay1.setTgThem(new Date());
         giay1.setHang(giay.getHang());
         giay1.setChatLieu(giay.getChatLieu());
-        giay1.setTrangThai(giay.getTrangThai());
+        giay1.setTrangThai(1);
         giayService.save(giay1);
         return "manage/message";
     }
@@ -267,7 +269,7 @@ public class GiayChiTietController {
         giay1.setTgThem(new Date());
         giay1.setHang(giay.getHang());
         giay1.setChatLieu(giay.getChatLieu());
-        giay1.setTrangThai(giay.getTrangThai());
+        giay1.setTrangThai(1);
         giayService.save(giay1);
         return "redirect:/manage/giay-chi-tiet/viewAdd";
     }
@@ -279,7 +281,7 @@ public class GiayChiTietController {
         hang1.setMaHang(hang.getMaHang());
         hang1.setTenHang(hang.getTenHang());
         hang1.setTgThem(new Date());
-        hang1.setTrangThai(hang.getTrangThai());
+        hang1.setTrangThai(1);
         hangService.save(hang1);
         return "manage/message";
     }
@@ -291,7 +293,7 @@ public class GiayChiTietController {
         hang1.setMaHang(hang.getMaHang());
         hang1.setTenHang(hang.getTenHang());
         hang1.setTgThem(new Date());
-        hang1.setTrangThai(hang.getTrangThai());
+        hang1.setTrangThai(1);
         hangService.save(hang1);
         return "redirect:/manage/giay-chi-tiet/viewAdd";
     }
@@ -302,7 +304,7 @@ public class GiayChiTietController {
         chatLieu1.setMaChatLieu(chatLieu.getMaChatLieu());
         chatLieu1.setTenChatLieu(chatLieu.getTenChatLieu());
         chatLieu1.setTgThem(new Date());
-        chatLieu1.setTrangThai(chatLieu.getTrangThai());
+        chatLieu1.setTrangThai(1);
         chatLieuService.save(chatLieu1);
         return "manage/message";
     }
@@ -313,7 +315,7 @@ public class GiayChiTietController {
         chatLieu1.setMaChatLieu(chatLieu.getMaChatLieu());
         chatLieu1.setTenChatLieu(chatLieu.getTenChatLieu());
         chatLieu1.setTgThem(new Date());
-        chatLieu1.setTrangThai(chatLieu.getTrangThai());
+        chatLieu1.setTrangThai(1);
         chatLieuService.save(chatLieu1);
         return "redirect:/manage/giay-chi-tiet/viewAdd";
     }
@@ -324,7 +326,7 @@ public class GiayChiTietController {
         mauSac1.setMaMau(mauSac.getMaMau());
         mauSac1.setTenMau(mauSac.getTenMau());
         mauSac1.setTgThem(new Date());
-        mauSac1.setTrangThai(mauSac.getTrangThai());
+        mauSac1.setTrangThai(1);
         mauSacService.save(mauSac1);
         UUID idCTGViewAdd = (UUID) httpSession.getAttribute("idViewAddCTG");
         String link = "redirect:/manage/chi-tiet-giay/viewAdd/" + idCTGViewAdd;
@@ -338,7 +340,7 @@ public class GiayChiTietController {
         mauSac1.setMaMau(mauSac.getMaMau());
         mauSac1.setTenMau(mauSac.getTenMau());
         mauSac1.setTgThem(new Date());
-        mauSac1.setTrangThai(mauSac.getTrangThai());
+        mauSac1.setTrangThai(1);
         mauSacService.save(mauSac1);
         return "redirect:/manage/giay-chi-tiet/viewAdd";
     }
@@ -349,7 +351,7 @@ public class GiayChiTietController {
         sizeAdd.setMaSize(size.getMaSize());
         sizeAdd.setSoSize(size.getSoSize());
         sizeAdd.setTgThem(new Date());
-        sizeAdd.setTrangThai(size.getTrangThai());
+        sizeAdd.setTrangThai(1);
         sizeService.save(sizeAdd);
         UUID idCTGViewAdd = (UUID) httpSession.getAttribute("idViewAddCTG");
         String link = "redirect:/manage/chi-tiet-giay/viewAdd/" + idCTGViewAdd;
@@ -362,7 +364,7 @@ public class GiayChiTietController {
         sizeAdd.setMaSize(size.getMaSize());
         sizeAdd.setSoSize(size.getSoSize());
         sizeAdd.setTgThem(new Date());
-        sizeAdd.setTrangThai(size.getTrangThai());
+        sizeAdd.setTrangThai(1);
         sizeService.save(sizeAdd);
         return "redirect:/manage/giay-chi-tiet/viewAdd";
     }
@@ -375,7 +377,7 @@ public class GiayChiTietController {
         hinhAnh1.setUrl3(hinhAnh.getUrl3());
         hinhAnh1.setUrl4(hinhAnh.getUrl4());
         hinhAnh1.setTgThem(new Date());
-        hinhAnh1.setTrangThai(hinhAnh.getTrangThai());
+        hinhAnh1.setTrangThai(1);
         hinhAnhService.save(hinhAnh1);
         UUID idCTGViewAdd = (UUID) httpSession.getAttribute("idViewAddCTG");
         String link = "redirect:/manage/chi-tiet-giay/viewAdd/" + idCTGViewAdd;
@@ -390,7 +392,7 @@ public class GiayChiTietController {
         hinhAnh1.setUrl3(hinhAnh.getUrl3());
         hinhAnh1.setUrl4(hinhAnh.getUrl4());
         hinhAnh1.setTgThem(new Date());
-        hinhAnh1.setTrangThai(hinhAnh.getTrangThai());
+        hinhAnh1.setTrangThai(1);
         hinhAnhService.save(hinhAnh1);
         return "redirect:/manage/giay-chi-tiet/viewAdd";
     }
@@ -530,21 +532,7 @@ public class GiayChiTietController {
     }
 
     @PostMapping("/giayCT/import")
-    public String importDataGiayCT(@RequestParam("file") MultipartFile file) {
-        if (file != null && !file.isEmpty()) {
-            try {
-                InputStream excelFile = file.getInputStream();
-                giayChiTietService.importDataFromExcel(excelFile); // Gọi phương thức nhập liệu từ Excel
-            } catch (Exception e) {
-                e.printStackTrace();
-                // Xử lý lỗi
-            }
-        }
-        return "redirect:/manage/giay-chi-tiet"; // Chuyển hướng sau khi nhập liệu thành công hoặc không thành công
-    }
-
-    @PostMapping("/CTGiay/import")
-    public String importDataCTGiay(@RequestParam("file") MultipartFile file) {
+    public String importData(@RequestParam("file") MultipartFile file) {
         if (file != null && !file.isEmpty()) {
             try {
                 InputStream excelFile = file.getInputStream();

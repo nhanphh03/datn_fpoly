@@ -34,6 +34,12 @@ public interface GiayChiTietService {
 
     public void importDataFromExcel(InputStream excelFile);
 
+    public List<ChiTietGiay> findByGiay(Giay giay);
+
+    public List<ChiTietGiay> findByMauSac(MauSac mauSac);
+
+    public List<ChiTietGiay> findBySize(Size size);
+
     List<Size> findDistinctSizeByGiay(Giay giay);
 
     List<MauSac> findDistinctMauSacByGiay(Giay giay);

@@ -51,9 +51,16 @@ public class GiayController {
     @GetMapping("/giay")
     public String dsGiay(Model model) {
         List<Giay> giay = giayService.getAllGiay();
-        Collections.sort(giay, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         List<Hang> hangs = hangService.getALlHang();
         List<ChatLieu> chatLieus = chatLieuService.getAllChatLieu();
+        // Kiểm tra và cập nhật trạng thái của giày nếu trạng thái của hãng hoặc chất liệu không hoạt động (0)
+        for (Giay giayItem : giay) {
+            if (giayItem.getHang().getTrangThai() == 0 || giayItem.getChatLieu().getTrangThai() == 0) {
+                giayItem.setTrangThai(0);
+                giayService.save(giayItem);
+            }
+        }
+        Collections.sort(giay, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("giay", giay);
         model.addAttribute("hang", hangs);
         model.addAttribute("chatLieu", chatLieus);
@@ -98,7 +105,7 @@ public class GiayController {
         giay1.setTgThem(new Date());
         giay1.setHang(giay.getHang());
         giay1.setChatLieu(giay.getChatLieu());
-        giay1.setTrangThai(giay.getTrangThai());
+        giay1.setTrangThai(1);
         giayService.save(giay1);
         return "redirect:/manage/giay";
     }
@@ -110,7 +117,7 @@ public class GiayController {
         hang1.setMaHang(hang.getMaHang());
         hang1.setTenHang(hang.getTenHang());
         hang1.setTgThem(new Date());
-        hang1.setTrangThai(hang.getTrangThai());
+        hang1.setTrangThai(1);
         hangService.save(hang1);
         return "redirect:/manage/giay/viewAdd";
     }
@@ -121,7 +128,7 @@ public class GiayController {
         chatLieu1.setMaChatLieu(chatLieu.getMaChatLieu());
         chatLieu1.setTenChatLieu(chatLieu.getTenChatLieu());
         chatLieu1.setTgThem(new Date());
-        chatLieu1.setTrangThai(chatLieu.getTrangThai());
+        chatLieu1.setTrangThai(1);
         chatLieuService.save(chatLieu1);
         return "redirect:/manage/giay/viewAdd";
     }
@@ -132,7 +139,26 @@ public class GiayController {
         giay.setTrangThai(0);
         giay.setTgSua(new Date());
         giayService.save(giay);
+        // Cập nhật trạng thái của tất cả sản phẩm chi tiết của giay thành 0
+        List<ChiTietGiay> chiTietGiays = giayChiTietService.findByGiay(giay);
+        for (ChiTietGiay chiTietGiay : chiTietGiays) {
+            chiTietGiay.setTrangThai(0);
+            giayChiTietService.save(chiTietGiay);
+        }
         return "redirect:/manage/giay";
+    }
+
+    public void deleteGiayById(UUID idGiay) {
+        Giay giay = giayService.getByIdGiay(idGiay);
+        giay.setTrangThai(0);
+        giay.setTgSua(new Date());
+        giayService.save(giay);
+        // Cập nhật trạng thái của tất cả sản phẩm chi tiết của giay thành 0
+        List<ChiTietGiay> chiTietGiays = giayChiTietService.findByGiay(giay);
+        for (ChiTietGiay chiTietGiay : chiTietGiays) {
+            chiTietGiay.setTrangThai(0);
+            giayChiTietService.save(chiTietGiay);
+        }
     }
 
     @GetMapping("/giay/viewUpdate/{id}")
@@ -167,7 +193,27 @@ public class GiayController {
             giayDb.setHang(giay.getHang());
             giayService.save(giayDb);
         }
+        // Nếu trạng thái của giay là 1, hãy cập nhật trạng thái của tất cả sản phẩm chi tiết của giay thành 1.
+        if (giayDb.getTrangThai() == 1) {
+            List<ChiTietGiay> chiTietGiays = giayChiTietService.findByGiay(giayDb);
+            for (ChiTietGiay chiTietGiay : chiTietGiays) {
+                chiTietGiay.setTrangThai(1);
+                giayChiTietService.save(chiTietGiay);
+            }
+        }
         return "redirect:/manage/giay";
+    }
+
+    public void updateGiayById(UUID id) {
+        Giay giayDb = giayService.getByIdGiay(id);
+        // Nếu trạng thái của giay là 1, hãy cập nhật trạng thái của tất cả sản phẩm chi tiết của giay thành 1.
+        if (giayDb.getTrangThai() == 1) {
+            List<ChiTietGiay> chiTietGiays = giayChiTietService.findByGiay(giayDb);
+            for (ChiTietGiay chiTietGiay : chiTietGiays) {
+                chiTietGiay.setTrangThai(1);
+                giayChiTietService.save(chiTietGiay);
+            }
+        }
     }
 
     @GetMapping("/giay/detail/{id}")
