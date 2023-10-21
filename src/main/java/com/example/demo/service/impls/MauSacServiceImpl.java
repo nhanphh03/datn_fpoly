@@ -66,8 +66,9 @@ public class MauSacServiceImpl implements MauSacService {
                     continue;
                 }
                 MauSac mauSac = new MauSac();
-                mauSac.setMaMau(row.getCell(0).getStringCellValue()); // Cột 0 trong tệp Excel
-                mauSac.setTenMau(row.getCell(1).getStringCellValue()); // Cột 0 trong tệp Excel
+                mauSac.setMa(row.getCell(0).getStringCellValue());
+                mauSac.setMaMau(row.getCell(1).getStringCellValue());
+                mauSac.setTenMau(row.getCell(2).getStringCellValue());
                 mauSac.setTgThem(new Date());
                 mauSac.setTrangThai(1);
                 mauSacRepository.save(mauSac);

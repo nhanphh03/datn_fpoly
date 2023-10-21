@@ -12,7 +12,6 @@ import java.util.UUID;
 public interface GiayViewModelRepository extends JpaRepository<GiayViewModel, UUID> {
     @Query("SELECT NEW com.example.demo.viewModel.GiayViewModel(" +
             " g.idGiay, g.tenGiay, SUM(ctg.soLuong),min( ctg.giaBan), a.url1, ms.tenMau) " +
-            "g.idGiay, g.tenGiay, SUM(ctg.soLuong), min(ctg.giaBan), a.url1, ms.tenMau) " +
             "FROM Giay g " +
             "JOIN ChiTietGiay ctg ON g.idGiay = ctg.giay.idGiay " +
             "JOIN HinhAnh a ON a.idGiay = ctg.hinhAnh.idGiay " +

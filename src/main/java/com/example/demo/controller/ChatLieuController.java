@@ -5,8 +5,10 @@ import com.example.demo.config.ExcelExporterSize;
 import com.example.demo.config.PDFExporterChatLieu;
 import com.example.demo.config.PDFExporterSizes;
 import com.example.demo.model.ChatLieu;
+import com.example.demo.model.Giay;
 import com.example.demo.model.Size;
 import com.example.demo.service.ChatLieuService;
+import com.example.demo.service.GiayService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -28,6 +30,10 @@ import java.util.*;
 public class ChatLieuController {
     @Autowired
     private ChatLieuService chatLieuService;
+    @Autowired
+    private GiayService giayService;
+    @Autowired
+    private GiayController giayController;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -42,14 +48,16 @@ public class ChatLieuController {
         List<ChatLieu> chatLieu = chatLieuService.getAllChatLieu();
         Collections.sort(chatLieu, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("chatLieu", chatLieu);
+        //
+        model.addAttribute("chatLieuAdd", new ChatLieu());
         return "manage/chat-lieu";
     }
 
-    @GetMapping("/chat-lieu/viewAdd")
-    public String viewAddChatLieu(Model model) {
-        model.addAttribute("chatLieu", new ChatLieu());
-        return "manage/add-chat-lieu";
-    }
+//    @GetMapping("/chat-lieu/viewAdd")
+//    public String viewAddChatLieu(Model model) {
+//        model.addAttribute("chatLieu", new ChatLieu());
+//        return "manage/add-chat-lieu";
+//    }
 
     @PostMapping("/chat-lieu/viewAdd/add")
     public String addChatLieu(@Valid @ModelAttribute("chatLieu") ChatLieu chatLieu, BindingResult bindingResult) {
@@ -60,7 +68,7 @@ public class ChatLieuController {
         chatLieu1.setMaChatLieu(chatLieu.getMaChatLieu());
         chatLieu1.setTenChatLieu(chatLieu.getTenChatLieu());
         chatLieu1.setTgThem(new Date());
-        chatLieu1.setTrangThai(chatLieu.getTrangThai());
+        chatLieu1.setTrangThai(1);
         chatLieuService.save(chatLieu1);
         return "redirect:/manage/chat-lieu";
     }
@@ -71,6 +79,13 @@ public class ChatLieuController {
         chatLieu.setTrangThai(0);
         chatLieu.setTgSua(new Date());
         chatLieuService.save(chatLieu);
+        // Cập nhật trạng thái của tất cả sản phẩm chi tiết của hãng thành 0
+        List<Giay> giays = giayService.findByChatLieu(chatLieu);
+        for (Giay giay : giays) {
+            giay.setTrangThai(0);
+            giayService.save(giay);
+            giayController.deleteGiayById(giay.getIdGiay());
+        }
         return "redirect:/manage/chat-lieu";
     }
 
@@ -90,6 +105,15 @@ public class ChatLieuController {
             chatLieuDb.setTgSua(new Date());
             chatLieuDb.setTrangThai(chatLieu.getTrangThai());
             chatLieuService.save(chatLieuDb);
+        }
+        // Nếu trạng thái của chatLieu là 1, hãy cập nhật trạng thái của tất cả sản phẩm chi tiết của chatLieu thành 1.
+        if (chatLieuDb.getTrangThai() == 1) {
+            List<Giay> giays = giayService.findByChatLieu(chatLieuDb);
+            for (Giay giay : giays) {
+                giay.setTrangThai(1);
+                giayService.save(giay);
+                giayController.updateGiayById(giay.getIdGiay());
+            }
         }
         return "redirect:/manage/chat-lieu";
     }
