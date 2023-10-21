@@ -374,7 +374,7 @@
                                     <label>Hình Ảnh</label>
                                     <select class="select" th:field="*{hinhAnh}">
                                         <option th:each="loc : ${hinhAnh}" th:value="${loc.idGiay}"
-                                                th:text="${loc.url1}"></option>
+                                                th:text="${loc.maAnh}"></option>
                                     </select>
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('hinhAnh')}"
@@ -461,15 +461,15 @@
                                             role="alert" th:errors="*{soLuong}"></strong>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Trạng Thái</label>
-                                    <select class="select" th:field="*{trangThai}">
-                                        <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                                th:text="${loc.value}"></option>
-                                    </select>
-                                </div>
-                            </div>
+<!--                            <div class="col-lg-3 col-sm-6 col-12">-->
+<!--                                <div class="form-group">-->
+<!--                                    <label>Trạng Thái</label>-->
+<!--                                    <select class="select" th:field="*{trangThai}">-->
+<!--                                        <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+<!--                                                th:text="${loc.value}"></option>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
 
                             <div class="col-lg-12">
@@ -556,15 +556,15 @@
                                                 alt="img"></a>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label>Trạng Thái</label>
-                                        <select class="select" th:field="*{trangThai}" id="trangThaiGiay">
-                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                                    th:text="${loc.value}"></option>
-                                        </select>
-                                    </div>
-                                </div>
+<!--                                <div class="col-lg-6 col-sm-6 col-12">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Trạng Thái</label>-->
+<!--                                        <select class="select" th:field="*{trangThai}" id="trangThaiGiay">-->
+<!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+<!--                                                    th:text="${loc.value}"></option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                                 <div class="col-lg-12">
                                     <button type="submit" class="btn btn-submit me-2">Submit</button>
                                 </div>
@@ -611,15 +611,15 @@
                                         <input type="text" th:field="*{tenMau}">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label>Trạng Thái</label>
-                                        <select class="select" th:field="*{trangThai}" id="trangThaiMauSac">
-                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                                    th:text="${loc.value}"></option>
-                                        </select>
-                                    </div>
-                                </div>
+<!--                                <div class="col-lg-6 col-sm-6 col-12">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Trạng Thái</label>-->
+<!--                                        <select class="select" th:field="*{trangThai}" id="trangThaiMauSac">-->
+<!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+<!--                                                    th:text="${loc.value}"></option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                                 <div class="col-lg-12">
                                     <button type="submit" class="btn btn-submit me-2">Submit</button>
                                 </div>
@@ -666,15 +666,15 @@
                                         <input type="text" th:field="*{soSize}">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label>Trạng Thái</label>
-                                        <select class="select" th:field="*{trangThai}" id="trangThaiSize">
-                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                                    th:text="${loc.value}"></option>
-                                        </select>
-                                    </div>
-                                </div>
+<!--                                <div class="col-lg-6 col-sm-6 col-12">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Trạng Thái</label>-->
+<!--                                        <select class="select" th:field="*{trangThai}" id="trangThaiSize">-->
+<!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+<!--                                                    th:text="${loc.value}"></option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                                 <div class="col-lg-12">
                                     <button type="submit" class="btn btn-submit me-2">Submit</button>
                                 </div>
@@ -750,15 +750,15 @@
                                     </div>
                                 </div>
                                 <div th:fragment="whitespace">&nbsp;</div>
-                                <div class="col-lg-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label>Trạng Thái</label>
-                                        <select class="select" th:field="*{trangThai}" id="trangThaiHinhAnh">
-                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                                    th:text="${loc.value}"></option>
-                                        </select>
-                                    </div>
-                                </div>
+<!--                                <div class="col-lg-6 col-sm-6 col-12">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Trạng Thái</label>-->
+<!--                                        <select class="select" th:field="*{trangThai}" id="trangThaiHinhAnh">-->
+<!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+<!--                                                    th:text="${loc.value}"></option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                                 <div class="col-lg-12">
                                     <button type="submit" class="btn btn-submit me-2">Submit</button>
                                 </div>
@@ -817,16 +817,16 @@
                                         <input type="text" th:field="*{tenHang}">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label>Trạng Thái</label>
-                                        <select class="select" th:field="*{trangThai}" id="trangThaiHang"
-                                                name="trangThaiHang">
-                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                                    th:text="${loc.value}"></option>
-                                        </select>
-                                    </div>
-                                </div>
+<!--                                <div class="col-lg-6 col-sm-6 col-12">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Trạng Thái</label>-->
+<!--                                        <select class="select" th:field="*{trangThai}" id="trangThaiHang"-->
+<!--                                                name="trangThaiHang">-->
+<!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+<!--                                                    th:text="${loc.value}"></option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                                 <div class="col-lg-12">
                                     <button type="submit" class="btn btn-submit me-2">Submit</button>
                                 </div>
@@ -874,18 +874,18 @@
                                         <input type="text" th:field="*{tenChatLieu}">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label>Trạng Thái</label>
-                                        <select class="select" th:field="*{trangThai}" id="trangThaiChatLieu"
-                                                name="trangThaiChatLieu">
-                                            <option th:each="loc : ${dsTrangThai.entrySet()}"
-                                                    th:value="${loc.key}"
-                                                    th:text="${loc.value}"
-                                                    th:selected="${loc.key == 1}"></option>
-                                        </select>
-                                    </div>
-                                </div>
+<!--                                <div class="col-lg-6 col-sm-6 col-12">-->
+<!--                                    <div class="form-group">-->
+<!--                                        <label>Trạng Thái</label>-->
+<!--                                        <select class="select" th:field="*{trangThai}" id="trangThaiChatLieu"-->
+<!--                                                name="trangThaiChatLieu">-->
+<!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}"-->
+<!--                                                    th:value="${loc.key}"-->
+<!--                                                    th:text="${loc.value}"-->
+<!--                                                    th:selected="${loc.key == 1}"></option>-->
+<!--                                        </select>-->
+<!--                                    </div>-->
+<!--                                </div>-->
                                 <div class="col-lg-12">
                                     <button type="submit" class="btn btn-submit me-2">Submit</button>
                                 </div>

@@ -44,14 +44,16 @@ public class HinhAnhController {
         List<HinhAnh> hinhAnh = hinhAnhService.getAllHinhAnh();
         Collections.sort(hinhAnh, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("hinhAnh", hinhAnh);
+        //
+        model.addAttribute("hinhAnhAdd", new HinhAnh());
         return "manage/hinh-anh";
     }
 
-    @GetMapping("/hinh-anh/viewAdd")
-    public String viewAddHinhAnh(Model model) {
-        model.addAttribute("hinhAnh", new HinhAnh());
-        return "manage/add-hinh-anh";
-    }
+//    @GetMapping("/hinh-anh/viewAdd")
+//    public String viewAddHinhAnh(Model model) {
+//        model.addAttribute("hinhAnh", new HinhAnh());
+//        return "manage/add-hinh-anh";
+//    }
 
     @PostMapping("/hinh-anh/viewAdd/add")
     public String addHinhAnh(@Valid @ModelAttribute("hinhAnh") HinhAnh hinhAnh, BindingResult bindingResult) {
@@ -84,7 +86,7 @@ public class HinhAnhController {
         hinhAnh1.setUrl3(hinhAnh.getUrl3());
         hinhAnh1.setUrl4(hinhAnh.getUrl4());
         hinhAnh1.setTgThem(new Date());
-        hinhAnh1.setTrangThai(hinhAnh.getTrangThai());
+        hinhAnh1.setTrangThai(1);
         hinhAnhService.save(hinhAnh1);
         return "redirect:/manage/hinh-anh";
     }

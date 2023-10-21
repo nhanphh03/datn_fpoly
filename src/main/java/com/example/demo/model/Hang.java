@@ -32,7 +32,6 @@ public class Hang {
     @Column(name="ten_Hang")
     private String tenHang;
 
-    @NotEmpty(message = "Không được để trống Logo")
     @Column(name="logo_Hang")
     private String logoHang;
 

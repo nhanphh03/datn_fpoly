@@ -298,7 +298,7 @@
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img" /><span>
+                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
                     Quản Lý Voucher</span
                         >
                             <span class="menu-arrow"></span
@@ -314,17 +314,18 @@
         </div>
     </div>
 </div>
-<form th:object="${hinhAnh}" method="post" th:action="@{/manage/hinh-anh/viewAdd/add}">
-    <div class="page-wrapper">
-        <div class="content">
-            <div class="page-header">
-                <div class="page-title">
-                    <h4>Thêm Hình Ảnh </h4>
-                    <h6>Quản Lý Hình Ảnh</h6>
-                </div>
+
+<div class="page-wrapper">
+    <div class="content">
+        <div class="page-header">
+            <div class="page-title">
+                <h4>Thêm Hình Ảnh </h4>
+                <h6>Quản Lý Hình Ảnh</h6>
             </div>
-            <div class="card">
-                <div class="card-body">
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <form th:object="${hinhAnh}" method="post" th:action="@{/manage/hinh-anh/viewAdd/add}">
                     <div class="row">
                         <div class="col-lg-12 col-sm-6 col-12">
                             <div class="form-group">
@@ -334,7 +335,8 @@
                                         class="alert alert-danger alert-dismissible fade show"
                                         role="alert" th:errors="*{maAnh}"></strong>
                             </div>
-                        </div><br>
+                        </div>
+                        <br>
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Ảnh 1</label>
@@ -398,11 +400,12 @@
                             <a href="/manage/hinh-anh" class="btn btn-cancel">Cancel</a>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
-</form>
+</div>
+
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>

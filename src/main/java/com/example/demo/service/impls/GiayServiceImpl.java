@@ -78,24 +78,39 @@ public class GiayServiceImpl implements GiayService {
                 giay.setTenGiay(row.getCell(1).getStringCellValue()); // Cột 1 trong tệp Excel
 
                 // Đối tượng Hang
-                String hangName = row.getCell(2).getStringCellValue(); // Cột 4 trong tệp Excel
+                String hangName = row.getCell(2).getStringCellValue();
                 Hang hang = hangRepository.findByTenHang(hangName); // Tìm đối tượng Hang theo tên
                 giay.setHang(hang);
 
                 // Đối tượng ChatLieu
-                String chatLieuName = row.getCell(3).getStringCellValue(); // Cột 5 trong tệp Excel
+                String chatLieuName = row.getCell(3).getStringCellValue();
                 ChatLieu chatLieu = chatLieuRepository.findByTenChatLieu(chatLieuName); // Tìm đối tượng ChatLieu theo tên
                 giay.setChatLieu(chatLieu);
 
-                giay.setMoTa(row.getCell(4).getStringCellValue()); // Cột 2 trong tệp Excel
-                giay.setTrangThai((int) row.getCell(5).getNumericCellValue()); // Cột 3 trong tệp Excel
-
+                giay.setMoTa(row.getCell(4).getStringCellValue());
+                giay.setTrangThai(1);
                 giay.setTgThem(new Date());
                 giayRepository.save(giay);
             }
         } catch (Exception e) {
             e.printStackTrace();
+            System.out.println(e);
             // Xử lý lỗi nếu cần
         }
+    }
+
+    @Override
+    public List<Giay> findByHang(Hang hang) {
+        return giayRepository.findByHang(hang);
+    }
+
+    @Override
+    public List<Giay> findByChatLieu(ChatLieu chatLieu) {
+        return giayRepository.findByChatLieu(chatLieu);
+    }
+
+    @Override
+    public List<Giay> findByTrangThai(int trangThai) {
+        return giayRepository.findByTrangThai(trangThai);
     }
 }
