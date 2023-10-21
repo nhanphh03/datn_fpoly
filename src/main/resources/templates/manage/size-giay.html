@@ -321,13 +321,60 @@
                     <h6>Quản Lý Giày</h6>
                 </div>
                 <div class="page-btn">
-                    <a href="/manage/size/viewAdd" class="btn btn-added">
+                    <button class="btn btn-added" id="show-form-button">
                         <img src="/images/img/icons/plus.svg" class="me-1" alt="img">Thêm Size
-                    </a>
+                    </button>
                 </div>
             </div>
             <div class="card">
                 <div class="card-body">
+                    <div class="hidden-form" style="display: none">
+                        <form th:object="${sizeAdd}" method="post" th:action="@{/manage/size/viewAdd/add}">
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Mã Size</label>
+                                        <input type="text" th:field="*{maSize}"><br><br>
+                                        <strong th:if="${#fields.hasErrors('maSize')}"
+                                                class="alert alert-danger alert-dismissible fade show"
+                                                role="alert" th:errors="*{maSize}"></strong>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Tên Size</label>
+                                        <input type="text" th:field="*{soSize}"><br><br>
+                                        <strong th:if="${#fields.hasErrors('soSize')}"
+                                                class="alert alert-danger alert-dismissible fade show"
+                                                role="alert" th:errors="*{soSize}"></strong>
+                                    </div>
+                                </div>
+                                <!--                                <div class="col-lg-2 col-sm-6 col-12">-->
+                                <!--                                    <div class="form-group">-->
+                                <!--                                        <label>Trạng Thái</label>-->
+                                <!--                                        <select class="select" th:field="*{trangThai}">-->
+                                <!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+                                <!--                                                    th:text="${loc.value}" th:selected="${loc.key == 1}"></option>-->
+                                <!--                                        </select>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <div class="col-lg-6 col-sm-6 col-12"></div>
+                                <div class="col-lg-12">
+                                    <button type="submit" class="btn btn-submit me-2">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="form-hidden-2" style="display: none">
+                        <form action="/manage/size/import" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label> Upload Excel File</label>
+                                <input type="file" name="file" onchange="displaySelectedFileName()"/>
+                            </div>
+                            <button type="submit" class="btn btn-submit me-2">Submit</button>
+                        </form>
+                    </div>
+                    <br>
                     <div class="table-top">
                         <div class="search-set">
                             <div class="search-path">
@@ -343,6 +390,13 @@
                         </div>
                         <div class="wordset">
                             <ul>
+                                <li>
+                                    <a class="btn btn-filter" id="import-excel" data-bs-toggle="tooltip"
+                                       data-bs-placement="top" title="Import Excel">
+                                        <img src="/images/img/icons/upload.svg" alt="img">
+                                        <span><img src="/images/img/icons/closes.svg" alt="img"></span>
+                                    </a>
+                                </li>
                                 <li>
                                     <a th:href="@{/manage/size/export/pdf}" data-bs-toggle="tooltip"
                                        data-bs-placement="top" title="pdf"><img
@@ -436,7 +490,8 @@
                                 <td th:text="${items.soSize}"></td>
                                 <td>
                                     <span th:if="${items.trangThai == 1}" class="badges bg-lightgreen">Hoạt Động</span>
-                                    <span th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</span>
+                                    <span th:unless="${items.trangThai == 1}"
+                                          class="badges bg-lightred">Không Hoạt Động</span>
                                 </td>
                                 <td>
                                     <a class="me-3" th:href="@{'/manage/size/viewUpdate/' + ${items.idSize}}">
@@ -591,6 +646,32 @@
     $(document).ready(function () {
         $('#filter_inputs').slideToggle("slow");
         $('#filter_search').toggleClass("setclose");
+    });
+</script>
+<script>
+    //Mở form
+    document.getElementById("show-form-button").addEventListener("click", function () {
+        var form1 = document.querySelector(".hidden-form");
+        var form2 = document.querySelector(".form-hidden-2");
+        if (form1.style.display === "none" || form1.style.display === "" || form2.style.display === "block") {
+            $('.hidden-form').slideToggle("slow");
+            form1.style.display = "block";  // Hiển thị form
+            form2.style.display = "none";
+        } else {
+            form1.style.display = "none";  // Ẩn form
+        }
+    });
+    //
+    document.getElementById("import-excel").addEventListener("click", function () {
+        var form2 = document.querySelector(".form-hidden-2");
+        var form1 = document.querySelector(".hidden-form");
+        if (form2.style.display === "none" || form2.style.display === "" || form1.style.display === "block") {
+            $('.form-hidden-2').slideToggle("slow");
+            form2.style.display = "block";  // Hiển thị form
+            form1.style.display = "none";
+        } else {
+            form2.style.display = "none";  // Ẩn form
+        }
     });
 </script>
 </body>

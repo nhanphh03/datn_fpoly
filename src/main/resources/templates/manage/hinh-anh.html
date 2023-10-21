@@ -243,7 +243,7 @@
                             <li><a href="/manage/hang">Hãng</a></li>
                             <li><a href="/manage/hinh-anh" class="active">Hình Ảnh</a></li>
                             <li><a href="/manage/mau-sac">Màu Sắc</a></li>
-                            <li><a href="/manage/size" >Size</a></li>
+                            <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
                     <li>
@@ -298,7 +298,7 @@
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img" /><span>
+                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
                     Quản Lý Voucher</span
                         >
                             <span class="menu-arrow"></span
@@ -321,14 +321,94 @@
                     <h6>Quản Lý Giày</h6>
                 </div>
                 <div class="page-btn">
-                    <a href="/manage/hinh-anh/viewAdd" class="btn btn-added">
+                    <button class="btn btn-added" id="show-form-button">
                         <img src="/images/img/icons/plus.svg" class="me-1" alt="img">Thêm Hình Ảnh
-                    </a>
+                    </button>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-body">
+                    <div class="hidden-form" style="display: none">
+                        <form th:object="${hinhAnhAdd}" method="post" th:action="@{/manage/hinh-anh/viewAdd/add}">
+                            <div class="row">
+                                <div class="col-lg-2 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Mã</label>
+                                        <input type="text" th:field="*{maAnh}">
+                                        <strong th:if="${#fields.hasErrors('maAnh')}"
+                                                class="alert alert-danger alert-dismissible fade show"
+                                                role="alert" th:errors="*{maAnh}"></strong>
+                                    </div>
+                                </div>
+                                <div class="col-lg-10 col-sm-6 col-12"></div>
+                                <br>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Ảnh 1</label>
+                                        <input name="anh1" th:field="*{url1}" type="file" id="imageInput"
+                                               accept="image/*"
+                                               onchange="previewImage(event)">
+                                        <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
+                                                     style="display: none; max-width: 300px; max-height: 300px;">
+                                        <br><br>
+                                        <strong th:if="${#fields.hasErrors('url1')}"
+                                                class="alert alert-danger alert-dismissible fade show"
+                                                role="alert" th:errors="*{url1}"></strong>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Ảnh 2</label>
+                                        <input name="anh2" th:field="*{url2}" type="file" id="anh2" accept="image/*"
+                                               onchange="previewImage(event)">
+                                        <br><br><img id="anh22" src="#" alt="Ảnh mô tả"
+                                                     style="display: none; max-width: 300px; max-height: 300px;"><br><br>
+                                        <strong th:if="${#fields.hasErrors('url2')}"
+                                                class="alert alert-danger alert-dismissible fade show"
+                                                role="alert" th:errors="*{url2}"></strong>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Ảnh 3</label>
+                                        <input name="anh3" th:field="*{url3}" type="file" id="anh3" accept="image/*"
+                                               onchange="previewImage(event)">
+                                        <br><br><img id="anh33" src="#" alt="Ảnh mô tả"
+                                                     style="display: none; max-width: 300px; max-height: 300px;"><br><br>
+                                        <strong th:if="${#fields.hasErrors('url3')}"
+                                                class="alert alert-danger alert-dismissible fade show"
+                                                role="alert" th:errors="*{url3}"></strong>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Ảnh 4</label>
+                                        <input name="anh4" th:field="*{url4}" type="file" id="anh4" accept="image/*"
+                                               onchange="previewImage(event)">
+                                        <br><br><img id="anh44" src="#" alt="Ảnh mô tả"
+                                                     style="display: none; max-width: 300px; max-height: 300px;"><br><br>
+                                        <strong th:if="${#fields.hasErrors('url4')}"
+                                                class="alert alert-danger alert-dismissible fade show"
+                                                role="alert" th:errors="*{url4}"></strong>
+                                    </div>
+                                </div>
+                                <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
+                                <!--                                    <div class="form-group">-->
+                                <!--                                        <label>Trạng Thái</label>-->
+                                <!--                                        <select class="select" th:field="*{trangThai}">-->
+                                <!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+                                <!--                                                    th:text="${loc.value}"></option>-->
+                                <!--                                        </select>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <div class="col-lg-12">
+                                    <button type="submit" class="btn btn-submit me-2">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <br>
                     <div class="table-top">
                         <div class="search-set">
                             <div class="search-path">
@@ -345,15 +425,18 @@
                         <div class="wordset">
                             <ul>
                                 <li>
-                                    <a th:href="@{/manage/hinhAnh/export/pdf}" data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
+                                    <a th:href="@{/manage/hinhAnh/export/pdf}" data-bs-toggle="tooltip"
+                                       data-bs-placement="top" title="pdf"><img
                                             src="/images/img/icons/pdf.svg" alt="img"></a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/manage/hinhAnh/export/excel}" data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
+                                    <a th:href="@{/manage/hinhAnh/export/excel}" data-bs-toggle="tooltip"
+                                       data-bs-placement="top" title="excel"><img
                                             src="/images/img/icons/excel.svg" alt="img"></a>
                                 </li>
                                 <li>
-                                    <a id="printButton" data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
+                                    <a id="printButton" data-bs-toggle="tooltip" data-bs-placement="top"
+                                       title="print"><img
                                             src="/images/img/icons/printer.svg" alt="img"></a>
                                 </li>
                             </ul>
@@ -363,15 +446,15 @@
                     <div class="card" id="filter_inputs">
                         <div class="card-body pb-0">
                             <div class="row">
-<!--                                <div class="col-lg-2 col-sm-6 col-12">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <select class="select">-->
-<!--                                            <option>Trạng Thái</option>-->
-<!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
-<!--                                                    th:text="${loc.value}"></option>-->
-<!--                                        </select>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                                <!--                                <div class="col-lg-2 col-sm-6 col-12">-->
+                                <!--                                    <div class="form-group">-->
+                                <!--                                        <select class="select">-->
+                                <!--                                            <option>Trạng Thái</option>-->
+                                <!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+                                <!--                                                    th:text="${loc.value}"></option>-->
+                                <!--                                        </select>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
                                 <div class="col-lg-1 col-sm-6 col-12 ms-auto">
                                     <div class="form-group">
                                         <a class="btn btn-filters ms-auto"><img
@@ -406,34 +489,36 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="items : ${hinhAnh}">
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td th:text="${items.maAnh}"></td>
-                                    <td><img th:src="@{'/images/imgsProducts/'+ ${items.url1}}"></td>
-                                    <td><img th:src="@{'/images/imgsProducts/'+ ${items.url2}}"></td>
-                                    <td><img th:src="@{'/images/imgsProducts/'+ ${items.url3}}"></td>
-                                    <td><img th:src="@{'/images/imgsProducts/'+ ${items.url4}}"></td>
-                                    <td>
-                                        <span th:if="${items.trangThai == 1}" class="badges bg-lightgreen">Hoạt Động</span>
-                                        <span th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</span>
-                                    </td>
-                                    <td>
-                                        <a class="me-3" th:href="@{'/manage/hinh-anh/viewUpdate/' + ${items.idGiay}}">
-                                            <img src="/images/img/icons/edit.svg" alt="img">
-                                        </a>
-                                        <a class="me-3 delete-button" th:data-delete-url="@{'/manage/hinh-anh/delete/' + ${items.idGiay}}">
-                                            <img src="/images/img/icons/delete.svg" alt="img">
-                                        </a>
-                                    </td>
-                                    <td th:text="${items.tgThem}"></td>
-                                    <td th:text="${items.tgSua}"></td>
+                            <tr th:each="items : ${hinhAnh}">
+                                <td>
+                                    <label class="checkboxs">
+                                        <input type="checkbox">
+                                        <span class="checkmarks"></span>
+                                    </label>
+                                </td>
+                                <td th:text="${items.maAnh}"></td>
+                                <td><img th:src="@{'/images/imgsProducts/'+ ${items.url1}}"></td>
+                                <td><img th:src="@{'/images/imgsProducts/'+ ${items.url2}}"></td>
+                                <td><img th:src="@{'/images/imgsProducts/'+ ${items.url3}}"></td>
+                                <td><img th:src="@{'/images/imgsProducts/'+ ${items.url4}}"></td>
+                                <td>
+                                    <span th:if="${items.trangThai == 1}" class="badges bg-lightgreen">Hoạt Động</span>
+                                    <span th:unless="${items.trangThai == 1}"
+                                          class="badges bg-lightred">Không Hoạt Động</span>
+                                </td>
+                                <td>
+                                    <a class="me-3" th:href="@{'/manage/hinh-anh/viewUpdate/' + ${items.idGiay}}">
+                                        <img src="/images/img/icons/edit.svg" alt="img">
+                                    </a>
+                                    <a class="me-3 delete-button"
+                                       th:data-delete-url="@{'/manage/hinh-anh/delete/' + ${items.idGiay}}">
+                                        <img src="/images/img/icons/delete.svg" alt="img">
+                                    </a>
+                                </td>
+                                <td th:text="${items.tgThem}"></td>
+                                <td th:text="${items.tgSua}"></td>
 
-                                </tr>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -460,12 +545,12 @@
 
 <script src="/js/script.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         // Lấy thẻ nút in bằng id
         var printButton = document.getElementById("printButton");
 
         // Thêm sự kiện click cho nút
-        printButton.addEventListener("click", function() {
+        printButton.addEventListener("click", function () {
             // Gọi hàm in mặc định của trình duyệt
             window.print();
         });
@@ -516,5 +601,73 @@
 <!--        $('#filter_search').toggleClass("setclose");-->
 <!--    });-->
 <!--</script>-->
+<script>
+    //Mở form
+    document.getElementById("show-form-button").addEventListener("click", function () {
+        var form = document.querySelector(".hidden-form");
+        if (form.style.display === "none" || form.style.display === "") {
+            $('.hidden-form').slideToggle("slow");
+            form.style.display = "block";  // Hiển thị form
+        } else {
+            form.style.display = "none";  // Ẩn form
+        }
+    });
+</script>
+<script>
+    function previewImage(event) {
+        const imageInput = document.getElementById('imageInput');
+        const anh2 = document.getElementById('anh2');
+        const anh3 = document.getElementById('anh3');
+        const anh4 = document.getElementById('anh4');
+        const imagePreview = document.getElementById('imagePreview');
+        const anh22 = document.getElementById('anh22');
+        const anh33 = document.getElementById('anh33');
+        const anh44 = document.getElementById('anh44');
+
+        if (imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            };
+
+            reader.readAsDataURL(imageInput.files[0]);
+        }
+        //
+        if (anh2.files && anh2.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                anh22.src = e.target.result;
+                anh22.style.display = 'block';
+            };
+
+            reader.readAsDataURL(anh2.files[0]);
+        }
+        //
+        if (anh3.files && anh3.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                anh33.src = e.target.result;
+                anh33.style.display = 'block';
+            };
+
+            reader.readAsDataURL(anh3.files[0]);
+        }
+        //
+        if (anh4.files && anh4.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                anh44.src = e.target.result;
+                anh44.style.display = 'block';
+            };
+
+            reader.readAsDataURL(anh4.files[0]);
+        }
+    }
+</script>
 </body>
 </html>

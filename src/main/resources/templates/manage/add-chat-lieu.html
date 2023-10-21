@@ -243,7 +243,7 @@
                             <li><a href="/manage/hang">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
                             <li><a href="/manage/mau-sac">Màu Sắc</a></li>
-                            <li><a href="/manage/size" >Size</a></li>
+                            <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
                     <li>
@@ -298,7 +298,7 @@
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img" /><span>
+                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
                     Quản Lý Voucher</span
                         >
                             <span class="menu-arrow"></span
@@ -314,17 +314,18 @@
         </div>
     </div>
 </div>
-<form th:object="${chatLieu}" method="post" th:action="@{/manage/chat-lieu/viewAdd/add}">
-    <div class="page-wrapper">
-        <div class="content">
-            <div class="page-header">
-                <div class="page-title">
-                    <h4>Thêm Chất Liệu </h4>
-                    <h6>Quản Lý Chất Liệu</h6>
-                </div>
+
+<div class="page-wrapper">
+    <div class="content">
+        <div class="page-header">
+            <div class="page-title">
+                <h4>Thêm Chất Liệu </h4>
+                <h6>Quản Lý Chất Liệu</h6>
             </div>
-            <div class="card">
-                <div class="card-body">
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <form th:object="${chatLieu}" method="post" th:action="@{/manage/chat-lieu/viewAdd/add}">
                     <div class="row">
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
@@ -360,11 +361,12 @@
                             <a href="/manage/chat-lieu" class="btn btn-cancel">Cancel</a>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>
-</form>
+</div>
+
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>

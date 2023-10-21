@@ -26,6 +26,10 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
     @Query("SELECT g FROM ChiTietGiay g WHERE g.size.soSize = :searchTerm OR g.mauSac.tenMau = :searchTerm OR g.giay.tenGiay = :searchTerm")
     List<ChiTietGiay> customSearchGCT(@Param("searchTerm") String searchTerm);
 
+    List<ChiTietGiay> findBySize(Size size);
+
+    List<ChiTietGiay> findByMauSac(MauSac mauSac);
+
     @Query(value = "SELECT DISTINCT ctg.size FROM ChiTietGiay ctg WHERE ctg.giay = ?1 AND ctg.trangThai = 1 ORDER BY ctg.size.soSize")
     List<Size> findDistinctSizeByGiayAndTrangThai(Giay giay);
 
