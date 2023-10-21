@@ -214,25 +214,54 @@
                   <span>Variation :</span>
                   <br>
                   <span>----------------------------------</span>
-                  <div class="label-container" style="display: flex; flex-wrap: wrap; justify-content: center; ">
+                  <div th:if="${sizeBy1Mau}" class="label-container" style="display: flex; flex-wrap: wrap; justify-content: center; ">
+
                     <th:block th:each="x : ${listMauSacByGiay}">
-                      <label th:name="${x.idMau}" class="label" style="width: 200px; margin: 5px; font-weight: unset; font-size: small;" th:text="${x.tenMau}">
-                        <input type="radio" name="idDProduct" th:value="${x.idMau}">
+                      <label class="label active" style="width: 200px; margin: 5px; font-weight: unset; font-size: small;">
+                        <input type="radio" style="display: none;" checked>
+                        <span th:text="${x.tenMau}"></span>
+                      </label>
+                    </th:block>
+
+                  </div>
+
+
+                  <div th:if="${sizeByMoreMau}" class="label-container" style="display: flex; flex-wrap: wrap; justify-content: center; ">
+
+                    <th:block th:each="x : ${listMauSacByGiay}">
+                      <a th:href="@{'/buyer/shop-details/' + ${product.idGiay} + '/' + ${x.idMau} }">
+                        <label class="label"  style="width: 200px; margin: 5px; font-weight: unset; font-size: small;" th:text="${x.tenMau}">
+                          <input type="radio" name="idDProduct" th:value="${x.idMau}">
+                        </label>
+                      </a>
+                    </th:block>
+
+                  </div>
+                  <span>----------------------------------</span>
+                </div>
+              </div>
+
+              <div class="product__details__option">
+                <div class="product__details__option__size" style="margin-left: 50px">
+
+                  <div th:if="${sizeBy1Mau}" class="label-container" style="display: flex; flex-wrap: wrap; justify-content: center; ">
+                    <th:block th:each="x : ${listSizeCTG}">
+                      <label th:name="${x.size.idSize}" class="label" style="width: 200px; margin: 5px; font-weight: unset; font-size: small;" th:text="${x.size.soSize}">
+                        <input type="radio" name="idDProduct" th:value="${x.size.idSize}">
                       </label>
                     </th:block>
                   </div>
-                  <span>----------------------------------</span>
-                  <br>
-                  <div class="label-container" style="display: flex; flex-wrap: wrap; justify-content: center; ">
+
+                  <div th:if="${sizeByMoreMau}" class="label-container" style="display: flex; flex-wrap: wrap; justify-content: center; ">
                     <th:block th:each="x : ${listSizeByGiay}">
                       <label th:name="${x.idSize}" class="label" style="width: 200px; margin: 5px; font-weight: unset; font-size: small;" th:text="${x.soSize}">
                         <input type="radio" name="idDProduct" th:value="${x.idSize}">
                       </label>
                     </th:block>
-                  </div>
+
                 </div>
-                <br>
               </div>
+
               <div class="product__details__cart__option">
                 <div class="quantity">
                   <p style="display: inline-block; margin: 0;">Quantity :</p>
