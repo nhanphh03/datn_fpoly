@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.model.ChucVu;
 import com.example.demo.model.LoaiKhachHang;
+import com.example.demo.model.NhanVien;
 import com.example.demo.service.LoaiKhachHangService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,8 @@ import java.util.*;
 public class LoaiKhachHangController {
     @Autowired
     private LoaiKhachHangService loaiKhachHangService;
+    @Autowired
+    private HttpSession session;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -23,8 +27,10 @@ public class LoaiKhachHangController {
         dsTrangThai.put(0, "Không hoạt động");
         return dsTrangThai;
     }
+
     @GetMapping("/loai-khach-hang")
     public String dsloaikhachhang(Model model) {
+
         List<LoaiKhachHang> loaikhachhang = loaiKhachHangService.getAllLoaiKhachHang();
         model.addAttribute("loaiKhachHang", loaikhachhang);
         return "manage/loai-khach-hang";

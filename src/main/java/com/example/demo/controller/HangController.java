@@ -1,16 +1,14 @@
 package com.example.demo.controller;
 
 import com.example.demo.config.*;
-import com.example.demo.model.ChiTietGiay;
-import com.example.demo.model.Giay;
-import com.example.demo.model.Hang;
-import com.example.demo.model.Size;
+import com.example.demo.model.*;
 import com.example.demo.repository.GiayChiTietRepository;
 import com.example.demo.service.GiayChiTietService;
 import com.example.demo.service.GiayService;
 import com.example.demo.service.HangService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +35,8 @@ public class HangController {
     private GiayChiTietService giayChiTietService;
     @Autowired
     private GiayController giayController;
+    @Autowired
+    private HttpSession session;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -46,12 +47,30 @@ public class HangController {
     }
 
     @GetMapping("/hang")
-    public String dsHang(Model model) {
+    public String dsHang(Model model, @ModelAttribute("message") String message
+            , @ModelAttribute("maHangError") String maHangError
+            , @ModelAttribute("tenHangError") String tenHangError
+            , @ModelAttribute("error") String error, @ModelAttribute("userInput") Hang userInput) {
+
         List<Hang> hang = hangService.getALlHang();
         Collections.sort(hang, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("hang", hang);
         //
         model.addAttribute("hangAdd", new Hang());
+        //
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
+        if (maHangError == null || !"maHangError".equals(error)) {
+            model.addAttribute("maHangError", false);
+        }
+        if (tenHangError == null || !"tenHangError".equals(error)) {
+            model.addAttribute("tenHangError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInput != null) {
+            model.addAttribute("hangAdd", userInput);
+        }
         return "manage/hang";
     }
 
@@ -62,9 +81,18 @@ public class HangController {
 //    }
 
     @PostMapping("/hang/viewAdd/add")
-    public String addHang(@Valid @ModelAttribute("hang") Hang hang, BindingResult bindingResult) {
+    public String addHang(@Valid @ModelAttribute("hang") Hang hang, BindingResult bindingResult,
+                          RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            return "manage/add-hang";
+            if (bindingResult.hasFieldErrors("maHang")) {
+                redirectAttributes.addFlashAttribute("userInput", hang);
+                redirectAttributes.addFlashAttribute("error", "maHangError");
+            }
+            if (bindingResult.hasFieldErrors("tenHang")) {
+                redirectAttributes.addFlashAttribute("userInput", hang);
+                redirectAttributes.addFlashAttribute("error", "tenHangError");
+            }
+            return "redirect:/manage/hang";
         }
         Hang hang1 = new Hang();
         hang1.setLogoHang(hang.getLogoHang());
@@ -73,6 +101,7 @@ public class HangController {
         hang1.setTgThem(new Date());
         hang1.setTrangThai(1);
         hangService.save(hang1);
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/hang";
     }
 
@@ -103,7 +132,7 @@ public class HangController {
     public String updateHang(@PathVariable UUID id, @ModelAttribute("hang") Hang hang) {
         Hang hangDb = hangService.getByIdHang(id);
         if (hangDb != null) {
-            hangDb.setLogoHang(hang.getLogoHang());
+//            hangDb.setLogoHang(hang.getLogoHang());
             hangDb.setMaHang(hang.getMaHang());
             hangDb.setTenHang(hang.getTenHang());
             hangDb.setTgSua(new Date());
