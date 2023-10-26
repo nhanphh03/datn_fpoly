@@ -29,6 +29,14 @@
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/quagga"></script>
     <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
+    <style>
+        #video {
+            display: none;
+        }
+        #stopButton {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <div id="global-loader">
@@ -280,6 +288,10 @@
                                             ></video>
                                         </li>
                                     </ul>
+
+                                    <button id="scanButton" class="btn btn-outline-dark">Quét QR</button>
+                                    <button id="stopButton" class="btn btn-danger">Tắt Video</button>
+
                                     <!--                                        <li>-->
                                     <!--                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img-->
                                     <!--                                                    src="/images/img/icons/pdf.svg" alt="img"></a>-->
@@ -1500,18 +1512,43 @@
 </script>
 <script type="text/javascript">
     let scanner = new Instascan.Scanner({video: document.getElementById('video')});
-    Instascan.Camera.getCameras().then(function (cameras) {
-        if (cameras.length > 0) {
-            scanner.start(cameras[0]);
-        } else {
-            alert('Cameras found');
-        }
-    }).catch(function (e) {
-        console.error(e);
-    });
+    const videoElement = document.getElementById('video');
+    const stopButton = document.getElementById('stopButton');
+    scanButton.addEventListener('click', () => {
+        // Ẩn nút quét QR
+        scanButton.style.display = 'none';
 
-    scanner.addListener("scan", function (idChiTietGiay) {
-        window.location.href = `/ban-hang/quet-qr/${idChiTietGiay}`;
+        // Hiển thị video
+        videoElement.style.display = 'block';
+        stopButton.style.display= 'block';
+        Instascan.Camera.getCameras().then(function (cameras) {
+            if (cameras.length > 0) {
+                scanner.start(cameras[0]);
+            } else {
+                alert('Cameras found');
+            }
+        }).catch(function (e) {
+            console.error(e);
+        });
+
+        scanner.addListener("scan", function (idChiTietGiay) {
+            window.location.href = `/ban-hang/quet-qr/${idChiTietGiay}`;
+        });
+    });
+    stopButton.addEventListener('click', () => {
+        // Dừng video bằng cách dừng track hình ảnh
+        const stream = videoElement.srcObject;
+        const tracks = stream.getTracks();
+
+        tracks.forEach(function (track) {
+            track.stop();
+        });
+
+        // Ẩn video
+        videoElement.style.display = 'none';
+        stopButton.style.display= 'none';
+        // Hiển thị lại nút quét QR
+        scanButton.style.display = 'block';
     });
 </script>
 <!--<script type="text/javascript">-->
