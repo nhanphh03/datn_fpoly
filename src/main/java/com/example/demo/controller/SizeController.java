@@ -2,14 +2,12 @@ package com.example.demo.controller;
 
 import com.example.demo.config.ExcelExporterSize;
 import com.example.demo.config.PDFExporterSizes;
-import com.example.demo.model.ChiTietGiay;
-import com.example.demo.model.Giay;
-import com.example.demo.model.HinhAnh;
-import com.example.demo.model.Size;
+import com.example.demo.model.*;
 import com.example.demo.service.GiayChiTietService;
 import com.example.demo.service.SizeService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +30,8 @@ public class SizeController {
     private SizeService sizeService;
     @Autowired
     private GiayChiTietService giayChiTietService;
+    @Autowired
+    private HttpSession session;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -46,7 +47,11 @@ public class SizeController {
     }
 
     @GetMapping("/size")
-    public String dsSize(Model model) {
+    public String dsSize(Model model, @ModelAttribute("message") String message
+            , @ModelAttribute("maSizeError") String maSizeError
+            , @ModelAttribute("soSizeError") String soSizeError
+            , @ModelAttribute("error") String error
+            , @ModelAttribute("userInput") Size userInput) {
         List<Size> size = sizeService.getAllSize();
         Collections.sort(size, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("size", size);
@@ -54,6 +59,20 @@ public class SizeController {
         model.addAttribute("sizeAll", sizeService.getAllSize());
         //
         model.addAttribute("sizeAdd", new Size());
+        //
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
+        if (maSizeError == null || !"maSizeError".equals(error)) {
+            model.addAttribute("maSizeError", false);
+        }
+        if (soSizeError == null || !"soSizeError".equals(error)) {
+            model.addAttribute("soSizeError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInput != null) {
+            model.addAttribute("sizeAdd", userInput);
+        }
         return "manage/size-giay";
     }
 
@@ -64,16 +83,30 @@ public class SizeController {
 //    }
 
     @PostMapping("/size/viewAdd/add")
-    public String addSize(@Valid @ModelAttribute("size") Size size, BindingResult bindingResult) {
+    public String addSize(@Valid @ModelAttribute("size") Size size, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            return "manage/size";
+            if (bindingResult.hasFieldErrors("maSize")) {
+                redirectAttributes.addFlashAttribute("userInput", size);
+                redirectAttributes.addFlashAttribute("error", "maSizeError");
+            }
+            if (bindingResult.hasFieldErrors("soSize")) {
+                redirectAttributes.addFlashAttribute("userInput", size);
+                redirectAttributes.addFlashAttribute("error", "soSizeError");
+            }
+            return "redirect:/manage/size";
         }
-        Size sizeAdd = new Size();
-        sizeAdd.setMaSize(size.getMaSize());
-        sizeAdd.setSoSize(size.getSoSize());
-        sizeAdd.setTgThem(new Date());
-        sizeAdd.setTrangThai(1);
-        sizeService.save(sizeAdd);
+        if (size != null) {
+            Size sizeAdd = new Size();
+            sizeAdd.setMaSize(size.getMaSize());
+            sizeAdd.setSoSize(size.getSoSize());
+            sizeAdd.setTgThem(new Date());
+            sizeAdd.setTrangThai(1);
+            sizeService.save(sizeAdd);
+        } else {
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return "redirect:/manage/size";
+        }
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/size";
     }
 

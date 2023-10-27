@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
 
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
+
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -188,17 +190,17 @@
 
             <li class="nav-item dropdown has-arrow main-drop">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
-<span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
+<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
 <span class="status online"></span></span>
                 </a>
                 <div class="dropdown-menu menu-drop-user">
                     <div class="profilename">
                         <div class="profileset">
-<span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
+<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
 <span class="status online"></span></span>
                             <div class="profilesets">
-                                <h6>John Doe</h6>
-                                <h5>Admin</h5>
+                                <h6 th:text="${session.managerLogged.hoTenNV}"></h6>
+                                <h5 th:text="${session.managerLogged.chucVu.tenCV}"></h5>
                             </div>
                         </div>
                         <hr class="m-0">
@@ -207,8 +209,8 @@
                         <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
                                                                                 data-feather="settings"></i>Settings</a>
                         <hr class="m-0">
-                        <a class="dropdown-item logout pb-0" href="signin.html"><img src="/images/img/icons/log-out.svg"
-                                                                                     class="me-2" alt="img">Logout</a>
+                        <a class="dropdown-item logout pb-0" href="/logout"><img src="/images/img/icons/log-out.svg"
+                                                                                 class="me-2" alt="img">Logout</a>
                     </div>
                 </div>
             </li>
@@ -328,25 +330,19 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <div class="hidden-form" style="display: none">
+                    <div class="hidden-form">
                         <form th:object="${sizeAdd}" method="post" th:action="@{/manage/size/viewAdd/add}">
                             <div class="row">
-                                <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="col-lg-3 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Size</label>
                                         <input type="text" th:field="*{maSize}"><br><br>
-                                        <strong th:if="${#fields.hasErrors('maSize')}"
-                                                class="alert alert-danger alert-dismissible fade show"
-                                                role="alert" th:errors="*{maSize}"></strong>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="col-lg-3 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Tên Size</label>
+                                        <label>Số Size</label>
                                         <input type="text" th:field="*{soSize}"><br><br>
-                                        <strong th:if="${#fields.hasErrors('soSize')}"
-                                                class="alert alert-danger alert-dismissible fade show"
-                                                role="alert" th:errors="*{soSize}"></strong>
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-2 col-sm-6 col-12">-->
@@ -514,6 +510,27 @@
         </div>
     </div>
 </div>
+<div th:if="${message}" id="success" class="toast-container toast-top-right">
+    <div class="toast toast-success" aria-live="polite" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Thành Công</div>
+        <div class="toast-message">Dữ liệu của bạn đã được Thêm</div>
+    </div>
+</div>
+<div th:if="${maSizeError}" id="warning1" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Size không được trống.</div>
+    </div>
+</div>
+<div th:if="${soSizeError}" id="warning2" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Giá trị của số Size phải lớn hơn hoặc bằng 1. Và nhỏ hơn hoặc bằng 50.</div>
+    </div>
+</div>
 <script>
     // Bắt sự kiện click trên nút "Xóa"
     document.querySelectorAll(".delete-button").forEach(function (button) {
@@ -569,55 +586,23 @@
 <script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
+<script src="/plugins/toastr/toastr.min.js"></script>
+<script src="/plugins/toastr/toastr.js"></script>
+
 <script src="/js/script.js"></script>
-<!--<script>-->
-<!--    // Lấy thẻ select bằng id-->
-<!--    var sizeFilter = document.getElementById("sizeFilter");-->
-
-<!--    // Thêm sự kiện 'change' cho thẻ select-->
-<!--    sizeFilter.addEventListener("change", function () {-->
-<!--        // Lấy giá trị đã chọn từ combobox-->
-<!--        var selectedSize = sizeFilter.value;-->
-
-<!--        // Lọc và hiển thị dữ liệu dựa trên giá trị đã chọn-->
-<!--        var tableRows = document.querySelectorAll(".datanew tbody tr");-->
-
-<!--        for (var i = 0; i < tableRows.length; i++) {-->
-<!--            var row = tableRows[i];-->
-<!--            var sizeCell = row.querySelector("td:nth-child(3)"); // Giả sử cột chứa size là cột thứ 3-->
-
-<!--            if (selectedSize === "Size" || sizeCell.textContent === selectedSize) {-->
-<!--                // Hiển thị dòng nếu giá trị đã chọn là "Size" hoặc trùng với giá trị size của dòng-->
-<!--                row.style.display = "";-->
-<!--            } else {-->
-<!--                // Ẩn dòng nếu không trùng khớp-->
-<!--                row.style.display = "none";-->
-<!--            }-->
-<!--        }-->
-<!--    });-->
-<!--</script>-->
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Lấy thẻ nút in bằng id
         var printButton = document.getElementById("printButton");
-
-        // Thêm sự kiện click cho nút
         printButton.addEventListener("click", function () {
-            // Gọi hàm in mặc định của trình duyệt
             window.print();
         });
     });
 </script>
 <script>
     $(document).ready(function () {
-        // Lắng nghe sự kiện thay đổi trong dropdown kích thước
         $("#sizeFilter").change(function () {
             var selectedSize = $(this).val();
-
-            // Ẩn tất cả các dòng trong bảng
             $("#data-table tbody tr").hide();
-
-            // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
                 var sizeColumn = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
                 if (sizeColumn === selectedSize || selectedSize === "Size") {
@@ -628,11 +613,7 @@
         //
         $("#sizeFilterMa").change(function () {
             var selectedSizeMa = $(this).val();
-
-            // Ẩn tất cả các dòng trong bảng
             $("#data-table tbody tr").hide();
-
-            // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
                 var sizeColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
                 if (sizeColumn === selectedSizeMa || selectedSizeMa === "Mã Size") {
@@ -673,6 +654,49 @@
             form2.style.display = "none";  // Ẩn form
         }
     });
+</script>
+<script>
+    setTimeout(function () {
+        var successToast = document.getElementById('success');
+        if (successToast) {
+            successToast.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning1 = document.getElementById('warning1');
+        if (warning1) {
+            warning1.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning2 = document.getElementById('warning2');
+        if (warning2) {
+            warning2.style.display = 'none';
+        }
+    }, 5000);
+</script>
+<script>
+    // Lưu trạng thái người dùng vào cookies
+    document.cookie = "maSize=" + size.maSize;
+    document.cookie = "soSize=" + size.soSize;
+
+    // Trong phương thức dsSize, kiểm tra cookies và điền lại dữ liệu
+    var maSize = getCookie("maSize");
+    var soSize = getCookie("soSize");
+    if (maSize && soSize) {
+        document.getElementById("maSizeInput").value = maSize;
+        document.getElementById("soSizeInput").value = soSize;
+    }
+
+    // Hàm để lấy giá trị từ cookies
+    function getCookie(name) {
+        var value = "; " + document.cookie;
+        var parts = value.split("; " + name + "=");
+        if (parts.length === 2) return parts.pop().split(";").shift();
+    }
+
 </script>
 </body>
 </html>

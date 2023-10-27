@@ -17,8 +17,8 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
 
     List<ChiTietGiay> findByTrangThaiAndGiay(int trangThai, Giay giay);
 
-    @Query(value = "SELECT DISTINCT ctg.hinhAnh FROM ChiTietGiay ctg WHERE ctg.giay = ?1")
-    List<HinhAnh> findDistinctByGiay(Giay giay);
+    @Query(value = "SELECT DISTINCT ctg.hinhAnh FROM ChiTietGiay ctg WHERE ctg.giay = ?1 AND ctg.mauSac = ?2")
+    HinhAnh findDistinctByGiay(Giay giay, MauSac mauSac);
 
     @Query("SELECT g FROM ChiTietGiay g WHERE g.size.soSize = :searchTerm OR g.mauSac.tenMau = :searchTerm")
     List<ChiTietGiay> customSearchCTG(@Param("searchTerm") String searchTerm);
@@ -30,9 +30,11 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
 
     List<ChiTietGiay> findByMauSac(MauSac mauSac);
 
-    @Query(value = "SELECT DISTINCT ctg.size FROM ChiTietGiay ctg WHERE ctg.giay = ?1 AND ctg.trangThai = 1 ORDER BY ctg.size.soSize")
-    List<Size> findDistinctSizeByGiayAndTrangThai(Giay giay);
+    @Query(value = "SELECT DISTINCT ctg.size FROM ChiTietGiay ctg WHERE ctg.giay = ?1 AND ctg.trangThai = 1 AND ctg.mauSac = ?2 ORDER BY ctg.size.soSize")
+    List<Size> findDistinctSizeByGiayAndTrangThai(Giay giay, MauSac mauSac);
 
     @Query(value = "SELECT DISTINCT ctg.mauSac FROM ChiTietGiay ctg WHERE ctg.giay = ?1 AND ctg.trangThai = 1 ")
     List<MauSac> findDistinctMauSacByGiayAndTrangThai(Giay giay);
+
+    List<ChiTietGiay> findByMauSacAndGiayAndTrangThai(MauSac mauSac, Giay giay, int trangThai);
 }

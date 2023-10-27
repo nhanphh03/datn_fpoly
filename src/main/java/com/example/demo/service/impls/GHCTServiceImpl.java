@@ -1,5 +1,6 @@
 package com.example.demo.service.impls;
 
+import com.example.demo.model.ChiTietGiay;
 import com.example.demo.model.GioHang;
 import com.example.demo.model.GioHangChiTiet;
 import com.example.demo.repository.GHCTRepository;
@@ -25,5 +26,10 @@ public class GHCTServiceImpl implements GHCTService {
     @Override
     public void addNewGHCT(GioHangChiTiet gioHangChiTiet) {
         ghctRepository.save(gioHangChiTiet);
+    }
+
+    @Override
+    public GioHangChiTiet findByCTSPActive(ChiTietGiay chiTietGiay) {
+        return ghctRepository.findByChiTietGiayAndTrangThai(chiTietGiay, 1);
     }
 }

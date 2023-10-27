@@ -5,16 +5,19 @@ import com.example.demo.config.ExcelExporterSize;
 import com.example.demo.config.PDFExporterHinhAnh;
 import com.example.demo.config.PDFExporterSizes;
 import com.example.demo.model.HinhAnh;
+import com.example.demo.model.NhanVien;
 import com.example.demo.model.Size;
 import com.example.demo.service.HinhAnhService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
@@ -30,6 +33,8 @@ import java.util.*;
 public class HinhAnhController {
     @Autowired
     private HinhAnhService hinhAnhService;
+    @Autowired
+    private HttpSession session;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -40,12 +45,26 @@ public class HinhAnhController {
     }
 
     @GetMapping("/hinh-anh")
-    public String dsHinhAnh(Model model) {
+    public String dsHinhAnh(Model model, @ModelAttribute("message") String message
+            , @ModelAttribute("maHinhAnhError") String maHinhAnhError
+            , @ModelAttribute("error") String error, @ModelAttribute("userInput") HinhAnh userInput) {
+
         List<HinhAnh> hinhAnh = hinhAnhService.getAllHinhAnh();
         Collections.sort(hinhAnh, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("hinhAnh", hinhAnh);
         //
         model.addAttribute("hinhAnhAdd", new HinhAnh());
+        //
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
+        if (maHinhAnhError == null || !"maHinhAnhError".equals(error)) {
+            model.addAttribute("maHinhAnhError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInput != null) {
+            model.addAttribute("hinhAnhAdd", userInput);
+        }
         return "manage/hinh-anh";
     }
 
@@ -56,27 +75,26 @@ public class HinhAnhController {
 //    }
 
     @PostMapping("/hinh-anh/viewAdd/add")
-    public String addHinhAnh(@Valid @ModelAttribute("hinhAnh") HinhAnh hinhAnh, BindingResult bindingResult) {
+    public String addHinhAnh(@Valid @ModelAttribute("hinhAnh") HinhAnh hinhAnh, BindingResult bindingResult,
+                             RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            return "manage/add-hinh-anh";
+            if (bindingResult.hasFieldErrors("maAnh")) {
+                redirectAttributes.addFlashAttribute("userInput", hinhAnh);
+                redirectAttributes.addFlashAttribute("error", "maHinhAnhError");
+            }
+            return "redirect:/manage/hinh-anh";
         }
-        // Xác định thư mục lưu trữ hình ảnh trong dự án
+        //
         String uploadDir = "src/main/resources/static/images/imgsProducts/";
-
-        // Thư mục trên máy chủ
         File uploadPath = new File(uploadDir);
-
-        // Tạo thư mục nếu nó không tồn tại
         if (!uploadPath.exists()) {
             uploadPath.mkdirs();
         }
-        // Lưu hình ảnh vào thư mục
         try {
             String fileName = UUID.randomUUID().toString() + ".jpg"; // Tạo tên file duy nhất
             Path filePath = Paths.get(uploadPath.getAbsolutePath(), fileName);
             Files.write(filePath, hinhAnh.getUrl1().getBytes());
         } catch (IOException e) {
-            // Xử lý lỗi nếu có
             e.printStackTrace();
         }
         HinhAnh hinhAnh1 = new HinhAnh();
@@ -88,6 +106,7 @@ public class HinhAnhController {
         hinhAnh1.setTgThem(new Date());
         hinhAnh1.setTrangThai(1);
         hinhAnhService.save(hinhAnh1);
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/hinh-anh";
     }
 
@@ -113,10 +132,10 @@ public class HinhAnhController {
         if (hinhAnhDb != null) {
             hinhAnhDb.setTgSua(new Date());
             hinhAnhDb.setTrangThai(hinhAnh.getTrangThai());
-            hinhAnhDb.setUrl1(hinhAnh.getUrl1());
-            hinhAnhDb.setUrl2(hinhAnh.getUrl2());
-            hinhAnhDb.setUrl3(hinhAnh.getUrl3());
-            hinhAnhDb.setUrl4(hinhAnh.getUrl4());
+//            hinhAnhDb.setUrl1(hinhAnh.getUrl1());
+//            hinhAnhDb.setUrl2(hinhAnh.getUrl2());
+//            hinhAnhDb.setUrl3(hinhAnh.getUrl3());
+//            hinhAnhDb.setUrl4(hinhAnh.getUrl4());
             hinhAnhService.save(hinhAnhDb);
         }
         return "redirect:/manage/hinh-anh";
