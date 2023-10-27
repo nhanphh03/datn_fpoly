@@ -1,9 +1,11 @@
 package com.example.demo.buyerController;
 
+import com.example.demo.model.ChiTietGiay;
 import com.example.demo.model.GioHang;
 import com.example.demo.model.GioHangChiTiet;
 import com.example.demo.model.KhachHang;
 import com.example.demo.service.GHCTService;
+import com.example.demo.service.GiayChiTietService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class CartController {
     @Autowired
     private GHCTService ghctService;
 
+    @Autowired
+    private GiayChiTietService gctService;
+
     @GetMapping("/cart")
     private String getShoppingCart(Model model){
 
@@ -53,5 +58,16 @@ public class CartController {
 //        Integer sumProductInCart = listGHCTActive.size();
 
         return "/online/shopping-cart";
+    }
+
+    @GetMapping("/cart/delete/{idCTG}")
+    private String deleteInCard(Model model, @PathVariable UUID idCTG){
+
+        ChiTietGiay chiTietGiay = gctService.getByIdChiTietGiay(idCTG);
+        GioHangChiTiet gioHangChiTiet = ghctService.findByCTSPActive(chiTietGiay);
+        gioHangChiTiet.setTrangThai(0);
+        ghctService.addNewGHCT(gioHangChiTiet);
+
+        return "redirect:/buyer/cart";
     }
 }
