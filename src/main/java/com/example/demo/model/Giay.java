@@ -1,7 +1,9 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,7 +15,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name= "Giay")
+@Table(name = "Giay")
 @Getter
 @Setter
 @AllArgsConstructor
@@ -28,18 +30,19 @@ public class Giay {
 
     @ManyToOne
     @JoinColumn(name = "id_Hang")
+    @NotNull
     private Hang hang;
 
     @ManyToOne
     @JoinColumn(name = "id_ChatLieu")
+    @NotNull
     private ChatLieu chatLieu;
 
-    @NotEmpty(message = "Mã giày không được trống")
+    @NotBlank
     @Column(name = "ma_Giay")
     private String maGiay;
 
-    @NotEmpty(message = "Tên giày không được trống")
-    @Size(max = 255, message = "Tên giày không được quá 255 ký tự")
+    @NotBlank
     @Column(name = "ten_Giay")
     private String tenGiay;
 
@@ -55,7 +58,7 @@ public class Giay {
     @Column(name = "tg_Sua")
     private Date tgSua;
 
-    @OneToMany(fetch = FetchType.LAZY,mappedBy = "giay")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "giay")
     private List<ChiTietGiay> chiTietGiayList;
 
 }

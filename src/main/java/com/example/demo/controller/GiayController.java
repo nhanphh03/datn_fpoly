@@ -8,6 +8,7 @@ import com.example.demo.model.*;
 import com.example.demo.service.*;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,6 +41,8 @@ public class GiayController {
     private SizeService sizeService;
     @Autowired
     private MauSacService mauSacService;
+    @Autowired
+    private HttpSession session;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -49,7 +53,8 @@ public class GiayController {
     }
 
     @GetMapping("/giay")
-    public String dsGiay(Model model) {
+    public String dsGiay(Model model, @ModelAttribute("message") String message) {
+
         List<Giay> giay = giayService.getAllGiay();
         List<Hang> hangs = hangService.getALlHang();
         List<ChatLieu> chatLieus = chatLieuService.getAllChatLieu();
@@ -64,11 +69,27 @@ public class GiayController {
         model.addAttribute("giay", giay);
         model.addAttribute("hang", hangs);
         model.addAttribute("chatLieu", chatLieus);
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
         return "manage/giay";
     }
 
     @GetMapping("/giay/viewAdd")
-    public String viewAddGiay(Model model) {
+    public String viewAddGiay(Model model
+            , @ModelAttribute("maGiayError") String maGiayError
+            , @ModelAttribute("tenGiayError") String tenGiayError
+            , @ModelAttribute("hangError") String hangError
+            , @ModelAttribute("chatLieuError") String chatLieuError
+            , @ModelAttribute("errorGiay") String errorGiay, @ModelAttribute("userInput") Giay userInputGiay
+            , @ModelAttribute("messageHang") String messageHang
+            , @ModelAttribute("maHangError") String maHangError
+            , @ModelAttribute("tenHangError") String tenHangError
+            , @ModelAttribute("errorHang") String errorHang, @ModelAttribute("userInput") Hang userInputHang
+            , @ModelAttribute("messageChatLieu") String messageChatLieu
+            , @ModelAttribute("maChatLieuError") String maChatLieuError
+            , @ModelAttribute("tenChatLieuError") String tenChatLieuError
+            , @ModelAttribute("errorChatLieu") String errorChatLieu, @ModelAttribute("userInput") ChatLieu userInputChatLieu) {
         List<Hang> hangList = hangService.getALlHang();
         Collections.sort(hangList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("hang", hangList);
@@ -80,11 +101,56 @@ public class GiayController {
         model.addAttribute("giay", new Giay());
         model.addAttribute("hangAdd", new Hang());
         model.addAttribute("chatLieuAdd", new ChatLieu());
+        //
+        if (maGiayError == null || !"maGiayError".equals(errorGiay)) {
+            model.addAttribute("maGiayError", false);
+        }
+        if (tenGiayError == null || !"tenGiayError".equals(errorGiay)) {
+            model.addAttribute("tenGiayError", false);
+        }
+        if (hangError == null || !"hangError".equals(errorGiay)) {
+            model.addAttribute("hangError", false);
+        }
+        if (chatLieuError == null || !"chatLieuError".equals(errorGiay)) {
+            model.addAttribute("chatLieuError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInputGiay != null) {
+            model.addAttribute("giay", userInputGiay);
+        }
+        //add Hang
+        if (messageHang == null || !"true".equals(messageHang)) {
+            model.addAttribute("messageHang", false);
+        }
+        if (maHangError == null || !"maHangError".equals(errorHang)) {
+            model.addAttribute("maHangError", false);
+        }
+        if (tenHangError == null || !"tenHangError".equals(errorHang)) {
+            model.addAttribute("tenHangError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInputHang != null) {
+            model.addAttribute("hangAdd", userInputHang);
+        }
+        //add chat-lieu
+        if (messageChatLieu == null || !"true".equals(messageChatLieu)) {
+            model.addAttribute("messageChatLieu", false);
+        }
+        if (maChatLieuError == null || !"maChatLieuError".equals(errorChatLieu)) {
+            model.addAttribute("maChatLieuError", false);
+        }
+        if (tenChatLieuError == null || !"tenChatLieuError".equals(errorChatLieu)) {
+            model.addAttribute("tenChatLieuError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInputChatLieu != null) {
+            model.addAttribute("chatLieuAdd", userInputChatLieu);
+        }
         return "manage/add-giay";
     }
 
     @PostMapping("/giay/viewAdd/add")
-    public String addGiay(@Valid @ModelAttribute("giay") Giay giay, BindingResult bindingResult, Model model) {
+    public String addGiay(@Valid @ModelAttribute("giay") Giay giay, BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             List<Hang> hangList = hangService.getALlHang();
             Collections.sort(hangList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
@@ -97,7 +163,23 @@ public class GiayController {
             model.addAttribute("giay", new Giay());
             model.addAttribute("hangAdd", new Hang());
             model.addAttribute("chatLieuAdd", new ChatLieu());
-            return "manage/add-giay";
+            if (bindingResult.hasFieldErrors("maGiay")) {
+                redirectAttributes.addFlashAttribute("userInput", giay);
+                redirectAttributes.addFlashAttribute("errorGiay", "maGiayError");
+            }
+            if (bindingResult.hasFieldErrors("tenGiay")) {
+                redirectAttributes.addFlashAttribute("userInput", giay);
+                redirectAttributes.addFlashAttribute("errorGiay", "tenGiayError");
+            }
+            if (bindingResult.hasFieldErrors("hang")) {
+                redirectAttributes.addFlashAttribute("userInput", giay);
+                redirectAttributes.addFlashAttribute("errorGiay", "hangError");
+            }
+            if (bindingResult.hasFieldErrors("chatLieu")) {
+                redirectAttributes.addFlashAttribute("userInput", giay);
+                redirectAttributes.addFlashAttribute("errorGiay", "chatLieuError");
+            }
+            return "redirect:/manage/giay/viewAdd";
         }
         Giay giay1 = new Giay();
         giay1.setMaGiay(giay.getMaGiay());
@@ -107,11 +189,23 @@ public class GiayController {
         giay1.setChatLieu(giay.getChatLieu());
         giay1.setTrangThai(1);
         giayService.save(giay1);
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/giay";
     }
 
     @PostMapping("/giay/hang/viewAdd/add")
-    public String addHang(@ModelAttribute("hangAdd") Hang hang) {
+    public String addHang(@Valid @ModelAttribute("hangAdd") Hang hang, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            if (bindingResult.hasFieldErrors("maHang")) {
+                redirectAttributes.addFlashAttribute("userInput", hang);
+                redirectAttributes.addFlashAttribute("errorHang", "maHangError");
+            }
+            if (bindingResult.hasFieldErrors("tenHang")) {
+                redirectAttributes.addFlashAttribute("userInput", hang);
+                redirectAttributes.addFlashAttribute("errorHang", "tenHangError");
+            }
+            return "redirect:/manage/giay/viewAdd";
+        }
         Hang hang1 = new Hang();
         hang1.setLogoHang(hang.getLogoHang());
         hang1.setMaHang(hang.getMaHang());
@@ -119,17 +213,31 @@ public class GiayController {
         hang1.setTgThem(new Date());
         hang1.setTrangThai(1);
         hangService.save(hang1);
+        redirectAttributes.addFlashAttribute("messageHang", true);
         return "redirect:/manage/giay/viewAdd";
     }
 
     @PostMapping("/giay/chat-lieu/viewAdd/add")
-    public String addChatLieu(@ModelAttribute("chatLieuAdd") ChatLieu chatLieu) {
+    public String addChatLieu(@Valid @ModelAttribute("chatLieuAdd") ChatLieu chatLieu, BindingResult bindingResult,
+                              RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            if (bindingResult.hasFieldErrors("maChatLieu")) {
+                redirectAttributes.addFlashAttribute("userInput", chatLieu);
+                redirectAttributes.addFlashAttribute("errorChatLieu", "maChatLieuError");
+            }
+            if (bindingResult.hasFieldErrors("tenChatLieu")) {
+                redirectAttributes.addFlashAttribute("userInput", chatLieu);
+                redirectAttributes.addFlashAttribute("errorChatLieu", "tenChatLieuError");
+            }
+            return "redirect:/manage/giay/viewAdd";
+        }
         ChatLieu chatLieu1 = new ChatLieu();
         chatLieu1.setMaChatLieu(chatLieu.getMaChatLieu());
         chatLieu1.setTenChatLieu(chatLieu.getTenChatLieu());
         chatLieu1.setTgThem(new Date());
         chatLieu1.setTrangThai(1);
         chatLieuService.save(chatLieu1);
+        redirectAttributes.addFlashAttribute("messageChatLieu", true);
         return "redirect:/manage/giay/viewAdd";
     }
 
@@ -217,7 +325,9 @@ public class GiayController {
     }
 
     @GetMapping("/giay/detail/{id}")
-    public String detail(@PathVariable UUID id, Model model) {
+    public String detail(@PathVariable UUID id, Model model, @ModelAttribute("message") String message) {
+
+        //
         Giay giay = giayService.getByIdGiay(id);
         List<ChiTietGiay> listCTGByGiay = giayChiTietService.getCTGByGiay(giay);
         Collections.sort(listCTGByGiay, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
@@ -229,6 +339,10 @@ public class GiayController {
         model.addAttribute("giayList", giayList);
         model.addAttribute("sizeList", sizeList);
         model.addAttribute("mauSacList", mauSacList);
+        //
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
         return "manage/giay-detail";
     }
 

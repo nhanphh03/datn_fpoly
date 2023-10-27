@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
 
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
+
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -188,17 +190,17 @@
 
             <li class="nav-item dropdown has-arrow main-drop">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
-<span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
+<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
 <span class="status online"></span></span>
                 </a>
                 <div class="dropdown-menu menu-drop-user">
                     <div class="profilename">
                         <div class="profileset">
-<span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
+<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
 <span class="status online"></span></span>
                             <div class="profilesets">
-                                <h6>John Doe</h6>
-                                <h5>Admin</h5>
+                                <h6 th:text="${session.managerLogged.hoTenNV}"></h6>
+                                <h5 th:text="${session.managerLogged.chucVu.tenCV}"></h5>
                             </div>
                         </div>
                         <hr class="m-0">
@@ -207,8 +209,8 @@
                         <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
                                                                                 data-feather="settings"></i>Settings</a>
                         <hr class="m-0">
-                        <a class="dropdown-item logout pb-0" href="signin.html"><img src="/images/img/icons/log-out.svg"
-                                                                                     class="me-2" alt="img">Logout</a>
+                        <a class="dropdown-item logout pb-0" href="/logout"><img src="/images/img/icons/log-out.svg"
+                                                                                 class="me-2" alt="img">Logout</a>
                     </div>
                 </div>
             </li>
@@ -243,7 +245,7 @@
                             <li><a href="/manage/hang">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
                             <li><a href="/manage/mau-sac">Màu Sắc</a></li>
-                            <li><a href="/manage/size" >Size</a></li>
+                            <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
                     <li>
@@ -292,13 +294,14 @@
                         <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản Lý Nhân Viên</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <<li><a href="/manage/chuc-vu">Chức Vụ</a></li>
+                            <
+                            <li><a href="/manage/chuc-vu">Chức Vụ</a></li>
                             <li><a href="/manage/nhan-vien">Nhân Viên</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img" /><span>
+                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
                     Quản Lý Voucher</span
                         >
                             <span class="menu-arrow"></span
@@ -329,7 +332,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <div class="hidden-form" style="display: none">
+                    <div class="hidden-form">
                         <form th:object="${chatLieuAdd}" method="post" th:action="@{/manage/chat-lieu/viewAdd/add}">
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
@@ -352,21 +355,22 @@
                                                 role="alert" th:errors="*{tenChatLieu}"></strong>
                                     </div>
                                 </div>
-<!--                                <div class="col-lg-6 col-sm-6 col-12">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <label>Trạng Thái</label>-->
-<!--                                        <select class="select" th:field="*{trangThai}">-->
-<!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
-<!--                                                    th:text="${loc.value}"></option>-->
-<!--                                        </select>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                                <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
+                                <!--                                    <div class="form-group">-->
+                                <!--                                        <label>Trạng Thái</label>-->
+                                <!--                                        <select class="select" th:field="*{trangThai}">-->
+                                <!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+                                <!--                                                    th:text="${loc.value}"></option>-->
+                                <!--                                        </select>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
                                 <div class="col-lg-12">
                                     <button type="submit" class="btn btn-submit me-2">Submit</button>
                                 </div>
                             </div>
                         </form>
-                    </div><br>
+                    </div>
+                    <br>
                     <div class="form-hidden-2" style="display: none">
                         <form action="/manage/chatLieu/import" method="post" enctype="multipart/form-data">
                             <div class="form-group">
@@ -375,7 +379,8 @@
                             </div>
                             <button type="submit" class="btn btn-submit me-2">Submit</button>
                         </form>
-                    </div><br>
+                    </div>
+                    <br>
                     <div class="table-top">
                         <div class="search-set">
                             <div class="search-path">
@@ -399,15 +404,18 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/manage/chatLieu/export/pdf}" data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
+                                    <a th:href="@{/manage/chatLieu/export/pdf}" data-bs-toggle="tooltip"
+                                       data-bs-placement="top" title="pdf"><img
                                             src="/images/img/icons/pdf.svg" alt="img"></a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/manage/chatLieu/export/excel}" data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
+                                    <a th:href="@{/manage/chatLieu/export/excel}" data-bs-toggle="tooltip"
+                                       data-bs-placement="top" title="excel"><img
                                             src="/images/img/icons/excel.svg" alt="img"></a>
                                 </li>
                                 <li>
-                                    <a id="printButton" data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
+                                    <a id="printButton" data-bs-toggle="tooltip" data-bs-placement="top"
+                                       title="print"><img
                                             src="/images/img/icons/printer.svg" alt="img"></a>
                                 </li>
                             </ul>
@@ -477,37 +485,60 @@
                             </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="items : ${chatLieu}">
-                                    <td>
-                                        <label class="checkboxs">
-                                            <input type="checkbox">
-                                            <span class="checkmarks"></span>
-                                        </label>
-                                    </td>
-                                    <td th:text="${items.maChatLieu}"></td>
-                                    <td th:text="${items.tenChatLieu}"></td>
-                                    <td>
-                                        <span th:if="${items.trangThai == 1}" class="badges bg-lightgreen">Hoạt Động</span>
-                                        <span th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</span>
-                                    </td>
-                                    <td>
-                                        <a class="me-3" th:href="@{'/manage/chat-lieu/viewUpdate/' + ${items.idChatLieu}}">
-                                            <img src="/images/img/icons/edit.svg" alt="img">
-                                        </a>
-                                        <a class="me-3 delete-button" th:data-delete-url="@{'/manage/chat-lieu/delete/' + ${items.idChatLieu}}">
-                                            <img src="/images/img/icons/delete.svg" alt="img">
-                                        </a>
-                                    </td>
-                                    <td th:text="${items.tgThem}"></td>
-                                    <td th:text="${items.tgSua}"></td>
+                            <tr th:each="items : ${chatLieu}">
+                                <td>
+                                    <label class="checkboxs">
+                                        <input type="checkbox">
+                                        <span class="checkmarks"></span>
+                                    </label>
+                                </td>
+                                <td th:text="${items.maChatLieu}"></td>
+                                <td th:text="${items.tenChatLieu}"></td>
+                                <td>
+                                    <span th:if="${items.trangThai == 1}" class="badges bg-lightgreen">Hoạt Động</span>
+                                    <span th:unless="${items.trangThai == 1}"
+                                          class="badges bg-lightred">Không Hoạt Động</span>
+                                </td>
+                                <td>
+                                    <a class="me-3" th:href="@{'/manage/chat-lieu/viewUpdate/' + ${items.idChatLieu}}">
+                                        <img src="/images/img/icons/edit.svg" alt="img">
+                                    </a>
+                                    <a class="me-3 delete-button"
+                                       th:data-delete-url="@{'/manage/chat-lieu/delete/' + ${items.idChatLieu}}">
+                                        <img src="/images/img/icons/delete.svg" alt="img">
+                                    </a>
+                                </td>
+                                <td th:text="${items.tgThem}"></td>
+                                <td th:text="${items.tgSua}"></td>
 
-                                </tr>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div th:if="${message}" id="toast-container" class="toast-container toast-top-right">
+    <div class="toast toast-success" aria-live="polite" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Thành Công</div>
+        <div class="toast-message">Dữ liệu của bạn đã được Thêm</div>
+    </div>
+</div>
+<div th:if="${maChatLieuError}" id="warning1" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã không được bỏ trống trống.</div>
+    </div>
+</div>
+<div th:if="${tenChatLieuError}" id="warning2" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Tên không được bỏ trống.</div>
     </div>
 </div>
 <script src="/js/jquery-3.6.0.min.js"></script>
@@ -525,15 +556,16 @@
 
 <script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
-
+<script src="/plugins/toastr/toastr.min.js"></script>
+<script src="/plugins/toastr/toastr.js"></script>
 <script src="/js/script.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         // Lấy thẻ nút in bằng id
         var printButton = document.getElementById("printButton");
 
         // Thêm sự kiện click cho nút
-        printButton.addEventListener("click", function() {
+        printButton.addEventListener("click", function () {
             // Gọi hàm in mặc định của trình duyệt
             window.print();
         });
@@ -643,6 +675,28 @@
             form2.style.display = "none";  // Ẩn form
         }
     });
+</script>
+<script>
+    setTimeout(function () {
+        var successToast = document.getElementById('toast-container');
+        if (successToast) {
+            successToast.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning1 = document.getElementById('warning1');
+        if (warning1) {
+            warning1.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning2 = document.getElementById('warning2');
+        if (warning2) {
+            warning2.style.display = 'none';
+        }
+    }, 5000);
 </script>
 </body>
 </html>
