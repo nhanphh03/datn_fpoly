@@ -22,7 +22,7 @@ public class HinhAnh {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_HinhAnh")
-    private UUID idGiay;
+    private UUID idHinhAnh;
 
     @NotBlank
     @Column(name = "ma_Anh")

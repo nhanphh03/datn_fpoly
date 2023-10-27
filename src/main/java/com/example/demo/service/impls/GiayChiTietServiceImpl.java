@@ -80,8 +80,8 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
     }
 
     @Override
-    public List<HinhAnh> listHinhAnhByGiay(Giay giay) {
-        return giayChiTietRepository.findDistinctByGiay(giay);
+    public HinhAnh hinhAnhByGiayAndMau(Giay giay, MauSac mauSac) {
+        return giayChiTietRepository.findDistinctByGiay(giay, mauSac);
     }
 
     @Override
@@ -155,8 +155,13 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
             // Xử lý lỗi nếu cần
         }
     }
-    public List<Size> findDistinctSizeByGiay(Giay giay) {
-        return giayChiTietRepository.findDistinctSizeByGiayAndTrangThai(giay);
+    public List<Size> findDistinctSizeByGiayAndMauSac(Giay giay, MauSac mauSac) {
+        return giayChiTietRepository.findDistinctSizeByGiayAndTrangThai(giay, mauSac);
+    }
+
+    @Override
+    public List<ChiTietGiay> findByMauSacAndGiay(MauSac mauSac, Giay giay, int trangThai) {
+        return giayChiTietRepository.findByMauSacAndGiayAndTrangThai(mauSac, giay, trangThai);
     }
 
     public List<MauSac> findDistinctMauSacByGiay(Giay giay) {
