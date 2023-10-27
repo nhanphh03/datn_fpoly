@@ -1,5 +1,6 @@
 package com.example.demo.repository;
 
+import com.example.demo.model.HoaDonChiTiet;
 import com.example.demo.viewModel.GiayViewModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,7 +15,7 @@ public interface GiayViewModelRepository extends JpaRepository<GiayViewModel, UU
             " g.idGiay, g.tenGiay, SUM(ctg.soLuong),min( ctg.giaBan), a.url1, ms.tenMau) " +
             "FROM Giay g " +
             "JOIN ChiTietGiay ctg ON g.idGiay = ctg.giay.idGiay " +
-            "JOIN HinhAnh a ON a.idGiay = ctg.hinhAnh.idGiay " +
+            "JOIN HinhAnh a ON a.idHinhAnh = ctg.hinhAnh.idHinhAnh " +
             "JOIN MauSac ms ON ctg.mauSac.idMau = ms.idMau " +
             "WHERE g.trangThai = 1 " +
             "AND ctg.trangThai = 1 " +
@@ -25,3 +26,4 @@ public interface GiayViewModelRepository extends JpaRepository<GiayViewModel, UU
     @Query(value = "SELECT ctg from ChiTietGiay ctg where ctg.giay.idGiay = ?1")
     GiayViewModel findByIdGiay(UUID id);
 }
+

@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.model.ChiTietGiay;
 import com.example.demo.model.GioHang;
 import com.example.demo.model.GioHangChiTiet;
 
@@ -11,6 +12,8 @@ public interface GHCTService {
     List<GioHangChiTiet> findByGHActive(GioHang gioHang);
 
     void addNewGHCT(GioHangChiTiet gioHangChiTiet);
+
+    GioHangChiTiet findByCTSPActive(ChiTietGiay chiTietGiay);
 
 
 }
