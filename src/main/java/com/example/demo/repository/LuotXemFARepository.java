@@ -15,5 +15,5 @@ public interface LuotXemFARepository extends JpaRepository<LuotXemFA, UUID> {
 
     List<LuotXemFA> findByKhachHangAndTrangThaiAndLoaiOrderByTgThemDesc(KhachHang khachHang, Integer trangThai, Integer loai);
 
-    LuotXemFA findByKhachHangAndGiayAndTrangThaiAndLoai(KhachHang khachHang, Giay giay, int trangThai, int loai);
+    LuotXemFA findByKhachHangAndGiayAndTrangThaiAndLoaiAndMaMau(KhachHang khachHang, Giay giay, int trangThai, int loai, UUID maMau);
 }

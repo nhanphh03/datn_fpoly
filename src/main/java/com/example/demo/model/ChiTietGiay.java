@@ -34,7 +34,7 @@ public class ChiTietGiay {
     private Giay giay;
 
     @ManyToOne
-    @JoinColumn(name = "id_Hinh_Anh")
+    @JoinColumn(name = "id_HinhAnh")
     private HinhAnh hinhAnh;
 
     @ManyToOne

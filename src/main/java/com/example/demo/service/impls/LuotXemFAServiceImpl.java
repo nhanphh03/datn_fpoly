@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class LuotXemFAServiceImpl implements LuotXemFAService {
@@ -27,8 +28,8 @@ public class LuotXemFAServiceImpl implements LuotXemFAService {
     }
 
     @Override
-    public LuotXemFA checkLuotXemOrFA(KhachHang khachHang, Giay giay, int loai) {
-        return luotXemFARepository.findByKhachHangAndGiayAndTrangThaiAndLoai(khachHang,giay, 1, loai);
+    public LuotXemFA checkLuotXemOrFA(KhachHang khachHang, Giay giay, int loai, UUID maMau) {
+        return luotXemFARepository.findByKhachHangAndGiayAndTrangThaiAndLoaiAndMaMau(khachHang,giay, 1, loai, maMau);
     }
 
 

@@ -53,9 +53,6 @@ public class ShopController {
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize);
         Page<CTGViewModel> page = ctgViewModelService.getAllPage(pageable);
 
-        int sumProduct = page.getSize();
-        System.out.println(sumProduct);
-
         model.addAttribute("totalPage", page.getTotalPages());
         model.addAttribute("listCTGModel", page.getContent());
 
@@ -66,7 +63,7 @@ public class ShopController {
     }
 
     @GetMapping("/shop/brand/{idHang}")
-    private String getShopBrandBuyer(Model model,@PathVariable String idHang){
+    private String getShopBrandBuyer(Model model,@PathVariable UUID idHang){
         showDataBuyerShop(model);
         checkKhachHangLogged(model);
 
