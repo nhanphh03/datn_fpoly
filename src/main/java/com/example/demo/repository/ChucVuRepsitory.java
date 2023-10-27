@@ -1,7 +1,8 @@
 package com.example.demo.repository;
 
+
 import com.example.demo.model.ChucVu;
-import com.example.demo.model.Hang;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,4 +14,5 @@ public interface ChucVuRepsitory extends JpaRepository<ChucVu, UUID> {
     List<ChucVu> findByMaCVOrTenCV(String maCV, String tenCV);
 
     ChucVu findByMaCV(String maCV);
+    ChucVu findByTenCV(String name);
 }
