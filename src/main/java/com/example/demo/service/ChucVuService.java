@@ -1,10 +1,9 @@
 package com.example.demo.service;
 
 import com.example.demo.model.ChucVu;
-import com.example.demo.model.Hang;
-import com.example.demo.model.HinhAnh;
-import org.springframework.stereotype.Service;
 
+
+import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
 
@@ -23,5 +22,6 @@ public interface ChucVuService {
 
     ChucVu findByMaCV(String maCV);
 
+    public void importDataFromExcel(InputStream excelFile);
 
 }
