@@ -4,9 +4,11 @@ import com.example.demo.config.PDFExporterMauSac;
 import com.example.demo.model.ChatLieu;
 import com.example.demo.model.ChucVu;
 import com.example.demo.model.MauSac;
+import com.example.demo.model.NhanVien;
 import com.example.demo.service.ChucVuService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,6 +24,8 @@ import java.util.*;
 public class ChucVuController {
     @Autowired
     private ChucVuService chucVuService;
+    @Autowired
+    private HttpSession session;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -33,6 +37,7 @@ public class ChucVuController {
 
     @GetMapping("/chuc-vu")
     public String dsChucVu(Model model) {
+
         List<ChucVu> chucVu = chucVuService.getAllChucVu();
         model.addAttribute("chucVu", chucVu);
         return "manage/chuc-vu";
@@ -83,7 +88,6 @@ public class ChucVuController {
         }
         return "redirect:/manage/chuc-vu";
     }
-
 
 
 }

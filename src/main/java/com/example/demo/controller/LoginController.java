@@ -29,13 +29,20 @@ public class LoginController {
     @Autowired
     private ChucVuService chucVuService;
 
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpSession session) {
+        session.invalidate();
+        request.getSession().invalidate();
+        return "redirect:/login";
+    }
+
     @GetMapping("/login")
     private String getLoginAll(Model model) {
         return "/login";
     }
 
     @PostMapping("/manager/login")
-    private String managerLogin(Model model){
+    private String managerLogin(Model model) {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
@@ -44,23 +51,23 @@ public class LoginController {
         Boolean b = username.matches(EMAIL_REGEX);
 
         ChucVu chucVu = chucVuService.findByMaCV("CV01");
-        if (b){
+        if (b) {
             NhanVien nhanVien = nhanVienService.checkByEmailAndChucVuAndPass(username, password, chucVu);
-            if ( nhanVien != null){
+            if (nhanVien != null) {
                 model.addAttribute("fullNameManage", nhanVien.getHoTenNV());
                 session.setAttribute("managerLogged", nhanVien);
                 return "redirect:/admin/";
-            }else{
+            } else {
                 model.addAttribute("messageLogin", "Username or Password incorrect");
                 return "/login";
             }
-        }else{
+        } else {
             NhanVien nhanVien = nhanVienService.checkBySDTAndChucVuAndPass(username, password, chucVu);
-            if ( nhanVien != null){
+            if (nhanVien != null) {
                 model.addAttribute("fullNameManage", nhanVien.getHoTenNV());
                 session.setAttribute("managerLogged", nhanVien);
                 return "redirect:/admin/";
-            }else{
+            } else {
                 model.addAttribute("messageLogin", "Username or Password incorrect");
                 return "/login";
             }
@@ -100,40 +107,38 @@ public class LoginController {
         }
     }
 
-        @PostMapping("/shipper/login")
-        private String shipperLogin(Model model){
-            String username = request.getParameter("username");
-            String password = request.getParameter("password");
+    @PostMapping("/shipper/login")
+    private String shipperLogin(Model model) {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
 
-            String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+        String EMAIL_REGEX = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 
-            Boolean b = username.matches(EMAIL_REGEX);
+        Boolean b = username.matches(EMAIL_REGEX);
 
-            ChucVu chucVu = chucVuService.findByMaCV("CV03");
-            if (b){
-                NhanVien nhanVien = nhanVienService.checkByEmailAndChucVuAndPass(username, password, chucVu);
-                if ( nhanVien != null){
-                    model.addAttribute("fullNameShipper", nhanVien.getHoTenNV());
-                    session.setAttribute("shipperLogged", nhanVien);
-                    return "redirect:/order/";
-                }else{
-                    model.addAttribute("messageLogin", "Username or Password incorrect");
-                    return "/login";
-                }
-            }else{
-                NhanVien nhanVien = nhanVienService.checkBySDTAndChucVuAndPass(username, password, chucVu);
-                if ( nhanVien != null){
-                    model.addAttribute("fullNameShipper", nhanVien.getHoTenNV());
-                    session.setAttribute("shipperLogged", nhanVien);
-                    return "redirect:/order/";
-                }else{
-                    model.addAttribute("messageLogin", "Username or Password incorrect");
-                    return "/login";
-                }
+        ChucVu chucVu = chucVuService.findByMaCV("CV03");
+        if (b) {
+            NhanVien nhanVien = nhanVienService.checkByEmailAndChucVuAndPass(username, password, chucVu);
+            if (nhanVien != null) {
+                model.addAttribute("fullNameShipper", nhanVien.getHoTenNV());
+                session.setAttribute("shipperLogged", nhanVien);
+                return "redirect:/order/";
+            } else {
+                model.addAttribute("messageLogin", "Username or Password incorrect");
+                return "/login";
             }
+        } else {
+            NhanVien nhanVien = nhanVienService.checkBySDTAndChucVuAndPass(username, password, chucVu);
+            if (nhanVien != null) {
+                model.addAttribute("fullNameShipper", nhanVien.getHoTenNV());
+                session.setAttribute("shipperLogged", nhanVien);
+                return "redirect:/order/";
+            } else {
+                model.addAttribute("messageLogin", "Username or Password incorrect");
+                return "/login";
+            }
+        }
     }
-
-
 
 
 }
