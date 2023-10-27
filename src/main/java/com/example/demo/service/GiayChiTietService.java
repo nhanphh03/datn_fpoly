@@ -25,7 +25,7 @@ public interface GiayChiTietService {
 
     List<ChiTietGiay> getCTGByGiaySoldOut(Giay giay);
 
-    List<HinhAnh> listHinhAnhByGiay(Giay giay);
+    HinhAnh hinhAnhByGiayAndMau(Giay giay, MauSac mauSac);
     //Double maxPriceGiay(Giay giay);
 
     public List<ChiTietGiay> fillterCTG(String searchTerm);
@@ -40,7 +40,9 @@ public interface GiayChiTietService {
 
     public List<ChiTietGiay> findBySize(Size size);
 
-    List<Size> findDistinctSizeByGiay(Giay giay);
+    List<Size> findDistinctSizeByGiayAndMauSac(Giay giay, MauSac mauSac);
+
+    List<ChiTietGiay> findByMauSacAndGiay(MauSac mauSac, Giay giay, int trangThai);
 
     List<MauSac> findDistinctMauSacByGiay(Giay giay);
 

@@ -5,6 +5,7 @@ import com.example.demo.model.KhachHang;
 import com.example.demo.model.LuotXemFA;
 
 import java.util.List;
+import java.util.UUID;
 
 public interface LuotXemFAService {
 
@@ -12,5 +13,5 @@ public interface LuotXemFAService {
 
     List<LuotXemFA> getAllActiveByFAOrRV(KhachHang khachHang, int loai);
 
-    LuotXemFA checkLuotXemOrFA(KhachHang khachHang, Giay giay, int loai);
+    LuotXemFA checkLuotXemOrFA(KhachHang khachHang, Giay giay, int loai, UUID maMau);
 }

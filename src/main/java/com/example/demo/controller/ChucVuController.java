@@ -2,11 +2,17 @@ package com.example.demo.controller;
 
 import com.example.demo.config.*;
 import com.example.demo.model.*;
+import com.example.demo.config.PDFExporterMauSac;
+import com.example.demo.model.ChatLieu;
+import com.example.demo.model.ChucVu;
+import com.example.demo.model.MauSac;
+import com.example.demo.model.NhanVien;
 import com.example.demo.service.ChucVuService;
 import com.example.demo.service.NhanVienService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +31,8 @@ import java.util.*;
 public class ChucVuController {
     @Autowired
     private ChucVuService chucVuService;
+    @Autowired
+    private HttpSession session;
 
     @Autowired
     private NhanVienController nhanVienController;
@@ -42,6 +50,7 @@ public class ChucVuController {
 
     @GetMapping("/chuc-vu")
     public String dsChucVu(Model model) {
+
         List<ChucVu> chucVu = chucVuService.getAllChucVu();
         Collections.sort(chucVu, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("chucVu", chucVu);
@@ -110,7 +119,6 @@ public class ChucVuController {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
-
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=chucVu_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
@@ -170,5 +178,4 @@ public class ChucVuController {
         }
         return "redirect:/manage/chuc-vu"; // Chuyển hướng sau khi nhập liệu thành công hoặc không thành công
     }
-
 }

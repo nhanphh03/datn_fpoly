@@ -33,7 +33,7 @@ public class UserController {
         return "online/user";
     }
 
-    @GetMapping("/purchase")
+    @RequestMapping(value = {"/purchase", "/purchase/all"})
     private String getPurchaseAccount(Model model){
 
         UserForm(model);

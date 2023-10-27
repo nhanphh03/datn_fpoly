@@ -33,6 +33,9 @@ public class LuotXemFA {
     @Column(name="tg_Them")
     private Date tgThem;
 
+    @Column(name="maMau")
+    private UUID maMau;
+
     @Column(name="tg_Sua")
     private Date tgSua;
 

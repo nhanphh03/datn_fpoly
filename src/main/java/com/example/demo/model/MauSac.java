@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,14 +25,15 @@ public class MauSac {
     @Column(name ="id_Mau")
     private UUID idMau;
 
-    @NotEmpty(message = "Không được để trống Mã")
+    @NotBlank
     @Column(name = "ma")
     private String ma;
 
+    @NotBlank
     @Column(name="ma_Mau")
     private String maMau;
 
-    @NotEmpty(message = "Không được để trống Tên")
+    @NotBlank
     @Column(name="ten_Mau")
     private String tenMau;
 
