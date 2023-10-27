@@ -316,10 +316,10 @@
                 <td><input name="selectedProducts" type="checkbox" th:value="${x.chiTietGiay.idCTG}"></td>
                 <td class="product__cart__item">
                   <div class="product__cart__item__pic">
-                    <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay}}"> <img style="width:90px; height:90px;" th:src="@{'/images/imgsProducts/' + ${x.chiTietGiay.hinhAnh.url1}}"></a>
+                    <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}"> <img style="width:90px; height:90px;" th:src="@{'/images/imgsProducts/' + ${x.chiTietGiay.hinhAnh.url1}}"></a>
                   </div>
                   <div class="product__cart__item__text">
-                    <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay}}">
+                    <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}">
                       <h6 style="margin-top: -22px;" th:text="${x.chiTietGiay.giay.tenGiay}">Big Ball Chunky A Gradient Classic Monogram</h6>
                     </a>
                     <h5 class="cart__price" th:text="${x.chiTietGiay.giaBan}">200 $</h5>
@@ -331,9 +331,9 @@
                     <span id="showButton" style="font-weight: normal; font-size: medium;">Options :</span>
                     <a th:href="@{/cart/${x.chiTietGiay.giay.idGiay}}" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <img style="height: 10px; width: 10px;" src="/images/img/icon/dropdown.png" alt=""> </a>
                   </div>
-                  <div style="padding-right: 40px;">
-                    <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" > Colors : Pink</span>
-                    <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" > Size : 35</span>
+                  <div style="padding-right: 20px;">
+                    <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" th:text="'Colors : ' + ${x.chiTietGiay.mauSac.tenMau}"></span>
+                    <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" th:text="'Size : ' + ${x.chiTietGiay.size.soSize}" ></span>
                   </div>
                 </td>
                 <td class="quantity__item">
@@ -344,7 +344,7 @@
                   </div>
                 </td>
                 <td class="cart__price" id="totalAmount" th:text="'$ ' + ${x.chiTietGiay.giaBan * x.soLuong}"></td>
-                <td class="cart__close"><a th:href="@{'/buyer/cart/delete/' + ${x.chiTietGiay.giay.idGiay}}" id="deleteToCartButton" style="border-radius: 20% ; " ><i class="fa fa-close"></i></a></td>
+                <td class="cart__close"><a th:href="@{'/buyer/cart/delete/' + ${x.chiTietGiay.idCTG}}" id="deleteToCartButton" style="border-radius: 20% ; " ><i class="fa fa-close"></i></a></td>
 
               </tr>
               </form>
