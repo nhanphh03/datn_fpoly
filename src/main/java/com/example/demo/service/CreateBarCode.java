@@ -8,4 +8,6 @@ public interface CreateBarCode {
 
     void saveBarcodeImage(ChiTietGiay chiTietGiay, int width, int height);
 
+    void deleteQRCode();
+
 }

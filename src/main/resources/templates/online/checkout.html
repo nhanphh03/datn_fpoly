@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Sneaker Shop</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sneaker Shop</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+          rel="stylesheet">
+    <link rel="icon" href="/images/img/logo-favicon.png" type="image/x-icon">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/cssx/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/style.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/scroll.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/styleNhan.css" type="text/css">
+
+    <style>
+      header {
+        position: fixed;
+        width: 100%;
+        z-index: 100;
+      }
+    </style>
+  </head>
+
+<body>
+<!-- Page Preloder -->
+<div id="preloder">
+  <div class="loader"></div>
+</div>
+
+<!-- Header Section Begin -->
+<header class="header">
+  <div class="header__top">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-3  d-flex align-items-center" >
+          <div class="header__top__left">
+            <p>Welcome to the shopping experience</p>
+          </div>
+        </div>
+
+        <div class="col-lg-6 d-flex align-items-center" >
+          <div style="width: 100%; display: flex; background-color: white; border: 10px;">
+            <input  class="form-control" style="border: none; width: 90%;"  placeholder="Nhập văn bản..." type="text">
+            <div style="width: 60px; background-color: #f3f2ee; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+              <a href=""><img src="/images/img/icon/search.png" alt=""></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 d-flex align-items-center">
+          <div>
+
+            <!--        Buyer FullName Begin    -->
+            <div class="header__top__hover">
+              <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
+              <ul>
+                <li><a th:href="@{'/buyer/purchase'}" >Purchase</a></li>
+                <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
+                <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
+              </ul>
+            </div>
+
+            <!--            Buyer FullName End -->
+
+            <div class="header__top__links"  >
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Login</a>
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Register</a>
+            </div>
+
+            <div class="header__top__hover">
+              <span>EN<i class="arrow_carrot-down"></i></span>
+              <ul>
+                <li><a href="?language=vi">VI</a></li>
+                <li><a href="?language=ge">GE</a></li>
+                <li><a href="?language=en">EN</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+    <div class="container" >
+      <div class="row">
+
+        <div class="col-lg-3  d-flex align-items-center" >
+          <div class="header__top__left">
+            <p>Welcome to the shopping experience</p>
+          </div>
+        </div>
+
+        <div class="col-lg-6 d-flex align-items-center" >
+          <div style="width: 100%; display: flex; background-color: white; border: 10px;">
+            <input  class="form-control" style="border: none; width: 90%;"  placeholder="Nhập văn bản..." type="text">
+            <div style="width: 60px; background-color: #f3f2ee; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+              <a href=""><img src="/images/img/icon/search.png" alt=""></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 d-flex align-items-center">
+          <div>
+
+            <div th:if="${heartLogged}" class="header__top__links"  >
+              <a th:href="@{'/buyer/purchase'}">Purchase</a>
+            </div>
+
+
+            <!--        Buyer FullName Begin    -->
+            <div class="header__top__hover">
+              <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
+              <ul>
+                <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
+                <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
+              </ul>
+            </div>
+
+            <!--            Buyer FullName End -->
+
+            <div class="header__top__links"  >
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Login</a>
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Register</a>
+            </div>
+
+            <div class="header__top__hover">
+              <span>EN<i class="arrow_carrot-down"></i></span>
+              <ul>
+                <li><a href="?language=vi">VI</a></li>
+                <li><a href="?language=ge">GE</a></li>
+                <li><a href="?language=en">EN</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="container" style=" height: 100px">
+    <div class="row">
+      <div class="col-lg-3 col-md-3">
+        <div class="header__logo">
+          <a th:href="@{'/buyer/home'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6">
+        <nav class="header__menu mobile-menu">
+          <ul>
+            <li><a th:href="@{'/buyer/'}" >Home</a></li>
+            <li class="active"><a th:href="@{'/buyer/shop'}" >Shop</a></li>
+            <li><a th:href="@{'/buyer/about'}">About Us</a></li>
+            <li><a th:href="@{'/buyer/blog'}">Blog</a>
+              <ul class="dropdown">
+                <li><a th:href="@{'/buyer/blog/blog-details'}">Blog Details</a></li>
+              </ul>
+            </li>
+            <li><a th:href="@{'/buyer/contact'}">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="col-lg-3 col-md-3">
+        <div class="header__nav__option" style="display: flex;justify-content: end;">
+
+
+          <div class="nav user-menu" style="height: 30px;">
+
+            <li class="nav-item dropdown" style="height: 30px;">
+              <a data-bs-toggle="dropdown" href="#" >
+                <img style="margin-bottom: 42px; width: 18px; height: 18px;"   src="/images/img/icon/notification.png" >
+              </a>
+              <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
+              <div class="dropdown-menu notifications" style="width:300px; top: -80px; position: absolute;">
+                <div class="topnav-dropdown-header">
+                  <span class="notification-title">Notifications</span>
+                  <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                </div>
+                <div class="vertical-scroll scroll-demo" >
+
+
+
+                  <a href="#" class="items-noticafitions">
+                    <div class="items-notica">
+                                        <span class="avatar">
+                                            <img alt="" src="/images/img/blog/blog-1.jpg">
+                                        </span>
+                      <div class="text-notica">
+                        <span class="notica-title">Phạm Hữu Nhân </span>
+                        <p class="notica-times">1 phút trước</p>
+                        <input checkedS class="notica-read" type="radio" name="" id="">
+                      </div>
+                      <p class="notica-status">deliever oder</p>
+                      <div class="text-contents">
+                        <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
+                      </div>
+
+
+                    </div>
+                  </a>
+
+                  <a href="#" class="items-noticafitions">
+                    <div class="items-notica">
+                                        <span class="avatar">
+                                            <img alt="" src="/images/img/blog/blog-1.jpg">
+                                        </span>
+                      <div class="text-notica">
+                        <span class="notica-title">Phạm Hữu Nhân </span>
+                        <p class="notica-times">10 phút trước</p>
+                        <input class="notica-read" type="radio" name="" id="" checked>
+                      </div>
+                      <p class="notica-status">deliever oder</p>
+                      <div class="text-contents">
+                        <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
+                      </div>
+
+
+                    </div>
+                  </a>
+
+
+                  <a href="#" class="items-noticafitions">
+                    <div class="items-notica">
+                                        <span class="avatar">
+                                            <img alt="" src="/images/img/blog/blog-1.jpg">
+                                        </span>
+                      <div class="text-notica">
+                        <span class="notica-title">Phạm Hữu Nhân </span>
+                        <p class="notica-times">15 phút trước</p>
+                        <!-- <input class="notica-read" type="radio" checked name="" id=""> -->
+                      </div>
+                      <p class="notica-status">deliever oder</p>
+                      <div class="text-contents">
+                        <p class="notica-contents" >Vui long xac nhan don hang</p>
+                      </div>
+
+
+                    </div>
+                  </a>
+
+                  <a href="#" class="items-noticafitions">
+                    <div class="items-notica">
+                                        <span class="avatar">
+                                            <img alt="" src="/images/img/blog/blog-1.jpg">
+                                        </span>
+                      <div class="text-notica">
+                        <span class="notica-title">Phạm Hữu Nhân </span>
+                        <p class="notica-times">10 phút trước</p>
+
+                      </div>
+                      <input class="notica-read" type="radio" name="" id="">
+                      <p class="notica-status">deliever oder</p>
+                      <div class="text-contents">
+                        <p class="notica-contents" >Don hang cua ban dang duoc giao
+                        </p>
+                      </div>
+
+
+                    </div>
+                  </a>
+
+                  <a href="#" class="items-noticafitions">
+                    <div class="items-notica">
+                                        <span class="avatar">
+                                            <img alt="" src="/images/img/blog/blog-1.jpg">
+                                        </span>
+                      <div class="text-notica">
+                        <span class="notica-title">Phạm Hữu Nhân </span>
+                        <p class="notica-times">10 phút trước</p>
+                        <input class="notica-read" type="radio" name="" id="">
+                      </div>
+                      <p class="notica-status">deliever oder</p>
+                      <div class="text-contents">
+                        <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
+                      </div>
+
+
+                    </div>
+                  </a>
+
+
+
+
+                </div>
+                <div class="topnav-dropdown-footer">
+                  <a href="activities.html">View all Notifications</a>
+                </div>
+              </div>
+
+            </li>
+          </div>
+          <a th:href="@{'/buyer/fa&recently'}"><img src="/images/img/icon/heart2.png" alt=""></a>
+
+          <a th:href="@{'/buyer/cart'}" style="position: relative; display: inline-block; ">
+            <img src="/images/img/icon/cart.png" alt="">
+            <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -13px; left: 3px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="canvas__open"><i class="fa fa-bars"></i></div>
+  </div>
+</header>
+<!-- Header Section End -->
+<section>
+  <div style="height: 150px; width: 100%;"></div>
+</section>
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="breadcrumb__text">
+          <h4>[(#{label.shop.checkOut})]</h4>
+          <div class="breadcrumb__links">
+            <a th:href="@{'/buyer/home'}" >Home</a>
+            <a th:href="@{'/buyer/shop'}" >Shop</a>
+            <a th:href="@{'/buyer/cart'}">Cart</a>
+            <span>Check out</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Checkout Section Begin -->
+<section class="checkout spad">
+  <div class="container">
+    <div class="checkout__form">
+      <div class="row">
+        <div class="col-lg-7 col-md-6">
+            <h6 class="coupon__code"><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click
+              here</a> to enter your code</h6>
+            <h6 class="checkout__title">[(#{lable.shop.blingDeatail})]</h6>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="checkout__input">
+                  <p>[(#{lable.setting.firstName})]<span>*</span></p>
+                  <input  type="text">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="checkout__input">
+                  <p>[(#{lable.setting.surname})]<span>*</span></p>
+                  <input  type="text">
+                </div>
+              </div>
+            </div>
+            <div class="checkout__input">
+              <p>[(#{lable.setting.address})]<span>*</span></p>
+              <input type="text" placeholder="Street Address" class="checkout__input__add">
+            </div>
+            <div class="row">
+              <div class="col-lg-6">
+                <div class="checkout__input">
+                  <p>[(#{lable.setting.phone})]<span>*</span></p>
+                  <input type="text">
+                </div>
+              </div>
+              <div class="col-lg-6">
+                <div class="checkout__input">
+                  <p>Email<span>*</span></p>
+                  <input type="text">
+                </div>
+              </div>
+            </div>
+            <div class="checkout__input">
+              <p>[(#{lable.setting.notes})]<span>*</span></p>
+              <input type="text"
+                     placeholder="Notes about your order, e.g. special notes for delivery.">
+            </div>
+          </form>
+        </div>
+        <div class="col-lg-5 col-md-6">
+          <form action="/placeOrder" method="post">
+            <div class="checkout__order">
+              <h4 class="order__title">Your order</h4>
+              <div class="checkout__order__products">[(#{lable.shop.product})] <span
+                      style="margin-left: 15%;">[(#{lable.shop.total})]</span> <span>[(#{lable.shop.quantity})]</span>
+              </div>
+              <ul class="checkout__total__products">
+
+<!--                <th:block th:each="detailBill : ${listDSC}">-->
+<!--                  <li>-->
+<!--                    <span th:text="${detailBill.totalPrice}" style="margin-left: 22%;"></span>-->
+<!--                    <span th:text="${detailBill.quantity}" style="margin-left: 49.2%;"></span>-->
+<!--                    <span th:text="${detailBill.product.name_product}"-->
+<!--                          style="position: absolute;"></span>-->
+<!--                  </li>-->
+<!--                </th:block>-->
+
+              </ul>
+              <ul class="checkout__total__all">
+                <li>Total <span></span></li>
+              </ul>
+
+              <div class="checkout__input__checkbox">
+                <label for="payment">
+                  Check Payment
+                  <input type="checkbox" id="payment">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+              <div class="checkout__input__checkbox">
+                <label for="paypal">
+                  Paypal
+                  <input type="checkbox" id="paypal">
+                  <span class="checkmark"></span>
+                </label>
+              </div>
+
+              <button type="submit" class="site-btn">PLACE ORDER</button>
+            </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- Checkout Section End -->
+
+<!-- Footer Section Begin -->
+<footer class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="footer__about">
+          <div class="footer__logo">
+            <a href="#"><img src="/images/img/footer-logo.png" alt=""></a>
+          </div>
+          <p>The customer is at the heart of our unique business model, which includes design.</p>
+          <a href="#"><img src="/images/img/payment.png" alt=""></a>
+        </div>
+      </div>
+      <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
+        <div class="footer__widget">
+          <h6>Shopping</h6>
+          <ul>
+            <li><a href="#">Clothing Store</a></li>
+            <li><a href="#">Trending Shoes</a></li>
+            <li><a href="#">Accessories</a></li>
+            <li><a href="#">Sale</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-3 col-sm-6">
+        <div class="footer__widget">
+          <h6>Shopping</h6>
+          <ul>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">Payment Methods</a></li>
+            <li><a href="#">Delivary</a></li>
+            <li><a href="#">Return & Exchanges</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-lg-3 offset-lg-1 col-md-6 col-sm-6">
+        <div class="footer__widget">
+          <h6>NewLetter</h6>
+          <div class="footer__newslatter">
+            <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+            <form action="#">
+              <input type="text" placeholder="Your email">
+              <button type="submit"><span class="icon_mail_alt"></span></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 text-center">
+        <div class="footer__copyright__text">
+          <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+          <p>Copyright ©
+            <script>
+              document.write(new Date().getFullYear());
+            </script>
+            2020
+            All rights reserved | This template is made with <i class="fa fa-heart-o"
+                                                                aria-hidden="true"></i> by <a
+                    href="https://colorlib.com" target="_blank">Colorlib</a>
+          </p>
+          <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- Footer Section End -->
+
+<!-- Js Plugins -->
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/feather.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/script.js"></script><script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.nice-select.min.js"></script>
+<script src="/js/jquery.nicescroll.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/jquery.countdown.min.js"></script>
+<script src="/js/jquery.slicknav.js"></script>
+<script src="/js/mixitup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/jquery.slimscroll.min.js"></script>
+<script src="/js/scrollbar.min.js"></script>
+<script src="/js/custom-scroll.js"></script>
+</body>
+
+</html>

@@ -70,7 +70,7 @@ public class ExcelExporterHinhAnh {
             Row row = sheet.createRow(rowCount++);
             int columnCount = 0;
 
-            createCell(row, columnCount++, String.valueOf(hinhAnh.getIdGiay()), style);
+            createCell(row, columnCount++, String.valueOf(hinhAnh.getIdHinhAnh()), style);
             createCell(row, columnCount++, hinhAnh.getUrl1(), style);
             createCell(row, columnCount++, hinhAnh.getUrl2(), style);
             createCell(row, columnCount++, hinhAnh.getUrl3(), style);

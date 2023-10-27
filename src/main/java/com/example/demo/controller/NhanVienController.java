@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.*;
 import com.example.demo.service.ChucVuService;
 import com.example.demo.service.NhanVienService;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,9 @@ public class NhanVienController {
     @Autowired
     private ChucVuService chucVuService;
 
+    @Autowired
+    private HttpSession session;
+
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
         Map<Integer, String> dsTrangThai = new HashMap<>();
@@ -26,6 +30,7 @@ public class NhanVienController {
         dsTrangThai.put(0, "Không hoạt động");
         return dsTrangThai;
     }
+
     @ModelAttribute("dsGioiTinh")
     public Map<Integer, String> getDsGioiTinh() {
         Map<Integer, String> dsGioiTinh = new HashMap<>();
@@ -33,8 +38,10 @@ public class NhanVienController {
         dsGioiTinh.put(0, "Nữ");
         return dsGioiTinh;
     }
+
     @GetMapping("/nhan-vien")
     public String dsNhanVien(Model model) {
+
         List<NhanVien> nhanViens = nhanVienService.getAllNhanVien();
         List<ChucVu> chucVus = chucVuService.getAllChucVu();
         model.addAttribute("nhanVien", nhanViens);

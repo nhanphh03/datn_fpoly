@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,8 +22,9 @@ public class HinhAnh {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_HinhAnh")
-    private UUID idGiay;
+    private UUID idHinhAnh;
 
+    @NotBlank
     @Column(name = "ma_Anh")
     private String maAnh;
 
