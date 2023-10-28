@@ -53,4 +53,14 @@ public class KhachHangServiceImpl implements KhachHangService {
     public void addKhachHang(KhachHang khachHang) {
          khachHangRepository.save(khachHang);
     }
+
+    @Override
+    public List<KhachHang> findKhachHangByTrangThai() {
+        return khachHangRepository.getKhachHangByTrangThai();
+    }
+
+    @Override
+    public List<KhachHang> findKhachHangByKeyword(String keyword) {
+        return khachHangRepository.findByHoTenKHOrSdtKH(keyword);
+    }
 }
