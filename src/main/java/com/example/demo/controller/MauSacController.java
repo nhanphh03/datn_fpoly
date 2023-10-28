@@ -4,14 +4,12 @@ import com.example.demo.config.ExcelExporterMauSac;
 import com.example.demo.config.ExcelExporterSize;
 import com.example.demo.config.PDFExporterMauSac;
 import com.example.demo.config.PDFExporterSizes;
-import com.example.demo.model.ChiTietGiay;
-import com.example.demo.model.Giay;
-import com.example.demo.model.MauSac;
-import com.example.demo.model.Size;
+import com.example.demo.model.*;
 import com.example.demo.service.GiayChiTietService;
 import com.example.demo.service.MauSacService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,7 +32,8 @@ public class MauSacController {
     private MauSacService mauSacService;
     @Autowired
     private GiayChiTietService giayChiTietService;
-
+    @Autowired
+    private HttpSession session;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -44,12 +44,34 @@ public class MauSacController {
     }
 
     @GetMapping("/mau-sac")
-    public String dsMauSac(Model model) {
+    public String dsMauSac(Model model, @ModelAttribute("message") String message
+            , @ModelAttribute("maError") String maError
+            , @ModelAttribute("maMauError") String maMauError
+            , @ModelAttribute("tenMauError") String tenMauError
+            , @ModelAttribute("error") String error, @ModelAttribute("userInput") MauSac userInput) {
+
         List<MauSac> mauSac = mauSacService.getALlMauSac();
         Collections.sort(mauSac, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("mauSac", mauSac);
         //
         model.addAttribute("mauSacAdd", new MauSac());
+        //
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
+        if (maError == null || !"maError".equals(error)) {
+            model.addAttribute("maError", false);
+        }
+        if (maMauError == null || !"maMauError".equals(error)) {
+            model.addAttribute("maMauError", false);
+        }
+        if (tenMauError == null || !"tenMauError".equals(error)) {
+            model.addAttribute("tenMauError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInput != null) {
+            model.addAttribute("mauSacAdd", userInput);
+        }
         return "manage/mau-sac";
     }
 
@@ -60,9 +82,21 @@ public class MauSacController {
 //    }
 
     @PostMapping("/mau-sac/viewAdd/add")
-    public String addMauSac(@Valid @ModelAttribute("mauSac") MauSac mauSac, BindingResult bindingResult) {
+    public String addMauSac(@Valid @ModelAttribute("mauSac") MauSac mauSac, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            return "manage/add-mau-sac";
+            if (bindingResult.hasFieldErrors("ma")) {
+                redirectAttributes.addFlashAttribute("userInput", mauSac);
+                redirectAttributes.addFlashAttribute("error", "maError");
+            }
+            if (bindingResult.hasFieldErrors("maMau")) {
+                redirectAttributes.addFlashAttribute("userInput", mauSac);
+                redirectAttributes.addFlashAttribute("error", "maMauError");
+            }
+            if (bindingResult.hasFieldErrors("tenMau")) {
+                redirectAttributes.addFlashAttribute("userInput", mauSac);
+                redirectAttributes.addFlashAttribute("error", "tenMauError");
+            }
+            return "redirect:/manage/mau-sac";
         }
         MauSac mauSac1 = new MauSac();
         mauSac1.setMa(mauSac.getMa());
@@ -71,6 +105,7 @@ public class MauSacController {
         mauSac1.setTgThem(new Date());
         mauSac1.setTrangThai(1);
         mauSacService.save(mauSac1);
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/mau-sac";
     }
 

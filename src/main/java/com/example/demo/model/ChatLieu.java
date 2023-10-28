@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,11 +25,11 @@ public class ChatLieu {
     @Column(name ="id_ChatLieu")
     private UUID idChatLieu;
 
-    @NotEmpty(message = "Không được để trống Mã")
+    @NotBlank
     @Column(name = "ma_ChatLieu")
     private String maChatLieu;
 
-    @NotEmpty(message = "Không được để trống Tên")
+    @NotBlank
     @Column(name="ten_ChatLieu")
     private String tenChatLieu;
 

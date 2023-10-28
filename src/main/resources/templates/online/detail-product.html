@@ -3,29 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <title>Sneaker Shop</title>
-</head>
-<head>
-  <meta charset="UTF-8">
-  <meta name="description" content="Male_Fashion Template">
-  <meta name="keywords" content="Male_Fashion, unica, creative, html">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>COFFEE SOUL</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sneaker Shop</title>
 
-  <link rel="icon" href="/images/img/logo-favicon.png" type="image/x-icon">
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
-        rel="stylesheet">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+          rel="stylesheet">
+    <link rel="icon" href="/images/img/logo-favicon.png" type="image/x-icon">
 
-  <!-- Css Styles -->
-  <link rel="stylesheet" href="/cssx/bootstrap.min.css" type="text/css">
-  <link rel="stylesheet" href="/cssx/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="/cssx/elegant-icons.css" type="text/css">
-  <link rel="stylesheet" href="/cssx/magnific-popup.css" type="text/css">
-  <link rel="stylesheet" href="/cssx/nice-select.css" type="text/css">
-  <link rel="stylesheet" href="/cssx/owl.carousel.min.css" type="text/css">
-  <link rel="stylesheet" href="/cssx/slicknav.min.css" type="text/css">
-  <link rel="stylesheet" href="/cssx/style.css" type="text/css">
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/cssx/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/style.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/scroll.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/styleNhan.css" type="text/css">
+
+    <style>
+      header {
+        position: fixed;
+        width: 100%;
+        z-index: 100;
+      }
+      .radio-input input {
+        display: none;
+      }
+      .radio-input {
+        padding: 30px 0 30px 0;
+        position: relative;
+        display: flex;
+        background-color: #fff;
+        justify-content: center;
+        color: #000000;
+        width: 700px;
+        flex-wrap: wrap;
+        margin: auto;
+      }
+      .radio-input label {
+        width: 100px;
+        padding: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 600;
+        font-size: 14px;
+        border: 1px solid #e5e5e5;
+        margin-right: 50px;
+        margin-top: 20px;
+      }
+      .radio-input label:has(input:checked) {
+        color: #fff;
+        background-color: #000000;
+      }
+      .link{
+        text-decoration:none;
+        height: 100%;
+        width: 100px;
+        z-index: 1;
+        color: inherit;
+        background-color: inherit;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+      }
+  </style>
+
 </head>
 
 <body>
@@ -39,25 +90,40 @@
   <div class="header__top">
     <div class="container">
       <div class="row">
-        <div class="col-lg-6 col-md-7">
+
+        <div class="col-lg-3  d-flex align-items-center" >
           <div class="header__top__left">
             <p>Welcome to the shopping experience</p>
           </div>
         </div>
-        <div class="col-lg-6 col-md-5">
-          <div class="header__top__right">
 
-<!--        Buyer FullName Begin    -->
+        <div class="col-lg-6 d-flex align-items-center" >
+          <div style="width: 100%; display: flex; background-color: white; border: 10px;">
+            <input  class="form-control" style="border: none; width: 90%;"  placeholder="Nhập văn bản..." type="text">
+            <div style="width: 60px; background-color: #f3f2ee; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+              <a href=""><img src="/images/img/icon/search.png" alt=""></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 d-flex align-items-center">
+          <div>
+
+            <div th:if="${heartLogged}" class="header__top__links"  >
+              <a th:href="@{'/buyer/purchase'}">Purchase</a>
+            </div>
+
+
+            <!--        Buyer FullName Begin    -->
             <div class="header__top__hover">
               <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
               <ul>
-                <li><a th:href="@{'/buyer/purchase'}" >Purchase</a></li>
                 <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
                 <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
               </ul>
             </div>
 
-<!--            Buyer FullName End -->
+            <!--            Buyer FullName End -->
 
             <div class="header__top__links"  >
               <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Login</a>
@@ -74,10 +140,11 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
-  <div class="container">
+  <div class="container" style=" height: 100px">
     <div class="row">
       <div class="col-lg-3 col-md-3">
         <div class="header__logo">
@@ -87,7 +154,7 @@
       <div class="col-lg-6 col-md-6">
         <nav class="header__menu mobile-menu">
           <ul>
-            <li><a th:href="@{'/buyer/home'}" >Home</a></li>
+            <li><a th:href="@{'/buyer/'}" >Home</a></li>
             <li class="active"><a th:href="@{'/buyer/shop'}" >Shop</a></li>
             <li><a th:href="@{'/buyer/about'}">About Us</a></li>
             <li><a th:href="@{'/buyer/blog'}">Blog</a>
@@ -100,13 +167,139 @@
         </nav>
       </div>
       <div class="col-lg-3 col-md-3">
-        <div class="header__nav__option">
-          <a href="#" class="search-switch"><img src="/images/img/icon/search.png" alt=""></a>
+        <div class="header__nav__option" style="display: flex;justify-content: end;">
+
+
+          <div class="nav user-menu" style="height: 30px;">
+
+            <li class="nav-item dropdown" style="height: 30px;">
+              <a data-bs-toggle="dropdown" href="#" >
+                <img style="margin-bottom: 42px; width: 18px; height: 18px;"   src="/images/img/icon/notification.png" >
+              </a>
+              <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
+              <div class="dropdown-menu notifications" style="width:300px; top: -80px; position: absolute;">
+                <div class="topnav-dropdown-header">
+                  <span class="notification-title">Notifications</span>
+                  <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                </div>
+                <div class="vertical-scroll scroll-demo" >
+
+
+
+                  <a href="#" class="items-noticafitions">
+                    <div class="items-notica">
+                                        <span class="avatar">
+                                            <img alt="" src="/images/img/blog/blog-1.jpg">
+                                        </span>
+                      <div class="text-notica">
+                        <span class="notica-title">Phạm Hữu Nhân </span>
+                        <p class="notica-times">1 phút trước</p>
+                        <input checkedS class="notica-read" type="radio" name="" id="">
+                      </div>
+                      <p class="notica-status">deliever oder</p>
+                      <div class="text-contents">
+                        <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
+                      </div>
+
+
+                    </div>
+                  </a>
+
+                  <a href="#" class="items-noticafitions">
+                    <div class="items-notica">
+                                        <span class="avatar">
+                                            <img alt="" src="/images/img/blog/blog-1.jpg">
+                                        </span>
+                      <div class="text-notica">
+                        <span class="notica-title">Phạm Hữu Nhân </span>
+                        <p class="notica-times">10 phút trước</p>
+                        <input class="notica-read" type="radio" name="" id="" checked>
+                      </div>
+                      <p class="notica-status">deliever oder</p>
+                      <div class="text-contents">
+                        <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
+                      </div>
+
+
+                    </div>
+                  </a>
+
+
+                  <a href="#" class="items-noticafitions">
+                    <div class="items-notica">
+                                        <span class="avatar">
+                                            <img alt="" src="/images/img/blog/blog-1.jpg">
+                                        </span>
+                      <div class="text-notica">
+                        <span class="notica-title">Phạm Hữu Nhân </span>
+                        <p class="notica-times">15 phút trước</p>
+                        <!-- <input class="notica-read" type="radio" checked name="" id=""> -->
+                      </div>
+                      <p class="notica-status">deliever oder</p>
+                      <div class="text-contents">
+                        <p class="notica-contents" >Vui long xac nhan don hang</p>
+                      </div>
+
+
+                    </div>
+                  </a>
+
+                  <a href="#" class="items-noticafitions">
+                    <div class="items-notica">
+                                        <span class="avatar">
+                                            <img alt="" src="/images/img/blog/blog-1.jpg">
+                                        </span>
+                      <div class="text-notica">
+                        <span class="notica-title">Phạm Hữu Nhân </span>
+                        <p class="notica-times">10 phút trước</p>
+
+                      </div>
+                      <input class="notica-read" type="radio" name="" id="">
+                      <p class="notica-status">deliever oder</p>
+                      <div class="text-contents">
+                        <p class="notica-contents" >Don hang cua ban dang duoc giao
+                        </p>
+                      </div>
+
+
+                    </div>
+                  </a>
+
+                  <a href="#" class="items-noticafitions">
+                    <div class="items-notica">
+                                        <span class="avatar">
+                                            <img alt="" src="/images/img/blog/blog-1.jpg">
+                                        </span>
+                      <div class="text-notica">
+                        <span class="notica-title">Phạm Hữu Nhân </span>
+                        <p class="notica-times">10 phút trước</p>
+                        <input class="notica-read" type="radio" name="" id="">
+                      </div>
+                      <p class="notica-status">deliever oder</p>
+                      <div class="text-contents">
+                        <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
+                      </div>
+
+
+                    </div>
+                  </a>
+
+
+
+
+                </div>
+                <div class="topnav-dropdown-footer">
+                  <a href="activities.html">View all Notifications</a>
+                </div>
+              </div>
+
+            </li>
+          </div>
           <a th:href="@{'/buyer/fa&recently'}"><img src="/images/img/icon/heart2.png" alt=""></a>
 
           <a th:href="@{'/buyer/cart'}" style="position: relative; display: inline-block; ">
             <img src="/images/img/icon/cart.png" alt="">
-            <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
+            <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -13px; left: 3px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
           </a>
         </div>
       </div>
@@ -115,7 +308,9 @@
   </div>
 </header>
 <!-- Header Section End -->
-
+<section>
+  <div style="height: 150px; width: 100%;"></div>
+</section>
 <!-- Shop Details Section Begin -->
 <section class="shop-details">
   <form th:object="${product}"   method="" >
@@ -134,58 +329,52 @@
           <div class="col-lg-3 col-md-3">
 
             <ul class="nav nav-tabs" role="tablist">
-
-              <th:block th:each="a : ${listHA}">
                 <li class="nav-item">
                   <a class="nav-link active" data-toggle="tab" href="#tabs-1" role="tab">
-                    <div style="border-radius:10px;" class="product__thumb__pic set-bg" th:attr="data-setbg=@{'/images/imgsProducts/' + ${a.url1}}"></div>
+                    <div style="border-radius:10px;" class="product__thumb__pic set-bg" th:attr="data-setbg=@{'/images/imgsProducts/' + ${hinhAnh.url1}}"></div>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" data-toggle="tab" href="#tabs-2" role="tab">
-                    <div style="border-radius:10px;" class="product__thumb__pic set-bg" th:attr="data-setbg=@{'/images/imgsProducts/' + ${a.url2}}"></div>
+                    <div style="border-radius:10px;" class="product__thumb__pic set-bg" th:attr="data-setbg=@{'/images/imgsProducts/' + ${hinhAnh.url2}}"></div>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab">
-                    <div style="border-radius:10px;" class="product__thumb__pic set-bg" th:attr="data-setbg=@{'/images/imgsProducts/' + ${a.url3}}"></div>
+                    <div style="border-radius:10px;" class="product__thumb__pic set-bg" th:attr="data-setbg=@{'/images/imgsProducts/' + ${hinhAnh.url3}}"></div>
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" data-toggle="tab" href="#tabs-4" role="tab">
-                    <div style="border-radius:10px;" class="product__thumb__pic set-bg" th:attr="data-setbg=@{'/images/imgsProducts/' + ${a.url4}}"></div>
+                    <div style="border-radius:10px;" class="product__thumb__pic set-bg" th:attr="data-setbg=@{'/images/imgsProducts/' + ${hinhAnh.url4}}"></div>
                   </a>
                 </li>
-              </th:block>
             </ul>
           </div>
 <!--          Show Image Product Begin-->
           <div class="col-lg-6 col-md-9">
             <div class="tab-content">
 
-              <th:block th:each="a : ${listHA}">
                 <div class="tab-pane active" id="tabs-1" role="tabpanel">
                   <div class="product__details__pic__item">
-                    <img th:src="@{'/images/imgsProducts/' + ${a.url1}}"/>
+                    <img th:src="@{'/images/imgsProducts/' + ${hinhAnh.url1}}"/>
                   </div>
                 </div>
                 <div class="tab-pane" id="tabs-2" role="tabpanel">
                   <div class="product__details__pic__item">
-                    <img th:src="@{'/images/imgsProducts//' + ${a.url2}}"/>
+                    <img th:src="@{'/images/imgsProducts//' + ${hinhAnh.url2}}"/>
                   </div>
                 </div>
                 <div class="tab-pane" id="tabs-3" role="tabpanel">
                   <div class="product__details__pic__item">
-                    <img th:src="@{'/images/imgsProducts/' + ${a.url3}}"/>
+                    <img th:src="@{'/images/imgsProducts/' + ${hinhAnh.url3}}"/>
                   </div>
                 </div>
                 <div class="tab-pane" id="tabs-4" role="tabpanel">
                   <div class="product__details__pic__item">
-                    <img th:src="@{'/images/imgsProducts/' + ${a.url4}}"/>
+                    <img th:src="@{'/images/imgsProducts/' + ${hinhAnh.url4}}"/>
                   </div>
                 </div>
-              </th:block>
-
 
             </div>
 
@@ -204,39 +393,45 @@
               <h3 id="price_product"></h3>
               <p th:text="${product.moTa}"></p>
               <div style="display: flex; margin-left: 215px">
-                <p th:text="'Material : ' + ${material}"></p>
+                <p th:text="'Material : ' + ${product.chatLieu.tenChatLieu}"></p>
                 <p style="margin-left: 50px; margin-right: 50px">|</p>
-                <p th:text="'Brand : ' + ${nameBrand}"></p>
+                <p th:text="'Brand : ' + ${product.hang.tenHang}"></p>
               </div>
 
-              <div class="product__details__option">
-                <div class="product__details__option__size" style="margin-left: 50px">
-                  <span>Variation :</span>
+              <span>Variation :</span>
+              <br>
+              <span>----------------------------------</span>
+
+              <!--                  Nhan Ngu begin-->
+              <div th:if="${CTGByMoreMau}" class="radio-input">
+
+                <th:block th:each="x : ${listMauSacByGiay}">
+                  <label style="width: 200px; margin: 5px; font-weight: unset; font-size: small; height: 40px;" >
+                    <a class="link" th:href="@{'/buyer/shop-details/' + ${product.idGiay} + '/' + ${x.idMau} }" >
+                      <input type="radio" name="value-radio" >
+                      <span th:text="${x.tenMau}"></span>
+                    </a>
+                  </label>
+                </th:block>
+
+              </div>
+
+              <div th:if="${CTGBy1Mau}" class="radio-input">
+
+                <label style="width: 200px; margin: 5px; font-weight: unset; font-size: small; height: 40px;" >
+                  <a class="link" >
+                    <input type="radio" name="value-radio"  checked>
+                    <span th:text="${tenMau}" ></span>
+                  </a>
+                </label>
+
+              </div>
+              <!--                  Nhan Ngu end-->
+
+              <div class="product__details__option 2">
+                <div class="product__details__option__size 2" style="margin-left: 50px">
+                  <span>Size :</span>
                   <br>
-                  <span>----------------------------------</span>
-                  <div th:if="${sizeBy1Mau}" class="label-container" style="display: flex; flex-wrap: wrap; justify-content: center; ">
-
-                    <th:block th:each="x : ${listMauSacByGiay}">
-                      <label class="label active" style="width: 200px; margin: 5px; font-weight: unset; font-size: small;">
-                        <input type="radio" style="display: none;" checked>
-                        <span th:text="${x.tenMau}"></span>
-                      </label>
-                    </th:block>
-
-                  </div>
-
-
-                  <div th:if="${sizeByMoreMau}" class="label-container" style="display: flex; flex-wrap: wrap; justify-content: center; ">
-
-                    <th:block th:each="x : ${listMauSacByGiay}">
-                      <a th:href="@{'/buyer/shop-details/' + ${product.idGiay} + '/' + ${x.idMau} }">
-                        <label class="label"  style="width: 200px; margin: 5px; font-weight: unset; font-size: small;" th:text="${x.tenMau}">
-                          <input type="radio" name="idDProduct" th:value="${x.idMau}">
-                        </label>
-                      </a>
-                    </th:block>
-
-                  </div>
                   <span>----------------------------------</span>
                 </div>
               </div>
@@ -246,20 +441,15 @@
 
                   <div th:if="${sizeBy1Mau}" class="label-container" style="display: flex; flex-wrap: wrap; justify-content: center; ">
                     <th:block th:each="x : ${listSizeCTG}">
-                      <label th:name="${x.size.idSize}" class="label" style="width: 200px; margin: 5px; font-weight: unset; font-size: small;" th:text="${x.size.soSize}">
-                        <input type="radio" name="idDProduct" th:value="${x.size.idSize}">
+                      <label th:name="${x[1]}" class="label" style="width: 200px; margin: 5px; font-weight: unset; font-size: small;height: 40px;" th:text="${x[0]}">
                       </label>
+                      <a href="#"><img th:if="${x[2]}" src="/images/img/icon/view.png"></a>
                     </th:block>
                   </div>
 
-                  <div th:if="${sizeByMoreMau}" class="label-container" style="display: flex; flex-wrap: wrap; justify-content: center; ">
-                    <th:block th:each="x : ${listSizeByGiay}">
-                      <label th:name="${x.idSize}" class="label" style="width: 200px; margin: 5px; font-weight: unset; font-size: small;" th:text="${x.soSize}">
-                        <input type="radio" name="idDProduct" th:value="${x.idSize}">
-                      </label>
-                    </th:block>
-
                 </div>
+                  <br>
+                  <br>
               </div>
 
               <div class="product__details__cart__option">
@@ -285,7 +475,7 @@
 
 
               <div th:if="${heartLogged}" class="product__details__btns__option">
-                <a th:href="@{'/buyer/detail/heart/' + ${product.idGiay}}"><i class="fa fa-heart"></i>add to wishlist</a>
+                <a th:href="@{'/buyer/detail/heart/' + ${product.idGiay} + '/' + ${idHeartMau}}"><i class="fa fa-heart"></i>add to wishlist</a>
               </div>
 
               <div class="product__details__last__option">
@@ -298,156 +488,582 @@
               </div>
             </div>
           </div>
-        </div>
+          </div>
 
 
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="product__details__tab">
-              <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item">
-                  <a class="nav-link active" data-toggle="tab" href="#tabs-5"
-                     role="tab">Description</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#tabs-6" role="tab">Customer
-                    Previews(5)</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" data-toggle="tab" href="#tabs-7" role="tab">Additional
-                    information</a>
-                </li>
-              </ul>
-              <div class="tab-content">
-                <div class="tab-pane active" id="tabs-5" role="tabpanel">
-                  <div class="product__details__tab__content">
-                    <p class="note">Nam tempus turpis at metus scelerisque placerat nulla deumantos
-                      solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis
-                      ut risus. Sedcus faucibus an sullamcorper mattis drostique des commodo
-                      pharetras loremos.</p>
-                    <div class="product__details__tab__content__item">
-                      <h5>Products Infomation</h5>
-                      <p>A Pocket PC is a handheld computer, which features many of the same
-                        capabilities as a modern PC. These handy little devices allow
-                        individuals to retrieve and store e-mail messages, create a contact
-                        file, coordinate appointments, surf the internet, exchange text messages
-                        and more. Every product that is labeled as a Pocket PC must be
-                        accompanied with specific software to operate the unit and must feature
-                        a touchscreen and touchpad.</p>
-                      <p>As is the case with any new technology product, the cost of a Pocket PC
-                        was substantial during it’s early release. For approximately $700.00,
-                        consumers could purchase one of top-of-the-line Pocket PCs in 2003.
-                        These days, customers are finding that prices have become much more
-                        reasonable now that the newness is wearing off. For approximately
-                        $350.00, a new Pocket PC can now be purchased.</p>
-                    </div>
-                    <div class="product__details__tab__content__item">
-                      <h5>Material used</h5>
-                      <p>Polyester is deemed lower quality due to its none natural quality’s. Made
-                        from synthetic materials, not natural like wool. Polyester suits become
-                        creased easily and are known for not being breathable. Polyester suits
-                        tend to have a shine to them compared to wool and cotton suits, this can
-                        make the suit look cheap. The texture of velvet is luxurious and
-                        breathable. Velvet is a great choice for dinner party jacket and can be
-                        worn all year round.</p>
+          <div class="row">
+            <div class="col-lg-12">
+              <div class="product__details__tab">
+                <ul class="nav nav-tabs" role="tablist">
+                  <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#tabs-5"
+                       role="tab">Description</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tabs-6" role="tab">Customer
+                      Previews(5)</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#tabs-7" role="tab">Additional
+                      information</a>
+                  </li>
+                </ul>
+                <div class="tab-content">
+                  <div class="tab-pane active" id="tabs-5" role="tabpanel">
+                    <div class="product__details__tab__content">
+                      <div class="horizontal-scroll scroll-demo" style="height: 420px;">
+                        <div class="horz-scroll-content" >
+                          <div class="row">
+                            <div class="col-sm-1">
+                              <div class="product__item">
+                                <div class="product__item__pic set-bg"
+                                     data-setbg="/images/imgsProducts/product-1.1.png">
+                                  <span class="label">New</span>
+                                  <ul class="product__hover">
+                                    <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a>
+                                    </li>
+                                    <li><a href="#"><img src="/images/img/icon/compare.png" alt="">
+                                      <span>Compare</span></a></li>
+                                    <li><a href="#"><img src="/images/img/icon/search.png" alt=""></a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="product__item__text">
+                                  <h6>Piqué Biker Jacket</h6>
+                                  <a href="#" class="add-cart">+ Add To Cart</a>
+                                  <div class="rating">
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                  </div>
+                                  <h5>$67.24</h5>
+                                  <div class="product__color__select">
+                                    <label for="pc-1">
+                                      <input type="radio" id="pc-1">
+                                    </label>
+                                    <label class="active black" for="pc-2">
+                                      <input type="radio" id="pc-2">
+                                    </label>
+                                    <label class="grey" for="pc-3">
+                                      <input type="radio" id="pc-3">
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-1">
+                              <div class="product__item">
+                                <div class="product__item__pic set-bg"
+                                     data-setbg="/images/imgsProducts/product-1.1.png">
+                                  <ul class="product__hover">
+                                    <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a>
+                                    </li>
+                                    <li><a href="#"><img src="/images/img/icon/compare.png" alt="">
+                                      <span>Compare</span></a></li>
+                                    <li><a href="#"><img src="/images/img/icon/search.png" alt=""></a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="product__item__text">
+                                  <h6>Piqué Biker Jacket</h6>
+                                  <a href="#" class="add-cart">+ Add To Cart</a>
+                                  <div class="rating">
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                  </div>
+                                  <h5>$67.24</h5>
+                                  <div class="product__color__select">
+                                    <label for="pc-4">
+                                      <input type="radio" id="pc-4">
+                                    </label>
+                                    <label class="active black" for="pc-5">
+                                      <input type="radio" id="pc-5">
+                                    </label>
+                                    <label class="grey" for="pc-6">
+                                      <input type="radio" id="pc-6">
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-1">
+                              <div class="product__item sale">
+                                <div class="product__item__pic set-bg"
+                                     data-setbg="/images/imgsProducts/product-1.1.png">
+                                  <span class="label">Sale</span>
+                                  <ul class="product__hover">
+                                    <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a>
+                                    </li>
+                                    <li><a href="#"><img src="/images/img/icon/compare.png" alt="">
+                                      <span>Compare</span></a></li>
+                                    <li><a href="#"><img src="/images/img/icon/search.png" alt=""></a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="product__item__text">
+                                  <h6>Multi-pocket Chest Bag</h6>
+                                  <a href="#" class="add-cart">+ Add To Cart</a>
+                                  <div class="rating">
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star-o"></i>
+                                  </div>
+                                  <h5>$43.48</h5>
+                                  <div class="product__color__select">
+                                    <label for="pc-7">
+                                      <input type="radio" id="pc-7">
+                                    </label>
+                                    <label class="active black" for="pc-8">
+                                      <input type="radio" id="pc-8">
+                                    </label>
+                                    <label class="grey" for="pc-9">
+                                      <input type="radio" id="pc-9">
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-1">
+                              <div class="product__item">
+                                <div class="product__item__pic set-bg"
+                                     data-setbg="/images/imgsProducts/product-1.1.png">
+                                  <ul class="product__hover">
+                                    <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a>
+                                    </li>
+                                    <li><a href="#"><img src="/images/img/icon/compare.png" alt="">
+                                      <span>Compare</span></a></li>
+                                    <li><a href="#"><img src="/images/img/icon/search.png" alt=""></a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="product__item__text">
+                                  <h6>Diagonal Textured Cap</h6>
+                                  <a href="#" class="add-cart">+ Add To Cart</a>
+                                  <div class="rating">
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                  </div>
+                                  <h5>$60.9</h5>
+                                  <div class="product__color__select">
+                                    <label for="pc-10">
+                                      <input type="radio" id="pc-10">
+                                    </label>
+                                    <label class="active black" for="pc-11">
+                                      <input type="radio" id="pc-11">
+                                    </label>
+                                    <label class="grey" for="pc-12">
+                                      <input type="radio" id="pc-12">
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-1">
+                              <div class="product__item">
+                                <div class="product__item__pic set-bg"
+                                     data-setbg="/images/imgsProducts/product-1.1.png">
+                                  <span class="label">New</span>
+                                  <ul class="product__hover">
+                                    <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a>
+                                    </li>
+                                    <li><a href="#"><img src="/images/img/icon/compare.png" alt="">
+                                      <span>Compare</span></a></li>
+                                    <li><a href="#"><img src="/images/img/icon/search.png" alt=""></a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="product__item__text">
+                                  <h6>Piqué Biker Jacket</h6>
+                                  <a href="#" class="add-cart">+ Add To Cart</a>
+                                  <div class="rating">
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                  </div>
+                                  <h5>$67.24</h5>
+                                  <div class="product__color__select">
+                                    <label for="pc-1">
+                                      <input type="radio" id="pc-1">
+                                    </label>
+                                    <label class="active black" for="pc-2">
+                                      <input type="radio" id="pc-2">
+                                    </label>
+                                    <label class="grey" for="pc-3">
+                                      <input type="radio" id="pc-3">
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-1">
+                              <div class="product__item">
+                                <div class="product__item__pic set-bg"
+                                     data-setbg="/images/imgsProducts/product-1.1.png">
+                                  <span class="label">New</span>
+                                  <ul class="product__hover">
+                                    <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a>
+                                    </li>
+                                    <li><a href="#"><img src="/images/img/icon/compare.png" alt="">
+                                      <span>Compare</span></a></li>
+                                    <li><a href="#"><img src="/images/img/icon/search.png" alt=""></a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="product__item__text">
+                                  <h6>Piqué Biker Jacket</h6>
+                                  <a href="#" class="add-cart">+ Add To Cart</a>
+                                  <div class="rating">
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                  </div>
+                                  <h5>$67.24</h5>
+                                  <div class="product__color__select">
+                                    <label for="pc-1">
+                                      <input type="radio" id="pc-1">
+                                    </label>
+                                    <label class="active black" for="pc-2">
+                                      <input type="radio" id="pc-2">
+                                    </label>
+                                    <label class="grey" for="pc-3">
+                                      <input type="radio" id="pc-3">
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-1">
+                              <div class="product__item">
+                                <div class="product__item__pic set-bg"
+                                     data-setbg="/images/imgsProducts/product-1.1.png">
+                                  <span class="label">New</span>
+                                  <ul class="product__hover">
+                                    <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a>
+                                    </li>
+                                    <li><a href="#"><img src="/images/img/icon/compare.png" alt="">
+                                      <span>Compare</span></a></li>
+                                    <li><a href="#"><img src="/images/img/icon/search.png" alt=""></a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="product__item__text">
+                                  <h6>Piqué Biker Jacket</h6>
+                                  <a href="#" class="add-cart">+ Add To Cart</a>
+                                  <div class="rating">
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                  </div>
+                                  <h5>$67.24</h5>
+                                  <div class="product__color__select">
+                                    <label for="pc-1">
+                                      <input type="radio" id="pc-1">
+                                    </label>
+                                    <label class="active black" for="pc-2">
+                                      <input type="radio" id="pc-2">
+                                    </label>
+                                    <label class="grey" for="pc-3">
+                                      <input type="radio" id="pc-3">
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-1">
+                              <div class="product__item">
+                                <div class="product__item__pic set-bg"
+                                     data-setbg="/images/imgsProducts/product-1.1.png">
+                                  <span class="label">New</span>
+                                  <ul class="product__hover">
+                                    <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a>
+                                    </li>
+                                    <li><a href="#"><img src="/images/img/icon/compare.png" alt="">
+                                      <span>Compare</span></a></li>
+                                    <li><a href="#"><img src="/images/img/icon/search.png" alt=""></a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="product__item__text">
+                                  <h6>Piqué Biker Jacket</h6>
+                                  <a href="#" class="add-cart">+ Add To Cart</a>
+                                  <div class="rating">
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                  </div>
+                                  <h5>$67.24</h5>
+                                  <div class="product__color__select">
+                                    <label for="pc-1">
+                                      <input type="radio" id="pc-1">
+                                    </label>
+                                    <label class="active black" for="pc-2">
+                                      <input type="radio" id="pc-2">
+                                    </label>
+                                    <label class="grey" for="pc-3">
+                                      <input type="radio" id="pc-3">
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-1">
+                              <div class="product__item">
+                                <div class="product__item__pic set-bg"
+                                     data-setbg="/images/imgsProducts/product-1.1.png">
+                                  <span class="label">New</span>
+                                  <ul class="product__hover">
+                                    <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a>
+                                    </li>
+                                    <li><a href="#"><img src="/images/img/icon/compare.png" alt="">
+                                      <span>Compare</span></a></li>
+                                    <li><a href="#"><img src="/images/img/icon/search.png" alt=""></a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="product__item__text">
+                                  <h6>Piqué Biker Jacket</h6>
+                                  <a href="#" class="add-cart">+ Add To Cart</a>
+                                  <div class="rating">
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                  </div>
+                                  <h5>$67.24</h5>
+                                  <div class="product__color__select">
+                                    <label for="pc-1">
+                                      <input type="radio" id="pc-1">
+                                    </label>
+                                    <label class="active black" for="pc-2">
+                                      <input type="radio" id="pc-2">
+                                    </label>
+                                    <label class="grey" for="pc-3">
+                                      <input type="radio" id="pc-3">
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-1">
+                              <div class="product__item">
+                                <div class="product__item__pic set-bg"
+                                     data-setbg="/images/imgsProducts/product-1.1.png">
+                                  <ul class="product__hover">
+                                    <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a>
+                                    </li>
+                                    <li><a href="#"><img src="/images/img/icon/compare.png" alt="">
+                                      <span>Compare</span></a></li>
+                                    <li><a href="#"><img src="/images/img/icon/search.png" alt=""></a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <div class="product__item__text">
+                                  <h6>Piqué Biker Jacket</h6>
+                                  <a href="#" class="add-cart">+ Add To Cart</a>
+                                  <div class="rating">
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                  </div>
+                                  <h5>$67.24</h5>
+                                  <div class="product__color__select">
+                                    <label for="pc-4">
+                                      <input type="radio" id="pc-4">
+                                    </label>
+                                    <label class="active black" for="pc-5">
+                                      <input type="radio" id="pc-5">
+                                    </label>
+                                    <label class="grey" for="pc-6">
+                                      <input type="radio" id="pc-6">
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="tab-pane" id="tabs-6" role="tabpanel">
-                  <div class="product__details__tab__content">
-                    <div class="product__details__tab__content__item">
-                      <h5>Products Infomation</h5>
-                      <p>A Pocket PC is a handheld computer, which features many of the same
-                        capabilities as a modern PC. These handy little devices allow
-                        individuals to retrieve and store e-mail messages, create a contact
-                        file, coordinate appointments, surf the internet, exchange text messages
-                        and more. Every product that is labeled as a Pocket PC must be
-                        accompanied with specific software to operate the unit and must feature
-                        a touchscreen and touchpad.</p>
-                      <p>As is the case with any new technology product, the cost of a Pocket PC
-                        was substantial during it’s early release. For approximately $700.00,
-                        consumers could purchase one of top-of-the-line Pocket PCs in 2003.
-                        These days, customers are finding that prices have become much more
-                        reasonable now that the newness is wearing off. For approximately
-                        $350.00, a new Pocket PC can now be purchased.</p>
+                  <div class="tab-pane" id="tabs-6" role="tabpanel">
+                    <div class="product__details__tab__content">
+                      <div class="product__details__tab__content__item">
+                        <h5>Product Ratings</h5>
+                        <div class="rating">
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star"></i>
+                          <i class="fa fa-star-o"></i>
+                          <span> - 5 Reviews</span>
+                          <span> (13 Sold)</span>
+                        </div>
+                      </div>
                     </div>
-                    <div class="product__details__tab__content__item">
-                      <h5>Material used</h5>
-                      <p>Polyester is deemed lower quality due to its none natural quality’s. Made
-                        from synthetic materials, not natural like wool. Polyester suits become
-                        creased easily and are known for not being breathable. Polyester suits
-                        tend to have a shine to them compared to wool and cotton suits, this can
-                        make the suit look cheap. The texture of velvet is luxurious and
-                        breathable. Velvet is a great choice for dinner party jacket and can be
-                        worn all year round.</p>
+
+                    <hr>
+
+                    <div class="product__details__tab__content">
+                      <div style="display: flex;">
+                        <img src="/images/img/blog/blog-1.jpg" alt=""
+                             style="height: 70px; width: 70px; border-radius: 50%; margin-right: 30px">
+                        <div class="product__details__tab__content__item">
+
+                          <h5>Nguye2n Van A</h5>
+
+                          <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o"></i>
+                            <span> - 5 Reviews</span>
+                          </div>
+                          <p>As is the case with any new technology product, the cost of a Pocket
+                            PC
+                            was substantial during it’s early release. For approximately
+                            $700.00,
+                            consumers could purchase one of top-of-the-line Pocket PCs in 2003.
+                            These days, customers are finding that prices have become much more
+                            reasonable now that the newness is wearing off. For approximately
+                            $350.00, a new Pocket PC can now be purchased.</p>
+                          <br>
+
+                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
+                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
+                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
+
+                        </div>
+                      </div>
+                      <hr>
+                      <div style="display: flex;">
+                        <img src="/images/img/blog/blog-1.jpg" alt=""
+                             style="height: 70px; width: 70px; border-radius: 50%; margin-right: 30px">
+                        <div class="product__details__tab__content__item">
+
+                          <h5>Nguye2n Van A</h5>
+
+                          <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o"></i>
+                            <span> - 5 Reviews</span>
+                          </div>
+                          <p>As is the case with any new technology product, the cost of a Pocket
+                            PC
+                            was substantial during it’s early release. For approximately
+                            $700.00,
+                            consumers could purchase one of top-of-the-line Pocket PCs in 2003.
+                            These days, customers are finding that prices have become much more
+                            reasonable now that the newness is wearing off. For approximately
+                            $350.00, a new Pocket PC can now be purchased.</p>
+                          <br>
+
+                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
+                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
+                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
+
+                        </div>
+                      </div>
+                      <hr>
+                      <div style="display: flex;">
+                        <img src="/images/img/blog/blog-1.jpg" alt=""
+                             style="height: 70px; width: 70px; border-radius: 50%; margin-right: 30px">
+                        <div class="product__details__tab__content__item">
+
+                          <h5>Nguye2n Van A</h5>
+
+                          <div class="rating">
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star"></i>
+                            <i class="fa fa-star-o"></i>
+                            <span> - 5 Reviews</span>
+                          </div>
+                          <p>As is the case with any new technology product, the cost of a Pocket
+                            PC
+                            was substantial during it’s early release. For approximately
+                            $700.00,
+                            consumers could purchase one of top-of-the-line Pocket PCs in 2003.
+                            These days, customers are finding that prices have become much more
+                            reasonable now that the newness is wearing off. For approximately
+                            $350.00, a new Pocket PC can now be purchased.</p>
+                          <br>
+
+                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
+                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
+                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
+
+                        </div>
+                      </div>
+                      <hr>
                     </div>
-                    <div class="product__details__tab__content__item">
-                      <h5>Products Infomation</h5>
-                      <p>A Pocket PC is a handheld computer, which features many of the same
-                        capabilities as a modern PC. These handy little devices allow
-                        individuals to retrieve and store e-mail messages, create a contact
-                        file, coordinate appointments, surf the internet, exchange text messages
-                        and more. Every product that is labeled as a Pocket PC must be
-                        accompanied with specific software to operate the unit and must feature
-                        a touchscreen and touchpad.</p>
-                      <p>As is the case with any new technology product, the cost of a Pocket PC
-                        was substantial during it’s early release. For approximately $700.00,
-                        consumers could purchase one of top-of-the-line Pocket PCs in 2003.
-                        These days, customers are finding that prices have become much more
-                        reasonable now that the newness is wearing off. For approximately
-                        $350.00, a new Pocket PC can now be purchased.</p>
-                    </div>
-                    <div class="product__details__tab__content__item">
-                      <h5>Material used</h5>
-                      <p>Polyester is deemed lower quality due to its none natural quality’s. Made
-                        from synthetic materials, not natural like wool. Polyester suits become
-                        creased easily and are known for not being breathable. Polyester suits
-                        tend to have a shine to them compared to wool and cotton suits, this can
-                        make the suit look cheap. The texture of velvet is luxurious and
-                        breathable. Velvet is a great choice for dinner party jacket and can be
-                        worn all year round.</p>
-                    </div>
+
                   </div>
-                </div>
-                <div class="tab-pane" id="tabs-7" role="tabpanel">
-                  <div class="product__details__tab__content">
-                    <p class="note">Nam tempus turpis at metus scelerisque placerat nulla deumantos
-                      solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis
-                      ut risus. Sedcus faucibus an sullamcorper mattis drostique des commodo
-                      pharetras loremos.</p>
-                    <div class="product__details__tab__content__item">
-                      <h5>Products Infomation</h5>
-                      <p>A Pocket PC is a handheld computer, which features many of the same
-                        capabilities as a modern PC. These handy little devices allow
-                        individuals to retrieve and store e-mail messages, create a contact
-                        file, coordinate appointments, surf the internet, exchange text messages
-                        and more. Every product that is labeled as a Pocket PC must be
-                        accompanied with specific software to operate the unit and must feature
-                        a touchscreen and touchpad.</p>
-                      <p>As is the case with any new technology product, the cost of a Pocket PC
-                        was substantial during it’s early release. For approximately $700.00,
-                        consumers could purchase one of top-of-the-line Pocket PCs in 2003.
-                        These days, customers are finding that prices have become much more
-                        reasonable now that the newness is wearing off. For approximately
-                        $350.00, a new Pocket PC can now be purchased.</p>
-                    </div>
-                    <div class="product__details__tab__content__item">
-                      <h5>Material used</h5>
-                      <p>Polyester is deemed lower quality due to its none natural quality’s. Made
-                        from synthetic materials, not natural like wool. Polyester suits become
-                        creased easily and are known for not being breathable. Polyester suits
-                        tend to have a shine to them compared to wool and cotton suits, this can
-                        make the suit look cheap. The texture of velvet is luxurious and
-                        breathable. Velvet is a great choice for dinner party jacket and can be
-                        worn all year round.</p>
+                  <div class="tab-pane" id="tabs-7" role="tabpanel">
+                    <div class="product__details__tab__content">
+                      <p class="note">Nam tempus turpis at metus scelerisque placerat nulla deumantos
+                        solicitud felis. Pellentesque diam dolor, elementum etos lobortis des mollis
+                        ut risus. Sedcus faucibus an sullamcorper mattis drostique des commodo
+                        pharetras loremos.</p>
+                      <div class="product__details__tab__content__item">
+                        <h5>Products Infomation</h5>
+                        <p>A Pocket PC is a handheld computer, which features many of the same
+                          capabilities as a modern PC. These handy little devices allow
+                          individuals to retrieve and store e-mail messages, create a contact
+                          file, coordinate appointments, surf the internet, exchange text messages
+                          and more. Every product that is labeled as a Pocket PC must be
+                          accompanied with specific software to operate the unit and must feature
+                          a touchscreen and touchpad.</p>
+                        <p>As is the case with any new technology product, the cost of a Pocket PC
+                          was substantial during it’s early release. For approximately $700.00,
+                          consumers could purchase one of top-of-the-line Pocket PCs in 2003.
+                          These days, customers are finding that prices have become much more
+                          reasonable now that the newness is wearing off. For approximately
+                          $350.00, a new Pocket PC can now be purchased.</p>
+                      </div>
+                      <div class="product__details__tab__content__item">
+                        <h5>Material used</h5>
+                        <p>Polyester is deemed lower quality due to its none natural quality’s. Made
+                          from synthetic materials, not natural like wool. Polyester suits become
+                          creased easily and are known for not being breathable. Polyester suits
+                          tend to have a shine to them compared to wool and cotton suits, this can
+                          make the suit look cheap. The texture of velvet is luxurious and
+                          breathable. Velvet is a great choice for dinner party jacket and can be
+                          worn all year round.</p>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
       </div>
+    </div>
     </div>
   </form>
 </section>
@@ -519,17 +1135,6 @@
   </div>
 </footer>
 <!-- Footer Section End -->
-
-<!-- Search Begin -->
-<div class="search-model">
-  <div class="h-100 d-flex align-items-center justify-content-center">
-    <div class="search-close-switch">+</div>
-    <form class="search-model-form">
-      <input type="text" id="search-input" placeholder="Search here.....">
-    </form>
-  </div>
-</div>
-<!-- Search End -->
 
 
 <!--<script>-->
@@ -616,7 +1221,10 @@
 
 <!-- Js Plugins -->
 
-<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/feather.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/script.js"></script><script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/jquery.nice-select.min.js"></script>
 <script src="/js/jquery.nicescroll.min.js"></script>
@@ -626,6 +1234,10 @@
 <script src="/js/mixitup.min.js"></script>
 <script src="/js/owl.carousel.min.js"></script>
 <script src="/js/main.js"></script>
+<script src="/js/jquery.slimscroll.min.js"></script>
+<script src="/js/scrollbar.min.js"></script>
+<script src="/js/custom-scroll.js"></script>
+
 </body>
 
 </html>

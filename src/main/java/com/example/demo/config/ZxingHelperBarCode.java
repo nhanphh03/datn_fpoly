@@ -10,6 +10,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.Hashtable;
@@ -20,9 +21,8 @@ public class ZxingHelperBarCode {
     public static void saveBarcodeImage(UUID id, int width, int height) {
         try {
             //tring qrCodePath = "C:\\Users\\Lvh9x\\Documents\\GitHub\\SD74---Sneaker-Shop\\src\\main\\resources\\static\\images\\imgsBarcode\\";
-            String qrCodePath = "/src/main/resources/static/images/imgsBarcode/";
+            String qrCodePath = "C:\\imagesBarcode\\";
             String qrCodeName = qrCodePath + id +  ".png";
-            System.out.println(qrCodeName);
             Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<>();
             hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
             Writer writer = new QRCodeWriter();
