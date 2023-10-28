@@ -30,4 +30,13 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     public List<HoaDonChiTiet> findByIdHoaDon(UUID id) {
         return hoaDonChiTietRepository.findByIdHoaDon(id);
     }
+
+    @Override
+    public Double tongTien(List<HoaDonChiTiet> list) {
+        double tongTien = 0;
+        for (HoaDonChiTiet hoaDonChiTiet : list){
+            tongTien += hoaDonChiTiet.getSoLuong()* hoaDonChiTiet.getDonGia();
+        }
+        return tongTien;
+    }
 }
