@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("/manage")
 public class AdminController {
     @Autowired
     private HttpSession session;
 
-    @RequestMapping(value = {"", "/", "/home", "/mangage"})
+    @RequestMapping(value = {"", "/", "/home"})
     public String hienThi(Model model) {
         return "manage/activities";
     }
