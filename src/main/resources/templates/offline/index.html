@@ -33,8 +33,17 @@
         #video {
             display: none;
         }
+
         #stopButton {
             display: none;
+        }
+
+        .color-box {
+            width: 25px;
+            height: 25px;
+            display: inline-block;
+            border: 1px solid #000;
+            margin: 0 5px;
         }
     </style>
 </head>
@@ -290,7 +299,7 @@
                                     </ul>
 
                                     <button id="scanButton" class="btn btn-outline-dark">Quét QR</button>
-                                    <button id="stopButton" class="btn btn-danger">Tắt Video</button>
+                                    <button id="stopButton" class="btn btn-danger ms-2">Tắt Video</button>
 
                                     <!--                                        <li>-->
                                     <!--                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img-->
@@ -337,6 +346,11 @@
                     </div>
                     <div class="tabs_container">
                         <div class="row">
+                            <div th:if="${nullHoaDon}" class="alert alert-success text-center">
+                                <h3 th:text="${nullHoaDon}"></h3>
+                            </div>
+                        </div>
+                        <div class="row">
                             <th:block th:each="product : ${listSanPham}">
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="tab_content active">
@@ -369,12 +383,6 @@
                 <div class="col-lg-5 col-sm-12 ">
                     <div class="order-list">
                         <div class="orderid">
-                            <div class="row">
-                                <div th:if="${message}" class="alert alert-success text-center">
-                                    <h1 th:text="${message}"></h1>
-                                </div>
-                            </div>
-                            <div></div>
                             <nav class="navbar navbar-expand-lg">
                                 <a class="btn" th:href="@{/ban-hang/add-cart}">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25"
@@ -398,44 +406,39 @@
                                         </div>
                                     </ul>
                                 </div>
+                                <div class="row">
+                                    <div th:if="${message}" class="alert alert-success text-center">
+                                        <h3 th:text="${message}"></h3>
+                                    </div>
+                                </div>
                             </nav>
                         </div>
-                        <!--                        <div class="actionproducts">-->
-                        <!--                            <ul>-->
-                        <!--                                <li>-->
-                        <!--                                    <a href="javascript:void(0);" class="deletebg confirm-text"><img-->
-                        <!--                                            src="/images/img/icons/delete-2.svg" alt="img"></a>-->
-                        <!--                                </li>-->
-                        <!--                                <li>-->
-                        <!--                                    <a href="javascript:void(0);" data-bs-toggle="dropdown"-->
-                        <!--                                       aria-expanded="false"-->
-                        <!--                                       class="dropset">-->
-                        <!--                                        <img src="/images/img/icons/ellipise1.svg" alt="img">-->
-                        <!--                                    </a>-->
-                        <!--                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton"-->
-                        <!--                                        data-popper-placement="bottom-end">-->
-                        <!--                                        <li>-->
-                        <!--                                            <a href="#" class="dropdown-item">Action</a>-->
-                        <!--                                        </li>-->
-                        <!--                                        <li>-->
-                        <!--                                            <a href="#" class="dropdown-item">Another Action</a>-->
-                        <!--                                        </li>-->
-                        <!--                                        <li>-->
-                        <!--                                            <a href="#" class="dropdown-item">Something Elses</a>-->
-                        <!--                                        </li>-->
-                        <!--                                    </ul>-->
-                        <!--                                </li>-->
-                        <!--                            </ul>-->
-                        <!--                        </div>-->
                     </div>
                     <div class="card card-order">
                         <div class="card-body pt-0 mt-3">
                             <div class="totalitem">
-                                <h2 class="text-center">Giỏ hàng</h2>
-                                <h4>Total items : 4</h4>
+                                <label class="fw-semibold fs-3 ">Giỏ hàng</label>
+                                <h4 th:text="'Total items : '"></h4>
                                 <a href="javascript:void(0);">Clear all</a>
                             </div>
                             <div class="product-table">
+                                <ul class="product-lists">
+                                    <li>
+                                        <div></div>
+                                    </li>
+                                    <li>
+                                        <div>Sản phẩm</div>
+                                    </li>
+                                    <li>
+                                        <div>Giá</div>
+                                    </li>
+                                    <li>
+                                        <div>Thành tiền</div>
+                                    </li>
+                                    <li>
+                                        <div></div>
+                                    </li>
+                                </ul>
                                 <th:block th:each="gioHang : ${gioHang}">
                                     <ul class="product-lists">
                                         <li>
@@ -452,8 +455,15 @@
                                                                 src="/images/img/icons/edit-5.svg"
                                                                 alt="img"></a>
                                                     </h4>
-                                                    <div class="productlinkset">
-                                                        <h5 th:text="${gioHang.chiTietGiay.size.soSize}"></h5>
+                                                    <div class="row">
+                                                        <div class="productlinkset col-6">
+                                                            <h5 th:text="${gioHang.chiTietGiay.size.soSize}"></h5>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <!--                                                            <label class="color-box" th:style="'background-color: ' + ${gioHang.chiTietGiay.mauSac.maMau}"></label>-->
+                                                            <span class="color-box"
+                                                                  th:style="'background-color:' +${gioHang.chiTietGiay.mauSac.maMau}"></span>
+                                                        </div>
                                                     </div>
                                                     <div class="increment-decrement">
                                                         <div class="input-groups">
@@ -473,6 +483,9 @@
                                             <div th:text="${gioHang.donGia}"></div>
                                         </li>
                                         <li>
+                                            <div th:text="${gioHang.donGia * gioHang.soLuong}"></div>
+                                        </li>
+                                        <li>
                                             <a class="btn"
                                                th:href="@{'/ban-hang/xoa-gio-hang/'+ ${gioHang.chiTietGiay.idCTG}}">
                                                 <img src="/images/img/icons/delete-2.svg" alt="img">
@@ -481,112 +494,152 @@
                                     </ul>
                                 </th:block>
                             </div>
-                        </div>
-                        <div class="split-card">
-                        </div>
-                        <div class="card-body pt-0 pb-2">
                             <div class="setvalue">
                                 <ul>
                                     <li>
-                                        <h5>Subtotal </h5>
-                                        <h6>55.00$</h6>
-                                    </li>
-                                    <li>
-                                        <h5>Tax </h5>
-                                        <h6>5.00$</h6>
-                                    </li>
-                                    <li class="total-value">
-                                        <h5>Total </h5>
-                                        <h6>60.00$</h6>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12">
-                                        <a href="javascript:void(0);" class="btn btn-adds" data-bs-toggle="modal"
-                                           data-bs-target="#create"><i class="fa fa-plus me-2"></i>Add Customer</a>
-                                    </div>
-                                    <!--                                <div class="col-lg-12">-->
-                                    <!--                                    <div class="select-split ">-->
-                                    <!--                                        <div class="select-group w-100">-->
-                                    <!--                                            <select class="select">-->
-                                    <!--                                                <option>Walk-in Customer</option>-->
-                                    <!--                                                <option>Chris Moris</option>-->
-                                    <!--                                            </select>-->
-                                    <!--                                        </div>-->
-                                    <!--                                    </div>-->
-                                    <!--                                </div>-->
-                                    <!--                                <div class="col-lg-12">-->
-                                    <!--                                    <div class="select-split">-->
-                                    <!--                                        <div class="select-group w-100">-->
-                                    <!--                                            <select class="select">-->
-                                    <!--                                                <option>Product</option>-->
-                                    <!--                                                <option>Barcode</option>-->
-                                    <!--                                            </select>-->
-                                    <!--                                        </div>-->
-                                    <!--                                    </div>-->
-                                    <!--                                </div>-->
-                                    <!--                                <div class="col-12">-->
-                                    <!--                                    <div class="text-end">-->
-                                    <!--                                        <a class="btn btn-scanner-set"><img src="/images/img/icons/scanner1.svg"-->
-                                    <!--                                                                            alt="img" class="me-2">Scan bardcode</a>-->
-                                    <!--                                    </div>-->
-                                    <!--                                </div>-->
-                                </div>
-                            </div>
-                            <div class="setvaluecash">
-                                <ul>
-                                    <li>
-                                        <a href="javascript:void(0);" class="paymentmethod">
-                                            <img src="/images/img/icons/cash.svg" alt="img" class="me-2">
-                                            Cash
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);" class="paymentmethod">
-                                            <img src="/images/img/icons/debitcard.svg" alt="img" class="me-2">
-                                            Debit
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0);" class="paymentmethod">
-                                            <img src="/images/img/icons/scan.svg" alt="img" class="me-2">
-                                            Scan
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <div class="btn-totallabel">
-                                <h5>Checkout</h5>
-                                <h6>60.00$</h6>
-                            </div>
-                            <div class="btn-pos">
-                                <ul>
-                                    <li>
-                                        <a class="btn"><img src="/images/img/icons/pause1.svg" alt="img"
-                                                            class="me-1">Hold</a>
-                                    </li>
-                                    <li>
-                                        <a class="btn"><img src="/images/img/icons/edit-6.svg" alt="img"
-                                                            class="me-1">Quotation</a>
-                                    </li>
-                                    <li>
-                                        <a class="btn"><img src="/images/img/icons/trash12.svg" alt="img"
-                                                            class="me-1">Void</a>
-                                    </li>
-                                    <li>
-                                        <a class="btn"><img src="/images/img/icons/wallet1.svg" alt="img"
-                                                            class="me-1">Payment</a>
-                                    </li>
-                                    <li>
-                                        <a class="btn" data-bs-toggle="modal" data-bs-target="#recents"><img
-                                                src="/images/img/icons/transcation.svg" alt="img" class="me-1">
-                                            Transaction</a>
+                                        <h5>Tổng tiền </h5>
+                                        <h6 th:text="${tongTien}"></h6>
                                     </li>
                                 </ul>
                             </div>
                         </div>
+                        <div class="split-card">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div>
+                                        <label class="fw-semibold fs-3 m-3">Tài khoản</label>
+                                        <a class="btn btn-primary m-3" style="float: right"
+                                           th:href="@{'/ban-hang/list-khach-hang'}">
+                                            Chọn tài khoan
+                                        </a>
+                                    </div>
+                                    <div th:if="${khachHang==null}">
+                                        <label>Tên khách hàng : Khách lẻ</label>
+                                    </div>
+                                    <div th:if="${khachHang != null}" class="mt-5">
+                                        <div class="setvalue">
+                                            <ul>
+                                                <li>
+                                                    <h5>Họ tên :</h5>
+                                                    <h5 th:text="${khachHang.hoTenKH}"></h5>
+                                                </li>
+                                                <li>
+                                                    <h5>Số điện thoại:</h5>
+                                                    <h5 th:text="${khachHang.sdtKH}"></h5>
+                                                </li>
+                                                <li>
+                                                    <h5>Email : </h5>
+                                                    <h5 th:text="${khachHang.emailKH}"></h5>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="split-card">
+                            <div class="card-body pt-0 pb-2">
+                                <div><label class="fw-semibold fs-3 m-3">Thanh toán</label></div>
+                                <br>
+                                <div class="setvalue">
+                                    <ul>
+                                        <li>
+                                            <h5>Tạm tính :</h5>
+                                            <h6 th:text="${tongTien} +' $'"></h6>
+                                        </li>
+                                        <li>
+                                            <h5>Giảm giá :</h5>
+                                            <h6 th:text="'0 $'"></h6>
+                                        </li>
+                                        <li>
+                                            <h5>Tổng tiền : </h5>
+                                            <h5 class="text-danger"
+                                                th:text="${tongTien} +' $'"></h5>
+                                        </li>
+<!--                                        <li>-->
+<!--                                            <h5><b>Tiền khách đưa: </b></h5>-->
+<!--                                            <h5>-->
+<!--                                                <input class="form-control" type="number" id="moneyGiven" onchange="calculateChange()">-->
+<!--                                            </h5>-->
+<!--                                        </li>-->
+
+<!--                                        <li>-->
+<!--                                            <h5><b>Tiền thừa:</b></h5>-->
+<!--                                            <h5>-->
+<!--                                                <label id="changeLabel" name="tienThua" readonly>0 đ</label>-->
+<!--                                            </h5>-->
+<!--                                        </li>-->
+
+                                    </ul>
+                                </div>
+                                <div class="text-center">
+                                    <div class="dropdown mt-3">
+                                        <a class="btn btn-primary" th:href="@{'/ban-hang/thanh-toan'}"
+                                                onclick="return confirm('Ban co muon thanh toan')"
+                                                style="background-color: #37517E;cursor: pointer;color: white;border: none;padding: 10px 20px;border-radius: 10px">
+                                            Thanh toán
+                                        </a>
+                                        <a class="btn btn-success"
+                                           style="background-color: #37517E;cursor: pointer;color: white;border: none;padding: 10px 20px;border-radius: 10px">
+                                            In hóa đơn
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!--                                <div class="setvaluecash">-->
+                                <!--                                    <ul>-->
+                                <!--                                        <li>-->
+                                <!--                                            <a href="javascript:void(0);" class="paymentmethod">-->
+                                <!--                                                <img src="/images/img/icons/cash.svg" alt="img" class="me-2">-->
+                                <!--                                                Cash-->
+                                <!--                                            </a>-->
+                                <!--                                        </li>-->
+                                <!--                                        <li>-->
+                                <!--                                            <a href="javascript:void(0);" class="paymentmethod">-->
+                                <!--                                                <img src="/images/img/icons/debitcard.svg" alt="img" class="me-2">-->
+                                <!--                                                Debit-->
+                                <!--                                            </a>-->
+                                <!--                                        </li>-->
+                                <!--                                        <li>-->
+                                <!--                                            <a href="javascript:void(0);" class="paymentmethod">-->
+                                <!--                                                <img src="/images/img/icons/scan.svg" alt="img" class="me-2">-->
+                                <!--                                                Scan-->
+                                <!--                                            </a>-->
+                                <!--                                        </li>-->
+                                <!--                                    </ul>-->
+                                <!--                                </div>-->
+                                <!--                                <div class="btn-totallabel">-->
+                                <!--                                    <h5>Checkout</h5>-->
+                                <!--                                    <h6>60.00$</h6>-->
+                                <!--                                </div>-->
+                                <!--                                <div class="btn-pos">-->
+                                <!--                                    <ul>-->
+                                <!--                                        <li>-->
+                                <!--                                            <a class="btn"><img src="/images/img/icons/pause1.svg" alt="img"-->
+                                <!--                                                                class="me-1">Hold</a>-->
+                                <!--                                        </li>-->
+                                <!--                                        <li>-->
+                                <!--                                            <a class="btn"><img src="/images/img/icons/edit-6.svg" alt="img"-->
+                                <!--                                                                class="me-1">Quotation</a>-->
+                                <!--                                        </li>-->
+                                <!--                                        <li>-->
+                                <!--                                            <a class="btn"><img src="/images/img/icons/trash12.svg" alt="img"-->
+                                <!--                                                                class="me-1">Void</a>-->
+                                <!--                                        </li>-->
+                                <!--                                        <li>-->
+                                <!--                                            <a class="btn"><img src="/images/img/icons/wallet1.svg" alt="img"-->
+                                <!--                                                                class="me-1">Payment</a>-->
+                                <!--                                        </li>-->
+                                <!--                                        <li>-->
+                                <!--                                            <a class="btn" data-bs-toggle="modal" data-bs-target="#recents"><img-->
+                                <!--                                                    src="/images/img/icons/transcation.svg" alt="img" class="me-1">-->
+                                <!--                                                Transaction</a>-->
+                                <!--                                        </li>-->
+                                <!--                                    </ul>-->
+                                <!--                                </div>-->
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -907,10 +960,10 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td>2022-03-07</td>
+                                        <td>2022-05-07</td>
                                         <td>INV/SL0101</td>
                                         <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
+                                        <td>$ 1700.00</td>
                                         <td>
                                             <a class="me-3" href="javascript:void(0);">
                                                 <img src="/images/img/icons/eye.svg" alt="img">
@@ -924,10 +977,10 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>2022-03-07</td>
+                                        <td>2021-03-07</td>
                                         <td>INV/SL0101</td>
                                         <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
+                                        <td>$ 2000.00</td>
                                         <td>
                                             <a class="me-3" href="javascript:void(0);">
                                                 <img src="/images/img/icons/eye.svg" alt="img">
@@ -941,10 +994,10 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>2022-03-07</td>
+                                        <td>2002-03-07</td>
                                         <td>INV/SL0101</td>
                                         <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
+                                        <td>$ 13.00</td>
                                         <td>
                                             <a class="me-3" href="javascript:void(0);">
                                                 <img src="/images/img/icons/eye.svg" alt="img">
@@ -1070,10 +1123,10 @@
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td>2022-03-07</td>
+                                        <td>2022-09-07</td>
                                         <td>0101</td>
                                         <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
+                                        <td>$ 2000.00</td>
                                         <td>
                                             <a class="me-3" href="javascript:void(0);">
                                                 <img src="/images/img/icons/eye.svg" alt="img">
@@ -1087,10 +1140,10 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>2022-03-07</td>
+                                        <td>2021-03-07</td>
                                         <td>0102</td>
                                         <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
+                                        <td>$ 12.00</td>
                                         <td>
                                             <a class="me-3" href="javascript:void(0);">
                                                 <img src="/images/img/icons/eye.svg" alt="img">
@@ -1104,7 +1157,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>2022-03-07</td>
+                                        <td>2022-03-23</td>
                                         <td>0103</td>
                                         <td>Walk-in Customer</td>
                                         <td>$ 1500.00</td>
@@ -1121,7 +1174,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>2022-03-07</td>
+                                        <td>2022-03-10</td>
                                         <td>0104</td>
                                         <td>Walk-in Customer</td>
                                         <td>$ 1500.00</td>
@@ -1138,10 +1191,10 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>2022-03-07</td>
+                                        <td>2022-03-02</td>
                                         <td>0105</td>
                                         <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
+                                        <td>$ 1300.00</td>
                                         <td>
                                             <a class="me-3" href="javascript:void(0);">
                                                 <img src="/images/img/icons/eye.svg" alt="img">
@@ -1361,6 +1414,72 @@
         </div>
     </div>
 </div>
+<div th:if="${showModalKhachHang}" class="modal fade" id="chonTaiKhoan" tabindex="-1"
+     aria-labelledby="exampleModalLabel3"
+     aria-hidden="true"
+     data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel3">Khách hàng</h5>
+                <a type="button" th:href="@{'/ban-hang/cart/hoadon/'+ ${idHoaDon} }">
+                    <span aria-hidden="true">×</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <form method="get" action="/ban-hang/search-khach-hang">
+                    <div class="row">
+                        <div class="col-4">
+                            <input name="keyword" class="form-control" type="text" placeholder="Tên hoặc SDT">
+                        </div>
+                        <div class="col-3">
+                            <button type="submit" class="btn btn-dark">Search</button>
+                        </div>
+                        <div class="col-2 offset-3" style="float:right">
+                            <a class="btn" href="/ban-hang/khach-hang/viewAdd">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                     class="bi bi-person-add" viewBox="0 0 16 16">
+                                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
+                                    <path d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </form>
+
+                <table class="table mt-3 text-center">
+                    <thead>
+                    <tr>
+                        <th>Mã</th>
+                        <th>Họ tên</th>
+                        <th>SDT</th>
+                        <th>Trạng thái</th>
+                        <th colspan="2">Action</th>
+                    </tr>
+                    </thead>
+                    <tbdoy>
+                        <th:block th:each="listKH : ${listKhachHang}">
+                            <div th:if="${listKhachHang == null}" class="error-message text-center text-dark">Không tìm
+                                thấy khách hàng
+                            </div>
+                            <tr>
+                                <td th:text="${listKH.maKH}"></td>
+                                <td th:text="${listKH.hoTenKH}"></td>
+                                <td th:text="${listKH.sdtKH}"></td>
+                                <td th:text="${listKH.trangThai ==1 ? 'Đang hoạt động' : 'Ngừng hoạt động'}"></td>
+                                <td>
+                                    <a th:href="@{'/ban-hang/chon-khach-hang/'+ ${listKH.idKH}}"
+                                       class="btn btn-outline-secondary">Chon</a>
+                                </td>
+                            </tr>
+                        </th:block>
+
+                    </tbdoy>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div th:if="${showModal}" class="modal fade" id="chonSize" tabindex="-1" aria-labelledby="exampleModalLabel"
      aria-hidden="true"
@@ -1369,7 +1488,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Sản phẩm</h5>
-                <a type="button" href="/ban-hang/hien-thi">
+                <a type="button" th:href="@{'/ban-hang/cart/hoadon/'+ ${idHoaDon} }">
                     <span aria-hidden="true">×</span>
                 </a>
             </div>
@@ -1425,7 +1544,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel1">Sản phẩm</h5>
-                <a type="button" href="/ban-hang/hien-thi">
+                <a type="button" th:href="@{'/ban-hang/cart/hoadon/'+ ${idHoaDon}}">
                     <span aria-hidden="true">×</span>
                 </a>
 
@@ -1454,11 +1573,13 @@
                                                        class="form-control"/>
                                             </div>
                                             <div>
+                                                <label>Size : </label>
                                                 <input type="radio" th:name="idChiTietGiay" th:value="${quetQR.idCTG}"
                                                        th:text="${quetQR.size.soSize}" checked="true"/>
                                             </div>
                                             <div>
-                                                <label th:text="${quetQR.giaBan}"></label>
+                                                <label>Giá bán : </label>
+                                                <label th:text="${quetQR.giaBan} +' $'"></label>
                                             </div>
                                             <button type="submit" class="btn btn-secondary btn-center mt-3">Thêm
                                                 giỏ hàng
@@ -1470,6 +1591,47 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:if="${showModalAddKH}" class="modal fade" id="addKhachHang" tabindex="-1"
+     aria-labelledby="exampleModalLabel5"
+     aria-hidden="true"
+     data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel5">Thêm Khách Hàng</h5>
+                <a type="button" href="/ban-hang/list-khach-hang">
+                    <span aria-hidden="true">×</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <form th:object="${addKH}" method="post" th:action="@{/ban-hang/khach-hang/add}">
+                    <div class="row">
+                        <div class="form-group">
+                            <label>Họ tên</label>
+                            <input type="text" th:field="*{hoTenKH}">
+                            <br><br>
+                            <strong th:if="${#fields.hasErrors('hoTenKH')}"
+                                    class="alert alert-danger alert-dismissible fade"
+                                    role="alert" th:errors="*{hoTenKH}"></strong>
+                        </div>
+                        <div class="form-group">
+                            <label>Sdt</label>
+                            <input type="text" th:field="*{sdtKH}">
+                            <br><br>
+                            <strong th:if="${#fields.hasErrors('sdtKH')}"
+                                    class="alert alert-danger alert-dismissible fade"
+                                    role="alert" th:errors="*{sdtKH}"></strong>
+                        </div>
+                    </div>
+                    <div class="mt-3 text-center">
+                        <button type="submit" class="btn btn-submit me-2">Submit</button>
+                        <a href="/ban-hang/list-khach-hang" class="btn btn-cancel">Cancel</a>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -1502,12 +1664,22 @@
 <!-- JavaScript để kích hoạt modal mặc định -->
 <script>
     $(document).ready(function () {
+        $('#chonTaiKhoan').modal('show');
+    });
+</script>
+<script>
+    $(document).ready(function () {
         $('#chonSize').modal('show');
     });
 </script>
 <script>
     $(document).ready(function () {
         $('#quetQR').modal('show');
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#addKhachHang').modal('show');
     });
 </script>
 <script type="text/javascript">
@@ -1520,7 +1692,7 @@
 
         // Hiển thị video
         videoElement.style.display = 'block';
-        stopButton.style.display= 'block';
+        stopButton.style.display = 'block';
         Instascan.Camera.getCameras().then(function (cameras) {
             if (cameras.length > 0) {
                 scanner.start(cameras[0]);
@@ -1546,7 +1718,7 @@
 
         // Ẩn video
         videoElement.style.display = 'none';
-        stopButton.style.display= 'none';
+        stopButton.style.display = 'none';
         // Hiển thị lại nút quét QR
         scanButton.style.display = 'block';
     });
