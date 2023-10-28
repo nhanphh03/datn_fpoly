@@ -128,60 +128,15 @@
     text-decoration: underline;
   }
 
-  .button1,
-  .button2,
-  .button3 {
-    height: 40px;
-    width: 100px;
-    margin-right: 10px;
-    background-color: #834F36;
-    color: #ffffff;
-    font-size: 0.8rem;
-    border-radius: 5px ;
-    text-transform: uppercase;
-    border: none;
-  }
 </style>
 
 <body>
 
-<div style="margin-left: 820px;">
-  <button class="button1" id="button1">Manager</button>
-  <button class="button1" id="button2">Salesman</button>
-  <button class="button1" id="button3">Delivery</button>
-</div>
-
 <div id="div1" class="hidden">
 
-  <form th:action="@{/manager/login}" class="form" method="post">
+  <form th:action="@{/login}" class="form" method="post">
 
-    <p class="form-title">Log in as administrator</p>
-
-    <span th:text="${messageLogin}" style="color: red;"></span>
-    <div class="input-container">
-      <input placeholder="Email or Phone" name="username" type="text" id="username">
-    </div>
-
-    <div class="input-container">
-      <input placeholder="Password" name="password" type="password" class="form-control" id="password">
-    </div>
-
-    <button class="submit" type="submit" id="loginButton">
-      Login
-    </button>
-
-    <a class="forgotPassword" th:href="@{'/buyer/reset'}">Foggot Password</a>
-    <p class="signup-link">
-    </p>
-
-  </form>
-</div>
-
-<div id="div2" class="hidden">
-
-  <form th:action="@{/staff/login}" class="form" method="post">
-
-    <p class="form-title">Log in as a salesperson</p>
+    <p class="form-title">Log in </p>
 
     <span th:text="${messageLogin}" style="color: red;"></span>
     <div class="input-container">
@@ -199,62 +154,10 @@
     <a class="forgotPassword" th:href="@{'/buyer/reset'}">Foggot Password</a>
     <p class="signup-link">
     </p>
-
   </form>
 </div>
 
-<div id="div3" class="hidden">
 
-  <form th:action="@{/shipper/login}" class="form" method="post">
-
-    <p class="form-title">Log in as delivery staff</p>
-
-    <span th:text="${messageLogin}" style="color: red;"></span>
-    <div class="input-container">
-      <input placeholder="Email or Phone" name="username" type="text" id="username">
-    </div>
-
-    <div class="input-container">
-      <input placeholder="Password" name="password" type="password" class="form-control" id="password">
-    </div>
-
-    <button class="submit" type="submit" id="loginButton">
-      Login
-    </button>
-
-    <a class="forgotPassword" th:href="@{'/buyer/reset'}">Foggot Password</a>
-    <p class="signup-link">
-    </p>
-
-  </form>
-</div>
-
-<script>
-  const button1 = document.getElementById('button1');
-  const button2 = document.getElementById('button2');
-  const button3 = document.getElementById('button3');
-  const div1 = document.getElementById('div1');
-  const div2 = document.getElementById('div2');
-  const div3 = document.getElementById('div3');
-
-  button1.addEventListener('click', () => {
-    div1.style.display = 'block';
-    div2.style.display = 'none';
-    div3.style.display = 'none';
-  });
-
-  button2.addEventListener('click', () => {
-    div1.style.display = 'none';
-    div2.style.display = 'block';
-    div3.style.display = 'none';
-  });
-
-  button3.addEventListener('click', () => {
-    div1.style.display = 'none';
-    div2.style.display = 'none';
-    div3.style.display = 'block';
-  });
-</script>
 </body>
 
 </html>
