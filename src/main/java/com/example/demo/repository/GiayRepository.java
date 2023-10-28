@@ -25,4 +25,6 @@ public interface GiayRepository extends JpaRepository<Giay, UUID> {
     List<Giay> findByTrangThai(int trangThai);
 
     List<Giay> findAllByOrderByTgThemDesc();
+
+    Giay findByMaGiay(String maGiay);
 }

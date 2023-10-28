@@ -28,4 +28,6 @@ public interface SizeRepository extends JpaRepository<Size, UUID> {
     Size findBySoSize(int soSize);
 
     List<Size> findAllByOrderByTgThemDesc();
+
+    Size findByMaSize(String maSize);
 }

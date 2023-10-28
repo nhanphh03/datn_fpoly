@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.config.ExcelExporterSize;
 import com.example.demo.config.PDFExporterSizes;
 import com.example.demo.model.*;
+import com.example.demo.repository.SizeRepository;
 import com.example.demo.service.GiayChiTietService;
 import com.example.demo.service.SizeService;
 import com.lowagie.text.DocumentException;
@@ -32,6 +33,8 @@ public class SizeController {
     private GiayChiTietService giayChiTietService;
     @Autowired
     private HttpSession session;
+    @Autowired
+    private SizeRepository repository;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -51,7 +54,8 @@ public class SizeController {
             , @ModelAttribute("maSizeError") String maSizeError
             , @ModelAttribute("soSizeError") String soSizeError
             , @ModelAttribute("error") String error
-            , @ModelAttribute("userInput") Size userInput) {
+            , @ModelAttribute("userInput") Size userInput
+            , @ModelAttribute("Errormessage") String Errormessage) {
         List<Size> size = sizeService.getAllSize();
         model.addAttribute("size", size);
         //
@@ -71,6 +75,10 @@ public class SizeController {
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInput != null) {
             model.addAttribute("sizeAdd", userInput);
+        }
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
         }
         return "manage/size-giay";
     }
@@ -94,6 +102,12 @@ public class SizeController {
             }
             return "redirect:/manage/size";
         }
+        Size existingSize = repository.findByMaSize(size.getMaSize());
+        if (existingSize != null) {
+            redirectAttributes.addFlashAttribute("userInput", size);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return "redirect:/manage/size";
+        }
         if (size != null) {
             Size sizeAdd = new Size();
             sizeAdd.setMaSize(size.getMaSize());
@@ -102,7 +116,6 @@ public class SizeController {
             sizeAdd.setTrangThai(1);
             sizeService.save(sizeAdd);
         } else {
-            redirectAttributes.addFlashAttribute("Errormessage", true);
             return "redirect:/manage/size";
         }
         redirectAttributes.addFlashAttribute("message", true);
@@ -133,7 +146,8 @@ public class SizeController {
             , @ModelAttribute("maSizeError") String maSizeError
             , @ModelAttribute("soSizeError") String soSizeError
             , @ModelAttribute("error") String error
-            , @ModelAttribute("userInput") Size userInput) {
+            , @ModelAttribute("userInput") Size userInput
+            , @ModelAttribute("Errormessage") String Errormessage) {
         Size size = sizeService.getByIdSize(id);
         model.addAttribute("size", size);
         //
@@ -152,6 +166,11 @@ public class SizeController {
         }
         //
         session.setAttribute("idSize", id);
+        //
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
+        }
         return "manage/update-size";
     }
 
@@ -169,6 +188,12 @@ public class SizeController {
                 redirectAttributes.addFlashAttribute("userInput", size);
                 redirectAttributes.addFlashAttribute("error", "soSizeError");
             }
+            return link;
+        }
+        Size existingSize = repository.findByMaSize(size.getMaSize());
+        if (existingSize != null && !existingSize.getIdSize().equals(id)) {
+            redirectAttributes.addFlashAttribute("userInput", size);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
             return link;
         }
         if (sizeDb != null) {

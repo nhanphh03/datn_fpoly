@@ -5,6 +5,7 @@ import com.example.demo.config.ExcelExporterSize;
 import com.example.demo.config.PDFExporterMauSac;
 import com.example.demo.config.PDFExporterSizes;
 import com.example.demo.model.*;
+import com.example.demo.repository.MauSacRepository;
 import com.example.demo.service.GiayChiTietService;
 import com.example.demo.service.MauSacService;
 import com.lowagie.text.DocumentException;
@@ -34,6 +35,8 @@ public class MauSacController {
     private GiayChiTietService giayChiTietService;
     @Autowired
     private HttpSession session;
+    @Autowired
+    private MauSacRepository repository;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -48,7 +51,7 @@ public class MauSacController {
             , @ModelAttribute("maError") String maError
             , @ModelAttribute("maMauError") String maMauError
             , @ModelAttribute("tenMauError") String tenMauError
-            , @ModelAttribute("error") String error, @ModelAttribute("userInput") MauSac userInput) {
+            , @ModelAttribute("error") String error, @ModelAttribute("userInput") MauSac userInput, @ModelAttribute("Errormessage") String Errormessage) {
 
         List<MauSac> mauSac = mauSacService.getALlMauSac();
         model.addAttribute("mauSac", mauSac);
@@ -70,6 +73,10 @@ public class MauSacController {
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInput != null) {
             model.addAttribute("mauSacAdd", userInput);
+        }
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
         }
         return "manage/mau-sac";
     }
@@ -97,6 +104,14 @@ public class MauSacController {
             }
             return "redirect:/manage/mau-sac";
         }
+        //
+        MauSac existingMau = repository.findByMa(mauSac.getMa());
+        if (existingMau != null) {
+            redirectAttributes.addFlashAttribute("userInput", mauSac);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return "redirect:/manage/mau-sac";
+        }
+        //
         MauSac mauSac1 = new MauSac();
         mauSac1.setMa(mauSac.getMa());
         mauSac1.setMaMau(mauSac.getMaMau());
@@ -131,7 +146,7 @@ public class MauSacController {
             , @ModelAttribute("maError") String maError
             , @ModelAttribute("maMauError") String maMauError
             , @ModelAttribute("tenMauError") String tenMauError
-            , @ModelAttribute("error") String error, @ModelAttribute("userInput") MauSac userInput) {
+            , @ModelAttribute("error") String error, @ModelAttribute("userInput") MauSac userInput, @ModelAttribute("Errormessage") String Errormessage) {
         MauSac mauSac = mauSacService.getByIdMauSac(id);
         model.addAttribute("mauSac", mauSac);
         //
@@ -153,6 +168,11 @@ public class MauSacController {
         }
         //
         session.setAttribute("id", id);
+        //
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
+        }
         return "manage/update-mau-sac";
     }
 
@@ -176,6 +196,14 @@ public class MauSacController {
             }
             return link;
         }
+        //
+        MauSac existingMau = repository.findByMa(mauSac.getMa());
+        if (existingMau != null && !existingMau.getIdMau().equals(id)) {
+            redirectAttributes.addFlashAttribute("userInput", mauSac);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return link;
+        }
+        //
         if (mauSacDb != null) {
             mauSacDb.setMa(mauSac.getMa());
             mauSacDb.setMaMau(mauSac.getMaMau());

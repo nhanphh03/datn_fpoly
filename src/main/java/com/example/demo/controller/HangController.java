@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.config.*;
 import com.example.demo.model.*;
 import com.example.demo.repository.GiayChiTietRepository;
+import com.example.demo.repository.HangRepository;
 import com.example.demo.service.GiayChiTietService;
 import com.example.demo.service.GiayService;
 import com.example.demo.service.HangService;
@@ -37,6 +38,9 @@ public class HangController {
     private GiayController giayController;
     @Autowired
     private HttpSession session;
+    @Autowired
+    private HangRepository repository;
+
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -50,7 +54,7 @@ public class HangController {
     public String dsHang(Model model, @ModelAttribute("message") String message
             , @ModelAttribute("maHangError") String maHangError
             , @ModelAttribute("tenHangError") String tenHangError
-            , @ModelAttribute("error") String error, @ModelAttribute("userInput") Hang userInput) {
+            , @ModelAttribute("error") String error, @ModelAttribute("userInput") Hang userInput, @ModelAttribute("Errormessage") String Errormessage) {
 
         List<Hang> hang = hangService.getALlHang();
         model.addAttribute("hang", hang);
@@ -69,6 +73,10 @@ public class HangController {
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInput != null) {
             model.addAttribute("hangAdd", userInput);
+        }
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
         }
         return "manage/hang";
     }
@@ -93,6 +101,14 @@ public class HangController {
             }
             return "redirect:/manage/hang";
         }
+        //
+        Hang existingHang = repository.findByMaHang(hang.getMaHang());
+        if (existingHang != null) {
+            redirectAttributes.addFlashAttribute("userInput", hang);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return "redirect:/manage/hang";
+        }
+        //
         Hang hang1 = new Hang();
         hang1.setLogoHang(hang.getLogoHang());
         hang1.setMaHang(hang.getMaHang());
@@ -127,7 +143,8 @@ public class HangController {
             , @ModelAttribute("message") String message
             , @ModelAttribute("maHangError") String maHangError
             , @ModelAttribute("tenHangError") String tenHangError
-            , @ModelAttribute("error") String error, @ModelAttribute("userInput") Hang userInput) {
+            , @ModelAttribute("error") String error, @ModelAttribute("userInput") Hang userInput
+            , @ModelAttribute("Errormessage") String Errormessage) {
         Hang hang = hangService.getByIdHang(id);
         model.addAttribute("hang", hang);
         //
@@ -146,11 +163,15 @@ public class HangController {
         }
         //
         session.setAttribute("id", id);
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
+        }
         return "manage/update-hang";
     }
 
     @PostMapping("/hang/viewUpdate/{id}")
-    public String updateHang(@PathVariable UUID id,@Valid @ModelAttribute("hang") Hang hang, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String updateHang(@PathVariable UUID id, @Valid @ModelAttribute("hang") Hang hang, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         Hang hangDb = hangService.getByIdHang(id);
         UUID idHang = (UUID) session.getAttribute("id");
         String link = "redirect:/manage/hang/viewUpdate/" + idHang;
@@ -165,6 +186,14 @@ public class HangController {
             }
             return link;
         }
+        //
+        Hang existingHang = repository.findByMaHang(hang.getMaHang());
+        if (existingHang != null && !existingHang.getIdHang().equals(id)) {
+            redirectAttributes.addFlashAttribute("userInput", hang);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return link;
+        }
+        //
         if (hangDb != null) {
 //            hangDb.setLogoHang(hang.getLogoHang());
             hangDb.setMaHang(hang.getMaHang());

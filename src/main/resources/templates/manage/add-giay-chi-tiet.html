@@ -974,7 +974,7 @@
         <div class="toast-message">Hãy chọn trường size.</div>
     </div>
 </div>
-//Size
+<!--//Size-->
 <div th:if="${messageSize}" id="successSize" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
         <button type="button" class="toast-close-button" role="button">×</button>
@@ -996,7 +996,7 @@
         <div class="toast-message">Giá trị của số Size phải lớn hơn hoặc bằng 1. Và nhỏ hơn hoặc bằng 50.</div>
     </div>
 </div>
-//Màu
+<!--//Màu-->
 <div th:if="${messageMau}" id="successMau" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
         <button type="button" class="toast-close-button" role="button">×</button>
@@ -1025,7 +1025,7 @@
         <div class="toast-message">Tên màu không được để trống.</div>
     </div>
 </div>
-//Giay
+<!--//Giay-->
 <div th:if="${messageGiay}" id="successGiay" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
         <button type="button" class="toast-close-button" role="button">×</button>
@@ -1061,7 +1061,7 @@
         <div class="toast-message">Chất Liệu không được bỏ trống.</div>
     </div>
 </div>
-//Anh
+<!--//Anh-->
 <div th:if="${messageAnh}" id="successAnh" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
         <button type="button" class="toast-close-button" role="button">×</button>
@@ -1076,7 +1076,7 @@
         <div class="toast-message">Mã không được trống.</div>
     </div>
 </div>
-//Hãng
+<!--//Hãng-->
 <div th:if="${messageHang}" id="successHang" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
         <button type="button" class="toast-close-button" role="button">×</button>
@@ -1098,7 +1098,7 @@
         <div class="toast-message">Tên Hãng không được bỏ trống.</div>
     </div>
 </div>
-//Chất liệu
+<!--//Chất liệu-->
 <div th:if="${messageChatLieu}" id="successChatLieu" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
         <button type="button" class="toast-close-button" role="button">×</button>
@@ -1118,6 +1118,35 @@
         <button type="button" class="toast-close-button" role="button">×</button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Tên Chất Liệu không được bỏ trống.</div>
+    </div>
+</div>
+<!--//check mã-->
+<div th:if="${ErrormessageGiay}" id="checkMaGiay" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Giày đã tồn tại.</div>
+    </div>
+</div>
+<div th:if="${ErrormessageMau}" id="checkMaMau" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Màu đã tồn tại.</div>
+    </div>
+</div>
+<div th:if="${ErrormessageSize}" id="checkMaSize" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Size đã tồn tại.</div>
+    </div>
+</div>
+<div th:if="${ErrormessageAnh}" id="checkMaAnh" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Ảnh đã tồn tại.</div>
     </div>
 </div>
 <script src="/js/jquery-3.6.0.min.js"></script>
@@ -1443,6 +1472,34 @@
         var successChatLieu = document.getElementById('successChatLieu');
         if (successChatLieu) {
             successChatLieu.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMaGiay = document.getElementById('checkMaGiay');
+        if (checkMaGiay) {
+            checkMaGiay.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMaMau = document.getElementById('checkMaMau');
+        if (checkMaMau) {
+            checkMaMau.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMaSize = document.getElementById('checkMaSize');
+        if (checkMaSize) {
+            checkMaSize.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMaAnh = document.getElementById('checkMaAnh');
+        if (checkMaAnh) {
+            checkMaAnh.style.display = 'none';
         }
     }, 5000);
 </script>

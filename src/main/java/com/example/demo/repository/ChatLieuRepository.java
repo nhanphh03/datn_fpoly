@@ -14,4 +14,6 @@ public interface ChatLieuRepository extends JpaRepository<ChatLieu, UUID> {
     ChatLieu findByTenChatLieu(String name);
 
     List<ChatLieu> findAllByOrderByTgThemDesc();
+
+    ChatLieu findByMaChatLieu(String maChatLieu);
 }

@@ -2,6 +2,10 @@ package com.example.demo.controller;
 
 import com.example.demo.config.*;
 import com.example.demo.model.*;
+import com.example.demo.repository.GiayRepository;
+import com.example.demo.repository.HinhAnhRepository;
+import com.example.demo.repository.MauSacRepository;
+import com.example.demo.repository.SizeRepository;
 import com.example.demo.service.*;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -50,7 +54,14 @@ public class GiayChiTietController {
     private ChatLieuService chatLieuService;
     @Autowired
     private HttpSession session;
-
+    @Autowired
+    private GiayRepository giayRepository;
+    @Autowired
+    private MauSacRepository mauSacRepository;
+    @Autowired
+    private HinhAnhRepository hinhAnhRepository;
+    @Autowired
+    private SizeRepository sizeRepository;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -138,7 +149,12 @@ public class GiayChiTietController {
             , @ModelAttribute("maChatLieuError") String maChatLieuError
             , @ModelAttribute("tenChatLieuError") String tenChatLieuError
             , @ModelAttribute("errorChatLieu") String errorChatLieu
-            , @ModelAttribute("userInput") ChatLieu userInputChatLieu) {
+            , @ModelAttribute("userInput") ChatLieu userInputChatLieu
+
+            , @ModelAttribute("ErrormessageGiay") String ErrormessageGiay
+            , @ModelAttribute("ErrormessageMau") String ErrormessageMau
+            , @ModelAttribute("ErrormessageSize") String ErrormessageSize
+            , @ModelAttribute("ErrormessageAnh") String ErrormessageAnh) {
         List<HinhAnh> hinhAnhList = hinhAnhService.getAllHinhAnh();
         Collections.sort(hinhAnhList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("hinhAnh", hinhAnhList);
@@ -292,6 +308,19 @@ public class GiayChiTietController {
         if (userInputChatLieu != null) {
             model.addAttribute("chatLieuAdd", userInputChatLieu);
         }
+        //check ma
+        if (ErrormessageGiay == null || !"true".equals(ErrormessageGiay)) {
+            model.addAttribute("ErrormessageGiay", false);
+        }
+        if (ErrormessageMau == null || !"true".equals(ErrormessageMau)) {
+            model.addAttribute("ErrormessageMau", false);
+        }
+        if (ErrormessageSize == null || !"true".equals(ErrormessageSize)) {
+            model.addAttribute("ErrormessageSize", false);
+        }
+        if (ErrormessageAnh == null || !"true".equals(ErrormessageAnh)) {
+            model.addAttribute("ErrormessageAnh", false);
+        }
         return "manage/add-giay-chi-tiet";
     }
 
@@ -322,7 +351,11 @@ public class GiayChiTietController {
 
             , @ModelAttribute("messageAnh") String messageAnh
             , @ModelAttribute("maHinhAnhError") String maHinhAnhError
-            , @ModelAttribute("userInputAnh") HinhAnh userInputAnh) {
+            , @ModelAttribute("userInputAnh") HinhAnh userInputAnh
+
+            , @ModelAttribute("ErrormessageMau") String ErrormessageMau
+            , @ModelAttribute("ErrormessageSize") String ErrormessageSize
+            , @ModelAttribute("ErrormessageAnh") String ErrormessageAnh) {
         List<HinhAnh> hinhAnhList = hinhAnhService.getAllHinhAnh();
         Collections.sort(hinhAnhList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("hinhAnh", hinhAnhList);
@@ -422,6 +455,16 @@ public class GiayChiTietController {
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInputAnh != null) {
             model.addAttribute("hinhAnhAdd", userInputAnh);
+        }
+        //check ma
+        if (ErrormessageMau == null || !"true".equals(ErrormessageMau)) {
+            model.addAttribute("ErrormessageMau", false);
+        }
+        if (ErrormessageSize == null || !"true".equals(ErrormessageSize)) {
+            model.addAttribute("ErrormessageSize", false);
+        }
+        if (ErrormessageAnh == null || !"true".equals(ErrormessageAnh)) {
+            model.addAttribute("ErrormessageAnh", false);
         }
         return "manage/add-chi-tiet-giay";
     }
@@ -640,6 +683,14 @@ public class GiayChiTietController {
             }
             return "redirect:/manage/giay-chi-tiet/viewAdd";
         }
+        //
+        Giay existingGiay = giayRepository.findByMaGiay(giay.getMaGiay());
+        if (existingGiay != null) {
+            redirectAttributes.addFlashAttribute("userInputGiay", giay);
+            redirectAttributes.addFlashAttribute("ErrormessageGiay", true);
+            return "redirect:/manage/giay-chi-tiet/viewAdd";
+        }
+        //
         Giay giay1 = new Giay();
         giay1.setMaGiay(giay.getMaGiay());
         giay1.setTenGiay(giay.getTenGiay());
@@ -741,6 +792,14 @@ public class GiayChiTietController {
             }
             return link;
         }
+        //
+        MauSac existingMau = mauSacRepository.findByMa(mauSac.getMa());
+        if (existingMau != null) {
+            redirectAttributes.addFlashAttribute("userInputMau", mauSac);
+            redirectAttributes.addFlashAttribute("ErrormessageMau", true);
+            return link;
+        }
+        //
         MauSac mauSac1 = new MauSac();
         mauSac1.setMa(mauSac.getMa());
         mauSac1.setMaMau(mauSac.getMaMau());
@@ -768,17 +827,24 @@ public class GiayChiTietController {
                 redirectAttributes.addFlashAttribute("error", "tenMauError");
             }
             return "redirect:/manage/giay-chi-tiet/viewAdd";
-        } else {
-            MauSac mauSac1 = new MauSac();
-            mauSac1.setMa(mauSac.getMa());
-            mauSac1.setMaMau(mauSac.getMaMau());
-            mauSac1.setTenMau(mauSac.getTenMau());
-            mauSac1.setTgThem(new Date());
-            mauSac1.setTrangThai(1);
-            mauSacService.save(mauSac1);
-            redirectAttributes.addFlashAttribute("messageMau", true);
+        }
+        //
+        MauSac existingMau = mauSacRepository.findByMa(mauSac.getMa());
+        if (existingMau != null) {
+            redirectAttributes.addFlashAttribute("userInputMau", mauSac);
+            redirectAttributes.addFlashAttribute("ErrormessageMau", true);
             return "redirect:/manage/giay-chi-tiet/viewAdd";
         }
+        //
+        MauSac mauSac1 = new MauSac();
+        mauSac1.setMa(mauSac.getMa());
+        mauSac1.setMaMau(mauSac.getMaMau());
+        mauSac1.setTenMau(mauSac.getTenMau());
+        mauSac1.setTgThem(new Date());
+        mauSac1.setTrangThai(1);
+        mauSacService.save(mauSac1);
+        redirectAttributes.addFlashAttribute("messageMau", true);
+        return "redirect:/manage/giay-chi-tiet/viewAdd";
     }
 
     @PostMapping("/chi-tiet-giay/size/viewAdd/add")
@@ -796,6 +862,14 @@ public class GiayChiTietController {
             }
             return link;
         }
+        //
+        Size existingSize = sizeRepository.findByMaSize(size.getMaSize());
+        if (existingSize != null) {
+            redirectAttributes.addFlashAttribute("userInputSize", size);
+            redirectAttributes.addFlashAttribute("ErrormessageSize", true);
+            return link;
+        }
+        //
         Size sizeAdd = new Size();
         sizeAdd.setMaSize(size.getMaSize());
         sizeAdd.setSoSize(size.getSoSize());
@@ -819,6 +893,14 @@ public class GiayChiTietController {
             }
             return "redirect:/manage/giay-chi-tiet/viewAdd";
         }
+        //
+        Size existingSize = sizeRepository.findByMaSize(size.getMaSize());
+        if (existingSize != null) {
+            redirectAttributes.addFlashAttribute("userInputSize", size);
+            redirectAttributes.addFlashAttribute("ErrormessageSize", true);
+            return "redirect:/manage/giay-chi-tiet/viewAdd";
+        }
+        //
         Size sizeAdd = new Size();
         sizeAdd.setMaSize(size.getMaSize());
         sizeAdd.setSoSize(size.getSoSize());
@@ -840,6 +922,14 @@ public class GiayChiTietController {
             }
             return link;
         }
+        //
+        HinhAnh existingAnh = hinhAnhRepository.findByMaAnh(hinhAnh.getMaAnh());
+        if (existingAnh != null) {
+            redirectAttributes.addFlashAttribute("userInputAnh", hinhAnh);
+            redirectAttributes.addFlashAttribute("ErrormessageAnh", true);
+            return link;
+        }
+        //
         HinhAnh hinhAnh1 = new HinhAnh();
         hinhAnh1.setMaAnh(hinhAnh.getMaAnh());
         hinhAnh1.setUrl1(hinhAnh.getUrl1());
@@ -862,6 +952,14 @@ public class GiayChiTietController {
             }
             return "redirect:/manage/giay-chi-tiet/viewAdd";
         }
+        //
+        HinhAnh existingAnh = hinhAnhRepository.findByMaAnh(hinhAnh.getMaAnh());
+        if (existingAnh != null) {
+            redirectAttributes.addFlashAttribute("userInputAnh", hinhAnh);
+            redirectAttributes.addFlashAttribute("ErrormessageAnh", true);
+            return "redirect:/manage/giay-chi-tiet/viewAdd";
+        }
+        //
         HinhAnh hinhAnh1 = new HinhAnh();
         hinhAnh1.setMaAnh(hinhAnh.getMaAnh());
         hinhAnh1.setUrl1(hinhAnh.getUrl1());
@@ -1050,7 +1148,7 @@ public class GiayChiTietController {
     }
 
     @PostMapping("/giay-chi-tiet/viewUpdate/{id}")
-    public String updateGiayChiTiet(@PathVariable UUID id,@Valid @ModelAttribute("giayChiTiet") ChiTietGiay chiTietGiay,
+    public String updateGiayChiTiet(@PathVariable UUID id, @Valid @ModelAttribute("giayChiTiet") ChiTietGiay chiTietGiay,
                                     BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         ChiTietGiay chiTietGiayDb = giayChiTietService.getByIdChiTietGiay(id);
         UUID idGiayCT = (UUID) session.getAttribute("id");
@@ -1115,7 +1213,7 @@ public class GiayChiTietController {
     }
 
     @PostMapping("/chi-tiet-giay/viewUpdate/{id}")
-    public String updateChiTietGiay(@PathVariable UUID id,@Valid @ModelAttribute("giayChiTiet") ChiTietGiay chiTietGiay,
+    public String updateChiTietGiay(@PathVariable UUID id, @Valid @ModelAttribute("giayChiTiet") ChiTietGiay chiTietGiay,
                                     BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         ChiTietGiay chiTietGiayDb = giayChiTietService.getByIdChiTietGiay(id);
         UUID idCTG = (UUID) session.getAttribute("id");

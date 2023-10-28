@@ -941,6 +941,28 @@
         <div class="toast-message">Mã không được trống.</div>
     </div>
 </div>
+<!--check ma-->
+<div th:if="${ErrormessageMau}" id="checkMaMau" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Màu đã tồn tại.</div>
+    </div>
+</div>
+<div th:if="${ErrormessageSize}" id="checkMaSize" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Size đã tồn tại.</div>
+    </div>
+</div>
+<div th:if="${ErrormessageAnh}" id="checkMaAnh" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Ảnh đã tồn tại.</div>
+    </div>
+</div>
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
@@ -1183,6 +1205,27 @@
         var successAnh = document.getElementById('successAnh');
         if (successAnh) {
             successAnh.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMaMau = document.getElementById('checkMaMau');
+        if (checkMaMau) {
+            checkMaMau.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMaSize = document.getElementById('checkMaSize');
+        if (checkMaSize) {
+            checkMaSize.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMaAnh = document.getElementById('checkMaAnh');
+        if (checkMaAnh) {
+            checkMaAnh.style.display = 'none';
         }
     }, 5000);
 </script>

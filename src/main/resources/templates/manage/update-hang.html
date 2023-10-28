@@ -387,6 +387,13 @@
         <div class="toast-message">Tên hãng không được bỏ trống.</div>
     </div>
 </div>
+<div th:if="${Errormessage}" id="checkMa" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Hãng đã tồn tại.</div>
+    </div>
+</div>
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
@@ -440,6 +447,13 @@
         var warning2 = document.getElementById('warning2');
         if (warning2) {
             warning2.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMa = document.getElementById('checkMa');
+        if (checkMa) {
+            checkMa.style.display = 'none';
         }
     }, 5000);
 </script>
