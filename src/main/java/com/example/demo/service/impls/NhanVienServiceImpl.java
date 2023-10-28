@@ -24,13 +24,13 @@ public class NhanVienServiceImpl implements NhanVienService {
     private ChucVuRepsitory chucVuRepsitory;
 
     @Override
-    public NhanVien checkByEmailAndChucVuAndPass(String email, String pass, ChucVu chucVu) {
-        return nhanVienRepsitory.findByEmailNVAndMatKhauAndChucVuAndTrangThai(email, pass, chucVu, 1);
+    public NhanVien checkByEmailAndPass(String email, String pass) {
+        return nhanVienRepsitory.findByEmailNVAndMatKhauAndTrangThai(email, pass, 1);
     }
 
     @Override
-    public NhanVien checkBySDTAndChucVuAndPass(String sdt, String pass, ChucVu chucVu) {
-        return nhanVienRepsitory.findBySdtNVAndMatKhauAndChucVuAndTrangThai(sdt, pass, chucVu, 1);
+    public NhanVien checkBySDTAndPass(String sdt, String pass) {
+        return nhanVienRepsitory.findBySdtNVAndMatKhauAndTrangThai(sdt, pass, 1);
     }
 
     @Override

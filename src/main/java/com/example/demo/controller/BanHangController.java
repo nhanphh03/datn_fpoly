@@ -70,8 +70,7 @@ public class BanHangController {
         return "manage/activities";
     }
 
-
-    @GetMapping("/hien-thi")
+    @RequestMapping(value = {"", "/", "/home", "/hien-thi"})
     public String hienThi(Model model) {
         model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
         model.addAttribute("tongtien", this.tongTien);
