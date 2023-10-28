@@ -22,4 +22,8 @@ public interface KhachHangService{
     public KhachHang getByIdKhachHang(UUID id);
 
     void addKhachHang(KhachHang khachHang);
+
+    List<KhachHang> findKhachHangByTrangThai();
+
+    List<KhachHang> findKhachHangByKeyword(String keyword);
 }

@@ -11,4 +11,6 @@ public interface HoaDonChiTietService {
     void add(HoaDonChiTiet hoaDonChiTiet);
 
     List<HoaDonChiTiet> findByIdHoaDon(UUID id);
+
+    Double tongTien(List<HoaDonChiTiet> list);
 }
