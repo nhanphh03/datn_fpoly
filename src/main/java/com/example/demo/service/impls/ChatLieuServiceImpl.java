@@ -24,7 +24,7 @@ public class ChatLieuServiceImpl implements ChatLieuService {
 
     @Override
     public List<ChatLieu> getAllChatLieu() {
-        return chatLieuRepository.findAll();
+        return chatLieuRepository.findAllByOrderByTgThemDesc();
     }
 
     @Override

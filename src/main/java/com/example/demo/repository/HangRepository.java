@@ -14,4 +14,6 @@ public interface HangRepository extends JpaRepository<Hang, UUID> {
     List<Hang> findByMaHangOrTenHang(String maHang, String tenHang);
 
     Hang findByTenHang(String name);
+
+    List<Hang> findAllByOrderByTgThemDesc();
 }

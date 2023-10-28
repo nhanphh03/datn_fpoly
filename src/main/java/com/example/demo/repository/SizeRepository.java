@@ -26,4 +26,6 @@ public interface SizeRepository extends JpaRepository<Size, UUID> {
     List<ChiTietGiay> findByIdGiayAndMauSac2(UUID idGiay, String mauSac);
 
     Size findBySoSize(int soSize);
+
+    List<Size> findAllByOrderByTgThemDesc();
 }

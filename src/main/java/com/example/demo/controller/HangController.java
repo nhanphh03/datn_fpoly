@@ -53,7 +53,6 @@ public class HangController {
             , @ModelAttribute("error") String error, @ModelAttribute("userInput") Hang userInput) {
 
         List<Hang> hang = hangService.getALlHang();
-        Collections.sort(hang, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("hang", hang);
         //
         model.addAttribute("hangAdd", new Hang());
@@ -106,7 +105,7 @@ public class HangController {
     }
 
     @GetMapping("/hang/delete/{id}")
-    public String deleteHang(@PathVariable UUID id) {
+    public String deleteHang(@PathVariable UUID id, RedirectAttributes redirectAttributes) {
         Hang hang = hangService.getByIdHang(id);
         hang.setTrangThai(0);
         hang.setTgSua(new Date());
@@ -118,19 +117,54 @@ public class HangController {
             giayService.save(giay);
             giayController.deleteGiayById(giay.getIdGiay());
         }
+        //
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/hang";
     }
 
     @GetMapping("/hang/viewUpdate/{id}")
-    public String viewUpdateHang(@PathVariable UUID id, Model model) {
+    public String viewUpdateHang(@PathVariable UUID id, Model model
+            , @ModelAttribute("message") String message
+            , @ModelAttribute("maHangError") String maHangError
+            , @ModelAttribute("tenHangError") String tenHangError
+            , @ModelAttribute("error") String error, @ModelAttribute("userInput") Hang userInput) {
         Hang hang = hangService.getByIdHang(id);
         model.addAttribute("hang", hang);
+        //
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
+        if (maHangError == null || !"maHangError".equals(error)) {
+            model.addAttribute("maHangError", false);
+        }
+        if (tenHangError == null || !"tenHangError".equals(error)) {
+            model.addAttribute("tenHangError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInput != null) {
+            model.addAttribute("hangAdd", userInput);
+        }
+        //
+        session.setAttribute("id", id);
         return "manage/update-hang";
     }
 
     @PostMapping("/hang/viewUpdate/{id}")
-    public String updateHang(@PathVariable UUID id, @ModelAttribute("hang") Hang hang) {
+    public String updateHang(@PathVariable UUID id,@Valid @ModelAttribute("hang") Hang hang, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         Hang hangDb = hangService.getByIdHang(id);
+        UUID idHang = (UUID) session.getAttribute("id");
+        String link = "redirect:/manage/hang/viewUpdate/" + idHang;
+        if (bindingResult.hasErrors()) {
+            if (bindingResult.hasFieldErrors("maHang")) {
+                redirectAttributes.addFlashAttribute("userInput", hang);
+                redirectAttributes.addFlashAttribute("error", "maHangError");
+            }
+            if (bindingResult.hasFieldErrors("tenHang")) {
+                redirectAttributes.addFlashAttribute("userInput", hang);
+                redirectAttributes.addFlashAttribute("error", "tenHangError");
+            }
+            return link;
+        }
         if (hangDb != null) {
 //            hangDb.setLogoHang(hang.getLogoHang());
             hangDb.setMaHang(hang.getMaHang());
@@ -138,6 +172,7 @@ public class HangController {
             hangDb.setTgSua(new Date());
             hangDb.setTrangThai(hang.getTrangThai());
             hangService.save(hangDb);
+            redirectAttributes.addFlashAttribute("message", true);
         }
         // Nếu trạng thái của hãng là 1, hãy cập nhật trạng thái của tất cả sản phẩm chi tiết của hãng thành 1.
         if (hangDb.getTrangThai() == 1) {

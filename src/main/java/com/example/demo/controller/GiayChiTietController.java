@@ -49,7 +49,7 @@ public class GiayChiTietController {
     @Autowired
     private ChatLieuService chatLieuService;
     @Autowired
-    private HttpSession httpSession;
+    private HttpSession session;
 
 
     @ModelAttribute("dsTrangThai")
@@ -66,7 +66,6 @@ public class GiayChiTietController {
         List<Giay> giayList = giayService.getAllGiay();
         List<Size> sizeList = sizeService.getAllSize();
         List<MauSac> mauSacList = mauSacService.getALlMauSac();
-        Collections.sort(items, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("items", items);
         model.addAttribute("giayList", giayList);
         model.addAttribute("sizeList", sizeList);
@@ -336,8 +335,8 @@ public class GiayChiTietController {
         Collections.sort(sizeList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("size", sizeList);
         //
-        httpSession.removeAttribute("idViewAddCTG");
-        httpSession.setAttribute("idViewAddCTG", id);
+        session.removeAttribute("idViewAddCTG");
+        session.setAttribute("idViewAddCTG", id);
         //
         Giay giay = giayService.getByIdGiay(id);
         model.addAttribute("chiTietGiay", new ChiTietGiay());
@@ -525,7 +524,7 @@ public class GiayChiTietController {
     public String addChiTietGiay(@Valid @ModelAttribute("chiTietGiay") ChiTietGiay chiTietGiay, BindingResult bindingResult,
                                  RedirectAttributes redirectAttributes) {
         //
-        UUID idCTGViewAdd = (UUID) httpSession.getAttribute("idViewAddCTG");
+        UUID idCTGViewAdd = (UUID) session.getAttribute("idViewAddCTG");
         String link1 = "redirect:/manage/chi-tiet-giay/viewAdd/" + idCTGViewAdd;
         //
         UUID idGiay = chiTietGiay.getGiay().getIdGiay();
@@ -725,7 +724,7 @@ public class GiayChiTietController {
 
     @PostMapping("/chi-tiet-giay/mau-sac/viewAdd/add")
     public String addMauSac(@Valid @ModelAttribute("mauSacAdd") MauSac mauSac, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        UUID idCTGViewAdd = (UUID) httpSession.getAttribute("idViewAddCTG");
+        UUID idCTGViewAdd = (UUID) session.getAttribute("idViewAddCTG");
         String link = "redirect:/manage/chi-tiet-giay/viewAdd/" + idCTGViewAdd;
         if (bindingResult.hasErrors()) {
             if (bindingResult.hasFieldErrors("ma")) {
@@ -784,7 +783,7 @@ public class GiayChiTietController {
 
     @PostMapping("/chi-tiet-giay/size/viewAdd/add")
     public String addSize(@Valid @ModelAttribute("sizeAdd") Size size, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        UUID idCTGViewAdd = (UUID) httpSession.getAttribute("idViewAddCTG");
+        UUID idCTGViewAdd = (UUID) session.getAttribute("idViewAddCTG");
         String link = "redirect:/manage/chi-tiet-giay/viewAdd/" + idCTGViewAdd;
         if (bindingResult.hasErrors()) {
             if (bindingResult.hasFieldErrors("maSize")) {
@@ -832,7 +831,7 @@ public class GiayChiTietController {
 
     @PostMapping("/chi-tiet-giay/hinh-anh/viewAdd/add")
     public String addHinhAnhCTG(@Valid @ModelAttribute("hinhAnhAdd") HinhAnh hinhAnh, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        UUID idCTGViewAdd = (UUID) httpSession.getAttribute("idViewAddCTG");
+        UUID idCTGViewAdd = (UUID) session.getAttribute("idViewAddCTG");
         String link = "redirect:/manage/chi-tiet-giay/viewAdd/" + idCTGViewAdd;
         if (bindingResult.hasErrors()) {
             if (bindingResult.hasFieldErrors("maAnh")) {
@@ -877,25 +876,40 @@ public class GiayChiTietController {
     }
 
     @GetMapping("/giay-chi-tiet/delete/{id}")
-    public String deleteGiayChiTiet(@PathVariable UUID id) {
+    public String deleteGiayChiTiet(@PathVariable UUID id, RedirectAttributes redirectAttributes) {
         ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(id);
         chiTietGiay.setTrangThai(0);
         chiTietGiay.setTgSua(new Date());
         giayChiTietService.save(chiTietGiay);
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/giay-chi-tiet";
     }
 
     @GetMapping("/chi-tiet-giay/delete/{id}")
-    public String deleteChiTietGiay(@PathVariable UUID id) {
+    public String deleteChiTietGiay(@PathVariable UUID id, RedirectAttributes redirectAttributes) {
+        UUID idCTG = (UUID) session.getAttribute("idCTG");
+        String link = "redirect:/manage/giay/detail/" + idCTG;
         ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(id);
         chiTietGiay.setTrangThai(0);
         chiTietGiay.setTgSua(new Date());
         giayChiTietService.save(chiTietGiay);
-        return "redirect:/manage/chi-tiet-giay";
+        redirectAttributes.addFlashAttribute("message", true);
+        return link;
     }
 
     @GetMapping("/giay-chi-tiet/viewUpdate/{id}")
-    public String viewUpdateGiayChiTiet(@PathVariable UUID id, Model model) {
+    public String viewUpdateGiayChiTiet(@PathVariable UUID id, Model model
+            , @ModelAttribute("namSXError") String namSXError
+            , @ModelAttribute("namBHError") String namBHError
+            , @ModelAttribute("trongLuongError") String trongLuongError
+            , @ModelAttribute("giaBanError") String giaBanError
+            , @ModelAttribute("soLuongError") String soLuongError
+            , @ModelAttribute("mauSacError") String mauSacError
+            , @ModelAttribute("hinhAnhError") String hinhAnhError
+            , @ModelAttribute("giayError") String giayError
+            , @ModelAttribute("sizeError") String sizeError
+            , @ModelAttribute("error") String error
+            , @ModelAttribute("userInput") ChiTietGiay userInput) {
         ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(id);
         model.addAttribute("giayChiTiet", chiTietGiay);
         List<HinhAnh> hinhAnhList = hinhAnhService.getAllHinhAnh();
@@ -922,12 +936,165 @@ public class GiayChiTietController {
         model.addAttribute("chatLieuAdd", new ChatLieu());
         model.addAttribute("hang", hangService.getALlHang());
         model.addAttribute("chatLieu", chatLieuService.getAllChatLieu());
+        //
+        if (namSXError == null || !"namSXError".equals(error)) {
+            model.addAttribute("namSXError", false);
+        }
+        if (namBHError == null || !"namBHError".equals(error)) {
+            model.addAttribute("namBHError", false);
+        }
+        if (trongLuongError == null || !"trongLuongError".equals(error)) {
+            model.addAttribute("trongLuongError", false);
+        }
+        if (giaBanError == null || !"giaBanError".equals(error)) {
+            model.addAttribute("giaBanError", false);
+        }
+        if (soLuongError == null || !"soLuongError".equals(error)) {
+            model.addAttribute("soLuongError", false);
+        }
+        if (mauSacError == null || !"mauSacError".equals(error)) {
+            model.addAttribute("mauSacError", false);
+        }
+        if (hinhAnhError == null || !"hinhAnhError".equals(error)) {
+            model.addAttribute("hinhAnhError", false);
+        }
+        if (giayError == null || !"giayError".equals(error)) {
+            model.addAttribute("giayError", false);
+        }
+        if (sizeError == null || !"sizeError".equals(error)) {
+            model.addAttribute("sizeError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInput != null) {
+            model.addAttribute("giayChiTietUpdate", userInput);
+        }
+        //
+        session.setAttribute("id", id);
         return "manage/update-giay-chi-tiet";
     }
 
+    @GetMapping("/chi-tiet-giay/viewUpdate/{id}")
+    public String viewUpdateChiTietGiay(@PathVariable UUID id, Model model
+            , @ModelAttribute("namSXError") String namSXError
+            , @ModelAttribute("namBHError") String namBHError
+            , @ModelAttribute("trongLuongError") String trongLuongError
+            , @ModelAttribute("giaBanError") String giaBanError
+            , @ModelAttribute("soLuongError") String soLuongError
+            , @ModelAttribute("mauSacError") String mauSacError
+            , @ModelAttribute("hinhAnhError") String hinhAnhError
+            , @ModelAttribute("giayError") String giayError
+            , @ModelAttribute("sizeError") String sizeError
+            , @ModelAttribute("error") String error
+            , @ModelAttribute("userInput") ChiTietGiay userInput) {
+        ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(id);
+        model.addAttribute("giayChiTiet", chiTietGiay);
+        List<HinhAnh> hinhAnhList = hinhAnhService.getAllHinhAnh();
+        Collections.sort(hinhAnhList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("hinhAnh", hinhAnhList);
+        //
+        List<Giay> giayList = giayService.getAllGiay();
+        Collections.sort(giayList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("giay", giayList);
+        //
+        List<MauSac> mauSacList = mauSacService.getALlMauSac();
+        Collections.sort(mauSacList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("mauSac", mauSacList);
+        //
+        List<Size> sizeList = sizeService.getAllSize();
+        Collections.sort(sizeList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("size", sizeList);
+        //
+        model.addAttribute("giayAdd", new Giay());
+        model.addAttribute("mauSacAdd", new MauSac());
+        model.addAttribute("sizeAdd", new Size());
+        model.addAttribute("hinhAnhAdd", new HinhAnh());
+        model.addAttribute("hangAdd", new Hang());
+        model.addAttribute("chatLieuAdd", new ChatLieu());
+        model.addAttribute("hang", hangService.getALlHang());
+        model.addAttribute("chatLieu", chatLieuService.getAllChatLieu());
+        //
+        if (namSXError == null || !"namSXError".equals(error)) {
+            model.addAttribute("namSXError", false);
+        }
+        if (namBHError == null || !"namBHError".equals(error)) {
+            model.addAttribute("namBHError", false);
+        }
+        if (trongLuongError == null || !"trongLuongError".equals(error)) {
+            model.addAttribute("trongLuongError", false);
+        }
+        if (giaBanError == null || !"giaBanError".equals(error)) {
+            model.addAttribute("giaBanError", false);
+        }
+        if (soLuongError == null || !"soLuongError".equals(error)) {
+            model.addAttribute("soLuongError", false);
+        }
+        if (mauSacError == null || !"mauSacError".equals(error)) {
+            model.addAttribute("mauSacError", false);
+        }
+        if (hinhAnhError == null || !"hinhAnhError".equals(error)) {
+            model.addAttribute("hinhAnhError", false);
+        }
+        if (giayError == null || !"giayError".equals(error)) {
+            model.addAttribute("giayError", false);
+        }
+        if (sizeError == null || !"sizeError".equals(error)) {
+            model.addAttribute("sizeError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInput != null) {
+            model.addAttribute("giayChiTietUpdate", userInput);
+        }
+        //
+        session.setAttribute("id", id);
+        return "manage/update-chi-tiet-giay";
+    }
+
     @PostMapping("/giay-chi-tiet/viewUpdate/{id}")
-    public String updateGiayChiTiet(@PathVariable UUID id, @ModelAttribute("giayChiTiet") ChiTietGiay chiTietGiay) {
+    public String updateGiayChiTiet(@PathVariable UUID id,@Valid @ModelAttribute("giayChiTiet") ChiTietGiay chiTietGiay,
+                                    BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
         ChiTietGiay chiTietGiayDb = giayChiTietService.getByIdChiTietGiay(id);
+        UUID idGiayCT = (UUID) session.getAttribute("id");
+        String link = "redirect:/manage/giay-chi-tiet/viewUpdate/" + idGiayCT;
+        if (bindingResult.hasErrors()) {
+            //
+            if (bindingResult.hasFieldErrors("namSX")) {
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "namSXError");
+            }
+            if (bindingResult.hasFieldErrors("namBH")) {
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "namBHError");
+            }
+            if (bindingResult.hasFieldErrors("trongLuong")) {
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "trongLuongError");
+            }
+            if (bindingResult.hasFieldErrors("giaBan")) {
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "giaBanError");
+            }
+            if (bindingResult.hasFieldErrors("soLuong")) {
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "soLuongError");
+            }
+            if (bindingResult.hasFieldErrors("mauSac")) {
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "mauSacError");
+            }
+            if (bindingResult.hasFieldErrors("hinhAnh")) {
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "hinhAnhError");
+            }
+            if (bindingResult.hasFieldErrors("giay")) {
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "giayError");
+            }
+            if (bindingResult.hasFieldErrors("size")) {
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "sizeError");
+            }
+            return link;
+        }
         if (chiTietGiayDb != null) {
             chiTietGiayDb.setGiay(chiTietGiay.getGiay());
             chiTietGiayDb.setHinhAnh(chiTietGiay.getHinhAnh());
@@ -942,8 +1109,76 @@ public class GiayChiTietController {
             chiTietGiayDb.setTrangThai(chiTietGiay.getTrangThai());
             chiTietGiayDb.setTrongLuong(chiTietGiay.getTrongLuong());
             giayChiTietService.save(chiTietGiayDb);
+            redirectAttributes.addFlashAttribute("message", true);
         }
         return "redirect:/manage/giay-chi-tiet";
+    }
+
+    @PostMapping("/chi-tiet-giay/viewUpdate/{id}")
+    public String updateChiTietGiay(@PathVariable UUID id,@Valid @ModelAttribute("giayChiTiet") ChiTietGiay chiTietGiay,
+                                    BindingResult bindingResult, Model model, RedirectAttributes redirectAttributes) {
+        ChiTietGiay chiTietGiayDb = giayChiTietService.getByIdChiTietGiay(id);
+        UUID idCTG = (UUID) session.getAttribute("id");
+        String link = "redirect:/manage/chi-tiet-giay/viewUpdate/" + idCTG;
+        UUID idCTG1 = (UUID) session.getAttribute("idCTG");
+        String link1 = "redirect:/manage/giay/detail/" + idCTG1;
+        if (bindingResult.hasErrors()) {
+            //
+            if (bindingResult.hasFieldErrors("namSX")) {
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "namSXError");
+            }
+            if (bindingResult.hasFieldErrors("namBH")) {
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "namBHError");
+            }
+            if (bindingResult.hasFieldErrors("trongLuong")) {
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "trongLuongError");
+            }
+            if (bindingResult.hasFieldErrors("giaBan")) {
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "giaBanError");
+            }
+            if (bindingResult.hasFieldErrors("soLuong")) {
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "soLuongError");
+            }
+            if (bindingResult.hasFieldErrors("mauSac")) {
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "mauSacError");
+            }
+            if (bindingResult.hasFieldErrors("hinhAnh")) {
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "hinhAnhError");
+            }
+            if (bindingResult.hasFieldErrors("giay")) {
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "giayError");
+            }
+            if (bindingResult.hasFieldErrors("size")) {
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "sizeError");
+            }
+            return link;
+        }
+        if (chiTietGiayDb != null) {
+            chiTietGiayDb.setGiay(chiTietGiay.getGiay());
+            chiTietGiayDb.setHinhAnh(chiTietGiay.getHinhAnh());
+            chiTietGiayDb.setMauSac(chiTietGiay.getMauSac());
+            chiTietGiayDb.setSize(chiTietGiay.getSize());
+            chiTietGiayDb.setGiaBan(chiTietGiay.getGiaBan());
+            chiTietGiayDb.setMaNVSua(chiTietGiay.getMaNVSua());
+            chiTietGiayDb.setNamBH(chiTietGiay.getNamBH());
+            chiTietGiayDb.setNamSX(chiTietGiay.getNamSX());
+            chiTietGiayDb.setSoLuong(chiTietGiay.getSoLuong());
+            chiTietGiayDb.setTgSua(new Date());
+            chiTietGiayDb.setTrangThai(chiTietGiay.getTrangThai());
+            chiTietGiayDb.setTrongLuong(chiTietGiay.getTrongLuong());
+            giayChiTietService.save(chiTietGiayDb);
+            redirectAttributes.addFlashAttribute("message", true);
+        }
+        return link1;
     }
 
     @GetMapping("/barCodeTest")

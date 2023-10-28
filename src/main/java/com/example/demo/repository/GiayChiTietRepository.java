@@ -37,4 +37,6 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
     List<MauSac> findDistinctMauSacByGiayAndTrangThai(Giay giay);
 
     List<ChiTietGiay> findByMauSacAndGiayAndTrangThai(MauSac mauSac, Giay giay, int trangThai);
+
+    List<ChiTietGiay> findAllByOrderByTgThemDesc();
 }

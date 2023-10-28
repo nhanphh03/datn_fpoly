@@ -16,7 +16,7 @@ public class HinhAnhServiceImpl implements HinhAnhService {
 
     @Override
     public List<HinhAnh> getAllHinhAnh() {
-        return hinhAnhRepository.findAll();
+        return hinhAnhRepository.findAllByOrderByTgThemDesc();
     }
 
     @Override

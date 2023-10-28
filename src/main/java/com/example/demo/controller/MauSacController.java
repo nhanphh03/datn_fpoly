@@ -51,7 +51,6 @@ public class MauSacController {
             , @ModelAttribute("error") String error, @ModelAttribute("userInput") MauSac userInput) {
 
         List<MauSac> mauSac = mauSacService.getALlMauSac();
-        Collections.sort(mauSac, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("mauSac", mauSac);
         //
         model.addAttribute("mauSacAdd", new MauSac());
@@ -110,7 +109,7 @@ public class MauSacController {
     }
 
     @GetMapping("/mau-sac/delete/{id}")
-    public String deleteMauSac(@PathVariable UUID id) {
+    public String deleteMauSac(@PathVariable UUID id, RedirectAttributes redirectAttributes) {
         MauSac mauSac = mauSacService.getByIdMauSac(id);
         mauSac.setTrangThai(0);
         mauSac.setTgSua(new Date());
@@ -121,19 +120,62 @@ public class MauSacController {
             chiTietGiay.setTrangThai(0);
             giayChiTietService.save(chiTietGiay);
         }
+        //
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/mau-sac";
     }
 
     @GetMapping("/mau-sac/viewUpdate/{id}")
-    public String viewUpdateMauSac(@PathVariable UUID id, Model model) {
+    public String viewUpdateMauSac(@PathVariable UUID id, Model model
+            , @ModelAttribute("message") String message
+            , @ModelAttribute("maError") String maError
+            , @ModelAttribute("maMauError") String maMauError
+            , @ModelAttribute("tenMauError") String tenMauError
+            , @ModelAttribute("error") String error, @ModelAttribute("userInput") MauSac userInput) {
         MauSac mauSac = mauSacService.getByIdMauSac(id);
         model.addAttribute("mauSac", mauSac);
+        //
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
+        if (maError == null || !"maError".equals(error)) {
+            model.addAttribute("maError", false);
+        }
+        if (maMauError == null || !"maMauError".equals(error)) {
+            model.addAttribute("maMauError", false);
+        }
+        if (tenMauError == null || !"tenMauError".equals(error)) {
+            model.addAttribute("tenMauError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInput != null) {
+            model.addAttribute("mauSacAdd", userInput);
+        }
+        //
+        session.setAttribute("id", id);
         return "manage/update-mau-sac";
     }
 
     @PostMapping("/mau-sac/viewUpdate/{id}")
-    public String updateMauSac(@PathVariable UUID id, @ModelAttribute("mauSac") MauSac mauSac) {
+    public String updateMauSac(@PathVariable UUID id, @Valid @ModelAttribute("mauSac") MauSac mauSac, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         MauSac mauSacDb = mauSacService.getByIdMauSac(id);
+        UUID idMau = (UUID) session.getAttribute("id");
+        String link = "redirect:/manage/mau-sac/viewUpdate/" + idMau;
+        if (bindingResult.hasErrors()) {
+            if (bindingResult.hasFieldErrors("ma")) {
+                redirectAttributes.addFlashAttribute("userInput", mauSac);
+                redirectAttributes.addFlashAttribute("error", "maError");
+            }
+            if (bindingResult.hasFieldErrors("maMau")) {
+                redirectAttributes.addFlashAttribute("userInput", mauSac);
+                redirectAttributes.addFlashAttribute("error", "maMauError");
+            }
+            if (bindingResult.hasFieldErrors("tenMau")) {
+                redirectAttributes.addFlashAttribute("userInput", mauSac);
+                redirectAttributes.addFlashAttribute("error", "tenMauError");
+            }
+            return link;
+        }
         if (mauSacDb != null) {
             mauSacDb.setMa(mauSac.getMa());
             mauSacDb.setMaMau(mauSac.getMaMau());
@@ -141,6 +183,7 @@ public class MauSacController {
             mauSacDb.setTgSua(new Date());
             mauSacDb.setTrangThai(mauSac.getTrangThai());
             mauSacService.save(mauSacDb);
+            redirectAttributes.addFlashAttribute("message", true);
         }
         // Nếu trạng thái của mauSac là 1, hãy cập nhật trạng thái của tất cả sản phẩm chi tiết của mauSac thành 1.
         if (mauSacDb.getTrangThai() == 1) {

@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
 
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
+
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -243,7 +245,7 @@
                             <li><a href="/manage/hang" class="active">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
                             <li><a href="/manage/mau-sac">Màu Sắc</a></li>
-                            <li><a href="/manage/size" >Size</a></li>
+                            <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
                     <li>
@@ -298,7 +300,7 @@
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img" /><span>
+                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
                     Quản Lý Voucher</span
                         >
                             <span class="menu-arrow"></span
@@ -328,17 +330,6 @@
                     <div class="row">
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
-                                <label>Logo</label>
-                                <img th:src="@{'/images/logoBrands/'+ ${hang.logoHang}}"
-                                     style="max-width: 150px; max-height: 150px;"><br>
-<!--                                <input th:field="*{logoHang}" type="file" id="imageInput" accept="image/*"-->
-<!--                                       onchange="previewImage(event)">-->
-<!--                                <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"-->
-<!--                                             style="display: none; max-width: 150px; max-height: 150px;">-->
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-sm-6 col-12">
-                            <div class="form-group">
                                 <label>Mã Hãng</label>
                                 <input type="text" th:field="*{maHang}">
                             </div>
@@ -349,15 +340,13 @@
                                 <input type="text" th:field="*{tenHang}">
                             </div>
                         </div>
-<!--                        <div class="col-lg-6 col-sm-6 col-12">-->
-<!--                            <div class="form-group" >-->
-<!--                                <label>Thời Gian Thêm</label>-->
-<!--                                <input disabled="true" type="text" id="tgThem"-->
-<!--                                       name="tgThem"-->
-<!--                                       th:value="${currentTime}"-->
-<!--                                       readonly="readonly" th:field="*{tgThem}"/>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <div class="col-lg-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Logo</label>
+                                <img th:src="@{'/images/logoBrands/'+ ${hang.logoHang}}"
+                                     style="max-width: 150px; max-height: 150px;"><br>
+                            </div>
+                        </div>
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Trạng Thái</label>
@@ -377,6 +366,27 @@
         </div>
     </div>
 </form>
+<div th:if="${message}" id="toast-container" class="toast-container toast-top-right">
+    <div class="toast toast-success" aria-live="polite" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Thành Công</div>
+        <div class="toast-message">Dữ liệu của bạn đã được Thêm</div>
+    </div>
+</div>
+<div th:if="${maHangError}" id="warning1" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã không được bỏ trống.</div>
+    </div>
+</div>
+<div th:if="${tenHangError}" id="warning2" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Tên hãng không được bỏ trống.</div>
+    </div>
+</div>
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
@@ -410,6 +420,28 @@
             reader.readAsDataURL(imageInput.files[0]);
         }
     }
+</script>
+<script>
+    setTimeout(function () {
+        var successToast = document.getElementById('toast-container');
+        if (successToast) {
+            successToast.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning1 = document.getElementById('warning1');
+        if (warning1) {
+            warning1.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning2 = document.getElementById('warning2');
+        if (warning2) {
+            warning2.style.display = 'none';
+        }
+    }, 5000);
 </script>
 </body>
 </html>

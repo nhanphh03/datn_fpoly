@@ -373,7 +373,7 @@
                                 <div class="form-group">
                                     <label>Hình Ảnh</label>
                                     <select class="select" th:field="*{hinhAnh}">
-                                        <option th:each="loc : ${hinhAnh}" th:value="${loc.idGiay}"
+                                        <option th:each="loc : ${hinhAnh}" th:value="${loc.idHinhAnh}"
                                                 th:text="${loc.maAnh}"></option>
                                     </select>
                                     <br><br>
@@ -943,7 +943,7 @@
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
         <button type="button" class="toast-close-button" role="button">×</button>
         <div class="toast-title">Error!</div>
-        <div class="toast-message">Giá trị của số lượng phải lớn hơn hoặc bằng 1.</div>
+        <div class="toast-message">Giá trị của số lượng phải lớn hơn hoặc bằng 0.</div>
     </div>
 </div>
 <div th:if="${mauSacError}" id="warning6" class="toast-container toast-top-right">

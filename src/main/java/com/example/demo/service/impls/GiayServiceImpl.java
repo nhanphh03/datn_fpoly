@@ -32,7 +32,7 @@ public class GiayServiceImpl implements GiayService {
 
     @Override
     public List<Giay> getAllGiay() {
-        return giayRepository.findAll();
+        return giayRepository.findAllByOrderByTgThemDesc();
     }
 
     @Override
