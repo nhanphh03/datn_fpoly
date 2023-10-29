@@ -22,6 +22,9 @@
 
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -390,19 +393,26 @@
                         <div class="card">
                             <div class="card-body">
                                 <div class="slider-product-details">
-                                    <div class="owl-carousel owl-theme product-slide">
+                                    <div class="owl-carousel owl-theme">
                                         <div class="slider-product">
                                             <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url1}}"
                                                  alt="img"/>
                                         </div>
+                                        <div class="slider-product">
+                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url2}}"
+                                                 alt="img"/>
+                                        </div>
+                                        <div class="slider-product">
+                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url3}}"
+                                                 alt="img"/>
+                                        </div>
+                                        <div class="slider-product">
+                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url4}}"
+                                                 alt="img"/>
+                                        </div>
                                         <!--                                        <div class="slider-product">-->
-                                        <!--                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url2}}" alt="img" />-->
-                                        <!--                                        </div>-->
-                                        <!--                                        <div class="slider-product">-->
-                                        <!--                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url3}}" alt="img" />-->
-                                        <!--                                        </div>-->
-                                        <!--                                        <div class="slider-product">-->
-                                        <!--                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url4}}" alt="img" />-->
+                                        <!--                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url5}}"-->
+                                        <!--                                                 alt="img"/>-->
                                         <!--                                        </div>-->
                                     </div>
                                 </div>
@@ -410,7 +420,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </form>
@@ -428,5 +437,15 @@
 <script src="/plugins/select2/js/select2.min.js"></script>
 
 <script src="/js/script.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".owl-carousel").owlCarousel({
+            items: 1,
+            autoplay: true,
+            autoplayTimeout: 3000,
+            loop: true,
+        });
+    });
+</script>
 </body>
 </html>

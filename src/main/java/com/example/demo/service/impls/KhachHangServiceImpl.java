@@ -114,5 +114,14 @@ public class KhachHangServiceImpl implements KhachHangService {
             return khachHangRepository.findAll();
         }
         return khachHangRepository.findByMaKHOrHoTenKH(maKH, tenKH);
+
+    public List<KhachHang> findKhachHangByTrangThai() {
+        return khachHangRepository.getKhachHangByTrangThai();
+    }
+
+    @Override
+    public List<KhachHang> findKhachHangByKeyword(String keyword) {
+        return khachHangRepository.findByHoTenKHOrSdtKH(keyword);
+
     }
 }

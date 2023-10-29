@@ -7,9 +7,9 @@ import java.util.UUID;
 
 public interface NhanVienService {
 
-    NhanVien checkByEmailAndChucVuAndPass(String email,String pass, ChucVu chucVu);
+    NhanVien checkByEmailAndPass(String email,String pass);
 
-    NhanVien checkBySDTAndChucVuAndPass(String sdt, String pass, ChucVu chucVu);
+    NhanVien checkBySDTAndPass(String sdt, String pass);
 
     public List<NhanVien> getAllNhanVien();
     public void save(NhanVien nhanVien);

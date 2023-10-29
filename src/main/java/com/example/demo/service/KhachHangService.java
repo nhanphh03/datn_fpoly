@@ -25,9 +25,16 @@ public interface KhachHangService{
     public KhachHang getByIdKhachHang(UUID id);
 
     void addKhachHang(KhachHang khachHang);
+
     public void importDataFromExcel(InputStream excelFile);
 
     List<KhachHang> findByLoaiKhachHang(LoaiKhachHang loaiKhachHang);
     public List<KhachHang> findByTrangThai(int trangThai);
     public List<KhachHang> fillterKhachHang(String maKH, String tenKH);
+
+
+    List<KhachHang> findKhachHangByTrangThai();
+
+    List<KhachHang> findKhachHangByKeyword(String keyword);
+
 }
