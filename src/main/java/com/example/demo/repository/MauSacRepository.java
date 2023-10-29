@@ -15,4 +15,8 @@ public interface MauSacRepository extends JpaRepository<MauSac, UUID> {
     List<MauSac> findByMaMauOrTenMau(String maMau, String tenMau);
 
     MauSac findByTenMau(String name);
+
+    List<MauSac> findAllByOrderByTgThemDesc();
+
+    MauSac findByMa(String maMau);
 }
