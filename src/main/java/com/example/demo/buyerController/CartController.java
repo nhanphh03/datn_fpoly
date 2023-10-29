@@ -47,7 +47,6 @@ public class CartController {
         model.addAttribute("sumProductInCart", sumProductInCart);
         model.addAttribute("listCartDetail", listGHCTActive);
 
-
         return "/online/shopping-cart";
     }
 
