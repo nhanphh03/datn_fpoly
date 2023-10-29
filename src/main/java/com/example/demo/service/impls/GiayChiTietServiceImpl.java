@@ -41,7 +41,7 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
 
     @Override
     public List<ChiTietGiay> getAllChiTietGiay() {
-        return giayChiTietRepository.findAll();
+        return giayChiTietRepository.findAllByOrderByTgThemDesc();
     }
 
     @Override

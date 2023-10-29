@@ -1,11 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.config.*;
-import com.example.demo.model.*;
-import com.example.demo.config.PDFExporterMauSac;
-import com.example.demo.model.ChatLieu;
 import com.example.demo.model.ChucVu;
-import com.example.demo.model.MauSac;
 import com.example.demo.model.NhanVien;
 import com.example.demo.service.ChucVuService;
 import com.example.demo.service.NhanVienService;
@@ -43,14 +39,13 @@ public class ChucVuController {
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
         Map<Integer, String> dsTrangThai = new HashMap<>();
-        dsTrangThai.put(1, "Hoạt động");
-        dsTrangThai.put(0, "Không hoạt động");
+        dsTrangThai.put(0, "Hoạt động");
+        dsTrangThai.put(1, "Không hoạt động");
         return dsTrangThai;
     }
 
     @GetMapping("/chuc-vu")
     public String dsChucVu(Model model) {
-
         List<ChucVu> chucVu = chucVuService.getAllChucVu();
         Collections.sort(chucVu, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("chucVu", chucVu);

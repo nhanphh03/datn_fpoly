@@ -337,9 +337,6 @@
                                     <div class="form-group">
                                         <label>Mã</label>
                                         <input type="text" th:field="*{maAnh}">
-                                        <strong th:if="${#fields.hasErrors('maAnh')}"
-                                                class="alert alert-danger alert-dismissible fade show"
-                                                role="alert" th:errors="*{maAnh}"></strong>
                                     </div>
                                 </div>
                                 <div class="col-lg-10 col-sm-6 col-12"></div>
@@ -352,10 +349,6 @@
                                                onchange="previewImage(event)">
                                         <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
                                                      style="display: none; max-width: 300px; max-height: 300px;">
-                                        <br><br>
-                                        <strong th:if="${#fields.hasErrors('url1')}"
-                                                class="alert alert-danger alert-dismissible fade show"
-                                                role="alert" th:errors="*{url1}"></strong>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
@@ -364,10 +357,7 @@
                                         <input name="anh2" th:field="*{url2}" type="file" id="anh2" accept="image/*"
                                                onchange="previewImage(event)">
                                         <br><br><img id="anh22" src="#" alt="Ảnh mô tả"
-                                                     style="display: none; max-width: 300px; max-height: 300px;"><br><br>
-                                        <strong th:if="${#fields.hasErrors('url2')}"
-                                                class="alert alert-danger alert-dismissible fade show"
-                                                role="alert" th:errors="*{url2}"></strong>
+                                                     style="display: none; max-width: 300px; max-height: 300px;">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
@@ -376,10 +366,7 @@
                                         <input name="anh3" th:field="*{url3}" type="file" id="anh3" accept="image/*"
                                                onchange="previewImage(event)">
                                         <br><br><img id="anh33" src="#" alt="Ảnh mô tả"
-                                                     style="display: none; max-width: 300px; max-height: 300px;"><br><br>
-                                        <strong th:if="${#fields.hasErrors('url3')}"
-                                                class="alert alert-danger alert-dismissible fade show"
-                                                role="alert" th:errors="*{url3}"></strong>
+                                                     style="display: none; max-width: 300px; max-height: 300px;">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
@@ -388,10 +375,7 @@
                                         <input name="anh4" th:field="*{url4}" type="file" id="anh4" accept="image/*"
                                                onchange="previewImage(event)">
                                         <br><br><img id="anh44" src="#" alt="Ảnh mô tả"
-                                                     style="display: none; max-width: 300px; max-height: 300px;"><br><br>
-                                        <strong th:if="${#fields.hasErrors('url4')}"
-                                                class="alert alert-danger alert-dismissible fade show"
-                                                role="alert" th:errors="*{url4}"></strong>
+                                                     style="display: none; max-width: 300px; max-height: 300px;">
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -508,11 +492,11 @@
                                           class="badges bg-lightred">Không Hoạt Động</span>
                                 </td>
                                 <td>
-                                    <a class="me-3" th:href="@{'/manage/hinh-anh/viewUpdate/' + ${items.idGiay}}">
+                                    <a class="me-3" th:href="@{'/manage/hinh-anh/viewUpdate/' + ${items.idHinhAnh}}">
                                         <img src="/images/img/icons/edit.svg" alt="img">
                                     </a>
                                     <a class="me-3 delete-button"
-                                       th:data-delete-url="@{'/manage/hinh-anh/delete/' + ${items.idGiay}}">
+                                       th:data-delete-url="@{'/manage/hinh-anh/delete/' + ${items.idHinhAnh}}">
                                         <img src="/images/img/icons/delete.svg" alt="img">
                                     </a>
                                 </td>
@@ -532,7 +516,7 @@
     <div class="toast toast-success" aria-live="polite" style="display: block;">
         <button type="button" class="toast-close-button" role="button">×</button>
         <div class="toast-title">Thành Công</div>
-        <div class="toast-message">Dữ liệu của bạn đã được Thêm</div>
+        <div class="toast-message">Dữ liệu của bạn đã được cập nhật</div>
     </div>
 </div>
 <div th:if="${maHinhAnhError}" id="warning1" class="toast-container toast-top-right">
@@ -540,6 +524,13 @@
         <button type="button" class="toast-close-button" role="button">×</button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã không được trống.</div>
+    </div>
+</div>
+<div th:if="${Errormessage}" id="checkMa" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Ảnh đã tồn tại.</div>
     </div>
 </div>
 <script src="/js/jquery-3.6.0.min.js"></script>
@@ -697,6 +688,13 @@
         var warning1 = document.getElementById('warning1');
         if (warning1) {
             warning1.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMa = document.getElementById('checkMa');
+        if (checkMa) {
+            checkMa.style.display = 'none';
         }
     }, 5000);
 </script>

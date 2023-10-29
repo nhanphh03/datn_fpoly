@@ -604,6 +604,20 @@
         <div class="toast-message">Tên Chất Liệu không được bỏ trống.</div>
     </div>
 </div>
+<div th:if="${ErrormessageHang}" id="checkMaHang" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Hãng đã tồn tại.</div>
+    </div>
+</div>
+<div th:if="${ErrormessageChatLieu}" id="checkMaChatLieu" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Chất Liệu đã tồn tại.</div>
+    </div>
+</div>
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
@@ -745,6 +759,20 @@
         var successChatLieu = document.getElementById('successChatLieu');
         if (successChatLieu) {
             successChatLieu.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMaHang = document.getElementById('checkMaHang');
+        if (checkMaHang) {
+            checkMaHang.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMaChatLieu = document.getElementById('checkMaChatLieu');
+        if (checkMaChatLieu) {
+            checkMaChatLieu.style.display = 'none';
         }
     }, 5000);
 </script>

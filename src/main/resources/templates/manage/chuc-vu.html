@@ -1,6 +1,7 @@
 ﻿<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <!--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <meta name="description" content="POS - Bootstrap Admin Template">
@@ -187,17 +188,17 @@
             </li>
             <li class="nav-item dropdown has-arrow main-drop">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
-<span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
+<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
 <span class="status online"></span></span>
                 </a>
                 <div class="dropdown-menu menu-drop-user">
                     <div class="profilename">
                         <div class="profileset">
-<span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
+<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
 <span class="status online"></span></span>
                             <div class="profilesets">
-                                <h6>John Doe</h6>
-                                <h5>Admin</h5>
+                                <h6 th:text="${session.managerLogged.hoTenNV}"></h6>
+                                <h5 th:text="${session.managerLogged.chucVu.tenCV}"></h5>
                             </div>
                         </div>
                         <hr class="m-0">
@@ -206,8 +207,8 @@
                         <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
                                                                                 data-feather="settings"></i>Settings</a>
                         <hr class="m-0">
-                        <a class="dropdown-item logout pb-0" href="signin.html"><img src="/images/img/icons/log-out.svg"
-                                                                                     class="me-2" alt="img">Logout</a>
+                        <a class="dropdown-item logout pb-0" href="/logout"><img src="/images/img/icons/log-out.svg"
+                                                                                 class="me-2" alt="img">Logout</a>
                     </div>
                 </div>
             </li>
@@ -223,38 +224,14 @@
                 <a class="dropdown-item" href="signin.html">Logout</a>
             </div>
         </div>
-
-   <li class="nav-item dropdown has-arrow main-drop">
-    <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
-<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
-<span class="status online"></span></span>
-    </a>
-    <div class="dropdown-menu menu-drop-user">
-     <div class="profilename">
-      <div class="profileset">
-<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
-<span class="status online"></span></span>
-       <div class="profilesets">
-        <h6 th:text="${session.managerLogged.hoTenNV}"></h6>
-        <h5 th:text="${session.managerLogged.chucVu.tenCV}"></h5>
-       </div>
-      </div>
-      <hr class="m-0">
-      <a class="dropdown-item" href="profile.html"> <i class="me-2" data-feather="user"></i> My
-       Profile</a>
-      <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
-                                                              data-feather="settings"></i>Settings</a>
-      <hr class="m-0">
-      <a class="dropdown-item logout pb-0" href="/logout"><img src="/images/img/icons/log-out.svg"
-                                                                   class="me-2" alt="img">Logout</a>
-     </div>
     </div>
     <div class="sidebar" id="sidebar">
         <div class="sidebar-inner slimscroll">
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="index.html"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
+                        <a href="index.html"><img src="/images/img/icons/dashboard.svg"
+                                                  alt="img"><span> Thống Kê</span>
                         </a>
                     </li>
                     <li class="submenu">
@@ -354,7 +331,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="hidden-form" style="display: none">
-                        <form th:object="${chucVuAdd}" method="post" th:action="@{/manage/chat-vu/viewAdd/add}">
+                        <form th:object="${chucVuAdd}" method="post" th:action="@{/manage/chuc-vu/viewAdd/add}">
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
@@ -390,7 +367,8 @@
                                 </div>
                             </div>
                         </form>
-                    </div><br>
+                    </div>
+                    <br>
                     <div class="form-hidden-2" style="display: none">
                         <form action="/manage/chucVu/import" method="post" enctype="multipart/form-data">
                             <div class="form-group">
@@ -399,7 +377,8 @@
                             </div>
                             <button type="submit" class="btn btn-submit me-2">Submit</button>
                         </form>
-                    </div><br>
+                    </div>
+                    <br>
                     <div class="table-top">
                         <div class="search-set">
                             <div class="search-path">
@@ -423,15 +402,18 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/manage/chucVu/export/pdf}" data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
+                                    <a th:href="@{/manage/chucVu/export/pdf}" data-bs-toggle="tooltip"
+                                       data-bs-placement="top" title="pdf"><img
                                             src="/images/img/icons/pdf.svg" alt="img"></a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/manage/chucVu/export/excel}" data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
+                                    <a th:href="@{/manage/chucVu/export/excel}" data-bs-toggle="tooltip"
+                                       data-bs-placement="top" title="excel"><img
                                             src="/images/img/icons/excel.svg" alt="img"></a>
                                 </li>
                                 <li>
-                                    <a id="printButton" data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
+                                    <a id="printButton" data-bs-toggle="tooltip" data-bs-placement="top"
+                                       title="print"><img
                                             src="/images/img/icons/printer.svg" alt="img"></a>
                                 </li>
                             </ul>
@@ -439,46 +421,46 @@
                     </div>
 
                     <form method="get" th:action="@{/manage/chucVu/filter}">
-                    <div class="card" id="filter_inputs">
-                        <div class="card-body pb-0">
-                            <div class="row">
-                                <div class="col-lg-2 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <select class="select" id="chucVuFilterMa">
-                                            <option>Mã Chức Vụ</option>
-                                            <option th:each="loc : ${chucVu}" th:value="${loc.maCV}"
-                                                    th:text="${loc.maCV}"></option>
-                                        </select>
+                        <div class="card" id="filter_inputs">
+                            <div class="card-body pb-0">
+                                <div class="row">
+                                    <div class="col-lg-2 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <select class="select" id="chucVuFilterMa" name="searchTerm">
+                                                <option>Mã Chức Vụ</option>
+                                                <option th:each="loc : ${chucVu}" th:value="${loc.maCV}"
+                                                        th:text="${loc.maCV}"></option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-2 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <select class="select" id="chucVuFilterTen">
-                                            <option>Tên Chất Liệu</option>
-                                            <option th:each="loc : ${chucVu}" th:value="${loc.tenCV}"
-                                                    th:text="${loc.tenCV}"></option>
-                                        </select>
+                                    <div class="col-lg-2 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <select class="select" id="chucVuFilterTen" name="searchTerm">
+                                                <option>Tên Chất Liệu</option>
+                                                <option th:each="loc : ${chucVu}" th:value="${loc.tenCV}"
+                                                        th:text="${loc.tenCV}"></option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <!--        <div class="col-lg-2 col-sm-6 col-12">-->
-                                <!--         <div class="form-group">-->
-                                <!--          <select class="select">-->
-                                <!--           <option>Trạng Thái</option>-->
-                                <!--           <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
-                                <!--                   th:text="${loc.value}"></option>-->
-                                <!--          </select>-->
-                                <!--         </div>-->
-                                <!--        </div>-->
-                                <div class="col-lg-1 col-sm-6 col-12 ms-auto">
-                                    <div class="form-group">
-                                        <a class="btn btn-filters ms-auto"><img
-                                                src="/images/img/icons/search-whites.svg"
-                                                alt="img"></a>
+                                    <!--        <div class="col-lg-2 col-sm-6 col-12">-->
+                                    <!--         <div class="form-group">-->
+                                    <!--          <select class="select">-->
+                                    <!--           <option>Trạng Thái</option>-->
+                                    <!--           <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+                                    <!--                   th:text="${loc.value}"></option>-->
+                                    <!--          </select>-->
+                                    <!--         </div>-->
+                                    <!--        </div>-->
+                                    <div class="col-lg-1 col-sm-6 col-12 ms-auto">
+                                        <div class="form-group">
+                                            <a class="btn btn-filters ms-auto"><img
+                                                    src="/images/img/icons/search-whites.svg"
+                                                    alt="img"></a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     </form>
 
                     <div class="table-responsive">
@@ -551,12 +533,12 @@
 <script src="/js/script.js"></script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         // Lấy thẻ nút in bằng id
         var printButton = document.getElementById("printButton");
 
         // Thêm sự kiện click cho nút
-        printButton.addEventListener("click", function() {
+        printButton.addEventListener("click", function () {
             // Gọi hàm in mặc định của trình duyệt
             window.print();
         });
