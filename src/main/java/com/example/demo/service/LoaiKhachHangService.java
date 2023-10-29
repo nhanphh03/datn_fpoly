@@ -1,8 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.LoaiKhachHang;
-import com.example.demo.repository.LoaiKhachHangRepository;
-
+import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
 
@@ -15,4 +14,11 @@ public interface LoaiKhachHangService {
 
     public LoaiKhachHang getByIdLoaiKhachHang(UUID id);
 
+    public List<LoaiKhachHang> getAllActive();
+
+    public List<LoaiKhachHang> fillterLKH(String maLKH, String tenLKH);
+
+    LoaiKhachHang findByMaLKH(String maLKH);
+
+    public void importDataFromExcel(InputStream excelFile);
 }

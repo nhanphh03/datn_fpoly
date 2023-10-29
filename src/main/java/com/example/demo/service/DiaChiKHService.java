@@ -1,9 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.model.ChiTietGiay;
-import com.example.demo.model.DiaChiKH;
-import org.springframework.stereotype.Service;
-
+import com.example.demo.model.*;
+import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,6 +15,14 @@ public interface DiaChiKHService {
 
     public DiaChiKH getByIdDiaChikh(UUID id);
 
+    public void importDataFromExcel(InputStream excelFile);
+
+
+    public List<DiaChiKH> findByKhachHang(KhachHang khachHang);
+
+    public List<DiaChiKH> findByTrangThai(int trangThai);
+
+    public List<DiaChiKH> fillterDiaChiKH(String maDC, String tenDC);
 
 
 }
