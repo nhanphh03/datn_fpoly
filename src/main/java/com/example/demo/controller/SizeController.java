@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.config.ExcelExporterSize;
 import com.example.demo.config.PDFExporterSizes;
 import com.example.demo.model.*;
+import com.example.demo.repository.SizeRepository;
 import com.example.demo.service.GiayChiTietService;
 import com.example.demo.service.SizeService;
 import com.lowagie.text.DocumentException;
@@ -32,6 +33,8 @@ public class SizeController {
     private GiayChiTietService giayChiTietService;
     @Autowired
     private HttpSession session;
+    @Autowired
+    private SizeRepository repository;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -51,9 +54,9 @@ public class SizeController {
             , @ModelAttribute("maSizeError") String maSizeError
             , @ModelAttribute("soSizeError") String soSizeError
             , @ModelAttribute("error") String error
-            , @ModelAttribute("userInput") Size userInput) {
+            , @ModelAttribute("userInput") Size userInput
+            , @ModelAttribute("Errormessage") String Errormessage) {
         List<Size> size = sizeService.getAllSize();
-        Collections.sort(size, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("size", size);
         //
         model.addAttribute("sizeAll", sizeService.getAllSize());
@@ -72,6 +75,10 @@ public class SizeController {
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInput != null) {
             model.addAttribute("sizeAdd", userInput);
+        }
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
         }
         return "manage/size-giay";
     }
@@ -95,6 +102,12 @@ public class SizeController {
             }
             return "redirect:/manage/size";
         }
+        Size existingSize = repository.findByMaSize(size.getMaSize());
+        if (existingSize != null) {
+            redirectAttributes.addFlashAttribute("userInput", size);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return "redirect:/manage/size";
+        }
         if (size != null) {
             Size sizeAdd = new Size();
             sizeAdd.setMaSize(size.getMaSize());
@@ -103,7 +116,6 @@ public class SizeController {
             sizeAdd.setTrangThai(1);
             sizeService.save(sizeAdd);
         } else {
-            redirectAttributes.addFlashAttribute("Errormessage", true);
             return "redirect:/manage/size";
         }
         redirectAttributes.addFlashAttribute("message", true);
@@ -111,7 +123,7 @@ public class SizeController {
     }
 
     @GetMapping("/size/delete/{id}")
-    public String deleteSize(@PathVariable UUID id) {
+    public String deleteSize(@PathVariable UUID id, RedirectAttributes redirectAttributes) {
         Size size = sizeService.getByIdSize(id);
         List<ChiTietGiay> chiTietGiayList = giayChiTietService.findBySize(size);
         //
@@ -123,25 +135,74 @@ public class SizeController {
             chiTietGiay.setTrangThai(0);
             giayChiTietService.save(chiTietGiay);
         }
+        //
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/size";
     }
 
     @GetMapping("/size/viewUpdate/{id}")
-    public String viewUpdateSize(@PathVariable UUID id, Model model) {
+    public String viewUpdateSize(@PathVariable UUID id, Model model
+            , @ModelAttribute("message") String message
+            , @ModelAttribute("maSizeError") String maSizeError
+            , @ModelAttribute("soSizeError") String soSizeError
+            , @ModelAttribute("error") String error
+            , @ModelAttribute("userInput") Size userInput
+            , @ModelAttribute("Errormessage") String Errormessage) {
         Size size = sizeService.getByIdSize(id);
         model.addAttribute("size", size);
+        //
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
+        if (maSizeError == null || !"maSizeError".equals(error)) {
+            model.addAttribute("maSizeError", false);
+        }
+        if (soSizeError == null || !"soSizeError".equals(error)) {
+            model.addAttribute("soSizeError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInput != null) {
+            model.addAttribute("sizeAdd", userInput);
+        }
+        //
+        session.setAttribute("idSize", id);
+        //
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
+        }
         return "manage/update-size";
     }
 
     @PostMapping("/size/viewUpdate/{id}")
-    public String updateSize(@PathVariable UUID id, @ModelAttribute("size") Size size) {
+    public String updateSize(@PathVariable UUID id, @Valid @ModelAttribute("size") Size size, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         Size sizeDb = sizeService.getByIdSize(id);
+        UUID idSize = (UUID) session.getAttribute("idSize");
+        String link = "redirect:/manage/size/viewUpdate/" + idSize;
+        if (bindingResult.hasErrors()) {
+            if (bindingResult.hasFieldErrors("maSize")) {
+                redirectAttributes.addFlashAttribute("userInput", size);
+                redirectAttributes.addFlashAttribute("error", "maSizeError");
+            }
+            if (bindingResult.hasFieldErrors("soSize")) {
+                redirectAttributes.addFlashAttribute("userInput", size);
+                redirectAttributes.addFlashAttribute("error", "soSizeError");
+            }
+            return link;
+        }
+        Size existingSize = repository.findByMaSize(size.getMaSize());
+        if (existingSize != null && !existingSize.getIdSize().equals(id)) {
+            redirectAttributes.addFlashAttribute("userInput", size);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return link;
+        }
         if (sizeDb != null) {
             sizeDb.setMaSize(size.getMaSize());
             sizeDb.setSoSize(size.getSoSize());
             sizeDb.setTgSua(new Date());
             sizeDb.setTrangThai(size.getTrangThai());
             sizeService.save(sizeDb);
+            redirectAttributes.addFlashAttribute("message", true);
         }
         if (sizeDb.getTrangThai() == 1) {
             List<ChiTietGiay> chiTietGiays = giayChiTietService.findBySize(sizeDb);
