@@ -70,9 +70,9 @@ public class PDFExporterKhachHang {
 
         document.add(p);
 
-        PdfPTable table = new PdfPTable(6);
+        PdfPTable table = new PdfPTable(5);
         table.setWidthPercentage(100f);
-        table.setWidths(new float[]{3.5f, 1.5f, 1.5f, 1.5f, 1.5f, 3.0f});
+        table.setWidths(new float[]{3.5f, 2.0f, 2.0f, 2.5f, 3.0f});
         table.setSpacingBefore(10);
 
         writeTableHeader(table);

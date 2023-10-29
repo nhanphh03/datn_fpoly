@@ -75,7 +75,7 @@ public class NhanVienController {
     public String viewAddNhanVien(Model model) {
         List<ChucVu> chucVuList = chucVuService.getAllChucVu();
         Collections.sort(chucVuList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
-        model.addAttribute("chatVu", chucVuList);
+        model.addAttribute("chucVu", chucVuList);
 
         model.addAttribute("nhanVien", new NhanVien());
         model.addAttribute("chucVuAdd", new ChucVu());
