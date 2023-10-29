@@ -8,6 +8,7 @@ import com.example.demo.model.ChatLieu;
 import com.example.demo.model.Giay;
 import com.example.demo.model.NhanVien;
 import com.example.demo.model.Size;
+import com.example.demo.repository.ChatLieuRepository;
 import com.example.demo.service.ChatLieuService;
 import com.example.demo.service.GiayService;
 import com.lowagie.text.DocumentException;
@@ -39,6 +40,8 @@ public class ChatLieuController {
     private GiayController giayController;
     @Autowired
     private HttpSession session;
+    @Autowired
+    private ChatLieuRepository repository;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -52,10 +55,9 @@ public class ChatLieuController {
     public String dsChatLieu(Model model, @ModelAttribute("message") String message
             , @ModelAttribute("maChatLieuError") String maChatLieuError
             , @ModelAttribute("tenChatLieuError") String tenChatLieuError
-            , @ModelAttribute("error") String error, @ModelAttribute("userInput") ChatLieu userInput) {
+            , @ModelAttribute("error") String error, @ModelAttribute("userInput") ChatLieu userInput, @ModelAttribute("Errormessage") String Errormessage) {
 
         List<ChatLieu> chatLieu = chatLieuService.getAllChatLieu();
-        Collections.sort(chatLieu, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("chatLieu", chatLieu);
         //
         model.addAttribute("chatLieuAdd", new ChatLieu());
@@ -72,6 +74,10 @@ public class ChatLieuController {
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInput != null) {
             model.addAttribute("chatLieuAdd", userInput);
+        }
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
         }
         return "manage/chat-lieu";
     }
@@ -96,6 +102,14 @@ public class ChatLieuController {
             }
             return "redirect:/manage/chat-lieu";
         }
+        //
+        ChatLieu existingChatLieu = repository.findByMaChatLieu(chatLieu.getMaChatLieu());
+        if (existingChatLieu != null) {
+            redirectAttributes.addFlashAttribute("userInput", chatLieu);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return "redirect:/manage/chat-lieu";
+        }
+        //
         ChatLieu chatLieu1 = new ChatLieu();
         chatLieu1.setMaChatLieu(chatLieu.getMaChatLieu());
         chatLieu1.setTenChatLieu(chatLieu.getTenChatLieu());
@@ -107,7 +121,7 @@ public class ChatLieuController {
     }
 
     @GetMapping("/chat-lieu/delete/{id}")
-    public String deleteChatLieu(@PathVariable UUID id) {
+    public String deleteChatLieu(@PathVariable UUID id, RedirectAttributes redirectAttributes) {
         ChatLieu chatLieu = chatLieuService.getByIdChatLieu(id);
         chatLieu.setTrangThai(0);
         chatLieu.setTgSua(new Date());
@@ -119,25 +133,74 @@ public class ChatLieuController {
             giayService.save(giay);
             giayController.deleteGiayById(giay.getIdGiay());
         }
+        //
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/chat-lieu";
     }
 
     @GetMapping("/chat-lieu/viewUpdate/{id}")
-    public String viewUpdateChatLieu(@PathVariable UUID id, Model model) {
+    public String viewUpdateChatLieu(@PathVariable UUID id, Model model
+            , @ModelAttribute("message") String message
+            , @ModelAttribute("maChatLieuError") String maChatLieuError
+            , @ModelAttribute("tenChatLieuError") String tenChatLieuError
+            , @ModelAttribute("error") String error, @ModelAttribute("userInput") ChatLieu userInput
+            , @ModelAttribute("Errormessage") String Errormessage) {
         ChatLieu chatLieu = chatLieuService.getByIdChatLieu(id);
         model.addAttribute("chatLieu", chatLieu);
+        //
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
+        if (maChatLieuError == null || !"maChatLieuError".equals(error)) {
+            model.addAttribute("maChatLieuError", false);
+        }
+        if (tenChatLieuError == null || !"tenChatLieuError".equals(error)) {
+            model.addAttribute("tenChatLieuError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInput != null) {
+            model.addAttribute("chatLieuAdd", userInput);
+        }
+        //
+        session.setAttribute("id", id);
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
+        }
         return "manage/update-chat-lieu";
     }
 
     @PostMapping("/chat-lieu/viewUpdate/{id}")
-    public String updateChatLieu(@PathVariable UUID id, @ModelAttribute("chatLieu") ChatLieu chatLieu) {
+    public String updateChatLieu(@PathVariable UUID id, @Valid @ModelAttribute("chatLieu") ChatLieu chatLieu, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         ChatLieu chatLieuDb = chatLieuService.getByIdChatLieu(id);
+        UUID idChatLieu = (UUID) session.getAttribute("id");
+        String link = "redirect:/manage/chat-lieu/viewUpdate/" + idChatLieu;
+        if (bindingResult.hasErrors()) {
+            if (bindingResult.hasFieldErrors("maChatLieu")) {
+                redirectAttributes.addFlashAttribute("userInput", chatLieu);
+                redirectAttributes.addFlashAttribute("error", "maChatLieuError");
+            }
+            if (bindingResult.hasFieldErrors("tenChatLieu")) {
+                redirectAttributes.addFlashAttribute("userInput", chatLieu);
+                redirectAttributes.addFlashAttribute("error", "tenChatLieuError");
+            }
+            return link;
+        }
+        //
+        ChatLieu existingChatLieu = repository.findByMaChatLieu(chatLieu.getMaChatLieu());
+        if (existingChatLieu != null && !existingChatLieu.getIdChatLieu().equals(id)) {
+            redirectAttributes.addFlashAttribute("userInput", chatLieu);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return link;
+        }
+        //
         if (chatLieuDb != null) {
             chatLieuDb.setMaChatLieu(chatLieu.getMaChatLieu());
             chatLieuDb.setTenChatLieu(chatLieu.getTenChatLieu());
             chatLieuDb.setTgSua(new Date());
             chatLieuDb.setTrangThai(chatLieu.getTrangThai());
             chatLieuService.save(chatLieuDb);
+            redirectAttributes.addFlashAttribute("message", true);
         }
         // Nếu trạng thái của chatLieu là 1, hãy cập nhật trạng thái của tất cả sản phẩm chi tiết của chatLieu thành 1.
         if (chatLieuDb.getTrangThai() == 1) {

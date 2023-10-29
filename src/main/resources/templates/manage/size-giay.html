@@ -514,7 +514,7 @@
     <div class="toast toast-success" aria-live="polite" style="display: block;">
         <button type="button" class="toast-close-button" role="button">×</button>
         <div class="toast-title">Thành Công</div>
-        <div class="toast-message">Dữ liệu của bạn đã được Thêm</div>
+        <div class="toast-message">Dữ liệu của bạn đã được cập nhật</div>
     </div>
 </div>
 <div th:if="${maSizeError}" id="warning1" class="toast-container toast-top-right">
@@ -529,6 +529,13 @@
         <button type="button" class="toast-close-button" role="button">×</button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của số Size phải lớn hơn hoặc bằng 1. Và nhỏ hơn hoặc bằng 50.</div>
+    </div>
+</div>
+<div th:if="${Errormessage}" id="warning3" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Size đã tồn tại.</div>
     </div>
 </div>
 <script>
@@ -674,6 +681,13 @@
         var warning2 = document.getElementById('warning2');
         if (warning2) {
             warning2.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning3 = document.getElementById('warning3');
+        if (warning3) {
+            warning3.style.display = 'none';
         }
     }, 5000);
 </script>
