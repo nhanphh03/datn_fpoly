@@ -141,9 +141,6 @@
                   <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
                 </div>
                 <div class="vertical-scroll scroll-demo" >
-
-
-
                   <a href="#" class="items-noticafitions">
                     <div class="items-notica">
                                         <span class="avatar">
@@ -162,7 +159,6 @@
 
                     </div>
                   </a>
-
                   <a href="#" class="items-noticafitions">
                     <div class="items-notica">
                                         <span class="avatar">
@@ -181,8 +177,6 @@
 
                     </div>
                   </a>
-
-
                   <a href="#" class="items-noticafitions">
                     <div class="items-notica">
                                         <span class="avatar">
@@ -201,7 +195,6 @@
 
                     </div>
                   </a>
-
                   <a href="#" class="items-noticafitions">
                     <div class="items-notica">
                                         <span class="avatar">
@@ -222,7 +215,6 @@
 
                     </div>
                   </a>
-
                   <a href="#" class="items-noticafitions">
                     <div class="items-notica">
                                         <span class="avatar">
@@ -241,10 +233,6 @@
 
                     </div>
                   </a>
-
-
-
-
                 </div>
                 <div class="topnav-dropdown-footer">
                   <a href="activities.html">View all Notifications</a>
@@ -295,66 +283,78 @@
     <div class="row">
       <div class="col-lg-8">
         <div class="shopping__cart__table">
-
           <table>
             <thead>
             <tr>
-              <th><input  onclick="selectAllRows()"  class="check" type="checkbox"  style="margin-right: 15px"></th>
+              <th><input id="checkAll" type="checkbox"  style="margin-left: 15px"></th>
               <th>Product</th>
-              <th style="margin-left: -20px;">Variations</th>
+              <th></th>
+              <th>Variations</th>
               <th>Quantity</th>
               <th>Total</th>
+              <th>Actions</th>
             </tr>
             </thead>
+          </table>
+        </div>
+        <div class="shopping__cart__table">
+          <div class="vertical-scroll scroll-demo"  style="height: 400px;" >
+            <table style="height:400px;">
             <tbody>
 
             <th:block th:each="x : ${listCartDetail}">
 
-              <form  method="post" ></form>
-              <tr id="productId" th:value="${x.chiTietGiay.idCTG}">
+                <form  method="post" >
+                <tr id="productId" th:value="${x.chiTietGiay.idCTG}">
 
-                <td><input name="selectedProducts" type="checkbox" th:value="${x.chiTietGiay.idCTG}"></td>
-                <td class="product__cart__item">
-                  <div class="product__cart__item__pic">
-                    <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}"> <img style="width:90px; height:90px;" th:src="@{'/images/imgsProducts/' + ${x.chiTietGiay.hinhAnh.url1}}"></a>
-                  </div>
-                  <div class="product__cart__item__text">
-                    <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}">
-                      <h6 style="margin-top: -22px;" th:text="${x.chiTietGiay.giay.tenGiay}">Big Ball Chunky A Gradient Classic Monogram</h6>
-                    </a>
-                    <h5 class="cart__price" th:text="${x.chiTietGiay.giaBan}">200 $</h5>
-                  </div>
-
-                </td>
-                <td class="cart__price">
-                  <div  style="margin-top: -20px">
-                    <span id="showButton" style="font-weight: normal; font-size: medium;">Options :</span>
-                    <a th:href="@{/cart/${x.chiTietGiay.giay.idGiay}}" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <img style="height: 10px; width: 10px;" src="/images/img/icon/dropdown.png" alt=""> </a>
-                  </div>
-                  <div style="padding-right: 20px;">
-                    <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" th:text="'Colors : ' + ${x.chiTietGiay.mauSac.tenMau}"></span>
-                    <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" th:text="'Size : ' + ${x.chiTietGiay.size.soSize}" ></span>
-                  </div>
-                </td>
-                <td class="quantity__item">
-                  <div class="quantity">
-                    <div class="pro-qty-2">
-                      <input  type="text"  id="quantityInput_" th:value="${x.soLuong}">
+                  <td><input class="itemsCart" name="selectedProducts" type="checkbox" onclick="updateTotalAmount(this)" th:value="${x.chiTietGiay.idCTG}"></td>
+                  <td class="product__cart__item" >
+                    <div class="product__cart__item__pic">
+                      <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}"> <img style="width:90px; height:90px;" th:src="@{'/images/imgsProducts/' + ${x.chiTietGiay.hinhAnh.url1}}"></a>
                     </div>
-                  </div>
-                </td>
-                <td class="cart__price" id="totalAmount" th:text="'$ ' + ${x.chiTietGiay.giaBan * x.soLuong}"></td>
-                <td class="cart__close"><a th:href="@{'/buyer/cart/delete/' + ${x.chiTietGiay.idCTG}}" id="deleteToCartButton" style="border-radius: 20% ; " ><i class="fa fa-close"></i></a></td>
+                    <div class="product__cart__item__text">
+                      <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}">
+                        <h6 style="margin-top: -22px;" th:text="${x.chiTietGiay.giay.tenGiay}"></h6>
+                      </a>
+                      <h5 class="cart__price" th:text="${x.chiTietGiay.giaBan} + ' $'"></h5>
+                    </div>
 
-              </tr>
-              </form>
+                  </td>
+                  <td class="quantity__item">
+                    <div  style="margin-top: -20px; display: block;">
+                      <span id="showButton" style="font-weight: normal; font-size: medium;">Options :</span>
+                      <a th:href="@{/cart/${x.chiTietGiay.giay.idGiay}}" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <img style="height: 10px; width: 10px;" src="/images/img/icon/dropdown.png" alt=""> </a>
+                    </div>
+                    <div style="padding-right: 20px;">
+                      <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" th:text="'Colors : ' + ${x.chiTietGiay.mauSac.tenMau}"></span>
+                      <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" th:text="'Size : ' + ${x.chiTietGiay.size.soSize}" ></span>
+                    </div>
+                  </td>
+                  <td class="quantity__item">
+                    <div class="quantity">
+  <!--                    <div class="pro-qty-2">-->
+  <!--                      <button>+</button>-->
+                      <input style=" margin-top: 3px;border: none; font-weight: 700; font-size: 18pt; background-color: white;" type="button" value="-"
+                             class="button-minus dec button" onclick="decrementQuantity(this)">
+                      <input  class="quantityInput" oninput="updateTotalAmount(this)" th:value="${x.soLuong}" style="width: 30px; text-align: center; border: none;" type="text" name="child" value="0">
+                      <input style="border: none; font-weight: 700; font-size: 14pt; background-color: white;" type="button" value="+"
+                             class="button-plus inc button " onclick="incrementQuantity(this)">
+
+  <!--                    <input type="number"  class="quantityInput" oninput="updateTotalAmount(this)" th:value="${x.soLuong}">-->
+  <!--                      <button>-</button>-->
+  <!--                    </div>-->
+                    </div>
+                  </td>
+                  <td class="cart__price totalAmount" th:text="'$ ' + ${x.chiTietGiay.giaBan * x.soLuong}"></td>
+                  <td class="cart__close"><a th:href="@{'/buyer/cart/delete/' + ${x.chiTietGiay.idCTG}}" id="deleteToCartButton" style="border-radius: 20% ; " ><i class="fa fa-close"></i></a></td>
+                </tr>
+                </form>
 
             </th:block>
 
             </tbody>
           </table>
-
-
+          </div>
         </div>
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-6">
@@ -382,7 +382,7 @@
             <h6>Cart total</h6>
             <ul>
               <li>Subtotal <span>$ 169.50</span></li>
-              <li>Total <span>$ 169.50</span></li>
+              <li>Total <span id="grandTotal">0</span> $</li>
             </ul>
             <button style="margin: auto" type="submit" class="primary-btn">Proceed to checkout</button>
           </form>
@@ -390,8 +390,6 @@
       </div>
     </div>
   </div>
-
-
 </section>
 <!-- Shopping Cart Section End -->
 
@@ -464,9 +462,6 @@
 
 <!-- Search Begin -->
 <!-- Search End -->
-<div class="alert alert-success" role="alert">
-    <span >Nhan Ngu</span>
-</div>
 
 <section>
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -531,74 +526,107 @@
 
 
 </section>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/jquery-3.6.0.min.js"></script>
 
+<script>
+  // Biến để lưu tổng tiền ban đầu
+  var initialTotalAmount = 0;
 
+  // Hàm cập nhật tổng tiền
+  function updateTotalAmount(input) {
+    var totalAmount = 0;
+    $(".itemsCart:checked").each(function () {
+      var priceProduct = parseFloat($(this).closest("tr").find(".cart__price").text().replace('$', '').trim());
+      var quantity = parseInt($(this).closest("tr").find(".quantityInput").val());
+      totalAmount += priceProduct * quantity;
+    });
+
+    // Nếu chọn tất cả, sử dụng giá trị ban đầu
+    if (document.getElementById('checkAll').checked) {
+      totalAmount = initialTotalAmount;
+    }
+
+    $("#grandTotal").text(totalAmount.toFixed(2));
+
+    // Thay đổi tổng tiền của sản phẩm được chọn
+    var priceProduct = parseFloat($(input).closest("tr").find(".cart__price").text().replace('$', '').trim());
+    var quantity = parseInt($(input).closest("tr").find(".quantityInput").val());
+    var totalAmountElement = $(input).closest("tr").find(".totalAmount");
+    var totalAmount = quantity * priceProduct;
+    totalAmountElement.text(totalAmount + " $");
+  }
+
+  function incrementQuantity(input) {
+    var quantityInput = $(input).siblings(".quantityInput");
+    var quantity = parseInt(quantityInput.val());
+    quantityInput.val(quantity + 1);
+    updateTotalAmount();
+  }
+
+  // Hàm giảm số lượng
+  function decrementQuantity(input) {
+    var quantityInput = $(input).siblings(".quantityInput");
+    var quantity = parseInt(quantityInput.val());
+    if (quantity > 0) {
+      quantityInput.val(quantity - 1);
+      updateTotalAmount();
+    }
+  }
+
+</script>
+
+<script>
+  var checkboxes = document.querySelectorAll('.itemsCart');
+  var chonTatCa = document.getElementById('checkAll');
+
+  chonTatCa.addEventListener('change', function() {
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = chonTatCa.checked;
+    }
+
+    // Lưu tổng tiền ban đầu khi chọn tất cả
+    if (chonTatCa.checked) {
+      initialTotalAmount = parseFloat($("#grandTotal").text());
+    }
+  });
+
+  checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+      chonTatCa.checked = Array.from(checkboxes).every(function(cb) {
+        return cb.checked;
+      });
+    });
+  });
+</script>
 
 
 <!--<script>-->
-<!--  const showButton = document.getElementById('showButton');-->
-<!--  const hiddenDiv = document.getElementById('hiddenDiv');-->
+<!--  var checkboxes = document.querySelectorAll('.itemsCart');-->
+<!--  var chonTatCa = document.getElementById('checkAll');-->
 
-<!--  document.addEventListener('click', function(event) {-->
-<!--    if (!showButton.contains(event.target) && !hiddenDiv.contains(event.target)) {-->
-<!--      hiddenDiv.style.display = 'none';-->
+<!--  chonTatCa.addEventListener('change', function() {-->
+<!--    for (var i = 0; i < checkboxes.length; i++) {-->
+<!--      checkboxes[i].checked = chonTatCa.checked;-->
 <!--    }-->
 <!--  });-->
 
-<!--  showButton.addEventListener('click', function() {-->
-<!--    hiddenDiv.style.display = 'block';-->
-<!--    event.stopPropagation(); // Ngăn chặn sự kiện click lan truyền lên body/document-->
-<!--  });-->
-
-<!--  hiddenDiv.addEventListener('click', function(event) {-->
-<!--    event.stopPropagation(); // Ngăn chặn sự kiện click lan truyền lên body/document-->
-<!--  });-->
-
-<!--</script>-->
-
-<!--<script>-->
-<!--  function selectAllRows() {-->
-<!--    var checkboxes = document.querySelectorAll('tbody input[type="checkbox"]');-->
-<!--    var selectAllCheckbox = document.querySelector('thead input.check');-->
-
-<!--    checkboxes.forEach(function(checkbox) {-->
-<!--      checkbox.checked = selectAllCheckbox.checked;-->
-<!--    });-->
-<!--  }-->
-<!--</script>-->
-
-<!--<script>-->
-<!--  $(document).ready(function() {-->
-<!--    $(".deleteToCartButton").click(function(event) {-->
-<!--      event.preventDefault();  // Ngăn chặn hành vi mặc định của button-->
-
-<!--      var idProduct = $(this).closest("tr").attr("id");  // Lấy ID sản phẩm từ thuộc tính id của phần tử tr-->
-
-<!--      // Gửi yêu cầu AJAX đến Controller-->
-<!--      $.ajax({-->
-<!--        url: "/deleteToCartButton/" + idProduct,-->
-<!--        type: "POST",-->
-<!--        success: function(response) {-->
-<!--          // Hiển thị thông báo thành công-->
-<!--          $("#alertMessage").text(response).show();-->
-<!--          // Cập nhật danh sách giỏ hàng (nếu cần)-->
-<!--          // ...-->
-<!--        },-->
-<!--        error: function(xhr, status, error) {-->
-<!--          // Xử lý lỗi (nếu có)-->
-<!--          alert("Error occurred while removing the product from cart");-->
-<!--        }-->
+<!--  checkboxes.forEach(function(checkbox) {-->
+<!--    checkbox.addEventListener('change', function() {-->
+<!--      chonTatCa.checked = Array.from(checkboxes).every(function(cb) {-->
+<!--        return cb.checked;-->
 <!--      });-->
 <!--    });-->
 <!--  });-->
 <!--</script>-->
 
+
+
 <!-- Js Plugins -->
-<script src="/js/jquery-3.6.0.min.js"></script>
+
 <script src="/js/feather.min.js"></script>
 <script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/script.js"></script><script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/jquery.nice-select.min.js"></script>
 <script src="/js/jquery.nicescroll.min.js"></script>
