@@ -39,7 +39,8 @@ public class ExcelExporterDiaChi {
         createCell(row, 0, "ID", style);
         createCell(row, 1, "Mã", style);
         createCell(row, 2, "Tên Địa Chỉ", style);
-        createCell(row, 3, "Trạng Thái", style);
+        createCell(row, 3, "Khách Hàng", style);
+        createCell(row, 4, "Trạng Thái", style);
 
     }
 

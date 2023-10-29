@@ -24,7 +24,7 @@ public class HangServiceImpl implements HangService {
 
     @Override
     public List<Hang> getALlHang() {
-        return hangRepository.findAll();
+        return hangRepository.findAllByOrderByTgThemDesc();
     }
 
     @Override

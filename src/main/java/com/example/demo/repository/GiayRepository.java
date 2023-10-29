@@ -23,4 +23,8 @@ public interface GiayRepository extends JpaRepository<Giay, UUID> {
     List<Giay> findByChatLieu(ChatLieu chatLieu);
 
     List<Giay> findByTrangThai(int trangThai);
+
+    List<Giay> findAllByOrderByTgThemDesc();
+
+    Giay findByMaGiay(String maGiay);
 }

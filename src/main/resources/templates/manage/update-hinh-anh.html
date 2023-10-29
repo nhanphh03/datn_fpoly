@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
 
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
+
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -314,7 +316,7 @@
         </div>
     </div>
 </div>
-<form th:object="${hinhAnh}" method="post" th:action="@{'/manage/hinh-anh/viewUpdate/' + ${hinhAnh.idGiay}}">
+<form th:object="${hinhAnh}" method="post" th:action="@{'/manage/hinh-anh/viewUpdate/' + ${hinhAnh.idHinhAnh}}">
     <div class="page-wrapper">
         <div class="content">
             <div class="page-header">
@@ -326,6 +328,21 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
+                        <div class="col-lg-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Mã</label>
+                                <input type="text" th:field="*{maAnh}">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Trạng Thái</label>
+                                <select class="select" th:field="*{trangThai}">
+                                    <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
+                                            th:text="${loc.value}"></option>
+                                </select>
+                            </div>
+                        </div>
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Ảnh 1</label>
@@ -370,15 +387,6 @@
 <!--                                             style="display: none; max-width: 150px; max-height: 150px;">-->
                             </div>
                         </div>
-                        <div class="col-lg-6 col-sm-6 col-12">
-                            <div class="form-group">
-                                <label>Trạng Thái</label>
-                                <select class="select" th:field="*{trangThai}">
-                                    <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                            th:text="${loc.value}"></option>
-                                </select>
-                            </div>
-                        </div>
                         <div class="col-lg-12">
                             <button type="submit" class="btn btn-submit me-2">Submit</button>
                             <a href="/manage/hinh-anh" class="btn btn-cancel">Cancel</a>
@@ -389,6 +397,27 @@
         </div>
     </div>
 </form>
+<div th:if="${message}" id="toast-container" class="toast-container toast-top-right">
+    <div class="toast toast-success" aria-live="polite" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Thành Công</div>
+        <div class="toast-message">Dữ liệu của bạn đã được Thêm</div>
+    </div>
+</div>
+<div th:if="${maHinhAnhError}" id="warning1" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã không được trống.</div>
+    </div>
+</div>
+<div th:if="${Errormessage}" id="checkMa" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Ảnh đã tồn tại.</div>
+    </div>
+</div>
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
@@ -461,6 +490,28 @@
             reader.readAsDataURL(anh4.files[0]);
         }
     }
+</script>
+<script>
+    setTimeout(function () {
+        var successToast = document.getElementById('toast-container');
+        if (successToast) {
+            successToast.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning1 = document.getElementById('warning1');
+        if (warning1) {
+            warning1.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMa = document.getElementById('checkMa');
+        if (checkMa) {
+            checkMa.style.display = 'none';
+        }
+    }, 5000);
 </script>
 </body>
 </html>

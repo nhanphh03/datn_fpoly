@@ -29,7 +29,7 @@ public class SizeServiceImpl implements SizeService {
 
     @Override
     public List<Size> getAllSize() {
-        return sizeRepository.findAll();
+        return sizeRepository.findAllByOrderByTgThemDesc();
     }
 
     @Override

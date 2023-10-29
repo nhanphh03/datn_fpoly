@@ -7,6 +7,7 @@ import com.example.demo.config.PDFExporterSizes;
 import com.example.demo.model.HinhAnh;
 import com.example.demo.model.NhanVien;
 import com.example.demo.model.Size;
+import com.example.demo.repository.HinhAnhRepository;
 import com.example.demo.service.HinhAnhService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
@@ -35,6 +36,8 @@ public class HinhAnhController {
     private HinhAnhService hinhAnhService;
     @Autowired
     private HttpSession session;
+    @Autowired
+    private HinhAnhRepository repository;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -47,10 +50,9 @@ public class HinhAnhController {
     @GetMapping("/hinh-anh")
     public String dsHinhAnh(Model model, @ModelAttribute("message") String message
             , @ModelAttribute("maHinhAnhError") String maHinhAnhError
-            , @ModelAttribute("error") String error, @ModelAttribute("userInput") HinhAnh userInput) {
+            , @ModelAttribute("error") String error, @ModelAttribute("userInput") HinhAnh userInput, @ModelAttribute("Errormessage") String Errormessage) {
 
         List<HinhAnh> hinhAnh = hinhAnhService.getAllHinhAnh();
-        Collections.sort(hinhAnh, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("hinhAnh", hinhAnh);
         //
         model.addAttribute("hinhAnhAdd", new HinhAnh());
@@ -64,6 +66,10 @@ public class HinhAnhController {
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInput != null) {
             model.addAttribute("hinhAnhAdd", userInput);
+        }
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
         }
         return "manage/hinh-anh";
     }
@@ -82,6 +88,13 @@ public class HinhAnhController {
                 redirectAttributes.addFlashAttribute("userInput", hinhAnh);
                 redirectAttributes.addFlashAttribute("error", "maHinhAnhError");
             }
+            return "redirect:/manage/hinh-anh";
+        }
+        //
+        HinhAnh existingAnh = repository.findByMaAnh(hinhAnh.getMaAnh());
+        if (existingAnh != null) {
+            redirectAttributes.addFlashAttribute("userInput", hinhAnh);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
             return "redirect:/manage/hinh-anh";
         }
         //
@@ -111,24 +124,63 @@ public class HinhAnhController {
     }
 
     @GetMapping("/hinh-anh/delete/{id}")
-    public String deleteHinhAnh(@PathVariable UUID id) {
+    public String deleteHinhAnh(@PathVariable UUID id, RedirectAttributes redirectAttributes) {
         HinhAnh hinhAnh = hinhAnhService.getByIdHinhAnh(id);
         hinhAnh.setTrangThai(0);
         hinhAnh.setTgSua(new Date());
         hinhAnhService.save(hinhAnh);
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/hinh-anh";
     }
 
     @GetMapping("/hinh-anh/viewUpdate/{id}")
-    public String viewUpdateHinhAnh(@PathVariable UUID id, Model model) {
+    public String viewUpdateHinhAnh(@PathVariable UUID id, Model model
+            , @ModelAttribute("message") String message
+            , @ModelAttribute("maHinhAnhError") String maHinhAnhError
+            , @ModelAttribute("error") String error, @ModelAttribute("userInput") HinhAnh userInput, @ModelAttribute("Errormessage") String Errormessage) {
         HinhAnh hinhAnh = hinhAnhService.getByIdHinhAnh(id);
         model.addAttribute("hinhAnh", hinhAnh);
+        //
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
+        if (maHinhAnhError == null || !"maHinhAnhError".equals(error)) {
+            model.addAttribute("maHinhAnhError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInput != null) {
+            model.addAttribute("hinhAnhAdd", userInput);
+        }
+        //
+        session.setAttribute("id", id);
+        //
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
+        }
         return "manage/update-hinh-anh";
     }
 
     @PostMapping("/hinh-anh/viewUpdate/{id}")
-    public String updateHinhAnh(@PathVariable UUID id, @ModelAttribute("hinhAnh") HinhAnh hinhAnh) {
+    public String updateHinhAnh(@PathVariable UUID id, @Valid @ModelAttribute("hinhAnh") HinhAnh hinhAnh, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         HinhAnh hinhAnhDb = hinhAnhService.getByIdHinhAnh(id);
+        UUID idAnh = (UUID) session.getAttribute("id");
+        String link = "redirect:/manage/hinh-anh/viewUpdate/" + idAnh;
+        if (bindingResult.hasErrors()) {
+            if (bindingResult.hasFieldErrors("maAnh")) {
+                redirectAttributes.addFlashAttribute("userInput", hinhAnh);
+                redirectAttributes.addFlashAttribute("error", "maHinhAnhError");
+            }
+            return link;
+        }
+        //
+        HinhAnh existingAnh = repository.findByMaAnh(hinhAnh.getMaAnh());
+        if (existingAnh != null && !existingAnh.getIdHinhAnh().equals(id)) {
+            redirectAttributes.addFlashAttribute("userInput", hinhAnh);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return link;
+        }
+        //
         if (hinhAnhDb != null) {
             hinhAnhDb.setTgSua(new Date());
             hinhAnhDb.setTrangThai(hinhAnh.getTrangThai());
@@ -137,6 +189,7 @@ public class HinhAnhController {
 //            hinhAnhDb.setUrl3(hinhAnh.getUrl3());
 //            hinhAnhDb.setUrl4(hinhAnh.getUrl4());
             hinhAnhService.save(hinhAnhDb);
+            redirectAttributes.addFlashAttribute("message", true);
         }
         return "redirect:/manage/hinh-anh";
     }
