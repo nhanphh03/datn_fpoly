@@ -28,9 +28,9 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<div id="global-loader">
-    <div class="whirly-loader"></div>
-</div>
+<!--<div id="global-loader">-->
+<!--    <div class="whirly-loader"></div>-->
+<!--</div>-->
 <div class="main-wrapper">
     <div class="header">
 
@@ -466,15 +466,9 @@
                 </form>
 
                 <div class="table-responsive">
-                    <table class="table datanew" id="data-table">
+                    <table class="table" id="data-table">
                         <thead>
                         <tr>
-                            <th>
-                                <label class="checkboxs">
-                                    <input type="checkbox" id="select-all"/>
-                                    <span class="checkmarks"></span>
-                                </label>
-                            </th>
                             <th>Mã Giày</th>
                             <th>Tên Giày</th>
                             <th>Trạng Thái</th>
@@ -488,12 +482,6 @@
                         </thead>
                         <tbody>
                         <tr th:each="items : ${giay}">
-                            <td>
-                                <label class="checkboxs">
-                                    <input type="checkbox"/>
-                                    <span class="checkmarks"></span>
-                                </label>
-                            </td>
                             <td th:text="${items.maGiay}"></td>
                             <td th:text="${items.tenGiay}"></td>
                             <td>
@@ -621,7 +609,7 @@
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var ma = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
+                var ma = $(this).find("td:eq(0)").text(); // Vị trí cột chứa giá trị kích thước
                 if (ma === maGiay || maGiay === "Mã Giày") {
                     $(this).show();
                 }
@@ -638,7 +626,7 @@
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var ten = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
+                var ten = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
                 if (ten === tenGiay || tenGiay === "Tên Giày") {
                     $(this).show();
                 }
@@ -654,7 +642,7 @@
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var hang = $(this).find("td:eq(4)").text(); // Vị trí cột chứa giá trị kích thước
+                var hang = $(this).find("td:eq(3)").text(); // Vị trí cột chứa giá trị kích thước
                 if (hang === hangTen || hangTen === "Hãng") {
                     $(this).show();
                 }
@@ -670,7 +658,7 @@
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var chatLieu = $(this).find("td:eq(5)").text(); // Vị trí cột chứa giá trị kích thước
+                var chatLieu = $(this).find("td:eq(4)").text(); // Vị trí cột chứa giá trị kích thước
                 if (chatLieu === chatLieuTen || chatLieuTen === "Chất Liệu") {
                     $(this).show();
                 }
@@ -698,6 +686,12 @@
             successToast.style.display = 'none';
         }
     }, 5000);
+</script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.select').select2();
+    });
 </script>
 </body>
 </html>
