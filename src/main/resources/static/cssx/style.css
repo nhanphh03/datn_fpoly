@@ -2305,6 +2305,7 @@ ol {
 
 .shopping__cart__table table {
 	width: 100%;
+
 }
 
 .shopping__cart__table table thead {
@@ -2329,7 +2330,7 @@ ol {
 }
 
 .shopping__cart__table table tbody tr td.product__cart__item {
-	width: 400px;
+	width: 280px;
 }
 
 .shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__pic {
@@ -2355,7 +2356,7 @@ ol {
 }
 
 .shopping__cart__table table tbody tr td.quantity__item {
-	width: 175px;
+	width: 145px;
 }
 
 .shopping__cart__table table tbody tr td.quantity__item .quantity .pro-qty-2 {
