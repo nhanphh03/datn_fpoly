@@ -5,6 +5,7 @@ import com.example.demo.config.ExcelExporterSize;
 import com.example.demo.config.PDFExporterHinhAnh;
 import com.example.demo.config.PDFExporterSizes;
 import com.example.demo.model.HinhAnh;
+import com.example.demo.model.MauSac;
 import com.example.demo.model.NhanVien;
 import com.example.demo.model.Size;
 import com.example.demo.repository.HinhAnhRepository;
@@ -192,6 +193,23 @@ public class HinhAnhController {
             redirectAttributes.addFlashAttribute("message", true);
         }
         return "redirect:/manage/hinh-anh";
+    }
+
+    @GetMapping("/hinh-anh/filter")
+    public String filterData(Model model, @RequestParam(value = "maMau", required = false) String ma) {
+        // Thực hiện lọc dữ liệu dựa trên selectedSize (và trạng thái nếu cần)
+        List<HinhAnh> filteredHinhAnhs;
+        if ("Mã".equals(ma)) {
+            // Nếu người dùng chọn "Tất cả", hiển thị tất cả dữ liệu
+            filteredHinhAnhs = hinhAnhService.getAllHinhAnh();
+        } else {
+            // Thực hiện lọc dữ liệu dựa trên selectedSize
+            filteredHinhAnhs = hinhAnhService.filterHinhAnh(ma);
+        }
+        model.addAttribute("hinhAnh", filteredHinhAnhs);
+        model.addAttribute("hinhAnhAll", hinhAnhService.getAllHinhAnh());
+
+        return "manage/hinh-anh"; // Trả về mẫu HTML chứa bảng dữ liệu sau khi lọc
     }
 
     @GetMapping("/hinhAnh/export/pdf")

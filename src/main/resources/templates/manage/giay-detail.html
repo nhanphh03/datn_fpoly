@@ -28,9 +28,9 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<div id="global-loader">
-    <div class="whirly-loader"></div>
-</div>
+<!--<div id="global-loader">-->
+<!--    <div class="whirly-loader"></div>-->
+<!--</div>-->
 <div class="main-wrapper">
     <div class="header">
 
@@ -428,7 +428,7 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table datanew" id="data-table">
+                            <table class="table" id="data-table">
                                 <thead>
                                 <tr>
                                     <th>Hình Ảnh</th>
@@ -462,6 +462,7 @@
                                         <span th:if="${items.trangThai == 1}"
                                               class="badges bg-lightgreen">Hoạt Động</span>
                                         <span th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</span>
+                                        <span th:if="${items.soLuong == 0}" class="badges bg-lightgrey">Hết Hàng</span>
                                     </td>
                                     <td>
                                         <a class="me-2" th:href="@{'/manage/chi-tiet-giay/detail/' + ${items.idCTG}}">
@@ -612,6 +613,12 @@
             successToast.style.display = 'none';
         }
     }, 5000);
+</script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.select').select2();
+    });
 </script>
 </body>
 </html>

@@ -33,4 +33,12 @@ public class HinhAnhServiceImpl implements HinhAnhService {
     public HinhAnh getByIdHinhAnh(UUID id) {
         return hinhAnhRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public List<HinhAnh> filterHinhAnh(String ma) {
+        if ("Mã".equals(ma)) {
+            return hinhAnhRepository.findAll();
+        }
+        return hinhAnhRepository.findMa(ma);
+    }
 }
