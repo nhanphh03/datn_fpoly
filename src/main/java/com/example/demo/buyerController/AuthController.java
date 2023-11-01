@@ -41,7 +41,7 @@ public class AuthController {
     private CTGViewModelRepository giayChiTietRepository;
 
     @Autowired
-    private LoaiKHService loaiKHService;
+    private LoaiKhachHangService loaiKHService;
 
     @Autowired
     private SendMailService sendMailService;
@@ -215,7 +215,7 @@ public class AuthController {
         khachHang.setTrangThai(2);
         Date date = new Date();
         khachHang.setTgThem(date);
-        LoaiKhachHang loaiKhachHang = loaiKHService.findByTenLKH("Sat");
+        LoaiKhachHang loaiKhachHang = loaiKHService.findByMaLKH("H1");
         khachHang.setLoaiKhachHang(loaiKhachHang);
         khachHangService.save(khachHang);
 
