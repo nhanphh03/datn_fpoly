@@ -38,9 +38,9 @@
     </style>
 </head>
 <body>
-<div id="global-loader">
-    <div class="whirly-loader"></div>
-</div>
+<!--<div id="global-loader">-->
+<!--    <div class="whirly-loader"></div>-->
+<!--</div>-->
 <div class="main-wrapper">
     <div class="header">
 
@@ -445,7 +445,7 @@
                                     <div class="col-lg-2 col-sm-6 col-12">
                                         <div class="form-group">
                                             <select class="select" id="mauSacFilterMa" name="maMau">
-                                                <option>Mã Màu</option>
+                                                <option>Mã</option>
                                                 <option th:each="loc : ${mauSac}" th:value="${loc.ma}"
                                                         th:text="${loc.ma}"></option>
                                             </select>
@@ -482,15 +482,9 @@
                     </form>
 
                     <div class="table-responsive">
-                        <table class="table  datanew" id="data-table">
+                        <table class="table" id="data-table">
                             <thead>
                             <tr>
-                                <th>
-                                    <label class="checkboxs">
-                                        <input type="checkbox" id="select-all">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </th>
                                 <th>Mã</th>
                                 <th>Mã Màu</th>
                                 <th>Tên Màu</th>
@@ -503,12 +497,6 @@
                             </thead>
                             <tbody>
                             <tr th:each="items : ${mauSac}">
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
                                 <td th:text="${items.ma}"></td>
                                 <td>
                                     <span class="color-box" th:style="'background-color: ' + ${items.maMau}"></span>
@@ -660,8 +648,8 @@
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var maColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
-                if (maColumn === maMau || maMau === "Mã Màu") {
+                var maColumn = $(this).find("td:eq(0)").text(); // Vị trí cột chứa giá trị kích thước
+                if (maColumn === maMau || maMau === "Mã") {
                     $(this).show();
                 }
             });
@@ -675,7 +663,7 @@
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var tenColumn = $(this).find("td:eq(3)").text(); // Vị trí cột chứa giá trị kích thước
+                var tenColumn = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
                 if (tenColumn === tenMau || tenMau === "Tên Màu") {
                     $(this).show();
                 }
@@ -744,6 +732,12 @@
             checkMa.style.display = 'none';
         }
     }, 5000);
+</script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.select').select2();
+    });
 </script>
 </body>
 </html>

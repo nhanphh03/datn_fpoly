@@ -28,9 +28,9 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<div id="global-loader">
-    <div class="whirly-loader"></div>
-</div>
+<!--<div id="global-loader">-->
+<!--    <div class="whirly-loader"></div>-->
+<!--</div>-->
 <div class="main-wrapper">
     <div class="header">
 
@@ -464,15 +464,9 @@
                     </form>
 
                     <div class="table-responsive">
-                        <table class="table  datanew" id="data-table">
+                        <table class="table" id="data-table">
                             <thead>
                             <tr>
-                                <th>
-                                    <label class="checkboxs">
-                                        <input type="checkbox" id="select-all">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </th>
                                 <th>Mã Chất Liệu</th>
                                 <th>Tên Chất Liệu</th>
                                 <th>Trạng Thái</th>
@@ -484,12 +478,6 @@
                             </thead>
                             <tbody>
                             <tr th:each="items : ${chatLieu}">
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
                                 <td th:text="${items.maChatLieu}"></td>
                                 <td th:text="${items.tenChatLieu}"></td>
                                 <td>
@@ -632,7 +620,7 @@
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var maColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
+                var maColumn = $(this).find("td:eq(0)").text(); // Vị trí cột chứa giá trị kích thước
                 if (maColumn === maChatLieu || maChatLieu === "Mã Chất Liệu") {
                     $(this).show();
                 }
@@ -647,7 +635,7 @@
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var tenColumn = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
+                var tenColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
                 if (tenColumn === tenChatLieu || tenChatLieu === "Tên Chất Liệu") {
                     $(this).show();
                 }
@@ -709,6 +697,12 @@
             checkMa.style.display = 'none';
         }
     }, 5000);
+</script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.select').select2();
+    });
 </script>
 </body>
 </html>

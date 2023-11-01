@@ -23,14 +23,22 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
 
-    <link rel="stylesheet" href="/plugins/toastr/toatr.css" />
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
 
     <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        .highlighted-row {
+            background-color: yellow; /* Bôi đen dòng bằng màu nền vàng */
+            font-weight: bold; /* Làm đậm nội dung */
+            /* Thêm các kiểu định dạng khác tùy ý */
+        }
+    </style>
 </head>
 <body>
-<div id="global-loader">
-    <div class="whirly-loader"></div>
-</div>
+<!--<div id="global-loader">-->
+<!--    <div class="whirly-loader"></div>-->
+<!--</div>-->
 <div class="main-wrapper">
     <div class="header">
 
@@ -459,7 +467,7 @@
                         </form>
 
                         <div class="table-responsive">
-                            <table class="table datanew" id="data-table">
+                            <table class="table" id="data-table">
                                 <thead>
                                 <tr>
                                     <th>Hình Ảnh</th>
@@ -490,9 +498,9 @@
                                     <td th:text="${items.namSX}"></td>
                                     <td th:text="${items.namBH}"></td>
                                     <td>
-                                        <span th:if="${items.trangThai == 1}"
-                                              class="badges bg-lightgreen">Hoạt Động</span>
+                                        <span th:if="${items.trangThai == 1}" class="badges bg-lightgreen">Hoạt Động</span>
                                         <span th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</span>
+                                        <span th:if="${items.soLuong == 0}" class="badges bg-lightgrey">Hết Hàng</span>
                                     </td>
                                     <td>
                                         <a class="me-2" th:href="@{'/manage/giay-chi-tiet/detail/' + ${items.idCTG}}">
@@ -671,6 +679,12 @@
             successToast.style.display = 'none';
         }
     }, 5000);
+</script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.select').select2();
+    });
 </script>
 </body>
 </html>
