@@ -14,4 +14,6 @@ public interface HinhAnhService {
     public void deleteByIdHinhAnh(UUID id);
 
     public HinhAnh getByIdHinhAnh(UUID id);
+
+    public List<HinhAnh> filterHinhAnh(String ma);
 }

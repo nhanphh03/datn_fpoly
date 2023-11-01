@@ -28,9 +28,9 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<div id="global-loader">
-    <div class="whirly-loader"></div>
-</div>
+<!--<div id="global-loader">-->
+<!--    <div class="whirly-loader"></div>-->
+<!--</div>-->
 <div class="main-wrapper">
     <div class="header">
 
@@ -459,12 +459,6 @@
                         <table class="table datanew" id="data-table">
                             <thead>
                             <tr>
-                                <th>
-                                    <label class="checkboxs">
-                                        <input type="checkbox" id="select-all">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </th>
                                 <th>Mã Size</th>
                                 <th>Số Size</th>
                                 <th>Trạng Thái</th>
@@ -476,12 +470,6 @@
                             </thead>
                             <tbody>
                             <tr th:each="items : ${size}">
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
                                 <td th:text="${items.maSize}"></td>
                                 <td th:text="${items.soSize}"></td>
                                 <td>
@@ -500,7 +488,6 @@
                                 </td>
                                 <td th:text="${items.tgThem}"></td>
                                 <td th:text="${items.tgSua}"></td>
-
                             </tr>
                             </tbody>
                         </table>
@@ -611,7 +598,7 @@
             var selectedSize = $(this).val();
             $("#data-table tbody tr").hide();
             $("#data-table tbody tr").each(function () {
-                var sizeColumn = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
+                var sizeColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
                 if (sizeColumn === selectedSize || selectedSize === "Size") {
                     $(this).show();
                 }
@@ -622,7 +609,7 @@
             var selectedSizeMa = $(this).val();
             $("#data-table tbody tr").hide();
             $("#data-table tbody tr").each(function () {
-                var sizeColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
+                var sizeColumn = $(this).find("td:eq(0)").text(); // Vị trí cột chứa giá trị kích thước
                 if (sizeColumn === selectedSizeMa || selectedSizeMa === "Mã Size") {
                     $(this).show();
                 }
@@ -711,6 +698,12 @@
         if (parts.length === 2) return parts.pop().split(";").shift();
     }
 
+</script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function () {
+        $('.select').select2();
+    });
 </script>
 </body>
 </html>
