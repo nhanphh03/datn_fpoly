@@ -14,4 +14,5 @@ public interface LoaiKhachHangRepository extends JpaRepository<LoaiKhachHang, UU
 
     LoaiKhachHang findByMaLKH(String maCV);
     LoaiKhachHang findByTenLKH(String name);
+
 }
