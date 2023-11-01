@@ -115,13 +115,12 @@ public class ShopFAController {
             String[] parts = remainingData.split("\\|");
 
             if (parts.length == 5) {
+
                 String name = parts[0];
                 String birthdate = parts[1];
                 String gender = parts[2];
                 String address = parts[3];
                 String dateCreated = parts[4];
-
-                // Thực hiện xử lý với các phần được trích xuất từ chuỗi ở đây
 
                 System.out.println("id: " + id + "name: " + name + "Birthdate: " + birthdate + "Gender: " + gender + "Address: " + address + "Date Created: " + dateCreated);
             } else {
