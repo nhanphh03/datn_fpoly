@@ -4,7 +4,6 @@ package com.example.demo.service.impls;
 import com.example.demo.model.KhachHang;
 import com.example.demo.model.LoaiKhachHang;
 import com.example.demo.repository.KhachHangRepository;
-import com.example.demo.repository.LoaiKHRepository;
 import com.example.demo.repository.LoaiKhachHangRepository;
 import com.example.demo.service.KhachHangService;
 import org.apache.poi.ss.usermodel.Row;
@@ -116,6 +115,9 @@ public class KhachHangServiceImpl implements KhachHangService {
         return khachHangRepository.findByMaKHOrHoTenKH(maKH, tenKH);
     }
 
+    }
+
+    @Override
     public List<KhachHang> findKhachHangByTrangThai() {
         return khachHangRepository.getKhachHangByTrangThai();
     }
