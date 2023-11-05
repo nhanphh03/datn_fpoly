@@ -653,6 +653,7 @@ public class GiayChiTietController {
     public String addGiay(@ModelAttribute("giayAdd") Giay giay, Model model) {
         Giay giay1 = new Giay();
         giay1.setMaGiay(giay.getMaGiay());
+        giay1.setMoTa(giay.getMoTa());
         giay1.setTenGiay(giay.getTenGiay());
         giay1.setTgThem(new Date());
         giay1.setHang(giay.getHang());
@@ -693,6 +694,7 @@ public class GiayChiTietController {
         //
         Giay giay1 = new Giay();
         giay1.setMaGiay(giay.getMaGiay());
+        giay1.setMoTa(giay.getMoTa());
         giay1.setTenGiay(giay.getTenGiay());
         giay1.setTgThem(new Date());
         giay1.setHang(giay.getHang());

@@ -211,6 +211,7 @@ public class GiayController {
         //
         Giay giay1 = new Giay();
         giay1.setMaGiay(giay.getMaGiay());
+        giay1.setMoTa(giay.getMoTa());
         giay1.setTenGiay(giay.getTenGiay());
         giay1.setTgThem(new Date());
         giay1.setHang(giay.getHang());
@@ -396,6 +397,7 @@ public class GiayController {
         //
         if (giayDb != null) {
             giayDb.setMaGiay(giay.getMaGiay());
+            giayDb.setMoTa(giay.getMoTa());
             giayDb.setTenGiay(giay.getTenGiay());
             giayDb.setTgSua(new Date());
             giayDb.setTrangThai(giay.getTrangThai());

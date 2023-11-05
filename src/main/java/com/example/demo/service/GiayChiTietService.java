@@ -11,6 +11,8 @@ import java.util.UUID;
 public interface GiayChiTietService {
     public List<ChiTietGiay> getAllChiTietGiay();
 
+    public List<ChiTietGiay> getTop4ChiTietGiay();
+
     public void save(ChiTietGiay chiTietGiay);
 
     public void update(ChiTietGiay chiTietGiay);
