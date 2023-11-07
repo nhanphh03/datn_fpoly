@@ -418,7 +418,7 @@
                         <div class="card-body pt-0 mt-3">
                             <div class="totalitem">
                                 <label class="fw-semibold fs-3 ">Giỏ hàng</label>
-                                <h4 th:text="'Total items : '"></h4>
+                                <h4 th:text="'Total items : '+${tongSanPham}"></h4>
                                 <a href="javascript:void(0);">Clear all</a>
                             </div>
                             <div class="product-table">
@@ -1516,11 +1516,12 @@
                                                 <input type="number" name="soLuong" value="1" min="0"
                                                        class="form-control"/>
                                             </div>
-                                            <div th:each="listChiTietGiay : ${listChiTietGiay}">
-                                                <div class="col-md-3">
+                                            <div class="row">
+                                                <div th:each="listChiTietGiay : ${listChiTietGiay}" class="col-md-3">
                                                     <input type="radio" th:name="idChiTietGiay"
                                                            th:value="${listChiTietGiay.idCTG}"
-                                                           th:text="${listChiTietGiay.size.soSize}"/>
+                                                           th:text="${listChiTietGiay.size.soSize}"
+                                                           checked="true" />
                                                 </div>
                                             </div>
                                             <button type="submit" class="btn btn-secondary btn-center mt-3">
@@ -1636,6 +1637,14 @@
         </div>
     </div>
 </div>
+
+<div th:if="${messageGioHang}" id="successGioHang" class="toast-container toast-top-right">
+    <div class="toast toast-success" aria-live="polite" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Thành Công</div>
+        <div class="toast-message">Thêm giỏ hàng thành công</div>
+    </div>
+</div>
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
@@ -1656,10 +1665,12 @@
 
 <script src="/js/script.js"></script>
 <script>
-    // $(document).ready(function () {
-    //     $('#filter_inputs').slideToggle("slow");
-    //     $('#filter_search').toggleClass("setclose");
-    // });
+    setTimeout(function () {
+        var successGioHang = document.getElementById('successGioHang');
+        if (successGioHang) {
+            successGioHang.style.display = 'none';
+        }
+    }, 5000);
 </script>
 <!-- JavaScript để kích hoạt modal mặc định -->
 <script>
