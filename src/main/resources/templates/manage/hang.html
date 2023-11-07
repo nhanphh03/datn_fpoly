@@ -328,7 +328,7 @@
 
             <div class="card">
                 <div class="card-body">
-                    <div class="hidden-form">
+                    <div class="hidden-form" style="display: none">
                         <form th:object="${hangAdd}" method="post" th:action="@{/manage/hang/viewAdd/add}">
                             <div class="row">
                                 <div class="col-lg-6 col-sm-6 col-12">
@@ -347,7 +347,7 @@
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Hãng</label><br><br>
-                                        <input type="text" th:field="*{maHang}">
+                                        <input type="text" th:field="*{maHang}"required>
                                         <br><br>
                                         <strong th:if="${#fields.hasErrors('maHang')}"
                                                 class="alert alert-danger alert-dismissible fade show"
@@ -357,7 +357,7 @@
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Hãng</label><br><br>
-                                        <input type="text" th:field="*{tenHang}">
+                                        <input type="text" th:field="*{tenHang}"required>
                                         <br><br>
                                         <strong th:if="${#fields.hasErrors('tenHang')}"
                                                 class="alert alert-danger alert-dismissible fade show"

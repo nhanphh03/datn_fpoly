@@ -341,13 +341,13 @@
 
             <div class="card">
                 <div class="card-body">
-                    <div class="hidden-form">
+                    <div class="hidden-form" style="display: none">
                         <form th:object="${mauSacAdd}" method="post" th:action="@{/manage/mau-sac/viewAdd/add}">
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã</label>
-                                        <input type="text" th:field="*{ma}"><br><br>
+                                        <input type="text" th:field="*{ma}"required><br><br>
                                         <strong th:if="${#fields.hasErrors('ma')}"
                                                 class="alert alert-danger alert-dismissible fade show"
                                                 role="alert" th:errors="*{ma}"></strong>
@@ -356,7 +356,7 @@
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Màu</label>
-                                        <input type="text" th:field="*{maMau}"><br><br>
+                                        <input type="text" th:field="*{maMau}"required><br><br>
                                         <strong th:if="${#fields.hasErrors('maMau')}"
                                                 class="alert alert-danger alert-dismissible fade show"
                                                 role="alert" th:errors="*{maMau}"></strong>
@@ -365,7 +365,7 @@
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Màu</label>
-                                        <input type="text" th:field="*{tenMau}"><br><br>
+                                        <input type="text" th:field="*{tenMau}"required><br><br>
                                         <strong th:if="${#fields.hasErrors('tenMau')}"
                                                 class="alert alert-danger alert-dismissible fade show"
                                                 role="alert" th:errors="*{tenMau}"></strong>

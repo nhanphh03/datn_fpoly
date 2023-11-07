@@ -81,6 +81,16 @@ public class DiaChiServicelmpl implements DiaChiKHService {
     }
 
     @Override
+    public List<DiaChiKH> findbyKhachHangAndLoai(KhachHang khachHang, Boolean loai) {
+        return diaChiRepsitory.findByKhachHangAndLoaiAndTrangThai(khachHang, loai, 1);
+    }
+
+    @Override
+    public DiaChiKH findDCKHDefaulByKhachHang(KhachHang khachHang) {
+        return diaChiRepsitory.findByKhachHangAndLoai(khachHang, true);
+    }
+
+    @Override
     public List<DiaChiKH> findByKhachHang(KhachHang khachHang) {
         return diaChiRepsitory.findByKhachHang(khachHang);
     }
