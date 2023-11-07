@@ -330,13 +330,13 @@
 
             <div class="card">
                 <div class="card-body">
-                    <div class="hidden-form">
+                    <div class="hidden-form" style="display: none">
                         <form th:object="${chatLieuAdd}" method="post" th:action="@{/manage/chat-lieu/viewAdd/add}">
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Chất Liệu</label>
-                                        <input type="text" th:field="*{maChatLieu}">
+                                        <input type="text" th:field="*{maChatLieu}"required>
                                         <br><br>
                                         <strong th:if="${#fields.hasErrors('maChatLieu')}"
                                                 class="alert alert-danger alert-dismissible fade show"
@@ -346,7 +346,7 @@
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Chất Liệu</label>
-                                        <input type="text" th:field="*{tenChatLieu}">
+                                        <input type="text" th:field="*{tenChatLieu}"required>
                                         <br><br>
                                         <strong th:if="${#fields.hasErrors('tenChatLieu')}"
                                                 class="alert alert-danger alert-dismissible fade show"

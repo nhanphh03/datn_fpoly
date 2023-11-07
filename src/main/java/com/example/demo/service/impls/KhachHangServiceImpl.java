@@ -63,7 +63,7 @@ public class KhachHangServiceImpl implements KhachHangService {
 
     @Override
     public void addKhachHang(KhachHang khachHang) {
-         khachHangRepository.save(khachHang);
+        khachHangRepository.save(khachHang);
     }
 
     @Override
@@ -113,7 +113,6 @@ public class KhachHangServiceImpl implements KhachHangService {
             return khachHangRepository.findAll();
         }
         return khachHangRepository.findByMaKHOrHoTenKH(maKH, tenKH);
-
     }
 
     @Override
