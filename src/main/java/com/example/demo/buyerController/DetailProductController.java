@@ -218,7 +218,7 @@ public class DetailProductController {
     }
 
     @GetMapping("/shop/addProductCart")
-    public String handleAddToCart(@RequestParam("idDProduct") UUID idDProduct, @RequestParam("quantity") int quantity, Model model) {
+    public String handleAddToCart(@RequestParam("idDetailProduct") UUID idDProduct, @RequestParam("quantity") int quantity, Model model) {
 
         ChiTietGiay ctg = giayChiTietService.getByIdChiTietGiay(idDProduct);
 
@@ -279,6 +279,89 @@ public class DetailProductController {
         addToLuotXemFA(khachHang, mau, giay, minPrice, sumCTGByGiay, 0);
 
         return "redirect:/buyer/shop-details/" + idGiay +"/" +idMau;
+    }
+
+    @GetMapping("/shop/buyNowButton")
+    private String buyNow(@RequestParam("idDetailProduct") UUID idDProduct, @RequestParam("quantity") int quantity, Model model){
+
+        ChiTietGiay ctg = giayChiTietService.getByIdChiTietGiay(idDProduct);
+
+        GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
+
+        GioHangChiTiet gioHangChiTiet = ghctService.findByCTSPActive(ctg);
+
+        if (gioHangChiTiet != null){
+            gioHangChiTiet.setSoLuong(gioHangChiTiet.getSoLuong() + quantity);
+            gioHangChiTiet.setTgThem(new Date());
+            gioHangChiTiet.setDonGia(quantity*ctg.getGiaBan() + gioHangChiTiet.getDonGia());
+            ghctService.addNewGHCT(gioHangChiTiet);
+        }else {
+            GioHangChiTiet gioHangChiTietNew = new GioHangChiTiet();
+            gioHangChiTietNew.setChiTietGiay(ctg);
+            gioHangChiTietNew.setGioHang(gioHang);
+            gioHangChiTietNew.setSoLuong(quantity);
+            gioHangChiTietNew.setTgThem(new Date());
+            gioHangChiTietNew.setDonGia(quantity * ctg.getGiaBan());
+            gioHangChiTietNew.setTrangThai(1);
+            ghctService.addNewGHCT(gioHangChiTietNew);
+        }
+
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+
+        List<GioHangChiTiet> listGHCTActive = ghctService.findByGHActive(gioHang);
+
+        Integer sumProductInCart = listGHCTActive.size();
+        String idBuyNow = String.valueOf(ctg.getIdCTG());
+
+        model.addAttribute("fullNameLogin", khachHang.getHoTenKH());
+        model.addAttribute("sumProductInCart", sumProductInCart);
+        model.addAttribute("listCartDetail", listGHCTActive);
+        model.addAttribute(idBuyNow, true);
+        model.addAttribute("chiTietGiay", ctg);
+        
+
+        return "/online/shopping-cart";
+
+//        List<DiaChiKH> diaChiKH = diaChiKHService.findByKhachHang(khachHang);
+//
+//        Date date = new Date();
+//
+//        String today = String.valueOf(date) ;
+//        String maHD = "HD" + khachHang.getMaKH() + generateRandomNumbers() + today;
+//
+//        HoaDon hoaDon = new HoaDon();
+//
+//        hoaDon.setKhachHang(khachHang);
+//        hoaDon.setKhuyenMai(null);
+//        hoaDon.setMaHD(maHD);
+//        hoaDon.setSdtNguoiNhan(null);
+//        hoaDon.setDiaChiNguoiNhan(null);
+//        hoaDon.setNhanVien(null);
+//        hoaDon.setTgTao(date);
+//        hoaDon.setTgShip(null);
+//        hoaDon.setTongSP(null);
+//        hoaDon.setTongTien(null);
+//        hoaDon.setTienShip(null);
+//        hoaDon.setTongTienDG(null);
+//        hoaDon.setTgNhanDK(null);
+//        hoaDon.setTrangThai(3);
+//        hoaDon.setLoaiHD(0);
+//        hoaDonService.add(hoaDon);
+//
+//        HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
+//
+//        ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(idDProduct);
+//
+//        hoaDonChiTiet.setChiTietGiay(chiTietGiay);
+//        hoaDonChiTiet.setHoaDon(hoaDon);
+//        hoaDonChiTiet.setSoLuong(quantity);
+//        hoaDonChiTiet.setTgThem(new Date());
+//        hoaDonChiTiet.setTrangThai(1);
+//        hoaDonChiTiet.setDonGia(quantity*chiTietGiay.getGiaBan());
+//        hoaDonChiTiet.setDonGiaKhiGiam(null);
+//        hoaDonChiTiet.setSoTienGiam(null);
+//        hoaDonChiTietService.add(hoaDonChiTiet);
+
     }
 
     @GetMapping("/heart/{idGiay}/{idMau}")
