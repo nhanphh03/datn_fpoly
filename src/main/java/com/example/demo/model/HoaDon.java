@@ -61,7 +61,7 @@ public class HoaDon {
     private Date tgShip;
 
     @Column(name = "tg_Nhan")
-    private Date tgNhan;
+    private Date tgNhanDK;
 
     @Column(name = "ten_Nguoi_Nhan")
     private String tenNguoiNhan;
