@@ -330,19 +330,19 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <div class="hidden-form">
+                    <div class="hidden-form" style="display: none">
                         <form th:object="${sizeAdd}" method="post" th:action="@{/manage/size/viewAdd/add}">
                             <div class="row">
                                 <div class="col-lg-3 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Size</label>
-                                        <input type="text" th:field="*{maSize}"><br><br>
+                                        <input type="text" th:field="*{maSize}"required><br><br>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Số Size</label>
-                                        <input type="text" th:field="*{soSize}"><br><br>
+                                        <input type="text" th:field="*{soSize}"required><br><br>
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-2 col-sm-6 col-12">-->
