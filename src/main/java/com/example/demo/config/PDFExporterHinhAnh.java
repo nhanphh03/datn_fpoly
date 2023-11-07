@@ -53,7 +53,7 @@ public class PDFExporterHinhAnh {
 
     private void writeTableData(PdfPTable table) {
         for (HinhAnh hinhAnh : listHinhAnh) {
-            table.addCell(String.valueOf(hinhAnh.getIdGiay()));
+            table.addCell(String.valueOf(hinhAnh.getIdHinhAnh()));
             table.addCell(hinhAnh.getUrl1());
             table.addCell(hinhAnh.getUrl2());
             table.addCell(hinhAnh.getUrl3());

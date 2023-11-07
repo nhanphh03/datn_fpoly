@@ -1,6 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -27,37 +28,41 @@ public class ChiTietGiay {
 
     @ManyToOne
     @JoinColumn(name = "id_Size")
+    @NotNull
     private Size size;
 
     @ManyToOne
     @JoinColumn(name = "id_Giay")
+    @NotNull
     private Giay giay;
 
     @ManyToOne
     @JoinColumn(name = "id_Hinh_Anh")
+    @NotNull
     private HinhAnh hinhAnh;
 
     @ManyToOne
     @JoinColumn(name = "id_Mau")
+    @NotNull
     private MauSac mauSac;
 
-    @NotNull(message = "Không được để trống")
+    @Min(value = 1)
     @Column(name = "nam_San_Xuat")
     private int namSX;
 
-    @NotNull(message = "Không được để trống")
+    @Min(value = 1)
     @Column(name = "nam_Bao_Hanh")
     private int namBH;
 
-    @NotNull(message = "Không được để trống")
+    @Min(value = 1)
     @Column(name = "trong_Luong")
     private int trongLuong;
 
-    @NotNull(message = "Không được để trống")
+    @Min(value = 1)
     @Column(name = "gia_Ban")
     private double giaBan;
 
-    @NotNull(message = "Không được để trống")
+    @Min(value = 0)
     @Column(name = "so_Luong")
     private int soLuong;
 

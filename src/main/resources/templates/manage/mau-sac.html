@@ -23,12 +23,24 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
 
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
+
     <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .color-box {
+            width: 40px; /* Độ rộng của hộp màu */
+            height: 40px; /* Chiều cao của hộp màu */
+            display: inline-block; /* Hiển thị như một hộp chữ nằm cạnh nhau */
+            border: 1px solid #000; /* Viền xung quanh hộp màu */
+            margin: 0 5px; /* Khoảng cách giữa các hộp màu */
+            border-radius: 50%;
+        }
+    </style>
 </head>
 <body>
-<div id="global-loader">
-    <div class="whirly-loader"></div>
-</div>
+<!--<div id="global-loader">-->
+<!--    <div class="whirly-loader"></div>-->
+<!--</div>-->
 <div class="main-wrapper">
     <div class="header">
 
@@ -188,17 +200,17 @@
 
             <li class="nav-item dropdown has-arrow main-drop">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
-<span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
+<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
 <span class="status online"></span></span>
                 </a>
                 <div class="dropdown-menu menu-drop-user">
                     <div class="profilename">
                         <div class="profileset">
-<span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
+<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
 <span class="status online"></span></span>
                             <div class="profilesets">
-                                <h6>John Doe</h6>
-                                <h5>Admin</h5>
+                                <h6 th:text="${session.managerLogged.hoTenNV}"></h6>
+                                <h5 th:text="${session.managerLogged.chucVu.tenCV}"></h5>
                             </div>
                         </div>
                         <hr class="m-0">
@@ -207,8 +219,8 @@
                         <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
                                                                                 data-feather="settings"></i>Settings</a>
                         <hr class="m-0">
-                        <a class="dropdown-item logout pb-0" href="signin.html"><img src="/images/img/icons/log-out.svg"
-                                                                                     class="me-2" alt="img">Logout</a>
+                        <a class="dropdown-item logout pb-0" href="/logout"><img src="/images/img/icons/log-out.svg"
+                                                                                 class="me-2" alt="img">Logout</a>
                     </div>
                 </div>
             </li>
@@ -246,12 +258,9 @@
                             <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                            <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="/ban-hang/hien-thi">Bán hàng</a></li>
-                        </ul>
+                    <li>
+                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
+                        </a>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
@@ -301,7 +310,7 @@
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img" /><span>
+                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
                     Quản Lý Voucher</span
                         >
                             <span class="menu-arrow"></span
@@ -324,14 +333,61 @@
                     <h6>Quản Lý Giày</h6>
                 </div>
                 <div class="page-btn">
-                    <a href="/manage/mau-sac/viewAdd" class="btn btn-added">
+                    <button class="btn btn-added" id="show-form-button">
                         <img src="/images/img/icons/plus.svg" class="me-1" alt="img">Thêm Màu
-                    </a>
+                    </button>
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-body">
+                    <div class="hidden-form" style="display: none">
+                        <form th:object="${mauSacAdd}" method="post" th:action="@{/manage/mau-sac/viewAdd/add}">
+                            <div class="row">
+                                <div class="col-lg-2 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Mã</label>
+                                        <input type="text" th:field="*{ma}"required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Mã Màu</label>
+                                        <input type="text" th:field="*{maMau}"required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Tên Màu</label>
+                                        <input type="text" th:field="*{tenMau}"required>
+                                    </div>
+                                </div>
+                                <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
+                                <!--                                    <div class="form-group">-->
+                                <!--                                        <label>Trạng Thái</label>-->
+                                <!--                                        <select class="select" th:field="*{trangThai}">-->
+                                <!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+                                <!--                                                    th:text="${loc.value}"></option>-->
+                                <!--                                        </select>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
+                                <div class="col-lg-12">
+                                    <button type="submit" class="btn btn-submit me-2">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <br>
+                    <div class="form-hidden-2" style="display: none">
+                        <form action="/manage/mauSac/import" method="post" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label> Upload Excel File</label>
+                                <input type="file" name="file" onchange="displaySelectedFileName()"/>
+                            </div>
+                            <button type="submit" class="btn btn-submit me-2">Submit</button>
+                        </form>
+                    </div>
+                    <br>
                     <div class="table-top">
                         <div class="search-set">
                             <div class="search-path">
@@ -348,15 +404,25 @@
                         <div class="wordset">
                             <ul>
                                 <li>
-                                    <a th:href="@{/manage/mauSac/export/pdf}" data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
+                                    <a class="btn btn-filter" id="import-excel" data-bs-toggle="tooltip"
+                                       data-bs-placement="top" title="Import Excel">
+                                        <img src="/images/img/icons/upload.svg" alt="img">
+                                        <span><img src="/images/img/icons/closes.svg" alt="img"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a th:href="@{/manage/mauSac/export/pdf}" data-bs-toggle="tooltip"
+                                       data-bs-placement="top" title="pdf"><img
                                             src="/images/img/icons/pdf.svg" alt="img"></a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/manage/mauSac/export/excel}" data-bs-toggle="tooltip" data-bs-placement="top" title="excel"><img
+                                    <a th:href="@{/manage/mauSac/export/excel}" data-bs-toggle="tooltip"
+                                       data-bs-placement="top" title="excel"><img
                                             src="/images/img/icons/excel.svg" alt="img"></a>
                                 </li>
                                 <li>
-                                    <a id="printButton" data-bs-toggle="tooltip" data-bs-placement="top" title="print"><img
+                                    <a id="printButton" data-bs-toggle="tooltip" data-bs-placement="top"
+                                       title="print"><img
                                             src="/images/img/icons/printer.svg" alt="img"></a>
                                 </li>
                             </ul>
@@ -370,9 +436,9 @@
                                     <div class="col-lg-2 col-sm-6 col-12">
                                         <div class="form-group">
                                             <select class="select" id="mauSacFilterMa" name="maMau">
-                                                <option>Mã Màu</option>
-                                                <option th:each="loc : ${mauSac}" th:value="${loc.maMau}"
-                                                        th:text="${loc.maMau}"></option>
+                                                <option>Mã</option>
+                                                <option th:each="loc : ${mauSac}" th:value="${loc.ma}"
+                                                        th:text="${loc.ma}"></option>
                                             </select>
                                         </div>
                                     </div>
@@ -407,15 +473,10 @@
                     </form>
 
                     <div class="table-responsive">
-                        <table class="table  datanew" id="data-table">
+                        <table class="table datanew" id="data-table">
                             <thead>
                             <tr>
-                                <th>
-                                    <label class="checkboxs">
-                                        <input type="checkbox" id="select-all">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </th>
+                                <th>Mã</th>
                                 <th>Mã Màu</th>
                                 <th>Tên Màu</th>
                                 <th>Trạng Thái</th>
@@ -427,23 +488,22 @@
                             </thead>
                             <tbody>
                             <tr th:each="items : ${mauSac}">
+                                <td th:text="${items.ma}"></td>
                                 <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
+                                    <span class="color-box" th:style="'background-color: ' + ${items.maMau}"></span>
                                 </td>
-                                <td th:text="${items.maMau}"></td>
                                 <td th:text="${items.tenMau}"></td>
                                 <td>
                                     <span th:if="${items.trangThai == 1}" class="badges bg-lightgreen">Hoạt Động</span>
-                                    <span th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</span>
+                                    <span th:unless="${items.trangThai == 1}"
+                                          class="badges bg-lightred">Không Hoạt Động</span>
                                 </td>
                                 <td>
                                     <a class="me-3" th:href="@{'/manage/mau-sac/viewUpdate/' + ${items.idMau}}">
                                         <img src="/images/img/icons/edit.svg" alt="img">
                                     </a>
-                                    <a class="me-3 delete-button" th:data-delete-url="@{'/manage/mau-sac/delete/' + ${items.idMau}}">
+                                    <a class="me-3 delete-button"
+                                       th:data-delete-url="@{'/manage/mau-sac/delete/' + ${items.idMau}}">
                                         <img src="/images/img/icons/delete.svg" alt="img">
                                     </a>
                                 </td>
@@ -457,6 +517,41 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div th:if="${message}" id="toast-container" class="toast-container toast-top-right">
+    <div class="toast toast-success" aria-live="polite" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Thành Công</div>
+        <div class="toast-message">Dữ liệu của bạn đã được cập nhật</div>
+    </div>
+</div>
+<div th:if="${maError}" id="warning1" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã không được trống.</div>
+    </div>
+</div>
+<div th:if="${maMauError}" id="warning2" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã màu không được để trống.</div>
+    </div>
+</div>
+<div th:if="${tenMauError}" id="warning3" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Tên màu không được để trống.</div>
+    </div>
+</div>
+<div th:if="${Errormessage}" id="checkMa" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Màu đã tồn tại.</div>
     </div>
 </div>
 <script src="/js/jquery-3.6.0.min.js"></script>
@@ -477,12 +572,12 @@
 
 <script src="/js/script.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         // Lấy thẻ nút in bằng id
         var printButton = document.getElementById("printButton");
 
         // Thêm sự kiện click cho nút
-        printButton.addEventListener("click", function() {
+        printButton.addEventListener("click", function () {
             // Gọi hàm in mặc định của trình duyệt
             window.print();
         });
@@ -544,8 +639,8 @@
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var maColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
-                if (maColumn === maMau || maMau === "Mã Màu") {
+                var maColumn = $(this).find("td:eq(0)").text(); // Vị trí cột chứa giá trị kích thước
+                if (maColumn === maMau || maMau === "Mã") {
                     $(this).show();
                 }
             });
@@ -565,6 +660,74 @@
                 }
             });
         });
+    });
+</script>
+<script>
+    //Mở form
+    document.getElementById("show-form-button").addEventListener("click", function () {
+        var form1 = document.querySelector(".hidden-form");
+        var form2 = document.querySelector(".form-hidden-2");
+        if (form1.style.display === "none" || form1.style.display === "" || form2.style.display === "block") {
+            $('.hidden-form').slideToggle("slow");
+            form1.style.display = "block";  // Hiển thị form
+            form2.style.display = "none";
+        } else {
+            form1.style.display = "none";  // Ẩn form
+        }
+    });
+    //
+    document.getElementById("import-excel").addEventListener("click", function () {
+        var form2 = document.querySelector(".form-hidden-2");
+        var form1 = document.querySelector(".hidden-form");
+        if (form2.style.display === "none" || form2.style.display === "" || form1.style.display === "block") {
+            $('.form-hidden-2').slideToggle("slow");
+            form2.style.display = "block";  // Hiển thị form
+            form1.style.display = "none";
+        } else {
+            form2.style.display = "none";  // Ẩn form
+        }
+    });
+</script>
+<script>
+    setTimeout(function() {
+        var successToast = document.getElementById('toast-container');
+        if (successToast) {
+            successToast.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning1 = document.getElementById('warning1');
+        if (warning1) {
+            warning1.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning2 = document.getElementById('warning2');
+        if (warning2) {
+            warning2.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning3 = document.getElementById('warning3');
+        if (warning3) {
+            warning3.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMa = document.getElementById('checkMa');
+        if (checkMa) {
+            checkMa.style.display = 'none';
+        }
+    }, 5000);
+</script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.select').select2();
     });
 </script>
 </body>

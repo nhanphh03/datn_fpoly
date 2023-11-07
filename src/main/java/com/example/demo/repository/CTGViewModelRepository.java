@@ -13,135 +13,120 @@ import java.util.UUID;
 @Repository
 public interface CTGViewModelRepository extends JpaRepository<CTGViewModel, UUID> {
 
-    @Query(value = "SELECT\n" +
-            "    ctg.id_giay,\n" +
-            "    MIN(ctg.gia_ban) AS min_price,\n" +
-            "    g.ten_giay,\n" +
-            "    SUM(ctg.so_luong) AS sl_ton,\n" +
-            "    a.url1,\n" +
-            "    COALESCE(SUM(cthd.so_luong), 0) AS so_Luong_Da_Ban\n" +
-            "FROM\n" +
-            "    chi_tiet_giay ctg\n" +
-            "JOIN\n" +
-            "    giay g ON g.id_giay = ctg.id_giay\n" +
-            "JOIN\n" +
-            "    hinh_anh a ON a.id_hinh_anh = ctg.id_hinh_anh\n" +
-            "LEFT JOIN\n" +
-            "    hoa_don_chi_tiet cthd ON cthd.id_ctg = ctg.id_chi_tiet_giay\n" +
-            "WHERE\n" +
-            "    ctg.id_giay IS NOT NULL\n" +
-            "    AND ctg.id_hinh_anh IS NOT NULL\n" +
-            "\tAND g.trang_thai Like 1\n" +
-            "\tAND ctg.trang_thai like 1\n" +
-            "GROUP BY\n" +
-            "    ctg.id_giay,\n" +
-            "    g.ten_giay,\n" +
-            "    a.url1;", nativeQuery = true)
+    @Query("SELECT NEW com.example.demo.viewModel.CTGViewModel(" +
+            "ctg.giay.idGiay, ctg.mauSac.idMau, MIN(ctg.giaBan), g.tenGiay, SUM(ctg.soLuong), a.url1 , COALESCE(SUM(cthd.soLuong), 0))" +
+            "FROM ChiTietGiay ctg " +
+            "JOIN Giay g ON g.idGiay = ctg.giay.idGiay\n" +
+            "JOIN HinhAnh a ON a.idHinhAnh = ctg.hinhAnh.idHinhAnh\n" +
+            "JOIN MauSac ms ON ms.idMau = ctg.mauSac.idMau\n" +
+            "LEFT JOIN HoaDonChiTiet cthd ON cthd.chiTietGiay.idCTG = ctg.idCTG " +
+            "WHERE ctg.giay.idGiay IS NOT NULL " +
+            "AND ctg.hinhAnh.idHinhAnh IS NOT NULL " +
+            "AND g.trangThai = 1 " +
+            "AND ctg.trangThai = 1 " +
+            "GROUP BY ctg.giay.idGiay, ctg.mauSac.idMau, g.tenGiay, a.url1")
     List<CTGViewModel> getAll();
 
-
-    @Query(value = "SELECT\n" +
-            "    ctg.id_giay,\n" +
-            "    MIN(ctg.gia_ban) AS min_price,\n" +
-            "    g.ten_giay,\n" +
-            "    SUM(ctg.so_luong) AS sl_ton,\n" +
-            "    a.url1,\n" +
-            "    COALESCE(SUM(cthd.so_luong), 0) AS so_Luong_Da_Ban\n" +
-            "FROM\n" +
-            "    chi_tiet_giay ctg\n" +
-            "JOIN\n" +
-            "    giay g ON g.id_giay = ctg.id_giay\n" +
-            "JOIN\n" +
-            "    hinh_anh a ON a.id_hinh_anh = ctg.id_hinh_anh\n" +
-            "LEFT JOIN\n" +
-            "    hoa_don_chi_tiet cthd ON cthd.id_ctg = ctg.id_chi_tiet_giay\n" +
-            "WHERE\n" +
-            "    ctg.id_giay IS NOT NULL\n" +
-            "    AND ctg.id_hinh_anh IS NOT NULL\n" +
-            "\tAND g.trang_thai Like 1\n" +
-            "\tAND ctg.trang_thai like 1\n" +
-            "GROUP BY\n" +
-            "    ctg.id_giay,\n" +
-            "    g.ten_giay,\n" +
-            "    a.url1;", nativeQuery = true)
+    @Query("SELECT NEW com.example.demo.viewModel.CTGViewModel(" +
+            "ctg.giay.idGiay, ctg.mauSac.idMau, MIN(ctg.giaBan), g.tenGiay, SUM(ctg.soLuong), a.url1 , COALESCE(SUM(cthd.soLuong), 0))" +
+            "FROM ChiTietGiay ctg " +
+            "JOIN Giay g ON g.idGiay = ctg.giay.idGiay\n" +
+            "JOIN HinhAnh a ON a.idHinhAnh = ctg.hinhAnh.idHinhAnh\n" +
+            "JOIN MauSac ms ON ms.idMau = ctg.mauSac.idMau\n" +
+            "LEFT JOIN HoaDonChiTiet cthd ON cthd.chiTietGiay.idCTG = ctg.idCTG " +
+            "WHERE ctg.giay.idGiay IS NOT NULL " +
+            "AND ctg.hinhAnh.idHinhAnh IS NOT NULL " +
+            "AND g.trangThai = 1 " +
+            "AND ctg.trangThai = 1 " +
+            "GROUP BY ctg.giay.idGiay, ctg.mauSac.idMau, g.tenGiay, a.url1")
     Page<CTGViewModel> getAllPageable(Pageable pageable);
 
-
-    @Query(value = "SELECT\n" +
-            "    ctg.id_giay,\n" +
-            "    MIN(ctg.gia_ban) AS min_price,\n" +
-            "    g.ten_giay,\n" +
-            "    SUM(ctg.so_luong) AS sl_ton,\n" +
-            "    a.url1,\n" +
-            "    COALESCE(SUM(cthd.so_luong), 0) AS so_Luong_Da_Ban\n" +
-            "FROM\n" +
-            "    chi_tiet_giay ctg\n" +
-            "JOIN\n" +
-            "    giay g ON g.id_giay = ctg.id_giay\n" +
-            "JOIN\n" +
-            "    hinh_anh a ON a.id_hinh_anh = ctg.id_hinh_anh\n" +
-            "LEFT JOIN\n" +
-            "    hoa_don_chi_tiet cthd ON cthd.id_ctg = ctg.id_chi_tiet_giay\n" +
-            "WHERE\n" +
-            "    ctg.id_giay IS NOT NULL\n" +
-            "    AND ctg.id_hinh_anh IS NOT NULL\n" +
-            "\tAND g.trang_thai Like 1\n" +
-            "\tAND ctg.trang_thai like 0\n" +
-            "GROUP BY\n" +
-            "    ctg.id_giay,\n" +
-            "    g.ten_giay,\n" +
-            "    a.url1;", nativeQuery = true)
+    @Query("SELECT NEW com.example.demo.viewModel.CTGViewModel(" +
+            "ctg.giay.idGiay, MIN(ctg.giaBan), g.tenGiay, SUM(ctg.soLuong), a.url1 , COALESCE(SUM(cthd.soLuong), 0))" +
+            "FROM ChiTietGiay ctg " +
+            "JOIN Giay g ON g.idGiay = ctg.giay.idGiay\n" +
+            "JOIN HinhAnh a ON a.idHinhAnh = ctg.hinhAnh.idHinhAnh\n" +
+            "LEFT JOIN HoaDonChiTiet cthd ON cthd.chiTietGiay.idCTG = ctg.idCTG " +
+            "WHERE ctg.giay.idGiay IS NOT NULL " +
+            "AND ctg.hinhAnh.idHinhAnh IS NOT NULL " +
+            "AND g.trangThai = 1 " +
+            "AND ctg.trangThai = 0 " +
+            "GROUP BY ctg.giay.idGiay, g.tenGiay, a.url1")
     List<CTGViewModel> getAllInActive();
 
-    @Query(value = "SELECT\n" +
-            "    ctg.id_giay,\n" +
-            "    MIN(ctg.gia_ban) AS min_price,\n" +
-            "    g.ten_giay,\n" +
-            "    SUM(ctg.so_luong) AS sl_ton,\n" +
-            "    a.url1,\n" +
-            "    COALESCE(SUM(cthd.so_luong), 0) AS so_Luong_Da_Ban\n" +
-            "FROM\n" +
-            "    chi_tiet_giay ctg\n" +
-            "JOIN\n" +
-            "    giay g ON g.id_giay = ctg.id_giay\n" +
-            "JOIN\n" +
-            "    hinh_anh a ON a.id_hinh_anh = ctg.id_hinh_anh\n" +
-            "LEFT JOIN\n" +
-            "    hoa_don_chi_tiet cthd ON cthd.id_ctg = ctg.id_chi_tiet_giay\n" +
-            "WHERE\n" +
-            "    ctg.id_giay IS NOT NULL\n" +
-            "    AND ctg.id_hinh_anh IS NOT NULL\n" +
-            "\tAND g.trang_thai Like 1\n" +
-            "\tAND ctg.trang_thai like 2\n" +
-            "GROUP BY\n" +
-            "    ctg.id_giay,\n" +
-            "    g.ten_giay,\n" +
-            "    a.url1;", nativeQuery = true)
+    @Query("SELECT NEW com.example.demo.viewModel.CTGViewModel(" +
+            "ctg.giay.idGiay, ctg.mauSac.idMau, MIN(ctg.giaBan), g.tenGiay, SUM(ctg.soLuong), a.url1 , COALESCE(SUM(cthd.soLuong), 0))" +
+            "FROM ChiTietGiay ctg " +
+            "JOIN Giay g ON g.idGiay = ctg.giay.idGiay\n" +
+            "JOIN HinhAnh a ON a.idHinhAnh = ctg.hinhAnh.idHinhAnh\n" +
+            "JOIN MauSac ms ON ms.idMau = ctg.mauSac.idMau\n" +
+            "LEFT JOIN HoaDonChiTiet cthd ON cthd.chiTietGiay.idCTG = ctg.idCTG " +
+            "WHERE ctg.giay.idGiay IS NOT NULL " +
+            "AND ctg.hinhAnh.idHinhAnh IS NOT NULL " +
+            "AND g.trangThai = 1 " +
+            "AND ctg.trangThai = 2 " +
+            "GROUP BY ctg.giay.idGiay, ctg.mauSac.idMau, g.tenGiay, a.url1")
     List<CTGViewModel> getAllOutOfStock();
 
-    @Query(value = "SELECT\n" +
-            "    ctg.id_giay,\n" +
-            "    MIN(ctg.gia_ban) AS min_price,\n" +
-            "    g.ten_giay,\n" +
-            "    SUM(ctg.so_luong) AS sl_ton,\n" +
-            "    a.url1,\n" +
-            "    COALESCE(SUM(cthd.so_luong), 0) AS so_Luong_Da_Ban\n" +
-            "FROM\n" +
-            "    chi_tiet_giay ctg\n" +
-            "JOIN\n" +
-            "    giay g ON g.id_giay = ctg.id_giay\n" +
-            "JOIN\n" +
-            "    hinh_anh a ON a.id_hinh_anh = ctg.id_hinh_anh\n" +
-            "LEFT JOIN\n" +
-            "    hoa_don_chi_tiet cthd ON cthd.id_ctg = ctg.id_chi_tiet_giay\n" +
-            "WHERE\n" +
-            "    ctg.id_giay like ?1 \n" +
-            "    AND ctg.id_hinh_anh IS NOT NULL\n" +
-            "\tAND g.trang_thai Like 1\n" +
-            "\tAND ctg.trang_thai like 1\n" +
-            "GROUP BY\n" +
-            "    ctg.id_giay,\n" +
-            "    g.ten_giay,\n" +
-            "    a.url1;", nativeQuery = true)
-    CTGViewModel findByGiay(UUID idGiay);
+    @Query(value = "SELECT NEW com.example.demo.viewModel.CTGViewModel(" +
+            "ctg.giay.idGiay, ctg.mauSac.idMau, MIN(ctg.giaBan), g.tenGiay, SUM(ctg.soLuong), a.url1 , COALESCE(SUM(cthd.soLuong), 0))" +
+            "FROM ChiTietGiay ctg " +
+            "JOIN Giay g ON g.idGiay = ctg.giay.idGiay\n" +
+            "JOIN HinhAnh a ON a.idHinhAnh = ctg.hinhAnh.idHinhAnh\n" +
+            "JOIN MauSac ms ON ms.idMau = ctg.mauSac.idMau\n" +
+            "LEFT JOIN HoaDonChiTiet cthd ON cthd.chiTietGiay.idCTG = ctg.idCTG " +
+            "WHERE ctg.giay.idGiay like ?1 " +
+            "AND ctg.mauSac.idMau like ?2 " +
+            "AND ctg.hinhAnh.idHinhAnh IS NOT NULL " +
+            "AND g.trangThai = 1 " +
+            "AND ctg.trangThai = 1 " +
+            "GROUP BY ctg.giay.idGiay, ctg.mauSac.idMau, g.tenGiay, a.url1")
+    CTGViewModel findByGiay(UUID idGiay, UUID idMau);
+
+    @Query("SELECT NEW com.example.demo.viewModel.CTGViewModel(" +
+            "ctg.giay.idGiay, ctg.mauSac.idMau, MIN(ctg.giaBan), g.tenGiay, SUM(ctg.soLuong), a.url1 , COALESCE(SUM(cthd.soLuong), 0))" +
+            "FROM ChiTietGiay ctg " +
+            "JOIN Giay g ON g.idGiay = ctg.giay.idGiay\n" +
+            "JOIN HinhAnh a ON a.idHinhAnh = ctg.hinhAnh.idHinhAnh\n" +
+            "JOIN MauSac ms ON ms.idMau = ctg.mauSac.idMau\n" +
+            "LEFT JOIN HoaDonChiTiet cthd ON cthd.chiTietGiay.idCTG = ctg.idCTG " +
+            "WHERE ctg.giay.idGiay IS NOT NULL " +
+            "AND ctg.hinhAnh.idHinhAnh IS NOT NULL " +
+            "AND g.trangThai = 1 " +
+            "AND ctg.trangThai = 1 " +
+            "AND g.hang.idHang = ?1 " +
+            "GROUP BY ctg.giay.idGiay, ctg.mauSac.idMau, g.tenGiay, a.url1")
+    List<CTGViewModel> findByHang(UUID idHang);
+
+    @Query("SELECT NEW com.example.demo.viewModel.CTGViewModel(" +
+            "ctg.giay.idGiay, MIN(ctg.giaBan) AS minPrice, g.tenGiay, SUM(ctg.soLuong) , a.url1 ,COALESCE(SUM(cthd.soLuong), 0))" +
+            "FROM ChiTietGiay ctg " +
+            "JOIN Giay g ON g.idGiay = ctg.giay.idGiay\n" +
+            "JOIN HinhAnh a ON a.idHinhAnh = ctg.hinhAnh.idHinhAnh\n" +
+            "JOIN MauSac ms ON ms.idMau = ctg.mauSac.idMau\n" +
+            "LEFT JOIN HoaDonChiTiet cthd ON cthd.chiTietGiay.idCTG = ctg.idCTG " +
+            "WHERE ctg.giay.idGiay IS NOT NULL " +
+            "AND ctg.hinhAnh.idHinhAnh IS NOT NULL " +
+            "AND g.trangThai = 1 " +
+            "AND ctg.trangThai = 1 " +
+            "AND g.hang.idHang = ?1 " +
+            "GROUP BY ctg.giay.idGiay, ctg.mauSac.idMau, g.tenGiay, a.url1 "+
+            "ORDER BY minPrice")
+    Page<CTGViewModel> listCTGVMHTL(Pageable pageable);
+
+    @Query("SELECT NEW com.example.demo.viewModel.CTGViewModel(" +
+            "ctg.giay.idGiay, MIN(ctg.giaBan) AS minPrice, g.tenGiay, SUM(ctg.soLuong), a.url1 ,COALESCE(SUM(cthd.soLuong), 0))" +
+            "FROM ChiTietGiay ctg " +
+            "JOIN Giay g ON g.idGiay = ctg.giay.idGiay\n" +
+            "JOIN HinhAnh a ON a.idHinhAnh = ctg.hinhAnh.idHinhAnh\n" +
+            "JOIN MauSac ms ON ms.idMau = ctg.mauSac.idMau\n" +
+            "LEFT JOIN HoaDonChiTiet cthd ON cthd.chiTietGiay.idCTG = ctg.idCTG " +
+            "WHERE ctg.giay.idGiay IS NOT NULL " +
+            "AND ctg.hinhAnh.idHinhAnh IS NOT NULL " +
+            "AND g.trangThai = 1 " +
+            "AND ctg.trangThai = 1 " +
+            "AND g.hang.idHang = ?1 " +
+            "GROUP BY ctg.giay.idGiay, ctg.mauSac.idMau, g.tenGiay, a.url1 "+
+            "ORDER BY minPrice")
+    Page<CTGViewModel> listCTGVMLTH(Pageable pageable);
 }

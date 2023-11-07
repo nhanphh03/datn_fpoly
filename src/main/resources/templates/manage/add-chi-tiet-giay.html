@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="/plugins/alertify/alertify.min.css"/>
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -188,17 +189,17 @@
 
             <li class="nav-item dropdown has-arrow main-drop">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
-<span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
+<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
 <span class="status online"></span></span>
                 </a>
                 <div class="dropdown-menu menu-drop-user">
                     <div class="profilename">
                         <div class="profileset">
-<span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
+<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
 <span class="status online"></span></span>
                             <div class="profilesets">
-                                <h6>John Doe</h6>
-                                <h5>Admin</h5>
+                                <h6 th:text="${session.managerLogged.hoTenNV}"></h6>
+                                <h5 th:text="${session.managerLogged.chucVu.tenCV}"></h5>
                             </div>
                         </div>
                         <hr class="m-0">
@@ -207,8 +208,8 @@
                         <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
                                                                                 data-feather="settings"></i>Settings</a>
                         <hr class="m-0">
-                        <a class="dropdown-item logout pb-0" href="signin.html"><img src="/images/img/icons/log-out.svg"
-                                                                                     class="me-2" alt="img">Logout</a>
+                        <a class="dropdown-item logout pb-0" href="/logout"><img src="/images/img/icons/log-out.svg"
+                                                                                 class="me-2" alt="img">Logout</a>
                     </div>
                 </div>
             </li>
@@ -246,12 +247,9 @@
                             <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                            <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="/ban-hang/hien-thi">Bán hàng</a></li>
-                        </ul>
+                    <li>
+                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
+                        </a>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
@@ -353,10 +351,10 @@
                                         <option th:each="loc : ${mauSac}" th:value="${loc.idMau}"
                                                 th:text="${loc.tenMau}"></option>
                                     </select>
-<!--                                    <br><br>-->
-<!--                                    <strong th:if="${#fields.hasErrors('mauSac')}"-->
-<!--                                            class="alert alert-danger alert-dismissible fade show"-->
-<!--                                            role="alert" th:errors="*{mauSac}"></strong>-->
+                                    <!--                                    <br><br>-->
+                                    <!--                                    <strong th:if="${#fields.hasErrors('mauSac')}"-->
+                                    <!--                                            class="alert alert-danger alert-dismissible fade show"-->
+                                    <!--                                            role="alert" th:errors="*{mauSac}"></strong>-->
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-2 col-2 ps-0">
@@ -371,13 +369,13 @@
                                 <div class="form-group">
                                     <label>Hình Ảnh</label>
                                     <select class="select" th:field="*{hinhAnh}">
-                                        <option th:each="loc : ${hinhAnh}" th:value="${loc.idGiay}"
-                                                th:text="${loc.url1}"></option>
+                                        <option th:each="loc : ${hinhAnh}" th:value="${loc.idHinhAnh}"
+                                                th:text="${loc.maAnh}"></option>
                                     </select>
-<!--                                    <br><br>-->
-<!--                                    <strong th:if="${#fields.hasErrors('hinhAnh')}"-->
-<!--                                            class="alert alert-danger alert-dismissible fade show"-->
-<!--                                            role="alert" th:errors="*{hinhAnh}"></strong>-->
+                                    <!--                                    <br><br>-->
+                                    <!--                                    <strong th:if="${#fields.hasErrors('hinhAnh')}"-->
+                                    <!--                                            class="alert alert-danger alert-dismissible fade show"-->
+                                    <!--                                            role="alert" th:errors="*{hinhAnh}"></strong>-->
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-2 col-2 ps-0">
@@ -395,10 +393,10 @@
                                         <option th:each="loc : ${size}" th:value="${loc.idSize}"
                                                 th:text="${loc.soSize}"></option>
                                     </select>
-<!--                                    <br><br>-->
-<!--                                    <strong th:if="${#fields.hasErrors('size')}"-->
-<!--                                            class="alert alert-danger alert-dismissible fade show"-->
-<!--                                            role="alert" th:errors="*{size}"></strong>-->
+                                    <!--                                    <br><br>-->
+                                    <!--                                    <strong th:if="${#fields.hasErrors('size')}"-->
+                                    <!--                                            class="alert alert-danger alert-dismissible fade show"-->
+                                    <!--                                            role="alert" th:errors="*{size}"></strong>-->
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-2 col-2 ps-0">
@@ -413,61 +411,61 @@
                                 <div class="form-group">
                                     <label>Năm Sản Xuất</label>
                                     <input type="text" th:field="*{namSX}">
-<!--                                    <br><br>-->
-<!--                                    <strong th:if="${#fields.hasErrors('namSX')}"-->
-<!--                                            class="alert alert-danger alert-dismissible fade show"-->
-<!--                                            role="alert" th:errors="*{namSX}"></strong>-->
+                                    <!--                                    <br><br>-->
+                                    <!--                                    <strong th:if="${#fields.hasErrors('namSX')}"-->
+                                    <!--                                            class="alert alert-danger alert-dismissible fade show"-->
+                                    <!--                                            role="alert" th:errors="*{namSX}"></strong>-->
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Năm Bảo Hành</label>
                                     <input type="text" th:field="*{namBH}">
-<!--                                    <br><br>-->
-<!--                                    <strong th:if="${#fields.hasErrors('namBH')}"-->
-<!--                                            class="alert alert-danger alert-dismissible fade show"-->
-<!--                                            role="alert" th:errors="*{namBH}"></strong>-->
+                                    <!--                                    <br><br>-->
+                                    <!--                                    <strong th:if="${#fields.hasErrors('namBH')}"-->
+                                    <!--                                            class="alert alert-danger alert-dismissible fade show"-->
+                                    <!--                                            role="alert" th:errors="*{namBH}"></strong>-->
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Trọng Lượng</label>
                                     <input type="text" th:field="*{trongLuong}">
-<!--                                    <br><br>-->
-<!--                                    <strong th:if="${#fields.hasErrors('trongLuong')}"-->
-<!--                                            class="alert alert-danger alert-dismissible fade show"-->
-<!--                                            role="alert" th:errors="*{trongLuong}"></strong>-->
+                                    <!--                                    <br><br>-->
+                                    <!--                                    <strong th:if="${#fields.hasErrors('trongLuong')}"-->
+                                    <!--                                            class="alert alert-danger alert-dismissible fade show"-->
+                                    <!--                                            role="alert" th:errors="*{trongLuong}"></strong>-->
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Giá Bán</label>
                                     <input type="text" th:field="*{giaBan}">
-<!--                                    <br><br>-->
-<!--                                    <strong th:if="${#fields.hasErrors('giaBan')}"-->
-<!--                                            class="alert alert-danger alert-dismissible fade show"-->
-<!--                                            role="alert" th:errors="*{giaBan}"></strong>-->
+                                    <!--                                    <br><br>-->
+                                    <!--                                    <strong th:if="${#fields.hasErrors('giaBan')}"-->
+                                    <!--                                            class="alert alert-danger alert-dismissible fade show"-->
+                                    <!--                                            role="alert" th:errors="*{giaBan}"></strong>-->
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Số Lượng</label>
                                     <input type="text" th:field="*{soLuong}">
-<!--                                    <br><br>-->
-<!--                                    <strong th:if="${#fields.hasErrors('soLuong')}"-->
-<!--                                            class="alert alert-danger alert-dismissible fade show"-->
-<!--                                            role="alert" th:errors="*{soLuong}"></strong>-->
+                                    <!--                                    <br><br>-->
+                                    <!--                                    <strong th:if="${#fields.hasErrors('soLuong')}"-->
+                                    <!--                                            class="alert alert-danger alert-dismissible fade show"-->
+                                    <!--                                            role="alert" th:errors="*{soLuong}"></strong>-->
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Trạng Thái</label>
-                                    <select class="select" th:field="*{trangThai}" id="trangThaiCTG">
-                                        <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                                th:text="${loc.value}"></option>
-                                    </select>
-                                </div>
-                            </div>
+                            <!--                            <div class="col-lg-3 col-sm-6 col-12">-->
+                            <!--                                <div class="form-group">-->
+                            <!--                                    <label>Trạng Thái</label>-->
+                            <!--                                    <select class="select" th:field="*{trangThai}" id="trangThaiCTG">-->
+                            <!--                                        <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+                            <!--                                                th:text="${loc.value}"></option>-->
+                            <!--                                    </select>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
                             <div class="col-lg-12">
                                 <button type="submit" class="btn btn-submit me-2">Submit</button>
                                 <a onclick="goBack()" class="btn btn-cancel">Cancel</a>
@@ -480,98 +478,6 @@
         </div>
     </form>
 </div>
-<!-- Modal Giày-->
-<!--<div class="modal fade" id="myModal-giay" tabindex="-1" role="dialog"-->
-<!--     aria-labelledby="exampleModalLabel"-->
-<!--     aria-hidden="true">-->
-<!--    <div class="modal-dialog" role="document">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title" id="exampleModalLabel-giay"></h5>-->
-<!--                <button type="button" class="close btn-secondary giay" data-dismiss="modal" aria-label="Close">-->
-<!--                    <span aria-hidden="true">&times;</span>-->
-<!--                </button>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <form th:object="${giayAdd}" method="post" th:action="@{/manage/chi-tiet-giay/giay/viewAdd/add}"-->
-<!--                      style="width: auto;height: auto">-->
-<!--                    <div class="page-header">-->
-<!--                        <div class="page-title">-->
-<!--                            <h4>Thêm Giày</h4>-->
-<!--                            <h6>Quản Lý Giày</h6>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                    <div class="card">-->
-<!--                        <div class="card-body">-->
-<!--                            <div class="row">-->
-<!--                                <div class="col-lg-6 col-sm-6 col-12">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <label>Mã Giày</label>-->
-<!--                                        <input type="text" th:field="*{maGiay}">-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-lg-6 col-sm-6 col-12">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <label>Tên Giày</label>-->
-<!--                                        <input type="text" th:field="*{tenGiay}">-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-lg-6 col-sm-6 col-12">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <label>Hãng</label>-->
-<!--                                        <select class="select" th:field="*{hang}" id="loc" name="loc">-->
-<!--                                            <option th:each="loc : ${hang}" th:value="${loc.idHang}"-->
-<!--                                                    th:text="${loc.tenHang}"></option>-->
-<!--                                        </select>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-lg-6 col-sm-2 col-2 ps-0">-->
-<!--                                    <div class="add-icon">-->
-<!--                                        <a href="javascript:void(0);" id="modal-hang" data-toggle="modal"-->
-<!--                                           data-target="#myModal"><img-->
-<!--                                                src="/images/img/icons/plus1.svg"-->
-<!--                                                alt="img"></a>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div th:fragment="whitespace">&nbsp;</div>-->
-<!--                                <div class="col-lg-6 col-sm-6 col-12">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <label>Chất Liệu</label>-->
-<!--                                        <select class="select" th:field="*{chatLieu}" id="chatLieu" name="chatLieu">-->
-<!--                                            <option th:each="loc : ${chatLieu}" th:value="${loc.idChatLieu}"-->
-<!--                                                    th:text="${loc.tenChatLieu}"></option>-->
-<!--                                        </select>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-lg-6 col-sm-2 col-2 ps-0">-->
-<!--                                    <div class="add-icon">-->
-<!--                                        <a href="javascript:void(0);" id="modal-chatLieu" data-toggle="modal"-->
-<!--                                           data-target="#myModal"><img-->
-<!--                                                src="/images/img/icons/plus1.svg"-->
-<!--                                                alt="img"></a>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-lg-6 col-sm-6 col-12">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <label>Trạng Thái</label>-->
-<!--                                        <select class="select" th:field="*{trangThai}" id="trangThaiGiay">-->
-<!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
-<!--                                                    th:text="${loc.value}"></option>-->
-<!--                                        </select>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                                <div class="col-lg-12">-->
-<!--                                    <button type="submit" class="btn btn-submit me-2">Submit</button>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 <!-- Modal Màu Sắc-->
 <div class="modal fade" id="myModal-mauSac" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel"
@@ -597,6 +503,12 @@
                             <div class="row">
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
+                                        <label>Mã</label>
+                                        <input type="text" th:field="*{ma}">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
                                         <label>Mã Màu</label>
                                         <input type="text" th:field="*{maMau}">
                                     </div>
@@ -607,15 +519,15 @@
                                         <input type="text" th:field="*{tenMau}">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label>Trạng Thái</label>
-                                        <select class="select" th:field="*{trangThai}" id="trangThaiMauSac">
-                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                                    th:text="${loc.value}"></option>
-                                        </select>
-                                    </div>
-                                </div>
+                                <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
+                                <!--                                    <div class="form-group">-->
+                                <!--                                        <label>Trạng Thái</label>-->
+                                <!--                                        <select class="select" th:field="*{trangThai}" id="trangThaiMauSac">-->
+                                <!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+                                <!--                                                    th:text="${loc.value}"></option>-->
+                                <!--                                        </select>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
                                 <div class="col-lg-12">
                                     <button type="submit" class="btn btn-submit me-2">Submit</button>
                                 </div>
@@ -662,15 +574,15 @@
                                         <input type="text" th:field="*{soSize}">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label>Trạng Thái</label>
-                                        <select class="select" th:field="*{trangThai}" id="trangThaiSize">
-                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                                    th:text="${loc.value}"></option>
-                                        </select>
-                                    </div>
-                                </div>
+                                <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
+                                <!--                                    <div class="form-group">-->
+                                <!--                                        <label>Trạng Thái</label>-->
+                                <!--                                        <select class="select" th:field="*{trangThai}" id="trangThaiSize">-->
+                                <!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+                                <!--                                                    th:text="${loc.value}"></option>-->
+                                <!--                                        </select>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
                                 <div class="col-lg-12">
                                     <button type="submit" class="btn btn-submit me-2">Submit</button>
                                 </div>
@@ -706,6 +618,13 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Mã</label>
+                                        <input type="text" th:field="*{maAnh}">
+                                    </div>
+                                </div>
+                                <div th:fragment="whitespace">&nbsp;</div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Ảnh 1</label>
@@ -746,15 +665,15 @@
                                     </div>
                                 </div>
                                 <div th:fragment="whitespace">&nbsp;</div>
-                                <div class="col-lg-6 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label>Trạng Thái</label>
-                                        <select class="select" th:field="*{trangThai}" id="trangThaiHinhAnh">
-                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                                    th:text="${loc.value}"></option>
-                                        </select>
-                                    </div>
-                                </div>
+                                <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
+                                <!--                                    <div class="form-group">-->
+                                <!--                                        <label>Trạng Thái</label>-->
+                                <!--                                        <select class="select" th:field="*{trangThai}" id="trangThaiHinhAnh">-->
+                                <!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+                                <!--                                                    th:text="${loc.value}"></option>-->
+                                <!--                                        </select>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
                                 <div class="col-lg-12">
                                     <button type="submit" class="btn btn-submit me-2">Submit</button>
                                 </div>
@@ -893,6 +812,157 @@
         </div>
     </div>
 </div>
+<div th:if="${namSXError}" id="warning1" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Giá trị của số năm sản xuất phải lớn hơn hoặc bằng 1.</div>
+    </div>
+</div>
+<div th:if="${namBHError}" id="warning2" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Giá trị của số năm bảo hành phải lớn hơn hoặc bằng 1.</div>
+    </div>
+</div>
+<div th:if="${trongLuongError}" id="warning3" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Giá trị của trọng lượng phải lớn hơn hoặc bằng 1.</div>
+    </div>
+</div>
+<div th:if="${giaBanError}" id="warning4" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Giá trị của giá bán phải lớn hơn hoặc bằng 1.</div>
+    </div>
+</div>
+<div th:if="${soLuongError}" id="warning5" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Giá trị của số lượng phải lớn hơn hoặc bằng 0.</div>
+    </div>
+</div>
+<div th:if="${mauSacError}" id="warning6" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Hãy chọn trường màu sắc.</div>
+    </div>
+</div>
+<div th:if="${hinhAnhError}" id="warning7" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Hãy chọn trường hình ảnh.</div>
+    </div>
+</div>
+<div th:if="${giayError}" id="warning8" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Hãy chọn trường giày.</div>
+    </div>
+</div>
+<div th:if="${sizeError}" id="warning9" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Hãy chọn trường size.</div>
+    </div>
+</div>
+//Size
+<div th:if="${messageSize}" id="successSize" class="toast-container toast-top-right">
+    <div class="toast toast-success" aria-live="polite" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Thành Công</div>
+        <div class="toast-message">Size của bạn đã được Thêm</div>
+    </div>
+</div>
+<div th:if="${maSizeError}" id="warning10" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Size không được trống.</div>
+    </div>
+</div>
+<div th:if="${soSizeError}" id="warning11" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Giá trị của số Size phải lớn hơn hoặc bằng 1. Và nhỏ hơn hoặc bằng 50.</div>
+    </div>
+</div>
+//Màu
+<div th:if="${messageMau}" id="successMau" class="toast-container toast-top-right">
+    <div class="toast toast-success" aria-live="polite" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Thành Công</div>
+        <div class="toast-message">Màu của bạn đã được Thêm</div>
+    </div>
+</div>
+<div th:if="${maError}" id="warning12" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã không được trống.</div>
+    </div>
+</div>
+<div th:if="${maMauError}" id="warning13" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã màu không được để trống.</div>
+    </div>
+</div>
+<div th:if="${tenMauError}" id="warning14" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Tên màu không được để trống.</div>
+    </div>
+</div>
+//Anh
+<div th:if="${messageAnh}" id="successAnh" class="toast-container toast-top-right">
+    <div class="toast toast-success" aria-live="polite" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Thành Công</div>
+        <div class="toast-message">Ảnh của bạn đã được Thêm</div>
+    </div>
+</div>
+<div th:if="${maHinhAnhError}" id="warning15" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã không được trống.</div>
+    </div>
+</div>
+<!--check ma-->
+<div th:if="${ErrormessageMau}" id="checkMaMau" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Màu đã tồn tại.</div>
+    </div>
+</div>
+<div th:if="${ErrormessageSize}" id="checkMaSize" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Size đã tồn tại.</div>
+    </div>
+</div>
+<div th:if="${ErrormessageAnh}" id="checkMaAnh" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Ảnh đã tồn tại.</div>
+    </div>
+</div>
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
@@ -908,6 +978,8 @@
 
 <script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
+<script src="/plugins/toastr/toastr.min.js"></script>
+<script src="/plugins/toastr/toastr.js"></script>
 
 <script src="/js/script.js"></script>
 <script src="/plugins/alertify/custom-alertify.min.js"></script>
@@ -1007,6 +1079,161 @@
     function goBack() {
         window.history.back();
     }
+</script>
+<script>
+    //
+    setTimeout(function () {
+        var warning1 = document.getElementById('warning1');
+        if (warning1) {
+            warning1.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning2 = document.getElementById('warning2');
+        if (warning2) {
+            warning2.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning3 = document.getElementById('warning3');
+        if (warning3) {
+            warning3.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning4 = document.getElementById('warning4');
+        if (warning4) {
+            warning4.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning5 = document.getElementById('warning5');
+        if (warning5) {
+            warning5.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning6 = document.getElementById('warning6');
+        if (warning6) {
+            warning6.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning7 = document.getElementById('warning7');
+        if (warning7) {
+            warning7.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning8 = document.getElementById('warning8');
+        if (warning8) {
+            warning8.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning9 = document.getElementById('warning9');
+        if (warning9) {
+            warning9.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning10 = document.getElementById('warning10');
+        if (warning10) {
+            warning10.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning11 = document.getElementById('warning11');
+        if (warning11) {
+            warning11.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var successSize = document.getElementById('successSize');
+        if (successSize) {
+            successSize.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning12 = document.getElementById('warning12');
+        if (warning12) {
+            warning12.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning13 = document.getElementById('warning13');
+        if (warning13) {
+            warning13.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning14 = document.getElementById('warning14');
+        if (warning14) {
+            warning14.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning15 = document.getElementById('warning15');
+        if (warning15) {
+            warning15.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var successMau = document.getElementById('successMau');
+        if (successMau) {
+            successMau.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var successAnh = document.getElementById('successAnh');
+        if (successAnh) {
+            successAnh.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMaMau = document.getElementById('checkMaMau');
+        if (checkMaMau) {
+            checkMaMau.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMaSize = document.getElementById('checkMaSize');
+        if (checkMaSize) {
+            checkMaSize.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMaAnh = document.getElementById('checkMaAnh');
+        if (checkMaAnh) {
+            checkMaAnh.style.display = 'none';
+        }
+    }, 5000);
+</script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.select').select2();
+    });
 </script>
 </body>
 </html>

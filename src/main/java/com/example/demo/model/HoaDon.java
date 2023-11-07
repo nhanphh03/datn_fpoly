@@ -39,6 +39,18 @@ public class HoaDon {
     @Column(name = "ma_HD")
     private String maHD;
 
+    @Column(name="tong_Tien")
+    private Double tongTien;
+
+    @Column(name="tong_SP")
+    private Integer tongSP;
+
+    @Column(name = "tien_Ship")
+    private Double tienShip;
+
+    @Column(name ="tong_Tien_Da_Giam")
+    private Double tongTienDG;
+
     @Column(name = "tg_Tao")
     private Date tgTao;
 
@@ -49,7 +61,7 @@ public class HoaDon {
     private Date tgShip;
 
     @Column(name = "tg_Nhan")
-    private Date tgNhan;
+    private Date tgNhanDK;
 
     @Column(name = "ten_Nguoi_Nhan")
     private String tenNguoiNhan;
@@ -63,8 +75,7 @@ public class HoaDon {
     @Column(name = "trang_Thai")
     private int trangThai;
 
-
-
-
+    @Column(name="loai_HD")
+    private Integer loaiHD;
 
 }

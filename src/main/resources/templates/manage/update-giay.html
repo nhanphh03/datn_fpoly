@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="/plugins/alertify/alertify.min.css"/>
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -188,17 +189,17 @@
 
             <li class="nav-item dropdown has-arrow main-drop">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
-<span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
+<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
 <span class="status online"></span></span>
                 </a>
                 <div class="dropdown-menu menu-drop-user">
                     <div class="profilename">
                         <div class="profileset">
-<span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
+<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
 <span class="status online"></span></span>
                             <div class="profilesets">
-                                <h6>John Doe</h6>
-                                <h5>Admin</h5>
+                                <h6 th:text="${session.managerLogged.hoTenNV}"></h6>
+                                <h5 th:text="${session.managerLogged.chucVu.tenCV}"></h5>
                             </div>
                         </div>
                         <hr class="m-0">
@@ -207,8 +208,8 @@
                         <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
                                                                                 data-feather="settings"></i>Settings</a>
                         <hr class="m-0">
-                        <a class="dropdown-item logout pb-0" href="signin.html"><img src="/images/img/icons/log-out.svg"
-                                                                                     class="me-2" alt="img">Logout</a>
+                        <a class="dropdown-item logout pb-0" href="/logout"><img src="/images/img/icons/log-out.svg"
+                                                                                 class="me-2" alt="img">Logout</a>
                     </div>
                 </div>
             </li>
@@ -246,12 +247,9 @@
                             <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                            <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="/ban-hang/hien-thi">Bán hàng</a></li>
-                        </ul>
+                    <li>
+                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
+                        </a>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
@@ -325,7 +323,6 @@
                         <h6>Quản Lý Giày</h6>
                     </div>
                 </div>
-
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -341,8 +338,7 @@
                                     <input type="text" th:field="*{tenGiay}">
                                 </div>
                             </div>
-
-                            <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Hãng</label>
                                     <select class="select" th:field="*{hang}">
@@ -359,7 +355,7 @@
 <!--                                            alt="img"></a>-->
 <!--                                </div>-->
 <!--                            </div>-->
-                            <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Chất Liệu</label>
                                     <select class="select" th:field="*{chatLieu}">
@@ -518,6 +514,41 @@
         </div>
     </div>
 </div>
+<div th:if="${maGiayError}" id="warning1" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã không được bỏ trống.</div>
+    </div>
+</div>
+<div th:if="${tenGiayError}" id="warning2" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Tên Giày không được bỏ trống.</div>
+    </div>
+</div>
+<div th:if="${hangError}" id="warning3" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Hãng không được bỏ trống.</div>
+    </div>
+</div>
+<div th:if="${chatLieuError}" id="warning4" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Chất Liệu không được bỏ trống.</div>
+    </div>
+</div>
+<div th:if="${Errormessage}" id="checkMa" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Giày đã tồn tại.</div>
+    </div>
+</div>
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
@@ -579,6 +610,43 @@
             reader.readAsDataURL(imageInput.files[0]);
         }
     }
+</script>
+<script>
+    //
+    setTimeout(function () {
+        var warning1 = document.getElementById('warning1');
+        if (warning1) {
+            warning1.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning2 = document.getElementById('warning2');
+        if (warning2) {
+            warning2.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning3 = document.getElementById('warning3');
+        if (warning3) {
+            warning3.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning4 = document.getElementById('warning4');
+        if (warning4) {
+            warning4.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMa = document.getElementById('checkMa');
+        if (checkMa) {
+            checkMa.style.display = 'none';
+        }
+    }, 5000);
 </script>
 </body>
 </html>

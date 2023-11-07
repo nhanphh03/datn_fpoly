@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.model.ChatLieu;
 import com.example.demo.model.MauSac;
 
+import java.io.InputStream;
 import java.util.List;
 import java.util.UUID;
 
@@ -18,4 +19,6 @@ public interface MauSacService {
     List<MauSac> getMauSacActive();
 
     public List<MauSac> filterMauSac(String maMau, String tenMau);
+
+    public void importDataFromExcel(InputStream excelFile);
 }

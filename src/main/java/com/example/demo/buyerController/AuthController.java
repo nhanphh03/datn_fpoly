@@ -1,15 +1,9 @@
 package com.example.demo.buyerController;
 
-import com.example.demo.model.GioHang;
-import com.example.demo.model.KhachHang;
-import com.example.demo.model.LoaiKhachHang;
-import com.example.demo.model.LoaiKhuyenMai;
+import com.example.demo.model.*;
 import com.example.demo.repository.CTGViewModelRepository;
 import com.example.demo.repository.GiayChiTietRepository;
-import com.example.demo.service.GioHangService;
-import com.example.demo.service.KhachHangService;
-import com.example.demo.service.LoaiKHService;
-import com.example.demo.service.SendMailService;
+import com.example.demo.service.*;
 import com.example.demo.viewModel.CTGViewModel;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -47,7 +41,7 @@ public class AuthController {
     private CTGViewModelRepository giayChiTietRepository;
 
     @Autowired
-    private LoaiKHService loaiKHService;
+    private LoaiKhachHangService loaiKHService;
 
     @Autowired
     private SendMailService sendMailService;
@@ -55,8 +49,12 @@ public class AuthController {
     @Autowired
     private HttpSession session;
 
+    @Autowired
+    private HanhViKHService hanhViKHService;
+
     @GetMapping("/login")
     public String getFormBuyerLogin(){
+
        return "online/login";
     }
 
@@ -80,21 +78,38 @@ public class AuthController {
             if (kh !=null){
 
                 GioHang gh = gioHangService.findByKhachHang(kh);
+                HanhViKhachHang hanhViKhachHang = hanhViKHService.checkByKH(kh);
 
                 if (gh != null){
                     String fullName = kh.getHoTenKH();
                     model.addAttribute("fullNameLogin", fullName);
                     session.setAttribute("KhachHangLogin", kh);
                     session.setAttribute("GHLogged", gh);
+                    session.setAttribute("HVKHLogged", hanhViKhachHang);
                     return "redirect:/buyer/";
                 }
 
+//Add new Hanh vi Khach Hang
+                String maHVKH = kh.getHoTenKH() + kh.getMaKH() + kh.getCCCDKH() ;
+                HanhViKhachHang hvkh = new HanhViKhachHang();
+                hvkh.setKhachHang(kh);
+                hvkh.setTgThem(new Date());
+                hvkh.setTrangThai(1);
+                hvkh.setMa_HVKH(maHVKH);
+                hanhViKHService.addNewHanhViKH(hvkh);
+//End
+
+//Add new Gio Hang Khach Hang
                 GioHang gioHang = new GioHang();
                 gioHang.setKhachHang(kh);
                 gioHang.setTrangThai(1);
                 gioHang.setTgThem(date);
                 gioHangService.saveGH(gioHang);
+//End
+
+                session.setAttribute("KhachHangLogin", kh);
                 session.setAttribute("GHLogged", gioHang);
+                session.setAttribute("HVKHLogged", hvkh);
 
                 return "redirect:/buyer/";
 
@@ -106,14 +121,25 @@ public class AuthController {
             KhachHang kh  = khachHangService.checkLoginSDT(username, password);
             if (kh != null){
                 GioHang gh = gioHangService.findByKhachHang(kh);
+                HanhViKhachHang hanhViKhachHang = hanhViKHService.checkByKH(kh);
 
                 if (gh != null){
                     String fullName = kh.getHoTenKH();
+
                     model.addAttribute("fullNameLogin", fullName);
                     session.setAttribute("KhachHangLogin", kh);
                     session.setAttribute("GHLogged", gh);
+                    session.setAttribute("HVKHLogged", hanhViKhachHang);
                     return "redirect:/buyer/";
                 }
+
+                String maHVKH = kh.getHoTenKH() + kh.getMaKH() + kh.getCCCDKH() ;
+                HanhViKhachHang hvkh = new HanhViKhachHang();
+                hvkh.setKhachHang(kh);
+                hvkh.setTgThem(new Date());
+                hvkh.setTrangThai(1);
+                hvkh.setMa_HVKH(maHVKH);
+                hanhViKHService.addNewHanhViKH(hvkh);
 
                 GioHang gioHang = new GioHang();
                 gioHang.setKhachHang(kh);
@@ -121,6 +147,7 @@ public class AuthController {
                 gioHang.setTgThem(date);
                 gioHangService.saveGH(gioHang);
                 session.setAttribute("GHLogged", gioHang);
+                session.setAttribute("HVKHLogged", hvkh);
 
                 return "redirect:/buyer/";
 
@@ -188,7 +215,7 @@ public class AuthController {
         khachHang.setTrangThai(2);
         Date date = new Date();
         khachHang.setTgThem(date);
-        LoaiKhachHang loaiKhachHang = loaiKHService.findByTenLKH("Sat");
+        LoaiKhachHang loaiKhachHang = loaiKHService.findByMaLKH("H1");
         khachHang.setLoaiKhachHang(loaiKhachHang);
         khachHangService.save(khachHang);
 

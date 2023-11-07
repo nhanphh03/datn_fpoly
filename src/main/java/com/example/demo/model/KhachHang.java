@@ -1,10 +1,13 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.UUID;
@@ -22,13 +25,20 @@ public class KhachHang {
     @Column(name ="id_KH")
     private UUID idKH;
 
+    @OneToOne
+    @JoinColumn(name = "id_GH")
+    private GioHang gioHang;
+
     @ManyToOne
     @JoinColumn(name = "id_LKH")
     private LoaiKhachHang loaiKhachHang;
 
+    @NotEmpty(message = "Mã KH không được trống")
     @Column(name = "ma_Khach_Hang")
     private String maKH;
 
+    @NotEmpty(message = "Tên KH không được trống")
+    @Size(max = 255, message = "Tên KH không được quá 255 ký tự")
     @Column(name = "ho_Ten_KH")
     private String hoTenKH;
 
@@ -36,6 +46,7 @@ public class KhachHang {
     private int gioiTinh;
 
     @Column(name = "ngay_Sinh")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngaySinh;
 
     @Column(name = "SDT_KH")
@@ -60,9 +71,11 @@ public class KhachHang {
     private int trangThai;
 
     @Column(name = "tg_Them")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date tgThem;
 
     @Column(name = "tg_Sua")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date tgSua;
 
 

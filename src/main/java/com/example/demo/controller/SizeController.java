@@ -2,19 +2,24 @@ package com.example.demo.controller;
 
 import com.example.demo.config.ExcelExporterSize;
 import com.example.demo.config.PDFExporterSizes;
-import com.example.demo.model.HinhAnh;
-import com.example.demo.model.Size;
+import com.example.demo.model.*;
+import com.example.demo.repository.SizeRepository;
+import com.example.demo.service.GiayChiTietService;
 import com.example.demo.service.SizeService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -24,12 +29,18 @@ import java.util.*;
 public class SizeController {
     @Autowired
     private SizeService sizeService;
+    @Autowired
+    private GiayChiTietService giayChiTietService;
+    @Autowired
+    private HttpSession session;
+    @Autowired
+    private SizeRepository repository;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
         Map<Integer, String> dsTrangThai = new HashMap<>();
-        dsTrangThai.put(1, "Hoạt Động");
         dsTrangThai.put(0, "Không Hoạt Động");
+        dsTrangThai.put(1, "Hoạt Động");
         return dsTrangThai;
     }
 
@@ -39,60 +50,166 @@ public class SizeController {
     }
 
     @GetMapping("/size")
-    public String dsSize(Model model) {
+    public String dsSize(Model model, @ModelAttribute("message") String message
+            , @ModelAttribute("maSizeError") String maSizeError
+            , @ModelAttribute("soSizeError") String soSizeError
+            , @ModelAttribute("error") String error
+            , @ModelAttribute("userInput") Size userInput
+            , @ModelAttribute("Errormessage") String Errormessage) {
         List<Size> size = sizeService.getAllSize();
-        Collections.sort(size, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("size", size);
         //
         model.addAttribute("sizeAll", sizeService.getAllSize());
+        //
+        model.addAttribute("sizeAdd", new Size());
+        //
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
+        if (maSizeError == null || !"maSizeError".equals(error)) {
+            model.addAttribute("maSizeError", false);
+        }
+        if (soSizeError == null || !"soSizeError".equals(error)) {
+            model.addAttribute("soSizeError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInput != null) {
+            model.addAttribute("sizeAdd", userInput);
+        }
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
+        }
         return "manage/size-giay";
     }
 
-    @GetMapping("/size/viewAdd")
-    public String viewAddSize(Model model) {
-        model.addAttribute("size", new Size());
-        return "manage/add-size";
-    }
+//    @GetMapping("/size/viewAdd")
+//    public String viewAddSize(Model model) {
+//        model.addAttribute("size", new Size());
+//        return "manage/add-size";
+//    }
 
     @PostMapping("/size/viewAdd/add")
-    public String addSize(@Valid @ModelAttribute("size") Size size, BindingResult bindingResult) {
+    public String addSize(@Valid @ModelAttribute("size") Size size, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            return "manage/add-size";
+            if (bindingResult.hasFieldErrors("maSize")) {
+                redirectAttributes.addFlashAttribute("userInput", size);
+                redirectAttributes.addFlashAttribute("error", "maSizeError");
+            }
+            if (bindingResult.hasFieldErrors("soSize")) {
+                redirectAttributes.addFlashAttribute("userInput", size);
+                redirectAttributes.addFlashAttribute("error", "soSizeError");
+            }
+            return "redirect:/manage/size";
         }
-        Size sizeAdd = new Size();
-        sizeAdd.setMaSize(size.getMaSize());
-        sizeAdd.setSoSize(size.getSoSize());
-        sizeAdd.setTgThem(new Date());
-        sizeAdd.setTrangThai(size.getTrangThai());
-        sizeService.save(sizeAdd);
+        Size existingSize = repository.findByMaSize(size.getMaSize());
+        if (existingSize != null) {
+            redirectAttributes.addFlashAttribute("userInput", size);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return "redirect:/manage/size";
+        }
+        if (size != null) {
+            Size sizeAdd = new Size();
+            sizeAdd.setMaSize(size.getMaSize());
+            sizeAdd.setSoSize(size.getSoSize());
+            sizeAdd.setTgThem(new Date());
+            sizeAdd.setTrangThai(1);
+            sizeService.save(sizeAdd);
+        } else {
+            return "redirect:/manage/size";
+        }
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/size";
     }
 
     @GetMapping("/size/delete/{id}")
-    public String deleteSize(@PathVariable UUID id) {
+    public String deleteSize(@PathVariable UUID id, RedirectAttributes redirectAttributes) {
         Size size = sizeService.getByIdSize(id);
+        List<ChiTietGiay> chiTietGiayList = giayChiTietService.findBySize(size);
+        //
         size.setTrangThai(0);
         size.setTgSua(new Date());
         sizeService.save(size);
+        // Cập nhật trạng thái của tất cả sản phẩm chi tiết của hãng thành 0
+        for (ChiTietGiay chiTietGiay : chiTietGiayList) {
+            chiTietGiay.setTrangThai(0);
+            giayChiTietService.save(chiTietGiay);
+        }
+        //
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/size";
     }
 
     @GetMapping("/size/viewUpdate/{id}")
-    public String viewUpdateSize(@PathVariable UUID id, Model model) {
+    public String viewUpdateSize(@PathVariable UUID id, Model model
+            , @ModelAttribute("message") String message
+            , @ModelAttribute("maSizeError") String maSizeError
+            , @ModelAttribute("soSizeError") String soSizeError
+            , @ModelAttribute("error") String error
+            , @ModelAttribute("userInput") Size userInput
+            , @ModelAttribute("Errormessage") String Errormessage) {
         Size size = sizeService.getByIdSize(id);
         model.addAttribute("size", size);
+        //
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
+        if (maSizeError == null || !"maSizeError".equals(error)) {
+            model.addAttribute("maSizeError", false);
+        }
+        if (soSizeError == null || !"soSizeError".equals(error)) {
+            model.addAttribute("soSizeError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInput != null) {
+            model.addAttribute("sizeAdd", userInput);
+        }
+        //
+        session.setAttribute("idSize", id);
+        //
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
+        }
         return "manage/update-size";
     }
 
     @PostMapping("/size/viewUpdate/{id}")
-    public String updateSize(@PathVariable UUID id, @ModelAttribute("size") Size size) {
+    public String updateSize(@PathVariable UUID id, @Valid @ModelAttribute("size") Size size, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         Size sizeDb = sizeService.getByIdSize(id);
+        UUID idSize = (UUID) session.getAttribute("idSize");
+        String link = "redirect:/manage/size/viewUpdate/" + idSize;
+        if (bindingResult.hasErrors()) {
+            if (bindingResult.hasFieldErrors("maSize")) {
+                redirectAttributes.addFlashAttribute("userInput", size);
+                redirectAttributes.addFlashAttribute("error", "maSizeError");
+            }
+            if (bindingResult.hasFieldErrors("soSize")) {
+                redirectAttributes.addFlashAttribute("userInput", size);
+                redirectAttributes.addFlashAttribute("error", "soSizeError");
+            }
+            return link;
+        }
+        Size existingSize = repository.findByMaSize(size.getMaSize());
+        if (existingSize != null && !existingSize.getIdSize().equals(id)) {
+            redirectAttributes.addFlashAttribute("userInput", size);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return link;
+        }
         if (sizeDb != null) {
             sizeDb.setMaSize(size.getMaSize());
             sizeDb.setSoSize(size.getSoSize());
             sizeDb.setTgSua(new Date());
             sizeDb.setTrangThai(size.getTrangThai());
             sizeService.save(sizeDb);
+            redirectAttributes.addFlashAttribute("message", true);
+        }
+        if (sizeDb.getTrangThai() == 1) {
+            List<ChiTietGiay> chiTietGiays = giayChiTietService.findBySize(sizeDb);
+            for (ChiTietGiay chiTietGiay : chiTietGiays) {
+                chiTietGiay.setTrangThai(1);
+                giayChiTietService.save(chiTietGiay);
+            }
         }
         return "redirect:/manage/size";
     }
@@ -148,4 +265,19 @@ public class SizeController {
 
         return "manage/size-giay"; // Trả về mẫu HTML chứa bảng dữ liệu sau khi lọc
     }
+
+    @PostMapping("/size/import")
+    public String importData(@RequestParam("file") MultipartFile file) {
+        if (file != null && !file.isEmpty()) {
+            try {
+                InputStream excelFile = file.getInputStream();
+                sizeService.importDataFromExcel(excelFile); // Gọi phương thức nhập liệu từ Excel
+            } catch (Exception e) {
+                e.printStackTrace();
+                // Xử lý lỗi
+            }
+        }
+        return "redirect:/manage/size"; // Chuyển hướng sau khi nhập liệu thành công hoặc không thành công
+    }
+
 }

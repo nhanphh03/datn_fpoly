@@ -189,17 +189,17 @@
 
             <li class="nav-item dropdown has-arrow main-drop">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
-<span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
+<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
 <span class="status online"></span></span>
                 </a>
                 <div class="dropdown-menu menu-drop-user">
                     <div class="profilename">
                         <div class="profileset">
-<span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
+<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
 <span class="status online"></span></span>
                             <div class="profilesets">
-                                <h6>John Doe</h6>
-                                <h5>Admin</h5>
+                                <h6 th:text="${session.managerLogged.hoTenNV}"></h6>
+                                <h5 th:text="${session.managerLogged.chucVu.tenCV}"></h5>
                             </div>
                         </div>
                         <hr class="m-0">
@@ -208,8 +208,8 @@
                         <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
                                                                                 data-feather="settings"></i>Settings</a>
                         <hr class="m-0">
-                        <a class="dropdown-item logout pb-0" href="signin.html"><img src="/images/img/icons/log-out.svg"
-                                                                                     class="me-2" alt="img">Logout</a>
+                        <a class="dropdown-item logout pb-0" href="/logout"><img src="/images/img/icons/log-out.svg"
+                                                                                 class="me-2" alt="img">Logout</a>
                     </div>
                 </div>
             </li>
@@ -240,19 +240,16 @@
                             <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="/manage/chat-lieu">Chất Liệu</a></li>
-                            <li><a href="/manage/giay" class="active">Giày</a></li>
+                            <li><a href="/manage/giay" >Giày</a></li>
                             <li><a href="/manage/hang">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
                             <li><a href="/manage/mau-sac">Màu Sắc</a></li>
                             <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                            <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="/ban-hang/hien-thi">Bán hàng</a></li>
-                        </ul>
+                    <li>
+                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
+                        </a>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
@@ -278,7 +275,7 @@
                             <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="/manage/khach-hang">Khách Hàng</a></li>
-                            <li><a href="/manage/dia-chi">Địa Chỉ </a></li>
+                            <li><a href="/manage/dia-chi"class="active">Địa Chỉ </a></li>
                             <li><a href="/manage/loai-khach-hang">Loại Khách Hàng</a></li>
                         </ul>
                     </li>
@@ -344,20 +341,26 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Xã Phường</label>
-                                    <input type="text" th:field="*{xaPhuong}">
+                                    <label>Tỉnh Thành Phố</label>
+                                    <select class="select" th:field="*{tinhTP}" id="tinhthanhpho">
+                                        <option value="" selected>Chọn thành phố</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Quận Huyện</label>
-                                    <input type="text" th:field="*{quanHuyen}">
+                                    <select class="select" th:field="*{quanHuyen}" id="quanhuyen">
+                                        <option value="" selected>Chọn quận huyện</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Tỉnh Thành Phố</label>
-                                    <input type="text" th:field="*{tinhTP}">
+                                    <label>Xã Phường</label>
+                                    <select class="select" th:field="*{xaPhuong}" id="xaphuong">
+                                        <option value="" selected>Chọn xã phường</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -375,14 +378,21 @@
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Miền</label>
-                                    <input type="text" th:field="*{mien}">
+                                    <select class="select" th:field="*{mien}" id="loc" name="loc"
+                                            style="width: 100%; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                       font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;">
+                                        <option th:value="mien_bac" >Miền Bắc</option>
+                                        <option th:value="mien_trung" >Miền Trung</option>
+                                        <option th:value="mien_nam">Miền Nam</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Khách Hàng</label>
                                     <select class="select" th:field="*{khachHang}" id="loc" name="loc">
-                                        <option th:each="loc : ${khachHang}" th:value="${loc.idKH}"
+                                        <option th:each="loc : ${khachHang}"
+                                                th:value="${loc.idKH}"
                                                 th:text="${loc.hoTenKH}"></option>
                                     </select>
                                 </div>
@@ -391,7 +401,8 @@
                                 <div class="form-group">
                                     <label>Trạng Thái</label>
                                     <select class="select" th:field="*{trangThai}" id="trangthai" name="trangThai">
-                                        <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
+                                        <option th:each="loc : ${dsTrangThai.entrySet()}"
+                                                th:value="${loc.key}"
                                                 th:text="${loc.value}"></option>
                                     </select>
                                 </div>
@@ -431,6 +442,57 @@
 <script src="/plugins/alertify/custom-alertify.min.js"></script>
 
 <script src="/js/script.js"></script>
+ //api
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
+<script>
+    const host = "https://provinces.open-api.vn/api/";
+    var callAPI = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data, "tinhthanhpho");
+            });
+    }
+    callAPI('https://provinces.open-api.vn/api/?depth=1');
+    var callApiDistrict = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data.districts, "quanhuyen");
+            });
+    }
+    var callApiWard = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data.wards, "xaphuong");
+            });
+    }
+
+    var renderData = (array, select) => {
+        let row = ' <option disable value="">Chọn</option>';
+        array.forEach(element => {
+            row += `<option data-id="${element.code}" value="${element.name}">${element.name}</option>`
+        });
+        document.querySelector("#" + select).innerHTML = row
+    }
+
+    $("#tinhthanhpho").change(() => {
+        callApiDistrict(host + "p/" + $("#tinhthanhpho").find(':selected').data('id') + "?depth=2");
+        printResult();
+    });
+    $("#quanhuyen").change(() => {
+        callApiWard(host + "d/" + $("#quanhuyen").find(':selected').data('id') + "?depth=2");
+        printResult();
+    });
+    $("#xaphuong").change(() => {
+        printResult();
+    })
+
+    var printResult = () => {
+        if ($("#quanhuyen").find(':selected').data('id') != "" && $("#xaphuong").find(':selected').data('id') != "" &&
+            $("#tinhthanhpho").find(':selected').data('id') != "") {
+        }
+    }
+</script>
 </body>
 </html>

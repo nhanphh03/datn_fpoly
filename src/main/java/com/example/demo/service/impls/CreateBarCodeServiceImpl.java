@@ -14,11 +14,13 @@ import com.google.zxing.client.j2se.MatrixToImageWriter;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.common.HybridBinarizer;
 import com.google.zxing.oned.Code128Writer;
+import com.google.zxing.qrcode.QRCodeWriter;
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -32,22 +34,40 @@ public class CreateBarCodeServiceImpl implements CreateBarCode {
     @Override
     public void saveBarcodeImage(ChiTietGiay chiTietGiay, int width, int height) {
         try {
-            String qrCodePath = "C:\\Users\\Lvh9x\\Downloads\\Barcode\\";
-            String qrCodeName = qrCodePath + chiTietGiay.getGiay().getTenGiay()+chiTietGiay.getIdCTG() +  ".png";
-
-            Hashtable<EncodeHintType, ErrorCorrectionLevel> hintMap = new Hashtable<>();
-            hintMap.put(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.L);
-            Writer writer = new Code128Writer();
-            BitMatrix bitMatrix = writer.encode(String.valueOf(chiTietGiay.getIdCTG()), BarcodeFormat.CODE_128, width, height);
-
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            MatrixToImageWriter.writeToStream(bitMatrix, "png", byteArrayOutputStream);
-
-            // Lưu ảnh vào đường dẫn qrCodeName
-            File file = new File(qrCodeName);
-            ImageIO.write(MatrixToImageWriter.toBufferedImage(bitMatrix), "png", file);
+            String qrCodePath = "C:\\imagesBarcode\\";
+            String qrCodeName = qrCodePath + chiTietGiay.getIdCTG() + ".png";
+            Color backgroundColor = Color.white;
+            QRCodeWriter qrCodeWriter = new QRCodeWriter();
+            BitMatrix bitMatrix = qrCodeWriter.encode(
+                    String.valueOf(chiTietGiay.getIdCTG()),
+                    com.google.zxing.BarcodeFormat.QR_CODE,
+                    width,
+                    height,
+                    null);
+            BufferedImage qrCodeImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    qrCodeImage.setRGB(x, y, bitMatrix.get(x, y) ? Color.BLACK.getRGB() : backgroundColor.getRGB());
+                }
+            }
+            ImageIO.write(qrCodeImage, "png", new File(qrCodeName));
         } catch (Exception e) {
             System.out.printf("Lỗi " + e.getMessage());
+        }
+    }
+    @Override
+    public void deleteQRCode() {
+        String qrCodePath = "C:\\imagesBarcode\\";
+        File directory = new File(qrCodePath);
+        if (directory.exists() && directory.isDirectory()) {
+            File[] files = directory.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (file.isFile()) {
+                        file.delete();
+                    }
+                }
+            }
         }
     }
 }

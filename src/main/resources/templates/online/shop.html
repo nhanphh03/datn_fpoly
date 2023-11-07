@@ -2,25 +2,44 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="Male_Fashion Template">
-  <meta name="keywords" content="Male_Fashion, unica, creative, html">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>SNEAKER SHOP</title>
-  <link rel="icon" href="/img/logo-favicon.png" type="image/x-icon">
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
-        rel="stylesheet">
+  <title>Sneaker Shop</title>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sneaker Shop</title>
 
-  <!-- Css Styles -->
-  <link rel="stylesheet" href="/cssx/bootstrap.min.css" type="text/css">
-  <link rel="stylesheet" href="/cssx/font-awesome.min.css" type="text/css">
-  <link rel="stylesheet" href="/cssx/elegant-icons.css" type="text/css">
-  <link rel="stylesheet" href="/cssx/magnific-popup.css" type="text/css">
-  <link rel="stylesheet" href="/cssx/nice-select.css" type="text/css">
-  <link rel="stylesheet" href="/cssx/owl.carousel.min.css" type="text/css">
-  <link rel="stylesheet" href="/cssx/slicknav.min.css" type="text/css">
-  <link rel="stylesheet" href="/cssx/style.css" type="text/css">
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+          rel="stylesheet">
+    <link rel="icon" href="/images/img/logo-favicon.png" type="image/x-icon">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="/cssx/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/style.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/scroll.min.css" type="text/css">
+    <link rel="stylesheet" href="/cssx/styleNhan.css" type="text/css">
+
+    <style>
+     header {
+       position: fixed;
+       width: 100%;
+       z-index: 100;
+     }
+     .color-box {
+       display: inline-block;
+       border: 1px solid #000;
+       margin: 0 5px;
+     }
+  </style>
 </head>
 
 <body>
@@ -34,25 +53,40 @@
   <div class="header__top">
     <div class="container">
       <div class="row">
-        <div class="col-lg-6 col-md-7">
+
+        <div class="col-lg-3  d-flex align-items-center" >
           <div class="header__top__left">
             <p>Welcome to the shopping experience</p>
           </div>
         </div>
-        <div class="col-lg-6 col-md-5">
-          <div class="header__top__right">
 
-<!--Name Buyer Begin-->
+        <div class="col-lg-6 d-flex align-items-center" >
+          <div style="width: 100%; display: flex; background-color: white; border: 10px;">
+            <input  class="form-control" style="border: none; width: 90%;"  placeholder="Nhập văn bản..." type="text">
+            <div style="width: 60px; background-color: #f3f2ee; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+              <a href=""><img src="/images/img/icon/search.png" alt=""></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 d-flex align-items-center">
+          <div>
+
+            <div th:if="${heartLogged}" class="header__top__links"  >
+              <a th:href="@{'/buyer/purchase'}">Purchase</a>
+            </div>
+
+
+            <!--        Buyer FullName Begin    -->
             <div class="header__top__hover">
               <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
               <ul>
-                <li><a th:href="@{'/buyer/purchase'}" >Purchase</a></li>
                 <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
                 <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
               </ul>
             </div>
-<!--Name Buyer End-->
 
+            <!--            Buyer FullName End -->
 
             <div class="header__top__links"  >
               <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Login</a>
@@ -69,20 +103,21 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
-  <div class="container">
+  <div class="container" style=" height: 100px">
     <div class="row">
       <div class="col-lg-3 col-md-3">
         <div class="header__logo">
-          <a th:href="@{'/buyer/homeBuyer'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
+          <a th:href="@{'/buyer/home'}" ><img src="/images/img/logo.png" style="width: 150px; height: 50px" alt=""></a>
         </div>
       </div>
       <div class="col-lg-6 col-md-6">
         <nav class="header__menu mobile-menu">
           <ul>
-            <li><a th:href="@{'/buyer/homeBuyer'}" >Home</a></li>
+            <li><a th:href="@{'/buyer/'}" >Home</a></li>
             <li class="active"><a th:href="@{'/buyer/shop'}" >Shop</a></li>
             <li><a th:href="@{'/buyer/about'}">About Us</a></li>
             <li><a th:href="@{'/buyer/blog'}">Blog</a>
@@ -95,15 +130,140 @@
         </nav>
       </div>
       <div class="col-lg-3 col-md-3">
-        <div class="header__nav__option">
-          <a href="#" class="search-switch"><img src="/images/img/icon/search.png" alt=""></a>
+        <div class="header__nav__option" style="display: flex;justify-content: end;">
+
+
+          <div class="nav user-menu" style="height: 30px;">
+
+            <li class="nav-item dropdown" style="height: 30px;">
+              <a data-bs-toggle="dropdown" href="#" >
+                <img style="margin-bottom: 42px; width: 18px; height: 18px;"   src="/images/img/icon/notification.png" >
+              </a>
+              <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
+              <div class="dropdown-menu notifications" style="width:300px; top: -80px; position: absolute;">
+                <div class="topnav-dropdown-header">
+                  <span class="notification-title">Notifications</span>
+                  <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                </div>
+                <div class="vertical-scroll scroll-demo" >
+
+
+
+                  <a href="#" class="items-noticafitions">
+                    <div class="items-notica">
+                                        <span class="avatar">
+                                            <img alt="" src="/images/img/blog/blog-1.jpg">
+                                        </span>
+                      <div class="text-notica">
+                        <span class="notica-title">Phạm Hữu Nhân </span>
+                        <p class="notica-times">1 phút trước</p>
+                        <input checkedS class="notica-read" type="radio" name="" id="">
+                      </div>
+                      <p class="notica-status">deliever oder</p>
+                      <div class="text-contents">
+                        <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
+                      </div>
+
+
+                    </div>
+                  </a>
+
+                  <a href="#" class="items-noticafitions">
+                    <div class="items-notica">
+                                        <span class="avatar">
+                                            <img alt="" src="/images/img/blog/blog-1.jpg">
+                                        </span>
+                      <div class="text-notica">
+                        <span class="notica-title">Phạm Hữu Nhân </span>
+                        <p class="notica-times">10 phút trước</p>
+                        <input class="notica-read" type="radio" name="" id="" checked>
+                      </div>
+                      <p class="notica-status">deliever oder</p>
+                      <div class="text-contents">
+                        <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
+                      </div>
+
+
+                    </div>
+                  </a>
+
+
+                  <a href="#" class="items-noticafitions">
+                    <div class="items-notica">
+                                        <span class="avatar">
+                                            <img alt="" src="/images/img/blog/blog-1.jpg">
+                                        </span>
+                      <div class="text-notica">
+                        <span class="notica-title">Phạm Hữu Nhân </span>
+                        <p class="notica-times">15 phút trước</p>
+                        <!-- <input class="notica-read" type="radio" checked name="" id=""> -->
+                      </div>
+                      <p class="notica-status">deliever oder</p>
+                      <div class="text-contents">
+                        <p class="notica-contents" >Vui long xac nhan don hang</p>
+                      </div>
+
+
+                    </div>
+                  </a>
+
+                  <a href="#" class="items-noticafitions">
+                    <div class="items-notica">
+                                        <span class="avatar">
+                                            <img alt="" src="/images/img/blog/blog-1.jpg">
+                                        </span>
+                      <div class="text-notica">
+                        <span class="notica-title">Phạm Hữu Nhân </span>
+                        <p class="notica-times">10 phút trước</p>
+
+                      </div>
+                      <input class="notica-read" type="radio" name="" id="">
+                      <p class="notica-status">deliever oder</p>
+                      <div class="text-contents">
+                        <p class="notica-contents" >Don hang cua ban dang duoc giao
+                        </p>
+                      </div>
+
+
+                    </div>
+                  </a>
+
+                  <a href="#" class="items-noticafitions">
+                    <div class="items-notica">
+                                        <span class="avatar">
+                                            <img alt="" src="/images/img/blog/blog-1.jpg">
+                                        </span>
+                      <div class="text-notica">
+                        <span class="notica-title">Phạm Hữu Nhân </span>
+                        <p class="notica-times">10 phút trước</p>
+                        <input class="notica-read" type="radio" name="" id="">
+                      </div>
+                      <p class="notica-status">deliever oder</p>
+                      <div class="text-contents">
+                        <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
+                      </div>
+
+
+                    </div>
+                  </a>
+
+
+
+
+                </div>
+                <div class="topnav-dropdown-footer">
+                  <a href="activities.html">View all Notifications</a>
+                </div>
+              </div>
+
+            </li>
+          </div>
           <a th:href="@{'/buyer/fa&recently'}"><img src="/images/img/icon/heart2.png" alt=""></a>
 
           <a th:href="@{'/buyer/cart'}" style="position: relative; display: inline-block; ">
             <img src="/images/img/icon/cart.png" alt="">
-            <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -10px; right: -15px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
+            <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -13px; left: 3px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
           </a>
-
         </div>
       </div>
     </div>
@@ -112,6 +272,9 @@
 </header>
 <!-- Header Section End -->
 
+<section>
+  <div style="height: 150px; width: 100%;"></div>
+</section>
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-option">
   <div class="container">
@@ -152,11 +315,11 @@
                   <div class="card-body">
                     <div class="shop__sidebar__categories">
                       <ul class="nice-scroll" style="height: 20%">
-                        <li data-filter="*"><a href="#">All Product(20)</a></li>
-                        <li><a href="#">Best Seller (20)</a></li>
-                        <li><a href="#">New Arrivals (20)</a></li>
-                        <li><a href="#">Collections (20)</a></li>
-                        <li><a href="#">Sale off 20%  (20)</a></li>
+                        <li><a href="/buyer/shop">All Product</a></li>
+                        <li><a href="#">Best Seller</a></li>
+                        <li><a href="#">New Arrivals </a></li>
+                        <li><a href="#">Collections</a></li>
+                        <li><a href="#">Sale off</a></li>
                       </ul>
                     </div>
                   </div>
@@ -170,9 +333,9 @@
                   <div class="card-body">
                     <div class="shop__sidebar__brand">
                       <ul>
-                        <li class="active" data-filter="*"><a >All Branding</a></li>
+                        <li class="active" data-filter="*"><a href="/buyer/shop" >All Branding</a></li>
                         <th:block th:each="a : ${listBrand}">
-                          <li><a  th:href="@{'/shop/brand/' + ${a.idHang}}" th:text="${a.tenHang}" > </a></li>
+                          <li><a  th:href="@{'/buyer/shop/brand/' + ${a.idHang}}" th:text="${a.tenHang}" > </a></li>
                         </th:block>
                       </ul>
                     </div>
@@ -223,7 +386,7 @@
                     <div class="shop__sidebar__color">
                       <th:block th:each="a : ${listColor}">
                         <a  th:href="@{'/shop/size/' + ${a.idMau}}">
-                          <label style="background-color: ${a.tenMau};">
+                          <label class="color-box" th:style="'background-color: ' +  ${a.maMau}">
                             <input type="radio" >
                           </label>
                         </a>
@@ -259,16 +422,16 @@
           <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6">
               <div class="shop__product__option__left">
-                <p> Showing 1 – 9 of 77 Results</p>
+                <p  th:text="'Show 1 - 9 of ' + ${sumProduct} + ' Result'"> </p>
               </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
               <div class="shop__product__option__right">
                 <p>Sort by Price:</p>
                 <select onchange="window.location.href = this.value;">
-                  <option>${ChooseAnOption}</option>
-                  <option value="/viewsUsers/usersShop/LowToHigh">Low To High</option>
-                  <option value="/viewsUsers/usersShop/HighToLow">High To Low</option>
+                  <option>Choose option</option>
+                  <option value="/buyer/shop/lowToHigh">Low To High</option>
+                  <option value="/buyer/shop/highToLow">High To Low</option>
                 </select>
               </div>
             </div>
@@ -284,9 +447,18 @@
                 <div class="product__item">
                   <div class="product__item__pic set-bg" style="border-radius: 10px;"  th:attr="data-setbg=@{'/images/imgsProducts/' + ${product.hinhAnh}}">
                     <ul class="product__hover">
-                      <li th:if="${heartLogged}"><a th:href="@{'/buyer/heart/' + ${product.idGiay}}" ><img src="/images/img/icon/heart.png" alt=""><span>Favourite</span></a></li>
+                      <li th:if="${heartLogged}">
+                        <a th:href="@{'/buyer/heart/' + ${product.idGiay} +'/' + ${product.idMau}}" >
+                          <img src="/images/img/icon/heart.png" alt="">
+                          <span>Favourite</span>
+                        </a>
+                      </li>
                       <li><a href="#"><img src="/images/img/icon/compare.png" alt=""><span>Compare</span></a></li>
-                      <li ><a th:href="@{'/buyer/shop-details/' + ${product.idGiay}}"><img src="/images/img/icon/view.png" alt=""><span>Views Detail</span></a></li>
+                      <li>
+                        <a th:href="@{'/buyer/shop-details/' + ${product.idGiay} +'/' + ${product.idMau}}">
+                          <img src="/images/img/icon/view.png" alt=""><span>Views Detail</span>
+                        </a>
+                      </li>
                     </ul>
                   </div>
                   <div >
@@ -306,15 +478,27 @@
 
         <div class="row">
           <div class="col-lg-12">
-            <div class="product__pagination">
-
+            <div th:if="${pageNumber}" class="product__pagination">
 
               <th:block th:each="i : ${#numbers.sequence(1, totalPage)}">
                 <a class="active" th:href="@{'/buyer/shop?pageNum=' + ${i}}" th:text="${i}"></a>
               </th:block>
 
-
             </div>
+
+            <div th:if="${pageNumberHTL}" class="product__pagination">
+              <th:block th:each="i : ${#numbers.sequence(1, totalPageHTL)}">
+                <a class="active" th:href="@{'/buyer/shop/highToLow?pageNum=' + ${i}}" th:text="${i}"></a>
+              </th:block>
+            </div>
+            <div th:if="${pageNumberLTH}" class="product__pagination">
+              <th:block th:each="i : ${#numbers.sequence(1, totalPageLTH)}">
+                <a class="active" th:href="@{'/buyer/shop/lowToHigh?pageNum=' + ${i}}" th:text="${i}"></a>
+              </th:block>
+            </div>
+
+
+
           </div>
         </div>
 
@@ -332,9 +516,9 @@
 
                 <div class="product__item__pic set-bg" style="border-radius: 10px;"  th:attr="data-setbg=@{'/images/imgsProducts/' + ${product.hinhAnh}}">
                   <ul class="product__hover">
-                    <li th:if="${heartLogged}"><a th:href="@{'/buyer/heart/' + ${product.idGiay}}" ><img src="/images/img/icon/heart.png" alt=""><span>Favourite</span></a></li>
+                    <li th:if="${heartLogged}"><a th:href="@{'/buyer/heart/' + ${product.idGiay} + '/' + ${product.idGiay}}" ><img src="/images/img/icon/heart.png" alt=""><span>Favourite</span></a></li>
                     <li><a href="#"><img src="/images/img/icon/compare.png" alt=""><span>Compare</span></a></li>
-                    <li ><a th:href="@{'/buyer/shop-details/sold/' + ${product.idGiay}}"><img src="/images/img/icon/view.png" alt=""><span>Views Detail</span></a></li>
+                    <li ><a th:href="@{'/buyer/shop-details/sold/' + ${product.idGiay} +'/' + ${product.idMau}}"><img src="/images/img/icon/view.png" alt=""><span>Views Detail</span></a></li>
                   </ul>
                 </div>
                 <div >
@@ -424,19 +608,12 @@
 </footer>
 <!-- Footer Section End -->
 
-<!-- Search Begin -->
-<div class="search-model">
-  <div class="h-100 d-flex align-items-center justify-content-center">
-    <div class="search-close-switch">+</div>
-    <form class="search-model-form">
-      <input type="text" id="search-input" placeholder="Search here.....">
-    </form>
-  </div>
-</div>
-<!-- Search End -->
 
 <!-- Js Plugins -->
-<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/feather.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/script.js"></script><script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/jquery.nice-select.min.js"></script>
 <script src="/js/jquery.nicescroll.min.js"></script>
@@ -446,6 +623,9 @@
 <script src="/js/mixitup.min.js"></script>
 <script src="/js/owl.carousel.min.js"></script>
 <script src="/js/main.js"></script>
+<script src="/js/jquery.slimscroll.min.js"></script>
+<script src="/js/scrollbar.min.js"></script>
+<script src="/js/custom-scroll.js"></script>
 </body>
 
 </html>

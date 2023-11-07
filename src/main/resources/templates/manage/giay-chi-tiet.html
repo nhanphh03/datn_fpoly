@@ -23,12 +23,22 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
 
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
+
     <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        .highlighted-row {
+            background-color: yellow; /* Bôi đen dòng bằng màu nền vàng */
+            font-weight: bold; /* Làm đậm nội dung */
+            /* Thêm các kiểu định dạng khác tùy ý */
+        }
+    </style>
 </head>
 <body>
-<div id="global-loader">
-    <div class="whirly-loader"></div>
-</div>
+<!--<div id="global-loader">-->
+<!--    <div class="whirly-loader"></div>-->
+<!--</div>-->
 <div class="main-wrapper">
     <div class="header">
 
@@ -188,17 +198,17 @@
 
             <li class="nav-item dropdown has-arrow main-drop">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
-<span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
+<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
 <span class="status online"></span></span>
                 </a>
                 <div class="dropdown-menu menu-drop-user">
                     <div class="profilename">
                         <div class="profileset">
-<span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
+<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
 <span class="status online"></span></span>
                             <div class="profilesets">
-                                <h6>John Doe</h6>
-                                <h5>Admin</h5>
+                                <h6 th:text="${session.managerLogged.hoTenNV}"></h6>
+                                <h5 th:text="${session.managerLogged.chucVu.tenCV}"></h5>
                             </div>
                         </div>
                         <hr class="m-0">
@@ -207,8 +217,8 @@
                         <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
                                                                                 data-feather="settings"></i>Settings</a>
                         <hr class="m-0">
-                        <a class="dropdown-item logout pb-0" href="signin.html"><img src="/images/img/icons/log-out.svg"
-                                                                                     class="me-2" alt="img">Logout</a>
+                        <a class="dropdown-item logout pb-0" href="/logout"><img src="/images/img/icons/log-out.svg"
+                                                                                 class="me-2" alt="img">Logout</a>
                     </div>
                 </div>
             </li>
@@ -246,12 +256,9 @@
                             <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
-                    <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                            <span class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="/ban-hang/hien-thi">Bán hàng</a></li>
-                        </ul>
+                    <li>
+                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
+                        </a>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
@@ -301,7 +308,7 @@
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img" /><span>
+                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
                     Quản Lý Voucher</span
                         >
                             <span class="menu-arrow"></span
@@ -325,18 +332,26 @@
                         <h6>Quản Lý Giày</h6>
                     </div>
                     <div class="page-btn">
-                        <a href="/manage/giay-chi-tiet/viewAdd" class="btn btn-added"
-                        ><img
-                                src="/images/img/icons/plus.svg"
-                                alt="img"
-                                class="me-1"
-                        />Thêm Giày Chi Tiết</a
-                        >
+                        <a href="/manage/giay-chi-tiet/viewAdd" class="btn btn-added">
+                            <img src="/images/img/icons/plus.svg" alt="img" class="me-1"/>Thêm Giày Chi Tiết</a>
+                    </div>
+                    <div class="page-btn">
+                        <a href="/manage/chi-tiet-san-pham-thong-ke" class="btn btn-added">Thống Kê</a>
                     </div>
                 </div>
 
                 <div class="card">
                     <div class="card-body">
+                        <div class="form-hidden-2" style="display: none">
+                            <form action="/manage/giayCT/import" method="post" enctype="multipart/form-data">
+                                <div class="form-group">
+                                    <label> Upload Excel File</label>
+                                    <input type="file" name="file"/>
+                                </div>
+                                <button type="submit" class="btn btn-submit me-2">Submit</button>
+                            </form>
+                        </div>
+                        <br>
                         <div class="table-top">
                             <div class="search-set">
                                 <div class="search-path">
@@ -356,26 +371,41 @@
                             <div class="wordset">
                                 <ul>
                                     <li>
+                                        <a class="btn btn-filter" id="import-excel" data-bs-toggle="tooltip"
+                                           data-bs-placement="top" title="Import Excel">
+                                            <img src="/images/img/icons/upload.svg" alt="img">
+                                            <span><img src="/images/img/icons/closes.svg" alt="img"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a th:href="@{/manage/barCodeTest}"
+                                           data-bs-toggle="tooltip"
+                                           data-bs-placement="top"
+                                           title="Export QRCode"
+                                        ><img src="/images/img/icons/scan.svg" alt="img"
+                                        /></a>
+                                    </li>
+                                    <li>
                                         <a th:href="@{/manage/giayCT/export/pdf}"
-                                                data-bs-toggle="tooltip"
-                                                data-bs-placement="top"
-                                                title="pdf"
+                                           data-bs-toggle="tooltip"
+                                           data-bs-placement="top"
+                                           title="pdf"
                                         ><img src="/images/img/icons/pdf.svg" alt="img"
                                         /></a>
                                     </li>
                                     <li>
                                         <a th:href="@{/manage/giayCT/export/excel}"
-                                                data-bs-toggle="tooltip"
-                                                data-bs-placement="top"
-                                                title="excel"
+                                           data-bs-toggle="tooltip"
+                                           data-bs-placement="top"
+                                           title="excel"
                                         ><img src="/images/img/icons/excel.svg" alt="img"
                                         /></a>
                                     </li>
                                     <li>
                                         <a id="printButton"
-                                                data-bs-toggle="tooltip"
-                                                data-bs-placement="top"
-                                                title="print"
+                                           data-bs-toggle="tooltip"
+                                           data-bs-placement="top"
+                                           title="print"
                                         ><img src="/images/img/icons/printer.svg" alt="img"
                                         /></a>
                                     </li>
@@ -393,7 +423,8 @@
                                                     <div class="form-group">
                                                         <select class="select" id="giayFilter" name="searchTerm">
                                                             <option>Giày</option>
-                                                            <option th:each="loc : ${giayList}" th:value="${loc.tenGiay}"
+                                                            <option th:each="loc : ${giayList}"
+                                                                    th:value="${loc.tenGiay}"
                                                                     th:text="${loc.tenGiay}"></option>
                                                         </select>
                                                     </div>
@@ -411,7 +442,8 @@
                                                     <div class="form-group">
                                                         <select class="select" id="mauSacFilter" name="searchTerm">
                                                             <option>Màu Sắc</option>
-                                                            <option th:each="loc : ${mauSacList}" th:value="${loc.tenMau}"
+                                                            <option th:each="loc : ${mauSacList}"
+                                                                    th:value="${loc.tenMau}"
                                                                     th:text="${loc.tenMau}"></option>
                                                         </select>
                                                     </div>
@@ -464,8 +496,10 @@
                                     <td th:text="${items.namSX}"></td>
                                     <td th:text="${items.namBH}"></td>
                                     <td>
-                                        <span th:if="${items.trangThai == 1}" class="badges bg-lightgreen">Hoạt Động</span>
+                                        <span th:if="${items.trangThai == 1}"
+                                              class="badges bg-lightgreen">Hoạt Động</span>
                                         <span th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</span>
+                                        <span th:if="${items.soLuong == 0}" class="badges bg-lightgrey">Hết Hàng</span>
                                     </td>
                                     <td>
                                         <a class="me-2" th:href="@{'/manage/giay-chi-tiet/detail/' + ${items.idCTG}}">
@@ -475,7 +509,8 @@
                                            th:href="@{'/manage/giay-chi-tiet/viewUpdate/' + ${items.idCTG}}">
                                             <img src="/images/img/icons/edit.svg" alt="img"/>
                                         </a>
-                                        <a class="me-2 delete-button" th:data-delete-url="@{'/manage/giay-chi-tiet/delete/' + ${items.idCTG}}">
+                                        <a class="me-2 delete-button"
+                                           th:data-delete-url="@{'/manage/giay-chi-tiet/delete/' + ${items.idCTG}}">
                                             <img src="/images/img/icons/delete.svg" alt="img"/>
                                         </a>
                                     </td>
@@ -492,7 +527,13 @@
         </div>
     </form>
 </div>
-
+<div th:if="${message}" id="toast-container" class="toast-container toast-top-right">
+    <div class="toast toast-success" aria-live="polite" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Thành Công</div>
+        <div class="toast-message">Dữ liệu của bạn đã được cập nhật</div>
+    </div>
+</div>
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
@@ -509,14 +550,17 @@
 <script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
+<script src="/plugins/toastr/toastr.min.js"></script>
+<script src="/plugins/toastr/toastr.js"></script>
+
 <script src="/js/script.js"></script>
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         // Lấy thẻ nút in bằng id
         var printButton = document.getElementById("printButton");
 
         // Thêm sự kiện click cho nút
-        printButton.addEventListener("click", function() {
+        printButton.addEventListener("click", function () {
             // Gọi hàm in mặc định của trình duyệt
             window.print();
         });
@@ -614,6 +658,31 @@
                 }
             });
         });
+    });
+</script>
+<script>
+    document.getElementById("import-excel").addEventListener("click", function () {
+        var form2 = document.querySelector(".form-hidden-2");
+        if (form2.style.display === "none" || form2.style.display === "") {
+            $('.form-hidden-2').slideToggle("slow");
+            form2.style.display = "block";  // Hiển thị form
+        } else {
+            form2.style.display = "none";  // Ẩn form
+        }
+    });
+</script>
+<script>
+    setTimeout(function () {
+        var successToast = document.getElementById('toast-container');
+        if (successToast) {
+            successToast.style.display = 'none';
+        }
+    }, 5000);
+</script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function () {
+        $('.select').select2();
     });
 </script>
 </body>

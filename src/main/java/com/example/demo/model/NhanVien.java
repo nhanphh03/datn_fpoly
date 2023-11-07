@@ -1,10 +1,13 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.UUID;
@@ -27,12 +30,15 @@ public class NhanVien {
     @JoinColumn( name = "id_Chuc_Vu")
     private ChucVu chucVu;
 
+    @NotEmpty(message = "Mã NV không được trống")
     @Column(name = "ma_NV")
     private String maNV;
 
     @Column(name = "mk_NV")
     private String matKhau;
 
+    @NotEmpty(message = "Tên NV không được trống")
+    @Size(max = 255, message = "Tên NV không được quá 255 ký tự")
     @Column(name = "ho_Ten_NV")
     private String hoTenNV;
 
@@ -40,6 +46,7 @@ public class NhanVien {
     private int gioiTinh;
 
     @Column(name = "ngay_Sinh")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngaySinh;
 
     @Column(name = "SDT_NV")
@@ -61,9 +68,11 @@ public class NhanVien {
     private int trangThai;
 
     @Column(name = "tg_Them")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date tgThem;
 
     @Column(name = "tg_Sua")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date tgSua;
 
 

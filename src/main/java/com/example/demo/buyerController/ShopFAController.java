@@ -43,11 +43,12 @@ public class ShopFAController {
     private String getShopFA(Model model){
 
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+        model.addAttribute("fullNameLogin", khachHang.getHoTenKH());
 
         showDataBuyerShop(model);
 
         GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
-        model.addAttribute("fullNameLogin", khachHang.getHoTenKH());
+
 
         List<GioHangChiTiet> listGHCTActive = ghctService.findByGHActive(gioHang);
         Integer sumProductInCart = listGHCTActive.size();
@@ -61,19 +62,29 @@ public class ShopFAController {
 
         model.addAttribute("listFA", listFA);
 
+
+
         //model.addAttribute("listCartDetail", listGHCTActive);
 
 
         return "/online/shopFA";
     }
 
-    @GetMapping("/unheart/{idGiay}")
-    private String unToHeart(Model model,@PathVariable UUID idGiay){
+    @GetMapping("/unheart/{idGiay}/{idMau}")
+    private String unToHeart(Model model,@PathVariable UUID idGiay, @PathVariable UUID idMau){
 
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
         Giay giay = giayService.getByIdGiay(idGiay);
+        UUID idMau2= null;
+        if (giay == null){
+            giay = giayService.getByIdGiay(idMau);
+            idMau2=idGiay;
+        }else{
+            idMau2=idMau;
+        }
 
-        LuotXemFA luotXemFA = luotXemFAService.checkLuotXemOrFA(khachHang, giay, 0);
+        LuotXemFA luotXemFA = luotXemFAService.checkLuotXemOrFA(khachHang, giay, 0, idMau2);
+
         luotXemFA.setTgSua(new Date());
         luotXemFA.setTrangThai(0);
         luotXemFAService.addNewLuotXem(luotXemFA);
@@ -104,13 +115,12 @@ public class ShopFAController {
             String[] parts = remainingData.split("\\|");
 
             if (parts.length == 5) {
+
                 String name = parts[0];
                 String birthdate = parts[1];
                 String gender = parts[2];
                 String address = parts[3];
                 String dateCreated = parts[4];
-
-                // Thực hiện xử lý với các phần được trích xuất từ chuỗi ở đây
 
                 System.out.println("id: " + id + "name: " + name + "Birthdate: " + birthdate + "Gender: " + gender + "Address: " + address + "Date Created: " + dateCreated);
             } else {

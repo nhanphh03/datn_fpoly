@@ -16,7 +16,7 @@ public class HinhAnhServiceImpl implements HinhAnhService {
 
     @Override
     public List<HinhAnh> getAllHinhAnh() {
-        return hinhAnhRepository.findAll();
+        return hinhAnhRepository.findAllByOrderByTgThemDesc();
     }
 
     @Override
@@ -32,5 +32,13 @@ public class HinhAnhServiceImpl implements HinhAnhService {
     @Override
     public HinhAnh getByIdHinhAnh(UUID id) {
         return hinhAnhRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public List<HinhAnh> filterHinhAnh(String ma) {
+        if ("Mã".equals(ma)) {
+            return hinhAnhRepository.findAll();
+        }
+        return hinhAnhRepository.findMa(ma);
     }
 }
