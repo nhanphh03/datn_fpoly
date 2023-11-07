@@ -486,7 +486,19 @@
                                 <td th:text="${chiTietGiayDTO.tenGiay}"></td>
                                 <td th:text="${chiTietGiayDTO.tenHang}"></td>
                                 <td th:text="${chiTietGiayDTO.namBaoHanh}"></td>
-                                <td></td>
+                                <td>
+                                    <a class="me-2" th:href="@{'/manage/giay-chi-tiet/detail/' + ${chiTietGiayDTO.idCTG}}">
+                                        <img src="/images/img/icons/eye.svg" alt="img"/>
+                                    </a>
+                                    <a class="me-2"
+                                       th:href="@{'/manage/giay-chi-tiet/viewUpdate/' + ${chiTietGiayDTO.idCTG}}">
+                                        <img src="/images/img/icons/edit.svg" alt="img"/>
+                                    </a>
+                                    <a class="me-2 delete-button"
+                                       th:data-delete-url="@{'/manage/giay-chi-tiet/delete/' + ${chiTietGiayDTO.idCTG}}">
+                                        <img src="/images/img/icons/delete.svg" alt="img"/>
+                                    </a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
