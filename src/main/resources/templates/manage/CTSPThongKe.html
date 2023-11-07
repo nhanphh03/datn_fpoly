@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <meta name="description" content="POS - Bootstrap Admin Template">
@@ -24,26 +23,42 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
 
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
+
     <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        .highlighted-row {
+            background-color: yellow; /* Bôi đen dòng bằng màu nền vàng */
+            font-weight: bold; /* Làm đậm nội dung */
+            /* Thêm các kiểu định dạng khác tùy ý */
+        }
+    </style>
 </head>
 <body>
+<!--<div id="global-loader">-->
+<!--    <div class="whirly-loader"></div>-->
+<!--</div>-->
 <div class="main-wrapper">
     <div class="header">
 
         <div class="header-left active">
-            <a href="/admin/home" class="logo">
+            <a href="index.html" class="logo">
                 <img src="/images/img/logo.png" alt="">
             </a>
-            <a href="/admin/home" class="logo-small">
+            <a href="index.html" class="logo-small">
                 <img src="/images/img/logo-small.png" alt="">
             </a>
             <a id="toggle_btn" href="javascript:void(0);">
             </a>
         </div>
-        <span></span>
-        <span></span>
-        <span></span>
-        </span>
+
+        <a id="mobile_btn" class="mobile_btn" href="#sidebar">
+<span class="bar-icon">
+<span></span>
+<span></span>
+<span></span>
+</span>
         </a>
 
         <ul class="nav user-menu">
@@ -273,7 +288,6 @@
                             <li><a href="/manage/loai-khach-hang">Loại Khách Hàng</a></li>
                         </ul>
                     </li>
-
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/return1.svg" alt="img"><span> Quản Lý Đổi Trả</span>
                             <span class="menu-arrow"></span></a>
@@ -318,16 +332,8 @@
                         <div
                                 class="card-header pb-0 d-flex justify-content-between align-items-center"
                         >
-                            <h5 class="card-title mb-0">Purchase & Sales</h5>
+                            <h5 class="card-title mb-0">Sản Phẩm Bán Chạy</h5>
                             <div class="graph-sets">
-                                <ul>
-                                    <li>
-                                        <span>Sales</span>
-                                    </li>
-                                    <li>
-                                        <span>Purchase</span>
-                                    </li>
-                                </ul>
                                 <div class="dropdown">
                                     <button
                                             class="btn btn-white btn-sm dropdown-toggle"
@@ -367,7 +373,33 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <div id="sales_charts"></div>
+                            <div class="table-responsive dataview">
+                                <table class="table datatable">
+                                    <thead align="center">
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Tên Sản Phẩm</th>
+                                        <th>Size</th>
+                                        <th>Hãng</th>
+                                        <th>Chất Liệu</th>
+                                        <th>Màu Sắc</th>
+                                        <th>Số Lượng</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody align="center">
+                                    <tr th:each="spBanChay, index : ${spBanChay}">
+                                        <td th:text="${index.index + 1}"></td>
+                                        <td th:text="${spBanChay.tenGiay}"></td>
+                                        <td th:text="${spBanChay.soSize}"></td>
+                                        <td th:text="${spBanChay.tenHang}"></td>
+                                        <td th:text="${spBanChay.tenChatLieu}"></td>
+                                        <td th:text="${spBanChay.tenMau}"></td>
+                                        <td th:text="${spBanChay.soLuongBan}"></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
