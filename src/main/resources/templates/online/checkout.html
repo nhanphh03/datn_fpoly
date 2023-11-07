@@ -67,11 +67,15 @@
         <div class="col-lg-3 d-flex align-items-center">
           <div>
 
+            <div class="header__top__links"  >
+              <a th:href="@{'/buyer/purchase'}">Purchase</a>
+            </div>
+
+
             <!--        Buyer FullName Begin    -->
             <div class="header__top__hover">
               <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
               <ul>
-                <li><a th:href="@{'/buyer/purchase'}" >Purchase</a></li>
                 <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
                 <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
               </ul>
@@ -80,9 +84,7 @@
             <!--            Buyer FullName End -->
 
             <div class="header__top__links"  >
-              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Login</a>
-              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Register</a>
-            </div>
+               </div>
 
             <div class="header__top__hover">
               <span>EN<i class="arrow_carrot-down"></i></span>
@@ -120,9 +122,9 @@
           </ul>
         </nav>
       </div>
-
       <div class="col-lg-3 col-md-3">
         <div class="header__nav__option" style="display: flex;justify-content: end;">
+
 
           <div class="nav user-menu" style="height: 30px;">
 
@@ -237,6 +239,10 @@
 
                     </div>
                   </a>
+
+
+
+
                 </div>
                 <div class="topnav-dropdown-footer">
                   <a href="activities.html">View all Notifications</a>
@@ -245,7 +251,6 @@
 
             </li>
           </div>
-
           <a th:href="@{'/buyer/fa&recently'}"><img src="/images/img/icon/heart2.png" alt=""></a>
 
           <a th:href="@{'/buyer/cart'}" style="position: relative; display: inline-block; ">
@@ -258,7 +263,12 @@
     <div class="canvas__open"><i class="fa fa-bars"></i></div>
   </div>
 </header>
+<!-- Header Section End -->
 
+<section>
+  <div style="height: 150px; width: 100%;"></div>
+</section>
+<!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-option">
   <div class="container">
     <div class="row">
@@ -266,159 +276,9 @@
         <div class="breadcrumb__text">
           <h4>Check Out</h4>
           <div class="breadcrumb__links">
-            <a href="/buyer/">Home</a>
-            <a href="/buyer/">Shop</a>
+            <a href="./index.html">Home</a>
+            <a class="nhanHover" href="./shop.html">Shop</a>
             <span>Check Out</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- Header Section End -->
-<section class="checkout spad">
-  <div class="container">
-    <div class="checkout__form">
-      <form action="#">
-        <div class="row">
-          <div class="col-lg-8 col-md-6">
-            <h6 class="coupon__code"><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click
-              here</a> to enter your code</h6>
-            <h6 class="checkout__title">Billing Details</h6>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="checkout__input">
-                  <p>Fist Name<span>*</span></p>
-                  <input type="text">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="checkout__input">
-                  <p>Last Name<span>*</span></p>
-                  <input type="text">
-                </div>
-              </div>
-            </div>
-            <div class="checkout__input">
-              <p>Country<span>*</span></p>
-              <input type="text">
-            </div>
-            <div class="checkout__input">
-              <p>Address<span>*</span></p>
-              <input type="text" placeholder="Street Address" class="checkout__input__add">
-              <input type="text" placeholder="Apartment, suite, unite ect (optinal)">
-            </div>
-            <div class="checkout__input">
-              <p>Town/City<span>*</span></p>
-              <input type="text">
-            </div>
-            <div class="checkout__input">
-              <p>Country/State<span>*</span></p>
-              <input type="text">
-            </div>
-            <div class="checkout__input">
-              <p>Postcode / ZIP<span>*</span></p>
-              <input type="text">
-            </div>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="checkout__input">
-                  <p>Phone<span>*</span></p>
-                  <input type="text">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="checkout__input">
-                  <p>Email<span>*</span></p>
-                  <input type="text">
-                </div>
-              </div>
-            </div>
-            <div class="checkout__input__checkbox">
-              <label for="acc">
-                Create an account?
-                <input type="checkbox" id="acc">
-                <span class="checkmark"></span>
-              </label>
-              <p>Create an account by entering the information below. If you are a returning customer
-                please login at the top of the page</p>
-            </div>
-            <div class="checkout__input">
-              <p>Account Password<span>*</span></p>
-              <input type="text">
-            </div>
-            <div class="checkout__input__checkbox">
-              <label for="diff-acc">
-                Note about your order, e.g, special noe for delivery
-                <input type="checkbox" id="diff-acc">
-                <span class="checkmark"></span>
-              </label>
-            </div>
-            <div class="checkout__input">
-              <p>Order notes<span>*</span></p>
-              <input type="text"
-                     placeholder="Notes about your order, e.g. special notes for delivery.">
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-6">
-            <div class="checkout__order">
-              <h4 class="order__title">Your order</h4>
-              <div class="checkout__order__products">Product <span>Total</span></div>
-              <ul class="checkout__total__products">
-                <li>01. Vanilla salted caramel <span>$ 300.0</span></li>
-                <li>02. German chocolate <span>$ 170.0</span></li>
-                <li>03. Sweet autumn <span>$ 170.0</span></li>
-                <li>04. Cluten free mini dozen <span>$ 110.0</span></li>
-              </ul>
-              <ul class="checkout__total__all">
-                <li>Subtotal <span>$750.99</span></li>
-                <li>Total <span>$750.99</span></li>
-              </ul>
-              <div class="checkout__input__checkbox">
-                <label for="acc-or">
-                  Create an account?
-                  <input type="checkbox" id="acc-or">
-                  <span class="checkmark"></span>
-                </label>
-              </div>
-              <p>Lorem ipsum dolor sit amet, consectetur adip elit, sed do eiusmod tempor incididunt
-                ut labore et dolore magna aliqua.</p>
-              <div class="checkout__input__checkbox">
-                <label for="payment">
-                  Check Payment
-                  <input type="checkbox" id="payment">
-                  <span class="checkmark"></span>
-                </label>
-              </div>
-              <div class="checkout__input__checkbox">
-                <label for="paypal">
-                  Paypal
-                  <input type="checkbox" id="paypal">
-                  <span class="checkmark"></span>
-                </label>
-              </div>
-              <button type="submit" class="site-btn">PLACE ORDER</button>
-            </div>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-</section>
-<!-- Breadcrumb Section Begin -->
-
-<section class="breadcrumb-option">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="breadcrumb__text">
-          <h4>[(#{label.shop.checkOut})]</h4>
-          <div class="breadcrumb__links">
-            <a th:href="@{'/buyer/home'}" >Home</a>
-            <a th:href="@{'/buyer/shop'}" >Shop</a>
-            <a th:href="@{'/buyer/cart'}">Cart</a>
-            <span>Check out</span>
           </div>
         </div>
       </div>
@@ -430,91 +290,221 @@
 <!-- Checkout Section Begin -->
 <section class="checkout spad">
   <div class="container">
+
     <div class="checkout__form">
+
       <div class="row">
-        <div class="col-lg-7 col-md-6">
-            <h6 class="coupon__code"><span class="icon_tag_alt"></span> Have a coupon? <a href="#">Click
-              here</a> to enter your code</h6>
-            <h6 class="checkout__title">[(#{lable.shop.blingDeatail})]</h6>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="checkout__input">
-                  <p>[(#{lable.setting.firstName})]<span>*</span></p>
-                  <input  type="text">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="checkout__input">
-                  <p>[(#{lable.setting.surname})]<span>*</span></p>
-                  <input  type="text">
-                </div>
-              </div>
-            </div>
-            <div class="checkout__input">
-              <p>[(#{lable.setting.address})]<span>*</span></p>
-              <input type="text" placeholder="Street Address" class="checkout__input__add">
-            </div>
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="checkout__input">
-                  <p>[(#{lable.setting.phone})]<span>*</span></p>
-                  <input type="text">
-                </div>
-              </div>
-              <div class="col-lg-6">
-                <div class="checkout__input">
-                  <p>Email<span>*</span></p>
-                  <input type="text">
-                </div>
-              </div>
-            </div>
-            <div class="checkout__input">
-              <p>[(#{lable.setting.notes})]<span>*</span></p>
-              <input type="text"
-                     placeholder="Notes about your order, e.g. special notes for delivery.">
-            </div>
-          </form>
+        <div class="col-lg-12 col-md-12" style="height: 130px; background-color: #f5f5f5;">
+
+          <h6 class="coupon__code">
+            <a href="" style="margin-top: -10px;">
+              <svg style="height: 30px; width: 30px;" viewBox="0 0 1024 1024" fill="#000000" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier"><path d="M512 1012.8c-253.6 0-511.2-54.4-511.2-158.4 0-92.8 198.4-131.2 283.2-143.2h3.2c12 0 22.4 8.8 24 20.8 0.8 6.4-0.8 12.8-4.8 17.6-4 4.8-9.6 8.8-16 9.6-176.8 25.6-242.4 72-242.4 96 0 44.8 180.8 110.4 463.2 110.4s463.2-65.6 463.2-110.4c0-24-66.4-70.4-244.8-96-6.4-0.8-12-4-16-9.6-4-4.8-5.6-11.2-4.8-17.6 1.6-12 12-20.8 24-20.8h3.2c85.6 12 285.6 50.4 285.6 143.2 0.8 103.2-256 158.4-509.6 158.4z m-16.8-169.6c-12-11.2-288.8-272.8-288.8-529.6 0-168 136.8-304.8 304.8-304.8S816 145.6 816 313.6c0 249.6-276.8 517.6-288.8 528.8l-16 16-16-15.2zM512 56.8c-141.6 0-256.8 115.2-256.8 256.8 0 200.8 196 416 256.8 477.6 61.6-63.2 257.6-282.4 257.6-477.6C768.8 172.8 653.6 56.8 512 56.8z m0 392.8c-80 0-144.8-64.8-144.8-144.8S432 160 512 160c80 0 144.8 64.8 144.8 144.8 0 80-64.8 144.8-144.8 144.8zM512 208c-53.6 0-96.8 43.2-96.8 96.8S458.4 401.6 512 401.6c53.6 0 96.8-43.2 96.8-96.8S564.8 208 512 208z" fill=""></path>
+                </g>
+              </svg>
+            </a>
+            <a href="" style="margin-left: 15px; font-weight: 700; font-size: 13pt;">Delivery Address</a>
+          </h6>
+          <div style="display: flex; margin-left: 100px; margin-top: -10px;" th:object="${diaChiKHDefault}">
+            <h5 style="font-weight: 700; font-size: 12pt ;" th:text="${diaChiKHDefault.tenNguoiNhan}"></h5>
+            <span style="margin: -4px 5px 0 5px ;"> | </span>
+            <h5 style="font-weight: 700; font-size: 12pt ;" th:text="${diaChiKHDefault.sdtNguoiNhan}"></h5>
+            <span style="margin-left: 20px;"></span>
+            <h5 style="font-size: 11pt ;"  th:text="${diaChiKHDefault.diaChiChiTiet}"></h5>
+          </div>
+          <div style="display: flex; margin-left: 100px; margin-top: 10px;">
+            <a style="color: red;  margin: 0px 20px 0 0px;">Default</a>
+            <a href="" style="text-decoration: none; color: rgb(84, 84, 250);"> Change</a>
+          </div>
+
+
         </div>
-        <div class="col-lg-5 col-md-6">
-          <form action="/placeOrder" method="post">
-            <div class="checkout__order">
-              <h4 class="order__title">Your order</h4>
-              <div class="checkout__order__products">[(#{lable.shop.product})] <span
-                      style="margin-left: 15%;">[(#{lable.shop.total})]</span> <span>[(#{lable.shop.quantity})]</span>
-              </div>
-              <ul class="checkout__total__products">
+      </div>
 
-<!--                <th:block th:each="detailBill : ${listDSC}">-->
-<!--                  <li>-->
-<!--                    <span th:text="${detailBill.totalPrice}" style="margin-left: 22%;"></span>-->
-<!--                    <span th:text="${detailBill.quantity}" style="margin-left: 49.2%;"></span>-->
-<!--                    <span th:text="${detailBill.product.name_product}"-->
-<!--                          style="position: absolute;"></span>-->
-<!--                  </li>-->
-<!--                </th:block>-->
 
-              </ul>
-              <ul class="checkout__total__all">
-                <li>Total <span></span></li>
-              </ul>
+      <div class="row" style="margin-top: 40px;">
+        <div class="col-lg-12 col-md-12">
 
-              <div class="checkout__input__checkbox">
-                <label for="payment">
-                  Check Payment
-                  <input type="checkbox" id="payment">
-                  <span class="checkmark"></span>
-                </label>
-              </div>
-              <div class="checkout__input__checkbox">
-                <label for="paypal">
-                  Paypal
-                  <input type="checkbox" id="paypal">
-                  <span class="checkmark"></span>
-                </label>
-              </div>
+          <h6 class="checkout__title">Billing Details</h6>
 
-              <button type="submit" class="site-btn">PLACE ORDER</button>
+          <h6  class="coupon__code" > </h6>
+          <div class="row" style="background-color: #f5f5f5; height: 80px; margin-top: -40px; border-bottom: 0.5px solid #979797;">
+
+            <span class="col-lg-12"></span>
+
+            <span class="col-lg-4" style="text-align: center; color: #979797;"> Product</span>
+            <span class="col-lg-2" style="text-align: center; color: #979797;"> Variation</span>
+            <span class="col-lg-2" style="text-align: center; color: #979797;"> Unit Price</span>
+            <span class="col-lg-1" style="text-align: center; color: #979797;"> Amount</span>
+            <span class="col-lg-3" style="text-align: center; color: #979797;"> Item Subtotal</span>
+
+          </div>
+
+          <div class="row" style="background-color: #f5f5f5; height: 20px;">
+          </div>
+
+          <!-- product in checkout start -->
+          <th:block th:each="x : ${listProductCheckOut}">
+            <div class="row" style="background-color: #f5f5f5; height: 130px;">
+            <div class="col-lg-4" style="display: flex;">
+              <img style="height: 100px; width: 100px; border-radius: 5px; margin:0 10px 0 0px;" th:src="@{'/images/imgsProducts/' + ${x.chiTietGiay.hinhAnh.url1}}" alt="">
+              <p style="margin-top: 20px; color: #979797;" th:text="${x.chiTietGiay.giay.tenGiay}"> </p>
             </div>
+            <div class="col-lg-2" style="text-align: center;">
+              <p th:text="'Colors : ' + ${x.chiTietGiay.mauSac.tenMau}"> </p>
+              <p th:text="'Size : ' + ${x.chiTietGiay.size.soSize}" > </p>
+            </div>
+            <div class="col-lg-2" style="text-align: center;">
+              <p th:text="${x.chiTietGiay.giaBan} + ' $'"></p>
+            </div>
+            <div class="col-lg-1" style="text-align: center;">
+              <p th:text="${x.soLuong}" ></p>
+            </div>
+            <div class="col-lg-3" style="text-align: center;" th:text="'$ ' + ${x.chiTietGiay.giaBan * x.soLuong}">
+            </div>
+            <p style="width: 94%; height: 0.3px; background-color: #979797; margin-left: 3%; margin-top: 15px;"></p>
+          </div>
+          </th:block>
+          <!-- product in checkout end -->
+
+          <div class="row" style="background-color: #f5f5f5; height: 60px; padding-top: 10px;">
+
+          <div class="col-lg-4" style="display: flex;">
+          </div>
+          <div class="col-lg-2" style="text-align: center;">
+            <p></p>
+          </div>
+          <div class="col-lg-2" style="text-align: center;">
+            <p style="font-size: 13pt; font-weight: 700;">Total</p>
+          </div>
+          <div class="col-lg-1" style="text-align: center;">
+            <p style="font-size: 13pt; font-weight: 700;" th:text="${sumQuantity}"></p>
+          </div>
+          <div class="col-lg-3" style="text-align: center;">
+            <p style="font-size: 13pt; font-weight: 700;" th:text="${total} + '$'"></p>
+          </div>
+        </div>
+
+
+          <div class="row" style="background-color: #f5f5f5; height: 150px; margin-top: 25px;">
+            <div class="col-lg-5" style="display: flex; align-items: center; border-right: 0.5px solid #979797 ;">
+
+              <p style="margin-left: 10px; margin-top: 17px;">Message :</p>
+
+              <textarea class="form-group" name="" style="height: 40px; width: 300px; margin: 10px 0 0 20px" placeholder="Please leave a message ...."></textarea>
+            </div>
+            <div class="col-lg-5" style="padding-left: 60px;">
+
+              <p style=" color: black; margin-top: 20px;">Delivery charges</p>
+
+              <p style=" color: #979797; font-size: 8pt; margin-top: -20px;">( Receive by 5 Th11 - 6 Th11 )</p>
+
+              <p style=" color: #979797; font-size: 10.5pt; margin-top: -10px;">Voucher Shipping <a style=" margin-left: 60px; text-decoration: none; color: rgb(2, 2, 164);" type="button" data-toggle="modal" data-target="#modalVoucherShipping">Select Voucher</a> </p>
+
+              <div style="background-color: #979797; height: 0.5px; width: 100%;  margin-top: -10px;"></div>
+
+              <p style=" color: black; font-size: 11pt; margin-top: 10px;">Order Total (4 Items): </p>
+
+            </div>
+            <div class="col-lg-2">
+
+              <p style=" color: black; margin-top: 20px;">10 $</p>
+
+              <p style=" color: #979797; font-size: 8pt; margin-top: -20px;">-</p>
+
+              <p style=" color: #979797; font-size: 10.5pt; margin-top: -10px; font-style: italic;">-8 $</p>
+
+              <div style="background-color: #979797; height: 0.5px; width: 100%;  margin-top: -10px;"></div>
+
+              <p style=" color: black; font-size: 11pt; margin-top: 10px; font-weight: 700;">802 $ </p>
+
+            </div>
+          </div>
+
+          <!-- Select voucher begin -->
+          <div class="row" style="background-color: #f5f5f5; height: 60px; margin-top: 15px;">
+            <div class="col-lg-5" style="display: flex; text-align: right; border-right: 1px solid #979797 ;">
+              <a style="margin-left: 50px; margin-top: 15px;">
+                <svg fill="#000000" height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.00 512.00" xml:space="preserve" stroke="#000000" stroke-width="0.00512">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round" stroke="#CCCCCC" stroke-width="1"></g>
+                  <g id="SVGRepo_iconCarrier"> <g> <g> <path d="M480.983,88.645h-0.933c-11.6,0-431.329,0-448.1,0C14.333,88.645,0,102.978,0,120.595v270.809 c0,17.617,14.333,31.95,31.95,31.95c17.185,0,436.934,0,448.1,0h0.933c17.103,0,31.017-13.915,31.017-31.017v-0.933V120.595 v-0.933C512,102.56,498.085,88.645,480.983,88.645z M304.09,184.698l11.544,11.544l-11.544,11.545 c-10.228,10.228-10.229,26.871,0,37.102l11.544,11.544l-11.544,11.544c-10.228,10.228-10.229,26.871,0,37.102l11.544,11.544 L304.09,328.17c-10.228,10.228-10.229,26.871,0,37.102l11.544,11.544c-12.642,12.64-12.025,11.968-13.132,13.292H33.247V121.892 h268.565c1.46,1.908,1.215,1.552,13.823,14.16l-11.545,11.545C293.861,157.826,293.861,174.471,304.09,184.698z M478.753,390.109 H348.172c5.904-10.052,4.547-23.224-4.07-31.844l-11.544-11.544l11.544-11.544c10.228-10.228,10.229-26.872,0-37.102 l-11.544-11.544l11.544-11.544c10.228-10.228,10.229-26.872,0-37.102l-11.544-11.544l11.544-11.544 c4.955-4.955,7.684-11.543,7.684-18.552c0-7.007-2.728-13.596-7.684-18.551l-11.544-11.544l11.545-11.545 c8.867-8.869,10.046-22.559,3.537-32.71h131.113V390.109z"></path> </g> </g> <g> <g> <path d="M205.034,244.048c-18.932,0-33.409,8.018-33.409,30.067v31.628c0,22.049,14.477,30.067,33.409,30.067 c18.709,0,33.409-8.018,33.409-30.067v-31.628C238.442,252.066,223.743,244.048,205.034,244.048z M205.034,316.433 c-6.904,0-10.914-3.341-10.914-10.69v-31.628c0-7.35,4.008-10.69,10.914-10.69c6.904,0,11.137,3.341,11.137,10.69v31.628h0 C216.17,313.093,211.938,316.433,205.034,316.433z"></path> </g> </g> <g> <g> <path d="M192.115,163.2c-4.008,0-7.573,1.781-9.354,5.568l-78.175,160.584c-0.668,1.336-1.114,2.895-1.114,4.231 c0,5.568,4.899,11.804,12.472,11.804c4.232,0,8.464-2.228,10.023-5.568l78.399-160.584c0.668-1.335,0.89-2.895,0.89-4.231 C205.255,167.877,198.351,163.2,192.115,163.2z"></path> </g> </g> <g> <g> <path d="M102.803,172.332c-18.932,0-33.409,8.018-33.409,30.067v31.627c0,22.049,14.477,30.068,33.409,30.068 c18.709,0,33.409-8.019,33.409-30.068v-31.627C136.212,180.35,121.512,172.332,102.803,172.332z M113.94,234.026 c0,7.35-4.231,10.691-11.137,10.691c-6.904,0-10.914-3.341-10.914-10.691v-31.627c0-7.35,4.01-10.69,10.914-10.69 s11.137,3.341,11.137,10.69V234.026z"></path> </g> </g> </g>
+                                </svg>
+              </a>
+
+              <p style="margin-left: 10px; margin-top: 17px;">Voucher</p>
+            </div>
+            <div class="col-lg-1" style="text-align: center; padding-top: 17px;">
+              <a type="button" data-toggle="modal" data-target="#modalVoucher" style=" color: black;">Select</a>
+            </div>
+            <div class="col-lg-4" style="text-align: center; padding-top: 17px;">
+              <p>10% off Min. Spend 500$ Capped at 70$</p>
+            </div>
+            <div class="col-lg-2" style="padding-top: 17px;">
+              <a href="#" style=" color: black; float: left;">- 70 $</a>
+            </div>
+          </div>
+          <!-- Select voucher End -->
+
+
+          <!-- Payment Method begin -->
+          <div class="row" style="background-color: #f5f5f5; height: 60px; margin-top: 15px;">
+            <div class="col-lg-3" style="padding: 17px 0 0 65px;">
+              <a href="#" style=" color: black;">Payment Method</a>
+            </div>
+            <div class="col-lg-9" style="display: flex; text-align: right; ">
+              <div class="product__details__option__size"  style="margin:12px 0 0 0;">
+                <label style="margin-right: 30px;">
+                  <input type="radio">Cash on Delivery
+                </label>
+                <label>
+                  <input type="radio">QR Code Banking
+                </label>
+              </div>
+            </div>
+          </div>
+          <!-- Payment Method End -->
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-12 col-md-12" style="height: 300px; background-color: #f5f5f5;">
+
+          <h6 class="coupon__code"> </h6>
+
+          <div class="row" style="border-bottom: 0.5 solid #000000;">
+            <div class="col-lg-7">
+            </div>
+            <div class="col-lg-3">
+              <p>Merchandise Subtotal :</p>
+              <p>Shipping Fee :</p>
+              <p>Shipping Discount Subtotal :</p>
+              <p>Shopee Voucher Applied :</p>
+              <p style="font-size: 12pt; font-weight: 700;">Order Total:</p>
+            </div>
+            <div class="col-lg-2">
+              <p>800 $</p>
+              <p>10 $</p>
+              <p>- 8 $</p>
+              <p>- 70 $</p>
+              <p style="font-size: 18pt; font-weight: 700;"> 738 $</p>
+            </div>
+          </div>
+
+          <div class="row" style="height: 0.5px; background-color: #979797; width: 100%;">
+
+          </div>
+
+          <div class="row" style="height: 70px; margin-top: 20px; background-color: #f5f5f5;">
+            <div class="col-lg-9">
+            </div>
+            <div class="col-lg-3">
+              <div class="product__details__cart__option">
+                <a href="#" class="primary-btn">Place Order</a>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -522,6 +512,140 @@
   </div>
 </section>
 <!-- Checkout Section End -->
+
+<!--Modal Voucher Shipping Begin-->
+<section>
+  <div class="modal fade" id="modalVoucherShipping" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Big Ball Chunky A Gradient Classic Monogram</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="radio-input">
+            <div style="margin: 5px 0 5px 0;"></div>
+
+            <label style=" margin: 5px; font-weight: unset; font-size: small; height: 40px;" >
+              <a class="link" >
+                <input type="radio" name="value-radio2nhan" >
+                <span > Dark Green</span>
+              </a>
+            </label>
+            <label style=" margin: 5px; font-weight: unset; font-size: small; height: 40px;" >
+              <a class="link" >
+                <input type="radio" name="value-radio2nhan" >
+                <span > Dark Green</span>
+              </a>
+            </label>
+          </div>
+          <div style="width: 465px; margin-top: 10px; margin-bottom: 10px; height: 1px; background: rgba(0,0,0,.54);"></div>
+          <div>
+            <div style="margin-bottom: 10px;">
+              <span style="margin-left: 85px; ">  <img src="/images/img/icon/mail.png" style="height: 15px; width: 20px; margin-bottom: 2px; margin-right: 10px;" alt=""> Receive notification when in stock?</span>
+            </div>
+            <div  class="radio-input">
+              <label style=" margin: 5px; font-weight: unset; font-size: small; height: 40px;" >
+                <a class="link" >
+                  <input type="" name="value-radio" >
+                  <span > 36</span>
+                </a>
+                <a href="##" class="receiveMail">
+                  <img src="/images/img/icon/mail.png" style="height: 15px; width: 20px; margin-bottom: 2px;" alt="">
+                </a>
+              </label>
+              <label style=" margin: 5px; font-weight: unset; font-size: small; height: 40px;" >
+                <a class="link" >
+                  <input type="radio" name="value-radio" >
+                  <span > 37</span>
+                </a>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</section>
+<!--Modal Voucher Shipping End-->
+
+
+<!--Modal Voucher Begin-->
+<section>
+  <div class="modal fade" id="modalVoucher" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Big Ball Chunky A Gradient Classic Monogram</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="radio-input">
+            <div style="margin: 5px 0 5px 0;"></div>
+
+            <label style=" margin: 5px; font-weight: unset; font-size: small; height: 40px;" >
+              <a class="link" >
+                <input type="radio" name="value-radio2nhan" >
+                <span > Dark Green</span>
+              </a>
+            </label>
+            <label style=" margin: 5px; font-weight: unset; font-size: small; height: 40px;" >
+              <a class="link" >
+                <input type="radio" name="value-radio2nhan" >
+                <span > Dark Green</span>
+              </a>
+            </label>
+          </div>
+          <div style="width: 465px; margin-top: 10px; margin-bottom: 10px; height: 1px; background: rgba(0,0,0,.54);"></div>
+          <div>
+            <div style="margin-bottom: 10px;">
+              <span style="margin-left: 85px; ">  <img src="/images/img/icon/mail.png" style="height: 15px; width: 20px; margin-bottom: 2px; margin-right: 10px;" alt=""> Receive notification when in stock?</span>
+            </div>
+            <div  class="radio-input">
+              <label style=" margin: 5px; font-weight: unset; font-size: small; height: 40px;" >
+                <a class="link" >
+                  <input type="" name="value-radio" >
+                  <span > 36</span>
+                </a>
+                <a href="##" class="receiveMail">
+                  <img src="/images/img/icon/mail.png" style="height: 15px; width: 20px; margin-bottom: 2px;" alt="">
+                </a>
+              </label>
+              <label style=" margin: 5px; font-weight: unset; font-size: small; height: 40px;" >
+                <a class="link" >
+                  <input type="radio" name="value-radio" >
+                  <span > 37</span>
+                </a>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</section>
+<!--Modal Voucher End-->
+
 
 <!-- Footer Section Begin -->
 <footer class="footer">

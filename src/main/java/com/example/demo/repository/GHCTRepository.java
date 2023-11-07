@@ -15,5 +15,7 @@ public interface GHCTRepository extends JpaRepository<GioHangChiTiet, UUID> {
 
     GioHangChiTiet findByChiTietGiayAndTrangThai(ChiTietGiay chiTietGiay, int trangThai);
 
-    List<GioHangChiTiet> findByTrangThaiAndAndGioHang(int trangThai, GioHang gh);
+    List<GioHangChiTiet> findByTrangThaiAndGioHangOrderByTgThemDesc(int trangThai, GioHang gh);
+
+    GioHangChiTiet findByChiTietGiayAndTrangThaiAndGioHang(ChiTietGiay chiTietGiay, int trangThai, GioHang gioHang);
 }
