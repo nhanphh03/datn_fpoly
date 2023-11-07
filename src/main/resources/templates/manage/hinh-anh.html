@@ -330,13 +330,13 @@
 
             <div class="card">
                 <div class="card-body">
-                    <div class="hidden-form">
+                    <div class="hidden-form" style="display: none">
                         <form th:object="${hinhAnhAdd}" method="post" th:action="@{/manage/hinh-anh/viewAdd/add}">
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã</label>
-                                        <input type="text" th:field="*{maAnh}">
+                                        <input type="text" th:field="*{maAnh}"required>
                                     </div>
                                 </div>
                                 <div class="col-lg-10 col-sm-6 col-12"></div>
@@ -703,6 +703,12 @@
     $(document).ready(function () {
         $('#filter_inputs').slideToggle("slow");
         $('#filter_search').toggleClass("setclose");
+    });
+</script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function () {
+        $('.select').select2();
     });
 </script>
 </body>
