@@ -29,4 +29,9 @@ public class HoaDonServiceImpl implements HoaDonService {
     public HoaDon getOne(UUID id) {
         return hoaDonRepository.findById(id).orElse(null);
     }
+
+    @Override
+    public List<HoaDon> getAllHoaDon() {
+        return hoaDonRepository.findAllByOrderByTgTaoDesc();
+    }
 }
