@@ -5,6 +5,8 @@ import com.example.demo.repository.*;
 import com.example.demo.repository.GiayChiTietRepository;
 import com.example.demo.repository.GiayRepository;
 import com.example.demo.service.GiayChiTietService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -42,6 +44,17 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
     @Override
     public List<ChiTietGiay> getAllChiTietGiay() {
         return giayChiTietRepository.findAllByOrderByTgThemDesc();
+    }
+
+    @Override
+    public List<ChiTietGiay> getTop4ChiTietGiay() {
+        List<ChiTietGiay> allChiTietGiay = giayChiTietRepository.findAllByOrderByTgThemDesc();
+        int limit = 4;
+        if (allChiTietGiay.size() <= limit) {
+            return allChiTietGiay;
+        } else {
+            return allChiTietGiay.subList(0, limit);
+        }
     }
 
     @Override
@@ -155,6 +168,7 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
             // Xử lý lỗi nếu cần
         }
     }
+
     public List<Size> findDistinctSizeByGiayAndMauSac(Giay giay, MauSac mauSac) {
         return giayChiTietRepository.findDistinctSizeByGiayAndTrangThai(giay, mauSac);
     }
@@ -183,5 +197,17 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
         return giayChiTietRepository.findBySize(size);
     }
 
+    @PersistenceContext
+    private EntityManager entityManager;
 
+    public List<ChiTietGiay> findProductsOutOfWarranty() {
+        Date currentDate = new Date(); // Lấy thời gian hiện tại
+
+        String jpql = "SELECT p FROM ChiTietGiay p WHERE p.namBH > 0 AND p.namBH < :currentYear";
+        List<ChiTietGiay> products = entityManager.createQuery(jpql, ChiTietGiay.class)
+                .setParameter("currentYear", currentDate.getYear() + 1900)
+                .getResultList();
+
+        return products;
+    }
 }
