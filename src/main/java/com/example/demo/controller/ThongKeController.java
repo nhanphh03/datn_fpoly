@@ -1,76 +1,44 @@
 package com.example.demo.controller;
 
-import com.example.demo.repository.GiayChiTietRepository;
-import com.example.demo.repository.GiayRepository;
-import com.example.demo.repository.HinhAnhRepository;
-import com.example.demo.repository.HoaDonRepository;
-import com.example.demo.repository.thanhdvph27747.HoaDonChiTietRepository;
-import com.example.demo.repository.thanhdvph27747.SPBanChay;
-import com.example.demo.service.thanhdvph27747.*;
+import com.example.demo.repository.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("ban-hang")
 public class ThongKeController {
     @Autowired
-    private TongKhachHangSer tong;
-
-    @Autowired
-    private TongGiaySer tonggiay;
-
-    @Autowired
-    private TongDoanhThuSer tdt;
-
-    @Autowired
-    private DoanhThuThangSer dtt;
-
-   // qly hóa đơn
-    @Autowired
-    private HoaDonRepository hoaDonRepository;
-
-    @Autowired
-    private HoaDonChiTietRepository hdct;
-
-    @Autowired
-    private HoaDonChoService hoadoncho;
-
+    private KhachHangRepository khachHangRepository;
     @Autowired
     private GiayChiTietRepository giayChiTietRepository;
     @Autowired
-    private SPBanChaySer spBanChaySer;
+    private HoaDonRepository hoaDonRepository;
     @Autowired
-    private HoaDonChiTietService hoaDonChiTietService;
-    @Autowired
-    private GiayRepository giayRepository;
-
-    @Autowired
-    private HinhAnhRepository hinhAnhRepository;
+    private HoaDonChiTietRepository hoaDonChiTietRepository;
     @GetMapping("/thongke")
     private String getTong(Model model){
-        model.addAttribute("tong",tong.getTong());
-        model.addAttribute("tonggiay",tonggiay.getTongGiay());
+        model.addAttribute("tong",khachHangRepository.getTongKH());
+        model.addAttribute("tonggiay",giayChiTietRepository.getTongGiay());
 
         //làm tròn doanh thu
-        Double Resulttdt = Math.ceil(tdt.TongDoanhThu()*100.0)/100.0;
-        Double Resultdtt = Math.ceil(dtt.getDoanhThuThang()*100.0)/100.0;
+        Double Resulttdt = Math.ceil(hoaDonChiTietRepository.getTongTien()*100.0)/100.0;
+        Double Resultdtt = Math.ceil(hoaDonChiTietRepository.getDoanhThuThang()*100.0)/100.0;
         model.addAttribute("tdt",Resulttdt);
         model.addAttribute("dtt",Resultdtt);
-
-        // top 5 sp bán chạy
-
-        //chỉ số ở hóa đơn
-        model.addAttribute("hdht",hoadoncho.getAllHoaDon());
-        model.addAttribute("hdc",hoadoncho.getAllHoaDonCho());
-//  hoa don
-        model.addAttribute("hoaDon",hoaDonRepository.findAll());
-        model.addAttribute("hoaDonCT2",hoaDonChiTietService.getAllHDChuaThanhToan());
-        model.addAttribute("hoaDonCT1",hoaDonChiTietService.getAllHDDaThanhToan());
+//
+//        // top 5 sp bán chạy
+//
+//        //chỉ số ở hóa đơn
+        model.addAttribute("hdht",hoaDonRepository.getAllHoaDonDaThanhToan());
+        model.addAttribute("hdc",hoaDonRepository.getAllHoaDonCho());
+////  hoa don
+//        model.addAttribute("hoaDon",hoaDonRepository.findAll());
+//        model.addAttribute("hoaDonCT2",hoaDonChiTietService.getAllHDChuaThanhToan());
+//        model.addAttribute("hoaDonCT1",hoaDonChiTietService.getAllHDDaThanhToan());
         return "manage/ThongKe/index";
     }
 
