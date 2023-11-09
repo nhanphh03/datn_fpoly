@@ -11,7 +11,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Sneaker Shop - Admin</title>
 
-    <link rel="shortcut icon" type="image/x-icon" href="/images/img/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
@@ -34,19 +34,22 @@
     <div class="header">
 
         <div class="header-left active">
-            <a href="/admin/home" class="logo">
+            <a href="/manage" class="logo">
                 <img src="/images/img/logo.png" alt="">
             </a>
-            <a href="/admin/home" class="logo-small">
+            <a href="/manage" class="logo-small">
                 <img src="/images/img/logo-small.png" alt="">
             </a>
             <a id="toggle_btn" href="javascript:void(0);">
             </a>
         </div>
-        <span></span>
-        <span></span>
-        <span></span>
-        </span>
+
+        <a id="mobile_btn" class="mobile_btn" href="#sidebar">
+            <span class="bar-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+            </span>
         </a>
 
         <ul class="nav user-menu">
@@ -229,7 +232,7 @@
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="index.html"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
+                        <a href="#"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
                         </a>
                     </li>
                     <li class="submenu">
@@ -243,10 +246,6 @@
                             <li><a href="/manage/mau-sac">Màu Sắc</a></li>
                             <li><a href="/manage/size">Size</a></li>
                         </ul>
-                    </li>
-                    <li>
-                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                        </a>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
@@ -262,6 +261,7 @@
                         <a href="javascript:void(0);"><img src="/images/img/icons/expense1.svg" alt="img"><span> Quản Lý Hóa Đơn</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
+                            <li><a href="/manage/don-hang/hien-thi">Quản lý đơn hàng</a></li>
                             <li><a href="expenselist.html">Expense List</a></li>
                             <li><a href="createexpense.html">Add Expense</a></li>
                             <li><a href="expensecategory.html">Expense Category</a></li>
@@ -276,7 +276,6 @@
                             <li><a href="/manage/loai-khach-hang">Loại Khách Hàng</a></li>
                         </ul>
                     </li>
-
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/return1.svg" alt="img"><span> Quản Lý Đổi Trả</span>
                             <span class="menu-arrow"></span></a>
@@ -296,16 +295,13 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
-                    Quản Lý Voucher</span
-                        >
-                            <span class="menu-arrow"></span
-                            ></a>
+                        <a href="javascript:void(0);"><img src="/images/img/icons/transfer1.svg" alt="img"/><span>Quản lý Khuyến Mãi</span>
+                            <span class="menu-arrow"></span>
+                        </a>
                         <ul>
-                            <li><a href="transferlist.html">Transfer List</a></li>
-                            <li><a href="addtransfer.html">Add Transfer </a></li>
-                            <li><a href="importtransfer.html">Import Transfer </a></li>
+                            <li><a href="/manage/voucher">Khuyến Mãi Chung</a></li>
+                            <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
+                            <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
                         </ul>
                     </li>
                 </ul>

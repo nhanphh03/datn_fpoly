@@ -10,7 +10,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Sneaker Shop - Admin</title>
 
-    <link rel="shortcut icon" type="image/x-icon" href="/images/img/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
@@ -28,17 +28,17 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<div id="global-loader">
-    <div class="whirly-loader"></div>
-</div>
+<!--<div id="global-loader">-->
+<!--    <div class="whirly-loader"></div>-->
+<!--</div>-->
 <div class="main-wrapper">
     <div class="header">
 
         <div class="header-left active">
-            <a href="index.html" class="logo">
+            <a href="/manage" class="logo">
                 <img src="/images/img/logo.png" alt="">
             </a>
-            <a href="index.html" class="logo-small">
+            <a href="/manage" class="logo-small">
                 <img src="/images/img/logo-small.png" alt="">
             </a>
             <a id="toggle_btn" href="javascript:void(0);">
@@ -248,10 +248,6 @@
                             <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                        </a>
-                    </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
                                                            alt="img"><span> Quản Lý Đặt Hàng</span> <span
@@ -299,15 +295,13 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
-                    Quản Lý Voucher</span>
-                            <span class="menu-arrow"></span
-                            ></a>
+                        <a href="javascript:void(0);"><img src="/images/img/icons/transfer1.svg" alt="img"/><span>Quản lý Khuyến Mãi</span>
+                            <span class="menu-arrow"></span>
+                        </a>
                         <ul>
-                            <li><a href="transferlist.html">Transfer List</a></li>
-                            <li><a href="addtransfer.html">Add Transfer </a></li>
-                            <li><a href="importtransfer.html">Import Transfer </a></li>
+                            <li><a href="/manage/voucher">Khuyến Mãi Chung</a></li>
+                            <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
+                            <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -330,13 +324,13 @@
 
             <div class="card">
                 <div class="card-body">
-                    <div class="hidden-form">
+                    <div class="hidden-form" style="display: none">
                         <form th:object="${chatLieuAdd}" method="post" th:action="@{/manage/chat-lieu/viewAdd/add}">
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Chất Liệu</label>
-                                        <input type="text" th:field="*{maChatLieu}">
+                                        <input type="text" th:field="*{maChatLieu}"required>
                                         <br><br>
                                         <strong th:if="${#fields.hasErrors('maChatLieu')}"
                                                 class="alert alert-danger alert-dismissible fade show"
@@ -346,7 +340,7 @@
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Chất Liệu</label>
-                                        <input type="text" th:field="*{tenChatLieu}">
+                                        <input type="text" th:field="*{tenChatLieu}"required>
                                         <br><br>
                                         <strong th:if="${#fields.hasErrors('tenChatLieu')}"
                                                 class="alert alert-danger alert-dismissible fade show"
@@ -464,15 +458,9 @@
                     </form>
 
                     <div class="table-responsive">
-                        <table class="table  datanew" id="data-table">
+                        <table class="table" id="data-table">
                             <thead>
                             <tr>
-                                <th>
-                                    <label class="checkboxs">
-                                        <input type="checkbox" id="select-all">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </th>
                                 <th>Mã Chất Liệu</th>
                                 <th>Tên Chất Liệu</th>
                                 <th>Trạng Thái</th>
@@ -484,12 +472,6 @@
                             </thead>
                             <tbody>
                             <tr th:each="items : ${chatLieu}">
-                                <td>
-                                    <label class="checkboxs">
-                                        <input type="checkbox">
-                                        <span class="checkmarks"></span>
-                                    </label>
-                                </td>
                                 <td th:text="${items.maChatLieu}"></td>
                                 <td th:text="${items.tenChatLieu}"></td>
                                 <td>
@@ -632,7 +614,7 @@
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var maColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
+                var maColumn = $(this).find("td:eq(0)").text(); // Vị trí cột chứa giá trị kích thước
                 if (maColumn === maChatLieu || maChatLieu === "Mã Chất Liệu") {
                     $(this).show();
                 }
@@ -647,7 +629,7 @@
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var tenColumn = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
+                var tenColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
                 if (tenColumn === tenChatLieu || tenChatLieu === "Tên Chất Liệu") {
                     $(this).show();
                 }
@@ -709,6 +691,12 @@
             checkMa.style.display = 'none';
         }
     }, 5000);
+</script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.select').select2();
+    });
 </script>
 </body>
 </html>

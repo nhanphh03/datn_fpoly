@@ -41,6 +41,9 @@ public class DiaChiKH {
     @Column(name="ten_Dia_Chi")
     private String tenDC;
 
+    @Column(name="ten_Nguoi_Nhan")
+    private String tenNguoiNhan;
+
     @Column(name="xa_Phuong")
     private String xaPhuong;
 
@@ -67,4 +70,7 @@ public class DiaChiKH {
 
     @Column(name = "mien")
     private String mien;
+
+    @Column(name="loai_DC")
+    private boolean loai;
 }

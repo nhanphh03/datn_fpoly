@@ -25,6 +25,10 @@ public class KhachHang {
     @Column(name ="id_KH")
     private UUID idKH;
 
+    @OneToOne
+    @JoinColumn(name = "id_GH")
+    private GioHang gioHang;
+
     @ManyToOne
     @JoinColumn(name = "id_LKH")
     private LoaiKhachHang loaiKhachHang;

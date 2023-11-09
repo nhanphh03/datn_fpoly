@@ -10,7 +10,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Sneaker Shop - Admin</title>
 
-    <link rel="shortcut icon" type="image/x-icon" href="/images/img/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
@@ -34,10 +34,10 @@
     <div class="header">
 
         <div class="header-left active">
-            <a href="index.html" class="logo">
+            <a href="/manage" class="logo">
                 <img src="/images/img/logo.png" alt="">
             </a>
-            <a href="index.html" class="logo-small">
+            <a href="/manage" class="logo-small">
                 <img src="/images/img/logo-small.png" alt="">
             </a>
             <a id="toggle_btn" href="javascript:void(0);">
@@ -247,10 +247,6 @@
                             <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                        </a>
-                    </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
                                                            alt="img"><span> Quản Lý Đặt Hàng</span> <span
@@ -298,16 +294,13 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
-                    Quản Lý Voucher</span
-                        >
-                            <span class="menu-arrow"></span
-                            ></a>
+                        <a href="javascript:void(0);"><img src="/images/img/icons/transfer1.svg" alt="img"/><span>Quản lý Khuyến Mãi</span>
+                            <span class="menu-arrow"></span>
+                        </a>
                         <ul>
-                            <li><a href="transferlist.html">Transfer List</a></li>
-                            <li><a href="addtransfer.html">Add Transfer </a></li>
-                            <li><a href="importtransfer.html">Import Transfer </a></li>
+                            <li><a href="/manage/voucher">Khuyến Mãi Chung</a></li>
+                            <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
+                            <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -327,77 +320,88 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-lg-6 col-sm-6 col-12">
+                            <div class="col-lg-12 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Mã Giày</label>
-                                    <input type="text" th:field="*{maGiay}">
+                                    <input type="text" th:field="*{maGiay}" required>
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('maGiay')}"
                                             class="alert alert-danger alert-dismissible fade"
                                             role="alert" th:errors="*{maGiay}"></strong>
                                 </div>
                             </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Mô tả</label>
+                                    <textarea class="form-control" th:field="*{moTa}" required></textarea>
+                                </div>
+                            </div>
                             <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Tên Giày</label>
-                                    <input type="text" th:field="*{tenGiay}">
-                                    <br><br>
-                                    <strong th:if="${#fields.hasErrors('tenGiay')}"
-                                            class="alert alert-danger alert-dismissible fade"
-                                            role="alert" th:errors="*{tenGiay}"></strong>
+                                <div class="row">
+                                    <div class="col-lg-9 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label>Tên Giày</label>
+                                            <input type="text" th:field="*{tenGiay}" required>
+                                            <br><br>
+                                            <strong th:if="${#fields.hasErrors('tenGiay')}"
+                                                    class="alert alert-danger alert-dismissible fade"
+                                                    role="alert" th:errors="*{tenGiay}"></strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label>Hãng</label>
+                                            <select class="select" th:field="*{hang}" id="loc" name="loc">
+                                                <option th:each="loc : ${hang}" th:value="${loc.idHang}"
+                                                        th:text="${loc.tenHang}"></option>
+                                            </select>
+                                            <br><br>
+                                            <strong th:if="${#fields.hasErrors('hang')}"
+                                                    class="alert alert-danger alert-dismissible fade show"
+                                                    role="alert" th:errors="*{hang}"></strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-2 col-2 ps-0">
+                                        <div class="add-icon">
+                                            <a href="javascript:void(0);" id="modal-hang" data-toggle="modal"
+                                               data-target="#myModal"><img
+                                                    src="/images/img/icons/plus1.svg"
+                                                    alt="img"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-9 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <label>Chất Liệu</label>
+                                            <select class="select" th:field="*{chatLieu}" id="chatLieu" name="chatLieu">
+                                                <option th:each="loc : ${chatLieu}" th:value="${loc.idChatLieu}"
+                                                        th:text="${loc.tenChatLieu}"></option>
+                                            </select>
+                                            <br><br>
+                                            <strong th:if="${#fields.hasErrors('chatLieu')}"
+                                                    class="alert alert-danger alert-dismissible fade show"
+                                                    role="alert" th:errors="*{chatLieu}"></strong>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3 col-sm-2 col-2 ps-0">
+                                        <div class="add-icon">
+                                            <a href="javascript:void(0);" id="modal-chatLieu" data-toggle="modal"
+                                               data-target="#myModal"><img
+                                                    src="/images/img/icons/plus1.svg"
+                                                    alt="img"></a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Hãng</label>
-                                    <select class="select" th:field="*{hang}" id="loc" name="loc">
-                                        <option th:each="loc : ${hang}" th:value="${loc.idHang}"
-                                                th:text="${loc.tenHang}"></option>
-                                    </select>
-                                    <br><br>
-                                    <strong th:if="${#fields.hasErrors('hang')}"
-                                            class="alert alert-danger alert-dismissible fade show"
-                                            role="alert" th:errors="*{hang}"></strong>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-2 col-2 ps-0">
-                                <div class="add-icon">
-                                    <a href="javascript:void(0);" id="modal-hang" data-toggle="modal"
-                                       data-target="#myModal"><img
-                                            src="/images/img/icons/plus1.svg"
-                                            alt="img"></a>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Chất Liệu</label>
-                                    <select class="select" th:field="*{chatLieu}" id="chatLieu" name="chatLieu">
-                                        <option th:each="loc : ${chatLieu}" th:value="${loc.idChatLieu}"
-                                                th:text="${loc.tenChatLieu}"></option>
-                                    </select>
-                                    <br><br>
-                                    <strong th:if="${#fields.hasErrors('chatLieu')}"
-                                            class="alert alert-danger alert-dismissible fade show"
-                                            role="alert" th:errors="*{chatLieu}"></strong>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-2 col-2 ps-0">
-                                <div class="add-icon">
-                                    <a href="javascript:void(0);" id="modal-chatLieu" data-toggle="modal"
-                                       data-target="#myModal"><img
-                                            src="/images/img/icons/plus1.svg"
-                                            alt="img"></a>
-                                </div>
-                            </div>
-<!--                            <div class="col-lg-6 col-sm-6 col-12">-->
-<!--                                <div class="form-group">-->
-<!--                                    <label>Trạng Thái</label>-->
-<!--                                    <select class="select" th:field="*{trangThai}" id="trangthai" name="trangThai">-->
-<!--                                        <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
-<!--                                                th:text="${loc.value}"></option>-->
-<!--                                    </select>-->
-<!--                                </div>-->
-<!--                            </div>-->
+
+                            <!--                            <div class="col-lg-6 col-sm-6 col-12">-->
+                            <!--                                <div class="form-group">-->
+                            <!--                                    <label>Trạng Thái</label>-->
+                            <!--                                    <select class="select" th:field="*{trangThai}" id="trangthai" name="trangThai">-->
+                            <!--                                        <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+                            <!--                                                th:text="${loc.value}"></option>-->
+                            <!--                                    </select>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
                             <div class="col-lg-12">
                                 <button type="submit" class="btn btn-submit me-2">Submit</button>
                                 <a href="/manage/giay" class="btn btn-cancel">Cancel</a>
@@ -414,7 +418,7 @@
      aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content" >
+        <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel-hang"></h5>
                 <button type="button" class="close btn-secondary hang" data-dismiss="modal" aria-label="Close">
@@ -422,7 +426,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form th:object="${hangAdd}" method="post" th:action="@{/manage/giay/hang/viewAdd/add}" style="width: auto;height: auto">
+                <form th:object="${hangAdd}" method="post" th:action="@{/manage/giay/hang/viewAdd/add}"
+                      style="width: auto;height: auto">
                     <div class="page-header">
                         <div class="page-title">
                             <h4>Thêm Hãng </h4>
@@ -441,28 +446,29 @@
                                         <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
                                                      style="display: none; max-width: 150px; max-height: 150px;">
                                     </div>
-                                </div><div th:utext="'&nbsp;'"></div>
+                                </div>
+                                <div th:utext="'&nbsp;'"></div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Hãng</label>
-                                        <input type="text" th:field="*{maHang}">
+                                        <input type="text" th:field="*{maHang}"required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Hãng</label>
-                                        <input type="text" th:field="*{tenHang}">
+                                        <input type="text" th:field="*{tenHang}"required>
                                     </div>
                                 </div>
-<!--                                <div class="col-lg-6 col-sm-6 col-12">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <label>Trạng Thái</label>-->
-<!--                                        <select class="select" th:field="*{trangThai}" id="trangThaiHang" name="trangThaiHang">-->
-<!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
-<!--                                                    th:text="${loc.value}"></option>-->
-<!--                                        </select>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                                <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
+                                <!--                                    <div class="form-group">-->
+                                <!--                                        <label>Trạng Thái</label>-->
+                                <!--                                        <select class="select" th:field="*{trangThai}" id="trangThaiHang" name="trangThaiHang">-->
+                                <!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
+                                <!--                                                    th:text="${loc.value}"></option>-->
+                                <!--                                        </select>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
                                 <div class="col-lg-12">
                                     <button type="submit" class="btn btn-submit me-2">Submit</button>
                                 </div>
@@ -500,26 +506,26 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Chất Liệu</label>
-                                        <input type="text" th:field="*{maChatLieu}">
+                                        <input type="text" th:field="*{maChatLieu}"required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Chất Liệu</label>
-                                        <input type="text" th:field="*{tenChatLieu}">
+                                        <input type="text" th:field="*{tenChatLieu}"required>
                                     </div>
                                 </div>
-<!--                                <div class="col-lg-6 col-sm-6 col-12">-->
-<!--                                    <div class="form-group">-->
-<!--                                        <label>Trạng Thái</label>-->
-<!--                                        <select class="select" th:field="*{trangThai}" id="trangThaiChatLieu" name="trangThaiChatLieu">-->
-<!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}"-->
-<!--                                                    th:value="${loc.key}"-->
-<!--                                                    th:text="${loc.value}"-->
-<!--                                                    th:selected="${loc.key == 1}"></option>-->
-<!--                                        </select>-->
-<!--                                    </div>-->
-<!--                                </div>-->
+                                <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
+                                <!--                                    <div class="form-group">-->
+                                <!--                                        <label>Trạng Thái</label>-->
+                                <!--                                        <select class="select" th:field="*{trangThai}" id="trangThaiChatLieu" name="trangThaiChatLieu">-->
+                                <!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}"-->
+                                <!--                                                    th:value="${loc.key}"-->
+                                <!--                                                    th:text="${loc.value}"-->
+                                <!--                                                    th:selected="${loc.key == 1}"></option>-->
+                                <!--                                        </select>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
                                 <div class="col-lg-12">
                                     <button type="submit" class="btn btn-submit me-2">Submit</button>
                                 </div>
@@ -616,6 +622,13 @@
         <button type="button" class="toast-close-button" role="button">×</button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Chất Liệu đã tồn tại.</div>
+    </div>
+</div>
+<div th:if="${Errormessage}" id="checkMaGiay" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Giày đã tồn tại.</div>
     </div>
 </div>
 <script src="/js/jquery-3.6.0.min.js"></script>
@@ -775,6 +788,19 @@
             checkMaChatLieu.style.display = 'none';
         }
     }, 5000);
+    //
+    setTimeout(function () {
+        var checkMaGiay = document.getElementById('checkMaGiay');
+        if (checkMaGiay) {
+            checkMaGiay.style.display = 'none';
+        }
+    }, 5000);
+</script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function () {
+        $('.select').select2();
+    });
 </script>
 </body>
 </html>

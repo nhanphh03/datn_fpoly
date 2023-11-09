@@ -10,7 +10,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Sneaker Shop - Admin</title>
 
-    <link rel="shortcut icon" type="image/x-icon" href="/images/img/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
@@ -23,22 +23,30 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
 
-    <link rel="stylesheet" href="/plugins/toastr/toatr.css" />
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
 
     <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        .highlighted-row {
+            background-color: yellow; /* Bôi đen dòng bằng màu nền vàng */
+            font-weight: bold; /* Làm đậm nội dung */
+            /* Thêm các kiểu định dạng khác tùy ý */
+        }
+    </style>
 </head>
 <body>
-<div id="global-loader">
-    <div class="whirly-loader"></div>
-</div>
+<!--<div id="global-loader">-->
+<!--    <div class="whirly-loader"></div>-->
+<!--</div>-->
 <div class="main-wrapper">
     <div class="header">
 
         <div class="header-left active">
-            <a href="index.html" class="logo">
+            <a href="/manage" class="logo">
                 <img src="/images/img/logo.png" alt="">
             </a>
-            <a href="index.html" class="logo-small">
+            <a href="/manage" class="logo-small">
                 <img src="/images/img/logo-small.png" alt="">
             </a>
             <a id="toggle_btn" href="javascript:void(0);">
@@ -248,10 +256,6 @@
                             <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                        </a>
-                    </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
                                                            alt="img"><span> Quản Lý Đặt Hàng</span> <span
@@ -299,16 +303,13 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
-                    Quản Lý Voucher</span
-                        >
-                            <span class="menu-arrow"></span
-                            ></a>
+                        <a href="javascript:void(0);"><img src="/images/img/icons/transfer1.svg" alt="img"/><span>Quản lý Khuyến Mãi</span>
+                            <span class="menu-arrow"></span>
+                        </a>
                         <ul>
-                            <li><a href="transferlist.html">Transfer List</a></li>
-                            <li><a href="addtransfer.html">Add Transfer </a></li>
-                            <li><a href="importtransfer.html">Import Transfer </a></li>
+                            <li><a href="/manage/voucher">Khuyến Mãi Chung</a></li>
+                            <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
+                            <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -324,13 +325,11 @@
                         <h6>Quản Lý Giày</h6>
                     </div>
                     <div class="page-btn">
-                        <a href="/manage/giay-chi-tiet/viewAdd" class="btn btn-added"
-                        ><img
-                                src="/images/img/icons/plus.svg"
-                                alt="img"
-                                class="me-1"
-                        />Thêm Giày Chi Tiết</a
-                        >
+                        <a href="/manage/giay-chi-tiet/viewAdd" class="btn btn-added">
+                            <img src="/images/img/icons/plus.svg" alt="img" class="me-1"/>Thêm Giày Chi Tiết</a>
+                    </div>
+                    <div class="page-btn">
+                        <a href="/manage/chi-tiet-san-pham-thong-ke" class="btn btn-added">Thống Kê</a>
                     </div>
                 </div>
 
@@ -493,6 +492,7 @@
                                         <span th:if="${items.trangThai == 1}"
                                               class="badges bg-lightgreen">Hoạt Động</span>
                                         <span th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</span>
+                                        <span th:if="${items.soLuong == 0}" class="badges bg-lightgrey">Hết Hàng</span>
                                     </td>
                                     <td>
                                         <a class="me-2" th:href="@{'/manage/giay-chi-tiet/detail/' + ${items.idCTG}}">
@@ -671,6 +671,12 @@
             successToast.style.display = 'none';
         }
     }, 5000);
+</script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function () {
+        $('.select').select2();
+    });
 </script>
 </body>
 </html>

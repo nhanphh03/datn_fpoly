@@ -135,15 +135,12 @@
                 <img style="margin-bottom: 42px; width: 18px; height: 18px;"   src="/images/img/icon/notification.png" >
               </a>
               <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
-              <div class="dropdown-menu notifications" style="width:300px; top: -80px; position: absolute;">
+              <div class="dropdown-menu notifications" style="z-index: 222;width:300px; top: -80px; position: absolute; ">
                 <div class="topnav-dropdown-header">
                   <span class="notification-title">Notifications</span>
                   <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
                 </div>
                 <div class="vertical-scroll scroll-demo" >
-
-
-
                   <a href="#" class="items-noticafitions">
                     <div class="items-notica">
                                         <span class="avatar">
@@ -162,7 +159,6 @@
 
                     </div>
                   </a>
-
                   <a href="#" class="items-noticafitions">
                     <div class="items-notica">
                                         <span class="avatar">
@@ -181,8 +177,6 @@
 
                     </div>
                   </a>
-
-
                   <a href="#" class="items-noticafitions">
                     <div class="items-notica">
                                         <span class="avatar">
@@ -201,7 +195,6 @@
 
                     </div>
                   </a>
-
                   <a href="#" class="items-noticafitions">
                     <div class="items-notica">
                                         <span class="avatar">
@@ -222,7 +215,6 @@
 
                     </div>
                   </a>
-
                   <a href="#" class="items-noticafitions">
                     <div class="items-notica">
                                         <span class="avatar">
@@ -241,10 +233,6 @@
 
                     </div>
                   </a>
-
-
-
-
                 </div>
                 <div class="topnav-dropdown-footer">
                   <a href="activities.html">View all Notifications</a>
@@ -269,131 +257,428 @@
 <section>
   <div style="height: 150px; width: 100%;"></div>
 </section>
-<!-- Breadcrumb Section Begin -->
-<section class="breadcrumb-option">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="breadcrumb__text">
-          <h4>Shop</h4>
-          <div class="breadcrumb__links">
-            <a th:href="@{'/buyer/home'}" >Home</a>
-            <a th:href="@{'/buyer/shop'}" >Shop</a>
-            <span>Shopping Cart</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- Breadcrumb Section End -->
+
 
 <!-- Shopping Cart Section Begin -->
-<section class="shopping-cart spad">
-
+<section class="shopping-cart spad" style="margin-top: -80px">
   <div class="container">
+    <form action="/buyer/cart/checkout" method="post" id="purchaseForm">
+      <div style="z-index: 100; width: 1170px;  position: fixed;margin-bottom: 50px">
+        <div class="row" style="background-color: #f3f2ee; height: 80px; width: 1170px;  ">
+          <div class="col-lg-8">
+            <p style="margin: 20px 0 5px 50px;"> <input style="margin-right: 10px;" type="checkbox" name="" id="checkAll" th:text="'Select All ( ' +${sumProductInCart} +' items )'"></p>
+            <a style="margin: 10px 0 0 50px; color: red;" href="">Delete</a>
+
+          </div>
+          <div class="col-lg-2">
+
+            <h5 style=" margin: 20px 0 5px 0;">Total (? items) : </h5>
+            <p>Saved</p>
+          </div>
+          <div class="col-lg-2">
+            <h5 style=" margin: 20px 0 5px 0;"> 800 $</h5>
+            <p>-200$</p>
+          </div>
+        </div>
+
+        <div class="row" style="background-color: #f3f2ee; height: 50px;width: 1170px; ">
+          <div class="col-lg-8">
+            <a style="margin:10px 0 0 50px;" href="">Remove inactive products</a>
+          </div>
+          <div class="col-lg-4">
+            <button style="width: 300px; height: 35px; border: 0.5px solid rgb(61, 61, 61);" type="submit" onclick="return validatePurchase()">Check out</button>
+          </div>
+        </div>
+      </div>
+
+      <div style="height: 160px; width: 100%;"></div>
     <div class="row">
-      <div class="col-lg-8">
-        <div class="shopping__cart__table">
+        <div class="col-lg-12">
 
-          <table>
-            <thead>
-            <tr>
-              <th><input  onclick="selectAllRows()"  class="check" type="checkbox"  style="margin-right: 15px"></th>
-              <th>Product</th>
-              <th style="margin-left: -20px;">Variations</th>
-              <th>Quantity</th>
-              <th>Total</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <th:block th:each="x : ${listCartDetail}">
-
-              <form  method="post" ></form>
-              <tr id="productId" th:value="${x.chiTietGiay.idCTG}">
-
-                <td><input name="selectedProducts" type="checkbox" th:value="${x.chiTietGiay.idCTG}"></td>
-                <td class="product__cart__item">
-                  <div class="product__cart__item__pic">
-                    <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}"> <img style="width:90px; height:90px;" th:src="@{'/images/imgsProducts/' + ${x.chiTietGiay.hinhAnh.url1}}"></a>
-                  </div>
-                  <div class="product__cart__item__text">
-                    <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}">
-                      <h6 style="margin-top: -22px;" th:text="${x.chiTietGiay.giay.tenGiay}">Big Ball Chunky A Gradient Classic Monogram</h6>
-                    </a>
-                    <h5 class="cart__price" th:text="${x.chiTietGiay.giaBan}">200 $</h5>
-                  </div>
-
-                </td>
-                <td class="cart__price">
-                  <div  style="margin-top: -20px">
-                    <span id="showButton" style="font-weight: normal; font-size: medium;">Options :</span>
-                    <a th:href="@{/cart/${x.chiTietGiay.giay.idGiay}}" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <img style="height: 10px; width: 10px;" src="/images/img/icon/dropdown.png" alt=""> </a>
-                  </div>
-                  <div style="padding-right: 20px;">
-                    <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" th:text="'Colors : ' + ${x.chiTietGiay.mauSac.tenMau}"></span>
-                    <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" th:text="'Size : ' + ${x.chiTietGiay.size.soSize}" ></span>
-                  </div>
-                </td>
-                <td class="quantity__item">
-                  <div class="quantity">
-                    <div class="pro-qty-2">
-                      <input  type="text"  id="quantityInput_" th:value="${x.soLuong}">
-                    </div>
-                  </div>
-                </td>
-                <td class="cart__price" id="totalAmount" th:text="'$ ' + ${x.chiTietGiay.giaBan * x.soLuong}"></td>
-                <td class="cart__close"><a th:href="@{'/buyer/cart/delete/' + ${x.chiTietGiay.idCTG}}" id="deleteToCartButton" style="border-radius: 20% ; " ><i class="fa fa-close"></i></a></td>
-
+          <div class="shopping__cart__table">
+            <table>
+              <thead>
+              <tr>
+                <th>x</th>
+                <th style="width: 400px;">Product</th>
+                <th style="width: 175px;">Variations</th>
+                <th style="width: 175px;">Quantity</th>
+                <th style="width: 140px;">Total</th>
+                <th class="cart__close">Actions</th>
               </tr>
-              </form>
-
-            </th:block>
-
-            </tbody>
-          </table>
-
-
-        </div>
-        <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="continue__btn">
-              <a th:href="@{'/buyer/shop'}" >Shop</a>
-            </div>
+              </thead>
+            </table>
           </div>
-          <div class="col-lg-6 col-md-6 col-sm-6">
-            <div class="continue__btn update__btn">
-              <a href="#"><i class="fa fa-spinner"></i>Update Cart</a>
-            </div>
+
+          <div class="shopping__cart__table">
+<!--            <div class="vertical-scroll scroll-demo"  style="height: 400px;" >-->
+              <table style="height:250px;">
+                <tbody>
+
+                <th:block th:each="x : ${listCartDetail}">
+
+                  <tr id="productId" th:value="${x.chiTietGiay.idCTG}">
+
+                    <td><input class="itemsCart" name="selectedProducts" type="checkbox" onclick="updateTotalAmount(this)" th:value="${x.chiTietGiay.idCTG}"></td>
+                    <td style="width: 400px;" class="product__cart__item" >
+                      <div class="product__cart__item__pic">
+                        <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}"> <img style="width:90px; height:90px;" th:src="@{'/images/imgsProducts/' + ${x.chiTietGiay.hinhAnh.url1}}"></a>
+                      </div>
+                      <div class="product__cart__item__text">
+                        <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}">
+                          <h6 style="margin-top: -22px;" th:text="${x.chiTietGiay.giay.tenGiay}"></h6>
+                        </a>
+                        <h5 class="cart__price" th:text="${x.chiTietGiay.giaBan} + ' $'"></h5>
+                        <h5 style="color: #b7b7b7; font-size: 15px; font-weight: 400; text-decoration: line-through;">220.0 $</h5>
+                      </div>
+
+                    </td>
+                    <td style="width: 175px;"  class="quantity__item">
+                      <div  style="margin-top: -20px; display: block;">
+                        <span id="showButton" style="font-weight: normal; font-size: medium;">Options :</span>
+                        <a th:href="@{/cart/${x.chiTietGiay.giay.idGiay}}" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <img style="height: 10px; width: 10px;" src="/images/img/icon/dropdown.png" alt=""> </a>
+                      </div>
+                      <div style="padding-right: 20px;">
+                        <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" th:text="'Colors : ' + ${x.chiTietGiay.mauSac.tenMau}"></span>
+                        <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" th:text="'Size : ' + ${x.chiTietGiay.size.soSize}" ></span>
+                      </div>
+                    </td>
+                    <td style="width: 175px;"  class="quantity__item">
+                      <div class="quantity">
+
+                        <input style=" margin-top: 3px;border: none; font-weight: 700; font-size: 18pt; background-color: white;"
+                                type="button" value="-" class="button-minus dec button"
+                                onclick="decrementQuantity(this)">
+
+                        <input  class="quantityInput" oninput="updateTotalAmount(this)" th:value="${x.soLuong}" style="width: 30px; text-align: center; border: none;" type="text" name="child" value="0">
+
+                        <input style="border: none; font-weight: 700; font-size: 14pt; background-color: white;"
+                                type="button" value="+" class="button-plus inc button a3 a5 a1 a-1"
+                                onclick="incrementQuantity(this)">
+
+                      </div>
+                    </td>
+                    <td style="width: 140px;" class="cart__price totalAmount" th:text="'$ ' + ${x.chiTietGiay.giaBan * x.soLuong}"></td>
+                    <td class="cart__close"><a th:href="@{'/buyer/cart/delete/' + ${x.chiTietGiay.idCTG}}" id="deleteToCartButton" style="border-radius: 20% ; " ><i class="fa fa-close"></i></a></td>
+
+                  </tr>
+
+                </th:block>
+
+                </tbody>
+              </table>
+<!--            </div>-->
           </div>
+
         </div>
+
+
       </div>
-      <div class="col-lg-4">
-        <div class="cart__discount">
-          <h6>Discount codes</h6>
-          <form action="#">
-            <input type="text" placeholder="Coupon code">
-            <button type="submit">Apply</button>
-          </form>
-        </div>
-        <div class="cart__total">
-          <form action="/checkout" method="Post">
-            <h6>Cart total</h6>
-            <ul>
-              <li>Subtotal <span>$ 169.50</span></li>
-              <li>Total <span>$ 169.50</span></li>
-            </ul>
-            <button style="margin: auto" type="submit" class="primary-btn">Proceed to checkout</button>
-          </form>
-        </div>
-      </div>
-    </div>
+    </form>
+
   </div>
 
+  <div class="row" style="align-items: center; margin-top: 30px;">
+    <div style="height: 0.7px; width: 90%; background-color: #707070; margin-left: 5%;"></div>
+  </div>
 
 </section>
 <!-- Shopping Cart Section End -->
+
+
+<!-- Related Section Begin -->
+<section style="margin-top: -140px;" class="related spad">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <h3 class="related-title">Related Product</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
+        <div class="product__item">
+          <div class="product__item__pic set-bg" data-setbg="/images/imgsProducts/product-1.1.png">
+            <span class="label">New</span>
+            <ul class="product__hover">
+              <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a></li>
+              <li><a href="#"><img src="/images/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+              <li><a href="#"><img src="/images/img/icon/search.png" alt=""></a></li>
+            </ul>
+          </div>
+          <div class="product__item__text">
+            <h6>Piqué Biker Jacket</h6>
+            <a href="#" class="add-cart">+ Add To Cart</a>
+            <div class="rating">
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+            </div>
+            <h5>$67.24</h5>
+            <div class="product__color__select">
+              <label for="pc-1">
+                <input type="radio" id="pc-1">
+              </label>
+              <label class="active black" for="pc-2">
+                <input type="radio" id="pc-2">
+              </label>
+              <label class="grey" for="pc-3">
+                <input type="radio" id="pc-3">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
+        <div class="product__item">
+          <div class="product__item__pic set-bg" data-setbg="/images/imgsProducts/product-1.1.png">
+            <span class="label">New</span>
+            <ul class="product__hover">
+              <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a></li>
+              <li><a href="#"><img src="/images/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+              <li><a href="#"><img src="/images/img/icon/search.png" alt=""></a></li>
+            </ul>
+          </div>
+          <div class="product__item__text">
+            <h6>Piqué Biker Jacket</h6>
+            <a href="#" class="add-cart">+ Add To Cart</a>
+            <div class="rating">
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+            </div>
+            <h5>$67.24</h5>
+            <div class="product__color__select">
+              <label for="pc-1">
+                <input type="radio" id="pc-1">
+              </label>
+              <label class="active black" for="pc-2">
+                <input type="radio" id="pc-2">
+              </label>
+              <label class="grey" for="pc-3">
+                <input type="radio" id="pc-3">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
+        <div class="product__item">
+          <div class="product__item__pic set-bg" data-setbg="/images/imgsProducts/product-1.1.png">
+            <span class="label">New</span>
+            <ul class="product__hover">
+              <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a></li>
+              <li><a href="#"><img src="/images/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+              <li><a href="#"><img src="/images/img/icon/search.png" alt=""></a></li>
+            </ul>
+          </div>
+          <div class="product__item__text">
+            <h6>Piqué Biker Jacket</h6>
+            <a href="#" class="add-cart">+ Add To Cart</a>
+            <div class="rating">
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+            </div>
+            <h5>$67.24</h5>
+            <div class="product__color__select">
+              <label for="pc-1">
+                <input type="radio" id="pc-1">
+              </label>
+              <label class="active black" for="pc-2">
+                <input type="radio" id="pc-2">
+              </label>
+              <label class="grey" for="pc-3">
+                <input type="radio" id="pc-3">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
+        <div class="product__item">
+          <div class="product__item__pic set-bg" data-setbg="/images/imgsProducts/product-1.1.png">
+            <span class="label">New</span>
+            <ul class="product__hover">
+              <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a></li>
+              <li><a href="#"><img src="/images/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+              <li><a href="#"><img src="/images/img/icon/search.png" alt=""></a></li>
+            </ul>
+          </div>
+          <div class="product__item__text">
+            <h6>Piqué Biker Jacket</h6>
+            <a href="#" class="add-cart">+ Add To Cart</a>
+            <div class="rating">
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+            </div>
+            <h5>$67.24</h5>
+            <div class="product__color__select">
+              <label for="pc-1">
+                <input type="radio" id="pc-1">
+              </label>
+              <label class="active black" for="pc-2">
+                <input type="radio" id="pc-2">
+              </label>
+              <label class="grey" for="pc-3">
+                <input type="radio" id="pc-3">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
+        <div class="product__item">
+          <div class="product__item__pic set-bg" data-setbg="/images/imgsProducts/product-1.1.png">
+            <span class="label">New</span>
+            <ul class="product__hover">
+              <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a></li>
+              <li><a href="#"><img src="/images/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+              <li><a href="#"><img src="/images/img/icon/search.png" alt=""></a></li>
+            </ul>
+          </div>
+          <div class="product__item__text">
+            <h6>Piqué Biker Jacket</h6>
+            <a href="#" class="add-cart">+ Add To Cart</a>
+            <div class="rating">
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+            </div>
+            <h5>$67.24</h5>
+            <div class="product__color__select">
+              <label for="pc-1">
+                <input type="radio" id="pc-1">
+              </label>
+              <label class="active black" for="pc-2">
+                <input type="radio" id="pc-2">
+              </label>
+              <label class="grey" for="pc-3">
+                <input type="radio" id="pc-3">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
+        <div class="product__item">
+          <div class="product__item__pic set-bg" data-setbg="/images/imgsProducts/product-1.1.png">
+            <span class="label">New</span>
+            <ul class="product__hover">
+              <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a></li>
+              <li><a href="#"><img src="/images/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+              <li><a href="#"><img src="/images/img/icon/search.png" alt=""></a></li>
+            </ul>
+          </div>
+          <div class="product__item__text">
+            <h6>Piqué Biker Jacket</h6>
+            <a href="#" class="add-cart">+ Add To Cart</a>
+            <div class="rating">
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+            </div>
+            <h5>$67.24</h5>
+            <div class="product__color__select">
+              <label for="pc-1">
+                <input type="radio" id="pc-1">
+              </label>
+              <label class="active black" for="pc-2">
+                <input type="radio" id="pc-2">
+              </label>
+              <label class="grey" for="pc-3">
+                <input type="radio" id="pc-3">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
+        <div class="product__item">
+          <div class="product__item__pic set-bg" data-setbg="/images/imgsProducts/product-1.1.png">
+            <span class="label">New</span>
+            <ul class="product__hover">
+              <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a></li>
+              <li><a href="#"><img src="/images/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+              <li><a href="#"><img src="/images/img/icon/search.png" alt=""></a></li>
+            </ul>
+          </div>
+          <div class="product__item__text">
+            <h6>Piqué Biker Jacket</h6>
+            <a href="#" class="add-cart">+ Add To Cart</a>
+            <div class="rating">
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+            </div>
+            <h5>$67.24</h5>
+            <div class="product__color__select">
+              <label for="pc-1">
+                <input type="radio" id="pc-1">
+              </label>
+              <label class="active black" for="pc-2">
+                <input type="radio" id="pc-2">
+              </label>
+              <label class="grey" for="pc-3">
+                <input type="radio" id="pc-3">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
+        <div class="product__item">
+          <div class="product__item__pic set-bg" data-setbg="/images/imgsProducts/product-1.1.png">
+            <span class="label">New</span>
+            <ul class="product__hover">
+              <li><a href="#"><img src="/images/img/icon/heart.png" alt=""></a></li>
+              <li><a href="#"><img src="/images/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+              <li><a href="#"><img src="/images/img/icon/search.png" alt=""></a></li>
+            </ul>
+          </div>
+          <div class="product__item__text">
+            <h6>Piqué Biker Jacket</h6>
+            <a href="#" class="add-cart">+ Add To Cart</a>
+            <div class="rating">
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+              <i class="fa fa-star-o"></i>
+            </div>
+            <h5>$67.24</h5>
+            <div class="product__color__select">
+              <label for="pc-1">
+                <input type="radio" id="pc-1">
+              </label>
+              <label class="active black" for="pc-2">
+                <input type="radio" id="pc-2">
+              </label>
+              <label class="grey" for="pc-3">
+                <input type="radio" id="pc-3">
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Related Section End -->
 
 <!-- Footer Section Begin -->
 <footer class="footer">
@@ -464,9 +749,6 @@
 
 <!-- Search Begin -->
 <!-- Search End -->
-<div class="alert alert-success" role="alert">
-    <span >Nhan Ngu</span>
-</div>
 
 <section>
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -531,74 +813,13 @@
 
 
 </section>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
-
-
-<!--<script>-->
-<!--  const showButton = document.getElementById('showButton');-->
-<!--  const hiddenDiv = document.getElementById('hiddenDiv');-->
-
-<!--  document.addEventListener('click', function(event) {-->
-<!--    if (!showButton.contains(event.target) && !hiddenDiv.contains(event.target)) {-->
-<!--      hiddenDiv.style.display = 'none';-->
-<!--    }-->
-<!--  });-->
-
-<!--  showButton.addEventListener('click', function() {-->
-<!--    hiddenDiv.style.display = 'block';-->
-<!--    event.stopPropagation(); // Ngăn chặn sự kiện click lan truyền lên body/document-->
-<!--  });-->
-
-<!--  hiddenDiv.addEventListener('click', function(event) {-->
-<!--    event.stopPropagation(); // Ngăn chặn sự kiện click lan truyền lên body/document-->
-<!--  });-->
-
-<!--</script>-->
-
-<!--<script>-->
-<!--  function selectAllRows() {-->
-<!--    var checkboxes = document.querySelectorAll('tbody input[type="checkbox"]');-->
-<!--    var selectAllCheckbox = document.querySelector('thead input.check');-->
-
-<!--    checkboxes.forEach(function(checkbox) {-->
-<!--      checkbox.checked = selectAllCheckbox.checked;-->
-<!--    });-->
-<!--  }-->
-<!--</script>-->
-
-<!--<script>-->
-<!--  $(document).ready(function() {-->
-<!--    $(".deleteToCartButton").click(function(event) {-->
-<!--      event.preventDefault();  // Ngăn chặn hành vi mặc định của button-->
-
-<!--      var idProduct = $(this).closest("tr").attr("id");  // Lấy ID sản phẩm từ thuộc tính id của phần tử tr-->
-
-<!--      // Gửi yêu cầu AJAX đến Controller-->
-<!--      $.ajax({-->
-<!--        url: "/deleteToCartButton/" + idProduct,-->
-<!--        type: "POST",-->
-<!--        success: function(response) {-->
-<!--          // Hiển thị thông báo thành công-->
-<!--          $("#alertMessage").text(response).show();-->
-<!--          // Cập nhật danh sách giỏ hàng (nếu cần)-->
-<!--          // ...-->
-<!--        },-->
-<!--        error: function(xhr, status, error) {-->
-<!--          // Xử lý lỗi (nếu có)-->
-<!--          alert("Error occurred while removing the product from cart");-->
-<!--        }-->
-<!--      });-->
-<!--    });-->
-<!--  });-->
-<!--</script>-->
-
-<!-- Js Plugins -->
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/feather.min.js"></script>
 <script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/script.js"></script><script src="/js/jquery-3.3.1.min.js"></script>
+<!--<script src="/js/script.js"></script>-->
+<script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/jquery.nice-select.min.js"></script>
 <script src="/js/jquery.nicescroll.min.js"></script>
@@ -611,6 +832,157 @@
 <script src="/js/jquery.slimscroll.min.js"></script>
 <script src="/js/scrollbar.min.js"></script>
 <script src="/js/custom-scroll.js"></script>
+
+
+<!--Selected product check begin -->
+
+<script>
+  function validatePurchase() {
+    var form = document.getElementById('purchaseForm');
+    var checkboxes = form.querySelectorAll('input[type="checkbox"]');
+    var atLeastOneChecked = false;
+
+    checkboxes.forEach(function (checkbox) {
+      if (checkbox.checked) {
+        atLeastOneChecked = true;
+        return;
+      }
+    });
+
+    if (!atLeastOneChecked) {
+      alert("Vui lòng chọn ít nhất một sản phẩm để mua.");
+      return false;
+    }
+
+    return true;
+  }
+</script>
+
+<script>
+  function updateTotalAmount(inputElement) {
+    var row = inputElement.closest('tr');
+    var priceElement = row.querySelector('.cart__price');
+    var quantityInput = row.querySelector('.quantityInput');
+    var totalAmountElement = row.querySelector('.totalAmount');
+
+    var price = parseFloat(priceElement.textContent.replace('$', '').trim());
+    var quantity = parseInt(quantityInput.value);
+
+    var totalAmount = price * quantity;
+    totalAmountElement.textContent = '$ ' + totalAmount.toFixed(2);
+  }
+
+  // Hàm tăng số lượng
+  function incrementQuantity(inputElement) {
+    var quantityInput = inputElement.closest('tr').querySelector('.quantityInput');
+    var quantity = parseInt(quantityInput.value);
+    quantityInput.value = quantity + 1;
+
+    var row = inputElement.closest('tr');
+    var priceElement = row.querySelector('.cart__price');
+    var totalAmountElement = row.querySelector('.totalAmount');
+
+    var price = parseFloat(priceElement.textContent.replace('$', '').trim());
+    var quantityv = parseInt(quantityInput.value);
+
+    var totalAmount = price * quantityv;
+    totalAmountElement.textContent = '$ ' + totalAmount.toFixed(2);
+  }
+  // Hàm giảm số lượng
+  function decrementQuantity(inputElement) {
+    var row = inputElement.closest('tr');
+    var quantityInput = row.querySelector('.quantityInput');
+    var totalAmountElement = row.querySelector('.totalAmount');
+
+    var quantity = parseInt(quantityInput.value);
+    if (quantity > 0) {
+      quantityInput.value = quantity - 1;
+
+      var priceElement = row.querySelector('.cart__price');
+      var price = parseFloat(priceElement.textContent.replace('$', '').trim());
+
+      var totalAmount = price * (quantity - 1);
+      totalAmountElement.textContent = '$ ' + totalAmount.toFixed(2);
+    }
+
+  }
+
+</script>
+<!--Selected product check end -->
+
+
+
+<script>
+  // Biến để lưu tổng tiền ban đầu
+  var initialTotalAmount = 0;
+
+  // Hàm cập nhật tổng tiền
+  function updateTotalAmount(input) {
+    var totalAmount = 0;
+    $(".itemsCart:checked").each(function () {
+      var priceProduct = parseFloat($(this).closest("tr").find(".cart__price").text().replace('$', '').trim());
+      var quantity = parseInt($(this).closest("tr").find(".quantityInput").val());
+      totalAmount += priceProduct * quantity;
+    });
+
+    // Nếu chọn tất cả, sử dụng giá trị ban đầu
+    if (document.getElementById('checkAll').checked) {
+      totalAmount = initialTotalAmount;
+    }
+
+    $("#grandTotal").text(totalAmount.toFixed(2));
+
+    // Thay đổi tổng tiền của sản phẩm được chọn
+    var priceProduct = parseFloat($(input).closest("tr").find(".cart__price").text().replace('$', '').trim());
+    var quantity = parseInt($(input).closest("tr").find(".quantityInput").val());
+    var totalAmountElement = $(input).closest("tr").find(".totalAmount");
+    var totalAmount = quantity * priceProduct;
+    totalAmountElement.text(totalAmount + " $");
+  }
+
+  function incrementQuantity(input) {
+    var quantityInput = $(input).siblings(".quantityInput");
+    var quantity = parseInt(quantityInput.val());
+    quantityInput.val(quantity + 1);
+    updateTotalAmount();
+  }
+
+  // Hàm giảm số lượng
+  function decrementQuantity(input) {
+    var quantityInput = $(input).siblings(".quantityInput");
+    var quantity = parseInt(quantityInput.val());
+    if (quantity > 0) {
+      quantityInput.val(quantity - 1);
+      updateTotalAmount();
+    }
+  }
+
+</script>
+
+<script>
+  var checkboxes = document.querySelectorAll('.itemsCart');
+  var chonTatCa = document.getElementById('checkAll');
+
+  chonTatCa.addEventListener('change', function() {
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = chonTatCa.checked;
+    }
+
+    // Lưu tổng tiền ban đầu khi chọn tất cả
+    if (chonTatCa.checked) {
+      initialTotalAmount = parseFloat($("#grandTotal").text());
+    }
+  });
+
+  checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+      chonTatCa.checked = Array.from(checkboxes).every(function(cb) {
+        return cb.checked;
+      });
+    });
+  });
+</script>
+
 </body>
 
 </html>

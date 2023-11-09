@@ -10,7 +10,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Sneaker Shop - Admin</title>
 
-    <link rel="shortcut icon" type="image/x-icon" href="/images/img/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
@@ -34,10 +34,10 @@
     <div class="header">
 
         <div class="header-left active">
-            <a href="index.html" class="logo">
+            <a href="/manage" class="logo">
                 <img src="/images/img/logo.png" alt="">
             </a>
-            <a href="index.html" class="logo-small">
+            <a href="/manage" class="logo-small">
                 <img src="/images/img/logo-small.png" alt="">
             </a>
             <a id="toggle_btn" href="javascript:void(0);">
@@ -247,10 +247,6 @@
                             <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                        </a>
-                    </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
                                                            alt="img"><span> Quản Lý Đặt Hàng</span> <span
@@ -298,16 +294,13 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
-                    Quản Lý Voucher</span
-                        >
-                            <span class="menu-arrow"></span
-                            ></a>
+                        <a href="javascript:void(0);"><img src="/images/img/icons/transfer1.svg" alt="img"/><span>Quản lý Khuyến Mãi</span>
+                            <span class="menu-arrow"></span>
+                        </a>
                         <ul>
-                            <li><a href="transferlist.html">Transfer List</a></li>
-                            <li><a href="addtransfer.html">Add Transfer </a></li>
-                            <li><a href="importtransfer.html">Import Transfer </a></li>
+                            <li><a href="/manage/voucher">Khuyến Mãi Chung</a></li>
+                            <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
+                            <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -414,7 +407,7 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Năm Sản Xuất</label>
-                                    <input type="text" th:field="*{namSX}">
+                                    <input type="text" th:field="*{namSX}"required>
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('namSX')}"
                                             class="alert alert-danger alert-dismissible fade show"
@@ -424,7 +417,7 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Năm Bảo Hành</label>
-                                    <input type="text" th:field="*{namBH}">
+                                    <input type="text" th:field="*{namBH}"required>
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('namBH')}"
                                             class="alert alert-danger alert-dismissible fade show"
@@ -434,7 +427,7 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Trọng Lượng</label>
-                                    <input type="text" th:field="*{trongLuong}">
+                                    <input type="text" th:field="*{trongLuong}"required>
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('trongLuong')}"
                                             class="alert alert-danger alert-dismissible fade show"
@@ -444,7 +437,7 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Giá Bán</label>
-                                    <input type="text" th:field="*{giaBan}">
+                                    <input type="text" th:field="*{giaBan}"required>
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('giaBan')}"
                                             class="alert alert-danger alert-dismissible fade show"
@@ -454,7 +447,7 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Số Lượng</label>
-                                    <input type="text" th:field="*{soLuong}">
+                                    <input type="text" th:field="*{soLuong}"required>
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('soLuong')}"
                                             class="alert alert-danger alert-dismissible fade show"
@@ -512,16 +505,16 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Giày</label>
-                                        <input type="text" th:field="*{maGiay}">
+                                        <input type="text" th:field="*{maGiay}"required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Giày</label>
-                                        <input type="text" th:field="*{tenGiay}">
+                                        <input type="text" th:field="*{tenGiay}"required>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="col-lg-10 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Hãng</label>
                                         <select class="select" th:field="*{hang}" id="loc" name="loc">
@@ -530,7 +523,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-sm-2 col-2 ps-0">
+                                <div class="col-lg-2 col-sm-2 col-2 ps-0">
                                     <div class="add-icon">
                                         <a href="javascript:void(0);" id="modal-hang" data-toggle="modal"
                                            data-target="#myModal"><img
@@ -539,7 +532,7 @@
                                     </div>
                                 </div>
                                 <div th:fragment="whitespace">&nbsp;</div>
-                                <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="col-lg-10 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Chất Liệu</label>
                                         <select class="select" th:field="*{chatLieu}" id="chatLieu" name="chatLieu">
@@ -548,12 +541,18 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-sm-2 col-2 ps-0">
+                                <div class="col-lg-2 col-sm-2 col-2 ps-0">
                                     <div class="add-icon">
                                         <a href="javascript:void(0);" id="modal-chatLieu" data-toggle="modal"
                                            data-target="#myModal"><img
                                                 src="/images/img/icons/plus1.svg"
                                                 alt="img"></a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <label>Mô tả</label>
+                                        <textarea class="form-control" th:field="*{moTa}"></textarea>
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -602,20 +601,20 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã</label>
-                                        <input type="text" th:field="*{ma}">
+                                        <input type="text" th:field="*{ma}"required>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Màu</label>
-                                        <input type="text" th:field="*{maMau}">
+                                        <input type="text" th:field="*{maMau}"required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Màu</label>
-                                        <input type="text" th:field="*{tenMau}">
+                                        <input type="text" th:field="*{tenMau}"required>
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -664,13 +663,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Size</label>
-                                        <input type="text" th:field="*{maSize}">
+                                        <input type="text" th:field="*{maSize}"required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Size</label>
-                                        <input type="text" th:field="*{soSize}">
+                                        <input type="text" th:field="*{soSize}"required>
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -720,7 +719,7 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã</label>
-                                        <input type="text" th:field="*{maAnh}">
+                                        <input type="text" th:field="*{maAnh}"required>
                                     </div>
                                 </div>
                                 <div th:fragment="whitespace">&nbsp;</div>
@@ -822,13 +821,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Hãng</label>
-                                        <input type="text" th:field="*{maHang}">
+                                        <input type="text" th:field="*{maHang}"required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Hãng</label>
-                                        <input type="text" th:field="*{tenHang}">
+                                        <input type="text" th:field="*{tenHang}"required>
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -879,13 +878,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Chất Liệu</label>
-                                        <input type="text" th:field="*{maChatLieu}">
+                                        <input type="text" th:field="*{maChatLieu}"required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Chất Liệu</label>
-                                        <input type="text" th:field="*{tenChatLieu}">
+                                        <input type="text" th:field="*{tenChatLieu}"required>
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -1502,6 +1501,12 @@
             checkMaAnh.style.display = 'none';
         }
     }, 5000);
+</script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.select').select2();
+    });
 </script>
 </body>
 </html>
