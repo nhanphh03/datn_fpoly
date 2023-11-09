@@ -1,12 +1,10 @@
 package com.example.demo.buyerController;
 
 
-import com.example.demo.model.DiaChiKH;
-import com.example.demo.model.GioHang;
-import com.example.demo.model.GioHangChiTiet;
-import com.example.demo.model.KhachHang;
+import com.example.demo.model.*;
 import com.example.demo.service.DiaChiKHService;
 import com.example.demo.service.GHCTService;
+import com.example.demo.service.HoaDonService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +36,17 @@ public class UserController {
     private HttpServletRequest request;
 
     @Autowired
+    private HoaDonService hoaDonService;
+
+    @Autowired
     private DiaChiKHService diaChiKHService;
 
     @GetMapping("/setting")
     private String getSettingAccount(Model model){
 
-        UserForm(model);
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+
+        UserForm(model, khachHang);
 
         model.addAttribute("pagesettingAccount",true);
         return "online/user";
@@ -52,11 +55,13 @@ public class UserController {
     @RequestMapping(value = {"/purchase", "/purchase/all"})
     private String getPurchaseAccount(Model model){
 
-        UserForm(model);
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
 
+        UserForm(model, khachHang);
 
+        List<HoaDon> listHoaDonByKhachHang = hoaDonService.findByKhachHang(khachHang);
 
-
+        model.addAttribute("listAllHDByKhachHang", listHoaDonByKhachHang);
         model.addAttribute("pagePurchaseUser",true);
         model.addAttribute("purchaseAll",true);
         model.addAttribute("type1","active");
@@ -67,9 +72,9 @@ public class UserController {
     @GetMapping("/addresses")
     private String getAddressAccount(Model model){
 
-        UserForm(model);
-
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+
+        UserForm(model, khachHang);
 
         List<DiaChiKH> diaChiKHDefaultList = diaChiKHService.findbyKhachHangAndLoai(khachHang, true);
         List<DiaChiKH> diaChiKHList = diaChiKHService.findbyKhachHangAndLoai(khachHang, false);
@@ -145,7 +150,9 @@ public class UserController {
     @GetMapping("/notification")
     private String getNotidicationAccount(Model model){
 
-        UserForm(model);
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+
+        UserForm(model, khachHang);
 
         model.addAttribute("pageNotificationUser",true);
         return "online/user";
@@ -154,7 +161,9 @@ public class UserController {
     @GetMapping("/voucher")
     private String getVoucherAccount(Model model){
 
-        UserForm(model);
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+
+        UserForm(model, khachHang);
 
         model.addAttribute("pageVoucherUser",true);
 
@@ -164,7 +173,9 @@ public class UserController {
     @GetMapping("/coins")
     private String getCoinsAccount(Model model){
 
-        UserForm(model);
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+
+        UserForm(model, khachHang);
 
         model.addAttribute("pageCoinsUser",true);
 
@@ -174,7 +185,9 @@ public class UserController {
     @GetMapping("/purchase/pay")
     private String getPurchasePay(Model model){
 
-        UserForm(model);
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+
+        UserForm(model, khachHang);
 
         model.addAttribute("pagePurchaseUser",true);
         model.addAttribute("purchasePay",true);
@@ -185,7 +198,10 @@ public class UserController {
     @GetMapping("/purchase/ship")
     private String getPurchaseShip(Model model){
 
-        UserForm(model);
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+
+        UserForm(model, khachHang);
+
 
         model.addAttribute("pagePurchaseUser",true);
         model.addAttribute("purchaseShip",true);
@@ -196,7 +212,9 @@ public class UserController {
     @GetMapping("/purchase/receive")
     private String getPurchaseReceive(Model model){
 
-        UserForm(model);
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+
+        UserForm(model, khachHang);
 
         model.addAttribute("pagePurchaseUser",true);
         model.addAttribute("purchaseReceive",true);
@@ -207,7 +225,9 @@ public class UserController {
     @GetMapping("/purchase/completed")
     private String getPurchaseCompleted(Model model){
 
-        UserForm(model);
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+
+        UserForm(model, khachHang);
 
         model.addAttribute("pagePurchaseUser",true);
         model.addAttribute("purchaseCompleted",true);
@@ -218,7 +238,9 @@ public class UserController {
     @GetMapping("/purchase/refund")
     private String getPurchaseRefund(Model model){
 
-        UserForm(model);
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+
+        UserForm(model, khachHang);
 
         model.addAttribute("pagePurchaseUser",true);
         model.addAttribute("purchaseRefund",true);
@@ -226,8 +248,7 @@ public class UserController {
         return "online/user";
     }
 
-    private void UserForm(Model model){
-        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+    private void UserForm(Model model, KhachHang khachHang){
         GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
         model.addAttribute("fullNameLogin", khachHang.getHoTenKH());
 
