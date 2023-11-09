@@ -10,7 +10,7 @@ import java.util.UUID;
 public interface LoaiKhuyenMaiRepository extends JpaRepository<LoaiKhuyenMai, UUID> {
 
 
-    LoaiKhachHang findByTenLKH(String nameLKH);
+    LoaiKhuyenMai findByTenLKM(String nameLKM);
 
     LoaiKhuyenMai findByMaLKM(String maLKM);
 
