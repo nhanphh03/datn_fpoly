@@ -1,6 +1,7 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.HoaDon;
+import com.example.demo.model.KhachHang;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,4 +16,6 @@ public interface HoaDonRepository extends JpaRepository<HoaDon , UUID> {
 //    @Query(value = "select hd  from HoaDon hd order by hd.tgTao desc")
 //    @Query(value = "select * from hoa_don order by tg_tao desc",nativeQuery = true)
     List<HoaDon> findAllByOrderByTgTaoDesc();
+
+    List<HoaDon> findByKhachHangAndLoaiHD(KhachHang khachHang, int loaiHD);
 }

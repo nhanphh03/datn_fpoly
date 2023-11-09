@@ -46,6 +46,9 @@ public class KhuyenMai {
     @Column(name = "so_Luong")
     private int soLuong;
 
+    @Column(name = "so_Luong_Da_Dung")
+    private int soLuongDaDung;
+
     @Column(name = "phan_Tram_Giam")
     private double phanTramGiam;
 
