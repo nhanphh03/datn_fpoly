@@ -1,5 +1,6 @@
 package com.example.demo.service.impls;
 
+import com.example.demo.model.HoaDon;
 import com.example.demo.model.HoaDonChiTiet;
 import com.example.demo.repository.HoaDonChiTietRepository;
 import com.example.demo.repository.HoaDonRepository;
@@ -29,6 +30,11 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     @Override
     public List<HoaDonChiTiet> findByIdHoaDon(UUID id) {
         return hoaDonChiTietRepository.findByIdHoaDon(id);
+    }
+
+    @Override
+    public List<HoaDonChiTiet> findByHoaDonAndTrangThai(HoaDon hoaDon, int trangThai) {
+        return hoaDonChiTietRepository.findByHoaDonAndTrangThai(hoaDon, trangThai);
     }
 
     @Override
