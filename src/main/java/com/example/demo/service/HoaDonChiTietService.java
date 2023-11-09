@@ -1,5 +1,6 @@
 package com.example.demo.service;
 
+import com.example.demo.model.HoaDon;
 import com.example.demo.model.HoaDonChiTiet;
 
 import java.util.List;
@@ -11,6 +12,8 @@ public interface HoaDonChiTietService {
     void add(HoaDonChiTiet hoaDonChiTiet);
 
     List<HoaDonChiTiet> findByIdHoaDon(UUID id);
+
+    List<HoaDonChiTiet> findByHoaDonAndTrangThai(HoaDon hoaDon, int trangThai);
 
     Double tongTien(List<HoaDonChiTiet> list);
 }

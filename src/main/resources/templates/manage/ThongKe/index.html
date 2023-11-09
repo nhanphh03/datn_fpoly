@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+    <meta name="description" content="POS - Bootstrap Admin Template">
+    <meta name="keywords"
+          content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects">
+    <meta name="author" content="Dreamguys - Bootstrap Admin Template">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Dreams Pos admin template</title>
+
+    <link rel="shortcut icon" type="image/x-icon" href="/images/img/favicon.jpg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/css/animate.css">
+
+    <link rel="stylesheet" href="/plugins/owlcarousel/owl.carousel.min.css">
+    <link rel="stylesheet" href="/plugins/owlcarousel/owl.theme.default.min.css">
+
+    <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
+
+    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/quagga"></script>
+</head>
+
+
+
+    <div class="row">
+        <div class="col-lg-3 col-sm-6 col-12">
+            <div class="dash-widget">
+                <div class="dash-widgetimg">
+                    <span><img src="/images/img/icons/dash1.svg" alt="img"></span>
+                </div>
+                <div class="dash-widgetcontent">
+                    <h5><span class="" th:text="${tdt}"></span>đ</h5>
+                    <h6>Tổng doanh số bán ra</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-12">
+            <div class="dash-widget dash1">
+                <div class="dash-widgetimg">
+                    <span><img src="/images/img/blog/logo.png" alt="img"></span>
+                </div>
+                <div class="dash-widgetcontent">
+                    <h5><span class="" th:text="${dtt}"></span>đ</h5>
+                    <h6>Tổng doanh số tháng này</h6>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-12">
+            <div class="dash-widget dash2">
+                <div class="dash-widgetimg">
+                    <span><img src="/images/img/product/product65.png" alt="img"></span>
+                </div>
+                <a class="dash-widgetcontent" href="/manage/giay">
+                    <h5><span class="counters" th:text="${tonggiay}"></span></h5>
+                    <h6>Sản phẩm tồn</h6>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-6 col-12">
+            <div class="dash-widget dash3">
+                <div class="dash-widgetimg">
+                    <span><img src="/images/img/kh.png" alt="img"></span>
+                </div>
+                <div class="dash-widgetcontent">
+                    <h5><span class="counters" th:text="${tong}"></span></h5>
+                    <h6>Khách hàng</h6>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-sm-6 col-12 d-flex">
+            <div class="dash-count">
+                <a class="dash-counts" href="javascript:void(0);" data-bs-toggle="modal"
+                   data-bs-target="#exampleModal">
+                    <h4 style="color: black;" th:text="${hdht}"></h4>
+                    <h5 style="color: black;">Hóa đơn hoàn thành</h5>
+                </a>
+                <div class="dash-imgs">
+                    <i data-feather="user"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Hóa đơn hoàn thành</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                        <div class="addonset">
+                                            <input id="startDate" class="form-control" type="date" />
+                                        </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table " >
+                                <thead>
+                                <tr>
+                                    <th>Mã hóa đơn</th>
+                                    <th>Khách hàng</th>
+                                    <th>Ngày nhận</th>
+                                    <th>Hình thức</th>
+                                    <th>Số Lượng</th>
+                                    <th>Đơn giá</th>
+
+
+                                    <th >Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="items : ${hoaDonCT1}">
+                                    <td th:text="${items.hoaDon.idHD}"></td>
+                                    <td th:text="${items.hoaDon.tenNguoiNhan}"></td>
+
+                                    <td th:text="${items.hoaDon.tgNhan}"></td>
+                                    <td >
+                                        <span th:if="${items.hoaDon.trangThai == 1}" class="badges bg-lightpurple"><span><img src="/images/img/icon/cart.png" alt="img"></span>Tại quầy</span>
+                                        <span th:if="${items.hoaDon.trangThai == 2}" class="badges bg-lightgreen"><span><img src="/images/img/icon/xe.png" alt="img"></span>Online</span>
+                                    </td>
+                                    <td th:text="${items.soLuong}"></td>
+                                    <td th:text="${items.donGiaKhiGiam}"></td>
+
+
+                                    <td>
+                                        <a class="me-2" >
+                                            <img src="/images/img/icons/eye.svg" alt="img"/>
+                                        </a>
+                                    </td>
+
+
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="col-lg-6 col-sm-6 col-12 d-flex">
+            <div class="dash-count das2">
+                <a class="dash-counts" href="javascript:void(0);" data-bs-toggle="modal"
+                   data-bs-target="#create">
+                    <h4 th:text="${hdc}"></h4>
+                    <h5>Hóa đơn chờ</h5>
+                </a>
+                <div class="dash-imgs">
+                    <i data-feather="file-text"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--        Hóa đơn chờ-->
+        <form method="get" th:action="@{/thongke/hoadoncho/filter}">
+        <div class="modal fade" id="create" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Hóa đơn chờ</h5>
+                        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="table-responsive">
+                            <table class="table ">
+                                <thead>
+                                <tr>
+                                    <th>Mã hóa đơn</th>
+                                    <th>Khách hàng</th>
+                                    <th>Ngày tạo</th>
+                                    <th>Hình thức</th>
+                                    <th>Số lượng</th>
+                                    <th>Đơn giá</th>
+                                    <th >Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="items: ${hoaDonCT2}">
+                                    <td th:text="${items.hoaDon.idHD}"></td>
+                                    <td th:text="${items.hoaDon.tenNguoiNhan}"></td>
+
+                                    <td th:text="${items.hoaDon.tgTao}"></td>
+                                    <td >
+                                        <span th:if="${items.hoaDon.trangThai == 3}" class="badges bg-lightpurple"><span><img src="/images/img/icon/cart.png" alt="img"></span>Tại quầy</span>
+                                        <span th:if="${items.hoaDon.trangThai == 4}" class="badges bg-lightgreen"><span><img src="/images/img/icon/xe.png" alt="img"></span>Online</span>
+                                    </td>
+                                    <td th:text="${items.soLuong}"></td>
+                                    <td th:text="${items.donGiaKhiGiam}"></td>
+
+                                    <td>
+                                        <a class="me-2" href="deltailHoaDon.html">
+                                            <img src="/images/img/icons/eye.svg" alt="img"/>
+                                        </a>
+                                    </td>
+
+                                </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </form>
+
+        <div class="row">
+
+            <div class="cardhead col-lg-7 col-sm-12 col-12">
+                <div class="content">
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Biểu đồ doanh thu</div>
+                        </div>
+                        <div class="card-body chart-set">
+                            <div class="" id="flotBar2" style="height: 310px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-sm-12 col-12 d-flex">
+                <div class="card flex-fill">
+                    <div class="card-header pb-0 d-flex justify-content-between align-items-center">
+                        <h4 class="card-title mb-0">Sản phẩm bán chạy</h4>
+                        <div class="dropdown">
+                            <a href="javascript:void(0);" data-bs-toggle="dropdown" aria-expanded="false" class="dropset">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <li>
+                                    <a href="productlist.html" class="dropdown-item">Product List</a>
+                                </li>
+                                <li>
+                                    <a href="addproduct.html" class="dropdown-item">Product Add</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive dataview">
+                            <table class="table " id="data-table">
+                                <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Hình ảnh</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Đơn giá</th>
+                                </tr>
+                                </thead>
+                                <tbody >
+                                <tr >
+                                    <td>1</td>
+                                    <td >
+                                        <img src="/images/imgsProducts/product-1.4.png" alt="">
+<!--                                        <img th:src="@{'/images/imgsProducts/'+ ${a.hinhAnh.url1}}">-->
+                                    </td>
+                                    <td >Nike</td>
+                                    <td >120000</td>
+                                </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+<!--Đóng side-->
+<!--    </div>-->
+<!--</div>-->
+
+
+<script src="/js/jquery-3.6.0.min.js"></script>
+
+<script src="/js/feather.min.js"></script>
+
+<script src="/js/jquery.slimscroll.min.js"></script>
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+<script src="/js/jquery.dataTables.min.js"></script>
+<script src="/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="/plugins/select2/js/select2.min.js"></script>
+
+<script src="/plugins/owlcarousel/owl.carousel.min.js"></script>
+
+<script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script src="/plugins/sweetalert/sweetalerts.min.js"></script>
+
+<script src="/plugins/flot/jquery.flot.js"></script>
+<script src="/plugins/flot/jquery.flot.fillbetween.js"></script>
+<script src="/plugins/flot/jquery.flot.pie.js"></script>
+<script src="/plugins/flot/chart-data.js"></script>
+
+<script src="/js/script.js"></script>
+
+</body>
+</html>

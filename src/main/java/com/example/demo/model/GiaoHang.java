@@ -23,9 +23,9 @@ public class GiaoHang {
     @Column(name = "id_Giao_Hang")
     private UUID idGH;
 
-    @ManyToOne
-    @JoinColumn(name="idDH")
-    private DonHang donHang;
+    @OneToOne
+    @JoinColumn(name="idHD")
+    private HoaDon hoaDon;
 
     @ManyToOne
     @JoinColumn(name="idNV")

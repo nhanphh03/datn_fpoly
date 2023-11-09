@@ -48,4 +48,7 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
             "INNER JOIN hang h on g.id_hang = h.id_hang\n" +
             "WHERE p.nam_bao_hanh > 0 AND p.nam_bao_hanh < YEAR(GETDATE())", nativeQuery = true)
     List<Object[]> dsHetBaoHanh();
+
+    @Query(value = "select sum(so_luong) from chi_tiet_giay",nativeQuery = true)
+    Integer getTongGiay();
 }
