@@ -106,6 +106,12 @@ public class KhachHangController {
         khachHangService.save(khachHang);
         return "redirect:/manage/khach-hang";
     }
+    public void deleteKHById(UUID idKH) {
+        KhachHang khachHang = khachHangService.getByIdKhachHang(idKH);
+        khachHang.setTrangThai(0);
+        khachHang.setTgSua(new Date());
+        khachHangService.save(khachHang);
+    }
 
     @GetMapping("/khach-hang/viewUpdate/{id}")
     public String viewUpdatekhachhang(@PathVariable UUID id, Model model) {
