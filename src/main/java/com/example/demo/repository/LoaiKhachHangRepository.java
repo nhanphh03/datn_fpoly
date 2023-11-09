@@ -12,6 +12,6 @@ public interface LoaiKhachHangRepository extends JpaRepository<LoaiKhachHang, UU
     List<LoaiKhachHang> getByTrangThai(int trangThai);
     List<LoaiKhachHang> findByMaLKHOrTenLKH(String maLKH, String tenLKH);
 
-    LoaiKhachHang findByMaLKH(String maCV);
+    LoaiKhachHang findByMaLKH(String maLKH);
     LoaiKhachHang findByTenLKH(String name);
 }

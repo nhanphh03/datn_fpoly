@@ -10,6 +10,6 @@ import java.util.UUID;
 @Repository
 public interface LoaiKHRepository extends JpaRepository<LoaiKhachHang, UUID> {
 
-//    LoaiKhachHang findByTenLKH(String nameLKH);
+    LoaiKhachHang findByTenLKH(String nameLKH);
 
 }

@@ -1,13 +1,9 @@
 package com.example.demo.controller;
 
-
 import com.example.demo.config.ExcelExporterDiaChi;
-import com.example.demo.config.ExcelExporterNhanVien;
 import com.example.demo.config.PDFExporterDiaChi;
-import com.example.demo.config.PDFExporterNhanVien;
 import com.example.demo.model.DiaChiKH;
 import com.example.demo.model.KhachHang;
-import com.example.demo.model.NhanVien;
 import com.example.demo.service.DiaChiKHService;
 import com.example.demo.service.KhachHangService;
 import com.lowagie.text.DocumentException;
@@ -128,13 +124,10 @@ public class DiaChiKHController {
         response.setContentType("application/pdf");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
-
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=diaChi_" + currentDateTime + ".pdf";
         response.setHeader(headerKey, headerValue);
-
         List<DiaChiKH> listDiaChi = diaChiKHService.getAllDiaChiKH();
-
         PDFExporterDiaChi exporter = new PDFExporterDiaChi(listDiaChi);
         exporter.export(response);
     }
@@ -144,15 +137,11 @@ public class DiaChiKHController {
         response.setContentType("application/octet-stream");
         DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
         String currentDateTime = dateFormatter.format(new Date());
-
         String headerKey = "Content-Disposition";
         String headerValue = "attachment; filename=diaChi_" + currentDateTime + ".xlsx";
         response.setHeader(headerKey, headerValue);
-
         List<DiaChiKH> listDiaChi = diaChiKHService.getAllDiaChiKH();
-
         ExcelExporterDiaChi excelExporter = new ExcelExporterDiaChi(listDiaChi);
-
         excelExporter.export(response);
     }
 

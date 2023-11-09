@@ -29,12 +29,9 @@ public class KhachHang {
     @JoinColumn(name = "id_LKH")
     private LoaiKhachHang loaiKhachHang;
 
-    @NotEmpty(message = "Mã KH không được trống")
     @Column(name = "ma_Khach_Hang")
     private String maKH;
 
-    @NotEmpty(message = "Tên KH không được trống")
-    @Size(max = 255, message = "Tên KH không được quá 255 ký tự")
     @Column(name = "ho_Ten_KH")
     private String hoTenKH;
 
@@ -59,6 +56,9 @@ public class KhachHang {
 
     @Column(name = "mat_Khau_KH")
     private String matKhau;
+
+    @Column(name = "anhKH_cccd")
+    private String Anhcccd;
 
     @Column(name = "CCCD_KH")
     private String CCCDKH;
