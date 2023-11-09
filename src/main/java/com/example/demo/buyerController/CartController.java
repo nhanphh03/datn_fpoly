@@ -112,8 +112,8 @@ public class CartController {
         model.addAttribute("diaChiKHDefault", diaChiKHDefault);
         model.addAttribute("listProductCheckOut", listHDCTCheckOut);
 
-
-
+        session.removeAttribute("hoaDonTaoMoi");
+        session.setAttribute("hoaDonTaoMoi", hoaDon);
 
         return "online/checkout";
     }

@@ -322,46 +322,6 @@ public class DetailProductController {
 
         return "/online/shopping-cart";
 
-//        List<DiaChiKH> diaChiKH = diaChiKHService.findByKhachHang(khachHang);
-//
-//        Date date = new Date();
-//
-//        String today = String.valueOf(date) ;
-//        String maHD = "HD" + khachHang.getMaKH() + generateRandomNumbers() + today;
-//
-//        HoaDon hoaDon = new HoaDon();
-//
-//        hoaDon.setKhachHang(khachHang);
-//        hoaDon.setKhuyenMai(null);
-//        hoaDon.setMaHD(maHD);
-//        hoaDon.setSdtNguoiNhan(null);
-//        hoaDon.setDiaChiNguoiNhan(null);
-//        hoaDon.setNhanVien(null);
-//        hoaDon.setTgTao(date);
-//        hoaDon.setTgShip(null);
-//        hoaDon.setTongSP(null);
-//        hoaDon.setTongTien(null);
-//        hoaDon.setTienShip(null);
-//        hoaDon.setTongTienDG(null);
-//        hoaDon.setTgNhanDK(null);
-//        hoaDon.setTrangThai(3);
-//        hoaDon.setLoaiHD(0);
-//        hoaDonService.add(hoaDon);
-//
-//        HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
-//
-//        ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(idDProduct);
-//
-//        hoaDonChiTiet.setChiTietGiay(chiTietGiay);
-//        hoaDonChiTiet.setHoaDon(hoaDon);
-//        hoaDonChiTiet.setSoLuong(quantity);
-//        hoaDonChiTiet.setTgThem(new Date());
-//        hoaDonChiTiet.setTrangThai(1);
-//        hoaDonChiTiet.setDonGia(quantity*chiTietGiay.getGiaBan());
-//        hoaDonChiTiet.setDonGiaKhiGiam(null);
-//        hoaDonChiTiet.setSoTienGiam(null);
-//        hoaDonChiTietService.add(hoaDonChiTiet);
-
     }
 
     @GetMapping("/heart/{idGiay}/{idMau}")

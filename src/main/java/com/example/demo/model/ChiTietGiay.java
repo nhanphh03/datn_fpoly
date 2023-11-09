@@ -78,6 +78,9 @@ public class ChiTietGiay {
     @Column(name = "ma_NV_Sua")
     private String maNVSua;
 
+    @Column(name="so_tien_truoc_khi_giam")
+    private Double soTienTruocKhiGiam;
+
     @Column(name = "LD_Sua")
     private String lyDoSua;
 
