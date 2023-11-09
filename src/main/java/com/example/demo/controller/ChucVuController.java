@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.config.*;
 import com.example.demo.model.ChucVu;
 import com.example.demo.model.NhanVien;
+import com.example.demo.repository.ChucVuRepsitory;
 import com.example.demo.service.ChucVuService;
 import com.example.demo.service.NhanVienService;
 import com.lowagie.text.DocumentException;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -31,6 +33,9 @@ public class ChucVuController {
     private HttpSession session;
 
     @Autowired
+    private ChucVuRepsitory chucVuRepsitory;
+
+    @Autowired
     private NhanVienController nhanVienController;
 
     @Autowired
@@ -39,30 +44,42 @@ public class ChucVuController {
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
         Map<Integer, String> dsTrangThai = new HashMap<>();
-        dsTrangThai.put(0, "Hoạt động");
-        dsTrangThai.put(1, "Không hoạt động");
+        dsTrangThai.put(1, "Hoạt động");
+        dsTrangThai.put(0, "Không hoạt động");
         return dsTrangThai;
     }
 
     @GetMapping("/chuc-vu")
-    public String dsChucVu(Model model) {
+    public String dsChucVu(Model model, @ModelAttribute("message") String message
+            , @ModelAttribute("error") String error, @ModelAttribute("userInput") ChucVu userInput, @ModelAttribute("Errormessage") String Errormessage) {
         List<ChucVu> chucVu = chucVuService.getAllChucVu();
-        Collections.sort(chucVu, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("chucVu", chucVu);
+        //
         model.addAttribute("chucVuAdd", new ChucVu());
+        //
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInput != null) {
+            model.addAttribute("chucVuAdd", userInput);
+        }
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
+        }
         return "manage/chuc-vu";
     }
 
-//    @GetMapping("/chuc-vu/viewAdd")
-//    public String viewAddchucVu(Model model) {
-//        model.addAttribute("chucVu", new ChucVu());
-//        return "manage/add-chuc-vu";
-//    }
-
     @PostMapping("/chuc-vu/viewAdd/add")
-    public String addchucVu(@Valid  @ModelAttribute("chucVu") ChucVu chucVu, BindingResult result) {
-        if (result.hasErrors()){
-            return "mannage/add-chuc-vu";
+    public String addchucVu(@Valid  @ModelAttribute("chucVu") ChucVu chucVu, BindingResult result,
+                            RedirectAttributes redirectAttributes) {
+        //
+        ChucVu existingChucVu = chucVuRepsitory.findByMaCV(chucVu.getMaCV());
+        if (existingChucVu != null) {
+            redirectAttributes.addFlashAttribute("userInput", chucVu);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return "redirect:/manage/chuc-vu";
         }
         ChucVu chucvu1 = new ChucVu();
         chucvu1.setMaCV(chucVu.getMaCV());
@@ -70,11 +87,12 @@ public class ChucVuController {
         chucvu1.setTgThem(new Date());
         chucvu1.setTrangThai(1);
         chucVuService.save(chucvu1);
+        redirectAttributes.addFlashAttribute("message",true);
         return "redirect:/manage/chuc-vu";
     }
 
     @GetMapping("/chuc-vu/delete/{id}")
-    public String deletechucVu(@PathVariable UUID id) {
+    public String deletechucVu(@PathVariable UUID id, RedirectAttributes redirectAttributes) {
         ChucVu chucVu = chucVuService.getByIdChucVu(id);
         chucVu.setTrangThai(0);
         chucVu.setTgSua(new Date());
@@ -86,25 +104,63 @@ public class ChucVuController {
             nhanVienService.save(nhanVien);
             nhanVienController.deleteNVById(nhanVien.getIdNV());
         }
+        //
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/chuc-vu";
     }
 
     @GetMapping("/chuc-vu/viewUpdate/{id}")
-    public String viewUpdatechucVu(@PathVariable UUID id, Model model) {
+    public String viewUpdatechucVu(@PathVariable UUID id, Model model
+            , @ModelAttribute("message") String message
+            , @ModelAttribute("error") String error, @ModelAttribute("userInput") ChucVu userInput
+            , @ModelAttribute("Errormessage") String Errormessage) {
         ChucVu chucVu = chucVuService.getByIdChucVu(id);
         model.addAttribute("chucVu", chucVu);
+        //
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInput != null) {
+            model.addAttribute("chucVuAdd", userInput);
+        }
+        //
+        session.setAttribute("id", id);
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
+        }
         return "manage/update-chuc-vu";
     }
 
     @PostMapping("/chuc-vu/viewUpdate/{id}")
-    public String updateChucVu(@PathVariable UUID id, @ModelAttribute("chucVu") ChucVu chucVu) {
+    public String updateChucVu(@PathVariable UUID id,@Valid @ModelAttribute("chucVu") ChucVu chucVu,BindingResult result,RedirectAttributes redirectAttributes) {
         ChucVu chucVuDb = chucVuService.getByIdChucVu(id);
+        UUID idCV = (UUID) session.getAttribute("id");
+        String link = "redirect:/manage/chuc-vu/viewUpdate/" + idCV;
+        //
+        ChucVu existingChucVu = chucVuRepsitory.findByMaCV(chucVu.getMaCV());
+        if (existingChucVu != null && !existingChucVu.getIdCV().equals(id)) {
+            redirectAttributes.addFlashAttribute("userInput", chucVu);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return link;
+        }
+        //
         if (chucVuDb != null) {
             chucVuDb.setMaCV(chucVu.getMaCV());
             chucVuDb.setTenCV(chucVu.getTenCV());
             chucVuDb.setTgSua(new Date());
             chucVuDb.setTrangThai(chucVu.getTrangThai());
             chucVuService.save(chucVuDb);
+            redirectAttributes.addFlashAttribute("message", true);
+        }
+//         Nếu trạng thái của chatLieu là 1, hãy cập nhật trạng thái của tất cả sản phẩm chi tiết của chatLieu thành 1.
+        if (chucVuDb.getTrangThai() == 1) {
+            List<NhanVien> nhanViens = nhanVienService.findByChucVu(chucVuDb);
+            for (NhanVien nhanVien : nhanViens) {
+                nhanVien.setTrangThai(1);
+                nhanVienService.save(nhanVien);
+            }
         }
         return "redirect:/manage/chuc-vu";
     }

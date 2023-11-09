@@ -30,4 +30,17 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
             "GROUP BY hct.id_ctg, g.ten_giay, s.so_size, h.ten_hang, cl.ten_chat_lieu, ms.ten_mau\n" +
             "ORDER BY so_luong_ban DESC;", nativeQuery = true)
     List<Object[]> spBanChay();
+
+    @Query(value = "select sum(Hoa_Don_Chi_Tiet.So_Luong*Hoa_Don_Chi_Tiet.don_gia_khi_giam) from hoa_don\n" +
+            "join hoa_don_chi_tiet on hoa_don.id_hd=hoa_don_chi_tiet.id_hd where month(tg_thanh_toan) = month(GETDATE()) and year(tg_thanh_toan) = year(GETDATE())",
+            nativeQuery = true) Double getDoanhThuThang();
+
+    @Query("select g from HoaDonChiTiet g where g.hoaDon.trangThai = 1 OR g.hoaDon.trangThai=2")
+    List<HoaDonChiTiet> getAllHoaDonDaThanhToan();
+
+    @Query("select g from HoaDonChiTiet g where g.hoaDon.trangThai = 4 OR g.hoaDon.trangThai=3")
+    List<HoaDonChiTiet> getAllHoaDonChoThanhToan();
+
+    @Query(value = "select sum(don_gia_khi_giam*so_luong) from hoa_don_chi_tiet",nativeQuery = true)
+    Double getTongTien();
 }
