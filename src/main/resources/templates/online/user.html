@@ -503,9 +503,58 @@
                         <div th:if="${purchaseAll}" class="row" style="background-color: #f3f2ee; width: 836px ; height: 50px; border-radius: 5px; margin-top: 10px;margin-bottom: 10px;"
                              <p>Form Search</p>
                         </div>
-                        <div th:if="${purchaseAll}" class="row" style="background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;">
-                            <p>Form All</p>
+                    <div th:if="${purchaseAll}" class="row" style="background-color: white; width: 836px ; border-radius: 5px;">
+
+                        <!-- List All Hoa Don Begin -->
+
+                        <th:block th:each="x : ${listAllHDByKhachHang}">
+
+                            <div class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+
+                            <div style="float: right; display: flex; padding: 10px 0 0 0;">
+                                <a style="color: black;" href="#">Đơn hàng đã đựo giao thành công</a> <span style="margin: 0 10px 0 10px;">  | </span> <p style="margin-right: 20px;">REATED</p>
+                            </div>
+
+                            <div style="width: 90%; margin: 40px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
+
+
+                            <!-- List CTDP in HD begin -->
+                            <th:block th:each="product : ${x.hoaDonChiTiets}">
+                                <div style="display: flex; padding-left: 40px;">
+                                    <img th:src="@{'/images/imgsProducts/' + ${product.chiTietGiay.hinhAnh.url1}}" style="height: 80px; width: 80px; border-radius: 5px;" alt="">
+                                    <div>
+                                        <p style="margin: 5px 0 0 15px; color: #637381; font-size: 11pt;" th:text="${product.chiTietGiay.giay.tenGiay}"></p>
+                                        <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Variation : ' + ${product.chiTietGiay.mauSac.tenMau} +' | ' + ${product.chiTietGiay.size.soSize} "></p>
+                                        <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Quantity : ' + ${product.soLuong}"></p>
+                                    </div>
+
+                                    <p style="margin:10px 20px 0 250px;">1800$</p>
+                                    <p style="margin:10px 10px 0; font-size: 13pt; color: black;" th:text="'Oder Total : ' + ${product.donGia} + '$'" ></p>
+                                </div>
+
+                                <div style="width: 90%; margin: 15px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
+                            </th:block>
+                            <!-- List CTDP in HD end -->
+
+
+
+
+                            <div style="float: right; margin: 0 0 20px 0;">
+<!--                                th:text="'Oder Total : ' + ${product.soLuong} + '$'"-->
+                                <p style="font-size: 14pt; color: black; font-weight: 600; margin-left: 120px;" ></p>
+                                <div style="display: flex; margin-right: 20px;">
+                                    <button style="height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px;">Buy Again</button>
+                                    <button style="height: 50px; width: 130px; border: 0.5px solid black;">Buy Again</button>
+                                </div>
+                            </div>
+
                         </div>
+
+                        </th:block>
+
+                        <!-- List All Hoa Don End -->
+
+                    </div>
                         <!-- ALL end -->
 
 
@@ -756,16 +805,7 @@
 <!--Add new dia chi end-->
 
 
-<!-- Search Begin -->
-<div class="search-model">
-    <div class="h-100 d-flex align-items-center justify-content-center">
-        <div class="search-close-switch">+</div>
-        <form class="search-model-form">
-            <input type="text" id="search-input" placeholder="Search here.....">
-        </form>
-    </div>
-</div>
-<!-- Search End -->
+
 
 <!-- Js Plugins -->
 <script src="/js/jquery-3.6.0.min.js"></script>
