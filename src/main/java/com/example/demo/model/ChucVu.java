@@ -1,7 +1,7 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,11 +23,11 @@ public class ChucVu {
     @Column(name ="id_Chuc_Vu")
     private UUID idCV;
 
-    @NotEmpty(message = "Không được để trống Mã")
+    @NotBlank
     @Column(name = "ma_Chuc_Vu")
     private String maCV;
 
-    @NotEmpty(message = "Không được để trống Tên")
+    @NotBlank
     @Column(name="ten_Chuc_Vu")
     private String tenCV;
 
