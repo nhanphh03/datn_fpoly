@@ -5,6 +5,8 @@ import com.example.demo.config.ExcelExporterNhanVien;
 import com.example.demo.config.PDFExporterChatLieu;
 import com.example.demo.config.PDFExporterNhanVien;
 import com.example.demo.model.*;
+import com.example.demo.repository.ChucVuRepsitory;
+import com.example.demo.repository.NhanVienRepsitory;
 import com.example.demo.service.ChucVuService;
 import com.example.demo.service.NhanVienService;
 import com.lowagie.text.DocumentException;
@@ -36,6 +38,12 @@ public class NhanVienController {
     @Autowired
     private HttpSession session;
 
+    @Autowired
+     private NhanVienRepsitory nhanVienRepsitory;
+
+    @Autowired
+    private ChucVuRepsitory chucVuRepsitory;
+
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
         Map<Integer, String> dsTrangThai = new HashMap<>();
@@ -53,11 +61,9 @@ public class NhanVienController {
     }
 
     @GetMapping("/nhan-vien")
-    public String dsNhanVien(Model model) {
-
+    public String dsNhanVien(Model model,@ModelAttribute("message") String message) {
         List<NhanVien> nhanViens = nhanVienService.getAllNhanVien();
         List<ChucVu> chucVus = chucVuService.getAllChucVu();
-
         // Kiểm tra và cập nhật trạng thái của giày nếu trạng thái của hãng hoặc chất liệu không hoạt động (0)
         for (NhanVien nhanVienItem : nhanViens) {
             if (nhanVienItem.getChucVu().getTrangThai() == 0) {
@@ -65,9 +71,11 @@ public class NhanVienController {
                 nhanVienService.save(nhanVienItem);
             }
         }
-        Collections.sort(nhanViens, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("nhanVien", nhanViens);
         model.addAttribute("chucVu", chucVus);
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
         return "manage/nhan-vien";
     }
 
@@ -127,7 +135,6 @@ public class NhanVienController {
         model.addAttribute("chucVu", chucVus);
         return "manage/update-nhan-vien";
     }
-
     @PostMapping("/nhan-vien/viewUpdate/{id}")
     public String updatenhanVien(@PathVariable UUID id, @ModelAttribute("nhanVien") NhanVien nhanVien) {
         NhanVien nhanViendb = nhanVienService.getByIdNhanVien(id);

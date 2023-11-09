@@ -1,7 +1,9 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,37 +32,43 @@ public class NhanVien {
     @JoinColumn( name = "id_Chuc_Vu")
     private ChucVu chucVu;
 
-    @NotEmpty(message = "Mã NV không được trống")
+    @NotBlank
     @Column(name = "ma_NV")
     private String maNV;
 
+    @NotBlank
     @Column(name = "mk_NV")
     private String matKhau;
 
-    @NotEmpty(message = "Tên NV không được trống")
-    @Size(max = 255, message = "Tên NV không được quá 255 ký tự")
+    @NotBlank
     @Column(name = "ho_Ten_NV")
     private String hoTenNV;
 
     @Column(name = "gioi_Tinh")
     private int gioiTinh;
 
+    @NotNull
     @Column(name = "ngay_Sinh")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngaySinh;
 
+    @NotBlank
     @Column(name = "SDT_NV")
     private String sdtNV;
 
+    @NotBlank
     @Column(name = "Anh_NV")
     private String AnhNV;
 
+    @NotBlank
     @Column(name = "Email_NV")
     private String emailNV;
 
+    @NotBlank
     @Column(name = "diaChi_NV")
     private String diaChi;
 
+    @NotBlank
     @Column(name = "CCCD_NV")
     private String CCCDNV;
 
