@@ -334,8 +334,9 @@
                                 <div class="bar-code-view">
                                     <div class="row">
                                         <div class="col-lg-10"><img
-                                                th:src="@{'/images/imgsBarcode/'+ ${giayChiTietDetail.idCTG}+'.png'}"
-                                                alt="barcode"></div>
+                                            <img th:src="'file:///C:/imagesBarcode/' + ${giayChiTietDetail.idCTG + '.png'}"
+                                                 alt="barcode">
+                                        </div>
                                         <div class="col-lg-2"><a class="printimg">
                                             <img src="/images/img/icons/printer.svg" alt="print">
                                         </a></div>
