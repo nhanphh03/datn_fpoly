@@ -541,28 +541,26 @@ public class GiayChiTietController {
             }
             return "redirect:/manage/giay-chi-tiet/viewAdd";
         }
-        for (int i = 0; i < selectedSizesCount; i++) {
-            ChiTietGiay chiTietGiay1 = new ChiTietGiay();
-            chiTietGiay1.setGiay(chiTietGiay.getGiay());
-            chiTietGiay1.setNamSX(chiTietGiay.getNamSX());
-            chiTietGiay1.setNamBH(chiTietGiay.getNamBH());
-            chiTietGiay1.setTrongLuong(chiTietGiay.getTrongLuong());
-            chiTietGiay1.setGiaBan(chiTietGiay.getGiaBan());
-            chiTietGiay1.setSoLuong(chiTietGiay.getSoLuong());
-            chiTietGiay1.setTrangThai(1);
-            chiTietGiay1.setMauSac(chiTietGiay.getMauSac());
-            chiTietGiay1.setHinhAnh(chiTietGiay.getHinhAnh());
-            chiTietGiay1.setSize(selectedSizes.get(i));
-            chiTietGiay1.setTgThem(new Date());
-            giayChiTietService.save(chiTietGiay1);
-            // Lấy id đã được tạo sau khi thêm sản phẩm mới
-            UUID idNew = chiTietGiay1.getIdCTG();
-            String barcodeNew = idNew.toString();
-            chiTietGiay1.setBarcode(barcodeNew);
-            // Cập nhật thông tin sản phẩm giày
-            ZxingHelperBarCode.saveBarcodeImage(idNew, 200, 100); // Tạo và lưu mã vạch
-            giayChiTietService.update(chiTietGiay1);
-        }
+        ChiTietGiay chiTietGiay1 = new ChiTietGiay();
+        chiTietGiay1.setGiay(chiTietGiay.getGiay());
+        chiTietGiay1.setNamSX(chiTietGiay.getNamSX());
+        chiTietGiay1.setNamBH(chiTietGiay.getNamBH());
+        chiTietGiay1.setTrongLuong(chiTietGiay.getTrongLuong());
+        chiTietGiay1.setGiaBan(chiTietGiay.getGiaBan());
+        chiTietGiay1.setSoLuong(chiTietGiay.getSoLuong());
+        chiTietGiay1.setTrangThai(1);
+        chiTietGiay1.setMauSac(chiTietGiay.getMauSac());
+        chiTietGiay1.setHinhAnh(chiTietGiay.getHinhAnh());
+        chiTietGiay1.setSize(chiTietGiay.getSize());
+        chiTietGiay1.setTgThem(new Date());
+        giayChiTietService.save(chiTietGiay1);
+        // Lấy id đã được tạo sau khi thêm sản phẩm mới
+        UUID idNew = chiTietGiay1.getIdCTG();
+        String barcodeNew = idNew.toString();
+        chiTietGiay1.setBarcode(barcodeNew);
+        // Cập nhật thông tin sản phẩm giày
+        ZxingHelperBarCode.saveBarcodeImage(idNew, 200, 100); // Tạo và lưu mã vạch
+        giayChiTietService.update(chiTietGiay1);
         redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/giay-chi-tiet";
     }
