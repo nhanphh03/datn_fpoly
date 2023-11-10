@@ -73,5 +73,8 @@ public class KhuyenMai {
     @Column(name = "tg_Sua")
     private Date tgSua;
 
+    @Column(name = "loai_Giam")
+    private boolean loaiGiam;
+
 
 }
