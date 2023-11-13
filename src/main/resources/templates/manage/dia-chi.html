@@ -22,7 +22,7 @@
 
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
-
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -405,15 +405,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <!--                                    <div class="col-lg-2 col-sm-6 col-12">-->
-                                    <!--                                        <div class="form-group">-->
-                                    <!--                                            <select class="select">-->
-                                    <!--                                                <option>Trạng Thái</option>-->
-                                    <!--                                                <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
-                                    <!--                                                        th:text="${loc.value}"></option>-->
-                                    <!--                                            </select>-->
-                                    <!--                                        </div>-->
-                                    <!--                                    </div>-->
                                     <div class="col-lg-3 col-sm-6 col-12">
                                         <div class="form-group">
                                             <select class="select" id="KhachHangFilterTen" name="searchTerm">
@@ -447,14 +438,17 @@
                                 </th>
                                 <th>Mã Địa Chỉ</th>
                                 <th>Tên Địa Chỉ</th>
+                                <th>Tên Người Nhận</th>
                                 <th>Xã Phường</th>
                                 <th>Quận Huyện</th>
                                 <th>Tỉnh Thành Phố</th>
                                 <th>Mô Tả</th>
                                 <th>Miền</th>
+                                <th>Loại Địa Chỉ</th>
                                 <th>Địa Chỉ Chi tiết</th>
-                                <th>Trạng Thái</th>
+                                <th>SDT Địa Chỉ</th>
                                 <th>Khách Hàng</th>
+                                <th>Trạng Thái</th>
                                 <th>Thời Gian Thêm</th>
                                 <th>Thời Gian Sửa</th>
                                 <th>Action</th>
@@ -470,24 +464,28 @@
                                 </td>
                                 <td th:text="${items.maDC}"></td>
                                 <td th:text="${items.tenDC}"></td>
+                                <td th:text="${items.tenNguoiNhan}"></td>
                                 <td th:text="${items.xaPhuong}"></td>
                                 <td th:text="${items.quanHuyen}"></td>
                                 <td th:text="${items.tinhTP}"></td>
                                 <td th:text="${items.moTa}"></td>
                                 <td th:text="${items.mien}"></td>
+                                <td th:text="${items.loai}"></td>
                                 <td th:text="${items.diaChiChiTiet}"></td>
-                                <td>
-                                    <p th:if="${items.trangThai == 1}">Hoạt Động</p>
-                                    <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
-                                </td>
+                                <td th:text="${items.sdtNguoiNhan}"></td>
                                 <td th:text="${items.khachHang.hoTenKH}"></td>
+                                <td>
+                                    <p th:if="${items.trangThai == 1}"  class="badges bg-lightgreen">Hoạt Động</p>
+                                    <p th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</p>
+                                </td>
                                 <td th:text="${items.tgThem}"></td>
                                 <td th:text="${items.tgSua}"></td>
                                 <td>
                                     <a class="me-3" th:href="@{'/manage/dia-chi/viewUpdate/' + ${items.idDC}}">
                                         <img src="/images/img/icons/edit.svg" alt="img">
                                     </a>
-                                    <a class="me-3 " th:href="@{'/manage/dia-chi/delete/' + ${items.idDC}}">
+                                    <a class="me-2 delete-button"
+                                       th:data-delete-url="@{'/manage/dia-chi/delete/' + ${items.idDC}}">
                                         <img src="/images/img/icons/delete.svg" alt="img">
                                     </a>
                                 </td>
@@ -498,6 +496,13 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div th:if="${message}" id="toast-container" class="toast-container toast-top-right">
+    <div class="toast toast-success" aria-live="polite" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Thành Công</div>
+        <div class="toast-message">Dữ liệu của bạn đã được cập nhật</div>
     </div>
 </div>
 <script src="/js/jquery-3.6.0.min.js"></script>
@@ -652,6 +657,14 @@
             form2.style.display = "none";  // Ẩn form
         }
     });
+</script>
+<script>
+    setTimeout(function () {
+        var successToast = document.getElementById('toast-container');
+        if (successToast) {
+            successToast.style.display = 'none';
+        }
+    }, 5000);
 </script>
 </body>
 </html>
