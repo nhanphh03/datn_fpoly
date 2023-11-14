@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,7 +40,7 @@ public class NhanVienController {
     private HttpSession session;
 
     @Autowired
-     private NhanVienRepsitory nhanVienRepsitory;
+    private NhanVienRepsitory nhanVienRepsitory;
 
     @Autowired
     private ChucVuRepsitory chucVuRepsitory;
@@ -57,20 +58,14 @@ public class NhanVienController {
         Map<Integer, String> dsGioiTinh = new HashMap<>();
         dsGioiTinh.put(1, "Nam");
         dsGioiTinh.put(0, "Nữ");
+        dsGioiTinh.put(2, "Khác");
         return dsGioiTinh;
     }
 
     @GetMapping("/nhan-vien")
-    public String dsNhanVien(Model model,@ModelAttribute("message") String message) {
+    public String dsNhanVien(Model model, @ModelAttribute("message") String message) {
         List<NhanVien> nhanViens = nhanVienService.getAllNhanVien();
         List<ChucVu> chucVus = chucVuService.getAllChucVu();
-        // Kiểm tra và cập nhật trạng thái của giày nếu trạng thái của hãng hoặc chất liệu không hoạt động (0)
-        for (NhanVien nhanVienItem : nhanViens) {
-            if (nhanVienItem.getChucVu().getTrangThai() == 0) {
-                nhanVienItem.setTrangThai(0);
-                nhanVienService.save(nhanVienItem);
-            }
-        }
         model.addAttribute("nhanVien", nhanViens);
         model.addAttribute("chucVu", chucVus);
         if (message == null || !"true".equals(message)) {
@@ -80,46 +75,199 @@ public class NhanVienController {
     }
 
     @GetMapping("/nhan-vien/viewAdd")
-    public String viewAddNhanVien(Model model) {
+    public String viewAddNhanVien(Model model
+            , @ModelAttribute("maNVError") String maNVError
+            , @ModelAttribute("tenNVError") String tenNVError
+            , @ModelAttribute("ngaySinhError") String ngaySinhError
+            , @ModelAttribute("sdtNVError") String sdtNVError
+            , @ModelAttribute("emailNVError") String emailNVError
+            , @ModelAttribute("diaChiError") String diaChiError
+            , @ModelAttribute("CCCDNVError") String CCCDNVError
+            , @ModelAttribute("matKhauError") String matKhauError
+            , @ModelAttribute("ChucVuError") String ChucVuError
+            , @ModelAttribute("errorNV") String errorNV, @ModelAttribute("userInput") NhanVien userInputNV
+            , @ModelAttribute("messageCV") String messageCV
+            , @ModelAttribute("maCVError") String maCVError
+            , @ModelAttribute("tenCVError") String tenCVError
+            , @ModelAttribute("errorCV") String errorCV, @ModelAttribute("userInput") ChucVu userInputCV
+            , @ModelAttribute("Errormessage") String Errormessage
+            , @ModelAttribute("ErrormessageCV") String ErrormessageCV) {
         List<ChucVu> chucVuList = chucVuService.getAllChucVu();
         Collections.sort(chucVuList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("chucVu", chucVuList);
-
+        //
         model.addAttribute("nhanVien", new NhanVien());
         model.addAttribute("chucVuAdd", new ChucVu());
+        //
+        if (maNVError == null || !"maNVError".equals(errorNV)) {
+            model.addAttribute("maNVError", false);
+        }
+        if (tenNVError == null || !"tenNVError".equals(errorNV)) {
+            model.addAttribute("tenNVError", false);
+        }
+        if (ngaySinhError == null || !"ngaySinhError".equals(errorNV)) {
+            model.addAttribute("ngaySinhError", false);
+        }
+        if (sdtNVError == null || !"sdtNVError".equals(errorNV)) {
+            model.addAttribute("sdtNVError", false);
+        }
+
+        if (emailNVError == null || !"emailNVError".equals(errorNV)) {
+            model.addAttribute("emailNVError", false);
+        }
+        if (diaChiError == null || !"diaChiError".equals(errorNV)) {
+            model.addAttribute("diaChiError", false);
+        }
+        if (CCCDNVError == null || !"CCCDNVError".equals(errorNV)) {
+            model.addAttribute("CCCDNVError", false);
+        }
+        if (matKhauError == null || !"matKhauError".equals(errorNV)) {
+            model.addAttribute("matKhauError", false);
+        }
+        if (ChucVuError == null || !"ChucVuError".equals(errorNV)) {
+            model.addAttribute("ChucVuError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInputNV != null) {
+            model.addAttribute("nhanVien", userInputNV);
+        }
+        //add CV
+        if (messageCV == null || !"true".equals(messageCV)) {
+            model.addAttribute("messageCV", false);
+        }
+        if (maCVError == null || !"maCVError".equals(errorCV)) {
+            model.addAttribute("maCVError", false);
+        }
+        if (tenCVError == null || !"tenCVError".equals(errorCV)) {
+            model.addAttribute("tenCVError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInputCV != null) {
+            model.addAttribute("chucVuAdd", userInputCV);
+        }
+        //
+        if (ErrormessageCV == null || !"true".equals(ErrormessageCV)) {
+            model.addAttribute("ErrormessageCV", false);
+        }
+
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
+        }
         return "manage/add-nhan-vien";
     }
 
     @PostMapping("/nhan-vien/viewAdd/add")
-    public String addNhanVien(@Valid @ModelAttribute("nhanVien") NhanVien nhanVien,Model model, BindingResult result) {
-       if(result.hasErrors()){
-           List<ChucVu> chucVuList = chucVuService.getAllChucVu();
-           Collections.sort(chucVuList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
-           model.addAttribute("chucVu", chucVuList);
-
-           model.addAttribute("nhanVien", new NhanVien());
-           model.addAttribute("chucVuAdd", new ChucVu());
-           return "manage/add-nhan-vien";
-       }
+    public String addNhanVien(@Valid @ModelAttribute("nhanVien") NhanVien nhanVien, BindingResult result, Model model
+            , RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            List<ChucVu> chucVuList = chucVuService.getAllChucVu();
+            Collections.sort(chucVuList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+            model.addAttribute("chucVu", chucVuList);
+            //
+            model.addAttribute("nhanVien", new NhanVien());
+            model.addAttribute("chucVuAdd", new ChucVu());
+            //
+            if (result.hasFieldErrors("matKhau")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "matKhauError");
+            }
+            if (result.hasFieldErrors("CCCDNV")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "CCCDNVError");
+            }
+            if (result.hasFieldErrors("diaChi")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "diaChiError");
+            }
+            if (result.hasFieldErrors("emailNV")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "emailNVError");
+            }
+            if (result.hasFieldErrors("sdtNV")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "sdtNVError");
+            }
+            if (result.hasFieldErrors("ngaySinh")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "ngaySinhError");
+            }
+            if (result.hasFieldErrors("hoTenNV")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "tenNVError");
+            }
+            if (result.hasFieldErrors("maNV")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "maNVError");
+            }
+            if (result.hasFieldErrors("ChucVu")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "ChucVuError");
+            }
+            return "redirect:/manage/nhan-vien/viewAdd";
+        }
+        //
+        NhanVien existingNV = nhanVienRepsitory.findByMaNV(nhanVien.getMaNV());
+        if (existingNV != null) {
+            redirectAttributes.addFlashAttribute("userInput", nhanVien);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return "redirect:/manage/nhan-vien/viewAdd";
+        }
+        NhanVien existingNV1 = nhanVienRepsitory.findByEmailNV(nhanVien.getEmailNV());
+        if (existingNV1 != null) {
+            redirectAttributes.addFlashAttribute("userInput", nhanVien);
+            redirectAttributes.addFlashAttribute("ErrormessageeEmail", true);
+            return "redirect:/manage/nhan-vien/viewAdd";
+        }
+        //
         nhanVien.setTgThem(new Date());
+        nhanVien.setTrangThai(1);
         nhanVienService.save(nhanVien);
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/nhan-vien";
     }
+
     @PostMapping("/nhan-vien/chuc-vu/viewAdd/add")
-    public String addChucVu(@ModelAttribute("chucVuAdd") ChucVu chucVu) {
+    public String addChucVu(@Valid @ModelAttribute("chucVuAdd") ChucVu chucVu
+            , BindingResult result, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            if (result.hasFieldErrors("maCV")) {
+                redirectAttributes.addFlashAttribute("userInput", chucVu);
+                redirectAttributes.addFlashAttribute("errorCV", "maCVError");
+            }
+            if (result.hasFieldErrors("tenCV")) {
+                redirectAttributes.addFlashAttribute("userInput", chucVu);
+                redirectAttributes.addFlashAttribute("errorCV", "tenCVError");
+            }
+            redirectAttributes.addFlashAttribute("message", true);
+            return "redirect:/manage/nhan-vien/viewAdd";
+        }
+        //
+        ChucVu existingCV = chucVuRepsitory.findByMaCV(chucVu.getMaCV());
+        if (existingCV != null) {
+            redirectAttributes.addFlashAttribute("userInput", chucVu);
+            redirectAttributes.addFlashAttribute("ErrormessageCV", true);
+            return "redirect:/manage/nhan-vien/viewAdd";
+        }
+
+        //
         chucVu.setTgThem(new Date());
+        chucVu.setTrangThai(1);
         chucVuService.save(chucVu);
+        redirectAttributes.addFlashAttribute("messageCV", true);
         return "redirect:/manage/nhan-vien/viewAdd";
     }
 
     @GetMapping("/nhan-vien/delete/{id}")
-    public String deleteNhanVien(@PathVariable UUID id) {
+    public String deleteNhanVien(@PathVariable UUID id, RedirectAttributes redirectAttributes) {
         NhanVien nhanVien = nhanVienService.getByIdNhanVien(id);
         nhanVien.setTrangThai(0);
         nhanVien.setTgSua(new Date());
         nhanVienService.save(nhanVien);
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/nhan-vien";
+
     }
+
     public void deleteNVById(UUID idNV) {
         NhanVien nhanVien = nhanVienService.getByIdNhanVien(idNV);
         nhanVien.setTrangThai(0);
@@ -128,34 +276,161 @@ public class NhanVienController {
     }
 
     @GetMapping("/nhan-vien/viewUpdate/{id}")
-    public String viewUpdatenhanVien(@PathVariable UUID id, Model model) {
+    public String viewUpdatenhanVien(@PathVariable UUID id, Model model
+            , @ModelAttribute("maNVError") String maNVError
+            , @ModelAttribute("tenNVError") String tenNVError
+            , @ModelAttribute("ngaySinhError") String ngaySinhError
+            , @ModelAttribute("sdtNVError") String sdtNVError
+            , @ModelAttribute("emailNVError") String emailNVError
+            , @ModelAttribute("diaChiError") String diaChiError
+            , @ModelAttribute("CCCDNVError") String CCCDNVError
+            , @ModelAttribute("matKhauError") String matKhauError
+            , @ModelAttribute("ChucVuError") String ChucVuError
+            , @ModelAttribute("errorNV") String errorNV, @ModelAttribute("userInput") NhanVien userInputNV
+
+            , @ModelAttribute("messageCV") String messageCV
+            , @ModelAttribute("maCVError") String maCVError
+            , @ModelAttribute("tenCVError") String tenCVError
+            , @ModelAttribute("errorCV") String errorCV, @ModelAttribute("userInput") ChucVu userInputCV
+            , @ModelAttribute("Errormessage") String Errormessage
+            , @ModelAttribute("ErrormessageCV") String ErrormessageCV) {
         NhanVien nhanVien = nhanVienService.getByIdNhanVien(id);
-        List<ChucVu> chucVus = chucVuService.getAllChucVu();
         model.addAttribute("nhanVien", nhanVien);
+        //
+        List<ChucVu> chucVus = chucVuService.getAllChucVu();
+        Collections.sort(chucVus, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("chucVu", chucVus);
+        //
+        model.addAttribute("chucVuAdd", new ChucVu());
+        //
+        if (maNVError == null || !"maNVError".equals(errorNV)) {
+            model.addAttribute("maNVError", false);
+        }
+        if (tenNVError == null || !"tenNVError".equals(errorNV)) {
+            model.addAttribute("tenNVError", false);
+        }
+
+        if (ngaySinhError == null || !"ngaySinhError".equals(errorNV)) {
+            model.addAttribute("ngaySinhError", false);
+        }
+        if (sdtNVError == null || !"sdtNVError".equals(errorNV)) {
+            model.addAttribute("sdtNVError", false);
+        }
+        if (emailNVError == null || !"emailNVError".equals(errorNV)) {
+            model.addAttribute("emailNVError", false);
+        }
+        if (diaChiError == null || !"diaChiError".equals(errorNV)) {
+            model.addAttribute("diaChiError", false);
+        }
+        if (CCCDNVError == null || !"CCCDNVError".equals(errorNV)) {
+            model.addAttribute("CCCDNVError", false);
+        }
+        if (matKhauError == null || !"matKhauError".equals(errorNV)) {
+            model.addAttribute("matKhauError", false);
+        }
+        if (ChucVuError == null || !"ChucVuError".equals(errorNV)) {
+            model.addAttribute("ChucVuError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInputNV != null) {
+            model.addAttribute("nhanVienUpdate", userInputNV);
+        }
+        session.setAttribute("id", id);
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
+        }
+
         return "manage/update-nhan-vien";
     }
+
     @PostMapping("/nhan-vien/viewUpdate/{id}")
-    public String updatenhanVien(@PathVariable UUID id, @ModelAttribute("nhanVien") NhanVien nhanVien) {
+    public String updatenhanVien(@PathVariable UUID id
+            , @Valid @ModelAttribute("nhanVien") NhanVien nhanVien
+            , BindingResult result, RedirectAttributes redirectAttributes) {
         NhanVien nhanViendb = nhanVienService.getByIdNhanVien(id);
+        UUID idNV = (UUID) session.getAttribute("id");
+        String link = "redirect:/manage/nhan-vien/viewUpdate/" + idNV;
+        if (result.hasErrors()) {
+            if (result.hasFieldErrors("matKhau")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "matKhauError");
+            }
+            if (result.hasFieldErrors("CCCDNV")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "CCCDNVError");
+            }
+            if (result.hasFieldErrors("diaChi")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "diaChiError");
+            }
+            if (result.hasFieldErrors("emailNV")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "emailNVError");
+            }
+            if (result.hasFieldErrors("AnhNV")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "AnhNVError");
+            }
+            if (result.hasFieldErrors("sdtNV")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "sdtNVError");
+            }
+            if (result.hasFieldErrors("ngaySinh")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "ngaySinhError");
+            }
+            if (result.hasFieldErrors("gioiTinh")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "gioiTinhError");
+            }
+            if (result.hasFieldErrors("hoTenNV")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "tenNVError");
+            }
+            if (result.hasFieldErrors("maNV")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "maNVError");
+            }
+            if (result.hasFieldErrors("ChucVu")) {
+                redirectAttributes.addFlashAttribute("userInput", nhanVien);
+                redirectAttributes.addFlashAttribute("errorNV", "ChucVuError");
+            }
+            return link;
+        }
+        //
+        NhanVien existingNV = nhanVienRepsitory.findByMaNV(nhanVien.getMaNV());
+        if (existingNV != null && !existingNV.getIdNV().equals(id)) {
+            redirectAttributes.addFlashAttribute("userInput", nhanVien);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return link;
+        }
+        //
+        NhanVien existingNV1 = nhanVienRepsitory.findByEmailNV(nhanVien.getEmailNV());
+        if (existingNV1 != null  && !existingNV.getIdNV().equals(id)) {
+            redirectAttributes.addFlashAttribute("userInput", nhanVien);
+            redirectAttributes.addFlashAttribute("ErrormessageeEmail", true);
+            return link;
+        }
         if (nhanViendb != null) {
             nhanViendb.setMaNV(nhanVien.getMaNV());
             nhanViendb.setHoTenNV(nhanVien.getHoTenNV());
-            nhanViendb.setAnhNV(nhanVien.getAnhNV());
+            nhanViendb.setNgaySinh(nhanVien.getNgaySinh());
+            nhanViendb.setSdtNV(nhanVien.getSdtNV());
+            nhanViendb.setMatKhau(nhanVien.getMatKhau());
+            nhanViendb.setEmailNV(nhanVien.getEmailNV());
+            nhanViendb.setGioiTinh(nhanVien.getGioiTinh());
             nhanViendb.setCCCDNV(nhanVien.getCCCDNV());
             nhanViendb.setDiaChi(nhanVien.getDiaChi());
-            nhanViendb.setEmailNV(nhanVien.getEmailNV());
-            nhanViendb.setMatKhau(nhanVien.getMatKhau());
-            nhanViendb.setSdtNV(nhanVien.getSdtNV());
-            nhanViendb.setGioiTinh(nhanVien.getGioiTinh());
-            nhanViendb.setNgaySinh(nhanVien.getNgaySinh());
-            nhanViendb.setTgSua(new Date());
             nhanViendb.setTrangThai(nhanVien.getTrangThai());
             nhanViendb.setChucVu(nhanVien.getChucVu());
+            nhanViendb.setTgSua(new Date());
             nhanVienService.save(nhanViendb);
+            redirectAttributes.addFlashAttribute("message", true);
         }
         return "redirect:/manage/nhan-vien";
     }
+
     @GetMapping("/nhanVien/export/pdf")
     public void exportToPDFChatLieu(HttpServletResponse response) throws DocumentException, IOException {
         response.setContentType("application/pdf");
