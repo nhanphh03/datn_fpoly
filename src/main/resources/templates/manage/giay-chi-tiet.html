@@ -458,7 +458,7 @@
                         </form>
 
                         <div class="table-responsive">
-                            <table class="table datanew" id="data-table">
+                            <table class="table" id="data-table">
                                 <thead>
                                 <tr>
                                     <th>Hình Ảnh</th>
@@ -471,6 +471,7 @@
                                     <th>Năm Sản Xuất</th>
                                     <th>Năm Bảo Hành</th>
                                     <th>Trạng Thái</th>
+                                    <th>Giá Bán Sau Khi Giảm</th>
                                     <th>Action</th>
                                     <th>Thời Gian Thêm</th>
                                     <th>Thời Gian Sửa</th>
@@ -494,6 +495,7 @@
                                         <span th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</span>
                                         <span th:if="${items.soLuong == 0}" class="badges bg-lightgrey">Hết Hàng</span>
                                     </td>
+                                    <td th:text="${items.soTienTruocKhiGiam}"></td>
                                     <td>
                                         <a class="me-2" th:href="@{'/manage/giay-chi-tiet/detail/' + ${items.idCTG}}">
                                             <img src="/images/img/icons/eye.svg" alt="img"/>
@@ -507,8 +509,8 @@
                                             <img src="/images/img/icons/delete.svg" alt="img"/>
                                         </a>
                                     </td>
-                                    <td th:text="${items.tgThem}"></td>
-                                    <td th:text="${items.tgSua}"></td>
+                                    <td th:text="${#dates.format(items.tgThem, 'dd-MM-yyyy')}"/>
+                                    <td th:text="${#dates.format(items.tgSua, 'dd-MM-yyyy')}"/>
 
                                 </tr>
                                 </tbody>
