@@ -14,8 +14,7 @@
         <!-- Google Font -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
               rel="stylesheet">
-       <link rel="icon" href="/images/img/logo-favicon.png" type="image/x-icon">
-
+        <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
         <!-- Css Styles -->
         <link rel="stylesheet" href="/cssx/bootstrap.min.css" type="text/css">
         <link rel="stylesheet" href="/cssx/font-awesome.min.css" type="text/css">
@@ -372,40 +371,135 @@
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="filter__controls">
-                        <li class="active" data-filter="*">New Arrivals</li>
-                        <li  data-filter="*">Best Seller</li>
-                        <li  data-filter="*">Sale off</li>
-                        <li  data-filter="*">Collections</li>
+                        <li class="active" data-filter=".new-arrivals">New Arrivals</li>
+                        <li  data-filter=".best-seller">Best Seller</li>
+                        <li  data-filter=".sale-off">Sale off</li>
                     </ul>
                 </div>
             </div>
             <div class="row product__filter">
 
-                <th:block th:each="product : ${listCTGModel}">
-                                  <div class= "col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6" >
-                                          <div class="product__item">
-                                                  <div class="product__item__pic set-bg" style="border-radius:20px;"  th:attr="data-setbg=@{'/images/imgsProducts/' + ${product.hinhAnh}}">
-                                                            <span class="label">New</span>
-                                                              <ul class="product__hover">
-                                                                  <li th:if="${heartLogged}"><a th:href="@{'/buyer/heart/' + ${product.idGiay}}" ><img src="/images/img/icon/heart.png" alt=""><span>Favourite</span></a></li>
-                                                                  <li><a href="#"><img src="/images/img/icon/compare.png" alt=""><span>Compare</span></a></li>
-                                                                  <li ><a th:href="@{'/buyer/shop-details/' + ${product.idGiay}}"><img src="/images/img/icon/view.png" alt=""><span>Views Detail</span></a></li>
-                                                              </ul>
-                                                  </div>
-                                                    <div>
-
-                                                        <h6 style="margin-top:  10px; margin-bottom: 10px " th:text="${product.tenGiay}"></h6>
-                                                        <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="${product.minPrice}  + ' ' + '$'"></h5>
-                                                        <div class="product__color__select" style="display: flex">
-                                                            <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'pieces available'"></h6>
-                                                            <h6 style="font-style: italic; font-size: 12px ;margin-left: 100px;" th:text="${product.soLuongDaBan} + ' ' + '  Sold'"></h6>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
+                <th:block th:each="product : ${listCTGModelNew}">
+                  <div class= "col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals" >
+                          <div class="product__item">
+                                  <div class="product__item__pic set-bg" style="border-radius:20px;"  th:attr="data-setbg=@{'/images/imgsProducts/' + ${product.hinhAnh}}">
+                                    <span class="label">New</span>
+                                      <ul class="product__hover">
+                                          <li th:if="${heartLogged}">
+                                              <a th:href="@{'/buyer/heart/' + ${product.idGiay} +'/' + ${product.idMau}}" >
+                                                  <img src="/images/img/icon/heart.png" alt="">
+                                                  <span>Favourite</span>
+                                              </a>
+                                          </li>
+                                          <li>
+                                              <a href="#">
+                                                  <img src="/images/img/icon/compare.png" alt="">
+                                                  <span>Compare</span>
+                                              </a>
+                                          </li>
+                                          <li >
+                                              <a th:href="@{'/buyer/shop-details/' + ${product.idGiay} +'/' + ${product.idMau}}">
+                                                  <img src="/images/img/icon/view.png" alt="">
+                                                  <span>Views Detail</span>
+                                              </a>
+                                          </li>
+                                      </ul>
+                                  </div>
+                                    <div>
+                                        <h6 style="margin-top:  10px; margin-bottom: 10px " th:text="${product.tenGiay}"></h6>
+                                        <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="${product.minPrice}  + ' ' + '$'"></h5>
+                                        <div class="product__color__select" style="display: flex">
+                                            <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'pieces available'"></h6>
+                                            <h6 style="font-style: italic; font-size: 12px ;margin-left: 100px;" th:text="${product.soLuongDaBan} + ' ' + '  Sold'"></h6>
                                         </div>
+                                    </div>
+                                </div>
+                        </div>
 
                 </th:block>
+
+                <th:block th:each="product : ${listCTGModelBestSeller}">
+                    <div class= "col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix best-seller" >
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg" style="border-radius:20px;"  th:attr="data-setbg=@{'/images/imgsProducts/' + ${product.hinhAnh}}">
+                                <span class="label">Best Seller</span>
+                                <ul class="product__hover">
+                                    <li th:if="${heartLogged}">
+                                        <a th:href="@{'/buyer/heart/' + ${product.idGiay} +'/' + ${product.idMau}}" >
+                                            <img src="/images/img/icon/heart.png" alt="">
+                                            <span>Favourite</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="/images/img/icon/compare.png" alt="">
+                                            <span>Compare</span>
+                                        </a>
+                                    </li>
+                                    <li >
+                                        <a th:href="@{'/buyer/shop-details/' + ${product.idGiay} +'/' + ${product.idMau}}">
+                                            <img src="/images/img/icon/view.png" alt="">
+                                            <span>Views Detail</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+
+                                <h6 style="margin-top:  10px; margin-bottom: 10px " th:text="${product.tenGiay}"></h6>
+                                <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="${product.minPrice}  + ' ' + '$'"></h5>
+                                <div class="product__color__select" style="display: flex">
+                                    <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'pieces available'"></h6>
+                                    <h6 style="font-style: italic; font-size: 12px ;margin-left: 100px;" th:text="${product.soLuongDaBan} + ' ' + '  Sold'"></h6>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </th:block>
+
+                <th:block th:each="product : ${listCTGModelSaleOff}">
+                    <div class= "col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix sale-off" >
+                        <div class="product__item">
+                            <div class="product__item__pic set-bg" style="border-radius:20px;"  th:attr="data-setbg=@{'/images/imgsProducts/' + ${product.hinhAnh}}">
+                                <span class="label">Sale off</span>
+                                <ul class="product__hover">
+                                    <li th:if="${heartLogged}">
+                                        <a th:href="@{'/buyer/heart/' + ${product.idGiay} +'/' + ${product.idMau}}" >
+                                            <img src="/images/img/icon/heart.png" alt="">
+                                            <span>Favourite</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <img src="/images/img/icon/compare.png" alt="">
+                                            <span>Compare</span>
+                                        </a>
+                                    </li>
+                                    <li >
+                                        <a th:href="@{'/buyer/shop-details/' + ${product.idGiay} +'/' + ${product.idMau}}">
+                                            <img src="/images/img/icon/view.png" alt="">
+                                            <span>Views Detail</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+
+                                <h6 style="margin-top:  10px; margin-bottom: 10px " th:text="${product.tenGiay}"></h6>
+                                <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="${product.minPrice}  + ' ' + '$'"></h5>
+                                <div class="product__color__select" style="display: flex">
+                                    <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'pieces available'"></h6>
+                                    <h6 style="font-style: italic; font-size: 12px ;margin-left: 100px;" th:text="${product.soLuongDaBan} + ' ' + '  Sold'"></h6>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </th:block>
+
             </div>
         </div>
     </section>

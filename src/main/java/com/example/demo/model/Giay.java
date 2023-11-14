@@ -58,6 +58,9 @@ public class Giay {
     @Column(name = "tg_Sua")
     private Date tgSua;
 
+    @Column(name = "tg_NhapHang")
+    private Date namNhapHang;
+
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "giay")
     private List<ChiTietGiay> chiTietGiayList;
 

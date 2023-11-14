@@ -32,19 +32,25 @@ div.dataTables_wrapper div.dataTables_length select {
 }
 
 div.dataTables_wrapper div.dataTables_filter {
-    text-align: right
+    text-align: right;
+    position: sticky;
+    top: 0;
 }
 
 div.dataTables_wrapper div.dataTables_filter label {
     font-weight: normal;
     white-space: nowrap;
-    text-align: left
+    text-align: left;
+    position: sticky;
+    top: 0;
 }
 
 div.dataTables_wrapper div.dataTables_filter input {
     margin-left: .5em;
     display: inline-block;
-    width: auto
+    width: auto;
+    position: sticky;
+    top: 0;
 }
 
 div.dataTables_wrapper div.dataTables_info {
