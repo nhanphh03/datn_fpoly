@@ -12,6 +12,7 @@ import java.util.UUID;
 public interface KhuyenMaiRepository extends JpaRepository<KhuyenMai, UUID> {
 
     List<KhuyenMai> findByTrangThai(int trangThai);
+    List<KhuyenMai> findByLoaiKhuyenMai(LoaiKhuyenMai loaiKhuyenMai);
     List<KhuyenMai> findByLoaiKhuyenMaiAndTrangThai(LoaiKhuyenMai loaiKhuyenMai, int trangThai);
     KhuyenMai findByMaKM(String maKM);
 

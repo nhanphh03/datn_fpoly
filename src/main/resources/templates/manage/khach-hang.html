@@ -12,7 +12,7 @@
     <title>Sneaker Shop - Admin</title>
 
     <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css"/>
-    <link rel="shortcut icon" type="image/x-icon"  href="/images/img/icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="/plugins/alertify/alertify.min.css"/>
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
 
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -318,9 +319,11 @@
                     <h6>Quản Lý Khách Hàng</h6>
                 </div>
                 <div class="page-btn">
-                    <a href="/manage/khach-hang/viewAdd" class="btn btn-added"><img src="/images/img/icons/plus.svg"
-                                                                                    alt="img" class="me-1"/>Thêm Khách
-                        Hàng</a>
+                    <a href="/manage/khach-hang/viewAdd" class="btn btn-added"><img
+                            src="/images/img/icons/plus.svg" alt="img" class="me-1"/>Thêm Khách Hàng</a>
+                </div>
+                <div class="page-btn">
+                    <a href="/manage/dia-chi" class="btn btn-added">List Địa Chỉ</a>
                 </div>
             </div>
             <div class="card">
@@ -394,50 +397,38 @@
                                 <div class="row">
                                     <div class="col-lg-12 col-sm-12">
                                         <div class="row">
-                                            <div class="col-lg-2 col-sm-6 col-12">
+                                            <div class="col-lg-3 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <select class="select"  id="KhachHangFilterMa" name="searchTerm">
+                                                    <select class="select" id="KhachHangFilterMa" name="searchTerm">
                                                         <option>Mã Khách Hàng</option>
                                                         <option th:each="loc : ${khachHang}" th:value="${loc.maKH}"
                                                                 th:text="${loc.maKH}"></option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-2 col-sm-6 col-12">
+                                            <div class="col-lg-3 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <select class="select"  id="KhachHangFilterTen" name="searchTerm">
+                                                    <select class="select" id="KhachHangFilterTen" name="searchTerm">
                                                         <option>Tên Khách Hàng</option>
                                                         <option th:each="loc : ${khachHang}" th:value="${loc.hoTenKH}"
                                                                 th:text="${loc.hoTenKH}"></option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <!--                                        <div class="col-lg-2 col-sm-6 col-12">-->
-                                            <!--                                            <div class="form-group">-->
-                                            <!--                                                <select class="select">-->
-                                            <!--                                                    <option>Trạng Thái</option>-->
-                                            <!--                                                    <option th:each="loc : ${dsTrangThai.entrySet()}"-->
-                                            <!--                                                            th:value="${loc.key}"-->
-                                            <!--                                                            th:text="${loc.value}"></option>-->
-                                            <!--                                                </select>-->
-                                            <!--                                            </div>-->
-                                            <!--                                        </div>-->
-                                            <div class="col-lg-2 col-sm-6 col-12">
+                                            <div class="col-lg-3 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <select class="select"  id="LoaiKHFilterTen" name="searchTerm">
-                                                        <option>Chức Vụ</option>
+                                                    <select class="select" id="LoaiKHFilterTen" name="searchTerm">
+                                                        <option>Loại Khách Hàng</option>
                                                         <option th:each="loc : ${loaiKhachHang}" th:value="${loc.idLKH}"
                                                                 th:text="${loc.tenLKH}"></option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-6 col-sm-6 col-12">
+                                            <div class="col-lg-3 col-sm-6 col-12">
                                                 <div class="form-group">
-                                                    <a class="btn btn-filters ms-auto"
-                                                    ><img
+                                                    <a class="btn btn-filters ms-auto"><img
                                                             src="/images/img/icons/search-whites.svg"
-                                                            alt="img"
-                                                    /></a>
+                                                            alt="img"/></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -451,12 +442,19 @@
                         <table class="table datanew" id="data-table">
                             <thead>
                             <tr>
+                            <th>
+                                <label class="checkboxs">
+                                    <input type="checkbox" id="select-all"/>
+                                    <span class="checkmarks"></span>
+                                </label>
+                            </th>
+                                <th>Ảnh Khách Hàng</th>
+                                <th>Ảnh CCCD</th>
                                 <th>Mã Khách Hàng</th>
                                 <th>Tên Khách Hàng</th>
                                 <th>Giới Tính</th>
                                 <th>Ngày Sinh</th>
                                 <th>Sdt Khách Hàng</th>
-                                <th>Ảnh Khách Hàng</th>
                                 <th>Email Khách Hàng</th>
                                 <th>Địa Chỉ</th>
                                 <th>Căn Cước Công Dân</th>
@@ -470,22 +468,32 @@
                             </thead>
                             <tbody>
                             <tr th:each="items : ${khachHang}">
+                                <td>
+                                    <label class="checkboxs">
+                                        <input type="checkbox">
+                                        <span class="checkmarks"></span>
+                                    </label>
+                                </td>
+                                <td><img width="80px" height="90px" th:src="@{'/images/imgsKhachHang/Avatar/'+ ${items.AnhKH}}"></td>
+                                <td><img width="80px" height="90px" th:src="@{'/images/imgsKhachHang/CCCD/'+ ${items.Anhcccd}}"></td>
                                 <td th:text="${items.maKH}"></td>
                                 <td th:text="${items.hoTenKH}"></td>
                                 <td>
-                                    <p th:if="${items.gioiTinh == 1}">Nam</p>
-                                    <p th:unless="${items.gioiTinh == 1}">Nữ</p>
+                                    <div th:switch="${items.gioiTinh}">
+                                        <p th:case="1">Nam</p>
+                                        <p th:case="0">Nữ</p>
+                                        <p th:case="2">Khác</p>
+                                    </div>
                                 </td>
                                 <td th:text="${#dates.format(items.ngaySinh, 'yyyy-MM-dd')}"/>
                                 <td th:text="${items.sdtKH}"></td>
-                                <td th:text="${items.AnhKH}"></td>
                                 <td th:text="${items.emailKH}"></td>
                                 <td th:text="${items.diaChi}"></td>
                                 <td th:text="${items.CCCDKH}"></td>
                                 <td th:text="${items.matKhau}"></td>
                                 <td>
-                                    <p th:if="${items.trangThai == 1}">Hoạt Động</p>
-                                    <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
+                                    <p th:if="${items.trangThai == 1}" class="badges bg-lightgreen">Hoạt Động</p>
+                                    <p th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</p>
                                 </td>
                                 <td th:text="${items.loaiKhachHang.tenLKH}"></td>
                                 <td th:text="${items.tgThem}"/>
@@ -497,7 +505,8 @@
                                     <a class="me-3" th:href="@{'/manage/khach-hang/viewUpdate/' + ${items.idKH}}">
                                         <img src="/images/img/icons/edit.svg" alt="img"/>
                                     </a>
-                                    <a class="" th:href="@{'/manage/khach-hang/delete/' + ${items.idKH}}">
+                                    <a class="me-2 delete-button"
+                                       th:data-delete-url="@{'/manage/khach-hang/delete/' + ${items.idKH}}">
                                         <img src="/images/img/icons/delete.svg" alt="img"/>
                                     </a>
                                 </td>
@@ -510,6 +519,14 @@
         </div>
     </div>
 </div>
+<div th:if="${message}" id="toast-container" class="toast-container toast-top-right">
+    <div class="toast toast-success" aria-live="polite" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Thành Công</div>
+        <div class="toast-message">Dữ liệu của bạn đã được cập nhật</div>
+    </div>
+</div>
+
 
 <script src="/js/jquery-3.6.0.min.js"></script>
 
@@ -665,6 +682,14 @@
             form2.style.display = "none";  // Ẩn form
         }
     });
+</script>
+<script>
+    setTimeout(function () {
+        var successToast = document.getElementById('toast-container');
+        if (successToast) {
+            successToast.style.display = 'none';
+        }
+    }, 5000);
 </script>
 </body>
 </html>

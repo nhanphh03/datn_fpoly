@@ -23,6 +23,16 @@ public class CTGViewModelServiceImpls implements CTGViewModelService {
     }
 
     @Override
+    public List<CTGViewModel> getAllProductPromotion() {
+        return ctgViewModelRepository.getAllKMNotNull();
+    }
+
+    @Override
+    public List<CTGViewModel> getAllProductNonPromotion() {
+        return ctgViewModelRepository.getAllKMNull();
+    }
+
+    @Override
     public Page<CTGViewModel> getAllPage(Pageable pageable) {
         return ctgViewModelRepository.getAllPageable(pageable);
     }
@@ -50,5 +60,15 @@ public class CTGViewModelServiceImpls implements CTGViewModelService {
     @Override
     public Page<CTGViewModel> getAllByPriceLowToHigh(Pageable pageable) {
         return ctgViewModelRepository.listCTGVMLTH(pageable);
+    }
+
+    @Override
+    public List<CTGViewModel> getAllOrderTgNhap() {
+        return ctgViewModelRepository.getAllOrderTgNhap();
+    }
+
+    @Override
+    public List<CTGViewModel> getAllOrderBestSeller() {
+        return ctgViewModelRepository.getAllOrderBestSeller();
     }
 }

@@ -298,10 +298,10 @@
               <span class="menu-arrow"></span>
             </a>
             <ul>
-              <li><a class="active" href="/manage/voucher">Khuyến Mãi Chung</a></li>
+              <li><a href="/manage/voucher">Khuyến Mãi Chung</a></li>
               <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
               <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
-              <li><a href="/manage/voucher-ship">Khuyến Mãi Giao Hàng</a></li>
+              <li><a class="active" href="/manage/voucher-ship">Khuyến Mãi Giao Hàng</a></li>
             </ul>
           </li>
         </ul>
@@ -316,7 +316,7 @@
       <div class="page-header">
         <div class="page-title">
           <h4>Voucher </h4>
-          <h6>Quản lý Khuyến Mãi</h6>
+          <h6>Quản lý Khuyến Mãi Giao Hàng</h6>
         </div>
         <div class="page-btn">
           <a class="btn btn-added"  href="javascript:void(0);" data-bs-toggle="modal"
@@ -330,42 +330,42 @@
         <div class="card-body">
 
           <div class="card">
-<!--            <div class="card-body pb-0">-->
-<!--              <div class="row">-->
-<!--                <div class="col-lg-2 col-sm-6 col-12">-->
-<!--                  <div class="form-group">-->
-<!--                    <input type="date"-->
-<!--                           placeholder="Choose Date">-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <div class="col-lg-2 col-sm-6 col-12">-->
-<!--                  <div class="form-group">-->
-<!--                    <input type="text" placeholder="Enter Reference">-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <div class="col-lg-2 col-sm-6 col-12">-->
-<!--                  <div class="form-group">-->
-<!--                    <select class="select">-->
-<!--                      <option>Choose Customer</option>-->
-<!--                      <option>Customer</option>-->
-<!--                    </select>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <div class="col-lg-2 col-sm-6 col-12">-->
-<!--                  <div class="form-group">-->
-<!--                    <select class="select">-->
-<!--                      <option>Choose Status</option>-->
-<!--                      <option>Inprogress</option>-->
-<!--                    </select>-->
-<!--                  </div>-->
-<!--                </div>-->
-<!--                <div class="col-lg-1 col-sm-6 col-12">-->
+            <div class="card-body pb-0">
+              <div class="row">
+                <div class="col-lg-2 col-sm-6 col-12">
+                  <div class="form-group">
+                    <input type="date"
+                           placeholder="Choose Date">
+                  </div>
+                </div>
+                <div class="col-lg-2 col-sm-6 col-12">
+                  <div class="form-group">
+                    <input type="text" placeholder="Enter Reference">
+                  </div>
+                </div>
+                <div class="col-lg-2 col-sm-6 col-12">
+                  <div class="form-group">
+                    <select class="select">
+                      <option>Choose Customer</option>
+                      <option>Customer</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-2 col-sm-6 col-12">
+                  <div class="form-group">
+                    <select class="select">
+                      <option>Choose Status</option>
+                      <option>Inprogress</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-1 col-sm-6 col-12">
 
-<!--                </div>-->
-<!--                <div class="col-lg-3 col-sm-6 col-12">-->
-<!--                </div>-->
-<!--              </div>-->
-<!--            </div>-->
+                </div>
+                <div class="col-lg-3 col-sm-6 col-12">
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- Nhan Ngu -->
@@ -373,46 +373,40 @@
           <div class="table-responsive">
             <table class="table datanew">
               <thead>
-                <tr>
-                  <th>Mã Voucher</th>
-                  <th>Tên Voucher</th>
-                  <th>Loại Giảm</th>
-                  <th>Ngày Bắt Đầu</th>
-                  <th>Ngày Kết Thúc</th>
-                  <th>Số Lượng</th>
-                  <th>Lượt Dùng</th>
-                  <th>Trạng Thái</th>
-                  <th>Loại Voucher</th>
-                  <th>Action</th>
-                </tr>
+              <tr>
+                <th style="background-color: #ff9f43; color: white;" >Mã Voucher</th>
+                <th style="background-color: #ff9f43; color: white;">Tên Voucher</th>
+                <th style="background-color: #ff9f43; color: white;">Loại Giảm</th>
+                <th style="background-color: #ff9f43; color: white;">Ngày Bắt Đầu</th>
+                <th style="background-color: #ff9f43; color: white;">Ngày Kết Thúc</th>
+                <th style="background-color: #ff9f43; color: white;">Số Lượng</th>
+                <th style="background-color: #ff9f43; color: white;">Lượt Dùng</th>
+                <th style="background-color: #ff9f43; color: white;" >% Giảm (Max $)</th>
+                <th style="background-color: #ff9f43; color: white;">ĐK Hóa Đơn</th>
+                <th style="background-color: #ff9f43; color: white;">Trạng Thái</th>
+                <th style="background-color: #ff9f43; color: white;">Action</th>
+              </tr>
               </thead>
               <tbody>
 
-                <th:block th:each="x : ${listKhuyenMai}">
-                  <tr>
+              <th:block th:each="x : ${listKhuyenMai}">
+                <tr>
                   <td th:text="${x.maKM}"></td>
-                  <td th:text="${x.tenKM}"></td>
+                  <td class="ellipsis" th:text="${x.tenKM}"></td>
                   <td>
-                    <p th:if="${x.loaiGiam == true}">Giảm theo giá tiền</p>
-                    <p th:unless="${x.loaiGiam == true}">Giảm theo phần trăm</p>
+                    <p th:if="${x.loaiGiam == true}">Giá tiền</p>
+                    <p th:unless="${x.loaiGiam == true}">Phần trăm</p>
                   </td>
                   <td th:text="${#dates.format(x.tgBatDau, 'yyyy-MM-dd')}" ></td>
                   <td th:text="${#dates.format(x.tgKetThuc, 'yyyy-MM-dd')}" ></td>
-                  <td>
-                    <p th:if="${x.loaiKhuyenMai.maLKM} == 'LKM03'" th:text="${x.soLuong}"></p>
-                    <p th:if="${x.loaiKhuyenMai.maLKM} == 'LKM01'" th:text="${x.soLuong}"></p>
-                    <p th:if="${x.loaiKhuyenMai.maLKM} == 'LKM02'">Unlimited</p>
-                  </td>
-                  <td>
-                    <p th:if="${x.loaiKhuyenMai.maLKM} == 'LKM03'" th:text="${x.soLuongDaDung}"></p>
-                    <p th:if="${x.loaiKhuyenMai.maLKM} == 'LKM01'" th:text="${x.soLuongDaDung}"></p>
-                    <p th:if="${x.loaiKhuyenMai.maLKM} == 'LKM02'">Unlimited</p>
-                  </td>
+                  <td th:text="${x.soLuong}"></td>
+                  <td th:text="${x.soLuongDaDung}"></td>
+                  <td th:text="${x.phanTramGiam * 100} +' % ' + '( ' + ${x.giaTienGiam} + ' $ )'"></td>
+                  <td th:text="${x.dieuKienKMBill}"></td>
                   <td>
                     <p th:if="${x.trangThai == 1}">Hoạt Động</p>
                     <p th:unless="${x.trangThai == 1}">Không Hoạt Động</p>
                   </td>
-                  <td th:text="${x.loaiKhuyenMai.tenLKM}"></td>
                   <td style="padding-left: 25px;">
                     <a href="javascript:void(0);"
                        th:data-bs-toggle="modal"
@@ -421,7 +415,8 @@
                     </a>
                   </td>
                 </tr>
-                </th:block>
+              </th:block>
+
 
               </tbody>
             </table>
@@ -439,300 +434,10 @@
 
 <section>
 
-  <!--  Modal Detail Voucher SP Start-->
-
-  <th:block th:each="khuyenMai: ${listKhuyenMaiSP}">
-    <form th:action="@{'/manage/voucher/update/' + ${khuyenMai.idKM}}" method="post">
-      <div class="modal fade" th:id="'detalKM' + ${khuyenMai.idKM}" tabindex="-1" aria-labelledby="create"
-           aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 900px;">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Thông tin Voucher Sản Phẩm</h5>
-              <a th:href="@{'/manage/voucher/statistics/' + ${khuyenMai.idKM}}">Xem thống kê</a>
-              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="row">
-                <div class="col-lg-3 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style=" font-weight: 600;">Mã Khuyến Mãi :</label>
-                    <p style="font-size: 13pt; font-weight: 700;" th:text="${khuyenMai.maKM}">
-                    </p>
-                    <input style="display: none;"  name="tenLoaiKM" value="Sản Phẩm">
-                  </div>
-                </div>
-
-                <div class="col-lg-5 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style=" font-weight: 600;">Tên Khuyến Mãi :</label>
-                    <input  th:id="'tenVoucherUpdate_' + ${khuyenMai.idKM}" name="tenKM" th:value="${khuyenMai.tenKM}"
-                            style="border: none; border-radius: 0px; border-bottom: 0.5px solid black; font-size: 12pt; font-weight: 600;">
-                  </div>
-                </div>
-
-                <div class="col-lg-4 col-sm-12 col-12">
-                  <div class="form-group">
-
-                    <label style="font-size: 11pt; font-weight: 600;">Hình thức giảm giá</label>
-                    <select name="loaiGiam" th:attr="value=${khuyenMai.loaiGiam}" class="form-select">
-                      <option th:value="false" th:selected="${khuyenMai.loaiGiam} == false">Giảm theo phần trăm </option>
-                      <option th:value="true" th:selected="${khuyenMai.loaiGiam} == true"> Giảm theo giá tiền</option>
-                    </select>
-
-                  </div>
-                </div>
-
-                <div class="col-lg-4 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style="font-size: 11pt; font-weight: 600; ">Thời gian bắt đầu :</label>
-                    <div style="display: flex;">
-                      <input th:id="'startDateUpdate_' + ${khuyenMai.idKM}" name="ngayBatDau" type="date" th:value="${#dates.format(khuyenMai.tgBatDau, 'yyyy-MM-dd')}"
-                             style="border: none; margin: 0 10px 8px 0; font-size: 13pt; cursor: pointer;">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-4 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style="font-size: 11pt; font-weight: 600; ">Thời gian kết thúc :</label>
-                    <div style="display: flex;">
-                      <input th:id="'endDateUpdate_' + ${khuyenMai.idKM} " name="ngayKetThuc" type="date"  th:value="${#dates.format(khuyenMai.tgKetThuc, 'yyyy-MM-dd')}"
-                             style="border: none; margin: 0 10px 8px 0; font-size: 13pt; cursor: pointer;">
-                    </div>
-
-                  </div>
-                </div>
-
-                <div class="col-lg-4 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style="font-size: 11pt; font-weight: 600;"> Số tiền giảm giá </label>
-                    <input th:id="'soTienGiamGiaUpdate_' + ${khuyenMai.idKM}" name="soTienGiamGia" oninput="validateNumber(this)"
-                           class="form-control" type="number" th:value="${khuyenMai.giaTienGiam}"
-                           style=" width: 200px; margin: 0 10px 10px 0;">
-                  </div>
-                </div>
-
-                <div class="col-lg-4 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style="font-size: 11pt; font-weight: 600;">Trạng thái</label>
-                    <select name="trangThai" class="form-select" th:attr="value=${khuyenMai.trangThai}" >
-                      <option th:value="0" th:selected="${khuyenMai.trangThai} == 0">Không hoạt động</option>
-                      <option th:value="1" th:selected="${khuyenMai.trangThai} == 1">Hoạt Động</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-lg-3 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style="font-size: 11pt; font-weight: 600;"> Phần trăm giảm </label>
-                    <input th:id="'phanTramGiamVoucherUpdate_' + ${khuyenMai.idKM}" name="phanTramGiam" th:value="${khuyenMai.phanTramGiam*100}"
-                           oninput="validateNumber(this)" class="form-control" type="number"
-                           style=" width: 150px; margin: 0 10px 10px 0;">
-                  </div>
-                </div>
-
-                <div class="col-lg-5 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style="font-size: 11pt; font-weight: 600;"> Số tiền giảm tối đa (giảm
-                      theo phần trăm)</label>
-                    <input th:id="'soTienGiamGiaTDVoucherUpdate_' + ${khuyenMai.idKM}" name="soTienGiamToiDa" th:value="${khuyenMai.giaTienGiamToiDaPT}"
-                           oninput="validateNumber(this)" class="form-control" type="number"
-                           style=" width: 250px; margin: 0 10px 10px 0;">
-                  </div>
-                </div>
-
-                <div class="col-lg-12 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style="font-size: 11pt; font-weight: 600;">Mô tả </label>
-                    <textarea th:id="'moTaVoucherUpdate_' + ${khuyenMai.idKM}" name="moTa" th:text="${khuyenMai.moTa}" type="text"></textarea>
-                  </div>
-                </div>
-
-              </div>
-              <div class="col-lg-12">
-                <button class="btn btn-submit" style="background: #3088df;" type="submit" th:attr="data-idkm=${khuyenMai.idKM}">Thay đổi</button>
-                <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
-  </th:block>
-
-  <!--  Modal Detail Voucher SP End-->
-
-  <!--  Mess Start-->
-  <div th:if="${showModalMess}" class="modal fade" id="messAddThanhCong" tabindex="-1" aria-labelledby="create" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 500px;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Thành Công</h5>
-          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">×</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <div class="row" style="text-align: center; align-items: center; padding: 30px 0 30px 0;">
-            <div>
-              <h3 th:text="${thongBaoABC} + ' Khuyến Mãi ' + ${loaiKM} +' thành công '"></h3>
-            </div>
-          </div>
-          <div class="col-lg-12">
-            <a class="btn btn-submit" style="background: #3088df;" data-bs-dismiss="modal">OK</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!--  Mess End-->
-
-  <!--  Modal Detail Voucher Ship Start-->
-
-  <th:block th:each="khuyenMai: ${listKhuyenMaiShip}">
-    <form th:action="@{'/manage/voucher/update/' + ${khuyenMai.idKM}}" method="post">
-      <div class="modal fade" th:id="'detalKM' + ${khuyenMai.idKM}" tabindex="-1" aria-labelledby="create" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 900px;">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Thông tin Voucher</h5>
-              <a th:href="@{'/manage/voucher/statistics/' + ${khuyenMai.idKM}}">Xem thống kê</a>
-              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="row">
-
-                <div class="col-lg-3 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label>Mã Voucher :</label>
-                    <input style="display: none;" name="tenLoaiKM" value="Ship">
-                    <p style="font-size: 13pt; font-weight: 700;" th:text="${khuyenMai.maKM}" ></p>
-                  </div>
-                </div>
-
-                <div class="col-lg-5 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label>Tên Voucher :</label>
-                    <input name="tenKM" th:value="${khuyenMai.tenKM}"
-                           style="border: none; border-radius: 0px; border-bottom: 0.5px solid black; font-size: 12pt; font-weight: 600;">
-                  </div>
-                </div>
-
-                <div class="col-lg-4 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style="font-size: 11pt; font-weight: 600;">Hình thức giảm giá</label>
-                    <select  name="loaiGiam" th:attr="value=${khuyenMai.loaiGiam}" class="form-select">
-                      <option th:value="false" th:selected="${khuyenMai.loaiGiam} == false">Giảm theo phần trăm</option>
-                      <option th:value="true" th:selected="${khuyenMai.loaiGiam} == true">Giảm theo giá tiền</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-lg-3 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style="font-size: 11pt; font-weight: 600; ">Thời gian bắt đầu :</label>
-                    <div style="display: flex;">
-                      <input name="ngayBatDau" type="date" th:value="${#dates.format(khuyenMai.tgBatDau, 'yyyy-MM-dd')}"
-                             style="border: none; margin: 0 10px 8px 0; font-size: 13pt; cursor: pointer;">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-lg-3 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style="font-size: 11pt; font-weight: 600; ">Thời gian kết thúc :</label>
-                    <div style="display: flex;">
-                      <input type="date" name="ngayKetThuc" th:value="${#dates.format(khuyenMai.tgKetThuc, 'yyyy-MM-dd')}"
-                             style="border: none; margin: 0 10px 8px 0; font-size: 13pt; cursor: pointer;">
-                    </div>
-
-                  </div>
-                </div>
-
-                <div class="col-lg-3 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style="font-size: 11pt; font-weight: 600;"> Số lượng Khuyến Mãi</label>
-                    <input name="soLuong" th:value="${khuyenMai.soLuong}"
-                           class="form-control" type="number"
-                           style=" width: 150px; margin: 0 10px 10px 0;">
-                  </div>
-                </div>
-
-                <div class="col-lg-3 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style="font-size: 11pt; font-weight: 600;"> Số tiền giảm giá </label>
-                    <input name="soTienGiamGia"  th:value="${khuyenMai.giaTienGiam}"
-                           class="form-control" type="number"
-                           style=" width: 150px; margin: 0 10px 10px 0;">
-                  </div>
-                </div>
-
-                <div class="col-lg-3 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style="font-size: 11pt; font-weight: 600;">Trạng thái</label>
-                    <select name="trangThai" th:attr="value=${khuyenMai.trangThai}" class="form-select">
-                      <option th:value="1" th:selected="${khuyenMai.trangThai} == 1">Đang hoạt động</option>
-                      <option th:value="0" th:selected="${khuyenMai.trangThai} == 0">Không hoạt động</option>
-                    </select>
-                  </div>
-                </div>
-
-                <div class="col-lg-3 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style="font-size: 11pt; font-weight: 600;"> Phần trăm giảm </label>
-                    <input name="phanTramGiam" class="form-control" type="number" th:value="${khuyenMai.phanTramGiam * 100}"
-                           style=" width: 150px; margin: 0 10px 10px 0;">
-                  </div>
-                </div>
-
-                <div class="col-lg-3 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style="font-size: 11pt; font-weight: 600;"> Số tiền giảm tối đa </label>
-                    <input name="soTienGiamToiDa"  class="form-control" type="number" th:value="${khuyenMai.giaTienGiam}"
-                           style=" width: 150px; margin: 0 10px 10px 0;">
-                  </div>
-                </div>
-
-                <div class="col-lg-3 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style="font-size: 11pt; font-weight: 600;"> Điều kiện hóa đơn </label>
-                    <input name="dieuKienKMHD" class="form-control" type="number" th:value="${khuyenMai.dieuKienKMBill}"
-                           style=" width: 150px; margin: 0 10px 10px 0;">
-                  </div>
-                </div>
-
-                <div class="col-lg-12 col-sm-12 col-12">
-                  <div class="form-group">
-                    <label style="font-weight: 600;"> Mô tả  </label>
-                    <div style="display: flex;">
-                      <textarea th:text="${khuyenMai.moTa}" name="moTa" id="" cols="30" rows="10"></textarea>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-              <div class="col-lg-12">
-                <button class="btn btn-submit me-2" type="submit">Thay đổi</button>
-                <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </form>
-  </th:block>
-
-  <!--  Modal Detail Voucher Ship End-->
-
   <!--  Modal Detail Voucher Bill Start-->
 
-  <th:block th:each="khuyenMai: ${listKhuyenMaiBill}">
-    <form th:action="@{'/manage/voucher/update/' + ${khuyenMai.idKM}}" method="post">
+  <th:block th:each="khuyenMai: ${listKhuyenMai}">
+    <form th:action="@{'/manage/voucher/voucher-shipping/update/' + ${khuyenMai.idKM}}" method="post">
       <div class="modal fade" th:id="'detalKM' + ${khuyenMai.idKM}" tabindex="-1" aria-labelledby="create" aria-hidden="true">
         <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 900px;">
           <div class="modal-content">
@@ -749,7 +454,6 @@
                 <div class="col-lg-3 col-sm-12 col-12">
                   <div class="form-group">
                     <label>Mã Voucher :</label>
-                    <input style="display: none;"  name="tenLoaiKM" value="Hóa Đơn">
                     <p style="font-size: 13pt; font-weight: 700;" th:text="${khuyenMai.maKM}" ></p>
                   </div>
                 </div>
@@ -868,114 +572,169 @@
 
   <!--  Modal Detail Voucher Bill End-->
 
-  <div class="modal fade" id="themKMM" tabindex="-1" aria-labelledby="create" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 900px;">
+  <!--  Mess Start-->
+  <div th:if="${showModalMess}" class="modal fade" id="messAddThanhCong" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 500px;">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Khuyến Mãi</h5>
-          <a href="#">Xem thống kê</a>
+          <h5 class="modal-title">Thành Công</h5>
           <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">×</span>
           </button>
         </div>
         <div class="modal-body">
-          <div class="row">
-            <div class="col-lg-4 col-sm-12 col-12">
-              <div class="form-group">
-                <label>Mã Voucher :</label>
-                <p style="font-size: 13pt; font-weight: 700;">Tự sinh</p>
-              </div>
+          <div class="row" style="text-align: center; align-items: center; padding: 30px 0 30px 0;">
+            <div>
+              <h3 th:text="${thongBaoABC} + ' Voucher Ship thành công '"></h3>
             </div>
-
-            <div class="col-lg-3 col-sm-12 col-12">
-              <div class="form-group">
-                <label>Tên Voucher :</label>
-                <input value="Nhan" style="border: none; font-size: 12pt; font-weight: 600;" >
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-sm-12 col-12">
-              <div class="form-group">
-                <label>Loại Voucher :</label>
-                <select class="form-select">
-                  <option>Voucher Sản Phẩm</option>
-                  <option>Voucher Hóa Đơn</option>
-                  <option>Voucher Ship</option>
-                </select>
-              </div>
-            </div>
-            <div class="col-lg-1 col-sm-12 col-12">  </div>
-            <div class="col-lg-7 col-sm-12 col-12">
-              <div class="form-group">
-                <label>Thời gian sử dụng :</label>
-                <div style="display: flex;">
-                  <div style="display: flex;">
-                    <label> Bắt đầu : </label>  <input type="date" style="border: none; margin: 0 10px 8px 10px;">
-                  </div>
-
-                  <span style="margin-right: 10px;">đến</span>
-
-                  <div style="display: flex;">
-                    <label> Kết thúc : </label>  <input type="date" style="border: none; margin: 0 10px 8px 10px;">
-                  </div>
-                </div>
-
-              </div>
-            </div>
-            <div class="col-lg-5 col-sm-12 col-12">
-              <div class="form-group">
-                <label>Trạng thái</label>
-                <div style="display: flex;">
-                  <div style="display: flex;">
-                    <label> Hoạt động </label>  <input name="status" type="radio" style="border: none; margin: 0 10px 8px 10px;">
-                  </div>
-                  <div style="display: flex;">
-                    <label> Không hoạt động </label>  <input name="status" type="radio" style="border: none; margin: 0 10px 8px 10px;">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-7 col-sm-12 col-12">
-              <div class="form-group">
-                <div style="display: flex;">
-                  <div style="display: flex;">
-                    <label style="margin-top: 5px;"> Phần trăm giảm </label>  <input type="text" style=" width: 100px; margin: 0 10px 10px 10px;">
-                  </div>
-                  <div style="display: flex;">
-                    <label style="margin-top: 5px;"> Số tiền tối đa </label>  <input type="text" style=" width: 100px; margin: 0 10px 10px 10px;">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-
-            <div class="col-lg-5 col-sm-12 col-12">
-              <div class="form-group">
-                <div style="display: flex;">
-                  <div style="display: flex;">
-                    <label style="margin-top: 5px;"> Số lượng : </label>  <input type="text" style=" width: 50px; margin: 0 10px 10px 10px;">
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-12 col-sm-12 col-12">
-              <div class="form-group">
-                <label>Mô tả </label>
-                <input type="text">
-              </div>
-            </div>
-
           </div>
           <div class="col-lg-12">
-            <a class="btn btn-submit me-2">Thêm</a>
-            <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
+            <a class="btn btn-submit" style="background: #3088df;" data-bs-dismiss="modal">OK</a>
           </div>
         </div>
       </div>
     </div>
   </div>
+  <!--  Mess End-->
+
+  <!--  Modal Add Voucher Bill Start-->
+
+  <div class="modal fade" id="themKMM" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+
+    <form th:action="@{/manage/voucher/voucher-shipping/add}" method="post">
+
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 1000px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Tạo mới Khuyến Mãi Sản Phẩm</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-3 col-sm-12 col-12">
+                <div class="form-group">
+                  <label>Mã Voucher :</label>
+                  <p style="font-size: 13pt; font-weight: 700;">Tự sinh</p>
+                </div>
+              </div>
+
+              <div class="col-lg-5 col-sm-12 col-12">
+                <div class="form-group">
+                  <label>Tên Voucher :</label>
+                  <input id="tenVoucherAdd" name="tenKM"
+                         style="border: none; border-radius: 0px; border-bottom: 0.5px solid black; font-size: 12pt; font-weight: 600;">
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-sm-12 col-12">
+                <div class="form-group">
+                  <label style="font-size: 11pt; font-weight: 600;">Hình thức giảm giá</label>
+                  <select name="loaiGiamAdd" class="form-select">
+                    <option th:value="false">Giảm theo phần trăm</option>
+                    <option th:value="true">Giảm theo giá tiền</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-sm-12 col-12">
+                <div class="form-group">
+                  <label style="font-size: 11pt; font-weight: 600; ">Thời gian bắt đầu :</label>
+                  <div style="display: flex;">
+                    <input id="startDateAdd" name="dateStart" type="date"
+                           style="border: none; margin: 0 10px 8px 0; font-size: 13pt; cursor: pointer;">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-sm-12 col-12">
+                <div class="form-group">
+                  <label style="font-size: 11pt; font-weight: 600; ">Thời gian kết thúc :</label>
+                  <div style="display: flex;">
+                    <input id="endDateAdd" name="dateEnd" type="date"
+                           style="border: none; margin: 0 10px 8px 0; font-size: 13pt; cursor: pointer;">
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-sm-12 col-12">
+                <div class="form-group">
+                  <label style="font-size: 11pt; font-weight: 600;"> Số lượng Khuyến Mãi</label>
+                  <input id="soLuongKMAdd" name="soLuongKM" oninput="validateNumber(this)"
+                         class="form-control" type="number"
+                         style=" width: 150px; margin: 0 10px 10px 0;">
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-sm-12 col-12">
+                <div class="form-group">
+                  <label style="font-size: 11pt; font-weight: 600;"> Số tiền giảm giá </label>
+                  <input id="soTienGiamGiaAdd" name="soTienGiamGia" oninput="validateNumber(this)"
+                         class="form-control" type="number"
+                         style=" width: 150px; margin: 0 10px 10px 0;">
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-sm-12 col-12">
+                <div class="form-group">
+                  <label style="font-size: 11pt; font-weight: 600;">Trạng thái</label>
+                  <select name="trangThaiAdd" class="form-select">
+                    <option th:value="1">Không hoạt động</option>
+                    <option th:value="2">Hoạt Động</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-sm-12 col-12">
+                <div class="form-group">
+                  <label style="font-size: 11pt; font-weight: 600;"> Phần trăm giảm </label>
+                  <input id="phanTramGiamVoucherAdd" name="phanTramGiam"
+                         oninput="validateNumber(this)" class="form-control" type="number"
+                         style=" width: 150px; margin: 0 10px 10px 0;">
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-sm-12 col-12">
+                <div class="form-group">
+                  <label style="font-size: 11pt; font-weight: 600;"> Số tiền giảm tối đa </label>
+                  <input id="soTienGiamGiaTDVoucherAdd" name="soTienToiDa"
+                         oninput="validateNumber(this)" class="form-control" type="number"
+                         style=" width: 150px; margin: 0 10px 10px 0;">
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-sm-12 col-12">
+                <div class="form-group">
+                  <label style="font-size: 11pt; font-weight: 600;"> Điều kiện hóa đơn </label>
+                  <input id="dieuKienVoucherAdd" name="dieuKienKMHD"
+                         oninput="validateNumber(this)" class="form-control" type="number"
+                         style=" width: 150px; margin: 0 10px 10px 0;">
+                </div>
+              </div>
+
+              <div class="col-lg-12 col-sm-12 col-12">
+                <div class="form-group">
+                  <label style="font-size: 11pt; font-weight: 600;">Mô tả </label>
+                  <textarea id="moTaVoucherAdd" name="moTa" type="text"></textarea>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-12">
+              <button class="btn btn-submit" style="background: #3088df;" type="submit" onclick="validateDateRange()">Thêm</button>
+              <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+
+  <!--  Modal Add Voucher Bill End-->
 
 </section>
 
@@ -1000,7 +759,6 @@
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
 <script src="/js/script.js"></script>
-
 <script>
   $(document).ready(function () {
     $('#messAddThanhCong').modal('show');

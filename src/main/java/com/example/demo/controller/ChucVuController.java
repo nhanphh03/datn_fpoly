@@ -51,7 +51,10 @@ public class ChucVuController {
 
     @GetMapping("/chuc-vu")
     public String dsChucVu(Model model, @ModelAttribute("message") String message
-            , @ModelAttribute("error") String error, @ModelAttribute("userInput") ChucVu userInput, @ModelAttribute("Errormessage") String Errormessage) {
+            , @ModelAttribute("error") String error
+            , @ModelAttribute("maCVError") String maCVError
+            , @ModelAttribute("tenCVError") String tenCVError
+            , @ModelAttribute("userInput") ChucVu userInput, @ModelAttribute("Errormessage") String Errormessage) {
         List<ChucVu> chucVu = chucVuService.getAllChucVu();
         model.addAttribute("chucVu", chucVu);
         //
@@ -59,6 +62,13 @@ public class ChucVuController {
         //
         if (message == null || !"true".equals(message)) {
             model.addAttribute("message", false);
+        }
+        //
+        if (maCVError == null || !"maCVError".equals(error)) {
+            model.addAttribute("maCVError", false);
+        }
+        if (tenCVError == null || !"tenCVError".equals(error)) {
+            model.addAttribute("tenCVError", false);
         }
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInput != null) {
@@ -74,6 +84,17 @@ public class ChucVuController {
     @PostMapping("/chuc-vu/viewAdd/add")
     public String addchucVu(@Valid  @ModelAttribute("chucVu") ChucVu chucVu, BindingResult result,
                             RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            if (result.hasFieldErrors("tenCV")) {
+                redirectAttributes.addFlashAttribute("userInput", chucVu);
+                redirectAttributes.addFlashAttribute("error", "tenCVError");
+            }
+            if (result.hasFieldErrors("maCV")) {
+                redirectAttributes.addFlashAttribute("userInput", chucVu);
+                redirectAttributes.addFlashAttribute("error", "maCVError");
+            }
+            return "redirect:/manage/chuc-vu";
+        }
         //
         ChucVu existingChucVu = chucVuRepsitory.findByMaCV(chucVu.getMaCV());
         if (existingChucVu != null) {
@@ -112,13 +133,23 @@ public class ChucVuController {
     @GetMapping("/chuc-vu/viewUpdate/{id}")
     public String viewUpdatechucVu(@PathVariable UUID id, Model model
             , @ModelAttribute("message") String message
-            , @ModelAttribute("error") String error, @ModelAttribute("userInput") ChucVu userInput
+            , @ModelAttribute("maCVError") String maCVError
+            , @ModelAttribute("tenCVError") String tenCVError
+            , @ModelAttribute("error") String error
+            , @ModelAttribute("userInput") ChucVu userInput
             , @ModelAttribute("Errormessage") String Errormessage) {
         ChucVu chucVu = chucVuService.getByIdChucVu(id);
         model.addAttribute("chucVu", chucVu);
         //
         if (message == null || !"true".equals(message)) {
             model.addAttribute("message", false);
+        }
+        //
+        if (maCVError == null || !"maCVError".equals(error)) {
+            model.addAttribute("maCVError", false);
+        }
+        if (tenCVError == null || !"tenCVError".equals(error)) {
+            model.addAttribute("tenCVError", false);
         }
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInput != null) {
@@ -138,6 +169,17 @@ public class ChucVuController {
         ChucVu chucVuDb = chucVuService.getByIdChucVu(id);
         UUID idCV = (UUID) session.getAttribute("id");
         String link = "redirect:/manage/chuc-vu/viewUpdate/" + idCV;
+        if (result.hasErrors()) {
+            if (result.hasFieldErrors("tenCV")) {
+                redirectAttributes.addFlashAttribute("userInput", chucVu);
+                redirectAttributes.addFlashAttribute("error", "tenCVError");
+            }
+            if (result.hasFieldErrors("maCV")) {
+                redirectAttributes.addFlashAttribute("userInput", chucVu);
+                redirectAttributes.addFlashAttribute("error", "maCVError");
+            }
+            return link;
+        }
         //
         ChucVu existingChucVu = chucVuRepsitory.findByMaCV(chucVu.getMaCV());
         if (existingChucVu != null && !existingChucVu.getIdCV().equals(id)) {

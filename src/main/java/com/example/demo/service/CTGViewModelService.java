@@ -9,11 +9,15 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CTGViewModelService {
-    public List<CTGViewModel> getAll();
+    List<CTGViewModel> getAll();
 
-    public Page<CTGViewModel> getAllPage(Pageable pageable);
+    List<CTGViewModel> getAllProductPromotion();
 
-    public List<CTGViewModel> getAllSoldOff();
+    List<CTGViewModel> getAllProductNonPromotion();
+
+    Page<CTGViewModel> getAllPage(Pageable pageable);
+
+    List<CTGViewModel> getAllSoldOff();
 
     CTGViewModel findByIDGiayAndMau(UUID idGiay, UUID idMau);
 
@@ -22,6 +26,10 @@ public interface CTGViewModelService {
     Page<CTGViewModel> getAllByPriceHighToLow(Pageable pageable);
 
     Page<CTGViewModel> getAllByPriceLowToHigh(Pageable pageable);
+
+    List<CTGViewModel> getAllOrderTgNhap();
+
+    List<CTGViewModel> getAllOrderBestSeller();
 
 
 }
