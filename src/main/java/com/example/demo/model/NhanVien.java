@@ -1,10 +1,8 @@
 package com.example.demo.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,6 +27,7 @@ public class NhanVien {
     private UUID idNV;
 
     @ManyToOne
+    @NotNull
     @JoinColumn( name = "id_Chuc_Vu")
     private ChucVu chucVu;
 
@@ -37,12 +36,12 @@ public class NhanVien {
     private String maNV;
 
     @NotBlank
-    @Column(name = "mk_NV")
-    private String matKhau;
-
-    @NotBlank
     @Column(name = "ho_Ten_NV")
     private String hoTenNV;
+
+    @NotBlank
+    @Column(name = "mk_NV")
+    private String matKhau;
 
     @Column(name = "gioi_Tinh")
     private int gioiTinh;
@@ -53,14 +52,16 @@ public class NhanVien {
     private Date ngaySinh;
 
     @NotBlank
+    @Pattern(regexp = "0\\d{9}")
     @Column(name = "SDT_NV")
     private String sdtNV;
 
-    @NotBlank
     @Column(name = "Anh_NV")
     private String AnhNV;
 
     @NotBlank
+    @Email
+    @Pattern(regexp = "\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}\\b")
     @Column(name = "Email_NV")
     private String emailNV;
 
@@ -69,6 +70,7 @@ public class NhanVien {
     private String diaChi;
 
     @NotBlank
+    @Pattern(regexp = "^(\\d{6})(\\d{6})$")
     @Column(name = "CCCD_NV")
     private String CCCDNV;
 
