@@ -17,4 +17,8 @@ public interface NhanVienRepsitory extends JpaRepository<NhanVien, UUID> {
     List<NhanVien> findByChucVu(ChucVu chucVu);
     List<NhanVien> findByTrangThai(int trangThai);
     List<NhanVien> findByMaNVOrHoTenNV(String maNV, String tenNV);
+
+    NhanVien findByMaNV(String maNV);
+    NhanVien findByEmailNV(String Email);
+
 }

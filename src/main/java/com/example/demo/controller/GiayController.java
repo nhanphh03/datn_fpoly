@@ -67,12 +67,12 @@ public class GiayController {
         List<Hang> hangs = hangService.getALlHang();
         List<ChatLieu> chatLieus = chatLieuService.getAllChatLieu();
         // Kiểm tra và cập nhật trạng thái của giày nếu trạng thái của hãng hoặc chất liệu không hoạt động (0)
-        for (Giay giayItem : giay) {
-            if (giayItem.getHang().getTrangThai() == 0 || giayItem.getChatLieu().getTrangThai() == 0) {
-                giayItem.setTrangThai(0);
-                giayService.save(giayItem);
-            }
-        }
+//        for (Giay giayItem : giay) {
+//            if (giayItem.getHang().getTrangThai() == 0 || giayItem.getChatLieu().getTrangThai() == 0) {
+//                giayItem.setTrangThai(0);
+//                giayService.save(giayItem);
+//            }
+//        }
         model.addAttribute("giay", giay);
         model.addAttribute("hang", hangs);
         model.addAttribute("chatLieu", chatLieus);

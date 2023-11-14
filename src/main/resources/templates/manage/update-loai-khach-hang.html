@@ -323,29 +323,21 @@
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Mã Loại Khách Hàng</label>
-                                    <input type="text" th:field="*{maLKH}" required>
+                                    <input type="text" th:field="*{maLKH}">
 
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Tên Loại Khách Hàng</label>
-                                    <input type="text" th:field="*{tenLKH}" required>
+                                    <input type="text" th:field="*{tenLKH}">
 
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Số Điểm</label>
-                                    <input type="number" th:field="*{soDiem}" id="soDiem" name="soDiem" min="1"
-                                    style="border: 1px solid rgba(145, 158, 171, .32);
-                                            height: 40px;
-                                            width: 100%;
-                                            font-size: 14px;
-                                            font-weight: 500;
-                                            color: #637381;
-                                            padding: 10px 15px;
-                                            border-radius: 5px;">
+                                    <input type="text" th:field="*{soDiem}" >
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -377,11 +369,25 @@
         <div class="toast-message">Dữ liệu của bạn đã được cập nhật</div>
     </div>
 </div>
-<div th:if="${soDiemError}" id="warning3" class="toast-container toast-top-right">
+<div th:if="${maLKHErrr}" id="warning1" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
         <button type="button" class="toast-close-button" role="button">×</button>
         <div class="toast-title">Error!</div>
-        <div class="toast-message">số điểm không hợp lệ.</div>
+        <div class="toast-message">Mã không được bỏ trống trống.</div>
+    </div>
+</div>
+<div th:if="${tenLKHError}" id="warning2" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Tên không được bỏ trống.</div>
+    </div>
+</div>
+<div th:if="${soDiemLKHError}" id="warning3" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Số điểm phải lớn hơn 0 hoặc bằng 1.</div>
     </div>
 </div>
 <div th:if="${Errormessage}" id="checkMa" class="toast-container toast-top-right">
@@ -417,7 +423,27 @@
             successToast.style.display = 'none';
         }
     }, 5000);
-
+    //
+    setTimeout(function () {
+        var warning1 = document.getElementById('warning1');
+        if (warning1) {
+            warning1.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning2 = document.getElementById('warning2');
+        if (warning2) {
+            warning2.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning3 = document.getElementById('warning3');
+        if (warning3) {
+            warning3.style.display = 'none';
+        }
+    }, 5000);
     //
     setTimeout(function () {
         var checkMa = document.getElementById('checkMa');

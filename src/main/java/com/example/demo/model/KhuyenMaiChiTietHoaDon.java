@@ -10,27 +10,25 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name= "Khuyen_Mai_Chi_Tiet_CTG")
+@Table(name= "Khuyen_Mai_Chi_Tiet_Hoa_Don")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class KhuyenMaiChiTietCTG {
+public class KhuyenMaiChiTietHoaDon {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id_KMCT_CTG")
-    private UUID idKMCTCTG;
+    @Column(name ="id+KMCT_HD")
+    private UUID idKMCTHD;
 
     @ManyToOne
     @JoinColumn(name="id_Khuyen_Mai")
     private KhuyenMai khuyenMai;
 
-    @Column(name = "ten_KM")
-    private String tenKM;
-
     @ManyToOne
-    @JoinColumn(name="id_Chi_Tiet_Giay")
-    private ChiTietGiay chiTietGiay;
+    @JoinColumn(name="id_HoaDon")
+    private HoaDon hoaDon;
 
     @Column(name = "trang_Thai")
     private int trangThai;
@@ -40,13 +38,4 @@ public class KhuyenMaiChiTietCTG {
 
     @Column(name = "tg_Sua")
     private Date tgSua;
-
-    // Getter và setter cho tenKM
-    public String getTenKM() {
-        return khuyenMai != null ? khuyenMai.getTenKM() : null;
-    }
-
-    public void setTenKM(String tenKM) {
-        this.tenKM = tenKM;
-    }
 }
