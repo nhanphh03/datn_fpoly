@@ -23,7 +23,7 @@ public class KhuyenMaiServiceImpls implements KhuyenMaiService {
     }
 
     @Override
-    public KhuyenMai findByIDAndTrangThai(UUID idKhuyenMai) {
+    public KhuyenMai findByID(UUID idKhuyenMai) {
         return khuyenMaiRepository.findById(idKhuyenMai).orElse(null);
     }
 
@@ -38,8 +38,13 @@ public class KhuyenMaiServiceImpls implements KhuyenMaiService {
     }
 
     @Override
-    public List<KhuyenMai> findByLoaiKMAndTrangThai(LoaiKhuyenMai loaiKhuyenMai, int trangThai) {
-        return khuyenMaiRepository.findByLoaiKhuyenMaiAndTrangThai(loaiKhuyenMai, trangThai);
+    public List<KhuyenMai> findByLoaiKM(LoaiKhuyenMai loaiKhuyenMai) {
+        return khuyenMaiRepository.findByLoaiKhuyenMai(loaiKhuyenMai);
+    }
+
+    @Override
+    public List<KhuyenMai> findByLoaiKMAndTrangThai(LoaiKhuyenMai loaiKhuyenMai) {
+        return khuyenMaiRepository.findByLoaiKhuyenMaiAndTrangThai(loaiKhuyenMai, 1);
     }
 
     @Override

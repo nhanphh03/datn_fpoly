@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -27,6 +28,9 @@ public class KhuyenMai {
     @ManyToOne
     @JoinColumn(name = "id_LKM")
     private LoaiKhuyenMai loaiKhuyenMai;
+
+    @OneToMany(mappedBy = "khuyenMai")
+    private List<KhuyenMaiChiTietCTG> khuyenMaiChiTietCTGList;
 
     @Column(name = "ma_KM")
     private String maKM;
@@ -52,11 +56,14 @@ public class KhuyenMai {
     @Column(name = "phan_Tram_Giam")
     private double phanTramGiam;
 
+    @Column(name = "gia_Tien_Giam_Toi_Da")
+    private double giaTienGiamToiDaPT;
+
     @Column(name = "gia_Tien_Giam")
     private double giaTienGiam;
 
     @Column(name = "dk_KM")
-    private String dieuKienKM;
+    private Double dieuKienKMBill;
 
     @Column(name = "trang_Thai")
     private int trangThai;
@@ -75,6 +82,5 @@ public class KhuyenMai {
 
     @Column(name = "loai_Giam")
     private boolean loaiGiam;
-
 
 }

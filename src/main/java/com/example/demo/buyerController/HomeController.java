@@ -52,8 +52,17 @@ public class HomeController {
             model.addAttribute("messageLoginOrSignin", true);
         }
 
-        List<CTGViewModel> listCTGViewModel = ctgViewModelService.getAll();
-        model.addAttribute("listCTGModel",listCTGViewModel);
+        List<CTGViewModel> listCTGModelNew = ctgViewModelService.getAllOrderTgNhap();
+        List<CTGViewModel> listCTGModelBestSeller = ctgViewModelService.getAllOrderBestSeller();
+
+        List<CTGViewModel> top12CTGModelNew = listCTGModelNew.subList(0, Math.min(listCTGModelNew.size(), 12));
+        List<CTGViewModel> top12CTGModelBestSeller = listCTGModelBestSeller.subList(0, Math.min(listCTGModelBestSeller.size(), 12));
+
+        //        List<CTGViewModel> listCTGModelNew = ctgViewModelService.getAllOrderTgNhap();
+
+
+        model.addAttribute("listCTGModelNew",top12CTGModelNew);
+        model.addAttribute("listCTGModelBestSeller",top12CTGModelBestSeller);
         return "online/index";
     }
 }
