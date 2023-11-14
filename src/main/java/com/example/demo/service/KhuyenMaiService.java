@@ -10,10 +10,11 @@ import java.util.UUID;
 public interface KhuyenMaiService {
 
     void createKhuyenMais(KhuyenMai khuyenMai);
-    KhuyenMai findByIDAndTrangThai(UUID idKhuyenMai);
+    KhuyenMai findByID(UUID idKhuyenMai);
     List<KhuyenMai> getAllKhuyenMai();
     List<KhuyenMai> findByTrangThai(int trangThai);
-    List<KhuyenMai> findByLoaiKMAndTrangThai(LoaiKhuyenMai loaiKhuyenMai, int trangThai);
+    List<KhuyenMai> findByLoaiKM(LoaiKhuyenMai loaiKhuyenMai);
+    List<KhuyenMai> findByLoaiKMAndTrangThai(LoaiKhuyenMai loaiKhuyenMai);
     List<KhuyenMai> findByNgayBatDauAndNgayKetThuc(Date ngayBatDau, Date ngayKetThuc);
     KhuyenMai findByMaKM(String maKM);
 }

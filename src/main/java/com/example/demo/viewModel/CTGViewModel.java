@@ -1,9 +1,12 @@
 package com.example.demo.viewModel;
 
+import com.example.demo.model.KhuyenMai;
+import com.example.demo.model.KhuyenMaiChiTietCTG;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -23,6 +26,9 @@ public class CTGViewModel {
     @Column(name = "ten_giay")
     private String tenGiay;
 
+    @Column(name = "ten_mau")
+    private String tenMau;
+
     @Column(name = "slTon")
     private Long slTon;
 
@@ -32,14 +38,24 @@ public class CTGViewModel {
     @Column(name = "so_Luong_Da_Ban")
     private Long soLuongDaBan;
 
-    public CTGViewModel(UUID idMau,UUID idGiay, Double minPrice, String tenGiay, Long slTon, String hinhAnh, Long soLuongDaBan) {
+    @Column(name = "ten_KM")
+    private String tenKM;
+
+    @Column(name = "tg_NhapHang")
+    private Date tgNhapHang;
+
+
+    public CTGViewModel(UUID idMau,UUID idGiay, Double minPrice, String tenGiay, String tenMau, Long slTon, String hinhAnh, Long soLuongDaBan, String tenKM, Date tgNhapHang) {
         this.idMau = idMau;
         this.idGiay = idGiay;
         this.minPrice = minPrice.doubleValue();
         this.tenGiay = tenGiay;
+        this.tenMau = tenMau;
         this.slTon = slTon;
         this.hinhAnh = hinhAnh;
         this.soLuongDaBan = soLuongDaBan;
+        this.tenKM= tenKM;
+        this.tgNhapHang = tgNhapHang;
     }
 
 }
