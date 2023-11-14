@@ -344,7 +344,7 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Màu Sắc</label>
-                                    <select class="select" th:field="*{mauSac}">
+                                    <select class="select" th:field="*{mauSac}" multiple>
                                         <option th:each="loc : ${mauSac}" th:value="${loc.idMau}"
                                                 th:text="${loc.tenMau}"></option>
                                     </select>
@@ -386,10 +386,11 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Size</label>
-                                    <select class="select" th:field="*{size}">
+                                    <select class="select" th:field="*{size}" multiple>
                                         <option th:each="loc : ${size}" th:value="${loc.idSize}"
                                                 th:text="${loc.soSize}"></option>
                                     </select>
+                                    <input type="hidden" id="selectedSizesCount" name="selectedSizesCount" value="0">
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('size')}"
                                             class="alert alert-danger alert-dismissible fade show"
@@ -1506,6 +1507,17 @@
     // In your Javascript (external .js resource or <script> tag)
     $(document).ready(function() {
         $('.select').select2();
+    });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectSize = document.querySelector('select[name="size"]');
+        const selectedSizesCount = document.querySelector('#selectedSizesCount');
+
+        selectSize.addEventListener('change', function() {
+            const selectedOptions = selectSize.selectedOptions;
+            selectedSizesCount.value = selectedOptions.length;
+        });
     });
 </script>
 </body>
