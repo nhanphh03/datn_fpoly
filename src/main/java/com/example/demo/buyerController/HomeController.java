@@ -1,11 +1,13 @@
 package com.example.demo.buyerController;
 
 
+import com.example.demo.model.ChiTietGiay;
 import com.example.demo.model.GioHang;
 import com.example.demo.model.GioHangChiTiet;
 import com.example.demo.model.KhachHang;
 import com.example.demo.service.CTGViewModelService;
 import com.example.demo.service.GHCTService;
+import com.example.demo.service.GiayChiTietService;
 import com.example.demo.viewModel.CTGViewModel;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @Controller
 @RequestMapping("/buyer")
@@ -32,6 +36,9 @@ public class HomeController {
 
     @Autowired
     private GHCTService ghctService;
+
+    @Autowired
+    private GiayChiTietService giayChiTietService;
 
     @RequestMapping(value = {"", "/", "/home"})
     public String home(Model model){
@@ -60,9 +67,9 @@ public class HomeController {
 
         //        List<CTGViewModel> listCTGModelNew = ctgViewModelService.getAllOrderTgNhap();
 
-
         model.addAttribute("listCTGModelNew",top12CTGModelNew);
         model.addAttribute("listCTGModelBestSeller",top12CTGModelBestSeller);
         return "online/index";
+
     }
 }
