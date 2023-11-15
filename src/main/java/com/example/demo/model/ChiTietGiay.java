@@ -27,6 +27,9 @@ public class ChiTietGiay {
     @Column(name = "id_Chi_Tiet_Giay")
     private UUID idCTG;
 
+    @Column(name = "ma_CTG")
+    private String maCTG;
+
     @ManyToOne
     @JoinColumn(name = "id_Size")
     @NotNull
