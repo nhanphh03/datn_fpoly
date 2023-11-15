@@ -24,6 +24,7 @@ public interface KhachHangRepository extends JpaRepository<KhachHang, UUID> {
     List<KhachHang> findByTrangThai(int trangThai);
     List<KhachHang> findByMaKHOrHoTenKH(String maKH, String tenKH);
     KhachHang findByHoTenKH(String name);
+    KhachHang findByMaKH(String maKH);
 
 
     @Query(value = "select * from khach_hang where trang_thai = 1",nativeQuery = true)
@@ -32,4 +33,6 @@ public interface KhachHangRepository extends JpaRepository<KhachHang, UUID> {
     @Query(value = "select * from khach_hang where trang_thai=1 and ho_ten_kh like %?1% or sdt_kh like %?1%",nativeQuery = true)
     List<KhachHang> findByHoTenKHOrSdtKH(String keyword);
 
+    @Query(value = "select count(id_kh) from khach_hang" ,nativeQuery = true)
+    Integer getTongKH();
 }

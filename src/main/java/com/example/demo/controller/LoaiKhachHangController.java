@@ -5,8 +5,9 @@ import com.example.demo.config.ExcelExporterChucVu;
 import com.example.demo.config.ExcelExporterLoaiKhachHang;
 import com.example.demo.config.PDFExporterChucVu;
 import com.example.demo.config.PDFExporterLoaiKH;
-import com.example.demo.model.ChucVu;
-import com.example.demo.model.LoaiKhachHang;
+import com.example.demo.model.*;
+import com.example.demo.repository.LoaiKhachHangRepository;
+import com.example.demo.service.KhachHangService;
 import com.example.demo.service.LoaiKhachHangService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
@@ -18,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,6 +34,14 @@ public class LoaiKhachHangController {
     private LoaiKhachHangService loaiKhachHangService;
     @Autowired
     private HttpSession session;
+    @Autowired
+    private KhachHangController khachHangController;
+
+    @Autowired
+    private KhachHangService khachHangService;
+
+    @Autowired
+    private LoaiKhachHangRepository loaiKhachHangRepository;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -42,54 +52,168 @@ public class LoaiKhachHangController {
     }
 
     @GetMapping("/loai-khach-hang")
-    public String dsloaikhachhang(Model model) {
+    public String dsloaikhachhang(Model model, @ModelAttribute("message") String message
+            , @ModelAttribute("maLKHError") String maLKHError
+            , @ModelAttribute("tenLKHError") String tenLKHError
+            , @ModelAttribute("error") String error
+            , @ModelAttribute("userInput") LoaiKhachHang userInput
+            , @ModelAttribute("Errormessage") String Errormessage) {
         List<LoaiKhachHang> loaikhachhang = loaiKhachHangService.getAllLoaiKhachHang();
-        Collections.sort(loaikhachhang, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        //
         model.addAttribute("loaiKhachHang", loaikhachhang);
+        //
         model.addAttribute("loaiKhachHangAdd", new LoaiKhachHang());
+        //
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
+        if (maLKHError == null || !"maLKHError".equals(error)) {
+            model.addAttribute("maLKHError", false);
+        }
+        if (tenLKHError == null || !"tenLKHError".equals(error)) {
+            model.addAttribute("tenLKHError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInput != null) {
+            model.addAttribute("loaiKhachHangAdd", userInput);
+        }
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
+        }
         return "manage/loai-khach-hang";
     }
 
-//    @GetMapping("/loai-khach-hang/viewAdd")
-//    public String viewAddloaikhachhang(Model model) {
-//        model.addAttribute("loaiKhachHang", new LoaiKhachHang());
-//        return "manage/add-loai-khach-hang";
-//    }
-
     @PostMapping("/loai-khach-hang/viewAdd/add")
-    public String addloaikhachhang(@Valid @ModelAttribute("loaiKhachHang") LoaiKhachHang loaiKhachHang, BindingResult result) {
-        if (result.hasErrors()){
-            return "mannage/add-loai-khach-hang";
+    public String addloaikhachhang(@Valid @ModelAttribute("loaiKhachHang") LoaiKhachHang loaiKhachHang, BindingResult result, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            if (result.hasFieldErrors("tenLKH")) {
+                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
+                redirectAttributes.addFlashAttribute("error", "tenLKHError");
+            }
+            if (result.hasFieldErrors("maLKH")) {
+                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
+                redirectAttributes.addFlashAttribute("error", "maLKHError");
+            }
+            if (result.hasFieldErrors("soDiem")) {
+                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
+                redirectAttributes.addFlashAttribute("error", "soDiemError");
+            }
+            return "redirect:/manage/loai-khach-hang";
         }
+        //
+        if (loaiKhachHang.getSoDiem() <= 0) {
+            redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
+            redirectAttributes.addFlashAttribute("error", "soDiemError");
+            return "redirect:/manage/loai-khach-hang";
+        }
+        //
+        LoaiKhachHang existingLKH = loaiKhachHangRepository.findByMaLKH(loaiKhachHang.getMaLKH());
+        if (existingLKH != null) {
+            redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return "redirect:/manage/loai-khach-hang";
+        }
+        //
         LoaiKhachHang loaiKhachHang1 = new LoaiKhachHang();
         loaiKhachHang1.setMaLKH(loaiKhachHang.getMaLKH());
         loaiKhachHang1.setTenLKH(loaiKhachHang.getTenLKH());
         loaiKhachHang1.setSoDiem(loaiKhachHang.getSoDiem());
         loaiKhachHang1.setTgThem(new Date());
-        loaiKhachHang1.setTrangThai(loaiKhachHang.getTrangThai());
+        loaiKhachHang1.setTrangThai(1);
         loaiKhachHangService.save(loaiKhachHang1);
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/loai-khach-hang";
     }
 
     @GetMapping("/loai-khach-hang/delete/{id}")
-    public String deleteloaikhachhang(@PathVariable UUID id) {
+    public String deleteloaikhachhang(@PathVariable UUID id, RedirectAttributes redirectAttributes) {
         LoaiKhachHang loaiKhachHang = loaiKhachHangService.getByIdLoaiKhachHang(id);
         loaiKhachHang.setTrangThai(0);
         loaiKhachHang.setTgSua(new Date());
         loaiKhachHangService.save(loaiKhachHang);
+        // Cập nhật trạng thái của tất cả sản phẩm chi tiết của hãng thành 0
+        List<KhachHang> khachHangs = khachHangService.findByLoaiKhachHang(loaiKhachHang);
+        for (KhachHang khachHang : khachHangs) {
+            khachHang.setTrangThai(0);
+            khachHangService.save(khachHang);
+            khachHangController.deleteKHById(khachHang.getIdKH());
+        }
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/loai-khach-hang";
     }
 
     @GetMapping("/loai-khach-hang/viewUpdate/{id}")
-    public String viewUpdateloaikhachhang(@PathVariable UUID id, Model model) {
+    public String viewUpdateloaikhachhang(@PathVariable UUID id, Model model
+            , @ModelAttribute("message") String message
+            , @ModelAttribute("maLKHError") String maLKHError
+            , @ModelAttribute("tenLKHError") String tenLKHError
+            , @ModelAttribute("soDiemLKHError") String soDiemLKHError
+            , @ModelAttribute("error") String error, @ModelAttribute("userInput") LoaiKhachHang userInput
+            , @ModelAttribute("Errormessage") String Errormessage) {
         LoaiKhachHang loaiKhachHang = loaiKhachHangService.getByIdLoaiKhachHang(id);
         model.addAttribute("loaiKhachHang", loaiKhachHang);
+        //
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
+        if (maLKHError == null || !"maLKHError".equals(error)) {
+            model.addAttribute("maLKHError", false);
+        }
+        if (tenLKHError == null || !"tenLKHError".equals(error)) {
+            model.addAttribute("tenLKHError", false);
+        }
+        if (soDiemLKHError == null || !"soDiemLKHError".equals(error)) {
+            model.addAttribute("soDiemLKHError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInput != null) {
+            model.addAttribute("loaiKhachHangAdd", userInput);
+        }
+        //
+        session.setAttribute("id", id);
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
+        }
         return "manage/update-loai-khach-hang";
     }
 
+
     @PostMapping("/loai-khach-hang/viewUpdate/{id}")
-    public String updateloaikhachhang(@PathVariable UUID id, @ModelAttribute("loaiKhachHang") LoaiKhachHang loaiKhachHang) {
+    public String updateloaikhachhang(@PathVariable UUID id, @Valid @ModelAttribute("loaiKhachHang") LoaiKhachHang loaiKhachHang, BindingResult result, RedirectAttributes redirectAttributes) {
         LoaiKhachHang loaiKhachHangdb = loaiKhachHangService.getByIdLoaiKhachHang(id);
+        UUID idLKH = (UUID) session.getAttribute("id");
+        String link = "redirect:/manage/loai-khach-hang/viewUpdate/" + idLKH;
+        if (result.hasErrors()) {
+            if (result.hasFieldErrors("tenLKH")) {
+                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
+                redirectAttributes.addFlashAttribute("error", "tenLKHError");
+            }
+            if (result.hasFieldErrors("maLKH")) {
+                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
+                redirectAttributes.addFlashAttribute("error", "maLKHError");
+            }
+            if (result.hasFieldErrors("soDiem")) {
+                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
+                redirectAttributes.addFlashAttribute("error", "soDiemLKHError");
+            }
+            return link;
+        }
+        //
+        if (loaiKhachHang.getSoDiem() <= 0) {
+            redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
+            redirectAttributes.addFlashAttribute("error", "soDiemLKHError");
+            return link;
+        }
+        //
+        LoaiKhachHang existingLKH = loaiKhachHangRepository.findByMaLKH(loaiKhachHang.getMaLKH());
+        if (existingLKH != null && !existingLKH.getIdLKH().equals(id)) {
+            redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return link;
+        }
+        //
         if (loaiKhachHangdb != null) {
             loaiKhachHangdb.setMaLKH(loaiKhachHang.getMaLKH());
             loaiKhachHangdb.setTenLKH(loaiKhachHang.getTenLKH());
@@ -97,9 +221,19 @@ public class LoaiKhachHangController {
             loaiKhachHangdb.setTgSua(new Date());
             loaiKhachHangdb.setTrangThai(loaiKhachHang.getTrangThai());
             loaiKhachHangService.save(loaiKhachHangdb);
+            redirectAttributes.addFlashAttribute("message", true);
+        }
+        // Nếu trạng thái của chatLieu là 1, hãy cập nhật trạng thái của tất cả sản phẩm chi tiết của chatLieu thành 1.
+        if (loaiKhachHangdb.getTrangThai() == 1) {
+            List<KhachHang> khachHangs = khachHangService.findByLoaiKhachHang(loaiKhachHangdb);
+            for (KhachHang khachHang : khachHangs) {
+                khachHang.setTrangThai(1);
+                khachHangService.save(khachHang);
+            }
         }
         return "redirect:/manage/loai-khach-hang";
     }
+
     @GetMapping("/loaiKhachHang/export/pdf")
     public void exportToPDFChatLieu(HttpServletResponse response) throws DocumentException, IOException {
         response.setContentType("application/pdf");

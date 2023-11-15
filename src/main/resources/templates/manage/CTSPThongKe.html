@@ -10,7 +10,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Sneaker Shop - Admin</title>
 
-    <link rel="shortcut icon" type="image/x-icon" href="/images/img/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
@@ -23,20 +23,30 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
 
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
+
     <link rel="stylesheet" href="/css/style.css">
+
+    <style>
+        .highlighted-row {
+            background-color: yellow; /* Bôi đen dòng bằng màu nền vàng */
+            font-weight: bold; /* Làm đậm nội dung */
+            /* Thêm các kiểu định dạng khác tùy ý */
+        }
+    </style>
 </head>
 <body>
-<div id="global-loader">
-    <div class="whirly-loader"></div>
-</div>
+<!--<div id="global-loader">-->
+<!--    <div class="whirly-loader"></div>-->
+<!--</div>-->
 <div class="main-wrapper">
     <div class="header">
 
         <div class="header-left active">
-            <a href="index.html" class="logo">
+            <a href="/manage" class="logo">
                 <img src="/images/img/logo.png" alt="">
             </a>
-            <a href="index.html" class="logo-small">
+            <a href="/manage" class="logo-small">
                 <img src="/images/img/logo-small.png" alt="">
             </a>
             <a id="toggle_btn" href="javascript:void(0);">
@@ -238,17 +248,13 @@
                         <a href="javascript:void(0);"><img src="/images/img/icons/product.svg" alt="img"><span> Quản lý Giày</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="/manage/chat-lieu" >Chất Liệu</a></li>
-                            <li><a href="/manage/giay">Giày</a></li>
+                            <li><a href="/manage/chat-lieu">Chất Liệu</a></li>
+                            <li><a href="/manage/giay" class="active">Giày</a></li>
                             <li><a href="/manage/hang">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
                             <li><a href="/manage/mau-sac">Màu Sắc</a></li>
-                            <li><a href="/manage/size" >Size</a></li>
+                            <li><a href="/manage/size">Size</a></li>
                         </ul>
-                    </li>
-                    <li>
-                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                        </a>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
@@ -275,7 +281,7 @@
                         <ul>
                             <li><a href="/manage/khach-hang">Khách Hàng</a></li>
                             <li><a href="/manage/dia-chi">Địa Chỉ </a></li>
-                            <li><a href="/manage/loai-khach-hang"class="active">Loại Khách Hàng</a></li>
+                            <li><a href="/manage/loai-khach-hang">Loại Khách Hàng</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -297,77 +303,204 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img" /><span>
-                    Quản Lý Voucher</span
-                        >
-                            <span class="menu-arrow"></span
-                            ></a>
+                        <a href="javascript:void(0);"><img src="/images/img/icons/transfer1.svg" alt="img"/><span>Quản lý Khuyến Mãi</span>
+                            <span class="menu-arrow"></span>
+                        </a>
                         <ul>
-                            <li><a href="transferlist.html">Transfer List</a></li>
-                            <li><a href="addtransfer.html">Add Transfer </a></li>
-                            <li><a href="importtransfer.html">Import Transfer </a></li>
+                            <li><a href="/manage/voucher">Khuyến Mãi Chung</a></li>
+                            <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
+                            <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
-    <form th:object="${loaiKhachHang}" method="post" th:action="@{/manage/loai-khach-hang/viewAdd/add}">
-        <div class="page-wrapper">
-            <div class="content">
-                <div class="page-header">
-                    <div class="page-title">
-                        <h4>Thêm Loại Khách Hàng</h4>
-                        <h6>Quản Lý Khách Hàng</h6>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Mã Loại Khách Hàng</label>
-                                    <input type="text" th:field="*{maLKH}">
+    <!--CODE TỪ DƯỚI NÀY-->
+    <div class="page-wrapper"><br>
+        <div class="content">
+            <div class="row">
+                <div class="col-lg-7 col-sm-12 col-12 d-flex">
+                    <div class="card flex-fill">
+                        <div
+                                class="card-header pb-0 d-flex justify-content-between align-items-center"
+                        >
+                            <h5 class="card-title mb-0">Top 6 sản phẩm bán chạy</h5>
+                            <div class="graph-sets">
+                                <div class="dropdown">
+                                    <button
+                                            class="btn btn-white btn-sm dropdown-toggle"
+                                            type="button"
+                                            id="dropdownMenuButton"
+                                            data-bs-toggle="dropdown"
+                                            aria-expanded="false"
+                                    >
+                                        2022
+                                        <img
+                                                src="/images/img/icons/dropdown.svg"
+                                                alt="img"
+                                                class="ms-2"
+                                        />
+                                    </button>
+                                    <ul
+                                            class="dropdown-menu"
+                                            aria-labelledby="dropdownMenuButton"
+                                    >
+                                        <li>
+                                            <a href="javascript:void(0);" class="dropdown-item"
+                                            >2022</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" class="dropdown-item"
+                                            >2021</a
+                                            >
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0);" class="dropdown-item"
+                                            >2020</a
+                                            >
+                                        </li>
+                                    </ul>
                                 </div>
                             </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Tên Loại Khách Hàng</label>
-                                    <input type="text" th:field="*{tenLKH}">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Số Điểm</label>
-                                    <input type="text" th:field="*{soDiem}">
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Trạng Thái</label>
-                                    <select class="select" th:field="*{trangThai}">
-                                        <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                                th:text="${loc.value}"></option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-12">
-                                <button type="submit" class="btn btn-submit me-2">Submit</button>
-                                <a href="/manage/loai-khach-hang" class="btn btn-cancel">Cancel</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive dataview">
+                                <table class="table">
+                                    <thead align="center">
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Tên Sản Phẩm</th>
+                                        <th>Size</th>
+                                        <th>Hãng</th>
+                                        <th>Chất Liệu</th>
+                                        <th>Màu Sắc</th>
+                                        <th>Số Lượng</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody align="center">
+                                    <tr th:each="spBanChay, index : ${spBanChay}">
+                                        <td th:text="${index.index + 1}"></td>
+                                        <td th:text="${spBanChay.tenGiay}"></td>
+                                        <td th:text="${spBanChay.soSize}"></td>
+                                        <td th:text="${spBanChay.tenHang}"></td>
+                                        <td th:text="${spBanChay.tenChatLieu}"></td>
+                                        <td th:text="${spBanChay.tenMau}"></td>
+                                        <td th:text="${spBanChay.soLuongBan}"></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
                 </div>
-
+                <div class="col-lg-5 col-sm-12 col-12 d-flex">
+                    <div class="card flex-fill">
+                        <div
+                                class="card-header pb-0 d-flex justify-content-between align-items-center"
+                        >
+                            <h4 class="card-title mb-0">Sản phầm mới</h4>
+                            <div class="dropdown">
+                                <a
+                                        href="javascript:void(0);"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+                                        class="dropset"
+                                >
+                                    <i class="fa fa-ellipsis-v"></i>
+                                </a>
+                                <ul
+                                        class="dropdown-menu"
+                                        aria-labelledby="dropdownMenuButton"
+                                >
+                                    <li>
+                                        <a href="/manage/giay-chi-tiet" class="dropdown-item"
+                                        >Danh sách sản phẩm</a
+                                        >
+                                    </li>
+                                    <li>
+                                        <a href="/manage/giay-chi-tiet/viewAdd" class="dropdown-item"
+                                        >Thêm sản phẩm</a
+                                        >
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive dataview">
+                                <table class="table datatable">
+                                    <thead align="center">
+                                    <tr>
+                                        <th>STT</th>
+                                        <th>Tên Sản Phẩm</th>
+                                        <th>Đơn Giá</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody align="center">
+                                    <tr th:each="items, index : ${items}">
+                                        <td th:text="${index.index + 1}"></td>
+                                        <td class="productimgname">
+                                            <a class="product-img">
+                                                <img th:src="@{'/images/imgsProducts/'+ ${items.hinhAnh.url1}}"
+                                                     alt="product"/>
+                                            </a>
+                                            <a th:text="${items.giay.tenGiay}"></a>
+                                        </td>
+                                        <td th:text="${items.giaBan}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mb-0">
+                <div class="card-body">
+                    <h4 class="card-title">Sản phẩm hết bảo hành</h4>
+                    <div class="table-responsive dataview">
+                        <table class="table datatable">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Mã Giày</th>
+                                <th>Tên Giày</th>
+                                <th>Tên Hãng</th>
+                                <th>Năm Bảo Hành</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="chiTietGiayDTO : ${dsHetBaoHanh}">
+                                <td th:text="${chiTietGiayDTO.idCTG}"></td>
+                                <td th:text="${chiTietGiayDTO.maGiay}"></td>
+                                <td th:text="${chiTietGiayDTO.tenGiay}"></td>
+                                <td th:text="${chiTietGiayDTO.tenHang}"></td>
+                                <td th:text="${chiTietGiayDTO.namBaoHanh}"></td>
+                                <td>
+                                    <a class="me-2" th:href="@{'/manage/giay-chi-tiet/detail/' + ${chiTietGiayDTO.idCTG}}">
+                                        <img src="/images/img/icons/eye.svg" alt="img"/>
+                                    </a>
+                                    <a class="me-2"
+                                       th:href="@{'/manage/giay-chi-tiet/viewUpdate/' + ${chiTietGiayDTO.idCTG}}">
+                                        <img src="/images/img/icons/edit.svg" alt="img"/>
+                                    </a>
+                                    <a class="me-2 delete-button"
+                                       th:data-delete-url="@{'/manage/giay-chi-tiet/delete/' + ${chiTietGiayDTO.idCTG}}">
+                                        <img src="/images/img/icons/delete.svg" alt="img"/>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </form>
+    </div>
 </div>
-
-
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>

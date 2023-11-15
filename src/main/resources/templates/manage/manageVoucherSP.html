@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+  <meta name="description" content="POS - Bootstrap Admin Template">
+  <meta name="keywords"
+        content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects">
+  <meta name="author" content="Dreamguys - Bootstrap Admin Template">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Sneaker Shop - Admin</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/css/animate.css">
+
+  <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
+
+  <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
+
+  <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+  <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+
+  <link rel="stylesheet" href="/plugins/scrollbar/scroll.min.css">
+
+  <link rel="stylesheet" href="/css/style.css">
+  <style>
+    .ellipsis {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  </style>
+</head>
+
+<body>
+<div id="global-loader">
+  <div class="whirly-loader"></div>
+</div>
+<div class="main-wrapper">
+  <div class="header">
+
+    <div class="header-left active">
+      <a href="/manage" class="logo">
+        <img src="/images/img/logo.png" alt="">
+      </a>
+      <a href="/manage" class="logo-small">
+        <img src="/images/img/logo-small.png" alt="">
+      </a>
+      <a id="toggle_btn" href="javascript:void(0);">
+      </a>
+    </div>
+
+    <a id="mobile_btn" class="mobile_btn" href="#sidebar">
+                <span class="bar-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+    </a>
+
+    <ul class="nav user-menu">
+
+      <li class="nav-item">
+        <div class="top-nav-search">
+          <a href="javascript:void(0);" class="responsive-search">
+            <i class="fa fa-search"></i>
+          </a>
+          <form action="#">
+            <div class="searchinputs">
+              <input type="text" placeholder="Search Here ...">
+              <div class="search-addon">
+                <span><img src="/images/img/icons/closes.svg" alt="img"></span>
+              </div>
+            </div>
+            <a class="btn" id="searchdiv"><img src="/images/img/icons/search.svg" alt="img"></a>
+          </form>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+          <img src="/images/img/icons/notification-bing.svg" alt="img"> <span
+                class="badge rounded-pill">4</span>
+        </a>
+        <div class="dropdown-menu notifications">
+          <div class="topnav-dropdown-header">
+            <span class="notification-title">Notifications</span>
+            <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+          </div>
+          <div class="noti-content">
+            <ul class="notification-list">
+              <li class="notification-message">
+                <a href="activities.html">
+                  <div class="media d-flex">
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="/images/img/profiles/avatar-02.jpg">
+                                            </span>
+                    <div class="media-body flex-grow-1">
+                      <p class="noti-details"><span class="noti-title">John Doe</span> added
+                        new
+                        task <span class="noti-title">Patient appointment booking</span></p>
+                      <p class="noti-time"><span class="notification-time">4 mins ago</span>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="notification-message">
+                <a href="activities.html">
+                  <div class="media d-flex">
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="/images/img/profiles/avatar-03.jpg">
+                                            </span>
+                    <div class="media-body flex-grow-1">
+                      <p class="noti-details"><span class="noti-title">Tarah Shropshire</span>
+                        changed the task name <span class="noti-title">Appointment booking
+                                                        with payment gateway</span>
+                      </p>
+                      <p class="noti-time"><span class="notification-time">6 mins ago</span>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="notification-message">
+                <a href="activities.html">
+                  <div class="media d-flex">
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="/images/img/profiles/avatar-06.jpg">
+                                            </span>
+                    <div class="media-body flex-grow-1">
+                      <p class="noti-details"><span class="noti-title">Misty Tison</span>
+                        added
+                        <span class="noti-title">Domenic Houston</span> and <span
+                                class="noti-title">Claire Mapes</span> to project <span
+                                class="noti-title">Doctor available module</span>
+                      </p>
+                      <p class="noti-time"><span class="notification-time">8 mins ago</span>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="notification-message">
+                <a href="activities.html">
+                  <div class="media d-flex">
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="/images/img/profiles/avatar-17.jpg">
+                                            </span>
+                    <div class="media-body flex-grow-1">
+                      <p class="noti-details"><span class="noti-title">Rolland Webber</span>
+                        completed task <span class="noti-title">Patient and Doctor video
+                                                        conferencing</span>
+                      </p>
+                      <p class="noti-time"><span class="notification-time">12 mins ago</span>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="notification-message">
+                <a href="activities.html">
+                  <div class="media d-flex">
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="/images/img/profiles/avatar-13.jpg">
+                                            </span>
+                    <div class="media-body flex-grow-1">
+                      <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span>
+                        added new task <span class="noti-title">Private chat module</span>
+                      </p>
+                      <p class="noti-time"><span class="notification-time">2 days ago</span>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="topnav-dropdown-footer">
+            <a href="activities.html">View all Notifications</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown has-arrow main-drop">
+        <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
+                        <span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}"
+                                                    alt="">
+                            <span class="status online"></span></span>
+        </a>
+        <div class="dropdown-menu menu-drop-user">
+          <div class="profilename">
+            <div class="profileset">
+                                <span class="user-img"><img
+                                        th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
+                                    <span class="status online"></span></span>
+              <div class="profilesets">
+                <h6 th:text="${session.managerLogged.hoTenNV}"></h6>
+                <h5 th:text="${session.managerLogged.chucVu.tenCV}"></h5>
+              </div>
+            </div>
+            <hr class="m-0">
+            <a class="dropdown-item" href="profile.html"> <i class="me-2" data-feather="user"></i> My
+              Profile</a>
+            <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
+                                                                    data-feather="settings"></i>Settings</a>
+            <hr class="m-0">
+            <a class="dropdown-item logout pb-0" href="/logout"><img src="/images/img/icons/log-out.svg"
+                                                                     class="me-2" alt="img">Logout</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+
+    <div class="dropdown mobile-user-menu">
+      <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+         aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item" href="profile.html">My Profile</a>
+        <a class="dropdown-item" href="generalsettings.html">Settings</a>
+        <a class="dropdown-item" href="signin.html">Logout</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-inner slimscroll">
+      <div id="sidebar-menu" class="sidebar-menu">
+        <ul>
+          <li>
+            <a href="index.html"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống
+                                    Kê</span>
+            </a>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/product.svg" alt="img"><span> Quản
+                                    lý Giày</span>
+              <span class="menu-arrow"></span></a>
+            <ul>
+              <li><a href="/manage/chat-lieu">Chất Liệu</a></li>
+              <li><a href="/manage/giay">Giày</a></li>
+              <li><a href="/manage/hang">Hãng</a></li>
+              <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
+              <li><a href="/manage/mau-sac">Màu Sắc</a></li>
+              <li><a href="/manage/size">Size</a></li>
+            </ul>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg" alt="img"><span>
+                                    Quản Lý Đặt Hàng</span> <span class="menu-arrow"></span></a>
+            <ul>
+              <li><a href="purchaselist.html">Purchase List</a></li>
+              <li><a href="addpurchase.html">Add Purchase</a></li>
+              <li><a href="importpurchase.html">Import Purchase</a></li>
+            </ul>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/expense1.svg" alt="img"><span>
+                                    Quản Lý Hóa Đơn</span>
+              <span class="menu-arrow"></span></a>
+            <ul>
+              <li><a href="/manage/don-hang/hien-thi">Quản lý đơn hàng</a></li>
+              <li><a href="expenselist.html">Expense List</a></li>
+              <li><a href="createexpense.html">Add Expense</a></li>
+              <li><a href="expensecategory.html">Expense Category</a></li>
+            </ul>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản
+                                    Lý Khách Hàng</span>
+              <span class="menu-arrow"></span></a>
+            <ul>
+              <li><a href="/manage/khach-hang">Khách Hàng</a></li>
+              <li><a href="/manage/dia-chi">Địa Chỉ </a></li>
+              <li><a href="/manage/loai-khach-hang">Loại Khách Hàng</a></li>
+            </ul>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/return1.svg" alt="img"><span> Quản
+                                    Lý Đổi Trả</span>
+              <span class="menu-arrow"></span></a>
+            <ul>
+              <li><a href="salesreturnlist.html">Sales Return List</a></li>
+              <li><a href="createsalesreturn.html">Add Sales Return </a></li>
+              <li><a href="purchasereturnlist.html">Purchase Return List</a></li>
+              <li><a href="createpurchasereturn.html">Add Purchase Return </a></li>
+            </ul>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản
+                                    Lý Nhân Viên</span>
+              <span class="menu-arrow"></span></a>
+            <ul>
+              <li><a href="/manage/chuc-vu">Chức Vụ</a></li>
+              <li><a href="/manage/nhan-vien">Nhân Viên</a></li>
+            </ul>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/transfer1.svg"
+                                               alt="img" /><span>Quản lý Khuyến Mãi</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul>
+              <li><a href="/manage/voucher">Khuyến Mãi Chung</a></li>
+              <li><a class="active" href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
+              <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
+              <li><a href="/manage/voucher-ship">Khuyến Mãi Giao Hàng</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-wrapper">
+
+    <div class="content">
+
+      <div class="page-header">
+        <div class="page-title">
+          <h4>Voucher </h4>
+          <h6>Quản lý Khuyến Mãi Sản Phẩm</h6>
+        </div>
+        <div class="page-btn">
+          <a class="btn btn-added" href="javascript:void(0);" data-bs-toggle="modal"
+             data-bs-target="#themKMM"><img src="/images/img/icons/plus.svg" alt="img" class="me-2">Thêm
+            khuyến mãi mới</a>
+        </div>
+      </div>
+
+      <div class="card">
+
+        <div class="card-body">
+
+          <!-- Nhan Ngu -->
+
+          <div class="table-responsive">
+            <table class="table datanew">
+              <thead>
+              <tr>
+                <th style="background-color: #ff9f43; color: white;">Mã Voucher</th>
+                <th style="background-color: #ff9f43; color: white;">Tên Voucher</th>
+                <th style="background-color: #ff9f43; color: white;">Loại Giảm</th>
+                <th style="background-color: #ff9f43; color: white;">Ngày Bắt Đầu</th>
+                <th style="background-color: #ff9f43; color: white;">Ngày Kết Thúc</th>
+                <th style="background-color: #ff9f43; color: white;">% Giảm (Max $)</th>
+                <th style="background-color: #ff9f43; color: white;">Tiền Giảm</th>
+                <th style="background-color: #ff9f43; color: white;">Trạng Thái</th>
+                <th style="background-color: #ff9f43; color: white;">Action</th>
+              </tr>
+              </thead>
+              <tbody>
+
+              <th:block th:each="x : ${listKhuyenMai}">
+                <tr>
+                  <td th:text="${x.maKM}"></td>
+                  <td th:text="${x.tenKM}"></td>
+                  <td>
+                    <p th:if="${x.loaiGiam == true}">Giảm theo giá tiền</p>
+                    <p th:unless="${x.loaiGiam == true}">Giảm theo phần trăm</p>
+                  </td>
+                  <td th:text="${#dates.format(x.tgBatDau, 'yyyy-MM-dd')}"></td>
+                  <td th:text="${#dates.format(x.tgKetThuc, 'yyyy-MM-dd')}"></td>
+                  <td th:text="${x.phanTramGiam * 100} +' % ' + '( ' + ${x.giaTienGiamToiDaPT} + ' $ )'"> </td>
+                  <td th:text="${x.giaTienGiam} + ' $'"></td>
+                  <td>
+                    <p th:if="${x.trangThai == 1}">Hoạt Động</p>
+                    <p th:unless="${x.trangThai == 1}">Không Hoạt Động</p>
+                  </td>
+                  <td style="padding-left: 20px">
+                    <a href="javascript:void(0);" th:data-bs-toggle="modal"
+                       th:data-bs-target="'#detalKM' + ${x.idKM}">
+                      <img src="/images/img/icons/edit.svg" alt="img">
+                    </a>
+                  </td>
+                </tr>
+              </th:block>
+
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="card">
+        <form id="myForm" action="/defaultAction" method="post">
+          <div style="height: 520px;" class="row pt-3">
+
+            <div class="col-lg-4 col-sm-12 col-12">
+              <p style="font-size: 14pt; color: black; margin: auto; font-weight: 700; text-align: center;"> Chỉnh sửa khuyến mãi sản phẩm</p>
+
+              <div style="margin:10px 0 0 20px;  display: flex;">
+                <label style="margin: 17px 28px 0 0 ; font-weight: 500;">Lọc khuyến mãi</label>
+                <div style="margin:10px 0 0 20px; width: 200px; display: flex;">
+                  <select onchange="window.location.href = this.value;" class="form-control form-small select">
+                    <option selected="selected">Nhan ngu</option>
+                    <option value="/manage/voucher/voucher-product/product-promotion" >Sản phẩm đã có khuyến mãi</option>
+                    <option value="/manage/voucher/voucher-product/product-nonpromotion" >Sản phẩm chưa có khuyến mãi</option>
+                  </select>
+                </div>
+              </div>
+
+              <div style="margin:10px 0 0 20px;">
+
+                <div class="form-group">
+                  <div style="display: flex; margin-top: 10px;">
+                    <label style="margin: 17px 24px 0 0 ; font-weight: 500;">Lựa chọn voucher :</label>
+                    <div style="width: 200px; margin-top: 10px;" >
+                      <select style="width: 200px; margin-top: 10px;" name="khuyenMaiSelected" class="form-control form-small select">
+                        <th:block th:each="km: ${listKhuyenMaiActive}">
+                          <option th:value="${km.idKM}" th:text="${km.tenKM}"></option>
+                        </th:block>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; margin-top: 20px;">
+                    <button id="themKhuyenMaiSP" onclick="updateAction('/manage/voucher/voucher-product/update')" style="height: 40px; width: 100px; background-color: #ff9f43; border-radius: 5px; border: none; color: white; font-size: 11pt;">Cập nhật</button>
+                  </div>
+                </div>
+
+              </div>
+
+              <div style="with:96%; height: 0.3px; margin: 10px 0 30px 10px; background-color: #656565"> </div>
+
+              <p style="font-size: 14pt; color: black; margin: auto; font-weight: 700; text-align: center;">
+                Xóa bỏ khuyến mãi sản phẩm</p>
+
+              <div style="margin:10px 0 0 20px;">
+
+                <div class="form-group" style="display: flex;">
+
+                  <button data-bs-toggle="modal"  data-bs-target="#deleteKhuyenMai" type="button"
+                          style="height: 40px; width: 200px; background-color: #ff0000; border-radius: 5px; border: none; color: white; font-size: 11pt;">Hủy
+                    bỏ khuyến mãi</button>
+
+<!--                  Modal xác nhận xóa -->
+                  <div class="modal fade" id="deleteKhuyenMai" tabindex="-1"
+                       aria-labelledby="create" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-centered" role="document"
+                         style="width: 500px;">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">Xóa khuyến mãi sản phẩm</h5>
+                          <button type="button" class="close" data-bs-dismiss="modal"
+                                  aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <div class="row"
+                               style="text-align: center; align-items: center; padding: 30px 0 30px 0;">
+                            <div>
+                              <h3>Bạn có chắc chắn muốn xóa khuyến mãi </h3>
+                              <h3>đối với các sản phẩm này không ?</h3>
+                            </div>
+                          </div>
+                          <div class="col-lg-12">
+                            <a class="btn btn-submit me-2" type="button"
+                               onclick="updateAction('/manage/voucher/voucher-product/remove')"
+                               style="background-color: rgb(240, 28, 28);">Xóa</a>
+                            <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+<!--                  End-->
+
+                </div>
+
+              </div>
+
+
+            </div>
+
+            <div style=" height: 495px; border-left: 0.3px solid rgb(94, 94, 94);"
+                 class="col-lg-8 col-sm-12 col-12">
+              <p style="font-size: 14pt; color: black; margin: auto; font-weight: 700; text-align: center;">
+                Sản phẩm được áp dụng</p>
+
+              <div style="width: 98%; height: 450px" class="vertical-scroll scroll-demo">
+
+                <table class="table  datanew ">
+                  <thead>
+                  <tr>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43;"><input id="checkAll" style="height: 20px; width: 20px"
+                            type="checkbox"></th>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;"> Ảnh</th>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;"> Tên Giày</th>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;"> Voucher đang áp dụng</th>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;"> Tên Màu</th>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;"> Giá Min</th>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;"> SL Tồn</th>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;"> SL Bán</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <th:block th:each="product: ${listCTGViewModel}">
+                    <tr>
+                      <td><input class="itemsCart" name="idGiayIdMauVoucher" style="height: 20px; width: 20px;" th:value="${product.idGiay} + '/' + ${product.idMau}" type="checkbox"></td>
+                      <td><img th:src="@{'/images/imgsProducts/'+ ${product.hinhAnh}}">
+                      </td>
+                      <td class="ellipsis" th:text="${product.tenGiay}"></td>
+                      <td  style="font-weight: 700; font-size: 12pt;" class="ellips"
+                          th:text="${product.tenKM != null ? product.tenKM : 'Không có'}">
+                      </td>
+                      <td th:text="${product.tenMau}"></td>
+                      <td th:text="${product.minPrice}"></td>
+                      <td th:text="${product.slTon}"></td>
+                      <td th:text="${product.soLuongDaBan}"></td>
+                    </tr>
+                  </th:block>
+
+                  </tbody>
+                </table>
+
+              </div>
+
+            </div>
+
+          </div>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<section>
+
+  <th:block th:each="khuyenMai: ${listKhuyenMai}">
+    <form th:action="@{'/manage/voucher/update/voucher-product/' + ${khuyenMai.idKM}}" method="post">
+      <div class="modal fade" th:id="'detalKM' + ${khuyenMai.idKM}" tabindex="-1" aria-labelledby="create"
+           aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 900px;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Thông tin Voucher Sản Phẩm</h5>
+              <a th:href="@{'/manage/voucher/statistics/' + ${khuyenMai.idKM}}">Xem thống kê</a>
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style=" font-weight: 600;">Mã Khuyến Mãi :</label>
+                    <p style="font-size: 13pt; font-weight: 700;" th:text="${khuyenMai.maKM}">
+                    </p>
+                  </div>
+                </div>
+
+                <div class="col-lg-5 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style=" font-weight: 600;">Tên Khuyến Mãi :</label>
+                    <input  th:id="'tenVoucherUpdate_' + ${khuyenMai.idKM}" name="tenKhuyenMai" th:value="${khuyenMai.tenKM}"
+                           style="border: none; border-radius: 0px; border-bottom: 0.5px solid black; font-size: 12pt; font-weight: 600;">
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-12 col-12">
+                  <div class="form-group">
+
+                    <label style="font-size: 11pt; font-weight: 600;">Hình thức giảm giá</label>
+                    <select name="loaiGiam" th:attr="value=${khuyenMai.loaiGiam}" class="form-select">
+                      <option th:value="false" th:selected="${khuyenMai.loaiGiam} == false">Giảm theo phần trăm </option>
+                      <option th:value="true" th:selected="${khuyenMai.loaiGiam} == true"> Giảm theo giá tiền</option>
+                    </select>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600; ">Thời gian bắt đầu :</label>
+                    <div style="display: flex;">
+                      <input th:id="'startDateUpdate_' + ${khuyenMai.idKM}" name="ngayBatDau" type="date" th:value="${#dates.format(khuyenMai.tgBatDau, 'yyyy-MM-dd')}"
+                             style="border: none; margin: 0 10px 8px 0; font-size: 13pt; cursor: pointer;">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600; ">Thời gian kết thúc :</label>
+                    <div style="display: flex;">
+                      <input th:id="'endDateUpdate_' + ${khuyenMai.idKM} " name="ngayKetThuc" type="date"  th:value="${#dates.format(khuyenMai.tgKetThuc, 'yyyy-MM-dd')}"
+                             style="border: none; margin: 0 10px 8px 0; font-size: 13pt; cursor: pointer;">
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;"> Số tiền giảm giá </label>
+                    <input th:id="'soTienGiamGiaUpdate_' + ${khuyenMai.idKM}" name="soTienGiamGia" oninput="validateNumber(this)"
+                           class="form-control" type="number" th:value="${khuyenMai.giaTienGiam}"
+                           style=" width: 200px; margin: 0 10px 10px 0;">
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;">Trạng thái</label>
+                    <select name="trangThai" class="form-select" th:attr="value=${khuyenMai.trangThai}" >
+                      <option th:value="0" th:selected="${khuyenMai.trangThai} == 0">Không hoạt động</option>
+                      <option th:value="1" th:selected="${khuyenMai.trangThai} == 1">Hoạt Động</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;"> Phần trăm giảm </label>
+                    <input th:id="'phanTramGiamVoucherUpdate_' + ${khuyenMai.idKM}" name="phanTramGiam" th:value="${khuyenMai.phanTramGiam*100}"
+                           oninput="validateNumber(this)" class="form-control" type="number"
+                           style=" width: 150px; margin: 0 10px 10px 0;">
+                  </div>
+                </div>
+
+                <div class="col-lg-5 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;"> Số tiền giảm tối đa (giảm
+                      theo phần trăm)</label>
+                    <input th:id="'soTienGiamGiaTDVoucherUpdate_' + ${khuyenMai.idKM}" name="soTienToiDa" th:value="${khuyenMai.giaTienGiamToiDaPT}"
+                           oninput="validateNumber(this)" class="form-control" type="number"
+                           style=" width: 250px; margin: 0 10px 10px 0;">
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;">Mô tả </label>
+                    <textarea th:id="'moTaVoucherUpdate_' + ${khuyenMai.idKM}" name="moTa" th:text="${khuyenMai.moTa}" type="text"></textarea>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-lg-12">
+                <button class="btn btn-submit" style="background: #3088df;" type="submit" th:attr="data-idkm=${khuyenMai.idKM}">Thay đổi</button>
+                <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </th:block>
+
+
+  <!--  Modal Add Voucher Start-->
+  <div class="modal fade" id="themKMM" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+
+    <form th:action="@{/manage/voucher-product/add}" method="post">
+
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 1000px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Tạo mới Khuyến Mãi Sản Phẩm</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-lg-3 col-sm-12 col-12">
+                <div class="form-group">
+                  <label>Mã Voucher :</label>
+                  <p style="font-size: 13pt; font-weight: 700;">Tự sinh</p>
+                </div>
+              </div>
+
+              <div class="col-lg-5 col-sm-12 col-12">
+                <div class="form-group">
+                  <label>Tên Voucher :</label>
+                  <input id="tenVoucherAdd" name="tenKM"
+                         style="border: none; border-radius: 0px; border-bottom: 0.5px solid black; font-size: 12pt; font-weight: 600;">
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-sm-12 col-12">
+                <div class="form-group">
+                  <label style="font-size: 11pt; font-weight: 600;">Hình thức giảm giá</label>
+                  <select name="loaiGiamAdd" class="form-select">
+                    <option th:value="false">Giảm theo phần trăm</option>
+                    <option th:value="true">Giảm theo giá tiền</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-sm-12 col-12">
+                <div class="form-group">
+                  <label style="font-size: 11pt; font-weight: 600; ">Thời gian bắt đầu :</label>
+                  <div style="display: flex;">
+                    <input id="startDateAdd" name="dateStart" type="date"
+                           style="border: none; margin: 0 10px 8px 0; font-size: 13pt; cursor: pointer;">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-sm-12 col-12">
+                <div class="form-group">
+                  <label style="font-size: 11pt; font-weight: 600; ">Thời gian kết thúc :</label>
+                  <div style="display: flex;">
+                    <input id="endDateAdd" name="dateEnd" type="date"
+                           style="border: none; margin: 0 10px 8px 0; font-size: 13pt; cursor: pointer;">
+                  </div>
+
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-sm-12 col-12">
+                <div class="form-group">
+                  <label style="font-size: 11pt; font-weight: 600;"> Số tiền giảm giá </label>
+                  <input id="soTienGiamGiaAdd" name="soTienGiamGia" oninput="validateNumber(this)"
+                         class="form-control" type="number"
+                         style=" width: 200px; margin: 0 10px 10px 0;">
+                </div>
+              </div>
+
+              <div class="col-lg-4 col-sm-12 col-12">
+                <div class="form-group">
+                  <label style="font-size: 11pt; font-weight: 600;">Trạng thái</label>
+                  <select name="trangThaiAdd" class="form-select">
+                    <option th:value="1">Không hoạt động</option>
+                    <option th:value="2">Hoạt Động</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-sm-12 col-12">
+                <div class="form-group">
+                  <label style="font-size: 11pt; font-weight: 600;"> Phần trăm giảm </label>
+                  <input id="phanTramGiamVoucherAdd" name="phanTramGiam"
+                         oninput="validateNumber(this)" class="form-control" type="number"
+                         style=" width: 150px; margin: 0 10px 10px 0;">
+                </div>
+              </div>
+
+              <div class="col-lg-5 col-sm-12 col-12">
+                <div class="form-group">
+                  <label style="font-size: 11pt; font-weight: 600;"> Số tiền giảm tối đa (giảm
+                    theo phần trăm)</label>
+                  <input id="soTienGiamGiaTDVoucherAdd" name="soTienToiDa"
+                         oninput="validateNumber(this)" class="form-control" type="number"
+                         style=" width: 250px; margin: 0 10px 10px 0;">
+                </div>
+              </div>
+
+              <div class="col-lg-12 col-sm-12 col-12">
+                <div class="form-group">
+                  <label style="font-size: 11pt; font-weight: 600;">Mô tả </label>
+                  <textarea id="moTaVoucherAdd" name="moTa" type="text"></textarea>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-lg-12">
+              <button class="btn btn-submit" style="background: #3088df;" type="submit" onclick="validateDateRange()">Thêm</button>
+              <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+  <!-- Modal Add Voucher End-->
+
+  <!--  Mess Start-->
+    <div th:if="${showModalMess}" class="modal fade" id="messAddThanhCong" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+      <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 500px;">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Thành Công</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row" style="text-align: center; align-items: center; padding: 30px 0 30px 0;">
+              <div>
+                <h3 th:text="${thongBaoABC} + ' Voucher Sản Phẩm thành công '"></h3>
+              </div>
+            </div>
+            <div class="col-lg-12">
+              <a class="btn btn-submit" style="background: #3088df;" data-bs-dismiss="modal">OK</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <!--  Mess End-->
+
+  <!-- Mess KM Trungg Start -->
+  <div th:if="${showMessKMTrung}" class="modal fade" id="messKMTrung" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document"
+         style="width: 570px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Đã thêm khuyến mãi cho các sản phẩm</h5>
+          <button type="button" class="close" data-bs-dismiss="modal"
+                  aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row"  style="text-align: center; align-items: center; padding: 30px 0 30px 0;">
+            <h3 th:text="'Có '+ ${sumKMTrung} +' sản phẩm đã có khuyến mãi'" style="font-weight: 600;"><i class="fe fe-alert-triangle" style="margin-right : 10px; color: #ff9f43;" data-bs-toggle="tooltip"
+                   title="fe fe-alert-triangle"></i></h3>
+          </div>
+          <h6 style="margin-bottom: 20px;">Bạn có muốn thay thế khuyến mãi cho các sản phẩm này không ?</h6>
+
+          <div class="col-lg-12">
+            <a class="btn btn-submit me-2" type="button" href="/manage/voucher/voucher-product/confirm"
+               style="background-color: rgb(28, 116, 240);">Thay đổi</a>
+            <a class="btn btn-cancel" data-bs-dismiss="modal">Bỏ qua</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Mess KM Trung End -->
+
+  <!-- Mess KM Trungg Start -->
+  <div th:if="${showMessThanhCong}" class="modal fade" id="messKMThanhCong" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document"
+         style="width: 570px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Đã thêm khuyến mãi cho các sản phẩm</h5>
+          <button type="button" class="close" data-bs-dismiss="modal"
+                  aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row"  style="text-align: center; align-items: center; padding: 30px 0 30px 0;">
+            <h3 style="font-weight: 600;">Cập nhật khuyến mãi thành công</h3>
+          </div>
+          <div class="col-lg-12">
+            <a class="btn btn-cancel" data-bs-dismiss="modal">OK</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Mess KM Trung End -->
+
+  <!-- Mess KM Trungg Start -->
+  <div class="modal fade" id="errorAddVoucherProduct" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document"
+         style="width: 570px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Lỗi thêm khuyến mại vào sản phẩm</h5>
+          <button type="button" class="close" data-bs-dismiss="modal"
+                  aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row"  style="text-align: center; align-items: center; padding: 30px 0 30px 0;">
+            <h3 style="font-weight: 600;">Vui lòng chọn ít nhất 1 sản phẩm để thêm hoặc xóa khuyến mãi</h3>
+          </div>
+          <div class="col-lg-12">
+            <a class="btn btn-cancel" data-bs-dismiss="modal">OK</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Mess KM Trung End -->
+
+</section>
+
+<script th:inline="javascript">
+  document.querySelector('.btn-submit').addEventListener('click', function() {
+    var idKM = this.getAttribute('data-idkm');
+    validateDateRangeUpdate(idKM);
+  });
+</script>
+
+<script  th:inline="javascript">
+  function validateDateRangeUpdate(idKM) {
+    var startDateValue = document.getElementById('startDateUpdate_' + idKM).value;
+    var endDateValue = document.getElementById('endDateUpdate_' + idKM).value;
+    var tenVoucherAddValue = document.getElementById('tenVoucherUpdate_' + idKM).value;
+    var moTaVoucherAddValue = document.getElementById('moTaVoucherUpdate_' + idKM).value;
+    var soTienVoucherAdd = document.getElementById('soTienGiamGiaUpdate_' + idKM).value;
+    var soTienToiDaVoucherAdd = document.getElementById('soTienGiamGiaTDVoucherUpdate_' + idKM).value;
+    var phanTramVoucherAdd = document.getElementById('phanTramGiamVoucherUpdate_' + idKM).value;
+
+    if (!tenVoucherAddValue || !moTaVoucherAddValue || !soTienVoucherAdd || !soTienToiDaVoucherAdd || !phanTramVoucherAdd || !startDateValue || !endDateValue) {
+      alert("Vui lòng nhập đầy đủ các trường");
+      event.preventDefault();
+    }
+
+    var startDate = new Date(startDateValue);
+    var endDate = new Date(endDateValue);
+
+    // Kiểm tra nếu ngày kết thúc nhỏ hơn hoặc bằng ngày bắt đầu
+    if (endDate <= startDate) {
+      alert("Ngày kết thúc phải lớn hơn ngày bắt đầu");
+      event.preventDefault();
+    }
+  }
+</script>
+
+<script>
+  function updateAction(action) {
+    document.getElementById("myForm").setAttribute("action", action);
+    document.getElementById("myForm").submit();
+  }
+</script>
+
+<script>
+  function validateNumber(input) {
+    input.value = input.value.replace(/[^0-9.]/g, '');
+
+    // Đảm bảo chỉ có một dấu chấm được nhập
+    var dots = input.value.split('.').length - 1;
+    if (dots > 1) {
+      input.value = input.value.slice(0, input.value.lastIndexOf('.'));
+    }
+  }
+</script>
+
+<script>
+  function validateDateRange() {
+    var startDateValue = document.getElementById('startDateAdd').value;
+    var endDateValue = document.getElementById('endDateAdd').value;
+    var tenVoucherAddValue = document.getElementById('tenVoucherAdd').value;
+    var moTaVoucherAddValue = document.getElementById('moTaVoucherAdd').value;
+    var soTienVoucherAdd = document.getElementById('soTienGiamGiaAdd').value;
+    var soTienToiDaVoucherAdd = document.getElementById('soTienGiamGiaTDVoucherAdd').value;
+    var phanTramVoucherAdd = document.getElementById('phanTramGiamVoucherAdd').value;
+
+    if (!tenVoucherAddValue || !moTaVoucherAddValue || !soTienVoucherAdd || !soTienToiDaVoucherAdd || !phanTramVoucherAdd || !startDateValue || !endDateValue) {
+      alert("Vui lòng nhập đầy đủ các trường");
+      event.preventDefault();
+    }
+
+    var startDate = new Date(startDateValue);
+    var endDate = new Date(endDateValue);
+
+    // Kiểm tra nếu ngày kết thúc nhỏ hơn hoặc bằng ngày bắt đầu
+    if (endDate <= startDate) {
+      alert("Ngày kết thúc phải lớn hơn ngày bắt đầu");
+      event.preventDefault();
+    }
+  }
+</script>
+
+<script>
+  var maxLength = 15;
+  var maxLength2 = 30;
+
+  var elements = document.getElementsByClassName("ellipsis");
+  var elements2 = document.getElementsByClassName("ellips");
+
+  for (var i = 0; i < elements.length; i++) {
+    var text = elements[i].textContent;
+
+    if (text.length > maxLength) {
+      var truncatedText = text.slice(0, maxLength) + "...";
+      elements[i].textContent = truncatedText;
+    }
+  }
+  for (var i = 0; i < elements2.length; i++) {
+    var text = elements2[i].textContent;
+
+    if (text.length > maxLength2) {
+      var truncatedText2 = text.slice(0, maxLength2) + "...";
+      elements2[i].textContent = truncatedText2;
+    }
+  }
+</script>
+
+
+<script src="/js/jquery-3.6.0.min.js"></script>
+
+<script src="/js/feather.min.js"></script>
+
+<script src="/js/jquery.slimscroll.min.js"></script>
+
+<script src="/js/jquery.dataTables.min.js"></script>
+<script src="/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+<script src="/js/moment.min.js"></script>
+<script src="/js/bootstrap-datetimepicker.min.js"></script>
+
+<script src="/plugins/select2/js/select2.min.js"></script>
+
+<script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script src="/plugins/sweetalert/sweetalerts.min.js"></script>
+
+<script src="/plugins/scrollbar/scrollbar.min.js"></script>
+<script src="/plugins/scrollbar/custom-scroll.js"></script>
+
+<script src="/js/script.js"></script>
+
+<script>
+  var checkboxes = document.querySelectorAll('.itemsCart');
+  var chonTatCa = document.getElementById('checkAll');
+
+  chonTatCa.addEventListener('change', function() {
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = chonTatCa.checked;
+    }
+  });
+
+  checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+      chonTatCa.checked = Array.from(checkboxes).every(function(cb) {
+        return cb.checked;
+      });
+    });
+  });
+</script>
+
+<!--<script>-->
+<!--  document.addEventListener("DOMContentLoaded", function () {-->
+<!--    var deleteButton = document.querySelector("#deleteKhuyenMai");-->
+<!--    var checkboxes = document.querySelectorAll(".itemsCart");-->
+
+
+<!--    deleteButton.addEventListener("click", function (event) {-->
+<!--      // Kiểm tra xem có ít nhất một input được chọn hay không-->
+<!--      var atLeastOneChecked = false;-->
+<!--      checkboxes.forEach(function (checkbox) {-->
+<!--        if (checkbox.checked) {-->
+<!--          atLeastOneChecked = true;-->
+<!--          return; // Thoát khỏi vòng lặp nếu có ít nhất một input được chọn-->
+<!--        }-->
+<!--      });-->
+
+<!--      // Kiểm tra trạng thái của ít nhất một input trước khi thực hiện hành động-->
+<!--      if (!atLeastOneChecked) {-->
+<!--        $('#errorAddVoucherProduct').modal('show');-->
+<!--        event.preventDefault();-->
+<!--      }-->
+<!--    });-->
+<!--  });-->
+<!--</script>-->
+
+<!--<script>-->
+<!--  document.addEventListener("DOMContentLoaded", function () {-->
+<!--    var deleteButton = document.querySelector("#themKhuyenMaiSP");-->
+<!--    var checkboxes = document.querySelectorAll(".itemsCart");-->
+
+
+<!--    deleteButton.addEventListener("click", function (event) {-->
+<!--      // Kiểm tra xem có ít nhất một input được chọn hay không-->
+<!--      var atLeastOneChecked = false;-->
+<!--      checkboxes.forEach(function (checkbox) {-->
+<!--        if (checkbox.checked) {-->
+<!--          atLeastOneChecked = true;-->
+<!--          return; // Thoát khỏi vòng lặp nếu có ít nhất một input được chọn-->
+<!--        }-->
+<!--      });-->
+
+<!--      // Kiểm tra trạng thái của ít nhất một input trước khi thực hiện hành động-->
+<!--      if (!atLeastOneChecked) {-->
+<!--        $('#errorAddVoucherProduct').modal('show');-->
+<!--        event.preventDefault();-->
+<!--      }-->
+<!--    });-->
+<!--  });-->
+<!--</script>-->
+
+<script>
+  $(document).ready(function () {
+    $('#messAddThanhCong').modal('show');
+  });
+
+  $(document).ready(function () {
+    $('#messKMTrung').modal('show');
+  });
+
+  $(document).ready(function () {
+    $('#messKMThanhCong').modal('show');
+  });
+</script>
+
+
+</body>
+
+</html>

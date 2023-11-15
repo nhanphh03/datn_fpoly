@@ -14,8 +14,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
           rel="stylesheet">
-    <link rel="icon" href="/images/img/logo-favicon.png" type="image/x-icon">
-
+    <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
     <!-- Css Styles -->
     <link rel="stylesheet" href="/cssx/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="/cssx/font-awesome.min.css" type="text/css">
@@ -308,6 +307,7 @@
   </div>
 </header>
 <!-- Header Section End -->
+
 <section>
   <div style="height: 150px; width: 100%;"></div>
 </section>
@@ -443,7 +443,7 @@
                     <th:block th:each="x : ${listSizeCTG}">
                       <label th:name="${x[1]}" class="label" style="width: 200px; margin: 5px; font-weight: unset; font-size: small;height: 40px;" th:text="${x[0]}">
                       </label>
-                      <a href="#"><img th:if="${x[2]}" src="/images/img/icon/view.png"></a>
+                      <a th:href="@{'/buyer/receiveMail/' +${x[1]}}"><img th:if="${x[2]}" src="/images/img/icon/view.png"></a>
                     </th:block>
                   </div>
 
@@ -465,8 +465,8 @@
               </div>
 
               <div th:if="${buyNowAddCartLogged}" class="product__details__cart__option">
-                <button  class="primary-btn">buy now</button>
-                <a  style="color: white" id="addToCartButton" class="primary-btn" >add to cart</a>
+                <a  style="color: white; cursor: pointer;" class="primary-btn" id="buyNowButton" >buy now</a>
+                <a  style="color: white; cursor: pointer;" id="addToCartButton" class="primary-btn" >add to cart</a>
               </div>
 
               <div th:if="${buyReceiveMail}" class="product__details__cart__option">
@@ -1140,6 +1140,8 @@
 <!--<script>-->
 <!--     alert("Please login to add the product to cart");-->
 <!--</script>-->
+<script src="/js/jquery-3.6.0.min.js"></script>
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
@@ -1151,7 +1153,7 @@
     if (selectedLabel) {
       var labelName = selectedLabel.getAttribute("name");
 
-      window.location.href = '/buyer/shop/addProductCart?idDProduct=' + labelName + '&quantity=' + quantity;
+      window.location.href = '/buyer/shop/addProductCart?idDetailProduct=' + labelName + '&quantity=' + quantity;
 
     } else {
       alert("Vui lòng chọn một sản phẩm trước khi thêm vào giỏ hàng.");
@@ -1159,6 +1161,26 @@
     }
   });
 </script>
+
+
+<script>
+  document.getElementById("buyNowButton").addEventListener("click", function () {
+    var quantity = document.getElementById("quantityInput").value;
+
+    var selectedLabel = document.querySelector(".label.active");
+
+    if (selectedLabel) {
+      var labelName = selectedLabel.getAttribute("name");
+
+      window.location.href = '/buyer/shop/buyNowButton?idDetailProduct=' + labelName + '&quantity=' + quantity;
+
+    } else {
+      alert("Vui lòng chọn một sản phẩm trước khi mua hàng.");
+      event.preventDefault();
+    }
+  });
+</script>
+
 
 
 
@@ -1221,7 +1243,7 @@
 
 <!-- Js Plugins -->
 
-<script src="/js/jquery-3.6.0.min.js"></script>
+
 <script src="/js/feather.min.js"></script>
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/script.js"></script><script src="/js/jquery-3.3.1.min.js"></script>

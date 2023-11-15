@@ -11,7 +11,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Sneaker Shop - Admin</title>
 
-    <link rel="shortcut icon" type="image/x-icon" href="/images/img/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
@@ -24,6 +24,8 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
 
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
+
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -34,10 +36,10 @@
     <div class="header">
 
         <div class="header-left active">
-            <a href="index.html" class="logo">
+            <a href="/manage" class="logo">
                 <img src="/images/img/logo.png" alt="">
             </a>
-            <a href="index.html" class="logo-small">
+            <a href="/manage" class="logo-small">
                 <img src="/images/img/logo-small.png" alt="">
             </a>
             <a id="toggle_btn" href="javascript:void(0);">
@@ -246,10 +248,6 @@
                             <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                        </a>
-                    </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
                                                            alt="img"><span> Quản Lý Đặt Hàng</span> <span
@@ -298,16 +296,13 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
-                    Quản Lý Voucher</span
-                        >
-                            <span class="menu-arrow"></span
-                            ></a>
+                        <a href="javascript:void(0);"><img src="/images/img/icons/transfer1.svg" alt="img"/><span>Quản lý Khuyến Mãi</span>
+                            <span class="menu-arrow"></span>
+                        </a>
                         <ul>
-                            <li><a href="transferlist.html">Transfer List</a></li>
-                            <li><a href="addtransfer.html">Add Transfer </a></li>
-                            <li><a href="importtransfer.html">Import Transfer </a></li>
+                            <li><a href="/manage/voucher">Khuyến Mãi Chung</a></li>
+                            <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
+                            <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -331,12 +326,13 @@
             <div class="card">
                 <div class="card-body">
                     <div class="hidden-form" style="display: none">
-                        <form th:object="${chucVuAdd}" method="post" th:action="@{/manage/chuc-vu/viewAdd/add}">
+                        <form th:object="${chucVuAdd}" method="post"
+                              th:action="@{/manage/chuc-vu/viewAdd/add}">
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Chức Vụ</label>
-                                        <input type="text" th:field="*{maCV}">
+                                        <input type="text" th:field="*{maCV}" required>
                                         <br><br>
                                         <strong th:if="${#fields.hasErrors('maCV')}"
                                                 class="alert alert-danger alert-dismissible fade show"
@@ -346,7 +342,7 @@
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Chức Vụ</label>
-                                        <input type="text" th:field="*{tenCV}">
+                                        <input type="text" th:field="*{tenCV}" required>
                                         <br><br>
                                         <strong th:if="${#fields.hasErrors('tenCV')}"
                                                 class="alert alert-danger alert-dismissible fade show"
@@ -492,8 +488,8 @@
                                 <td th:text="${items.maCV}"></td>
                                 <td th:text="${items.tenCV}"></td>
                                 <td>
-                                    <p th:if="${items.trangThai == 1}">Hoạt Động</p>
-                                    <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
+                                    <p th:if="${items.trangThai == 1}"  class="badges bg-lightgreen">Hoạt Động</p>
+                                    <p th:unless="${items.trangThai == 1}"  class="badges bg-lightred">Không Hoạt Động</p>
                                 </td>
                                 <td th:text="${items.tgThem}"></td>
                                 <td th:text="${items.tgSua}"></td>
@@ -501,7 +497,8 @@
                                     <a class="me-3" th:href="@{'/manage/chuc-vu/viewUpdate/' + ${items.idCV}}">
                                         <img src="/images/img/icons/edit.svg" alt="img">
                                     </a>
-                                    <a class="me-3 " th:href="@{'/manage/chuc-vu/delete/' + ${items.idCV}}">
+                                    <a class="me-3 delete-button"
+                                       th:data-delete-url="@{'/manage/chuc-vu/delete/' + ${items.idCV}}">
                                         <img src="/images/img/icons/delete.svg" alt="img">
                                     </a>
                                 </td>
@@ -512,6 +509,20 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div th:if="${message}" id="toast-container" class="toast-container toast-top-right">
+    <div class="toast toast-success" aria-live="polite" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Thành Công</div>
+        <div class="toast-message">Dữ liệu của bạn đã được cập nhật</div>
+    </div>
+</div>
+<div th:if="${Errormessage}" id="checkMa" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Chức Vụ đã tồn tại.</div>
     </div>
 </div>
 <script src="/js/jquery-3.6.0.min.js"></script>
@@ -529,7 +540,8 @@
 
 <script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
-
+<script src="/plugins/toastr/toastr.min.js"></script>
+<script src="/plugins/toastr/toastr.js"></script>
 <script src="/js/script.js"></script>
 
 <script>
@@ -648,6 +660,21 @@
             form2.style.display = "none";  // Ẩn form
         }
     });
+</script>
+<script>
+    setTimeout(function () {
+        var successToast = document.getElementById('toast-container');
+        if (successToast) {
+            successToast.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMa = document.getElementById('checkMa');
+        if (checkMa) {
+            checkMa.style.display = 'none';
+        }
+    }, 5000);
 </script>
 </body>
 </html>

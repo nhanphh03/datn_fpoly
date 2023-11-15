@@ -1,12 +1,14 @@
 package com.example.demo.repository;
 
 import com.example.demo.model.*;
+import com.example.demo.utils.BaoHanhDTO;
 import com.example.demo.viewModel.CTGViewModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,4 +42,13 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
 
     List<ChiTietGiay> findAllByOrderByTgThemDesc();
 
+    @Query(value = "SELECT p.id_chi_tiet_giay,g.ma_giay ,g.ten_giay,h.ten_hang, p.nam_bao_hanh \n" +
+            "FROM chi_tiet_giay p \n" +
+            "INNER JOIN giay g on p.id_giay = g.id_giay\n" +
+            "INNER JOIN hang h on g.id_hang = h.id_hang\n" +
+            "WHERE p.nam_bao_hanh > 0 AND p.nam_bao_hanh < YEAR(GETDATE())", nativeQuery = true)
+    List<Object[]> dsHetBaoHanh();
+
+    @Query(value = "select sum(so_luong) from chi_tiet_giay",nativeQuery = true)
+    Integer getTongGiay();
 }

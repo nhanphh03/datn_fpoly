@@ -127,12 +127,12 @@ public class HangController {
         hang.setTgSua(new Date());
         hangService.save(hang);
         // Cập nhật trạng thái của tất cả sản phẩm chi tiết của hãng thành 0
-        List<Giay> giays = giayService.findByHang(hang);
-        for (Giay giay : giays) {
-            giay.setTrangThai(0);
-            giayService.save(giay);
-            giayController.deleteGiayById(giay.getIdGiay());
-        }
+//        List<Giay> giays = giayService.findByHang(hang);
+//        for (Giay giay : giays) {
+//            giay.setTrangThai(0);
+//            giayService.save(giay);
+//            giayController.deleteGiayById(giay.getIdGiay());
+//        }
         //
         redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/hang";

@@ -14,8 +14,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
           rel="stylesheet">
-    <link rel="icon" href="/images/img/logo-favicon.png" type="image/x-icon">
-
+    <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
     <!-- Css Styles -->
     <link rel="stylesheet" href="/cssx/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="/cssx/font-awesome.min.css" type="text/css">
@@ -135,7 +134,7 @@
                 <img style="margin-bottom: 42px; width: 18px; height: 18px;"   src="/images/img/icon/notification.png" >
               </a>
               <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
-              <div class="dropdown-menu notifications" style="width:300px; top: -80px; position: absolute;">
+              <div class="dropdown-menu notifications" style="z-index: 222;width:300px; top: -80px; position: absolute; ">
                 <div class="topnav-dropdown-header">
                   <span class="notification-title">Notifications</span>
                   <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
@@ -257,130 +256,129 @@
 <section>
   <div style="height: 150px; width: 100%;"></div>
 </section>
-<!-- Breadcrumb Section Begin -->
-<section class="breadcrumb-option">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="breadcrumb__text">
-          <h4>Shop</h4>
-          <div class="breadcrumb__links">
-            <a th:href="@{'/buyer/home'}" >Home</a>
-            <a th:href="@{'/buyer/shop'}" >Shop</a>
-            <span>Shopping Cart</span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- Breadcrumb Section End -->
+
 
 <!-- Shopping Cart Section Begin -->
-<section class="shopping-cart spad">
-
+<section class="shopping-cart spad" style="margin-top: -80px">
   <div class="container">
-    <div class="row">
-      <div class="col-lg-8">
-        <div class="shopping__cart__table">
-          <table>
-            <thead>
-            <tr>
-              <th><input id="checkAll" type="checkbox"  style="margin-left: 15px"></th>
-              <th>Product</th>
-              <th></th>
-              <th>Variations</th>
-              <th>Quantity</th>
-              <th>Total</th>
-              <th>Actions</th>
-            </tr>
-            </thead>
-          </table>
+    <form action="/buyer/cart/checkout" method="post" id="purchaseForm">
+      <div style="z-index: 100; width: 1170px;  position: fixed;margin-bottom: 50px">
+        <div class="row" style="background-color: #f3f2ee; height: 80px; width: 1170px;  ">
+          <div class="col-lg-8">
+            <p style="margin: 20px 0 5px 50px;"> <input style="margin-right: 10px;" type="checkbox" name="" id="checkAll" th:text="'Select All ( ' +${sumProductInCart} +' items )'"></p>
+            <a style="margin: 10px 0 0 50px; color: red;" href="">Delete</a>
+
+          </div>
+          <div class="col-lg-2">
+
+            <h5 style=" margin: 20px 0 5px 0;">Total (? items) : </h5>
+            <p>Saved</p>
+          </div>
+          <div class="col-lg-2">
+            <h5 style=" margin: 20px 0 5px 0;"> 800 $</h5>
+            <p>-200$</p>
+          </div>
         </div>
-        <div class="shopping__cart__table">
-          <div class="vertical-scroll scroll-demo"  style="height: 400px;" >
-            <table style="height:400px;">
-            <tbody>
 
-            <th:block th:each="x : ${listCartDetail}">
-
-                <form  method="post" >
-                <tr id="productId" th:value="${x.chiTietGiay.idCTG}">
-
-                  <td><input class="itemsCart" name="selectedProducts" type="checkbox" onclick="updateTotalAmount(this)" th:value="${x.chiTietGiay.idCTG}"></td>
-                  <td class="product__cart__item" >
-                    <div class="product__cart__item__pic">
-                      <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}"> <img style="width:90px; height:90px;" th:src="@{'/images/imgsProducts/' + ${x.chiTietGiay.hinhAnh.url1}}"></a>
-                    </div>
-                    <div class="product__cart__item__text">
-                      <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}">
-                        <h6 style="margin-top: -22px;" th:text="${x.chiTietGiay.giay.tenGiay}"></h6>
-                      </a>
-                      <h5 class="cart__price" th:text="${x.chiTietGiay.giaBan} + ' $'"></h5>
-                    </div>
-
-                  </td>
-                  <td class="quantity__item">
-                    <div  style="margin-top: -20px; display: block;">
-                      <span id="showButton" style="font-weight: normal; font-size: medium;">Options :</span>
-                      <a th:href="@{/cart/${x.chiTietGiay.giay.idGiay}}" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <img style="height: 10px; width: 10px;" src="/images/img/icon/dropdown.png" alt=""> </a>
-                    </div>
-                    <div style="padding-right: 20px;">
-                      <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" th:text="'Colors : ' + ${x.chiTietGiay.mauSac.tenMau}"></span>
-                      <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" th:text="'Size : ' + ${x.chiTietGiay.size.soSize}" ></span>
-                    </div>
-                  </td>
-                  <td class="quantity__item">
-                    <div class="quantity">
-  <!--                    <div class="pro-qty-2">-->
-  <!--                      <button>+</button>-->
-                      <input style=" margin-top: 3px;border: none; font-weight: 700; font-size: 18pt; background-color: white;" type="button" value="-"
-                             class="button-minus dec button" onclick="decrementQuantity(this)">
-                      <input  class="quantityInput" oninput="updateTotalAmount(this)" th:value="${x.soLuong}" style="width: 30px; text-align: center; border: none;" type="text" name="child" value="0">
-                      <input style="border: none; font-weight: 700; font-size: 14pt; background-color: white;" type="button" value="+"
-                             class="button-plus inc button " onclick="incrementQuantity(this)">
-
-  <!--                    <input type="number"  class="quantityInput" oninput="updateTotalAmount(this)" th:value="${x.soLuong}">-->
-  <!--                      <button>-</button>-->
-  <!--                    </div>-->
-                    </div>
-                  </td>
-                  <td class="cart__price totalAmount" th:text="'$ ' + ${x.chiTietGiay.giaBan * x.soLuong}"></td>
-                  <td class="cart__close"><a th:href="@{'/buyer/cart/delete/' + ${x.chiTietGiay.idCTG}}" id="deleteToCartButton" style="border-radius: 20% ; " ><i class="fa fa-close"></i></a></td>
-                </tr>
-                </form>
-
-            </th:block>
-
-            </tbody>
-          </table>
+        <div class="row" style="background-color: #f3f2ee; height: 50px;width: 1170px; ">
+          <div class="col-lg-8">
+            <a style="margin:10px 0 0 50px;" href="">Remove inactive products</a>
+          </div>
+          <div class="col-lg-4">
+            <button style="width: 300px; height: 35px; border: 0.5px solid rgb(61, 61, 61);" type="submit" onclick="return validatePurchase()">Check out</button>
           </div>
         </div>
       </div>
-      <div class="col-lg-4">
-        <div class="cart__discount">
-          <h6>Discount codes</h6>
-          <form action="#">
-            <input type="text" placeholder="Coupon code">
-            <button type="submit">Apply</button>
-          </form>
+
+      <div style="height: 160px; width: 100%;"></div>
+    <div class="row">
+        <div class="col-lg-12">
+
+          <div class="shopping__cart__table">
+            <table>
+              <thead>
+              <tr>
+                <th>x</th>
+                <th style="width: 400px;">Product</th>
+                <th style="width: 175px;">Variations</th>
+                <th style="width: 175px;">Quantity</th>
+                <th style="width: 140px;">Total</th>
+                <th class="cart__close">Actions</th>
+              </tr>
+              </thead>
+            </table>
+          </div>
+
+          <div class="shopping__cart__table">
+<!--            <div class="vertical-scroll scroll-demo"  style="height: 400px;" >-->
+              <table style="height:250px;">
+                <tbody>
+
+                <th:block th:each="x : ${listCartDetail}">
+
+                  <tr id="productId" th:value="${x.chiTietGiay.idCTG}">
+
+                    <td><input class="itemsCart" name="selectedProducts" type="checkbox" onclick="updateTotalAmount(this)" th:value="${x.chiTietGiay.idCTG}"></td>
+                    <td style="width: 400px;" class="product__cart__item" >
+                      <div class="product__cart__item__pic">
+                        <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}"> <img style="width:90px; height:90px;" th:src="@{'/images/imgsProducts/' + ${x.chiTietGiay.hinhAnh.url1}}"></a>
+                      </div>
+                      <div class="product__cart__item__text">
+                        <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}">
+                          <h6 style="margin-top: -22px;" th:text="${x.chiTietGiay.giay.tenGiay}"></h6>
+                        </a>
+                        <h5 class="cart__price" th:text="${x.chiTietGiay.giaBan} + ' $'"></h5>
+                        <h5 style="color: #b7b7b7; font-size: 15px; font-weight: 400; text-decoration: line-through;">220.0 $</h5>
+                      </div>
+
+                    </td>
+                    <td style="width: 175px;"  class="quantity__item">
+                      <div  style="margin-top: -20px; display: block;">
+                        <span id="showButton" style="font-weight: normal; font-size: medium;">Options :</span>
+                        <a th:href="@{/cart/${x.chiTietGiay.giay.idGiay}}" type="button" data-toggle="modal" data-target="#exampleModalCenter"> <img style="height: 10px; width: 10px;" src="/images/img/icon/dropdown.png" alt=""> </a>
+                      </div>
+                      <div style="padding-right: 20px;">
+                        <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" th:text="'Colors : ' + ${x.chiTietGiay.mauSac.tenMau}"></span>
+                        <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" th:text="'Size : ' + ${x.chiTietGiay.size.soSize}" ></span>
+                      </div>
+                    </td>
+                    <td style="width: 175px;"  class="quantity__item">
+                      <div class="quantity">
+
+                        <input style=" margin-top: 3px;border: none; font-weight: 700; font-size: 18pt; background-color: white;"
+                                type="button" value="-" class="button-minus dec button"
+                                onclick="decrementQuantity(this)">
+
+                        <input  class="quantityInput" oninput="updateTotalAmount(this)" th:value="${x.soLuong}" style="width: 30px; text-align: center; border: none;" type="text" name="child" value="0">
+
+                        <input style="border: none; font-weight: 700; font-size: 14pt; background-color: white;"
+                                type="button" value="+" class="button-plus inc button a3 a5 a1 a-1"
+                                onclick="incrementQuantity(this)">
+
+                      </div>
+                    </td>
+                    <td style="width: 140px;" class="cart__price totalAmount" th:text="'$ ' + ${x.chiTietGiay.giaBan * x.soLuong}"></td>
+                    <td class="cart__close"><a th:href="@{'/buyer/cart/delete/' + ${x.chiTietGiay.idCTG}}" id="deleteToCartButton" style="border-radius: 20% ; " ><i class="fa fa-close"></i></a></td>
+
+                  </tr>
+
+                </th:block>
+
+                </tbody>
+              </table>
+<!--            </div>-->
+          </div>
+
         </div>
-        <div class="cart__total">
-          <form action="/checkout" method="Post">
-            <h6>Cart total</h6>
-            <ul>
-              <li>Subtotal <span>$ 169.50</span></li>
-              <li>Total <span id="grandTotal">0</span> $</li>
-            </ul>
-            <button style="margin: auto" type="submit" class="primary-btn">Proceed to checkout</button>
-          </form>
-        </div>
+
+
       </div>
-    </div>
+    </form>
+
   </div>
 
   <div class="row" style="align-items: center; margin-top: 30px;">
-    <div style="height: 1px; width: 90%; background-color: #707070; margin-left: 5%;"></div>
+    <div style="height: 0.7px; width: 90%; background-color: #707070; margin-left: 5%;"></div>
   </div>
 
 </section>
@@ -814,7 +812,104 @@
 
 
 </section>
+
+
 <script src="/js/jquery-3.6.0.min.js"></script>
+<script src="/js/feather.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<!--<script src="/js/script.js"></script>-->
+<script src="/js/jquery-3.3.1.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/jquery.nice-select.min.js"></script>
+<script src="/js/jquery.nicescroll.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
+<script src="/js/jquery.countdown.min.js"></script>
+<script src="/js/jquery.slicknav.js"></script>
+<script src="/js/mixitup.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/jquery.slimscroll.min.js"></script>
+<script src="/js/scrollbar.min.js"></script>
+<script src="/js/custom-scroll.js"></script>
+
+
+<!--Selected product check begin -->
+
+<script>
+  function validatePurchase() {
+    var form = document.getElementById('purchaseForm');
+    var checkboxes = form.querySelectorAll('input[type="checkbox"]');
+    var atLeastOneChecked = false;
+
+    checkboxes.forEach(function (checkbox) {
+      if (checkbox.checked) {
+        atLeastOneChecked = true;
+        return;
+      }
+    });
+
+    if (!atLeastOneChecked) {
+      alert("Vui lòng chọn ít nhất một sản phẩm để mua.");
+      return false;
+    }
+
+    return true;
+  }
+</script>
+
+<script>
+  function updateTotalAmount(inputElement) {
+    var row = inputElement.closest('tr');
+    var priceElement = row.querySelector('.cart__price');
+    var quantityInput = row.querySelector('.quantityInput');
+    var totalAmountElement = row.querySelector('.totalAmount');
+
+    var price = parseFloat(priceElement.textContent.replace('$', '').trim());
+    var quantity = parseInt(quantityInput.value);
+
+    var totalAmount = price * quantity;
+    totalAmountElement.textContent = '$ ' + totalAmount.toFixed(2);
+  }
+
+  // Hàm tăng số lượng
+  function incrementQuantity(inputElement) {
+    var quantityInput = inputElement.closest('tr').querySelector('.quantityInput');
+    var quantity = parseInt(quantityInput.value);
+    quantityInput.value = quantity + 1;
+
+    var row = inputElement.closest('tr');
+    var priceElement = row.querySelector('.cart__price');
+    var totalAmountElement = row.querySelector('.totalAmount');
+
+    var price = parseFloat(priceElement.textContent.replace('$', '').trim());
+    var quantityv = parseInt(quantityInput.value);
+
+    var totalAmount = price * quantityv;
+    totalAmountElement.textContent = '$ ' + totalAmount.toFixed(2);
+  }
+  // Hàm giảm số lượng
+  function decrementQuantity(inputElement) {
+    var row = inputElement.closest('tr');
+    var quantityInput = row.querySelector('.quantityInput');
+    var totalAmountElement = row.querySelector('.totalAmount');
+
+    var quantity = parseInt(quantityInput.value);
+    if (quantity > 0) {
+      quantityInput.value = quantity - 1;
+
+      var priceElement = row.querySelector('.cart__price');
+      var price = parseFloat(priceElement.textContent.replace('$', '').trim());
+
+      var totalAmount = price * (quantity - 1);
+      totalAmountElement.textContent = '$ ' + totalAmount.toFixed(2);
+    }
+
+  }
+
+</script>
+<!--Selected product check end -->
+
+
 
 <script>
   // Biến để lưu tổng tiền ban đầu
@@ -887,46 +982,6 @@
   });
 </script>
 
-
-<!--<script>-->
-<!--  var checkboxes = document.querySelectorAll('.itemsCart');-->
-<!--  var chonTatCa = document.getElementById('checkAll');-->
-
-<!--  chonTatCa.addEventListener('change', function() {-->
-<!--    for (var i = 0; i < checkboxes.length; i++) {-->
-<!--      checkboxes[i].checked = chonTatCa.checked;-->
-<!--    }-->
-<!--  });-->
-
-<!--  checkboxes.forEach(function(checkbox) {-->
-<!--    checkbox.addEventListener('change', function() {-->
-<!--      chonTatCa.checked = Array.from(checkboxes).every(function(cb) {-->
-<!--        return cb.checked;-->
-<!--      });-->
-<!--    });-->
-<!--  });-->
-<!--</script>-->
-
-
-
-<!-- Js Plugins -->
-
-<script src="/js/feather.min.js"></script>
-<script src="/js/bootstrap.bundle.min.js"></script>
-<script src="/js/script.js"></script>
-<script src="/js/jquery-3.3.1.min.js"></script>
-<script src="/js/bootstrap.min.js"></script>
-<script src="/js/jquery.nice-select.min.js"></script>
-<script src="/js/jquery.nicescroll.min.js"></script>
-<script src="/js/jquery.magnific-popup.min.js"></script>
-<script src="/js/jquery.countdown.min.js"></script>
-<script src="/js/jquery.slicknav.js"></script>
-<script src="/js/mixitup.min.js"></script>
-<script src="/js/owl.carousel.min.js"></script>
-<script src="/js/main.js"></script>
-<script src="/js/jquery.slimscroll.min.js"></script>
-<script src="/js/scrollbar.min.js"></script>
-<script src="/js/custom-scroll.js"></script>
 </body>
 
 </html>

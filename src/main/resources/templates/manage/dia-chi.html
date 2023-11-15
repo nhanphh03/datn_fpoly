@@ -10,7 +10,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Sneaker Shop - Admin</title>
 
-    <link rel="shortcut icon" type="image/x-icon" href="/images/img/logo.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
@@ -22,7 +22,7 @@
 
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
-
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -33,10 +33,10 @@
     <div class="header">
 
         <div class="header-left active">
-            <a href="index.html" class="logo">
+            <a href="/manage" class="logo">
                 <img src="/images/img/logo.png" alt="">
             </a>
-            <a href="index.html" class="logo-small">
+            <a href="/manage" class="logo-small">
                 <img src="/images/img/logo-small.png" alt="">
             </a>
             <a id="toggle_btn" href="javascript:void(0);">
@@ -246,10 +246,6 @@
                             <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
-                    <li>
-                        <a href="/ban-hang/hien-thi"><img src="/images/img/icons/sales1.svg" alt="img"><span> Bán Hàng Tại Quầy</span>
-                        </a>
-                    </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
                                                            alt="img"><span> Quản Lý Đặt Hàng</span> <span
@@ -298,16 +294,13 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="javascript:void(0);"
-                        ><img src="/images/img/icons/transfer1.svg" alt="img"/><span>
-                    Quản Lý Voucher</span
-                        >
-                            <span class="menu-arrow"></span
-                            ></a>
+                        <a href="javascript:void(0);"><img src="/images/img/icons/transfer1.svg" alt="img"/><span>Quản lý Khuyến Mãi</span>
+                            <span class="menu-arrow"></span>
+                        </a>
                         <ul>
-                            <li><a href="transferlist.html">Transfer List</a></li>
-                            <li><a href="addtransfer.html">Add Transfer </a></li>
-                            <li><a href="importtransfer.html">Import Transfer </a></li>
+                            <li><a href="/manage/voucher">Khuyến Mãi Chung</a></li>
+                            <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
+                            <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -412,15 +405,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <!--                                    <div class="col-lg-2 col-sm-6 col-12">-->
-                                    <!--                                        <div class="form-group">-->
-                                    <!--                                            <select class="select">-->
-                                    <!--                                                <option>Trạng Thái</option>-->
-                                    <!--                                                <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
-                                    <!--                                                        th:text="${loc.value}"></option>-->
-                                    <!--                                            </select>-->
-                                    <!--                                        </div>-->
-                                    <!--                                    </div>-->
                                     <div class="col-lg-3 col-sm-6 col-12">
                                         <div class="form-group">
                                             <select class="select" id="KhachHangFilterTen" name="searchTerm">
@@ -454,14 +438,17 @@
                                 </th>
                                 <th>Mã Địa Chỉ</th>
                                 <th>Tên Địa Chỉ</th>
+                                <th>Tên Người Nhận</th>
                                 <th>Xã Phường</th>
                                 <th>Quận Huyện</th>
                                 <th>Tỉnh Thành Phố</th>
                                 <th>Mô Tả</th>
                                 <th>Miền</th>
+                                <th>Loại Địa Chỉ</th>
                                 <th>Địa Chỉ Chi tiết</th>
-                                <th>Trạng Thái</th>
+                                <th>SDT Địa Chỉ</th>
                                 <th>Khách Hàng</th>
+                                <th>Trạng Thái</th>
                                 <th>Thời Gian Thêm</th>
                                 <th>Thời Gian Sửa</th>
                                 <th>Action</th>
@@ -477,24 +464,28 @@
                                 </td>
                                 <td th:text="${items.maDC}"></td>
                                 <td th:text="${items.tenDC}"></td>
+                                <td th:text="${items.tenNguoiNhan}"></td>
                                 <td th:text="${items.xaPhuong}"></td>
                                 <td th:text="${items.quanHuyen}"></td>
                                 <td th:text="${items.tinhTP}"></td>
                                 <td th:text="${items.moTa}"></td>
                                 <td th:text="${items.mien}"></td>
+                                <td th:text="${items.loai}"></td>
                                 <td th:text="${items.diaChiChiTiet}"></td>
-                                <td>
-                                    <p th:if="${items.trangThai == 1}">Hoạt Động</p>
-                                    <p th:unless="${items.trangThai == 1}">Không Hoạt Động</p>
-                                </td>
+                                <td th:text="${items.sdtNguoiNhan}"></td>
                                 <td th:text="${items.khachHang.hoTenKH}"></td>
+                                <td>
+                                    <p th:if="${items.trangThai == 1}"  class="badges bg-lightgreen">Hoạt Động</p>
+                                    <p th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</p>
+                                </td>
                                 <td th:text="${items.tgThem}"></td>
                                 <td th:text="${items.tgSua}"></td>
                                 <td>
                                     <a class="me-3" th:href="@{'/manage/dia-chi/viewUpdate/' + ${items.idDC}}">
                                         <img src="/images/img/icons/edit.svg" alt="img">
                                     </a>
-                                    <a class="me-3 " th:href="@{'/manage/dia-chi/delete/' + ${items.idDC}}">
+                                    <a class="me-2 delete-button"
+                                       th:data-delete-url="@{'/manage/dia-chi/delete/' + ${items.idDC}}">
                                         <img src="/images/img/icons/delete.svg" alt="img">
                                     </a>
                                 </td>
@@ -505,6 +496,13 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div th:if="${message}" id="toast-container" class="toast-container toast-top-right">
+    <div class="toast toast-success" aria-live="polite" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Thành Công</div>
+        <div class="toast-message">Dữ liệu của bạn đã được cập nhật</div>
     </div>
 </div>
 <script src="/js/jquery-3.6.0.min.js"></script>
@@ -659,6 +657,14 @@
             form2.style.display = "none";  // Ẩn form
         }
     });
+</script>
+<script>
+    setTimeout(function () {
+        var successToast = document.getElementById('toast-container');
+        if (successToast) {
+            successToast.style.display = 'none';
+        }
+    }, 5000);
 </script>
 </body>
 </html>

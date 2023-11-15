@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -28,6 +29,9 @@ public class HoaDon {
     @JoinColumn(name = "id_KH")
     private KhachHang khachHang;
 
+    @OneToMany(mappedBy = "hoaDon")
+    private List<HoaDonChiTiet> hoaDonChiTiets;
+
     @ManyToOne
     @JoinColumn(name = "id_NV")
     private NhanVien nhanVien;
@@ -35,6 +39,10 @@ public class HoaDon {
     @OneToOne
     @JoinColumn(name = "id_KM")
     private KhuyenMai khuyenMai;
+
+    @OneToOne
+    @JoinColumn(name = "id_HTTT")
+    private ThanhToan thanhToan;
 
     @Column(name = "ma_HD")
     private String maHD;
@@ -61,7 +69,7 @@ public class HoaDon {
     private Date tgShip;
 
     @Column(name = "tg_Nhan")
-    private Date tgNhan;
+    private Date tgNhanDK;
 
     @Column(name = "ten_Nguoi_Nhan")
     private String tenNguoiNhan;

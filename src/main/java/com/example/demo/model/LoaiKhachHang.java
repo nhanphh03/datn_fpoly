@@ -2,11 +2,11 @@ package com.example.demo.model;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import lombok.*;
 
 import java.util.Date;
 import java.util.UUID;
@@ -25,18 +25,19 @@ public class LoaiKhachHang {
     @Column(name ="id_Hang")
     private UUID idLKH;
 
-    @NotEmpty(message = "Không được để trống Mã")
+    @NotBlank
     @Column(name = "ma_LoaiKH")
     private String maLKH;
 
-    @NotEmpty(message = "Không được để trống Tên")
+    @NotBlank
     @Column(name="ten_LoaiKH")
     private String tenLKH;
 
     @Column( name = "trang_Thai")
     private int trangThai;
 
-    @NotEmpty(message = "Không được để trống số điểm")
+
+    @Min(value = 1)
     @Column( name = "soDiem")
     private int soDiem;
 

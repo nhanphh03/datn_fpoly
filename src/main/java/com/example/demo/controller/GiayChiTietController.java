@@ -473,7 +473,9 @@ public class GiayChiTietController {
     @PostMapping("/giay-chi-tiet/viewAdd/add")
     public String addGiayChiTiet(@Valid @ModelAttribute("giayChiTiet") ChiTietGiay chiTietGiay,
                                  BindingResult bindingResult, Model model,
-                                 RedirectAttributes redirectAttributes) {
+                                 RedirectAttributes redirectAttributes,
+                                 @RequestParam("selectedSizesCount") int selectedSizesCount,
+                                 @RequestParam("size") List<String> selectedSizes) {
         if (bindingResult.hasErrors()) {
             List<HinhAnh> hinhAnhList = hinhAnhService.getAllHinhAnh();
             Collections.sort(hinhAnhList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
@@ -653,6 +655,7 @@ public class GiayChiTietController {
     public String addGiay(@ModelAttribute("giayAdd") Giay giay, Model model) {
         Giay giay1 = new Giay();
         giay1.setMaGiay(giay.getMaGiay());
+        giay1.setMoTa(giay.getMoTa());
         giay1.setTenGiay(giay.getTenGiay());
         giay1.setTgThem(new Date());
         giay1.setHang(giay.getHang());
@@ -693,6 +696,7 @@ public class GiayChiTietController {
         //
         Giay giay1 = new Giay();
         giay1.setMaGiay(giay.getMaGiay());
+        giay1.setMoTa(giay.getMoTa());
         giay1.setTenGiay(giay.getTenGiay());
         giay1.setTgThem(new Date());
         giay1.setHang(giay.getHang());

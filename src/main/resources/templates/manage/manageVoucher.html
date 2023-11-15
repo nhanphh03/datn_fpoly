@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+  <meta name="description" content="POS - Bootstrap Admin Template">
+  <meta name="keywords"
+        content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects">
+  <meta name="author" content="Dreamguys - Bootstrap Admin Template">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Sneaker Shop - Admin</title>
+
+  <link rel="shortcut icon" type="image/x-icon"  href="/images/img/icon.png">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/css/animate.css">
+
+  <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
+
+  <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
+
+  <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+  <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div id="global-loader">
+  <div class="whirly-loader"></div>
+</div>
+<div class="main-wrapper">
+  <div class="header">
+
+    <div class="header-left active">
+      <a href="/manage" class="logo">
+        <img src="/images/img/logo.png" alt="">
+      </a>
+      <a href="/manage" class="logo-small">
+        <img src="/images/img/logo-small.png" alt="">
+      </a>
+      <a id="toggle_btn" href="javascript:void(0);">
+      </a>
+    </div>
+
+    <a id="mobile_btn" class="mobile_btn" href="#sidebar">
+            <span class="bar-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+            </span>
+    </a>
+
+    <ul class="nav user-menu">
+
+      <li class="nav-item">
+        <div class="top-nav-search">
+          <a href="javascript:void(0);" class="responsive-search">
+            <i class="fa fa-search"></i>
+          </a>
+          <form action="#">
+            <div class="searchinputs">
+              <input type="text" placeholder="Search Here ...">
+              <div class="search-addon">
+                <span><img src="/images/img/icons/closes.svg" alt="img"></span>
+              </div>
+            </div>
+            <a class="btn" id="searchdiv"><img src="/images/img/icons/search.svg" alt="img"></a>
+          </form>
+        </div>
+      </li>
+
+
+      <li class="nav-item dropdown has-arrow flag-nav">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);" role="button">
+          <img src="/images/img/flags/us1.png" alt="" height="20">
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a href="javascript:void(0);" class="dropdown-item">
+            <img src="/images/img/flags/us.png" alt="" height="16"> English
+          </a>
+          <a href="javascript:void(0);" class="dropdown-item">
+            <img src="/images/img/flags/fr.png" alt="" height="16"> French
+          </a>
+          <a href="javascript:void(0);" class="dropdown-item">
+            <img src="/images/img/flags/es.png" alt="" height="16"> Spanish
+          </a>
+          <a href="javascript:void(0);" class="dropdown-item">
+            <img src="/images/img/flags/de.png" alt="" height="16"> German
+          </a>
+        </div>
+      </li>
+
+
+      <li class="nav-item dropdown">
+        <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+          <img src="/images/img/icons/notification-bing.svg" alt="img"> <span
+                class="badge rounded-pill">4</span>
+        </a>
+        <div class="dropdown-menu notifications">
+          <div class="topnav-dropdown-header">
+            <span class="notification-title">Notifications</span>
+            <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+          </div>
+          <div class="noti-content">
+            <ul class="notification-list">
+              <li class="notification-message">
+                <a href="activities.html">
+                  <div class="media d-flex">
+<span class="avatar flex-shrink-0">
+<img alt="" src="/images/img/profiles/avatar-02.jpg">
+</span>
+                    <div class="media-body flex-grow-1">
+                      <p class="noti-details"><span class="noti-title">John Doe</span> added new
+                        task <span class="noti-title">Patient appointment booking</span></p>
+                      <p class="noti-time"><span class="notification-time">4 mins ago</span></p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="notification-message">
+                <a href="activities.html">
+                  <div class="media d-flex">
+<span class="avatar flex-shrink-0">
+<img alt="" src="/images/img/profiles/avatar-03.jpg">
+</span>
+                    <div class="media-body flex-grow-1">
+                      <p class="noti-details"><span class="noti-title">Tarah Shropshire</span>
+                        changed the task name <span class="noti-title">Appointment booking with payment gateway</span>
+                      </p>
+                      <p class="noti-time"><span class="notification-time">6 mins ago</span></p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="notification-message">
+                <a href="activities.html">
+                  <div class="media d-flex">
+<span class="avatar flex-shrink-0">
+<img alt="" src="/images/img/profiles/avatar-06.jpg">
+</span>
+                    <div class="media-body flex-grow-1">
+                      <p class="noti-details"><span class="noti-title">Misty Tison</span> added
+                        <span class="noti-title">Domenic Houston</span> and <span
+                                class="noti-title">Claire Mapes</span> to project <span
+                                class="noti-title">Doctor available module</span></p>
+                      <p class="noti-time"><span class="notification-time">8 mins ago</span></p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="notification-message">
+                <a href="activities.html">
+                  <div class="media d-flex">
+<span class="avatar flex-shrink-0">
+<img alt="" src="/images/img/profiles/avatar-17.jpg">
+</span>
+                    <div class="media-body flex-grow-1">
+                      <p class="noti-details"><span class="noti-title">Rolland Webber</span>
+                        completed task <span class="noti-title">Patient and Doctor video conferencing</span>
+                      </p>
+                      <p class="noti-time"><span class="notification-time">12 mins ago</span></p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="notification-message">
+                <a href="activities.html">
+                  <div class="media d-flex">
+<span class="avatar flex-shrink-0">
+<img alt="" src="/images/img/profiles/avatar-13.jpg">
+</span>
+                    <div class="media-body flex-grow-1">
+                      <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span>
+                        added new task <span class="noti-title">Private chat module</span></p>
+                      <p class="noti-time"><span class="notification-time">2 days ago</span></p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="topnav-dropdown-footer">
+            <a href="activities.html">View all Notifications</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown has-arrow main-drop">
+        <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
+<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
+<span class="status online"></span></span>
+        </a>
+        <div class="dropdown-menu menu-drop-user">
+          <div class="profilename">
+            <div class="profileset">
+<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
+<span class="status online"></span></span>
+              <div class="profilesets">
+                <h6 th:text="${session.managerLogged.hoTenNV}"></h6>
+                <h5 th:text="${session.managerLogged.chucVu.tenCV}"></h5>
+              </div>
+            </div>
+            <hr class="m-0">
+            <a class="dropdown-item" href="profile.html"> <i class="me-2" data-feather="user"></i> My
+              Profile</a>
+            <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
+                                                                    data-feather="settings"></i>Settings</a>
+            <hr class="m-0">
+            <a class="dropdown-item logout pb-0" href="/logout"><img src="/images/img/icons/log-out.svg"
+                                                                     class="me-2" alt="img">Logout</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+
+    <div class="dropdown mobile-user-menu">
+      <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+         aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item" href="profile.html">My Profile</a>
+        <a class="dropdown-item" href="generalsettings.html">Settings</a>
+        <a class="dropdown-item" href="signin.html">Logout</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-inner slimscroll">
+      <div id="sidebar-menu" class="sidebar-menu">
+        <ul>
+          <li>
+            <a href="index.html"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
+            </a>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/product.svg" alt="img"><span> Quản lý Giày</span>
+              <span class="menu-arrow"></span></a>
+            <ul>
+              <li><a href="/manage/chat-lieu">Chất Liệu</a></li>
+              <li><a href="/manage/giay">Giày</a></li>
+              <li><a href="/manage/hang">Hãng</a></li>
+              <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
+              <li><a href="/manage/mau-sac">Màu Sắc</a></li>
+              <li><a href="/manage/size">Size</a></li>
+            </ul>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
+                                               alt="img"><span> Quản Lý Đặt Hàng</span> <span
+                    class="menu-arrow"></span></a>
+            <ul>
+              <li><a href="purchaselist.html">Purchase List</a></li>
+              <li><a href="addpurchase.html">Add Purchase</a></li>
+              <li><a href="importpurchase.html">Import Purchase</a></li>
+            </ul>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/expense1.svg" alt="img"><span> Quản Lý Hóa Đơn</span>
+              <span class="menu-arrow"></span></a>
+            <ul>
+              <li><a href="/manage/don-hang/hien-thi">Quản lý đơn hàng</a></li>
+              <li><a href="expenselist.html">Expense List</a></li>
+              <li><a href="createexpense.html">Add Expense</a></li>
+              <li><a href="expensecategory.html">Expense Category</a></li>
+            </ul>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản Lý Khách Hàng</span>
+              <span class="menu-arrow"></span></a>
+            <ul>
+              <li><a href="/manage/khach-hang">Khách Hàng</a></li>
+              <li><a href="/manage/dia-chi">Địa Chỉ </a></li>
+              <li><a href="/manage/loai-khach-hang">Loại Khách Hàng</a></li>
+            </ul>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/return1.svg" alt="img"><span> Quản Lý Đổi Trả</span>
+              <span class="menu-arrow"></span></a>
+            <ul>
+              <li><a href="salesreturnlist.html">Sales Return List</a></li>
+              <li><a href="createsalesreturn.html">Add Sales Return </a></li>
+              <li><a href="purchasereturnlist.html">Purchase Return List</a></li>
+              <li><a href="createpurchasereturn.html">Add Purchase Return </a></li>
+            </ul>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản Lý Nhân Viên</span>
+              <span class="menu-arrow"></span></a>
+            <ul>
+              <li><a href="/manage/chuc-vu">Chức Vụ</a></li>
+              <li><a href="/manage/nhan-vien">Nhân Viên</a></li>
+            </ul>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/transfer1.svg" alt="img"/><span>Quản lý Khuyến Mãi</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul>
+              <li><a class="active" href="/manage/voucher">Khuyến Mãi Chung</a></li>
+              <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
+              <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
+              <li><a href="/manage/voucher-ship">Khuyến Mãi Giao Hàng</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-wrapper">
+
+    <div class="content">
+
+      <div class="page-header">
+        <div class="page-title">
+          <h4>Voucher </h4>
+          <h6>Quản lý Khuyến Mãi</h6>
+        </div>
+        <div class="page-btn">
+          <a class="btn btn-added"  href="javascript:void(0);" data-bs-toggle="modal"
+             data-bs-target="#themKMM"><img src="/images/img/icons/plus.svg"
+                                            alt="img" class="me-2">Thêm khuyến mãi mới</a>
+        </div>
+      </div>
+
+      <div class="card">
+
+        <div class="card-body">
+
+          <div class="card">
+<!--            <div class="card-body pb-0">-->
+<!--              <div class="row">-->
+<!--                <div class="col-lg-2 col-sm-6 col-12">-->
+<!--                  <div class="form-group">-->
+<!--                    <input type="date"-->
+<!--                           placeholder="Choose Date">-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-2 col-sm-6 col-12">-->
+<!--                  <div class="form-group">-->
+<!--                    <input type="text" placeholder="Enter Reference">-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-2 col-sm-6 col-12">-->
+<!--                  <div class="form-group">-->
+<!--                    <select class="select">-->
+<!--                      <option>Choose Customer</option>-->
+<!--                      <option>Customer</option>-->
+<!--                    </select>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-2 col-sm-6 col-12">-->
+<!--                  <div class="form-group">-->
+<!--                    <select class="select">-->
+<!--                      <option>Choose Status</option>-->
+<!--                      <option>Inprogress</option>-->
+<!--                    </select>-->
+<!--                  </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-1 col-sm-6 col-12">-->
+
+<!--                </div>-->
+<!--                <div class="col-lg-3 col-sm-6 col-12">-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+          </div>
+
+          <!-- Nhan Ngu -->
+
+          <div class="table-responsive">
+            <table class="table datanew">
+              <thead>
+                <tr>
+                  <th>Mã Voucher</th>
+                  <th>Tên Voucher</th>
+                  <th>Loại Giảm</th>
+                  <th>Ngày Bắt Đầu</th>
+                  <th>Ngày Kết Thúc</th>
+                  <th>Số Lượng</th>
+                  <th>Lượt Dùng</th>
+                  <th>Trạng Thái</th>
+                  <th>Loại Voucher</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+
+                <th:block th:each="x : ${listKhuyenMai}">
+                  <tr>
+                  <td th:text="${x.maKM}"></td>
+                  <td th:text="${x.tenKM}"></td>
+                  <td>
+                    <p th:if="${x.loaiGiam == true}">Giảm theo giá tiền</p>
+                    <p th:unless="${x.loaiGiam == true}">Giảm theo phần trăm</p>
+                  </td>
+                  <td th:text="${#dates.format(x.tgBatDau, 'yyyy-MM-dd')}" ></td>
+                  <td th:text="${#dates.format(x.tgKetThuc, 'yyyy-MM-dd')}" ></td>
+                  <td>
+                    <p th:if="${x.loaiKhuyenMai.maLKM} == 'LKM03'" th:text="${x.soLuong}"></p>
+                    <p th:if="${x.loaiKhuyenMai.maLKM} == 'LKM01'" th:text="${x.soLuong}"></p>
+                    <p th:if="${x.loaiKhuyenMai.maLKM} == 'LKM02'">Unlimited</p>
+                  </td>
+                  <td>
+                    <p th:if="${x.loaiKhuyenMai.maLKM} == 'LKM03'" th:text="${x.soLuongDaDung}"></p>
+                    <p th:if="${x.loaiKhuyenMai.maLKM} == 'LKM01'" th:text="${x.soLuongDaDung}"></p>
+                    <p th:if="${x.loaiKhuyenMai.maLKM} == 'LKM02'">Unlimited</p>
+                  </td>
+                  <td>
+                    <p th:if="${x.trangThai == 1}">Hoạt Động</p>
+                    <p th:unless="${x.trangThai == 1}">Không Hoạt Động</p>
+                  </td>
+                  <td th:text="${x.loaiKhuyenMai.tenLKM}"></td>
+                  <td style="padding-left: 25px;">
+                    <a href="javascript:void(0);"
+                       th:data-bs-toggle="modal"
+                       th:data-bs-target="'#detalKM' + ${x.idKM}">
+                      <img src="/images/img/icons/edit.svg" alt="img">
+                    </a>
+                  </td>
+                </tr>
+                </th:block>
+
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<section>
+
+  <!--  Modal Detail Voucher SP Start-->
+
+  <th:block th:each="khuyenMai: ${listKhuyenMaiSP}">
+    <form th:action="@{'/manage/voucher/update/' + ${khuyenMai.idKM}}" method="post">
+      <div class="modal fade" th:id="'detalKM' + ${khuyenMai.idKM}" tabindex="-1" aria-labelledby="create"
+           aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 900px;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Thông tin Voucher Sản Phẩm</h5>
+              <a th:href="@{'/manage/voucher/statistics/' + ${khuyenMai.idKM}}">Xem thống kê</a>
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style=" font-weight: 600;">Mã Khuyến Mãi :</label>
+                    <p style="font-size: 13pt; font-weight: 700;" th:text="${khuyenMai.maKM}">
+                    </p>
+                    <input style="display: none;"  name="tenLoaiKM" value="Sản Phẩm">
+                  </div>
+                </div>
+
+                <div class="col-lg-5 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style=" font-weight: 600;">Tên Khuyến Mãi :</label>
+                    <input  th:id="'tenVoucherUpdate_' + ${khuyenMai.idKM}" name="tenKM" th:value="${khuyenMai.tenKM}"
+                            style="border: none; border-radius: 0px; border-bottom: 0.5px solid black; font-size: 12pt; font-weight: 600;">
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-12 col-12">
+                  <div class="form-group">
+
+                    <label style="font-size: 11pt; font-weight: 600;">Hình thức giảm giá</label>
+                    <select name="loaiGiam" th:attr="value=${khuyenMai.loaiGiam}" class="form-select">
+                      <option th:value="false" th:selected="${khuyenMai.loaiGiam} == false">Giảm theo phần trăm </option>
+                      <option th:value="true" th:selected="${khuyenMai.loaiGiam} == true"> Giảm theo giá tiền</option>
+                    </select>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600; ">Thời gian bắt đầu :</label>
+                    <div style="display: flex;">
+                      <input th:id="'startDateUpdate_' + ${khuyenMai.idKM}" name="ngayBatDau" type="date" th:value="${#dates.format(khuyenMai.tgBatDau, 'yyyy-MM-dd')}"
+                             style="border: none; margin: 0 10px 8px 0; font-size: 13pt; cursor: pointer;">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600; ">Thời gian kết thúc :</label>
+                    <div style="display: flex;">
+                      <input th:id="'endDateUpdate_' + ${khuyenMai.idKM} " name="ngayKetThuc" type="date"  th:value="${#dates.format(khuyenMai.tgKetThuc, 'yyyy-MM-dd')}"
+                             style="border: none; margin: 0 10px 8px 0; font-size: 13pt; cursor: pointer;">
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;"> Số tiền giảm giá </label>
+                    <input th:id="'soTienGiamGiaUpdate_' + ${khuyenMai.idKM}" name="soTienGiamGia" oninput="validateNumber(this)"
+                           class="form-control" type="number" th:value="${khuyenMai.giaTienGiam}"
+                           style=" width: 200px; margin: 0 10px 10px 0;">
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;">Trạng thái</label>
+                    <select name="trangThai" class="form-select" th:attr="value=${khuyenMai.trangThai}" >
+                      <option th:value="0" th:selected="${khuyenMai.trangThai} == 0">Không hoạt động</option>
+                      <option th:value="1" th:selected="${khuyenMai.trangThai} == 1">Hoạt Động</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;"> Phần trăm giảm </label>
+                    <input th:id="'phanTramGiamVoucherUpdate_' + ${khuyenMai.idKM}" name="phanTramGiam" th:value="${khuyenMai.phanTramGiam*100}"
+                           oninput="validateNumber(this)" class="form-control" type="number"
+                           style=" width: 150px; margin: 0 10px 10px 0;">
+                  </div>
+                </div>
+
+                <div class="col-lg-5 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;"> Số tiền giảm tối đa (giảm
+                      theo phần trăm)</label>
+                    <input th:id="'soTienGiamGiaTDVoucherUpdate_' + ${khuyenMai.idKM}" name="soTienGiamToiDa" th:value="${khuyenMai.giaTienGiamToiDaPT}"
+                           oninput="validateNumber(this)" class="form-control" type="number"
+                           style=" width: 250px; margin: 0 10px 10px 0;">
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;">Mô tả </label>
+                    <textarea th:id="'moTaVoucherUpdate_' + ${khuyenMai.idKM}" name="moTa" th:text="${khuyenMai.moTa}" type="text"></textarea>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-lg-12">
+                <button class="btn btn-submit" style="background: #3088df;" type="submit" th:attr="data-idkm=${khuyenMai.idKM}">Thay đổi</button>
+                <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </th:block>
+
+  <!--  Modal Detail Voucher SP End-->
+
+  <!--  Mess Start-->
+  <div th:if="${showModalMess}" class="modal fade" id="messAddThanhCong" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 500px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thành Công</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row" style="text-align: center; align-items: center; padding: 30px 0 30px 0;">
+            <div>
+              <h3 th:text="${thongBaoABC} + ' Khuyến Mãi ' + ${loaiKM} +' thành công '"></h3>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <a class="btn btn-submit" style="background: #3088df;" data-bs-dismiss="modal">OK</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--  Mess End-->
+
+  <!--  Modal Detail Voucher Ship Start-->
+
+  <th:block th:each="khuyenMai: ${listKhuyenMaiShip}">
+    <form th:action="@{'/manage/voucher/update/' + ${khuyenMai.idKM}}" method="post">
+      <div class="modal fade" th:id="'detalKM' + ${khuyenMai.idKM}" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 900px;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Thông tin Voucher</h5>
+              <a th:href="@{'/manage/voucher/statistics/' + ${khuyenMai.idKM}}">Xem thống kê</a>
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label>Mã Voucher :</label>
+                    <input style="display: none;" name="tenLoaiKM" value="Ship">
+                    <p style="font-size: 13pt; font-weight: 700;" th:text="${khuyenMai.maKM}" ></p>
+                  </div>
+                </div>
+
+                <div class="col-lg-5 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label>Tên Voucher :</label>
+                    <input name="tenKM" th:value="${khuyenMai.tenKM}"
+                           style="border: none; border-radius: 0px; border-bottom: 0.5px solid black; font-size: 12pt; font-weight: 600;">
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;">Hình thức giảm giá</label>
+                    <select  name="loaiGiam" th:attr="value=${khuyenMai.loaiGiam}" class="form-select">
+                      <option th:value="false" th:selected="${khuyenMai.loaiGiam} == false">Giảm theo phần trăm</option>
+                      <option th:value="true" th:selected="${khuyenMai.loaiGiam} == true">Giảm theo giá tiền</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600; ">Thời gian bắt đầu :</label>
+                    <div style="display: flex;">
+                      <input name="ngayBatDau" type="date" th:value="${#dates.format(khuyenMai.tgBatDau, 'yyyy-MM-dd')}"
+                             style="border: none; margin: 0 10px 8px 0; font-size: 13pt; cursor: pointer;">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600; ">Thời gian kết thúc :</label>
+                    <div style="display: flex;">
+                      <input type="date" name="ngayKetThuc" th:value="${#dates.format(khuyenMai.tgKetThuc, 'yyyy-MM-dd')}"
+                             style="border: none; margin: 0 10px 8px 0; font-size: 13pt; cursor: pointer;">
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;"> Số lượng Khuyến Mãi</label>
+                    <input name="soLuong" th:value="${khuyenMai.soLuong}"
+                           class="form-control" type="number"
+                           style=" width: 150px; margin: 0 10px 10px 0;">
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;"> Số tiền giảm giá </label>
+                    <input name="soTienGiamGia"  th:value="${khuyenMai.giaTienGiam}"
+                           class="form-control" type="number"
+                           style=" width: 150px; margin: 0 10px 10px 0;">
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;">Trạng thái</label>
+                    <select name="trangThai" th:attr="value=${khuyenMai.trangThai}" class="form-select">
+                      <option th:value="1" th:selected="${khuyenMai.trangThai} == 1">Đang hoạt động</option>
+                      <option th:value="0" th:selected="${khuyenMai.trangThai} == 0">Không hoạt động</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;"> Phần trăm giảm </label>
+                    <input name="phanTramGiam" class="form-control" type="number" th:value="${khuyenMai.phanTramGiam * 100}"
+                           style=" width: 150px; margin: 0 10px 10px 0;">
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;"> Số tiền giảm tối đa </label>
+                    <input name="soTienGiamToiDa"  class="form-control" type="number" th:value="${khuyenMai.giaTienGiam}"
+                           style=" width: 150px; margin: 0 10px 10px 0;">
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;"> Điều kiện hóa đơn </label>
+                    <input name="dieuKienKMHD" class="form-control" type="number" th:value="${khuyenMai.dieuKienKMBill}"
+                           style=" width: 150px; margin: 0 10px 10px 0;">
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-weight: 600;"> Mô tả  </label>
+                    <div style="display: flex;">
+                      <textarea th:text="${khuyenMai.moTa}" name="moTa" id="" cols="30" rows="10"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-lg-12">
+                <button class="btn btn-submit me-2" type="submit">Thay đổi</button>
+                <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </th:block>
+
+  <!--  Modal Detail Voucher Ship End-->
+
+  <!--  Modal Detail Voucher Bill Start-->
+
+  <th:block th:each="khuyenMai: ${listKhuyenMaiBill}">
+    <form th:action="@{'/manage/voucher/update/' + ${khuyenMai.idKM}}" method="post">
+      <div class="modal fade" th:id="'detalKM' + ${khuyenMai.idKM}" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 900px;">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Thông tin Voucher</h5>
+              <a th:href="@{'/manage/voucher/statistics/' + ${khuyenMai.idKM}}">Xem thống kê</a>
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label>Mã Voucher :</label>
+                    <input style="display: none;"  name="tenLoaiKM" value="Hóa Đơn">
+                    <p style="font-size: 13pt; font-weight: 700;" th:text="${khuyenMai.maKM}" ></p>
+                  </div>
+                </div>
+
+                <div class="col-lg-5 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label>Tên Voucher :</label>
+                    <input name="tenKM" th:value="${khuyenMai.tenKM}"
+                           style="border: none; border-radius: 0px; border-bottom: 0.5px solid black; font-size: 12pt; font-weight: 600;">
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;">Hình thức giảm giá</label>
+                    <select  name="loaiGiam" th:attr="value=${khuyenMai.loaiGiam}" class="form-select">
+                      <option th:value="false" th:selected="${khuyenMai.loaiGiam} == false">Giảm theo phần trăm</option>
+                      <option th:value="true" th:selected="${khuyenMai.loaiGiam} == true">Giảm theo giá tiền</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600; ">Thời gian bắt đầu :</label>
+                    <div style="display: flex;">
+                      <input name="ngayBatDau" type="date" th:value="${#dates.format(khuyenMai.tgBatDau, 'yyyy-MM-dd')}"
+                             style="border: none; margin: 0 10px 8px 0; font-size: 13pt; cursor: pointer;">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600; ">Thời gian kết thúc :</label>
+                    <div style="display: flex;">
+                      <input type="date" name="ngayKetThuc" th:value="${#dates.format(khuyenMai.tgKetThuc, 'yyyy-MM-dd')}"
+                             style="border: none; margin: 0 10px 8px 0; font-size: 13pt; cursor: pointer;">
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;"> Số lượng Khuyến Mãi</label>
+                    <input name="soLuong" th:value="${khuyenMai.soLuong}"
+                           class="form-control" type="number"
+                           style=" width: 150px; margin: 0 10px 10px 0;">
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;"> Số tiền giảm giá </label>
+                    <input name="soTienGiamGia"  th:value="${khuyenMai.giaTienGiam}"
+                           class="form-control" type="number"
+                           style=" width: 150px; margin: 0 10px 10px 0;">
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;">Trạng thái</label>
+                    <select name="trangThai" th:attr="value=${khuyenMai.trangThai}" class="form-select">
+                      <option th:value="1" th:selected="${khuyenMai.trangThai} == 1">Đang hoạt động</option>
+                      <option th:value="0" th:selected="${khuyenMai.trangThai} == 0">Không hoạt động</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;"> Phần trăm giảm </label>
+                    <input name="phanTramGiam" class="form-control" type="number" th:value="${khuyenMai.phanTramGiam * 100}"
+                           style=" width: 150px; margin: 0 10px 10px 0;">
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;"> Số tiền giảm tối đa </label>
+                    <input name="soTienGiamToiDa"  class="form-control" type="number" th:value="${khuyenMai.giaTienGiam}"
+                           style=" width: 150px; margin: 0 10px 10px 0;">
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-size: 11pt; font-weight: 600;"> Điều kiện hóa đơn </label>
+                    <input name="dieuKienKMHD" class="form-control" type="number" th:value="${khuyenMai.dieuKienKMBill}"
+                           style=" width: 150px; margin: 0 10px 10px 0;">
+                  </div>
+                </div>
+
+                <div class="col-lg-12 col-sm-12 col-12">
+                  <div class="form-group">
+                    <label style="font-weight: 600;"> Mô tả  </label>
+                    <div style="display: flex;">
+                      <textarea th:text="${khuyenMai.moTa}" name="moTa" id="" cols="30" rows="10"></textarea>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-lg-12">
+                <button class="btn btn-submit me-2" type="submit">Thay đổi</button>
+                <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </th:block>
+
+  <!--  Modal Detail Voucher Bill End-->
+
+  <div class="modal fade" id="themKMM" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 900px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Khuyến Mãi</h5>
+          <a href="#">Xem thống kê</a>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-lg-4 col-sm-12 col-12">
+              <div class="form-group">
+                <label>Mã Voucher :</label>
+                <p style="font-size: 13pt; font-weight: 700;">Tự sinh</p>
+              </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-12 col-12">
+              <div class="form-group">
+                <label>Tên Voucher :</label>
+                <input value="Nhan" style="border: none; font-size: 12pt; font-weight: 600;" >
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-sm-12 col-12">
+              <div class="form-group">
+                <label>Loại Voucher :</label>
+                <select class="form-select">
+                  <option>Voucher Sản Phẩm</option>
+                  <option>Voucher Hóa Đơn</option>
+                  <option>Voucher Ship</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-lg-1 col-sm-12 col-12">  </div>
+            <div class="col-lg-7 col-sm-12 col-12">
+              <div class="form-group">
+                <label>Thời gian sử dụng :</label>
+                <div style="display: flex;">
+                  <div style="display: flex;">
+                    <label> Bắt đầu : </label>  <input type="date" style="border: none; margin: 0 10px 8px 10px;">
+                  </div>
+
+                  <span style="margin-right: 10px;">đến</span>
+
+                  <div style="display: flex;">
+                    <label> Kết thúc : </label>  <input type="date" style="border: none; margin: 0 10px 8px 10px;">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <div class="col-lg-5 col-sm-12 col-12">
+              <div class="form-group">
+                <label>Trạng thái</label>
+                <div style="display: flex;">
+                  <div style="display: flex;">
+                    <label> Hoạt động </label>  <input name="status" type="radio" style="border: none; margin: 0 10px 8px 10px;">
+                  </div>
+                  <div style="display: flex;">
+                    <label> Không hoạt động </label>  <input name="status" type="radio" style="border: none; margin: 0 10px 8px 10px;">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-7 col-sm-12 col-12">
+              <div class="form-group">
+                <div style="display: flex;">
+                  <div style="display: flex;">
+                    <label style="margin-top: 5px;"> Phần trăm giảm </label>  <input type="text" style=" width: 100px; margin: 0 10px 10px 10px;">
+                  </div>
+                  <div style="display: flex;">
+                    <label style="margin-top: 5px;"> Số tiền tối đa </label>  <input type="text" style=" width: 100px; margin: 0 10px 10px 10px;">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-lg-5 col-sm-12 col-12">
+              <div class="form-group">
+                <div style="display: flex;">
+                  <div style="display: flex;">
+                    <label style="margin-top: 5px;"> Số lượng : </label>  <input type="text" style=" width: 50px; margin: 0 10px 10px 10px;">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-sm-12 col-12">
+              <div class="form-group">
+                <label>Mô tả </label>
+                <input type="text">
+              </div>
+            </div>
+
+          </div>
+          <div class="col-lg-12">
+            <a class="btn btn-submit me-2">Thêm</a>
+            <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+<script src="/js/jquery-3.6.0.min.js"></script>
+
+<script src="/js/feather.min.js"></script>
+
+<script src="/js/jquery.slimscroll.min.js"></script>
+
+<script src="/js/jquery.dataTables.min.js"></script>
+<script src="/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+<script src="/js/moment.min.js"></script>
+<script src="/js/bootstrap-datetimepicker.min.js"></script>
+
+<script src="/plugins/select2/js/select2.min.js"></script>
+
+<script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script src="/plugins/sweetalert/sweetalerts.min.js"></script>
+
+<script src="/js/script.js"></script>
+
+<script>
+  $(document).ready(function () {
+    $('#messAddThanhCong').modal('show');
+  });
+</script>
+</body>
+</html>

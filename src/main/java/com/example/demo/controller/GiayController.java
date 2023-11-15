@@ -67,12 +67,12 @@ public class GiayController {
         List<Hang> hangs = hangService.getALlHang();
         List<ChatLieu> chatLieus = chatLieuService.getAllChatLieu();
         // Kiểm tra và cập nhật trạng thái của giày nếu trạng thái của hãng hoặc chất liệu không hoạt động (0)
-        for (Giay giayItem : giay) {
-            if (giayItem.getHang().getTrangThai() == 0 || giayItem.getChatLieu().getTrangThai() == 0) {
-                giayItem.setTrangThai(0);
-                giayService.save(giayItem);
-            }
-        }
+//        for (Giay giayItem : giay) {
+//            if (giayItem.getHang().getTrangThai() == 0 || giayItem.getChatLieu().getTrangThai() == 0) {
+//                giayItem.setTrangThai(0);
+//                giayService.save(giayItem);
+//            }
+//        }
         model.addAttribute("giay", giay);
         model.addAttribute("hang", hangs);
         model.addAttribute("chatLieu", chatLieus);
@@ -211,6 +211,7 @@ public class GiayController {
         //
         Giay giay1 = new Giay();
         giay1.setMaGiay(giay.getMaGiay());
+        giay1.setMoTa(giay.getMoTa());
         giay1.setTenGiay(giay.getTenGiay());
         giay1.setTgThem(new Date());
         giay1.setHang(giay.getHang());
@@ -396,6 +397,7 @@ public class GiayController {
         //
         if (giayDb != null) {
             giayDb.setMaGiay(giay.getMaGiay());
+            giayDb.setMoTa(giay.getMoTa());
             giayDb.setTenGiay(giay.getTenGiay());
             giayDb.setTgSua(new Date());
             giayDb.setTrangThai(giay.getTrangThai());

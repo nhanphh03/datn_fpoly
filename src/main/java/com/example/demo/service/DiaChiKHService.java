@@ -17,6 +17,9 @@ public interface DiaChiKHService {
 
     public void importDataFromExcel(InputStream excelFile);
 
+    List<DiaChiKH> findbyKhachHangAndLoai(KhachHang khachHang, Boolean loai);
+
+    DiaChiKH findDCKHDefaulByKhachHang(KhachHang khachHang);
 
     public List<DiaChiKH> findByKhachHang(KhachHang khachHang);
 
