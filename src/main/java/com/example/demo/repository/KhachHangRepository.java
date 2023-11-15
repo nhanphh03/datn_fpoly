@@ -24,6 +24,7 @@ public interface KhachHangRepository extends JpaRepository<KhachHang, UUID> {
     List<KhachHang> findByTrangThai(int trangThai);
     List<KhachHang> findByMaKHOrHoTenKH(String maKH, String tenKH);
     KhachHang findByHoTenKH(String name);
+    KhachHang findByMaKH(String maKH);
 
 
     @Query(value = "select * from khach_hang where trang_thai = 1",nativeQuery = true)

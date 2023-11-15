@@ -2,7 +2,8 @@ package com.example.demo.model;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,35 +30,43 @@ public class DiaChiKH {
     @JoinColumn(name = "id_KH")
     private KhachHang khachHang;
 
-    @NotEmpty(message = "Mã DC không được trống")
+    @NotBlank
     @Column(name = "ma_Dia_Chi")
     private String maDC;
 
+    @NotBlank
+    @Pattern(regexp = "0\\d{9}")
     @Column(name ="sdt_Nguoi_Nhan")
     private String sdtNguoiNhan;
 
-    @NotEmpty(message = "Tên DC không được trống")
-    @Size(max = 255, message = "Tên DC không được quá 255 ký tự")
+    @NotBlank
     @Column(name="ten_Dia_Chi")
     private String tenDC;
 
+    @NotBlank
     @Column(name="ten_Nguoi_Nhan")
     private String tenNguoiNhan;
 
+    @NotBlank
     @Column(name="xa_Phuong")
     private String xaPhuong;
 
+    @NotBlank
     @Column(name="quan_Huyen")
     private String quanHuyen;
 
+    @NotBlank
     @Column(name="tinh_TP")
     private String tinhTP;
 
+    @NotBlank
     @Column(name="mo_Ta")
     private String moTa;
 
+    @NotBlank
     @Column(name= "dia_Chi_Chi_Tiet")
     private String diaChiChiTiet;
+
 
     @Column( name = "trang_Thai")
     private int trangThai;
@@ -68,9 +77,11 @@ public class DiaChiKH {
     @Column(name = "tg_Sua")
     private Date tgSua;
 
+    @NotBlank
     @Column(name = "mien")
     private String mien;
 
+    @NotBlank
     @Column(name="loai_DC")
     private boolean loai;
 }

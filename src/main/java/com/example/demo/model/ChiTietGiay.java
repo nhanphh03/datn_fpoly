@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import java.text.DecimalFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -27,10 +28,17 @@ public class ChiTietGiay {
     @Column(name = "id_Chi_Tiet_Giay")
     private UUID idCTG;
 
+    @Column(name = "ma_CTG")
+    private String maCTG;
+
     @ManyToOne
     @JoinColumn(name = "id_Size")
     @NotNull
     private Size size;
+
+    @OneToOne
+    @JoinColumn(name = "id_KMCT_CTG")
+    private KhuyenMaiChiTietCTG khuyenMaiChiTietCTG;
 
     @ManyToOne
     @JoinColumn(name = "id_Giay")

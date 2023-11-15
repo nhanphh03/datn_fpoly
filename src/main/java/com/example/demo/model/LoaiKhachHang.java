@@ -38,7 +38,6 @@ public class LoaiKhachHang {
 
 
     @Min(value = 1)
-    @Positive
     @Column( name = "soDiem")
     private int soDiem;
 
