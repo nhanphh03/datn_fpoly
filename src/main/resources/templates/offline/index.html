@@ -25,7 +25,7 @@
 
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
-
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css" />
     <link rel="stylesheet" href="/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/quagga"></script>
     <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js"></script>
@@ -267,15 +267,16 @@
                                 <form method="get" action="/ban-hang/search">
                                     <div class="search-set">
                                         <div class="search-path">
-                                            <a class="btn btn-filter" id="filter_search">
-                                                <img src="/images/img/icons/filter.svg" alt="img">
-                                                <span><img src="/images/img/icons/closes.svg" alt="img"></span>
-                                            </a>
-                                        </div>
-                                        <div>
+<!--                                            <a class="btn btn-filter" id="filter_search">-->
+<!--                                                <img src="/images/img/icons/filter.svg" alt="img">-->
+<!--                                                <span><img src="/images/img/icons/closes.svg" alt="img"></span>-->
+<!--                                            </a>-->
                                             <button class="btn btn-searchset" type="submit"><img
                                                     src="/images/img/icons/search-white.svg"
                                                     alt="img"></button>
+                                        </div>
+                                        <div>
+
                                             <div>
                                                 <input
                                                         type="search" class="form-control form-control-sm"
@@ -315,33 +316,33 @@
                                     <!--                                        </li>-->
                                 </div>
                             </div>
-                            <div class="card" id="filter_inputs">
-                                <div class="card-body pb-0">
-                                    <div class="row">
-                                        <div class="col-lg-5 col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <select class="select" id="sizeFilter">
-                                                    <option>Size</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-5 col-sm-6 col-12">
-                                            <div class="form-group">
-                                                <select class="select">
-                                                    <option>Hãng</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-2 col-sm-6 col-12 ms-auto">
-                                            <div class="form-group">
-                                                <button type="submit" class="btn btn-filters ms-auto"><img
-                                                        src="/images/img/icons/search-whites.svg"
-                                                        alt="img"></button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+<!--                            <div class="card" id="filter_inputs">-->
+<!--                                <div class="card-body pb-0">-->
+<!--                                    <div class="row">-->
+<!--                                        <div class="col-lg-5 col-sm-6 col-12">-->
+<!--                                            <div class="form-group">-->
+<!--                                                <select class="select" id="sizeFilter">-->
+<!--                                                    <option>Size</option>-->
+<!--                                                </select>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-lg-5 col-sm-6 col-12">-->
+<!--                                            <div class="form-group">-->
+<!--                                                <select class="select">-->
+<!--                                                    <option>Hãng</option>-->
+<!--                                                </select>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                        <div class="col-lg-2 col-sm-6 col-12 ms-auto">-->
+<!--                                            <div class="form-group">-->
+<!--                                                <button type="submit" class="btn btn-filters ms-auto"><img-->
+<!--                                                        src="/images/img/icons/search-whites.svg"-->
+<!--                                                        alt="img"></button>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
                         </div>
                     </div>
                     <div class="tabs_container">
@@ -354,7 +355,7 @@
                             <th:block th:each="product : ${listSanPham}">
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="tab_content active">
-                                        <div class="productset flex-fill active">
+                                        <div class="productset flex-fill ">
                                             <div class="productsetimg">
                                                 <img th:src="@{'/images/imgsProducts/'+ ${product.hinhAnh}}"
                                                      alt="img">
@@ -439,6 +440,15 @@
                                         <div></div>
                                     </li>
                                 </ul>
+                                <ul>
+                                    <li>
+                                        <div class="row">
+                                            <div th:if="${messageGioHang}" class="alert alert-success text-center">
+                                                <h3 th:text="${messageGioHang}"></h3>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
                                 <th:block th:each="gioHang : ${gioHang}">
                                     <ul class="product-lists">
                                         <li>
@@ -487,7 +497,8 @@
                                         </li>
                                         <li>
                                             <a class="btn"
-                                               th:href="@{'/ban-hang/xoa-gio-hang/'+ ${gioHang.chiTietGiay.idCTG}}">
+                                               th:href="@{'/ban-hang/xoa-gio-hang/'+ ${gioHang.chiTietGiay.idCTG}}"
+                                               onclick="return confirm('Bạn có muốn xóa sản phẩm không')">
                                                 <img src="/images/img/icons/delete-2.svg" alt="img">
                                             </a>
                                         </li>
@@ -575,7 +586,7 @@
                                 <div class="text-center">
                                     <div class="dropdown mt-3">
                                         <a class="btn btn-primary" th:href="@{'/ban-hang/thanh-toan'}"
-                                                onclick="return confirm('Ban co muon thanh toan')"
+                                                onclick="return confirm('Bạn có muốn thanh toán không')"
                                                 style="background-color: #37517E;cursor: pointer;color: white;border: none;padding: 10px 20px;border-radius: 10px">
                                             Thanh toán
                                         </a>
@@ -585,58 +596,6 @@
                                         </a>
                                     </div>
                                 </div>
-
-                                <!--                                <div class="setvaluecash">-->
-                                <!--                                    <ul>-->
-                                <!--                                        <li>-->
-                                <!--                                            <a href="javascript:void(0);" class="paymentmethod">-->
-                                <!--                                                <img src="/images/img/icons/cash.svg" alt="img" class="me-2">-->
-                                <!--                                                Cash-->
-                                <!--                                            </a>-->
-                                <!--                                        </li>-->
-                                <!--                                        <li>-->
-                                <!--                                            <a href="javascript:void(0);" class="paymentmethod">-->
-                                <!--                                                <img src="/images/img/icons/debitcard.svg" alt="img" class="me-2">-->
-                                <!--                                                Debit-->
-                                <!--                                            </a>-->
-                                <!--                                        </li>-->
-                                <!--                                        <li>-->
-                                <!--                                            <a href="javascript:void(0);" class="paymentmethod">-->
-                                <!--                                                <img src="/images/img/icons/scan.svg" alt="img" class="me-2">-->
-                                <!--                                                Scan-->
-                                <!--                                            </a>-->
-                                <!--                                        </li>-->
-                                <!--                                    </ul>-->
-                                <!--                                </div>-->
-                                <!--                                <div class="btn-totallabel">-->
-                                <!--                                    <h5>Checkout</h5>-->
-                                <!--                                    <h6>60.00$</h6>-->
-                                <!--                                </div>-->
-                                <!--                                <div class="btn-pos">-->
-                                <!--                                    <ul>-->
-                                <!--                                        <li>-->
-                                <!--                                            <a class="btn"><img src="/images/img/icons/pause1.svg" alt="img"-->
-                                <!--                                                                class="me-1">Hold</a>-->
-                                <!--                                        </li>-->
-                                <!--                                        <li>-->
-                                <!--                                            <a class="btn"><img src="/images/img/icons/edit-6.svg" alt="img"-->
-                                <!--                                                                class="me-1">Quotation</a>-->
-                                <!--                                        </li>-->
-                                <!--                                        <li>-->
-                                <!--                                            <a class="btn"><img src="/images/img/icons/trash12.svg" alt="img"-->
-                                <!--                                                                class="me-1">Void</a>-->
-                                <!--                                        </li>-->
-                                <!--                                        <li>-->
-                                <!--                                            <a class="btn"><img src="/images/img/icons/wallet1.svg" alt="img"-->
-                                <!--                                                                class="me-1">Payment</a>-->
-                                <!--                                        </li>-->
-                                <!--                                        <li>-->
-                                <!--                                            <a class="btn" data-bs-toggle="modal" data-bs-target="#recents"><img-->
-                                <!--                                                    src="/images/img/icons/transcation.svg" alt="img" class="me-1">-->
-                                <!--                                                Transaction</a>-->
-                                <!--                                        </li>-->
-                                <!--                                    </ul>-->
-                                <!--                                </div>-->
                             </div>
                         </div>
 
@@ -1513,7 +1472,7 @@
                                         <form action="/ban-hang/add-to-cart" method="get">
                                             <div class="">
                                                 <h3>Số lượng</h3>
-                                                <input type="number" name="soLuong" value="1" min="0"
+                                                <input type="number" name="soLuong" value="1" min="1"
                                                        class="form-control"/>
                                             </div>
                                             <div class="row">
@@ -1609,23 +1568,23 @@
                 </a>
             </div>
             <div class="modal-body">
-                <form th:object="${addKH}" method="post" th:action="@{/ban-hang/khach-hang/add}">
+                <form th:object="${addKH}" method="post" th:action="@{'/ban-hang/khach-hang/add'}">
                     <div class="row">
                         <div class="form-group">
                             <label>Họ tên</label>
                             <input type="text" th:field="*{hoTenKH}">
                             <br><br>
-                            <strong th:if="${#fields.hasErrors('hoTenKH')}"
-                                    class="alert alert-danger alert-dismissible fade"
-                                    role="alert" th:errors="*{hoTenKH}"></strong>
+<!--                            <strong th:if="${#fields.hasErrors('hoTenKH')}"-->
+<!--                                    class="alert alert-danger alert-dismissible fade"-->
+<!--                                    role="alert" th:errors="*{hoTenKH}"></strong>-->
                         </div>
                         <div class="form-group">
                             <label>Sdt</label>
                             <input type="text" th:field="*{sdtKH}">
                             <br><br>
-                            <strong th:if="${#fields.hasErrors('sdtKH')}"
-                                    class="alert alert-danger alert-dismissible fade"
-                                    role="alert" th:errors="*{sdtKH}"></strong>
+<!--                            <strong th:if="${#fields.hasErrors('sdtKH')}"-->
+<!--                                    class="alert alert-danger alert-dismissible fade"-->
+<!--                                    role="alert" th:errors="*{sdtKH}"></strong>-->
                         </div>
                     </div>
                     <div class="mt-3 text-center">
@@ -1638,11 +1597,18 @@
     </div>
 </div>
 
-<div th:if="${messageGioHang}" id="successGioHang" class="toast-container toast-top-right">
+<div th:if="${messageSuccess}" id="success" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
         <button type="button" class="toast-close-button" role="button">×</button>
         <div class="toast-title">Thành Công</div>
-        <div class="toast-message">Thêm giỏ hàng thành công</div>
+        <div class="toast-message" th:text="${tb}"></div>
+    </div>
+</div>
+<div th:if="${messageError}" id="error" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message" th:text="${tbaoError}"></div>
     </div>
 </div>
 <script src="/js/jquery-3.6.0.min.js"></script>
@@ -1666,9 +1632,17 @@
 <script src="/js/script.js"></script>
 <script>
     setTimeout(function () {
-        var successGioHang = document.getElementById('successGioHang');
-        if (successGioHang) {
-            successGioHang.style.display = 'none';
+        var success = document.getElementById('success');
+        if (success) {
+            success.style.display = 'none';
+        }
+    }, 5000);
+</script>
+<script>
+    setTimeout(function () {
+        var error = document.getElementById('error');
+        if (error) {
+            error.style.display = 'none';
         }
     }, 5000);
 </script>

@@ -1,5 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.ChiTietGiay;
+import com.example.demo.model.Giay;
+import com.example.demo.model.HoaDon;
+import com.example.demo.model.HoaDonChiTiet;
+import com.example.demo.model.KhachHang;
+import com.example.demo.model.NhanVien;
 import com.example.demo.model.*;
 import com.example.demo.repository.SizeRepository;
 import com.example.demo.service.GiayChiTietService;
@@ -9,6 +15,7 @@ import com.example.demo.service.HangService;
 import com.example.demo.service.HoaDonChiTietService;
 import com.example.demo.service.HoaDonService;
 import com.example.demo.service.KhachHangService;
+import com.example.demo.service.NhanVienService;
 import com.example.demo.viewModel.GiayViewModel;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -31,7 +38,6 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/ban-hang")
 public class BanHangController {
-
 
     @Autowired
     private HangService hangService;
@@ -59,6 +65,9 @@ public class BanHangController {
 
     @Autowired
     private HoaDonChiTietService hoaDonChiTietService;
+
+    @Autowired
+    private NhanVienService nhanVienService;
     private double tongTien = 0;
     private UUID idHoaDon = null;
     private int tongSanPham = 0;
@@ -69,16 +78,25 @@ public class BanHangController {
     }
 
     @RequestMapping(value = {"", "/", "/home", "/hien-thi"})
-    public String hienThi(Model model) {
+    public String hienThi(Model model
+            , @ModelAttribute("messageSuccess") String messageSuccess
+            , @ModelAttribute("messageError") String messageError) {
         model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
         model.addAttribute("tongtien", this.tongTien);
         model.addAttribute("tongSanPham", this.tongSanPham);
         model.addAttribute("listKhachHang", khachHangService.findKhachHangByTrangThai());
+        if (!"true".equals(messageSuccess)) {
+            model.addAttribute("messageSuccess", false);
+        }
+        if (!"true".equals(messageError)) {
+            model.addAttribute("messageError", false);
+        }
         return "offline/index";
     }
 
     @GetMapping("/add-cart")
-    public String taoHoaDon(Model model) {
+    public String taoHoaDon(Model model,RedirectAttributes redirectAttributes) {
+        NhanVien nhanVien = (NhanVien) httpSession.getAttribute("staffLogged");
         List<HoaDon> listHD = hoaDonService.getListHoaDonChuaThanhToan();
         if (listHD.size() < 3) {
             String ma = String.valueOf(Math.floor(((Math.random() * 899999) + 100000)));
@@ -87,10 +105,14 @@ public class BanHangController {
             hd.setTgTao(new Date());
             hd.setTrangThai(3);
             hd.setLoaiHD(1);
+            hd.setNhanVien(nhanVien);
             hoaDonService.add(hd);
             model.addAttribute("message", "Tạo hóa đơn thành công");
+            redirectAttributes.addFlashAttribute("messageSuccess", true);
+            redirectAttributes.addFlashAttribute("tb", "Tạo thành công hóa đơn");
         } else {
-            model.addAttribute("message", "Quá số lượng");
+            redirectAttributes.addFlashAttribute("messageError", true);
+            redirectAttributes.addFlashAttribute("tbaoError", "Quá số lượng hóa đơn");
         }
         model.addAttribute("listHoaDon", listHD);
         return "redirect:/ban-hang/hien-thi";
@@ -98,8 +120,10 @@ public class BanHangController {
 
     @GetMapping("/cart/hoadon/{idHoaDon}")
     public String chonHoaDon(@PathVariable("idHoaDon") UUID idHoaDon, Model model
-            , @ModelAttribute("messageGioHang") String messageGioHang
+            , @ModelAttribute("messageSuccess") String messageSuccess
+            , @ModelAttribute("messageError") String messageError
     ) {
+        httpSession.removeAttribute("idHoaDon");
         httpSession.setAttribute("idHoaDon", idHoaDon);
         this.idHoaDon = idHoaDon;
         model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
@@ -116,22 +140,32 @@ public class BanHangController {
         httpSession.setAttribute("tongSP",findByIdHoaDon.size());
         httpSession.setAttribute("tongTien",hoaDonChiTietService.tongTien(findByIdHoaDon));
 
-        if (messageGioHang == null || !"true".equals(messageGioHang)) {
-            System.out.println(messageGioHang);
-            model.addAttribute("messageGioHang", false);
+        if (messageSuccess == null || !"true".equals(messageSuccess)) {
+            System.out.println(messageSuccess);
+            model.addAttribute("messageSuccess", false);
+        }
+        if (messageError == null || !"true".equals(messageError)) {
+            model.addAttribute("messageError", false);
         }
         return "offline/index";
     }
 
     @GetMapping("/search")
-    public String search(@RequestParam(value = "keyword", required = false) String keyword, Model model) {
+    public String search(@RequestParam(value = "keyword", required = false) String keyword, Model model,
+                         RedirectAttributes redirectAttributes) {
         UUID idHoaDon = (UUID) httpSession.getAttribute("idHoaDon");
         if (idHoaDon == null) {
-            model.addAttribute("nullHoaDon", "Bạn chưa chọn hóa đơn");
+            redirectAttributes.addFlashAttribute("messageError", true);
+            redirectAttributes.addFlashAttribute("tbaoError", "Bạn chưa chọn hóa đơn");
             model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
-            return "offline/index";
+            return "redirect:/ban-hang/";
         }
         List<GiayViewModel> list = giayViewModelService.getAll(keyword);
+        if (list.isEmpty()){
+            redirectAttributes.addFlashAttribute("messageError", true);
+            redirectAttributes.addFlashAttribute("tbaoError", "Không tìm thấy sản phẩm");
+            return "redirect:/ban-hang/cart/hoadon/" + this.idHoaDon;
+        }
         model.addAttribute("listSanPham", list);
         model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
 
@@ -161,13 +195,20 @@ public class BanHangController {
     public String addToCart(@RequestParam("idChiTietGiay") UUID idChiTietGiay,
                             @RequestParam("soLuong") int soLuong, Model model,
                             RedirectAttributes redirectAttributes) {
+        UUID idHoaDon = (UUID) httpSession.getAttribute("idHoaDon");
+        if (idHoaDon== null){
+            redirectAttributes.addFlashAttribute("messageError", true);
+            redirectAttributes.addFlashAttribute("tbaoError", "Bạn chưa chọn hóa đơn");
+            model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
+            return "redirect:/ban-hang/";
+        }
         ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(idChiTietGiay);
         if (soLuong>chiTietGiay.getSoLuong()){
-            model.addAttribute("nullHoaDon", "Số lượng tồn kho không đủ");
+            redirectAttributes.addFlashAttribute("messageError", true);
+            redirectAttributes.addFlashAttribute("tbaoError", "Số lượng trong kho không đủ");
             model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
-            return "offline/index";
+            return "redirect:/ban-hang/cart/hoadon/" + this.idHoaDon;
         }
-        UUID idHoaDon = (UUID) httpSession.getAttribute("idHoaDon");
         HoaDon hoaDon = hoaDonService.getOne(idHoaDon);
         HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.getOne(idHoaDon, idChiTietGiay);
         if (hoaDonChiTiet != null) {
@@ -197,18 +238,20 @@ public class BanHangController {
         // cập nhật sl ctg
         chiTietGiay.setSoLuong(chiTietGiay.getSoLuong() - soLuong);
         giayChiTietService.save(chiTietGiay);
-        redirectAttributes.addFlashAttribute("messageGioHang", true);
+        redirectAttributes.addFlashAttribute("messageSuccess", true);
+        redirectAttributes.addFlashAttribute("tb", "Thêm vào giỏ hàng thành công");
         return "redirect:/ban-hang/cart/hoadon/" + this.idHoaDon;
     }
 
     @GetMapping("/quet-qr/{idChiTietGiay}")
-    public String quetQr(@PathVariable(value = "idChiTietGiay") UUID idChiTietGiay, Model model) {
+    public String quetQr(@PathVariable(value = "idChiTietGiay") UUID idChiTietGiay,
+                         Model model,RedirectAttributes redirectAttributes) {
         ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(idChiTietGiay);
         if (chiTietGiay == null) {
-            model.addAttribute("message", "Ảnh QR không phù hợp");
-            model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
-            return "offline/index";
-//            return "redirect:/ban-hang/cart/hoadon/" + this.idHoaDon;
+            redirectAttributes.addFlashAttribute("messageError", true);
+            redirectAttributes.addFlashAttribute("tbaoError", "Ảnh QR không đúng");
+//            model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
+            return "redirect:/ban-hang/cart/hoadon/" + this.idHoaDon;
         }
         model.addAttribute("quetQR", chiTietGiay);
         model.addAttribute("idHoaDon",idHoaDon);
@@ -217,7 +260,7 @@ public class BanHangController {
     }
 
     @GetMapping("/xoa-gio-hang/{idChiTietGiay}")
-    public String xoaSanPham(@PathVariable("idChiTietGiay") UUID idChiTietGiay, Model model) {
+    public String xoaSanPham(@PathVariable("idChiTietGiay") UUID idChiTietGiay,RedirectAttributes redirectAttributes) {
         ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(idChiTietGiay);
         UUID idHoaDon = (UUID) httpSession.getAttribute("idHoaDon");
         HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.getOne(idHoaDon, idChiTietGiay);
@@ -230,11 +273,8 @@ public class BanHangController {
         hoaDonChiTietService.add(hoaDonChiTiet);
         tongSanPham--;
         httpSession.setAttribute("tongSP",tongSanPham);
-//        List<HoaDonChiTiet> findByIdHoaDon= hoaDonChiTietService.findByIdHoaDon(idHoaDon);
-//        model.addAttribute("gioHang",findByIdHoaDon);
-//        model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
-//        model.addAttribute("tongTien",hoaDonChiTietService.tongTien(findByIdHoaDon));
-//        return "offline/index";
+        redirectAttributes.addFlashAttribute("messageSuccess", true);
+        redirectAttributes.addFlashAttribute("tb", "Xóa thành công");
         return "redirect:/ban-hang/cart/hoadon/" + idHoaDon;
     }
 
@@ -266,12 +306,18 @@ public class BanHangController {
     }
 
     @GetMapping("/search-khach-hang")
-    public String searchKhachHang(@RequestParam(value = "keyword", required = false) String keyword, Model model) {
+    public String searchKhachHang(@RequestParam(value = "keyword", required = false) String keyword,
+                                  Model model, RedirectAttributes redirectAttributes) {
         List<HoaDonChiTiet> findByIdHoaDon = hoaDonChiTietService.findByIdHoaDon(idHoaDon);
         model.addAttribute("gioHang", findByIdHoaDon);
         model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
         model.addAttribute("showModalKhachHang", true);
         List<KhachHang> search = khachHangService.findKhachHangByKeyword(keyword);
+        if (search.isEmpty()){
+            redirectAttributes.addFlashAttribute("messageError", true);
+            redirectAttributes.addFlashAttribute("tbaoError", "Không tìm thấy khách hàng");
+            return "offline/index";
+        }
         model.addAttribute("listKhachHang", search);
         model.addAttribute("idHoaDon",idHoaDon);
         return "offline/index";
@@ -308,7 +354,7 @@ public class BanHangController {
 
     //thanh toan
     @GetMapping("/thanh-toan")
-    public String thanhToan(){
+    public String thanhToan(RedirectAttributes redirectAttributes){
         this.tongSanPham = (int) httpSession.getAttribute("tongSP");
         this.tongTien = (double) httpSession.getAttribute("tongTien");
         HoaDon hoaDon = hoaDonService.getOne(idHoaDon);
@@ -318,9 +364,11 @@ public class BanHangController {
         hoaDon.setTongSP(tongSanPham);
         hoaDonService.add(hoaDon);
 
-        httpSession.invalidate();
         this.tongTien =0;
         this.tongSanPham =0;
+        httpSession.removeAttribute("idHoaDon");
+        redirectAttributes.addFlashAttribute("messageSuccess", true);
+        redirectAttributes.addFlashAttribute("tb", "Thanh toán thành công");
         return "redirect:/ban-hang/hien-thi";
     }
 
