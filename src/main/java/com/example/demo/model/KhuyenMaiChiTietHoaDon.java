@@ -36,6 +36,6 @@ public class KhuyenMaiChiTietHoaDon {
     @Column(name = "tg_Them")
     private Date tgThem;
 
-    @Column(name = "tg_Sua")
-    private Date tgSua;
+    @Column(name = "sotienGiam")
+    private Double soTienGiam;
 }
