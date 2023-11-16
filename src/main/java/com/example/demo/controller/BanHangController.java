@@ -1,10 +1,6 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.ChiTietGiay;
-import com.example.demo.model.Giay;
-import com.example.demo.model.HoaDon;
-import com.example.demo.model.HoaDonChiTiet;
-import com.example.demo.model.KhachHang;
+import com.example.demo.model.*;
 import com.example.demo.repository.SizeRepository;
 import com.example.demo.service.GiayChiTietService;
 import com.example.demo.service.GiayService;
@@ -327,4 +323,34 @@ public class BanHangController {
         this.tongSanPham =0;
         return "redirect:/ban-hang/hien-thi";
     }
+
+//    Quy trình dùng Khuyến Mãi Bán Hàng tại quầy
+
+
+//    1. Hiển thị danh sách Khuyến Mãi - loại khuyến mãi hóa đơn
+
+//    LoaiKhuyenMai loaiKhuyenMai = loaiKhuyenMaiService.findByMaLKM("LKM01");
+//    List<KhuyenMai> khuyenMaiList = khuyenMaiService.findByLoaiKMAndTrangThai(loaiKhuyenMai);
+
+//    2. Dùng hàm checkHoaDonGiamGia để xem hóa đơn có đủ điều kiện sử dụng khuyến mãi không
+//    Boolean checkDK = hoaDonService.checkHoaDonGiamGia(hoaDon, khuyenMai);
+//    if(checkDK){
+//      Đủ điều kiện tiến hành tính tiền giảm giá
+//      Double soTienGiamGia = hoaDonService.tinhTienGiamGiaTaiQuay.(hoaDon, khuyenMai);
+//      soTienGiamGia là số tiền được giảm trên tổng hóa đơn
+//      => Lưu tổng tiền
+//      hoaDon.setTongTienDG(hoaDon.getTongTien() - soTienGiamGia);
+
+//    Tiến hành các thao tác khác
+
+
+//    Lưu số lượt dùng vào khuyến mãi
+//    hoaDonService.saveKhuyenMai(khuyenMai, hoaDon, soTienGiamGia);
+
+//    }else{
+//      System.out.println("Hoa Don không đủ điều kiện sử dụng Khuyến Mãi");
+//    Thay thế bằng modal hiển thị thông báo
+//    }
+
+//    P/S :Chúc Em thành công
 }
