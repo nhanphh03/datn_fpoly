@@ -80,10 +80,10 @@ public class LoginController {
                     session.setAttribute("managerLogged", nhanVien);
                     return "redirect:/manage/";
                 } else if (nhanVien.getChucVu().getMaCV().equalsIgnoreCase("CV02")) {
-                    session.setAttribute("shipperLogged", nhanVien);
+                    session.setAttribute("staffLogged", nhanVien);
                     return "redirect:/ban-hang/";
                 } else if  (nhanVien.getChucVu().getMaCV().equalsIgnoreCase("CV03")){
-                    session.setAttribute("staffLogged", nhanVien);
+                    session.setAttribute("shipperLogged", nhanVien);
                     return "redirect:/order/";
                 }else{
                     model.addAttribute("messageLogin", "Not Access");

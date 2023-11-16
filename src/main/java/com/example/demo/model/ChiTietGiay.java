@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -94,4 +95,9 @@ public class ChiTietGiay {
 
     @Column(name = "barCode")
     private String barcode;
+
+    public String getFormattedGiaBan() {
+        DecimalFormat decimalFormat = new DecimalFormat("#,### VNĐ");
+        return decimalFormat.format(giaBan);
+    }
 }

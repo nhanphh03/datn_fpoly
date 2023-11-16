@@ -34,6 +34,7 @@ public class DonHangController {
     public String detailHoaDon(@PathVariable("idHoaDon")UUID idHoaDon,Model model){
         List<HoaDonChiTiet> findByIdHoaDon = hoaDonChiTietService.findByIdHoaDon(idHoaDon);
         HoaDon hoaDon = hoaDonService.getOne(idHoaDon);
+        System.out.println(hoaDon.getMaHD());
         model.addAttribute("hoaDonChiTiet",findByIdHoaDon);
         model.addAttribute("hoaDon",hoaDon);
         return "manage/quan-li-hoa-don-detail";
