@@ -7,8 +7,10 @@ import com.example.demo.model.KhachHang;
 import com.example.demo.model.LoaiKhachHang;
 import com.example.demo.repository.DiaChiRepsitory;
 import com.example.demo.repository.KhachHangRepository;
+import com.example.demo.repository.LoaiKhachHangRepository;
 import com.example.demo.service.DiaChiKHService;
 import com.example.demo.service.KhachHangService;
+import com.example.demo.service.LoaiKhachHangService;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -45,6 +47,12 @@ public class DiaChiKHController {
     @Autowired
     private DiaChiRepsitory diaChiRepsitory;
 
+    @Autowired
+    private LoaiKhachHangRepository loaiKhachHangRepository;
+
+    @Autowired
+    private LoaiKhachHangService loaiKhachHangService;
+
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
         Map<Integer, String> dsTrangThai = new HashMap<>();
@@ -52,6 +60,23 @@ public class DiaChiKHController {
         dsTrangThai.put(0, "Không hoạt động");
         return dsTrangThai;
     }
+    @ModelAttribute("dsGioiTinh")
+    public Map<Integer, String> getDsGioiTinh() {
+        Map<Integer, String> dsGioiTinh = new HashMap<>();
+        dsGioiTinh.put(1, "Nam");
+        dsGioiTinh.put(0, "Nữ");
+        dsGioiTinh.put(2, "Khác");
+        return dsGioiTinh;
+    }
+    @ModelAttribute("dsLoaiDC")
+    public Map<Boolean, String> getDsLoaiDC() {
+        Map<Boolean, String> dsLoaiDC = new HashMap<>();
+        dsLoaiDC.put(true, "Mặc định");
+        dsLoaiDC.put(false, "Không mặc định");
+
+        return dsLoaiDC;
+    }
+
 
     @GetMapping("/dia-chi")
     public String dsDiaChiKH(Model model,@ModelAttribute("message") String message) {
@@ -98,13 +123,25 @@ public class DiaChiKHController {
             , @ModelAttribute("CCCDKHError") String CCCDKHError
             , @ModelAttribute("matKhauError") String matKhauError
             , @ModelAttribute("errorKH") String errorKH, @ModelAttribute("userInput") KhachHang userInputKH
+
+            , @ModelAttribute("messageLKH") String messageLKH
+            , @ModelAttribute("maLKHError") String maLKHError
+            , @ModelAttribute("tenLKHError") String tenLKHError
+            , @ModelAttribute("soDiemError") String soDiemError
+            , @ModelAttribute("errorLKH") String errorLKH, @ModelAttribute("userInput") LoaiKhachHang userInputLKH
             , @ModelAttribute("Errormessage") String Errormessage
-            , @ModelAttribute("ErrormessageKH") String ErrormessageKH) {
+            , @ModelAttribute("ErrormessageKH") String ErrormessageKH
+            , @ModelAttribute("ErrormessageLKH") String ErrormessageLKH) {
         List<KhachHang> khachHangs = khachHangService.getAllKhachHang();
         Collections.sort(khachHangs, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("khachHang", khachHangs);
         //
+        List<LoaiKhachHang> loaiKhachHangs = loaiKhachHangService.getAllLoaiKhachHang();
+        Collections.sort(loaiKhachHangs, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("loaiKhachHang", loaiKhachHangs);
+        //
         model.addAttribute("diaChi", new DiaChiKH());
+        model.addAttribute("loaiKhachHangAdd", new LoaiKhachHang());
         model.addAttribute("khachHangAdd", new KhachHang());
         //
         if (maDCError == null || !"maDCError".equals(errorDC)) {
@@ -180,9 +217,29 @@ public class DiaChiKHController {
         if (userInputKH != null) {
             model.addAttribute("khachHangAdd", userInputKH);
         }
-        //
+        //add LKH
+        if (messageLKH == null || !"true".equals(messageLKH)) {
+            model.addAttribute("messageLKH", false);
+        }
+        if (maLKHError == null || !"maLKHError".equals(errorLKH)) {
+            model.addAttribute("maLKHError", false);
+        }
+        if (tenLKHError == null || !"tenLKHError".equals(errorLKH)) {
+            model.addAttribute("tenLKHError", false);
+        }
+        if (soDiemError == null || !"soDiemError".equals(errorLKH)) {
+            model.addAttribute("soDiemError", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInputLKH != null) {
+            model.addAttribute("loaiKhachHangAdd", userInputLKH);
+        }
+        //CHECK MÃ
         if (ErrormessageKH == null || !"true".equals(ErrormessageKH)) {
             model.addAttribute("ErrormessageKH", false);
+        }
+        if (ErrormessageLKH == null || !"true".equals(ErrormessageLKH)) {
+            model.addAttribute("ErrormessageLKH", false);
         }
 
         if (Errormessage == null || !"true".equals(Errormessage)) {
@@ -199,20 +256,34 @@ public class DiaChiKHController {
             Collections.sort(khachHangs, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
             model.addAttribute("khachHang", khachHangs);
             //
+            List<LoaiKhachHang> loaiKhachHangList = loaiKhachHangService.getAllLoaiKhachHang();
+            Collections.sort(loaiKhachHangList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+            model.addAttribute("loaiKhachHang", loaiKhachHangList);
+            //
             model.addAttribute("diacChi", new DiaChiKH());
             model.addAttribute("khachHangAdd", new KhachHang());
+            model.addAttribute("loaiKhachHangAdd", new LoaiKhachHang());
+
             //
-            if (result.hasFieldErrors("maDC")) {
+            if (result.hasFieldErrors("sdtNguoiNhan")) {
                 redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "maDCError");
+                redirectAttributes.addFlashAttribute("errorDC", "sdtNguoiNhanError");
             }
-            if (result.hasFieldErrors("tenDC")) {
+            if (result.hasFieldErrors("loai")) {
                 redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "tenDCError");
+                redirectAttributes.addFlashAttribute("errorDC", "loaiError");
             }
-            if (result.hasFieldErrors("tenNguoiNhan")) {
+            if (result.hasFieldErrors("mien")) {
                 redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "tenNguoiNhanError");
+                redirectAttributes.addFlashAttribute("errorDC", "mienError");
+            }
+            if (result.hasFieldErrors("diaChiChiTiet")) {
+                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
+                redirectAttributes.addFlashAttribute("errorDC", "diaChiChiTietError");
+            }
+            if (result.hasFieldErrors("moTa")) {
+                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
+                redirectAttributes.addFlashAttribute("errorDC", "moTaError");
             }
             if (result.hasFieldErrors("xaPhuong")) {
                 redirectAttributes.addFlashAttribute("userInput", diaChiKH);
@@ -226,25 +297,17 @@ public class DiaChiKHController {
                 redirectAttributes.addFlashAttribute("userInput", diaChiKH);
                 redirectAttributes.addFlashAttribute("errorDC", "tinhTPError");
             }
-            if (result.hasFieldErrors("moTa")) {
+            if (result.hasFieldErrors("tenNguoiNhan")) {
                 redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "moTaError");
+                redirectAttributes.addFlashAttribute("errorDC", "tenNguoiNhanError");
             }
-            if (result.hasFieldErrors("diaChiChiTiet")) {
+            if (result.hasFieldErrors("tenDC")) {
                 redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "diaChiChiTietError");
+                redirectAttributes.addFlashAttribute("errorDC", "tenDCError");
             }
-            if (result.hasFieldErrors("mien")) {
+            if (result.hasFieldErrors("maDC")) {
                 redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "mienError");
-            }
-            if (result.hasFieldErrors("loai")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "loaiError");
-            }
-            if (result.hasFieldErrors("sdtNguoiNhan")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "sdtNguoiNhanError");
+                redirectAttributes.addFlashAttribute("errorDC", "maDCError");
             }
             if (result.hasFieldErrors("khachHang")) {
                 redirectAttributes.addFlashAttribute("userInput", diaChiKH);
@@ -252,7 +315,14 @@ public class DiaChiKHController {
             }
             return "redirect:/manage/dia-chi/viewAdd";
         }
-
+        //
+        DiaChiKH existingDChi = diaChiRepsitory.findByMaDC(diaChiKH.getMaDC());
+        if (existingDChi != null) {
+            redirectAttributes.addFlashAttribute("userInput", diaChiKH);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return "redirect:/manage/dia-chi/viewAdd";
+        }
+        //
         diaChiKH.setTgThem(new Date());
         diaChiKH.setTrangThai(1);
         diaChiKHService.save(diaChiKH);
@@ -260,8 +330,8 @@ public class DiaChiKHController {
         return "redirect:/manage/dia-chi";
     }
     @PostMapping("/dia-chi/khach-hang/viewAdd/add")
-    public String addkhachHang(@Valid @ModelAttribute("khachHang") KhachHang khachHang, BindingResult result,Model model
-            , RedirectAttributes redirectAttributes) {
+    public String addkhachHang(@Valid @ModelAttribute("khachHangAdd") KhachHang khachHang
+            , BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             if (result.hasFieldErrors("matKhau")) {
                 redirectAttributes.addFlashAttribute("userInput", khachHang);
@@ -295,13 +365,18 @@ public class DiaChiKHController {
                 redirectAttributes.addFlashAttribute("userInput", khachHang);
                 redirectAttributes.addFlashAttribute("errorKH", "maKHError");
             }
+            if (result.hasFieldErrors("loaiKhachHang")) {
+                redirectAttributes.addFlashAttribute("userInput", khachHang);
+                redirectAttributes.addFlashAttribute("errorKH", "loaiKhachHangError");
+            }
+            redirectAttributes.addFlashAttribute("message", true);
             return "redirect:/manage/dia-chi/viewAdd";
         }
         //
         KhachHang existingKH = khachHangRepository.findByMaKH(khachHang.getMaKH());
         if (existingKH != null) {
             redirectAttributes.addFlashAttribute("userInput", khachHang);
-            redirectAttributes.addFlashAttribute("Errormessage", true);
+            redirectAttributes.addFlashAttribute("ErrormessageKH", true);
             return "redirect:/manage/dia-chi/viewAdd";
         }
         KhachHang existingKH1 = khachHangRepository.findByEmailKH(khachHang.getEmailKH());
@@ -314,7 +389,40 @@ public class DiaChiKHController {
         khachHang.setTgThem(new Date());
         khachHang.setTrangThai(1);
         khachHangService.save(khachHang);
-        redirectAttributes.addFlashAttribute("message", true);
+        redirectAttributes.addFlashAttribute("messageKH", true);
+        return "redirect:/manage/dia-chi/viewAdd";
+    }
+    @PostMapping("/dia-chi/khach-hang/loai-khach-hang/viewAdd/add")
+    public String addLoaiKhachHang(@Valid @ModelAttribute("loaiKhachHangAdd") LoaiKhachHang loaiKhachHang
+            , BindingResult result, RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            if (result.hasFieldErrors("maLKH")) {
+                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
+                redirectAttributes.addFlashAttribute("errorLKH", "maLKHError");
+            }
+            if (result.hasFieldErrors("tenLKH")) {
+                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
+                redirectAttributes.addFlashAttribute("errorLKH", "tenLKHError");
+            }
+            if (result.hasFieldErrors("soDiem")) {
+                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
+                redirectAttributes.addFlashAttribute("errorLKH", "soDiemError");
+            }
+            redirectAttributes.addFlashAttribute("message", true);
+            return "redirect:/manage/dia-chi/viewAdd";
+        }
+        //
+        LoaiKhachHang existingLKH = loaiKhachHangRepository.findByMaLKH(loaiKhachHang.getMaLKH());
+        if (existingLKH != null) {
+            redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
+            redirectAttributes.addFlashAttribute("ErrormessageLKH", true);
+            return "redirect:/manage/dia-chi/viewAdd";
+        }
+        //
+        loaiKhachHang.setTgThem(new Date());
+        loaiKhachHang.setTrangThai(1);
+        loaiKhachHangService.save(loaiKhachHang);
+        redirectAttributes.addFlashAttribute("messageLKH", true);
         return "redirect:/manage/dia-chi/viewAdd";
     }
 
@@ -326,6 +434,7 @@ public class DiaChiKHController {
         diaChiKHService.save(diaChiKH);
         return "redirect:/manage/dia-chi";
     }
+
 
     @GetMapping("/dia-chi/viewUpdate/{id}")
     public String viewUpdatediaChi(@PathVariable UUID id, Model model
@@ -342,17 +451,6 @@ public class DiaChiKHController {
             , @ModelAttribute("sdtNguoiNhanError") String sdtNguoiNhanError
             , @ModelAttribute("khachHangError") String khachHangError
             , @ModelAttribute("errorDC") String errorDC, @ModelAttribute("userInput") DiaChiKH userInputDC
-
-            , @ModelAttribute("messageKH") String messageKH
-            , @ModelAttribute("maKHError") String maKHError
-            , @ModelAttribute("tenKHError") String tenKHError
-            , @ModelAttribute("ngaySinhError") String ngaySinhError
-            , @ModelAttribute("sdtKHError") String sdtKHError
-            , @ModelAttribute("emailKHError") String emailKHError
-            , @ModelAttribute("diaChiError") String diaChiError
-            , @ModelAttribute("CCCDKHError") String CCCDKHError
-            , @ModelAttribute("matKhauError") String matKhauError
-            , @ModelAttribute("errorKH") String errorKH, @ModelAttribute("userInput") KhachHang userInputKH
             , @ModelAttribute("Errormessage") String Errormessage
             , @ModelAttribute("ErrormessageKH") String ErrormessageKH) {
         DiaChiKH diaChiKH = diaChiKHService.getByIdDiaChikh(id);
@@ -420,49 +518,49 @@ public class DiaChiKHController {
         UUID idDC = (UUID) session.getAttribute("id");
         String link = "redirect:/manage/dia-chi/viewUpdate/" + idDC;
         if (result.hasErrors()) {
-            if (result.hasFieldErrors("maDC")) {
+            if (result.hasFieldErrors("sdtNguoiNhan")) {
                 redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "maDCError");
-            }
-            if (result.hasFieldErrors("tenDC")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "tenDCError");
-            }
-            if (result.hasFieldErrors("tenNguoiNhan")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "tenNguoiNhanError");
-            }
-            if (result.hasFieldErrors("xaPhuong")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "xaPhuongError");
-            }
-            if (result.hasFieldErrors("quanHuyen")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "quanHuyenError");
-            }
-            if (result.hasFieldErrors("tinhTP")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "tinhTPError");
-            }
-            if (result.hasFieldErrors("moTa")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "moTaError");
-            }
-            if (result.hasFieldErrors("diaChiChiTiet")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "diaChiChiTietError");
-            }
-            if (result.hasFieldErrors("mien")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "mienError");
+                redirectAttributes.addFlashAttribute("errorDC", "sdtNguoiNhanError");
             }
             if (result.hasFieldErrors("loai")) {
                 redirectAttributes.addFlashAttribute("userInput", diaChiKH);
                 redirectAttributes.addFlashAttribute("errorDC", "loaiError");
             }
-            if (result.hasFieldErrors("sdtNguoiNhan")) {
+            if (result.hasFieldErrors("mien")) {
                 redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "sdtNguoiNhanError");
+                redirectAttributes.addFlashAttribute("errorDC", "mienError");
+            }
+            if (result.hasFieldErrors("diaChiChiTiet")) {
+                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
+                redirectAttributes.addFlashAttribute("errorDC", "diaChiChiTietError");
+            }
+            if (result.hasFieldErrors("moTa")) {
+                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
+                redirectAttributes.addFlashAttribute("errorDC", "moTaError");
+            }
+            if (result.hasFieldErrors("tinhTP")) {
+                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
+                redirectAttributes.addFlashAttribute("errorDC", "tinhTPError");
+            }
+            if (result.hasFieldErrors("quanHuyen")) {
+                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
+                redirectAttributes.addFlashAttribute("errorDC", "quanHuyenError");
+            }
+            if (result.hasFieldErrors("xaPhuong")) {
+                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
+                redirectAttributes.addFlashAttribute("errorDC", "xaPhuongError");
+            }
+            if (result.hasFieldErrors("tenNguoiNhan")) {
+                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
+                redirectAttributes.addFlashAttribute("errorDC", "tenNguoiNhanError");
+            }
+            if (result.hasFieldErrors("tenDC")) {
+                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
+                redirectAttributes.addFlashAttribute("errorDC", "tenDCError");
+            }
+            if (result.hasFieldErrors("maDC")) {
+                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
+                redirectAttributes.addFlashAttribute("errorDC", "maDCError");
             }
             if (result.hasFieldErrors("khachHang")) {
                 redirectAttributes.addFlashAttribute("userInput", diaChiKH);
@@ -474,6 +572,7 @@ public class DiaChiKHController {
         if (diaChiKHdb != null) {
             diaChiKHdb.setMaDC(diaChiKH.getMaDC());
             diaChiKHdb.setTenDC(diaChiKH.getTenDC());
+            diaChiKHdb.setTenNguoiNhan(diaChiKH.getTenNguoiNhan());
             diaChiKHdb.setXaPhuong(diaChiKH.getXaPhuong());
             diaChiKHdb.setQuanHuyen(diaChiKH.getQuanHuyen());
             diaChiKHdb.setTinhTP(diaChiKH.getTinhTP());

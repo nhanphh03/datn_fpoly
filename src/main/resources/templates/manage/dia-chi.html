@@ -425,7 +425,6 @@
                             </div>
                         </div>
                     </form>
-
                     <div class="table-responsive">
                         <table class="table  datanew" id="data-table">
                             <thead>
@@ -470,7 +469,10 @@
                                 <td th:text="${items.tinhTP}"></td>
                                 <td th:text="${items.moTa}"></td>
                                 <td th:text="${items.mien}"></td>
-                                <td th:text="${items.loai}"></td>
+                                <td>
+                                    <p th:if="${items.loai == true}"  class="badges bg-lightgreen">Mặc định</p>
+                                    <p th:unless="${items.loai == true}" class="badges bg-lightred">Không mặc định</p>
+                                </td>
                                 <td th:text="${items.diaChiChiTiet}"></td>
                                 <td th:text="${items.sdtNguoiNhan}"></td>
                                 <td th:text="${items.khachHang.hoTenKH}"></td>
@@ -623,13 +625,12 @@
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var khachHang = $(this).find("td:eq(10)").text(); // Vị trí cột chứa giá trị kích thước
+                var khachHang = $(this).find("td:eq(12)").text(); // Vị trí cột chứa giá trị kích thước
                 if (khachHang === hoTenKH || hoTenKH === "Khách Hàng") {
                     $(this).show();
                 }
             });
         });
-
     });
 </script>
 <script>

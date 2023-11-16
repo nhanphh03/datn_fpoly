@@ -3,8 +3,9 @@ package com.example.demo.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -81,7 +82,7 @@ public class DiaChiKH {
     @Column(name = "mien")
     private String mien;
 
-    @NotBlank
+    @NotNull
     @Column(name="loai_DC")
     private boolean loai;
 }
