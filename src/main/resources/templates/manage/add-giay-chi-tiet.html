@@ -348,10 +348,6 @@
                                         <option th:each="loc : ${mauSac}" th:value="${loc.idMau}"
                                                 th:text="${loc.tenMau}"></option>
                                     </select>
-                                    <!--                                    <br><br>-->
-                                    <!--                                    <strong th:if="${#fields.hasErrors('mauSac')}"-->
-                                    <!--                                            class="alert alert-danger alert-dismissible fade show"-->
-                                    <!--                                            role="alert" th:errors="*{mauSac}"></strong>-->
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-2 col-2 ps-0">
@@ -369,10 +365,6 @@
                                         <option th:each="loc : ${hinhAnh}" th:value="${loc.idHinhAnh}"
                                                 th:text="${loc.maAnh}"></option>
                                     </select>
-                                    <br><br>
-                                    <strong th:if="${#fields.hasErrors('hinhAnh')}"
-                                            class="alert alert-danger alert-dismissible fade show"
-                                            role="alert" th:errors="*{hinhAnh}"></strong>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-2 col-2 ps-0">
@@ -390,10 +382,6 @@
                                         <option th:each="loc : ${size}" th:value="${loc.idSize}"
                                                 th:text="${loc.soSize}"></option>
                                     </select>
-                                    <br><br>
-                                    <strong th:if="${#fields.hasErrors('size')}"
-                                            class="alert alert-danger alert-dismissible fade show"
-                                            role="alert" th:errors="*{size}"></strong>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-2 col-2 ps-0">
@@ -407,51 +395,31 @@
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Năm Sản Xuất</label>
-                                    <input type="text" th:field="*{namSX}"required>
-                                    <br><br>
-                                    <strong th:if="${#fields.hasErrors('namSX')}"
-                                            class="alert alert-danger alert-dismissible fade show"
-                                            role="alert" th:errors="*{namSX}"></strong>
+                                    <input type="text" th:field="*{namSX}" required>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Năm Bảo Hành</label>
-                                    <input type="text" th:field="*{namBH}"required>
-                                    <br><br>
-                                    <strong th:if="${#fields.hasErrors('namBH')}"
-                                            class="alert alert-danger alert-dismissible fade show"
-                                            role="alert" th:errors="*{namBH}"></strong>
+                                    <input type="text" th:field="*{namBH}" required>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Trọng Lượng</label>
-                                    <input type="text" th:field="*{trongLuong}"required>
-                                    <br><br>
-                                    <strong th:if="${#fields.hasErrors('trongLuong')}"
-                                            class="alert alert-danger alert-dismissible fade show"
-                                            role="alert" th:errors="*{trongLuong}"></strong>
+                                    <input type="text" th:field="*{trongLuong}" required>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Giá Bán</label>
-                                    <input type="text" th:field="*{giaBan}"required>
-                                    <br><br>
-                                    <strong th:if="${#fields.hasErrors('giaBan')}"
-                                            class="alert alert-danger alert-dismissible fade show"
-                                            role="alert" th:errors="*{giaBan}"></strong>
+                                    <input type="text" th:field="*{giaBan}" required>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Số Lượng</label>
-                                    <input type="text" th:field="*{soLuong}"required>
-                                    <br><br>
-                                    <strong th:if="${#fields.hasErrors('soLuong')}"
-                                            class="alert alert-danger alert-dismissible fade show"
-                                            role="alert" th:errors="*{soLuong}"></strong>
+                                    <input type="text" th:field="*{soLuong}" required>
                                 </div>
                             </div>
                             <!--                            <div class="col-lg-3 col-sm-6 col-12">-->
@@ -505,13 +473,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Giày</label>
-                                        <input type="text" th:field="*{maGiay}"required>
+                                        <input type="text" th:field="*{maGiay}" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Giày</label>
-                                        <input type="text" th:field="*{tenGiay}"required>
+                                        <input type="text" th:field="*{tenGiay}" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-10 col-sm-6 col-12">
@@ -601,20 +569,20 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã</label>
-                                        <input type="text" th:field="*{ma}"required>
+                                        <input type="text" th:field="*{ma}" required>
                                     </div>
                                 </div>
                                 <br>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Màu</label>
-                                        <input type="text" th:field="*{maMau}"required>
+                                        <input type="text" th:field="*{maMau}" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Màu</label>
-                                        <input type="text" th:field="*{tenMau}"required>
+                                        <input type="text" th:field="*{tenMau}" required>
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -663,13 +631,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Size</label>
-                                        <input type="text" th:field="*{maSize}"required>
+                                        <input type="text" th:field="*{maSize}" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Size</label>
-                                        <input type="text" th:field="*{soSize}"required>
+                                        <input type="text" th:field="*{soSize}" required>
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -719,7 +687,7 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã</label>
-                                        <input type="text" th:field="*{maAnh}"required>
+                                        <input type="text" th:field="*{maAnh}" required>
                                     </div>
                                 </div>
                                 <div th:fragment="whitespace">&nbsp;</div>
@@ -821,13 +789,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Hãng</label>
-                                        <input type="text" th:field="*{maHang}"required>
+                                        <input type="text" th:field="*{maHang}" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Hãng</label>
-                                        <input type="text" th:field="*{tenHang}"required>
+                                        <input type="text" th:field="*{tenHang}" required>
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -878,13 +846,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Chất Liệu</label>
-                                        <input type="text" th:field="*{maChatLieu}"required>
+                                        <input type="text" th:field="*{maChatLieu}" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Chất Liệu</label>
-                                        <input type="text" th:field="*{tenChatLieu}"required>
+                                        <input type="text" th:field="*{tenChatLieu}" required>
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -1504,9 +1472,36 @@
 </script>
 <script>
     // In your Javascript (external .js resource or <script> tag)
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.select').select2();
     });
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const selectSize = document.querySelector('select[name="size"]');
+        const selectedSizesCount = document.querySelector('#selectedSizesCount');
+
+        selectSize.addEventListener('change', function () {
+            const selectedOptions = selectSize.selectedOptions;
+            selectedSizesCount.value = selectedOptions.length;
+        });
+    });
+</script>
+<script>
+    function validateGiaBan() {
+        var giaBanInput = document.getElementById('giaBanInput');
+        var giaBanError = document.getElementById('giaBanError');
+
+        // Kiểm tra định dạng giá bán
+        var giaBanPattern = /^\d{1,3}(,\d{3})*(\.\d{1,2})? VNĐ$/;
+        if (!giaBanPattern.test(giaBanInput.value)) {
+            giaBanError.innerText = "Định dạng giá bán không đúng. Vui lòng nhập lại (VD: 200,000 VNĐ)";
+            giaBanInput.setCustomValidity("Invalid");
+        } else {
+            giaBanError.innerText = "";
+            giaBanInput.setCustomValidity("");
+        }
+    }
 </script>
 </body>
 </html>

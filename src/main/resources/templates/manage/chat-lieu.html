@@ -458,7 +458,7 @@
                     </form>
 
                     <div class="table-responsive">
-                        <table class="table" id="data-table">
+                        <table class="table datanew" id="data-table">
                             <thead>
                             <tr>
                                 <th>Mã Chất Liệu</th>
@@ -488,8 +488,8 @@
                                         <img src="/images/img/icons/delete.svg" alt="img">
                                     </a>
                                 </td>
-                                <td th:text="${items.tgThem}"></td>
-                                <td th:text="${items.tgSua}"></td>
+                                <td th:text="${#dates.format(items.tgThem, 'dd-MM-yyyy')}" align="center"/>
+                                    <td th:text="${#dates.format(items.tgSua, 'dd-MM-yyyy')}" align="center"/>
 
                             </tr>
                             </tbody>

@@ -14,8 +14,7 @@
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
           rel="stylesheet">
-    <link rel="icon" href="/images/img/logo-favicon.png" type="image/x-icon">
-
+    <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
     <!-- Css Styles -->
     <link rel="stylesheet" href="/cssx/bootstrap.min.css" type="text/css">
     <link rel="stylesheet" href="/cssx/font-awesome.min.css" type="text/css">
@@ -254,14 +253,15 @@
   </div>
 </header>
 <!-- Header Section End -->
+
 <section>
   <div style="height: 150px; width: 100%;"></div>
 </section>
 
-
 <!-- Shopping Cart Section Begin -->
 <section class="shopping-cart spad" style="margin-top: -80px">
   <div class="container">
+
     <form action="/buyer/cart/checkout" method="post" id="purchaseForm">
       <div style="z-index: 100; width: 1170px;  position: fixed;margin-bottom: 50px">
         <div class="row" style="background-color: #f3f2ee; height: 80px; width: 1170px;  ">
@@ -292,6 +292,7 @@
       </div>
 
       <div style="height: 160px; width: 100%;"></div>
+
     <div class="row">
         <div class="col-lg-12">
 
@@ -311,7 +312,7 @@
           </div>
 
           <div class="shopping__cart__table">
-<!--            <div class="vertical-scroll scroll-demo"  style="height: 400px;" >-->
+
               <table style="height:250px;">
                 <tbody>
 
@@ -319,7 +320,8 @@
 
                   <tr id="productId" th:value="${x.chiTietGiay.idCTG}">
 
-                    <td><input class="itemsCart" name="selectedProducts" type="checkbox" onclick="updateTotalAmount(this)" th:value="${x.chiTietGiay.idCTG}"></td>
+<!--                    onclick="updateTotalAmount(this)" start-->
+                    <td><input class="itemsCart" name="selectedProducts" type="checkbox"  th:value="${x.chiTietGiay.idCTG}"></td>
                     <td style="width: 400px;" class="product__cart__item" >
                       <div class="product__cart__item__pic">
                         <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}"> <img style="width:90px; height:90px;" th:src="@{'/images/imgsProducts/' + ${x.chiTietGiay.hinhAnh.url1}}"></a>
@@ -350,7 +352,7 @@
                                 type="button" value="-" class="button-minus dec button"
                                 onclick="decrementQuantity(this)">
 
-                        <input  class="quantityInput" oninput="updateTotalAmount(this)" th:value="${x.soLuong}" style="width: 30px; text-align: center; border: none;" type="text" name="child" value="0">
+                        <input  class="quantityInput" oninput="updateTotalAmount(this)" th:value="${x.soLuong}" style="width: 30px; text-align: center; border: none;" type="text" th:name="${x.chiTietGiay.idCTG}" value="0">
 
                         <input style="border: none; font-weight: 700; font-size: 14pt; background-color: white;"
                                 type="button" value="+" class="button-plus inc button a3 a5 a1 a-1"
@@ -384,7 +386,6 @@
 
 </section>
 <!-- Shopping Cart Section End -->
-
 
 <!-- Related Section Begin -->
 <section style="margin-top: -140px;" class="related spad">
@@ -747,10 +748,8 @@
 </footer>
 <!-- Footer Section End -->
 
-<!-- Search Begin -->
-<!-- Search End -->
-
 <section>
+
   <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
@@ -764,6 +763,8 @@
           <div class="radio-input">
             <div style="margin: 5px 0 5px 0;"></div>
 
+            <!--              List Mau Start-->
+
             <label style=" margin: 5px; font-weight: unset; font-size: small; height: 40px;" >
               <a class="link" >
                 <input type="radio" name="value-radio2nhan" >
@@ -776,6 +777,9 @@
                 <span > Dark Green</span>
               </a>
             </label>
+
+            <!--            List Mau End-->
+
           </div>
           <div style="width: 465px; margin-top: 10px; margin-bottom: 10px; height: 1px; background: rgba(0,0,0,.54);"></div>
           <div>
@@ -783,6 +787,9 @@
               <span style="margin-left: 85px; ">  <img src="/images/img/icon/mail.png" style="height: 15px; width: 20px; margin-bottom: 2px; margin-right: 10px;" alt=""> Receive notification when in stock?</span>
             </div>
             <div  class="radio-input">
+
+<!--              List Size Start-->
+
               <label style=" margin: 5px; font-weight: unset; font-size: small; height: 40px;" >
                 <a class="link" >
                   <input type="" name="value-radio" >
@@ -798,6 +805,9 @@
                   <span > 37</span>
                 </a>
               </label>
+
+<!--            List Size End-->
+
             </div>
           </div>
         </div>
@@ -809,16 +819,35 @@
     </div>
   </div>
 
+  <div class="modal fade" id="messAddThanhCong" tabindex="-1" role="dialog" aria-labelledby="messAddThanhCongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="messAddThanhCongTitle" >FBI Waring !</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
 
+          <div style="align-items: center; text-align: center; width: 465px; margin-top: 10px; margin-bottom: 10px;">
+            <p style="font-size: 13pt; font-weight: 600;">Please select at least 1 product to checkout !!</p>
+          </div>
 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </section>
-
 
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/feather.min.js"></script>
 <script src="/js/bootstrap.bundle.min.js"></script>
-<!--<script src="/js/script.js"></script>-->
+<script src="/js/script.js"></script>
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
 <script src="/js/jquery.nice-select.min.js"></script>
@@ -833,9 +862,45 @@
 <script src="/js/scrollbar.min.js"></script>
 <script src="/js/custom-scroll.js"></script>
 
+<!--Update quantity product in cart BEGIN -->
+<script>
+  function incrementQuantity(input) {
+    var quantityInput = input.parentNode.querySelector('.quantityInput');
+    var currentQuantity = parseInt(quantityInput.value);
+    quantityInput.value = currentQuantity + 1;
+    updateTotalAmount(quantityInput);
+  }
 
-<!--Selected product check begin -->
+  function decrementQuantity(input) {
+    var quantityInput = input.parentNode.querySelector('.quantityInput');
+    var currentQuantity = parseInt(quantityInput.value);
+    if (currentQuantity > 0) {
+      quantityInput.value = currentQuantity - 1;
+      updateTotalAmount(quantityInput);
+    }
+  }
 
+  function updateTotalAmount(input) {
+    var quantity = input.value;
+    var idCTG = input.getAttribute('name');
+
+    fetch('/buyer/cart/updateQuantity', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: 'idCTG=' + encodeURIComponent(idCTG) + '&quantity=' + encodeURIComponent(quantity),
+    })
+            .then(response => response.text())
+            .then(data => {
+            })
+            .catch(error => {
+            });
+  }
+</script>
+<!--Update quantity product in cart END -->
+
+<!-- Check choose product Begin -->
 <script>
   function validatePurchase() {
     var form = document.getElementById('purchaseForm');
@@ -850,115 +915,16 @@
     });
 
     if (!atLeastOneChecked) {
-      alert("Vui lòng chọn ít nhất một sản phẩm để mua.");
-      return false;
+      $('#messAddThanhCong').modal('show');
+      event.preventDefault();
     }
 
     return true;
   }
 </script>
+<!-- Check choose product End -->
 
-<script>
-  function updateTotalAmount(inputElement) {
-    var row = inputElement.closest('tr');
-    var priceElement = row.querySelector('.cart__price');
-    var quantityInput = row.querySelector('.quantityInput');
-    var totalAmountElement = row.querySelector('.totalAmount');
-
-    var price = parseFloat(priceElement.textContent.replace('$', '').trim());
-    var quantity = parseInt(quantityInput.value);
-
-    var totalAmount = price * quantity;
-    totalAmountElement.textContent = '$ ' + totalAmount.toFixed(2);
-  }
-
-  // Hàm tăng số lượng
-  function incrementQuantity(inputElement) {
-    var quantityInput = inputElement.closest('tr').querySelector('.quantityInput');
-    var quantity = parseInt(quantityInput.value);
-    quantityInput.value = quantity + 1;
-
-    var row = inputElement.closest('tr');
-    var priceElement = row.querySelector('.cart__price');
-    var totalAmountElement = row.querySelector('.totalAmount');
-
-    var price = parseFloat(priceElement.textContent.replace('$', '').trim());
-    var quantityv = parseInt(quantityInput.value);
-
-    var totalAmount = price * quantityv;
-    totalAmountElement.textContent = '$ ' + totalAmount.toFixed(2);
-  }
-  // Hàm giảm số lượng
-  function decrementQuantity(inputElement) {
-    var row = inputElement.closest('tr');
-    var quantityInput = row.querySelector('.quantityInput');
-    var totalAmountElement = row.querySelector('.totalAmount');
-
-    var quantity = parseInt(quantityInput.value);
-    if (quantity > 0) {
-      quantityInput.value = quantity - 1;
-
-      var priceElement = row.querySelector('.cart__price');
-      var price = parseFloat(priceElement.textContent.replace('$', '').trim());
-
-      var totalAmount = price * (quantity - 1);
-      totalAmountElement.textContent = '$ ' + totalAmount.toFixed(2);
-    }
-
-  }
-
-</script>
-<!--Selected product check end -->
-
-
-
-<script>
-  // Biến để lưu tổng tiền ban đầu
-  var initialTotalAmount = 0;
-
-  // Hàm cập nhật tổng tiền
-  function updateTotalAmount(input) {
-    var totalAmount = 0;
-    $(".itemsCart:checked").each(function () {
-      var priceProduct = parseFloat($(this).closest("tr").find(".cart__price").text().replace('$', '').trim());
-      var quantity = parseInt($(this).closest("tr").find(".quantityInput").val());
-      totalAmount += priceProduct * quantity;
-    });
-
-    // Nếu chọn tất cả, sử dụng giá trị ban đầu
-    if (document.getElementById('checkAll').checked) {
-      totalAmount = initialTotalAmount;
-    }
-
-    $("#grandTotal").text(totalAmount.toFixed(2));
-
-    // Thay đổi tổng tiền của sản phẩm được chọn
-    var priceProduct = parseFloat($(input).closest("tr").find(".cart__price").text().replace('$', '').trim());
-    var quantity = parseInt($(input).closest("tr").find(".quantityInput").val());
-    var totalAmountElement = $(input).closest("tr").find(".totalAmount");
-    var totalAmount = quantity * priceProduct;
-    totalAmountElement.text(totalAmount + " $");
-  }
-
-  function incrementQuantity(input) {
-    var quantityInput = $(input).siblings(".quantityInput");
-    var quantity = parseInt(quantityInput.val());
-    quantityInput.val(quantity + 1);
-    updateTotalAmount();
-  }
-
-  // Hàm giảm số lượng
-  function decrementQuantity(input) {
-    var quantityInput = $(input).siblings(".quantityInput");
-    var quantity = parseInt(quantityInput.val());
-    if (quantity > 0) {
-      quantityInput.val(quantity - 1);
-      updateTotalAmount();
-    }
-  }
-
-</script>
-
+<!-- Check choose all product Begin -->
 <script>
   var checkboxes = document.querySelectorAll('.itemsCart');
   var chonTatCa = document.getElementById('checkAll');
@@ -982,6 +948,31 @@
     });
   });
 </script>
+<!-- Check choose all product End -->
+
+<!--<script>-->
+<!--  function updateTotalAmount(input) {-->
+<!--    var quantity = input.value;-->
+<!--    var idCTG = input.getAttribute('th:name');-->
+
+<!--    // Sử dụng Fetch API để gửi dữ liệu về controller-->
+<!--    fetch('/buyer/cart/updateQuantity', {-->
+<!--      method: 'POST',-->
+<!--      headers: {-->
+<!--        'Content-Type': 'application/x-www-form-urlencoded',-->
+<!--      },-->
+<!--      body: 'idCTG=' + encodeURIComponent(idCTG) + '&quantity=' + encodeURIComponent(quantity),-->
+<!--    })-->
+<!--            .then(response => response.text())-->
+<!--            .then(data => {-->
+<!--              // Xử lý kết quả từ server nếu cần-->
+<!--            })-->
+<!--            .catch(error => {-->
+<!--              // Xử lý lỗi nếu có-->
+<!--            });-->
+<!--  }-->
+
+<!--</script>-->
 
 </body>
 
