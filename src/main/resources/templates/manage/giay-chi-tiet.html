@@ -458,7 +458,7 @@
                         </form>
 
                         <div class="table-responsive">
-                            <table class="table" id="data-table">
+                            <table class="table datanew" id="data-table">
                                 <thead>
                                 <tr>
                                     <th>Hình Ảnh</th>
@@ -466,12 +466,12 @@
                                     <th>Size</th>
                                     <th>Màu Sắc</th>
                                     <th>Số Lượng</th>
-                                    <th>Gía Bán</th>
+                                    <th>Gía Bán (Trước Giảm)</th>
                                     <th>Trọng Lượng</th>
                                     <th>Năm Sản Xuất</th>
                                     <th>Năm Bảo Hành</th>
+                                    <th>Gía Bán (Sau Giảm)</th>
                                     <th>Trạng Thái</th>
-                                    <th>Giá Bán Sau Khi Giảm</th>
                                     <th>Action</th>
                                     <th>Thời Gian Thêm</th>
                                     <th>Thời Gian Sửa</th>
@@ -485,17 +485,17 @@
                                     <td th:text="${items.size.soSize}"></td>
                                     <td th:text="${items.mauSac.tenMau}"></td>
                                     <td th:text="${items.soLuong}"></td>
-                                    <td th:text="${items.giaBan}"></td>
+                                    <td th:text="${items.soTienTruocKhiGiam}"></td>
                                     <td th:text="${items.trongLuong}"></td>
                                     <td th:text="${items.namSX}"></td>
                                     <td th:text="${items.namBH}"></td>
+                                    <td th:text="${items.formattedGiaBan}"></td>
                                     <td>
                                         <span th:if="${items.trangThai == 1}"
                                               class="badges bg-lightgreen">Hoạt Động</span>
                                         <span th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</span>
                                         <span th:if="${items.soLuong == 0}" class="badges bg-lightgrey">Hết Hàng</span>
                                     </td>
-                                    <td th:text="${items.soTienTruocKhiGiam}"></td>
                                     <td>
                                         <a class="me-2" th:href="@{'/manage/giay-chi-tiet/detail/' + ${items.idCTG}}">
                                             <img src="/images/img/icons/eye.svg" alt="img"/>
@@ -509,8 +509,8 @@
                                             <img src="/images/img/icons/delete.svg" alt="img"/>
                                         </a>
                                     </td>
-                                    <td th:text="${#dates.format(items.tgThem, 'dd-MM-yyyy')}"/>
-                                    <td th:text="${#dates.format(items.tgSua, 'dd-MM-yyyy')}"/>
+                                    <td th:text="${#dates.format(items.tgThem, 'dd-MM-yyyy')}" align="center"/>
+                                    <td th:text="${#dates.format(items.tgSua, 'dd-MM-yyyy')}" align="center"/>
 
                                 </tr>
                                 </tbody>
