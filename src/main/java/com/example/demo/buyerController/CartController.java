@@ -56,6 +56,19 @@ public class CartController {
         return "/online/shopping-cart";
     }
 
+    @PostMapping("/cart/updateQuantity")
+    @ResponseBody
+    public void updateQuantity(@RequestParam UUID idCTG, @RequestParam int quantity) {
+
+        GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
+        ChiTietGiay chiTietGiay = gctService.getByIdChiTietGiay(idCTG);
+
+        GioHangChiTiet gioHangChiTiet = ghctService.findByCTGActiveAndKhachHangAndTrangThai(chiTietGiay, gioHang);
+        gioHangChiTiet.setSoLuong(quantity);
+        ghctService.addNewGHCT(gioHangChiTiet);
+
+    }
+
     @PostMapping("/cart/checkout")
     private String checkoutCart(Model model, @RequestParam("selectedProducts") List<UUID> selectedProductIds){
 
