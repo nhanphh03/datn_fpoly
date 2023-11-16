@@ -473,9 +473,7 @@ public class GiayChiTietController {
     @PostMapping("/giay-chi-tiet/viewAdd/add")
     public String addGiayChiTiet(@Valid @ModelAttribute("giayChiTiet") ChiTietGiay chiTietGiay,
                                  BindingResult bindingResult, Model model,
-                                 RedirectAttributes redirectAttributes,
-                                 @RequestParam("selectedSizesCount") int selectedSizesCount,
-                                 @RequestParam("size") List<String> selectedSizes) {
+                                 RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
             List<HinhAnh> hinhAnhList = hinhAnhService.getAllHinhAnh();
             Collections.sort(hinhAnhList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
