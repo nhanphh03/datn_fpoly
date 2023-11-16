@@ -271,7 +271,7 @@
                             <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="/manage/khach-hang">Khách Hàng</a></li>
-                            <li><a href="/manage/dia-chi" class="active">Địa Chỉ </a></li>
+                            <li><a href="/manage/dia-chi">Địa Chỉ </a></li>
                             <li><a href="/manage/loai-khach-hang">Loại Khách Hàng</a></li>
                         </ul>
                     </li>
@@ -382,7 +382,7 @@
                         <div class="page-title">
                             <h4>Thông tin đơn hàng</h4>
                         </div>
-                        <table class="table  datanew text-center" id="data-table1">
+                        <table class="table  datanew text-center">
                             <thead>
                             <tr>
                                 <th>Mã Hóa Đơn</th>
@@ -397,29 +397,32 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td th:text="${hoaDon.maHD}"></td>
-                                <td>
-                                    <p th:if="${hoaDon.khachHang == null}">Khách lẻ</p>
-                                    <p th:if="${hoaDon.khachHang != null}" th:text="${hoaDon.khachHang.hoTenKH}"></p>
-                                </td>
+<!--                                <th:block >-->
+<!--                                    <td th:text="${hoaDon.maHD}"></td>-->
+<!--                                </th:block>-->
+<!--                                -->
+                                <!--                                <td>-->
+                                <!--                                    <p th:if="${hoaDon.khachHang == null}">Khách lẻ</p>-->
+                                <!--                                    <p th:if="${hoaDon.khachHang != null}" th:text="${hoaDon.khachHang.hoTenKH}"></p>-->
+                                <!--                                </td>-->
 
-                                <td>
-                                    <p th:if="${hoaDon.khachHang == null}">-</p>
-                                    <p th:if="${hoaDon.khachHang != null}" th:text="${hoaDon.khachHang.sdtKH}"></p>
-                                </td>
-                                <td>
-                                    <p th:if="${hoaDon.tongTien == null}">-</p>
-                                    <p th:if="${hoaDon.tongTien != null}" th:text="${hoaDon.tongTien + ' $'}"></p>
-                                </td>
-                                <td>
-                                    <p th:if="${hoaDon.loaiHD == 1}">Tại quầy</p>
-                                    <p th:if="${hoaDon.loaiHD == 0}">Online</p>
-                                </td>
-                                <td>
-                                    <p th:if="${hoaDon.trangThai == 3}">Đang chờ</p>
-                                    <p th:if="${hoaDon.trangThai == 0}">Thanh công</p>
-                                </td>
-                                <td th:text="${#dates.format(hoaDon.tgTao, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                                <!--                                <td>-->
+                                <!--                                    <p th:if="${hoaDon.khachHang == null}">-</p>-->
+                                <!--                                    <p th:if="${hoaDon.khachHang != null}" th:text="${hoaDon.khachHang.sdtKH}"></p>-->
+                                <!--                                </td>-->
+<!--                                <td>-->
+<!--                                    <p th:if="${hoaDon.tongTien == null}">-</p>-->
+<!--                                    <p th:if="${hoaDon.tongTien != null}" th:text="${hoaDon.tongTien + ' $'}"></p>-->
+<!--                                </td>-->
+                                <!--                                <td>-->
+                                <!--                                    <p th:if="${hoaDon.loaiHD == 1}">Tại quầy</p>-->
+                                <!--                                    <p th:if="${hoaDon.loaiHD == 0}">Online</p>-->
+                                <!--                                </td>-->
+                                <!--                                <td>-->
+                                <!--                                    <p th:if="${hoaDon.trangThai == 3}">Đang chờ</p>-->
+                                <!--                                    <p th:if="${hoaDon.trangThai == 0}">Thanh công</p>-->
+                                <!--                                </td>-->
+                                <!--                                <td th:text="${#dates.format(hoaDon.tgTao, 'dd/MM/yyyy HH:mm:ss')}"></td>-->
                             </tr>
                             </tbody>
                         </table>
@@ -449,14 +452,14 @@
                                     <p th:text="${items.chiTietGiay.giay.tenGiay}"></p>
                                     <label th:text="${'Hãng : '+items.chiTietGiay.giay.hang.tenHang}"></label>
                                     <p th:text="${items.chiTietGiay.size.soSize}"></p>
-                                    <h3 class="text-danger" th:text="${items.chiTietGiay.giaBan} + ' $'"></h3>
+                                    <h4 class="text-danger" th:text="${items.chiTietGiay.giaBan} + ' $'"></h4>
                                 </td>
 
                                 <td>
                                     <p th:text="${items.soLuong}"></p>
                                 </td>
                                 <td>
-                                    <p th:text="${items.donGia * items.soLuong}">-</p>
+                                    <h3 class="text-danger" th:text="${items.donGia * items.soLuong} + ' $'"></h3>
 
                                 </td>
                             </tr>
