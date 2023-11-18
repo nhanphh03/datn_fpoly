@@ -10,7 +10,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Sneaker Shop - Admin</title>
 
-    <link rel="shortcut icon" type="image/x-icon"  href="/images/img/icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
@@ -26,6 +26,12 @@
     <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
 
     <link rel="stylesheet" href="/css/style.css">
+    <style>
+        /* Định dạng lớp CSS để làm cho input to hơn */
+        .large-input {
+            border: none;
+        }
+    </style>
 </head>
 <body>
 <div id="global-loader">
@@ -245,7 +251,7 @@
                             <li><a href="/manage/hang">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
                             <li><a href="/manage/mau-sac" class="active">Màu Sắc</a></li>
-                            <li><a href="/manage/size" >Size</a></li>
+                            <li><a href="/manage/size">Size</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -327,10 +333,17 @@
                                 <input type="text" th:field="*{ma}">
                             </div>
                         </div>
-                        <div class="col-lg-6 col-sm-6 col-12">
+                        <div class="col-lg-4 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Mã Màu</label>
-                                <input type="text" th:field="*{maMau}">
+                                <input type="text" id="rgbValue" th:field="*{maMau}" readonly
+                                       class="form-control" style="margin-top: 5px;">
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-sm-6 col-12">
+                            <div class="form-group">
+                                <label>Chọn Màu:</label>
+                                <input type="color" onchange="updateRGBValue(this.value)" required class="large-input">
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
@@ -339,15 +352,15 @@
                                 <input type="text" th:field="*{tenMau}">
                             </div>
                         </div>
-<!--                        <div class="col-lg-6 col-sm-6 col-12">-->
-<!--                            <div class="form-group" >-->
-<!--                                <label>Thời Gian Thêm</label>-->
-<!--                                <input disabled="true" type="text" id="tgThem"-->
-<!--                                       name="tgThem"-->
-<!--                                       th:value="${currentTime}"-->
-<!--                                       readonly="readonly" th:field="*{tgThem}"/>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <!--                        <div class="col-lg-6 col-sm-6 col-12">-->
+                        <!--                            <div class="form-group" >-->
+                        <!--                                <label>Thời Gian Thêm</label>-->
+                        <!--                                <input disabled="true" type="text" id="tgThem"-->
+                        <!--                                       name="tgThem"-->
+                        <!--                                       th:value="${currentTime}"-->
+                        <!--                                       readonly="readonly" th:field="*{tgThem}"/>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Trạng Thái</label>
@@ -420,7 +433,7 @@
 
 <script src="/js/script.js"></script>
 <script>
-    setTimeout(function() {
+    setTimeout(function () {
         var successToast = document.getElementById('toast-container');
         if (successToast) {
             successToast.style.display = 'none';
@@ -454,6 +467,21 @@
             checkMa.style.display = 'none';
         }
     }, 5000);
+</script>
+<script>
+    function updateRGBValue(hexValue) {
+        var rgbValue = hexToRgb(hexValue);
+        document.getElementById('rgbValue').value = 'RGB(' + rgbValue.r + ', ' + rgbValue.g + ', ' + rgbValue.b + ')';
+    }
+
+    function hexToRgb(hex) {
+        // Chuyển đổi mã màu hex thành giá trị RGB
+        var bigint = parseInt(hex.substring(1), 16);
+        var r = (bigint >> 16) & 255;
+        var g = (bigint >> 8) & 255;
+        var b = bigint & 255;
+        return {r: r, g: g, b: b};
+    }
 </script>
 </body>
 </html>

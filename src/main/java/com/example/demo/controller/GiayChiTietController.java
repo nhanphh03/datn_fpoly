@@ -72,7 +72,7 @@ public class GiayChiTietController {
     }
 
     @GetMapping("/giay-chi-tiet")
-    public String dsGiayChiTiet(Model model, @ModelAttribute("message") String message) {
+    public String dsGiayChiTiet(Model model, @ModelAttribute("message") String message, @ModelAttribute("importError") String importError) {
         List<ChiTietGiay> items = giayChiTietService.getAllChiTietGiay();
         List<Giay> giayList = giayService.getAllGiay();
         List<Size> sizeList = sizeService.getAllSize();
@@ -84,6 +84,8 @@ public class GiayChiTietController {
         //
         if (message == null || !"true".equals(message)) {
             model.addAttribute("message", false);
+        }if (importError == null || !"true".equals(importError)) {
+            model.addAttribute("importError", false);
         }
         return "manage/giay-chi-tiet";
     }
@@ -1348,13 +1350,15 @@ public class GiayChiTietController {
     }
 
     @PostMapping("/giayCT/import")
-    public String importData(@RequestParam("file") MultipartFile file) {
+    public String importData(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         if (file != null && !file.isEmpty()) {
             try {
                 InputStream excelFile = file.getInputStream();
                 giayChiTietService.importDataFromExcel(excelFile); // Gọi phương thức nhập liệu từ Excel
+                redirectAttributes.addFlashAttribute("message", true);
             } catch (Exception e) {
                 e.printStackTrace();
+                redirectAttributes.addFlashAttribute("importError", true);
                 // Xử lý lỗi
             }
         }
