@@ -427,6 +427,7 @@
             </div>
             <div class="modal-body">
                 <form th:object="${hangAdd}" method="post" th:action="@{/manage/giay/hang/viewAdd/add}"
+                      enctype="multipart/form-data"
                       style="width: auto;height: auto">
                     <div class="page-header">
                         <div class="page-title">
@@ -440,7 +441,7 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Logo</label>
-                                        <input th:field="*{logoHang}" type="file" id="imageInput"
+                                        <input name="logoHang" type="file" id="imageInput"
                                                accept="image/*"
                                                onchange="previewImage(event)">
                                         <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
@@ -451,13 +452,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Hãng</label>
-                                        <input type="text" th:field="*{maHang}"required>
+                                        <input type="text" name="maHang" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Hãng</label>
-                                        <input type="text" th:field="*{tenHang}"required>
+                                        <input type="text" name="tenHang" required>
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -506,13 +507,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Chất Liệu</label>
-                                        <input type="text" th:field="*{maChatLieu}"required>
+                                        <input type="text" th:field="*{maChatLieu}" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Chất Liệu</label>
-                                        <input type="text" th:field="*{tenChatLieu}"required>
+                                        <input type="text" th:field="*{tenChatLieu}" required>
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
