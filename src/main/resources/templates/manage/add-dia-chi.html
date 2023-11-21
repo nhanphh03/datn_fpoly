@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="/plugins/alertify/alertify.min.css"/>
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
+
 
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -240,7 +242,7 @@
                             <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="/manage/chat-lieu">Chất Liệu</a></li>
-                            <li><a href="/manage/giay" >Giày</a></li>
+                            <li><a href="/manage/giay">Giày</a></li>
                             <li><a href="/manage/hang">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
                             <li><a href="/manage/mau-sac">Màu Sắc</a></li>
@@ -271,7 +273,7 @@
                             <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="/manage/khach-hang">Khách Hàng</a></li>
-                            <li><a href="/manage/dia-chi"class="active">Địa Chỉ </a></li>
+                            <li><a href="/manage/dia-chi" class="active">Địa Chỉ </a></li>
                             <li><a href="/manage/loai-khach-hang">Loại Khách Hàng</a></li>
                         </ul>
                     </li>
@@ -307,7 +309,8 @@
             </div>
         </div>
     </div>
-    <form th:object="${diaChi}" method="post" th:action="@{/manage/dia-chi/viewAdd/add}">
+    <form th:object="${diaChi}" method="post"
+          th:action="@{/manage/dia-chi/viewAdd/add}">
         <div class="page-wrapper">
             <div class="content">
                 <div class="page-header">
@@ -316,7 +319,6 @@
                         <h6>Quản Lý Địa Chỉ</h6>
                     </div>
                 </div>
-
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -324,12 +326,30 @@
                                 <div class="form-group">
                                     <label>Mã Địa Chỉ</label>
                                     <input type="text" th:field="*{maDC}">
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('maDC')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{maDC}"></strong>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Tên Địa Chỉ</label>
                                     <input type="text" th:field="*{tenDC}">
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('tenDC')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{tenDC}"></strong>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Tên Người Nhận</label>
+                                    <input type="text" th:field="*{tenNguoiNhan}">
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('tenNguoiNhan')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{tenNguoiNhan}"></strong>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -338,6 +358,11 @@
                                     <select class="select" th:field="*{tinhTP}" id="tinhthanhpho">
                                         <option value="" selected>Chọn thành phố</option>
                                     </select>
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('tinhTP')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{tinhTP}"></strong>
+                                    <span th:field="*{tinhTP}"></span>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -346,6 +371,10 @@
                                     <select class="select" th:field="*{quanHuyen}" id="quanhuyen">
                                         <option value="" selected>Chọn quận huyện</option>
                                     </select>
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('quanHuyen')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{quanHuyen}"></strong>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -354,49 +383,89 @@
                                     <select class="select" th:field="*{xaPhuong}" id="xaphuong">
                                         <option value="" selected>Chọn xã phường</option>
                                     </select>
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('xaPhuong')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{xaPhuong}"></strong>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Mô Tả</label>
                                     <input type="text" th:field="*{moTa}">
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('moTa')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{moTa}"></strong>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Loại Địa Chỉ</label>
+                                    <div style="display: flex;
+                                    gap: 20px;
+                                    align-items: center;
+                                    margin-top: 15px;">
+                                        <input type="checkbox" th:field="*{loai}">
+                                        <label style="margin: 0;">Đặt làm địa chỉ mặc định</label>
+                                    </div>
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('loai')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{loai}"></strong>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Địa Chỉ Chi Tiết</label>
-                                    <input type="text" th:field="*{diaChiChiTiet}">
+                                    <input type="text" th:field="*{diaChiChiTiet}" id="diachict">
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('diaChiChiTiet')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{diaChiChiTiet}"></strong>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>SốĐT Địa Chỉ</label>
+                                    <input type="text" th:field="*{sdtNguoiNhan}">
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('sdtNguoiNhan')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{sdtNguoiNhan}"></strong>
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Khách Hàng</label>
+                                    <select class="select" th:field="*{khachHang}">
+                                        <option th:each="loc : ${khachHang}" th:value="${loc.idKH}"
+                                                th:text="${loc.hoTenKH}"></option>
+                                    </select>
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('khachHang')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{khachHang}"></strong>
+                                </div>
+                            </div>
+                            <div class="col-lg-2 col-sm-2 col-2 ps-0">
+                                <div class="add-icon" style="margin-top: 30px">
+                                    <a href="javascript:void(0);" id="modal-khachHang"
+                                       data-toggle="modal"
+                                       data-target="#myModal"><img
+                                            src="/images/img/icons/plus1.svg"
+                                            alt="img"></a>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Miền</label>
                                     <select class="select" th:field="*{mien}" id="loc" name="loc"
-                                            style="width: 100%; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                            style="width: 100%; height:40px; border: 1px solid rgba(145,158,171,0.32); border-radius: 5px;
                                                        font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;">
-                                        <option th:value="mien_bac" >Miền Bắc</option>
-                                        <option th:value="mien_trung" >Miền Trung</option>
-                                        <option th:value="mien_nam">Miền Nam</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Khách Hàng</label>
-                                    <select class="select" th:field="*{khachHang}" id="loc" name="loc">
-                                        <option th:each="loc : ${khachHang}"
-                                                th:value="${loc.idKH}"
-                                                th:text="${loc.hoTenKH}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Trạng Thái</label>
-                                    <select class="select" th:field="*{trangThai}" id="trangthai" name="trangThai">
-                                        <option th:each="loc : ${dsTrangThai.entrySet()}"
-                                                th:value="${loc.key}"
-                                                th:text="${loc.value}"></option>
+                                        <option th:value="Mien_Bac" th:selected="${mien == 'Mien_Bac'}">Miền Bắc</option>
+                                        <option th:value="Mien_Trung" th:selected="${mien == 'Mien_Trung'}">Miền Trung</option>
+                                        <option th:value="Mien_Nam" th:selected="${mien == 'Mien_Nam'}">Miền Nam</option>
                                     </select>
                                 </div>
                             </div>
@@ -411,6 +480,427 @@
         </div>
     </form>
 </div>
+
+//
+<div class="modal fade" id="myModal-khachHang" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel-khachHang"></h5>
+                <button type="button" class="close btn-secondary khachHang" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:object="${khachHangAdd}" method="post"
+                      th:action="@{/manage/dia-chi/khach-hang/viewAdd/add}"
+                      style="width: auto;height: auto">
+                    <div class="page-header">
+                        <div class="page-title">
+                            <h4>Thêm Khách Hàng</h4>
+                            <h6>Quản Lý Khách Hàng</h6>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div th:fragment="whitespace">&nbsp;</div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Ảnh</label>
+                                        <input th:field="*{AnhKH}" type="file" id="imageInput" accept="image/*"
+                                               onchange="previewImage(event)">
+                                        <br><br>
+                                        <img id="imagePreview" src="#" alt="Ảnh mô tả"
+                                             style="display: none; max-width: 150px; max-height: 150px;">
+                                    </div>
+                                </div>
+                                <div th:fragment="whitespace">&nbsp;</div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Ảnh CCCD</label>
+                                        <input th:field="*{Anhcccd}" type="file" id="imageInput" accept="image/*"
+                                               onchange="previewImage(event)">
+                                        <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
+                                                     style="display: none; max-width: 150px; max-height: 150px;">
+                                    </div>
+                                </div>
+                                <div th:fragment="whitespace">&nbsp;</div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Mã Khách Hàng</label>
+                                        <input type="text" th:field="*{maKH}" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Tên Khách Hàng</label>
+                                        <input type="text" th:field="*{hoTenKH}" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Giới Tính</label>
+                                        <select class="select" th:field="*{gioiTinh}" id="gioitinh" name="gioitinh">
+                                            <option th:each="loc : ${dsGioiTinh.entrySet()}" th:value="${loc.key}"
+                                                    th:text="${loc.value}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Ngày Sinh</label>
+                                        <div class="input-groupicon">
+                                            <input type="date" th:field="*{ngaySinh}" name="ngaysinh"
+                                                   style="width: 100%; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                       font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;"
+                                                   th:pattern="yyyy-MM-dd" required/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>SDT</label>
+                                        <input type="text" th:field="*{sdtKH}" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input type="text" th:field="*{emailKH}" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Địa Chỉ</label>
+                                        <input type="text" th:field="*{diaChi}" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Căn Cước Công Dân</label>
+                                        <input type="text" th:field="*{CCCDKH}" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Loại Khách Hàng</label>
+                                        <select class="select" th:field="*{loaiKhachHang}" id="loaiKhachHang"
+                                                name="loaiKhachHang">
+                                            <option th:each="loc : ${loaiKhachHang}" th:value="${loc.idLKH}"
+                                                    th:text="${loc.tenLKH}"></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-2 col-2 ps-0">
+                                    <div class="add-icon" style="margin-top: 30px">
+                                        <a href="javascript:void(0);" id="modal-loaiKhachHang" data-toggle="modal"
+                                           data-target="#myModal"><img
+                                                src="/images/img/icons/plus1.svg"
+                                                alt="img"></a>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Mật Khẩu</label>
+                                        <input type="text" th:field="*{matKhau}">
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <button type="submit" class="btn btn-submit me-2">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+//
+<div class="modal fade" id="myModal-loaiKhachHang" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel-loaiKhachHang"></h5>
+                <button type="button" class="close btn-secondary loaiKhachHang" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:object="${loaiKhachHangAdd}" method="post"
+                      th:action="@{/manage/dia-chi/khach-hang/loai-khach-hang/viewAdd/add}"
+                      style="width: auto;height: auto">
+                    <div class="page-header">
+                        <div class="page-title">
+                            <h4>Thêm Loại Khách Hàng</h4>
+                            <h6>Quản Lý Loại Khách Hàng</h6>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Mã Loại Khách Hàng</label>
+                                        <input type="text" th:field="*{maLKH}" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Tên Loại Khách Hàng</label>
+                                        <input type="text" th:field="*{tenLKH}" required>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Số Điểm</label>
+                                        <input type="number" th:field="*{soDiem}" id="soDiem" name="soDiem" min="1"
+                                               required
+                                               style="border: 1px solid rgba(145, 158, 171, .32);
+                                                height: 40px;
+                                                width: 100%;
+                                                font-size: 14px;
+                                                font-weight: 500;
+                                                color: #637381;
+                                                padding: 10px 15px;
+                                                border-radius: 5px;">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <button type="submit" class="btn btn-submit me-2">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+//
+
+<div th:if="${maDCError}" id="warning1" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã DC không được bỏ trống.</div>
+    </div>
+</div>
+<div th:if="${tenDCError}" id="warning2" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Tên DC không được bỏ trống.</div>
+    </div>
+</div>
+<div th:if="${tenNguoiNhanError}" id="warning3" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Tên người nhận không được bỏ trống.</div>
+    </div>
+</div>
+<div th:if="${xaPhuongError}" id="warning4" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Xã Phường không được bỏ trống</div>
+    </div>
+</div>
+
+<div th:if="${quanHuyenError}" id="warning5" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Quận Huyện không được bỏ trống</div>
+    </div>
+</div>
+<div th:if="${tinhTPError}" id="warning6" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Tỉnh TP không được bỏ trống</div>
+    </div>
+</div>
+<div th:if="${moTaError}" id="warning7" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mô Tả không được bỏ trống</div>
+    </div>
+</div>
+<div th:if="${diaChiChiTietError}" id="warning8" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Địa chỉ chi tiết không được bỏ trống.</div>
+    </div>
+</div>
+<div th:if="${mienError}" id="warning9" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Miền không được bỏ trống.</div>
+    </div>
+</div>
+<div th:if="${loaiError}" id="warning10" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Loại không được bỏ trống.</div>
+    </div>
+</div>
+<div th:if="${sdtNguoiNhanError}" id="warning11" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Số điện thoại phải có 10 chữ số và bắt đầu bằng số 0</div>
+    </div>
+</div>
+<div th:if="${khachHangError}" id="warning12" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Khách Hàng không được bỏ trống.</div>
+    </div>
+</div>
+//
+<div th:if="${messageKH}" id="successKH" class="toast-container toast-top-right">
+    <div class="toast toast-success" aria-live="polite" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Thành Công</div>
+        <div class="toast-message">Khách Hàng của bạn đã được Thêm</div>
+    </div>
+</div>
+<div th:if="${maKHError}" id="warning13" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã KH không được bỏ trống.</div>
+    </div>
+</div>
+<div th:if="${tenKHError}" id="warning14" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Tên KH không được bỏ trống.</div>
+    </div>
+</div>
+<div th:if="${ngaySinhError}" id="warning15" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Ngày Sinh không được bỏ trống.</div>
+    </div>
+</div>
+<div th:if="${sdtKHError}" id="warning16" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Số điện thoại phải có 10 chữ số và bắt đầu bằng số 0</div>
+    </div>
+</div>
+
+<div th:if="${emailKHError}" id="warning17" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Email không được bỏ trống hoặc sai định dạng</div>
+    </div>
+</div>
+<div th:if="${diaChiError}" id="warning18" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Địa Chỉ không được bỏ trống.</div>
+    </div>
+</div>
+<div th:if="${CCCDKHError}" id="warning19" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">CCCD không được bỏ trống hoặc sai định dạng</div>
+    </div>
+</div>
+<div th:if="${matKhauError}" id="warning20" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mật Khẩu không được bỏ trống.</div>
+    </div>
+</div>
+<div th:if="${loaiKhachHangError}" id="warning21" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">LKH không được bỏ trống.</div>
+    </div>
+</div>
+//
+<div th:if="${ErrormessageLKH}" id="checkMaLKH" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã LKH đã tồn tại.</div>
+    </div>
+</div>
+<div th:if="${messageLKH}" id="successLKH" class="toast-container toast-top-right">
+    <div class="toast toast-success" aria-live="polite" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Thành Công</div>
+        <div class="toast-message">Loại Khách Hàng của bạn đã được Thêm</div>
+    </div>
+</div>
+<div th:if="${maLKHError}" id="warning22" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã LKH không được bỏ trống trống.</div>
+    </div>
+</div>
+<div th:if="${tenLKHError}" id="warning23" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Tên LKH không được bỏ trống.</div>
+    </div>
+</div>
+<div th:if="${soDiemError}" id="warning24" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">số điểm không được bỏ trống.</div>
+    </div>
+</div>
+//
+<div th:if="${Errormessage}" id="checkMaDC" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã Địa chỉ đã tồn tại.</div>
+    </div>
+</div>
+<div th:if="${ErrormessageKH}" id="checkMaKH" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã KH đã tồn tại.</div>
+    </div>
+</div>
+<div th:if="${ErrormessageeEmail}" id="checkEmail" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Email đã tồn tại.</div>
+    </div>
+</div>
+
 
 <script src="/js/jquery-3.6.0.min.js"></script>
 
@@ -434,11 +924,12 @@
 
 <script src="/plugins/alertify/custom-alertify.min.js"></script>
 
-<script src="/js/script.js"></script>
- //api
-<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" referrerpolicy="no-referrer"></script>-->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+<script src="/plugins/toastr/toastr.min.js"></script>
 
+<script src="/plugins/toastr/toastr.js"></script>
+<script src="/js/script.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 <script>
     const host = "https://provinces.open-api.vn/api/";
     var callAPI = (api) => {
@@ -460,11 +951,10 @@
                 renderData(response.data.wards, "xaphuong");
             });
     }
-
     var renderData = (array, select) => {
         let row = ' <option disable value="">Chọn</option>';
         array.forEach(element => {
-            row += `<option data-id="${element.code}" value="${element.name}">${element.name}</option>`
+            row += `<option data-id="${element.code}" data-name="${element.name}"  value="${element.name}">${element.name}</option>`
         });
         document.querySelector("#" + select).innerHTML = row
     }
@@ -481,11 +971,299 @@
         printResult();
     })
 
-    var printResult = () => {
-        if ($("#quanhuyen").find(':selected').data('id') != "" && $("#xaphuong").find(':selected').data('id') != "" &&
-            $("#tinhthanhpho").find(':selected').data('id') != "") {
+
+    const printResult = () => {
+        const quanHuyen = $("#quanhuyen").find(':selected').data('name');
+        const xaPhuong = $("#xaphuong").find(':selected').data('name');
+        const tinhTP = $("#tinhthanhpho").find(':selected').data('name');
+        if (quanHuyen && xaPhuong &&
+            tinhTP) {
+            let idDiaChi = $("#diachict");
+            idDiaChi[0].value = xaPhuong + " , " + quanHuyen + " , " + tinhTP;
         }
     }
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy phần tử có id="modal"
+        var modalElement = document.getElementById("modal-khachHang");
+        // Lắng nghe sự kiện click trên phần tử có id="modal"
+        modalElement.addEventListener("click", function () {
+            // Khi người dùng nhấn vào phần tử có id="modal", kích hoạt modal
+            $('#myModal-khachHang').modal('show');
+        });
+
+        var closeButton = document.querySelector(".khachHang");
+        closeButton.addEventListener("click", function () {
+            // Tắt modal có id="myModal"
+            $('#myModal-khachHang').modal('hide');
+        });
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy phần tử có id="modal"
+        var modalElement = document.getElementById("modal-loaiKhachHang");
+        // Lắng nghe sự kiện click trên phần tử có id="modal"
+        modalElement.addEventListener("click", function () {
+            // Khi người dùng nhấn vào phần tử có id="modal", kích hoạt modal
+            $('#myModal-loaiKhachHang').modal('show');
+        });
+
+        var closeButton = document.querySelector(".loaiKhachHang");
+        closeButton.addEventListener("click", function () {
+            // Tắt modal có id="myModal"
+            $('#myModal-loaiKhachHang').modal('hide');
+        });
+    });
+</script>
+<script>
+    function previewImage(event) {
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
+
+        if (imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            };
+
+            reader.readAsDataURL(imageInput.files[0]);
+        }
+    }
+</script>
+<script>
+    setTimeout(function () {
+        var warning1 = document.getElementById('warning1');
+        if (warning1) {
+            warning1.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning2 = document.getElementById('warning2');
+        if (warning2) {
+            warning2.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning3 = document.getElementById('warning3');
+        if (warning3) {
+            warning3.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning4 = document.getElementById('warning4');
+        if (warning4) {
+            warning4.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning5 = document.getElementById('warning5');
+        if (warning5) {
+            warning5.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning6 = document.getElementById('warning6');
+        if (warning6) {
+            warning6.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning7 = document.getElementById('warning7');
+        if (warning7) {
+            warning7.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning8 = document.getElementById('warning8');
+        if (warning8) {
+            warning8.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning9 = document.getElementById('warning9');
+        if (warning9) {
+            warning9.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning10 = document.getElementById('warning10');
+        if (warning10) {
+            warning10.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning11 = document.getElementById('warning11');
+        if (warning11) {
+            warning11.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning12 = document.getElementById('warning12');
+        if (warning12) {
+            warning12.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning13 = document.getElementById('warning13');
+        if (warning13) {
+            warning13.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning14 = document.getElementById('warning14');
+        if (warning14) {
+            warning14.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning15 = document.getElementById('warning15');
+        if (warning15) {
+            warning15.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning16 = document.getElementById('warning16');
+        if (warning16) {
+            warning16.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning17 = document.getElementById('warning17');
+        if (warning17) {
+            warning17.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var warning18 = document.getElementById('warning18');
+        if (warning18) {
+            warning18.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+            var warning19 = document.getElementById('warning19');
+            if (warning19) {
+                warning19.style.display = 'none';
+            }
+        },
+        5000
+    )
+    ;
+    //
+    setTimeout(function () {
+            var warning20 = document.getElementById('warning20');
+            if (warning20) {
+                warning20.style.display = 'none';
+            }
+        },
+        5000
+    )
+    ;
+    //
+    setTimeout(function () {
+            var warning21 = document.getElementById('warning21');
+            if (warning21) {
+                warning21.style.display = 'none';
+            }
+        },
+        5000
+    )
+    setTimeout(function () {
+            var warning21 = document.getElementById('warning22');
+            if (warning21) {
+                warning21.style.display = 'none';
+            }
+        },
+        5000
+    )
+    setTimeout(function () {
+            var warning21 = document.getElementById('warning23');
+            if (warning21) {
+                warning21.style.display = 'none';
+            }
+        },
+        5000
+    )
+    setTimeout(function () {
+            var warning21 = document.getElementById('warning24');
+            if (warning21) {
+                warning21.style.display = 'none';
+            }
+        },
+        5000
+    )
+    ;
+    //
+    setTimeout(function () {
+        var successLKH = document.getElementById('successLKH');
+        if (successLKH) {
+            successLKH.style.display = 'none';
+        }
+    }, 5000);
+    //
+
+    setTimeout(function () {
+        var checkMaLKH = document.getElementById('checkMaLKH');
+        if (checkMaLKH) {
+            checkMaLKH.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var successKH = document.getElementById('successKH');
+        if (successKH) {
+            successKH.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var checkMaDC = document.getElementById('checkMaDC');
+        if (checkMaDC) {
+            checkMaDC.style.display = 'none';
+        }
+    }, 5000);
+
+    setTimeout(function () {
+        var checkMaKH = document.getElementById('checkMaKH');
+        if (checkMaKH) {
+            checkMaKH.style.display = 'none';
+        }
+    }, 5000);
+
+    //
+    setTimeout(function () {
+        var checkEmail = document.getElementById('checkEmail');
+        if (checkEmail) {
+            checkEmail.style.display = 'none';
+        }
+    }, 5000);
+</script>
+<script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function () {
+        $('.select').select2();
+    });
 </script>
 </body>
 </html>
