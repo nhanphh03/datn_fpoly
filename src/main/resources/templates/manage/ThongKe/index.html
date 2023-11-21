@@ -103,7 +103,7 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Hóa đơn hoàn thành</h5>
+                        <h5 class="modal-title">Doanh thu trong ngày</h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
@@ -112,9 +112,7 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="form-group">
-                                        <div class="addonset">
-                                            <input id="startDate" class="form-control" type="date" />
-                                        </div>
+
                                 </div>
                             </div>
 
@@ -188,13 +186,22 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Hóa đơn chờ</h5>
+                        <h5 class="modal-title">Doanh thu trong tháng</h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
                     <div class="modal-body">
+                        <div class="row">
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <div class="addonset">
+                                        <input id="startDate" class="form-control" type="date" />
+                                    </div>
+                                </div>
+                            </div>
 
+                        </div>
                         <div class="table-responsive">
                             <table class="table ">
                                 <thead>
@@ -242,7 +249,7 @@
 
         <div class="row">
 
-            <div class="cardhead col-lg-7 col-sm-12 col-12">
+            <div class="cardhead col-lg-7 col-sm-12 col-12" style="height: 500px">
                 <div class="container content">
                     <h2 align="center">Biểu đồ doanh thu</h2>
 
@@ -272,25 +279,29 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive dataview">
-                            <table class="table " id="data-table">
+                        <div class="table-responsive ">
+                            <table class="table datanew" id="data-table">
                                 <thead>
                                 <tr>
                                     <th>STT</th>
                                     <th>Hình ảnh</th>
                                     <th>Tên sản phẩm</th>
-                                    <th>Đơn giá</th>
+
+                                    <th>Số lượng đã bán</th>
                                 </tr>
                                 </thead>
                                 <tbody >
-                                <tr th:each="a:${spBanChay}">
-                                    <td>1</td>
+                                <tr th:each="a,index : ${spBanChay}">
+                                    <td th:text="${index.index+1}"></td>
                                     <td >
-                                        <img th:src="@{'/images/imgsProducts/'+ ${a.hinhAnh.url1}}" style="height: 50px;width: 50px">
+                                        <img th:src="@{'/images/imgsProducts/'+ ${a.hinhAnh}}" style="height: 50px;width: 50px">
 <!--                                        <small><img src="/images/imgsProducts/product-1.4.png"></small>-->
                                     </td>
-                                    <td th:text="${a.tenGiay}">Nike</td>
-                                    <td th:text="${a.giaBan}">130000</td>
+                                    <td th:text="${a.tenGiay}"></td>
+                                    <td th:text="${a.soLuongDaBan}"></td>
+
+
+                                    </td>
                                 </tr>
 
                                 </tbody>
