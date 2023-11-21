@@ -618,7 +618,7 @@
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var maColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
+                var maColumn = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
                 if (maColumn === maNV || maNV === "Mã Nhân viên") {
                     $(this).show();
                 }
@@ -634,7 +634,7 @@
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var tenColumn = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
+                var tenColumn = $(this).find("td:eq(3)").text(); // Vị trí cột chứa giá trị kích thước
                 if (tenColumn === hoTenNV || hoTenNV === "Tên Nhân Viên") {
                     $(this).show();
                 }
