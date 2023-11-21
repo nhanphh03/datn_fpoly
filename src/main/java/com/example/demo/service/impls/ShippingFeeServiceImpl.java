@@ -57,11 +57,11 @@ public class ShippingFeeServiceImpl implements ShippingFeeService {
         if(tongSP <= 2){
             shippingFee = giaTriMacDinh*province.getTransportCoefficient();
         }else if(tongSP <= 5){
-            shippingFee = giaTriMacDinh*province.getTransportCoefficient() - 1.0;
+            shippingFee = giaTriMacDinh*province.getTransportCoefficient() - giaTriMacDinh;
         }else if(tongSP <= 7){
-            shippingFee = giaTriMacDinh*province.getTransportCoefficient() - 2.0;
+            shippingFee = giaTriMacDinh*province.getTransportCoefficient() - 2*giaTriMacDinh;
         }else{
-            shippingFee =  giaTriMacDinh*province.getTransportCoefficient() - 3.0;
+            shippingFee =  giaTriMacDinh*province.getTransportCoefficient() - 3*giaTriMacDinh;
         }
         if(shippingFee<=0){
             shippingFee = 0.0;

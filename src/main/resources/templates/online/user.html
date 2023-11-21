@@ -490,13 +490,12 @@
                         <div class="row" style="background-color: #f3f2ee; height: 81px; width: 836px; border-radius: 5px; margin-top: -10px;">
                             <nav class="header__menu mobile-menu" >
                                 <ul>
-                                    <li th:class="${type1}" style="margin-left: 40px; margin-right: 26px;"><a style="font-size: 11pt" th:href="@{'/buyer/purchase/all'}" >Tất cả</a></li>
-                                    <li th:class="${type2}" style="margin-right: 26px;"><a style="font-size: 11pt" th:href="@{'/buyer/purchase/pay'}" >Chờ thanh toán</a></li>
-                                    <li th:class="${type3}" style="margin-right: 26px;"><a style="font-size: 11pt" th:href="@{'/buyer/purchase/ship'}">Chờ giao hàng</a></li>
-                                    <li th:class="${type4}" style="margin-right: 26px;"><a style="font-size: 11pt" th:href="@{'/buyer/purchase/receive'}">Giao hàng</a></li>
-                                    <li th:class="${type5}" style="margin-right: 26px;"><a style="font-size: 11pt" th:href="@{'/buyer/purchase/completed'}">Thành công</a></li>
-                                    <li th:class="${type6}" style="margin-right: 26px;"><a style="font-size: 11pt" th:href="@{'/buyer/purchase/cancel'}">Đã hủy</a></li>
-                                    <li th:class="${type7}" style="margin-right: 26px;"><a style="font-size: 11pt" th:href="@{'/buyer/purchase/refund'}">Trả hàng/Hoàn tiền</a></li>
+                                    <li th:class="${type1}" style="margin-left: 60px; margin-right: 40px;"><a style="font-size: 12pt" th:href="@{'/buyer/purchase/all'}" >Tất cả</a></li>
+                                    <li th:class="${type2}" style="margin-right: 40px;"><a style="font-size: 12pt" th:href="@{'/buyer/purchase/pay'}" >Chờ thanh toán</a></li>
+                                    <li th:class="${type4}" style="margin-right: 40px;"><a style="font-size: 12pt" th:href="@{'/buyer/purchase/receive'}">Giao hàng</a></li>
+                                    <li th:class="${type5}" style="margin-right: 40px;"><a style="font-size: 12pt" th:href="@{'/buyer/purchase/completed'}">Thành công</a></li>
+                                    <li th:class="${type6}" style="margin-right: 40px;"><a style="font-size: 12pt" th:href="@{'/buyer/purchase/cancel'}">Đã hủy</a></li>
+                                    <li th:class="${type7}" style="margin-right: 40px;"><a style="font-size: 12pt" th:href="@{'/buyer/purchase/refund'}">Trả hàng/Hoàn tiền</a></li>
                                  </ul>
                              </nav>
                         </div>
@@ -531,8 +530,8 @@
                                         <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Số lượng: ' + ${product.soLuong}"></p>
                                     </div>
 
-                                    <p style="margin:10px 20px 0 250px;">₫12000000</p>
-                                    <p style="margin:10px 10px 0; font-size: 13pt; color: black;" th:text="'Tổng đơn : ₫' + ${product.donGia}" ></p>
+                                    <p style="margin:10px 20px 0 300px;" th:text="'₫' + ${#numbers.formatDecimal(product.chiTietGiay.soTienTruocKhiGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                    <p style="margin:10px 10px 0 0; font-size: 12pt; color: black;" th:text="'₫' + ${#numbers.formatDecimal(product.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
                                 </div>
 
                                 <div style="width: 90%; margin: 15px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
@@ -540,11 +539,12 @@
                             <!-- List CTDP in HD end -->
 
                             <div style="float: right; margin: 0 0 20px 0;">
-<!--                                th:text="'Oder Total : ' + ${product.soLuong} + '$'"-->
-                                <p style="font-size: 14pt; color: black; font-weight: 600; margin-left: 120px;" ></p>
+
+                                <p style="font-size: 13pt; color: black; font-weight: 600; margin-left: 80px;" th:text="'Thanh toán      : ₫' + ${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+
                                 <div style="display: flex; margin-right: 20px;">
-                                    <button style="height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px;">Mua lại</button>
-                                    <button style="height: 50px; width: 130px; border: 0.5px solid black;">Buy Again</button>
+                                    <a href="#" style="height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px;">Xem chi tiết</a>
+                                    <button style="height: 50px; width: 130px; border: 0.5px solid black;">Mua lại</button>
                                 </div>
                             </div>
                             </div>
@@ -553,47 +553,287 @@
 
                         <!-- List All Hoa Don End -->
 
-                    </div>
+                        </div>
                         <!-- ALL end -->
 
 
                         <!-- to pay begin -->
                         <div th:if="${purchasePay}" class="row" style="margin-top: 10px; background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;">
-                            <p>Chờ thành toán</p>
+                            <th:block th:each="x : ${listAllHDByKhachHang}">
+
+                                <div class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+
+                                    <div style="float: right; display: flex; padding: 10px 0 0 0;">
+                                        <a style="color: black;" href="#">Đơn hàng đã đựo giao thành công</a> <span style="margin: 0 10px 0 10px;">  | </span> <p style="margin-right: 20px;">REATED</p>
+                                    </div>
+
+                                    <div style="width: 90%; margin: 40px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
+
+
+                                    <!-- List CTDP in HD begin -->
+                                    <th:block th:each="product : ${x.hoaDonChiTiets}">
+                                        <div style="display: flex; padding-left: 40px;">
+                                            <img th:src="@{'/images/imgsProducts/' + ${product.chiTietGiay.hinhAnh.url1}}" style="height: 80px; width: 80px; border-radius: 5px;" alt="">
+                                            <div>
+                                                <p style="margin: 5px 0 0 15px; color: #637381; font-size: 11pt;" th:text="${product.chiTietGiay.giay.tenGiay}"></p>
+                                                <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Phân loại: ' + ${product.chiTietGiay.mauSac.tenMau} +' | ' + ${product.chiTietGiay.size.soSize} "></p>
+                                                <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Số lượng: ' + ${product.soLuong}"></p>
+                                            </div>
+
+                                            <p style="margin:10px 20px 0 300px;" th:text="'₫' + ${#numbers.formatDecimal(product.chiTietGiay.soTienTruocKhiGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                            <p style="margin:10px 10px 0 0; font-size: 12pt; color: black;" th:text="'₫' + ${#numbers.formatDecimal(product.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                        </div>
+
+                                        <div style="width: 90%; margin: 15px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
+                                    </th:block>
+                                    <!-- List CTDP in HD end -->
+
+                                    <div style="float: right; margin: 0 0 20px 0;">
+
+                                        <p style="font-size: 13pt; color: black; font-weight: 600; margin-left: 80px;" th:text="'Thanh toán      : ₫' + ${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+
+                                        <div style="display: flex; margin-right: 20px;">
+                                            <a href="#" style="height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px;">Xem chi tiết</a>
+                                            <button style="height: 50px; width: 130px; border: 0.5px solid black;">Mua lại</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </th:block>
                         </div>
                         <!-- to pay end -->
 
 
                         <!-- to ship begin -->
                          <div th:if="${purchaseShip}"  class="row" style="margin-top: 10px;background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;">
-                             <p>Form Ship</p>
+                             <th:block th:each="x : ${listAllHDByKhachHang}">
+
+                                 <div class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+
+                                     <div style="float: right; display: flex; padding: 10px 0 0 0;">
+                                         <a style="color: black;" href="#">Đơn hàng đã đựo giao thành công</a> <span style="margin: 0 10px 0 10px;">  | </span> <p style="margin-right: 20px;">REATED</p>
+                                     </div>
+
+                                     <div style="width: 90%; margin: 40px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
+
+
+                                     <!-- List CTDP in HD begin -->
+                                     <th:block th:each="product : ${x.hoaDonChiTiets}">
+                                         <div style="display: flex; padding-left: 40px;">
+                                             <img th:src="@{'/images/imgsProducts/' + ${product.chiTietGiay.hinhAnh.url1}}" style="height: 80px; width: 80px; border-radius: 5px;" alt="">
+                                             <div>
+                                                 <p style="margin: 5px 0 0 15px; color: #637381; font-size: 11pt;" th:text="${product.chiTietGiay.giay.tenGiay}"></p>
+                                                 <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Phân loại: ' + ${product.chiTietGiay.mauSac.tenMau} +' | ' + ${product.chiTietGiay.size.soSize} "></p>
+                                                 <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Số lượng: ' + ${product.soLuong}"></p>
+                                             </div>
+
+                                             <p style="margin:10px 20px 0 300px;" th:text="'₫' + ${#numbers.formatDecimal(product.chiTietGiay.soTienTruocKhiGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                             <p style="margin:10px 10px 0 0; font-size: 12pt; color: black;" th:text="'₫' + ${#numbers.formatDecimal(product.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                         </div>
+
+                                         <div style="width: 90%; margin: 15px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
+                                     </th:block>
+                                     <!-- List CTDP in HD end -->
+
+                                     <div style="float: right; margin: 0 0 20px 0;">
+
+                                         <p style="font-size: 13pt; color: black; font-weight: 600; margin-left: 80px;" th:text="'Thanh toán      : ₫' + ${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+
+                                         <div style="display: flex; margin-right: 20px;">
+                                             <a href="#" style="height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px;">Xem chi tiết</a>
+                                             <button style="height: 50px; width: 130px; border: 0.5px solid black;">Mua lại</button>
+                                         </div>
+                                     </div>
+                                 </div>
+
+                             </th:block>
                          </div>
                         <!-- to ship end -->
 
 
                         <!-- to recceive begin -->
                          <div th:if="${purchaseReceive}" class="row" style="margin-top: 10px;background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;">
-                             <p>Form Receive</p>
+                             <th:block th:each="x : ${listAllHDByKhachHang}">
+
+                                 <div class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+
+                                     <div style="float: right; display: flex; padding: 10px 0 0 0;">
+                                         <a style="color: black;" href="#">Đơn hàng đã đựo giao thành công</a> <span style="margin: 0 10px 0 10px;">  | </span> <p style="margin-right: 20px;">REATED</p>
+                                     </div>
+
+                                     <div style="width: 90%; margin: 40px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
+
+
+                                     <!-- List CTDP in HD begin -->
+                                     <th:block th:each="product : ${x.hoaDonChiTiets}">
+                                         <div style="display: flex; padding-left: 40px;">
+                                             <img th:src="@{'/images/imgsProducts/' + ${product.chiTietGiay.hinhAnh.url1}}" style="height: 80px; width: 80px; border-radius: 5px;" alt="">
+                                             <div>
+                                                 <p style="margin: 5px 0 0 15px; color: #637381; font-size: 11pt;" th:text="${product.chiTietGiay.giay.tenGiay}"></p>
+                                                 <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Phân loại: ' + ${product.chiTietGiay.mauSac.tenMau} +' | ' + ${product.chiTietGiay.size.soSize} "></p>
+                                                 <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Số lượng: ' + ${product.soLuong}"></p>
+                                             </div>
+
+                                             <p style="margin:10px 20px 0 300px;" th:text="'₫' + ${#numbers.formatDecimal(product.chiTietGiay.soTienTruocKhiGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                             <p style="margin:10px 10px 0 0; font-size: 12pt; color: black;" th:text="'₫' + ${#numbers.formatDecimal(product.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                         </div>
+
+                                         <div style="width: 90%; margin: 15px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
+                                     </th:block>
+                                     <!-- List CTDP in HD end -->
+
+                                     <div style="float: right; margin: 0 0 20px 0;">
+
+                                         <p style="font-size: 13pt; color: black; font-weight: 600; margin-left: 80px;" th:text="'Thanh toán      : ₫' + ${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+
+                                         <div style="display: flex; margin-right: 20px;">
+                                             <a href="#" style="height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px;">Xem chi tiết</a>
+                                             <button style="height: 50px; width: 130px; border: 0.5px solid black;">Mua lại</button>
+                                         </div>
+                                     </div>
+                                 </div>
+
+                             </th:block>
                          </div>
                         <!-- to recceive end -->
 
 
                         <!-- to completed begin -->
                          <div th:if="${purchaseCompleted}" class="row" style="margin-top: 10px;background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;">
-                             <p>Form Completed</p>
+                             <th:block th:each="x : ${listAllHDByKhachHang}">
+
+                                 <div class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+
+                                     <div style="float: right; display: flex; padding: 10px 0 0 0;">
+                                         <a style="color: black;" href="#">Đơn hàng đã đựo giao thành công</a> <span style="margin: 0 10px 0 10px;">  | </span> <p style="margin-right: 20px;">REATED</p>
+                                     </div>
+
+                                     <div style="width: 90%; margin: 40px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
+
+
+                                     <!-- List CTDP in HD begin -->
+                                     <th:block th:each="product : ${x.hoaDonChiTiets}">
+                                         <div style="display: flex; padding-left: 40px;">
+                                             <img th:src="@{'/images/imgsProducts/' + ${product.chiTietGiay.hinhAnh.url1}}" style="height: 80px; width: 80px; border-radius: 5px;" alt="">
+                                             <div>
+                                                 <p style="margin: 5px 0 0 15px; color: #637381; font-size: 11pt;" th:text="${product.chiTietGiay.giay.tenGiay}"></p>
+                                                 <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Phân loại: ' + ${product.chiTietGiay.mauSac.tenMau} +' | ' + ${product.chiTietGiay.size.soSize} "></p>
+                                                 <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Số lượng: ' + ${product.soLuong}"></p>
+                                             </div>
+
+                                             <p style="margin:10px 20px 0 300px;" th:text="'₫' + ${#numbers.formatDecimal(product.chiTietGiay.soTienTruocKhiGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                             <p style="margin:10px 10px 0 0; font-size: 12pt; color: black;" th:text="'₫' + ${#numbers.formatDecimal(product.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                         </div>
+
+                                         <div style="width: 90%; margin: 15px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
+                                     </th:block>
+                                     <!-- List CTDP in HD end -->
+
+                                     <div style="float: right; margin: 0 0 20px 0;">
+
+                                         <p style="font-size: 13pt; color: black; font-weight: 600; margin-left: 80px;" th:text="'Thanh toán      : ₫' + ${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+
+                                         <div style="display: flex; margin-right: 20px;">
+                                             <a href="#" style="height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px;">Xem chi tiết</a>
+                                             <button style="height: 50px; width: 130px; border: 0.5px solid black;">Mua lại</button>
+                                         </div>
+                                     </div>
+                                 </div>
+
+                             </th:block>
                          </div>
                         <!-- to completed end -->
 
 
                         <!-- to return refund begin -->
                          <div th:if="${purchaseRefund}"  class="row" style="margin-top: 10px;background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;">
-                             <p>Form Refund</p>
+                             <th:block th:each="x : ${listAllHDByKhachHang}">
+
+                                 <div class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+
+                                     <div style="float: right; display: flex; padding: 10px 0 0 0;">
+                                         <a style="color: black;" href="#">Đơn hàng đã đựo giao thành công</a> <span style="margin: 0 10px 0 10px;">  | </span> <p style="margin-right: 20px;">REATED</p>
+                                     </div>
+
+                                     <div style="width: 90%; margin: 40px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
+
+
+                                     <!-- List CTDP in HD begin -->
+                                     <th:block th:each="product : ${x.hoaDonChiTiets}">
+                                         <div style="display: flex; padding-left: 40px;">
+                                             <img th:src="@{'/images/imgsProducts/' + ${product.chiTietGiay.hinhAnh.url1}}" style="height: 80px; width: 80px; border-radius: 5px;" alt="">
+                                             <div>
+                                                 <p style="margin: 5px 0 0 15px; color: #637381; font-size: 11pt;" th:text="${product.chiTietGiay.giay.tenGiay}"></p>
+                                                 <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Phân loại: ' + ${product.chiTietGiay.mauSac.tenMau} +' | ' + ${product.chiTietGiay.size.soSize} "></p>
+                                                 <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Số lượng: ' + ${product.soLuong}"></p>
+                                             </div>
+
+                                             <p style="margin:10px 20px 0 300px;" th:text="'₫' + ${#numbers.formatDecimal(product.chiTietGiay.soTienTruocKhiGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                             <p style="margin:10px 10px 0 0; font-size: 12pt; color: black;" th:text="'₫' + ${#numbers.formatDecimal(product.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                         </div>
+
+                                         <div style="width: 90%; margin: 15px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
+                                     </th:block>
+                                     <!-- List CTDP in HD end -->
+
+                                     <div style="float: right; margin: 0 0 20px 0;">
+
+                                         <p style="font-size: 13pt; color: black; font-weight: 600; margin-left: 80px;" th:text="'Thanh toán      : ₫' + ${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+
+                                         <div style="display: flex; margin-right: 20px;">
+                                             <a href="#" style="height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px;">Xem chi tiết</a>
+                                             <button style="height: 50px; width: 130px; border: 0.5px solid black;">Mua lại</button>
+                                         </div>
+                                     </div>
+                                 </div>
+
+                             </th:block>
                          </div>
                         <!-- to return refund end -->
 
                         <!-- to return refund begin -->
                         <div th:if="${purchaseCancel}"  class="row" style="margin-top: 10px;background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;">
-                            <p>Form Cancel</p>
+                            <th:block th:each="x : ${listAllHDByKhachHang}">
+
+                                <div class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+
+                                    <div style="float: right; display: flex; padding: 10px 0 0 0;">
+                                        <a style="color: black;" href="#">Đơn hàng đã đựo giao thành công</a> <span style="margin: 0 10px 0 10px;">  | </span> <p style="margin-right: 20px;">REATED</p>
+                                    </div>
+
+                                    <div style="width: 90%; margin: 40px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
+
+
+                                    <!-- List CTDP in HD begin -->
+                                    <th:block th:each="product : ${x.hoaDonChiTiets}">
+                                        <div style="display: flex; padding-left: 40px;">
+                                            <img th:src="@{'/images/imgsProducts/' + ${product.chiTietGiay.hinhAnh.url1}}" style="height: 80px; width: 80px; border-radius: 5px;" alt="">
+                                            <div>
+                                                <p style="margin: 5px 0 0 15px; color: #637381; font-size: 11pt;" th:text="${product.chiTietGiay.giay.tenGiay}"></p>
+                                                <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Phân loại: ' + ${product.chiTietGiay.mauSac.tenMau} +' | ' + ${product.chiTietGiay.size.soSize} "></p>
+                                                <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Số lượng: ' + ${product.soLuong}"></p>
+                                            </div>
+
+                                            <p style="margin:10px 20px 0 300px;" th:text="'₫' + ${#numbers.formatDecimal(product.chiTietGiay.soTienTruocKhiGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                            <p style="margin:10px 10px 0 0; font-size: 12pt; color: black;" th:text="'₫' + ${#numbers.formatDecimal(product.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                        </div>
+
+                                        <div style="width: 90%; margin: 15px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
+                                    </th:block>
+                                    <!-- List CTDP in HD end -->
+
+                                    <div style="float: right; margin: 0 0 20px 0;">
+
+                                        <p style="font-size: 13pt; color: black; font-weight: 600; margin-left: 80px;" th:text="'Thanh toán      : ₫' + ${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+
+                                        <div style="display: flex; margin-right: 20px;">
+                                            <a href="#" style="height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px;">Xem chi tiết</a>
+                                            <button style="height: 50px; width: 130px; border: 0.5px solid black;">Mua lại</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </th:block>
                         </div>
                         <!-- to return refund end -->
 
