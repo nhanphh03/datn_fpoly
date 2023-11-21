@@ -37,10 +37,6 @@ public class HoaDon {
     private NhanVien nhanVien;
 
     @OneToOne
-    @JoinColumn(name = "id_KM")
-    private KhuyenMai khuyenMai;
-
-    @OneToOne
     @JoinColumn(name = "id_HTTT")
     private ThanhToan thanhToan;
 
@@ -55,6 +51,12 @@ public class HoaDon {
 
     @Column(name = "tien_Ship")
     private Double tienShip;
+
+    @Column(name ="giam_Gia_Ship")
+    private Double giamGiaShip;
+
+    @Column(name = "giam_gia_hd")
+    private Double giamGiaHoaDon;
 
     @Column(name ="tong_Tien_Da_Giam")
     private Double tongTienDG;
@@ -85,5 +87,11 @@ public class HoaDon {
 
     @Column(name="loai_HD")
     private Integer loaiHD;
+
+    @Column(name = "noi_dung_Thanh_Toan")
+    private String noiDungThanhToan;
+
+    @Column(name = "loi_nhan")
+    private String loiNhan;
 
 }

@@ -365,8 +365,8 @@
                   </td>
                   <td th:text="${#dates.format(x.tgBatDau, 'yyyy-MM-dd')}"></td>
                   <td th:text="${#dates.format(x.tgKetThuc, 'yyyy-MM-dd')}"></td>
-                  <td th:text="${x.phanTramGiam * 100} +' % ' + '( ' + ${x.giaTienGiamToiDaPT} + ' $ )'"> </td>
-                  <td th:text="${x.giaTienGiam} + ' $'"></td>
+                  <td th:text="${x.phanTramGiam * 100} +' % ' + '( ' + '₫' + ${#numbers.formatDecimal(x.giaTienGiamToiDaPT, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' )'"> </td>
+                  <td th:text="'₫' + ${#numbers.formatDecimal(x.giaTienGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
                   <td>
                     <p th:if="${x.trangThai == 1}">Hoạt Động</p>
                     <p th:unless="${x.trangThai == 1}">Không Hoạt Động</p>
@@ -513,7 +513,7 @@
                           th:text="${product.tenKM != null ? product.tenKM : 'Không có'}">
                       </td>
                       <td th:text="${product.tenMau}"></td>
-                      <td th:text="${product.minPrice}"></td>
+                      <td th:text="'₫' + ${#numbers.formatDecimal(product.minPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
                       <td th:text="${product.slTon}"></td>
                       <td th:text="${product.soLuongDaBan}"></td>
                     </tr>
@@ -595,7 +595,7 @@
                   <div class="form-group">
                     <label style="font-size: 11pt; font-weight: 600; ">Thời gian kết thúc :</label>
                     <div style="display: flex;">
-                      <input th:id="'endDateUpdate_' + ${khuyenMai.idKM} " name="ngayKetThuc" type="date"  th:value="${#dates.format(khuyenMai.tgKetThuc, 'yyyy-MM-dd')}"
+                      <input th:id="'endDateUpdate_' + ${khuyenMai.idKM} " name="ngayKetThuc" type="date" th:value="${#dates.format(khuyenMai.tgKetThuc, 'yyyy-MM-dd')}"
                              style="border: none; margin: 0 10px 8px 0; font-size: 13pt; cursor: pointer;">
                     </div>
 

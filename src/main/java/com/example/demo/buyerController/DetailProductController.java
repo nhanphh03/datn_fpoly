@@ -254,11 +254,6 @@ public class DetailProductController {
 
     @GetMapping("/detail/heart/{idGiay}/{idMau}")
     private String addToHeart(@PathVariable UUID idGiay,@PathVariable UUID idMau){
-
-
-        System.out.println(idGiay);
-        System.out.println(idMau);
-
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
 
         Giay giay = giayService.getByIdGiay(idGiay);
