@@ -37,13 +37,44 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
             "join hoa_don_chi_tiet on hoa_don.id_hd=hoa_don_chi_tiet.id_hd where month(tg_thanh_toan) = month(GETDATE()) and year(tg_thanh_toan) = year(GETDATE())",
             nativeQuery = true) Double getDoanhThuThang();
 
-    @Query("select g from HoaDonChiTiet g where g.hoaDon.trangThai = 1 OR g.hoaDon.trangThai=2")
-    List<HoaDonChiTiet> getAllHoaDonDaThanhToan();
+    @Query(value = "select * from hoa_don_chi_tiet hdct join hoa_don hd on hdct.id_hd=hd.id_hd where hd.trang_thai=1",nativeQuery = true)
+    List<String> getAllHoaDonDaThanhToan();
 
-    @Query("select g from HoaDonChiTiet g where g.hoaDon.trangThai = 4 OR g.hoaDon.trangThai=3")
-    List<HoaDonChiTiet> getAllHoaDonChoThanhToan();
+    @Query(value = "select * from hoa_don_chi_tiet hdct join hoa_don hd on hdct.id_hd=hd.id_hd where hd.trang_thai=0",nativeQuery = true)
+    List<String> getAllHoaDonChoThanhToan();
 
     @Query(value = "select sum(don_gia_khi_giam*so_luong) from hoa_don_chi_tiet",nativeQuery = true)
     Double getTongTien();
 
+    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet where MONTH(tg_them) = 1",nativeQuery = true)
+    Integer getThang1();
+    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet where MONTH(tg_them) = 2",nativeQuery = true)
+    Integer getThang2();
+    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet where MONTH(tg_them) = 3",nativeQuery = true)
+    Integer getThang3();
+    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet where MONTH(tg_them) = 4",nativeQuery = true)
+    Integer getThang4();
+    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet where MONTH(tg_them) = 5",nativeQuery = true)
+    Integer getThang5();
+    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet where MONTH(tg_them) = 6",nativeQuery = true)
+    Integer getThang6();
+    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet where MONTH(tg_them) = 7",nativeQuery = true)
+    Integer getThang7();
+    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet where MONTH(tg_them) = 8",nativeQuery = true)
+    Integer getThang8();
+    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet where MONTH(tg_them) = 9",nativeQuery = true)
+    Integer getThang9();
+    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet where MONTH(tg_them) = 10",nativeQuery = true)
+    Integer getThang10();
+    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet where MONTH(tg_them) = 11",nativeQuery = true)
+    Integer getThang11();
+    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet where MONTH(tg_them) = 12",nativeQuery = true)
+    Integer getThang12();
+
+    @Query(value = "select top 5 a.url1,g.ten_giay,ctg.gia_ban, sum(hdct.so_luong) as topsp from hoa_don_chi_tiet hdct join chi_tiet_giay ctg on hdct.id_ctg=ctg.id_chi_tiet_giay\n" +
+            "join giay g on ctg.id_giay=g.id_giay\n" +
+            "join hinh_anh a on ctg.id_hinh_anh=a.id_hinh_anh\n" +
+            "group by a.url1,g.ten_giay,ctg.gia_ban\n" +
+            "order by topsp desc",nativeQuery = true)
+    List<Object[]> getTop5();
 }
