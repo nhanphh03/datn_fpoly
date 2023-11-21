@@ -32,7 +32,7 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
     List<Object[]> spBanChay();
 
     @Query(value = "select sum(Hoa_Don_Chi_Tiet.So_Luong*Hoa_Don_Chi_Tiet.don_gia_khi_giam) from hoa_don\n" +
-            "join hoa_don_chi_tiet on hoa_don.id_hd=hoa_don_chi_tiet.id_hd where month(tg_thanh_toan) = month(GETDATE()) and year(tg_thanh_toan) = year(GETDATE())",
+            "join hoa_don_chi_tiet on hoa_don.id_hd=hoa_don_chi_tiet.id_hd where month(hoa_don_chi_tiet.tg_them) = month(GETDATE()) and year(hoa_don_chi_tiet.tg_them) = year(GETDATE()) and hoa_don.trang_thai=1",
             nativeQuery = true) Double getDoanhThuThang();
 
     @Query(value = "select * from hoa_don_chi_tiet hdct join hoa_don hd on hdct.id_hd=hd.id_hd where hd.trang_thai=1",nativeQuery = true)
@@ -41,7 +41,8 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
     @Query(value = "select * from hoa_don_chi_tiet hdct join hoa_don hd on hdct.id_hd=hd.id_hd where hd.trang_thai=0",nativeQuery = true)
     List<String> getAllHoaDonChoThanhToan();
 
-    @Query(value = "select sum(don_gia_khi_giam*so_luong) from hoa_don_chi_tiet",nativeQuery = true)
+    @Query(value = "select sum(don_gia_khi_giam*so_luong) from hoa_don_chi_tiet join hoa_don on hoa_don_chi_tiet.id_hd=hoa_don.id_hd\n" +
+            "where hoa_don.trang_thai=1",nativeQuery = true)
     Double getTongTien();
 
     @Query(value = "select sum(so_luong) from hoa_don_chi_tiet where MONTH(tg_them) = 1",nativeQuery = true)

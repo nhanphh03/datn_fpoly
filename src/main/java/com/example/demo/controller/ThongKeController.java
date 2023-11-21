@@ -46,7 +46,7 @@ public class ThongKeController {
         model.addAttribute("dtt",formatdtt);
 //
 //        // top 5 sp bán chạy
-            
+
         System.out.println(hoaDonChiTietRepository.getTop5().get(1)+"Đã in tc");
 //        //chỉ số ở hóa đơn
         model.addAttribute("hdht",hoaDonRepository.getAllHoaDonDaThanhToan());
