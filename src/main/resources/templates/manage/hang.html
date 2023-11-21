@@ -322,39 +322,28 @@
             <div class="card">
                 <div class="card-body">
                     <div class="hidden-form" style="display: none">
-                        <form th:object="${hangAdd}" method="post" th:action="@{/manage/hang/viewAdd/add}">
+                        <form th:object="${hangAdd}" method="post" th:action="@{/manage/hang/viewAdd/add}" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Logo</label>
-                                        <input th:field="*{logoHang}" type="file" id="imageInput" accept="image/*"
+                                        <input name="logoHang" type="file" id="imageInput" accept="image/*"
                                                onchange="previewImage(event)">
                                         <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
-                                                     style="display: none; max-width: 150px; max-height: 150px;"><br><br>
-                                        <strong th:if="${#fields.hasErrors('logoHang')}"
-                                                class="alert alert-danger alert-dismissible fade show"
-                                                role="alert" th:errors="*{logoHang}"></strong>
+                                                     style="display: none; max-width: 150px; max-height: 150px;">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12"></div>
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Hãng</label><br><br>
-                                        <input type="text" th:field="*{maHang}"required>
-                                        <br><br>
-                                        <strong th:if="${#fields.hasErrors('maHang')}"
-                                                class="alert alert-danger alert-dismissible fade show"
-                                                role="alert" th:errors="*{maHang}"></strong>
+                                        <input type="text" name="maHang" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Hãng</label><br><br>
-                                        <input type="text" th:field="*{tenHang}"required>
-                                        <br><br>
-                                        <strong th:if="${#fields.hasErrors('tenHang')}"
-                                                class="alert alert-danger alert-dismissible fade show"
-                                                role="alert" th:errors="*{tenHang}"></strong>
+                                        <input type="text" name="tenHang" required>
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -610,12 +599,12 @@
         });
     }
 </script>
-<script>
-    $(document).ready(function () {
-        $('#filter_inputs').slideToggle("slow");
-        $('#filter_search').toggleClass("setclose");
-    });
-</script>
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+<!--        $('#filter_inputs').slideToggle("slow");-->
+<!--        $('#filter_search').toggleClass("setclose");-->
+<!--    });-->
+<!--</script>-->
 <script>
     $(document).ready(function () {
         // Lắng nghe sự kiện thay đổi trong dropdown kích thước

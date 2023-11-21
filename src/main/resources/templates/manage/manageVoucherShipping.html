@@ -401,8 +401,8 @@
                   <td th:text="${#dates.format(x.tgKetThuc, 'yyyy-MM-dd')}" ></td>
                   <td th:text="${x.soLuong}"></td>
                   <td th:text="${x.soLuongDaDung}"></td>
-                  <td th:text="${x.phanTramGiam * 100} +' % ' + '( ' + ${x.giaTienGiam} + ' $ )'"></td>
-                  <td th:text="${x.dieuKienKMBill}"></td>
+                  <td th:text="${x.phanTramGiam * 100} +' % ' + '( ' + '₫' + ${#numbers.formatDecimal(x.giaTienGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' )'"></td>
+                  <td th:text="'₫' + ${#numbers.formatDecimal(x.dieuKienKMBill, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
                   <td>
                     <p th:if="${x.trangThai == 1}">Hoạt Động</p>
                     <p th:unless="${x.trangThai == 1}">Không Hoạt Động</p>

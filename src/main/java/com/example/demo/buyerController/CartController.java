@@ -16,8 +16,6 @@ import java.util.*;
 @RequestMapping("/buyer")
 public class CartController {
 
-    private Random random = new Random();
-
     @Autowired
     private HttpServletRequest request;
 
@@ -39,6 +37,11 @@ public class CartController {
     @Autowired
     private DiaChiKHService diaChiKHService;
 
+    @Autowired
+    private KhuyenMaiService khuyenMaiService;
+
+    @Autowired
+    private LoaiKhuyenMaiService loaiKhuyenMaiService;
 
     @GetMapping("/cart")
     private String getShoppingCart(Model model){
@@ -65,70 +68,9 @@ public class CartController {
 
         GioHangChiTiet gioHangChiTiet = ghctService.findByCTGActiveAndKhachHangAndTrangThai(chiTietGiay, gioHang);
         gioHangChiTiet.setSoLuong(quantity);
+        gioHangChiTiet.setDonGia(quantity*chiTietGiay.getGiaBan());
         ghctService.addNewGHCT(gioHangChiTiet);
 
-    }
-
-    @PostMapping("/cart/checkout")
-    private String checkoutCart(Model model, @RequestParam("selectedProducts") List<UUID> selectedProductIds){
-
-        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
-        GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
-        model.addAttribute("fullNameLogin", khachHang.getHoTenKH());
-
-        List<GioHangChiTiet> listGHCTActive = ghctService.findByGHActive(gioHang);
-        Integer sumProductInCart = listGHCTActive.size();
-        model.addAttribute("sumProductInCart", sumProductInCart);
-
-        DiaChiKH diaChiKHDefault = diaChiKHService.findDCKHDefaulByKhachHang(khachHang);
-
-        String maHD = "HD_" + khachHang.getMaKH() + khachHang.getCCCDKH() + generateRandomNumbers();
-        HoaDon hoaDon = new HoaDon();
-        hoaDon.setKhachHang(khachHang);
-        hoaDon.setMaHD(maHD);
-        hoaDon.setLoaiHD(0);
-        hoaDon.setTgTao(new Date());
-        hoaDon.setTrangThai(0);
-        hoaDonService.add(hoaDon);
-
-        List<HoaDonChiTiet> listHDCTCheckOut = new ArrayList<>();
-
-        for (UUID x: selectedProductIds) {
-            HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
-            hoaDonChiTiet.setHoaDon(hoaDon);
-            hoaDonChiTiet.setChiTietGiay(gctService.getByIdChiTietGiay(x));
-
-            GioHangChiTiet gioHangChiTiet = ghctService.findByCTGActiveAndKhachHangAndTrangThai(gctService.getByIdChiTietGiay(x), gioHang);
-
-            hoaDonChiTiet.setDonGia(gioHangChiTiet.getDonGia());
-            hoaDonChiTiet.setSoLuong(gioHangChiTiet.getSoLuong());
-
-            hoaDonChiTiet.setTgThem(new Date());
-
-            hoaDonChiTiet.setTrangThai(1);
-
-            hoaDonChiTietService.add(hoaDonChiTiet);
-            listHDCTCheckOut.add(hoaDonChiTiet);
-
-        }
-
-        int sumQuantity = listHDCTCheckOut.stream()
-                .mapToInt(HoaDonChiTiet::getSoLuong)
-                .sum();
-
-        double total = listHDCTCheckOut.stream()
-                .mapToDouble(HoaDonChiTiet::getDonGia)
-                .sum();
-
-        model.addAttribute("sumQuantity", sumQuantity);
-        model.addAttribute("total", total);
-        model.addAttribute("diaChiKHDefault", diaChiKHDefault);
-        model.addAttribute("listProductCheckOut", listHDCTCheckOut);
-
-        session.removeAttribute("hoaDonTaoMoi");
-        session.setAttribute("hoaDonTaoMoi", hoaDon);
-
-        return "online/checkout";
     }
 
     @GetMapping("/cart/options/{idProduct}")
@@ -152,6 +94,7 @@ public class CartController {
     }
 
     public String generateRandomNumbers() {
+        Random random = new Random();
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < 8; i++) {
             int randomNumber = random.nextInt(10); // Tạo số ngẫu nhiên từ 0 đến 9

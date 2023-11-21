@@ -26,4 +26,7 @@ public interface HoaDonRepository extends JpaRepository<HoaDon , UUID> {
     @Query(value = "select COUNT(id_hd)\n" +
             "from hoa_don where trang_thai =1 ",nativeQuery = true)
     Integer getAllHoaDonDaThanhToan();
+
+    List<HoaDon> findByKhachHangAndLoaiHDAndTrangThaiOrTrangThaiOrTrangThai(KhachHang khachHang,int loaiHD, int trangThai1, int trangThai2, int trangThai3);
+
 }
