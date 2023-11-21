@@ -50,7 +50,7 @@
 
                 <div class="col-lg-3  d-flex align-items-center" >
                     <div class="header__top__left">
-                        <p>Welcome to the shopping experience</p>
+                        <p>Chào mừng đến với trải nghiệm mua sắm </p>
                     </div>
                 </div>
 
@@ -67,7 +67,7 @@
                     <div>
 
                         <div class="header__top__links"  >
-                            <a th:href="@{'/buyer/purchase'}">Purchase</a>
+                            <a th:href="@{'/buyer/purchase'}">Đơn mua</a>
                         </div>
 
 
@@ -75,9 +75,8 @@
                         <div class="header__top__hover">
                             <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
                             <ul>
-                                <li><a th:href="@{'/buyer/purchase'}" >Purchase</a></li>
-                                <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
-                                <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
+                                <li><a th:href="@{'/buyer/setting'}" >Cài đặt</a></li>
+                                <li><a th:href="@{'/buyer/logout'}">Đăng xuất</a></li>
                             </ul>
                         </div>
 
@@ -134,12 +133,10 @@
                             <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
                             <div class="dropdown-menu notifications" style="width:300px; top: -80px; position: absolute;">
                                 <div class="topnav-dropdown-header">
-                                    <span class="notification-title">Notifications</span>
-                                    <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                                    <span class="notification-title">Thông báo</span>
+                                    <a href="javascript:void(0)" class="clear-noti"> Xóa sạch</a>
                                 </div>
                                 <div class="vertical-scroll scroll-demo" >
-
-
 
                                     <a href="#" class="items-noticafitions">
                                         <div class="items-notica">
@@ -244,7 +241,7 @@
 
                                 </div>
                                 <div class="topnav-dropdown-footer">
-                                    <a href="activities.html">View all Notifications</a>
+                                    <a href="activities.html">Tất cả thông báo</a>
                                 </div>
                             </div>
 
@@ -278,7 +275,7 @@
                     <h4>Shop</h4>
                     <div class="breadcrumb__links">
                         <a th:href="@{'/buyer/home'}" >Home</a>
-                        <span>Setting Profile</span>
+                        <span>Cài đặt tài khoản</span>
                     </div>
                 </div>
             </div>
@@ -303,14 +300,15 @@
                     <div class="accordion" id="accordionExample">
                         <div class="card">
                             <div class="card-heading">
-                                <a data-toggle="collapse" data-target="#collapseOne">My Account</a>
+                                <a data-toggle="collapse" data-target="#collapseOne">Tài khoản của tôi</a>
                             </div>
                             <div id="collapseOne" class="collapse show" data-parent="#accordionExample">
                                 <div class="card-body">
                                     <div class="shop__sidebar__categories">
                                         <ul class="nice-scroll" style="height: 20%">
-                                            <li><a href="/buyer/setting">My profile</a></li>
-                                            <li><a href="/buyer/addresses">Addresses</a></li>
+                                            <li><a href="/buyer/setting">Thông tin</a></li>
+                                            <li><a href="/buyer/addresses">Địa chỉ</a></li>
+                                            <li><a href="/buyer/setting">Ngân hàng</a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -318,22 +316,22 @@
                         </div>
                         <div class="card">
                             <div class="card-heading">
-                                <a href="/buyer/purchase">My Purchases</a>
+                                <a href="/buyer/purchase">Đơn mua</a>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-heading">
-                                <a href="/buyer/notification">Notifications</a>
+                                <a href="/buyer/notification">Thông báo</a>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-heading">
-                                <a href="/buyer/voucher">My Vouchers</a>
+                                <a href="/buyer/voucher">Khuyến mãi</a>
                             </div>
                         </div>
                         <div class="card">
                             <div class="card-heading">
-                                <a href="/buyer/coins">My Coins</a>
+                                <a href="/buyer/coins">Xu</a>
                             </div>
                         </div>
                     </div>
@@ -357,18 +355,18 @@
                         <div class="row" style="  width: 803px; margin-left: 2px; border-radius: 5px; margin-top: 40px;">
 
                             <div class="form-group" style="margin-left: 50px; margin-top: 50px; width: 300px;">
-                                <label>Fullname</label>
+                                <label>Họ tên</label>
                                 <br>
                                 <input class="form-control" type="text" placeholder="Nhan Pham">
                             </div>
                             <div class="form-group" style="margin-left: 50px; margin-top: 50px; width: 300px;">
-                                <label>Gender</label>
+                                <label>Giới tính</label>
                                 <br>
                                 <input type="text" class="form-control" placeholder="Male">
                             </div>
                             <br>
                             <div class="form-group" style="margin-left: 50px; margin-top: 10px;  width: 300px;">
-                                <label>Date of birth :</label>
+                                <label>Ngày sinh :</label>
                                 <br>
                                 <input type="date" class="form-control">
                             </div>
@@ -384,7 +382,7 @@
                                 <input placeholder="nhan@gmail.com" type="text" class="form-control">
                             </div>
                             <div class="form-group" style="margin-left: 50px; margin-top: 10px;  width: 300px;">
-                                <label>Phone :</label>
+                                <label>SDT :</label>
                                 <br>
                                 <input type="text" class="form-control" placeholder="+8438 432 9003">
                             </div>
@@ -393,32 +391,32 @@
                         </div>
                         <div class="row" style="  width: 803px; margin-left: 2px; border-radius: 5px; margin-top: 20px;">
                             <button class="btn btn-success" style="height: 50px; width: 100px;">Submit</button>
-                            <p style="margin-left: 300px;margin-top: 12px;">Choose CCCD:</p>
+                            <p style="margin-left: 300px;margin-top: 12px;">Chọn CCCD:</p>
                             <input type ="file" class="btn btn-success" style="height: 50px; width: 250px; margin-left: 20px;">
                         </div>
                         <div class="row" style="height: 1px; width: 100%; background-color: black; margin: 30px 0 10px 7px;"></div>
 
-                        <h5 style="margin-top: 20px; font-weight: 100; ">Change Password</h5>
+                        <h5 style="margin-top: 20px; font-weight: 100; ">Đổi mật khẩu</h5>
                         <div class="row" style=" width: 803px; margin-left: 2px; border-radius: 5px; margin-top: 20px;">
                             <div class="form-group" style="margin-left: 50px; margin-top: 10px;  width: 300px;">
-                                <label>Old Password :</label>
+                                <label>Mật khẩu cũ :</label>
                                 <br>
                                 <input type="password" class="form-control">
                             </div>
                             <div class="form-group" style="margin-left: 50px; margin-top: 10px;  width: 300px;">
-                                <label>New Password :</label>
+                                <label>Mật khẩu mới :</label>
                                 <br>
                                 <input type="text" class="form-control">
                             </div>
                             <div class="form-group" style="margin-left: 50px; margin-top: 10px;  width: 300px;">
-                                <label>Phone :</label>
+                                <label>SDT :</label>
                                 <br>
                                 <input type="text" class="form-control" >
                             </div>
                             <br>
                         </div>
                         <div class="row" style="  width: 803px; margin-left: 2px; border-radius: 5px; margin-top: 20px;">
-                            <button class="btn btn-success" style="height: 50px; width: 100px;">Submit</button>
+                            <button class="btn btn-success" style="height: 50px; width: 100px;">Thay đổi</button>
                         </div>
 
                     </div>
@@ -427,17 +425,15 @@
 
 <!--                Address Begin-->
                 <div th:if="${pageAddressesUser}" class="card">
-                    <div class="card-body">
+                    <div th:if="${diaChiShow}" class="card-body">
 
                         <div class="row"
                              style="background-color: #f3f2ee; height: 80px; width: 836px; border-radius: 5px; margin-top: -10px;">
-                            <p style="font-size: 14pt; margin-top: 26px; margin-left: 30px;">My Addresses</p>
-                            <a style="height: 40px; width: 200px; margin-left: 450px; margin-top: 20px;" type="button" data-toggle="modal" data-target="#exampleModalCenter"> + add
-                                new address</a>
+                            <p style="font-size: 14pt; margin-top: 26px; margin-left: 30px;">Địa chỉ của tôi</p>
+                            <a style="height: 40px; width: 200px; margin-left: 450px; margin-top: 20px;" type="button" data-toggle="modal" data-target="#exampleModalCenter"> + thêm địa chỉ mới</a>
                         </div>
 
-
-                        <div th:object="${addressKHDefault}" class="row"
+                        <div  th:object="${addressKHDefault}" class="row"
                              style="margin-top: 5px; background-color: #f3f2ee; width: 836px ;  border-radius: 5px; height: 175px;">
                             <div>
                                 <div style="display: flex;">
@@ -446,11 +442,11 @@
 
                                     <h3 style="margin-top: 23px; font-size: 1.1rem; margin-left: 10px;" th:text="${addressKHDefault.sdtNguoiNhan}" ></h3>
 
-                                    <a href="" style="color: black; margin-top: 30px; margin-left: 440px;">Edit</a>
+                                    <a href="" style="color: black; margin-top: 30px; margin-left: 440px;">Sửa</a>
                                 </div>
                                 <h3 style="margin-top: 5px; font-size: 1.0rem; margin-left: 30px; font-weight: 600" th:text="${addressKHDefault.tenDC}"></h3>
                                 <p style="margin: 10px 0 20px 30px; font-size: 1rem;" th:text="${addressKHDefault.diaChiChiTiet}" > </p>
-                                <button  style="margin-left: 30px; margin-bottom: 10px; position: relative;top : -15px; border: 0.5px solid #4e4d4d" >Default</button>
+                                <button  style="margin-left: 30px; margin-bottom: 10px; position: relative;top : -15px; border: 0.5px solid #4e4d4d" >Mặc định</button>
                             </div>
                         </div>
 
@@ -478,6 +474,12 @@
                         </th:block>
 
                     </div>
+                    <div th:if="${diaChiShowNull}" class="card-body">
+
+                        <p>Bạn chưa có địa chỉ nào</p>
+                        <a style="height: 40px; width: 200px; margin-left: 450px; margin-top: 20px;" type="button" data-toggle="modal" data-target="#exampleModalCenter"> + thêm địa chỉ </a>
+
+                    </div>
                 </div>
 <!--                Address End-->
 
@@ -488,21 +490,23 @@
                         <div class="row" style="background-color: #f3f2ee; height: 81px; width: 836px; border-radius: 5px; margin-top: -10px;">
                             <nav class="header__menu mobile-menu" >
                                 <ul>
-                                    <li th:class="${type1}" style="margin-left: 50px; margin-right: 52px;"><a th:href="@{'/buyer/purchase/all'}" >All</a></li>
-                                    <li th:class="${type2}" style="margin-right: 52px;"><a th:href="@{'/buyer/purchase/pay'}" >To Pay</a></li>
-                                    <li th:class="${type3}" style="margin-right: 52px;"><a th:href="@{'/buyer/purchase/ship'}">To Ship</a></li>
-                                    <li th:class="${type4}" style="margin-right: 52px;"><a th:href="@{'/buyer/purchase/receive'}">To Receive</a></li>
-                                    <li th:class="${type5}" style="margin-right: 52px;"><a th:href="@{'/buyer/purchase/completed'}">Completed</a></li>
-                                    <li th:class="${type6}" style="margin-right: 52px;"><a th:href="@{'/buyer/purchase/refund'}">Return Refund</a></li>
-                                </ul>
-                            </nav>
+                                    <li th:class="${type1}" style="margin-left: 40px; margin-right: 26px;"><a style="font-size: 11pt" th:href="@{'/buyer/purchase/all'}" >Tất cả</a></li>
+                                    <li th:class="${type2}" style="margin-right: 26px;"><a style="font-size: 11pt" th:href="@{'/buyer/purchase/pay'}" >Chờ thanh toán</a></li>
+                                    <li th:class="${type3}" style="margin-right: 26px;"><a style="font-size: 11pt" th:href="@{'/buyer/purchase/ship'}">Chờ giao hàng</a></li>
+                                    <li th:class="${type4}" style="margin-right: 26px;"><a style="font-size: 11pt" th:href="@{'/buyer/purchase/receive'}">Giao hàng</a></li>
+                                    <li th:class="${type5}" style="margin-right: 26px;"><a style="font-size: 11pt" th:href="@{'/buyer/purchase/completed'}">Thành công</a></li>
+                                    <li th:class="${type6}" style="margin-right: 26px;"><a style="font-size: 11pt" th:href="@{'/buyer/purchase/cancel'}">Đã hủy</a></li>
+                                    <li th:class="${type7}" style="margin-right: 26px;"><a style="font-size: 11pt" th:href="@{'/buyer/purchase/refund'}">Trả hàng/Hoàn tiền</a></li>
+                                 </ul>
+                             </nav>
                         </div>
 
                         <!-- ALL begin -->
                         <div th:if="${purchaseAll}" class="row" style="background-color: #f3f2ee; width: 836px ; height: 50px; border-radius: 5px; margin-top: 10px;margin-bottom: 10px;"
                              <p>Form Search</p>
                         </div>
-                    <div th:if="${purchaseAll}" class="row" style="background-color: white; width: 836px ; border-radius: 5px;">
+
+                        <div th:if="${purchaseAll}" class="row" style="background-color: white; width: 836px ; border-radius: 5px;">
 
                         <!-- List All Hoa Don Begin -->
 
@@ -523,31 +527,27 @@
                                     <img th:src="@{'/images/imgsProducts/' + ${product.chiTietGiay.hinhAnh.url1}}" style="height: 80px; width: 80px; border-radius: 5px;" alt="">
                                     <div>
                                         <p style="margin: 5px 0 0 15px; color: #637381; font-size: 11pt;" th:text="${product.chiTietGiay.giay.tenGiay}"></p>
-                                        <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Variation : ' + ${product.chiTietGiay.mauSac.tenMau} +' | ' + ${product.chiTietGiay.size.soSize} "></p>
-                                        <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Quantity : ' + ${product.soLuong}"></p>
+                                        <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Phân loại: ' + ${product.chiTietGiay.mauSac.tenMau} +' | ' + ${product.chiTietGiay.size.soSize} "></p>
+                                        <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Số lượng: ' + ${product.soLuong}"></p>
                                     </div>
 
-                                    <p style="margin:10px 20px 0 250px;">1800$</p>
-                                    <p style="margin:10px 10px 0; font-size: 13pt; color: black;" th:text="'Oder Total : ' + ${product.donGia} + '$'" ></p>
+                                    <p style="margin:10px 20px 0 250px;">₫12000000</p>
+                                    <p style="margin:10px 10px 0; font-size: 13pt; color: black;" th:text="'Tổng đơn : ₫' + ${product.donGia}" ></p>
                                 </div>
 
                                 <div style="width: 90%; margin: 15px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
                             </th:block>
                             <!-- List CTDP in HD end -->
 
-
-
-
                             <div style="float: right; margin: 0 0 20px 0;">
 <!--                                th:text="'Oder Total : ' + ${product.soLuong} + '$'"-->
                                 <p style="font-size: 14pt; color: black; font-weight: 600; margin-left: 120px;" ></p>
                                 <div style="display: flex; margin-right: 20px;">
-                                    <button style="height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px;">Buy Again</button>
+                                    <button style="height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px;">Mua lại</button>
                                     <button style="height: 50px; width: 130px; border: 0.5px solid black;">Buy Again</button>
                                 </div>
                             </div>
-
-                        </div>
+                            </div>
 
                         </th:block>
 
@@ -559,7 +559,7 @@
 
                         <!-- to pay begin -->
                         <div th:if="${purchasePay}" class="row" style="margin-top: 10px; background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;">
-                            <p>Form Pay</p>
+                            <p>Chờ thành toán</p>
                         </div>
                         <!-- to pay end -->
 
@@ -591,7 +591,14 @@
                          </div>
                         <!-- to return refund end -->
 
+                        <!-- to return refund begin -->
+                        <div th:if="${purchaseCancel}"  class="row" style="margin-top: 10px;background-color: #f3f2ee; width: 836px ; height: 1000px; border-radius: 5px;">
+                            <p>Form Cancel</p>
+                        </div>
+                        <!-- to return refund end -->
+
                     </div>
+
                 </div>
 <!--                Purchase End-->
 
@@ -735,6 +742,7 @@
                                 <input style="height: 40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
                                 font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;" type="text" placeholder="Full Name" name="fullName" >
                             </div>
+
                             <div class="row" style="margin-bottom: 20px;">
                                 <input style="height: 40px; margin-left: 38px; margin-right: 30px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
                                 font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;" type="text" placeholder="Phone" name="phoneAddress">
@@ -802,9 +810,6 @@
 </section>
 
 <!--Add new dia chi end-->
-
-
-
 
 <!-- Js Plugins -->
 <script src="/js/jquery-3.6.0.min.js"></script>

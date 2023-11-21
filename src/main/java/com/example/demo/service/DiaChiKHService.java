@@ -17,7 +17,7 @@ public interface DiaChiKHService {
 
     public void importDataFromExcel(InputStream excelFile);
 
-    List<DiaChiKH> findbyKhachHangAndLoai(KhachHang khachHang, Boolean loai);
+    List<DiaChiKH> findbyKhachHangAndLoaiAndTrangThai(KhachHang khachHang, Boolean loai, Integer trangThai);
 
     DiaChiKH findDCKHDefaulByKhachHang(KhachHang khachHang);
 
@@ -26,6 +26,10 @@ public interface DiaChiKHService {
     public List<DiaChiKH> findByTrangThai(int trangThai);
 
     public List<DiaChiKH> fillterDiaChiKH(String maDC, String tenDC);
+
+    List<DiaChiKH> findByKhachHangAndTrangThai(KhachHang khachHang, int trangThai);
+
+    DiaChiKH findByIdDiaChiKH(UUID idDCKH);
 
 
 }

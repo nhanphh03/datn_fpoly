@@ -19,6 +19,8 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
 
     List<HoaDonChiTiet> findByHoaDonAndTrangThai(HoaDon hoaDon, int trangThai);
 
+    List<HoaDonChiTiet> findByHoaDon(HoaDon hoaDon);
+
     @Query(value = "select top 6 hct.id_ctg, g.ten_giay, s.so_size, h.ten_hang, cl.ten_chat_lieu, ms.ten_mau, SUM(hct.so_luong) AS so_luong_ban\n" +
             "from hoa_don_chi_tiet hct\n" +
             "join chi_tiet_giay ctg on hct.id_ctg = ctg.id_chi_tiet_giay\n" +
@@ -43,4 +45,5 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
 
     @Query(value = "select sum(don_gia_khi_giam*so_luong) from hoa_don_chi_tiet",nativeQuery = true)
     Double getTongTien();
+
 }
