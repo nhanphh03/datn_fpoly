@@ -29,6 +29,10 @@ import org.thymeleaf.util.StringUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -72,7 +76,7 @@ public class GiayChiTietController {
     }
 
     @GetMapping("/giay-chi-tiet")
-    public String dsGiayChiTiet(Model model, @ModelAttribute("message") String message) {
+    public String dsGiayChiTiet(Model model, @ModelAttribute("message") String message, @ModelAttribute("importError") String importError) {
         List<ChiTietGiay> items = giayChiTietService.getAllChiTietGiay();
         List<Giay> giayList = giayService.getAllGiay();
         List<Size> sizeList = sizeService.getAllSize();
@@ -84,6 +88,9 @@ public class GiayChiTietController {
         //
         if (message == null || !"true".equals(message)) {
             model.addAttribute("message", false);
+        }
+        if (importError == null || !"true".equals(importError)) {
+            model.addAttribute("importError", false);
         }
         return "manage/giay-chi-tiet";
     }
@@ -914,17 +921,14 @@ public class GiayChiTietController {
     }
 
     @PostMapping("/chi-tiet-giay/hinh-anh/viewAdd/add")
-    public String addHinhAnhCTG(@Valid @ModelAttribute("hinhAnhAdd") HinhAnh hinhAnh, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String addHinhAnhCTG(@RequestParam("maAnh") String maAnh,
+                                @RequestParam("anh1") MultipartFile anh1,
+                                @RequestParam("anh2") MultipartFile anh2,
+                                @RequestParam("anh3") MultipartFile anh3,
+                                @RequestParam("anh4") MultipartFile anh4,
+                                @Valid @ModelAttribute("hinhAnhAdd") HinhAnh hinhAnh, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         UUID idCTGViewAdd = (UUID) session.getAttribute("idViewAddCTG");
         String link = "redirect:/manage/chi-tiet-giay/viewAdd/" + idCTGViewAdd;
-        if (bindingResult.hasErrors()) {
-            if (bindingResult.hasFieldErrors("maAnh")) {
-                redirectAttributes.addFlashAttribute("userInputAnh", hinhAnh);
-                redirectAttributes.addFlashAttribute("error", "maHinhAnhError");
-            }
-            return link;
-        }
-        //
         HinhAnh existingAnh = hinhAnhRepository.findByMaAnh(hinhAnh.getMaAnh());
         if (existingAnh != null) {
             redirectAttributes.addFlashAttribute("userInputAnh", hinhAnh);
@@ -933,11 +937,34 @@ public class GiayChiTietController {
         }
         //
         HinhAnh hinhAnh1 = new HinhAnh();
-        hinhAnh1.setMaAnh(hinhAnh.getMaAnh());
-        hinhAnh1.setUrl1(hinhAnh.getUrl1());
-        hinhAnh1.setUrl2(hinhAnh.getUrl2());
-        hinhAnh1.setUrl3(hinhAnh.getUrl3());
-        hinhAnh1.setUrl4(hinhAnh.getUrl4());
+        hinhAnh1.setMaAnh(maAnh);
+        if (anh1.isEmpty() || anh2.isEmpty() || anh3.isEmpty() || anh4.isEmpty()) {
+            return "redirect:/manage/hinh-anh";
+        }
+        Path path = Paths.get("src/main/resources/static/images/imgsProducts/");
+        try {
+            InputStream inputStream = anh1.getInputStream();
+            Files.copy(inputStream, path.resolve(anh1.getOriginalFilename()),
+                    StandardCopyOption.REPLACE_EXISTING);
+            hinhAnh1.setUrl1(anh1.getOriginalFilename().toLowerCase());
+            //
+            inputStream = anh2.getInputStream();
+            Files.copy(inputStream, path.resolve(anh2.getOriginalFilename()),
+                    StandardCopyOption.REPLACE_EXISTING);
+            hinhAnh1.setUrl2(anh2.getOriginalFilename().toLowerCase());
+            //
+            inputStream = anh3.getInputStream();
+            Files.copy(inputStream, path.resolve(anh3.getOriginalFilename()),
+                    StandardCopyOption.REPLACE_EXISTING);
+            hinhAnh1.setUrl3(anh3.getOriginalFilename().toLowerCase());
+            //
+            inputStream = anh4.getInputStream();
+            Files.copy(inputStream, path.resolve(anh4.getOriginalFilename()),
+                    StandardCopyOption.REPLACE_EXISTING);
+            hinhAnh1.setUrl4(anh4.getOriginalFilename().toLowerCase());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         hinhAnh1.setTgThem(new Date());
         hinhAnh1.setTrangThai(1);
         hinhAnhService.save(hinhAnh1);
@@ -946,15 +973,12 @@ public class GiayChiTietController {
     }
 
     @PostMapping("/giay-chi-tiet/hinh-anh/viewAdd/add")
-    public String addHinhAnh(@Valid @ModelAttribute("hinhAnhAdd") HinhAnh hinhAnh, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            if (bindingResult.hasFieldErrors("maAnh")) {
-                redirectAttributes.addFlashAttribute("userInputAnh", hinhAnh);
-                redirectAttributes.addFlashAttribute("error", "maHinhAnhError");
-            }
-            return "redirect:/manage/giay-chi-tiet/viewAdd";
-        }
-        //
+    public String addHinhAnh(@RequestParam("maAnh") String maAnh,
+                             @RequestParam("anh1") MultipartFile anh1,
+                             @RequestParam("anh2") MultipartFile anh2,
+                             @RequestParam("anh3") MultipartFile anh3,
+                             @RequestParam("anh4") MultipartFile anh4,
+                             @Valid @ModelAttribute("hinhAnhAdd") HinhAnh hinhAnh, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         HinhAnh existingAnh = hinhAnhRepository.findByMaAnh(hinhAnh.getMaAnh());
         if (existingAnh != null) {
             redirectAttributes.addFlashAttribute("userInputAnh", hinhAnh);
@@ -963,11 +987,34 @@ public class GiayChiTietController {
         }
         //
         HinhAnh hinhAnh1 = new HinhAnh();
-        hinhAnh1.setMaAnh(hinhAnh.getMaAnh());
-        hinhAnh1.setUrl1(hinhAnh.getUrl1());
-        hinhAnh1.setUrl2(hinhAnh.getUrl2());
-        hinhAnh1.setUrl3(hinhAnh.getUrl3());
-        hinhAnh1.setUrl4(hinhAnh.getUrl4());
+        hinhAnh1.setMaAnh(maAnh);
+        if (anh1.isEmpty() || anh2.isEmpty() || anh3.isEmpty() || anh4.isEmpty()) {
+            return "redirect:/manage/hinh-anh";
+        }
+        Path path = Paths.get("src/main/resources/static/images/imgsProducts/");
+        try {
+            InputStream inputStream = anh1.getInputStream();
+            Files.copy(inputStream, path.resolve(anh1.getOriginalFilename()),
+                    StandardCopyOption.REPLACE_EXISTING);
+            hinhAnh1.setUrl1(anh1.getOriginalFilename().toLowerCase());
+            //
+            inputStream = anh2.getInputStream();
+            Files.copy(inputStream, path.resolve(anh2.getOriginalFilename()),
+                    StandardCopyOption.REPLACE_EXISTING);
+            hinhAnh1.setUrl2(anh2.getOriginalFilename().toLowerCase());
+            //
+            inputStream = anh3.getInputStream();
+            Files.copy(inputStream, path.resolve(anh3.getOriginalFilename()),
+                    StandardCopyOption.REPLACE_EXISTING);
+            hinhAnh1.setUrl3(anh3.getOriginalFilename().toLowerCase());
+            //
+            inputStream = anh4.getInputStream();
+            Files.copy(inputStream, path.resolve(anh4.getOriginalFilename()),
+                    StandardCopyOption.REPLACE_EXISTING);
+            hinhAnh1.setUrl4(anh4.getOriginalFilename().toLowerCase());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         hinhAnh1.setTgThem(new Date());
         hinhAnh1.setTrangThai(1);
         hinhAnhService.save(hinhAnh1);
@@ -1348,13 +1395,15 @@ public class GiayChiTietController {
     }
 
     @PostMapping("/giayCT/import")
-    public String importData(@RequestParam("file") MultipartFile file) {
+    public String importData(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         if (file != null && !file.isEmpty()) {
             try {
                 InputStream excelFile = file.getInputStream();
                 giayChiTietService.importDataFromExcel(excelFile); // Gọi phương thức nhập liệu từ Excel
+                redirectAttributes.addFlashAttribute("message", true);
             } catch (Exception e) {
                 e.printStackTrace();
+                redirectAttributes.addFlashAttribute("importError", true);
                 // Xử lý lỗi
             }
         }

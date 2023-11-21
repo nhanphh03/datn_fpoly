@@ -48,6 +48,11 @@ public class HoaDonServiceImpl implements HoaDonService {
     }
 
     @Override
+    public List<HoaDon> listHoaDonKhachHangAndTrangThai(KhachHang khachHang,int loaiHD, int trangThai1, int trangThai2, int trangThai3) {
+        return hoaDonRepository.findByKhachHangAndLoaiHDAndTrangThaiOrTrangThaiOrTrangThai(khachHang, loaiHD, trangThai1, trangThai2, trangThai3);
+    }
+
+    @Override
     public List<HoaDon> findByKhachHang(KhachHang khachHang) {
         return hoaDonRepository.findByKhachHangAndLoaiHD(khachHang, 0);
     }

@@ -22,5 +22,7 @@ public interface DiaChiRepsitory extends JpaRepository<DiaChiKH, UUID>{
 
     DiaChiKH findByKhachHangAndLoai(KhachHang khachHang, boolean loai);
 
+    List<DiaChiKH> findByKhachHangAndTrangThai(KhachHang khachHang, Integer trangThai);
+
     DiaChiKH findByMaDC(String maDC);
 }
