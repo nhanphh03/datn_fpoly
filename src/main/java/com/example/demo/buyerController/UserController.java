@@ -10,10 +10,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
@@ -52,23 +49,6 @@ public class UserController {
         return "online/user";
     }
 
-    @RequestMapping(value = {"/purchase", "/purchase/all"})
-    private String getPurchaseAccount(Model model){
-
-        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
-
-        UserForm(model, khachHang);
-
-        List<HoaDon> listHoaDonByKhachHang = hoaDonService.findByKhachHang(khachHang);
-
-        model.addAttribute("listAllHDByKhachHang", listHoaDonByKhachHang);
-        model.addAttribute("pagePurchaseUser",true);
-        model.addAttribute("purchaseAll",true);
-        model.addAttribute("type1","active");
-
-        return "online/user";
-    }
-
     @GetMapping("/addresses")
     private String getAddressAccount(Model model){
 
@@ -76,19 +56,23 @@ public class UserController {
 
         UserForm(model, khachHang);
 
-        List<DiaChiKH> diaChiKHDefaultList = diaChiKHService.findbyKhachHangAndLoai(khachHang, true);
-        List<DiaChiKH> diaChiKHList = diaChiKHService.findbyKhachHangAndLoai(khachHang, false);
+        List<DiaChiKH> diaChiKHDefaultList = diaChiKHService.findbyKhachHangAndLoaiAndTrangThai(khachHang, true, 1);
+        List<DiaChiKH> diaChiKHList = diaChiKHService.findbyKhachHangAndLoaiAndTrangThai(khachHang, false, 1);
 
-        model.addAttribute("addressKHDefault", diaChiKHDefaultList.get(0));
-        model.addAttribute("listCartDetail", diaChiKHList);
+        if (diaChiKHDefaultList.size() == 0){
+            model.addAttribute("diaChiShowNull",true);
+        }else{
+            model.addAttribute("diaChiShow",true);
+            model.addAttribute("addressKHDefault", diaChiKHDefaultList.get(0));
+            model.addAttribute("listCartDetail", diaChiKHList);
 
-
+        }
         model.addAttribute("pageAddressesUser",true);
         return "online/user";
     }
 
     @PostMapping("/addresses/add")
-    private String addnewAddress(Model model){
+    private String addnewAddress(Model model,@RequestParam(name = "defaultSelected", defaultValue = "false") boolean defaultSelected){
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
 
         String nameAddress = request.getParameter("nameAddress");
@@ -99,10 +83,12 @@ public class UserController {
         String district = request.getParameter("district");
         String ward = request.getParameter("ward");
         String description = request.getParameter("description");
-        String defaultSelected = request.getParameter("defaultSelected");
+
+        String diaChiChiTiet = description + ", " + ward + ", " + district + ", " + city;
 
         DiaChiKH diaChiKH = new DiaChiKH();
-        diaChiKH.setDiaChiChiTiet(description);
+        diaChiKH.setDiaChiChiTiet(diaChiChiTiet);
+        diaChiKH.setMoTa(description);
         diaChiKH.setKhachHang(khachHang);
         diaChiKH.setTrangThai(1);
         diaChiKH.setMaDC( "DC_" + khachHang.getMaKH() );
@@ -114,7 +100,7 @@ public class UserController {
         diaChiKH.setTenNguoiNhan(fullName);
         diaChiKH.setXaPhuong(ward);
         diaChiKH.setTgThem(new Date());
-        diaChiKH.setLoai(Boolean.valueOf(defaultSelected));
+        diaChiKH.setLoai(defaultSelected);
 
         diaChiKHService.save(diaChiKH);
 
@@ -136,7 +122,7 @@ public class UserController {
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
 
         DiaChiKH diaChiKH =diaChiKHService.getByIdDiaChikh(idDC);
-        List<DiaChiKH> diaChiKHDefaultList = diaChiKHService.findbyKhachHangAndLoai(khachHang, true);
+        List<DiaChiKH> diaChiKHDefaultList = diaChiKHService.findbyKhachHangAndLoaiAndTrangThai(khachHang, true ,1);
         for (DiaChiKH x : diaChiKHDefaultList) {
             x.setLoai(false);
             diaChiKHService.save(x);
@@ -182,12 +168,34 @@ public class UserController {
         return "online/user";
     }
 
+    @RequestMapping(value = {"/purchase", "/purchase/all"})
+    private String getPurchaseAccount(Model model){
+
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+
+        UserForm(model, khachHang);
+
+        List<HoaDon> listHoaDonByKhachHang = hoaDonService.listAllHoaDonKhachHangOnline(khachHang);
+
+        model.addAttribute("pagePurchaseUser",true);
+        model.addAttribute("purchaseAll",true);
+        model.addAttribute("listAllHDByKhachHang", listHoaDonByKhachHang);
+
+        model.addAttribute("type1","active");
+
+        return "online/user";
+    }
+
     @GetMapping("/purchase/pay")
     private String getPurchasePay(Model model){
 
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
 
         UserForm(model, khachHang);
+
+        List<HoaDon> listHoaDonByKhachHang = hoaDonService.listHoaDonKhachHangAndTrangThaiOnline(khachHang, 0);
+
+        model.addAttribute("listAllHDByKhachHang", listHoaDonByKhachHang);
 
         model.addAttribute("pagePurchaseUser",true);
         model.addAttribute("purchasePay",true);
@@ -216,6 +224,10 @@ public class UserController {
 
         UserForm(model, khachHang);
 
+        List<HoaDon> listHoaDonByKhachHang = hoaDonService.listHoaDonKhachHangAndTrangThaiOnline(khachHang, 1);
+
+        model.addAttribute("listAllHDByKhachHang", listHoaDonByKhachHang);
+
         model.addAttribute("pagePurchaseUser",true);
         model.addAttribute("purchaseReceive",true);
         model.addAttribute("type4","active");
@@ -229,9 +241,30 @@ public class UserController {
 
         UserForm(model, khachHang);
 
+        List<HoaDon> listHoaDonByKhachHang = hoaDonService.listHoaDonKhachHangAndTrangThaiOnline(khachHang, 2);
+
+        model.addAttribute("listAllHDByKhachHang", listHoaDonByKhachHang);
+
         model.addAttribute("pagePurchaseUser",true);
         model.addAttribute("purchaseCompleted",true);
         model.addAttribute("type5","active");
+        return "online/user";
+    }
+
+    @GetMapping("/purchase/cancel")
+    private String getPurchaseCancel(Model model){
+
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+
+        UserForm(model, khachHang);
+
+        List<HoaDon> listHoaDonByKhachHang = hoaDonService.listHoaDonKhachHangAndTrangThaiOnline(khachHang, 3);
+
+        model.addAttribute("listAllHDByKhachHang", listHoaDonByKhachHang);
+
+        model.addAttribute("pagePurchaseUser",true);
+        model.addAttribute("purchaseCancel",true);
+        model.addAttribute("type6","active");
         return "online/user";
     }
 
@@ -242,11 +275,17 @@ public class UserController {
 
         UserForm(model, khachHang);
 
+        List<HoaDon> listHoaDonByKhachHang = hoaDonService.listHoaDonKhachHangAndTrangThaiOnline(khachHang, 4);
+
+        model.addAttribute("listAllHDByKhachHang", listHoaDonByKhachHang);
+
         model.addAttribute("pagePurchaseUser",true);
         model.addAttribute("purchaseRefund",true);
-        model.addAttribute("type6","active");
+        model.addAttribute("type7","active");
         return "online/user";
     }
+
+
 
     private void UserForm(Model model, KhachHang khachHang){
         GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;

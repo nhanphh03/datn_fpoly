@@ -81,8 +81,8 @@ public class DiaChiServicelmpl implements DiaChiKHService {
     }
 
     @Override
-    public List<DiaChiKH> findbyKhachHangAndLoai(KhachHang khachHang, Boolean loai) {
-        return diaChiRepsitory.findByKhachHangAndLoaiAndTrangThai(khachHang, loai, 1);
+    public List<DiaChiKH> findbyKhachHangAndLoaiAndTrangThai(KhachHang khachHang, Boolean loai, Integer trangThai) {
+        return diaChiRepsitory.findByKhachHangAndLoaiAndTrangThai(khachHang, loai, trangThai);
     }
 
     @Override
@@ -106,6 +106,16 @@ public class DiaChiServicelmpl implements DiaChiKHService {
             return diaChiRepsitory.findAll();
         }
         return diaChiRepsitory.findByMaDCOrTenDC(maDC, maDC);
+    }
+
+    @Override
+    public List<DiaChiKH> findByKhachHangAndTrangThai(KhachHang khachHang, int trangThai) {
+        return diaChiRepsitory.findByKhachHangAndTrangThai(khachHang, trangThai);
+    }
+
+    @Override
+    public DiaChiKH findByIdDiaChiKH(UUID idDCKH) {
+        return diaChiRepsitory.findById(idDCKH).orElse(null);
     }
 
 }

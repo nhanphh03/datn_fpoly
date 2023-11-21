@@ -33,6 +33,18 @@
         width: 100%;
         z-index: 100;
       }
+
+      .itemsCart:checked {
+        /* Custom styles for the checked state */
+        background-color: #4CAF50; /* Đổi màu sắc khi được chọn */
+        color: white; /* Đổi màu chữ khi được chọn */
+      }
+
+      .itemsCart:checked {
+        /* Custom styles for the checked state */
+        background-color: #181818; /* Đổi màu sắc khi được chọn */
+        color: white; /* Đổi màu chữ khi được chọn */
+      }
     </style>
   </head>
 
@@ -50,7 +62,7 @@
 
         <div class="col-lg-3  d-flex align-items-center" >
           <div class="header__top__left">
-            <p>Welcome to the shopping experience</p>
+            <p>Chào mừng đến với trải nghiệm mua sắm</p>
           </div>
         </div>
 
@@ -67,7 +79,7 @@
           <div>
 
             <div class="header__top__links"  >
-              <a th:href="@{'/buyer/purchase'}">Purchase</a>
+              <a th:href="@{'/buyer/purchase'}">Đơn mua</a>
             </div>
 
 
@@ -75,17 +87,13 @@
             <div class="header__top__hover">
               <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
               <ul>
-                <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
-                <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
+                <li><a th:href="@{'/buyer/setting'}" >Cài đặt</a></li>
+                <li><a th:href="@{'/buyer/logout'}">Đăng xuất</a></li>
               </ul>
             </div>
 
             <!--            Buyer FullName End -->
 
-            <div class="header__top__links"  >
-              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Login</a>
-              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Register</a>
-            </div>
 
             <div class="header__top__hover">
               <span>EN<i class="arrow_carrot-down"></i></span>
@@ -136,8 +144,8 @@
               <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
               <div class="dropdown-menu notifications" style="z-index: 222;width:300px; top: -80px; position: absolute; ">
                 <div class="topnav-dropdown-header">
-                  <span class="notification-title">Notifications</span>
-                  <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                  <span class="notification-title">Thông báo</span>
+                  <a href="javascript:void(0)" class="clear-noti"> Xóa sạch</a>
                 </div>
                 <div class="vertical-scroll scroll-demo" >
                   <a href="#" class="items-noticafitions">
@@ -234,7 +242,7 @@
                   </a>
                 </div>
                 <div class="topnav-dropdown-footer">
-                  <a href="activities.html">View all Notifications</a>
+                  <a href="activities.html">Tất cả thông báo</a>
                 </div>
               </div>
 
@@ -262,18 +270,19 @@
 <section class="shopping-cart spad" style="margin-top: -80px">
   <div class="container">
 
-    <form action="/buyer/cart/checkout" method="post" id="purchaseForm">
+    <form action="/buyer/checkout" method="post" id="purchaseForm">
       <div style="z-index: 100; width: 1170px;  position: fixed;margin-bottom: 50px">
         <div class="row" style="background-color: #f3f2ee; height: 80px; width: 1170px;  ">
           <div class="col-lg-8">
-            <p style="margin: 20px 0 5px 50px;"> <input style="margin-right: 10px;" type="checkbox" name="" id="checkAll" th:text="'Select All ( ' +${sumProductInCart} +' items )'"></p>
-            <a style="margin: 10px 0 0 50px; color: red;" href="">Delete</a>
+            <p style="margin: 20px 0 5px 50px;">
+              <input  style="height: 20px; width: 20px; margin-right: 10px;" type="checkbox" name="" id="checkAll" th:text="'Chọn tất cả ( ' +${sumProductInCart} +' sản phẩm )'"></p>
+            <a style="margin: 10px 0 0 50px; color: red;" href="">Xóa</a>
 
           </div>
           <div class="col-lg-2">
 
-            <h5 style=" margin: 20px 0 5px 0;">Total (? items) : </h5>
-            <p>Saved</p>
+            <h5 style=" margin: 20px 0 5px 0;">Tổng (? sản phẩm) : </h5>
+            <p>Tiết kiệm</p>
           </div>
           <div class="col-lg-2">
             <h5 style=" margin: 20px 0 5px 0;"> 800 $</h5>
@@ -283,10 +292,10 @@
 
         <div class="row" style="background-color: #f3f2ee; height: 50px;width: 1170px; ">
           <div class="col-lg-8">
-            <a style="margin:10px 0 0 50px;" href="">Remove inactive products</a>
+            <a style="margin:10px 0 0 50px;" href="">Xóa khỏi giỏ hàng</a>
           </div>
           <div class="col-lg-4">
-            <button style="width: 300px; height: 35px; border: 0.5px solid rgb(61, 61, 61);" type="submit" onclick="return validatePurchase()">Check out</button>
+            <button style="width: 300px; height: 35px; border: 0.5px solid rgb(61, 61, 61);" type="submit" onclick="return validatePurchase()">Mua hàng</button>
           </div>
         </div>
       </div>
@@ -294,6 +303,7 @@
       <div style="height: 160px; width: 100%;"></div>
 
     <div class="row">
+
         <div class="col-lg-12">
 
           <div class="shopping__cart__table">
@@ -301,11 +311,11 @@
               <thead>
               <tr>
                 <th>x</th>
-                <th style="width: 400px;">Product</th>
-                <th style="width: 175px;">Variations</th>
-                <th style="width: 175px;">Quantity</th>
-                <th style="width: 140px;">Total</th>
-                <th class="cart__close">Actions</th>
+                <th style="width: 400px;">Sản phẩm</th>
+                <th style="width: 175px;">Phân loại hàng</th>
+                <th style="width: 175px;">Số lượng</th>
+                <th style="width: 140px;">Tổng</th>
+                <th class="cart__close">Hành dồng</th>
               </tr>
               </thead>
             </table>
@@ -320,8 +330,9 @@
 
                   <tr id="productId" th:value="${x.chiTietGiay.idCTG}">
 
-<!--                    onclick="updateTotalAmount(this)" start-->
-                    <td><input class="itemsCart" name="selectedProducts" type="checkbox"  th:value="${x.chiTietGiay.idCTG}"></td>
+                    <td>
+                      <input style="height: 20px; width: 20px;" class="itemsCart" name="selectedProducts" type="checkbox" th:value="${x.chiTietGiay.idCTG}">
+                    </td>
                     <td style="width: 400px;" class="product__cart__item" >
                       <div class="product__cart__item__pic">
                         <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}"> <img style="width:90px; height:90px;" th:src="@{'/images/imgsProducts/' + ${x.chiTietGiay.hinhAnh.url1}}"></a>
@@ -330,8 +341,8 @@
                         <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}">
                           <h6 style="margin-top: -22px;" th:text="${x.chiTietGiay.giay.tenGiay}"></h6>
                         </a>
-                        <h5 class="cart__price" th:text="${x.chiTietGiay.giaBan} + ' $'"></h5>
-                        <h5 style="color: #b7b7b7; font-size: 15px; font-weight: 400; text-decoration: line-through;">220.0 $</h5>
+                        <h5 class="cart__price" th:text="'₫' +  ${#numbers.formatDecimal(x.chiTietGiay.giaBan, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
+                        <h5 style="color: #b7b7b7; font-size: 15px; font-weight: 400; text-decoration: line-through;"></h5>
                       </div>
 
                     </td>
@@ -348,19 +359,15 @@
                     <td style="width: 175px;"  class="quantity__item">
                       <div class="quantity">
 
-                        <input style=" margin-top: 3px;border: none; font-weight: 700; font-size: 18pt; background-color: white;"
-                                type="button" value="-" class="button-minus dec button"
-                                onclick="decrementQuantity(this)">
+                        <input style=" margin-top: 3px;border: none; font-weight: 700; font-size: 18pt; background-color: white;" type="button" value="-" class="button-minus dec button" onclick="decrementQuantity(this)">
 
                         <input  class="quantityInput" oninput="updateTotalAmount(this)" th:value="${x.soLuong}" style="width: 30px; text-align: center; border: none;" type="text" th:name="${x.chiTietGiay.idCTG}" value="0">
 
-                        <input style="border: none; font-weight: 700; font-size: 14pt; background-color: white;"
-                                type="button" value="+" class="button-plus inc button a3 a5 a1 a-1"
-                                onclick="incrementQuantity(this)">
+                        <input style="border: none; font-weight: 700; font-size: 14pt; background-color: white;" type="button" value="+" class="button-plus inc button a3 a5 a1 a-1" onclick="incrementQuantity(this)">
 
                       </div>
                     </td>
-                    <td style="width: 140px;" class="cart__price totalAmount" th:text="'$ ' + ${x.chiTietGiay.giaBan * x.soLuong}"></td>
+                    <td style="width: 140px;" class="cart__price totalAmount" th:text="'₫' + ${#numbers.formatDecimal(x.chiTietGiay.giaBan * x.soLuong, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
                     <td class="cart__close"><a th:href="@{'/buyer/cart/delete/' + ${x.chiTietGiay.idCTG}}" id="deleteToCartButton" style="border-radius: 20% ; " ><i class="fa fa-close"></i></a></td>
 
                   </tr>
@@ -369,11 +376,10 @@
 
                 </tbody>
               </table>
-<!--            </div>-->
+
           </div>
 
         </div>
-
 
       </div>
     </form>
@@ -392,7 +398,7 @@
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
-        <h3 class="related-title">Related Product</h3>
+        <h3 class="related-title">Sản phẩm liên quan</h3>
       </div>
     </div>
     <div class="row">
@@ -949,30 +955,6 @@
   });
 </script>
 <!-- Check choose all product End -->
-
-<!--<script>-->
-<!--  function updateTotalAmount(input) {-->
-<!--    var quantity = input.value;-->
-<!--    var idCTG = input.getAttribute('th:name');-->
-
-<!--    // Sử dụng Fetch API để gửi dữ liệu về controller-->
-<!--    fetch('/buyer/cart/updateQuantity', {-->
-<!--      method: 'POST',-->
-<!--      headers: {-->
-<!--        'Content-Type': 'application/x-www-form-urlencoded',-->
-<!--      },-->
-<!--      body: 'idCTG=' + encodeURIComponent(idCTG) + '&quantity=' + encodeURIComponent(quantity),-->
-<!--    })-->
-<!--            .then(response => response.text())-->
-<!--            .then(data => {-->
-<!--              // Xử lý kết quả từ server nếu cần-->
-<!--            })-->
-<!--            .catch(error => {-->
-<!--              // Xử lý lỗi nếu có-->
-<!--            });-->
-<!--  }-->
-
-<!--</script>-->
 
 </body>
 

@@ -92,7 +92,7 @@
 
         <div class="col-lg-3  d-flex align-items-center" >
           <div class="header__top__left">
-            <p>Welcome to the shopping experience</p>
+            <p>Chào mừng đến với trải nghiệm mua sắm</p>
           </div>
         </div>
 
@@ -109,7 +109,7 @@
           <div>
 
             <div th:if="${heartLogged}" class="header__top__links"  >
-              <a th:href="@{'/buyer/purchase'}">Purchase</a>
+              <a th:href="@{'/buyer/purchase'}">Đơn mua</a>
             </div>
 
 
@@ -117,16 +117,16 @@
             <div class="header__top__hover">
               <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
               <ul>
-                <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
-                <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
+                <li><a th:href="@{'/buyer/setting'}" >Cài đặt</a></li>
+                <li><a th:href="@{'/buyer/logout'}">Đăng xuất</a></li>
               </ul>
             </div>
 
             <!--            Buyer FullName End -->
 
             <div class="header__top__links"  >
-              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Login</a>
-              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Register</a>
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Đăng nhập</a>
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Đăng ký</a>
             </div>
 
             <div class="header__top__hover">
@@ -178,18 +178,16 @@
               <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
               <div class="dropdown-menu notifications" style="width:300px; top: -80px; position: absolute;">
                 <div class="topnav-dropdown-header">
-                  <span class="notification-title">Notifications</span>
-                  <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                  <span class="notification-title">Thông báo</span>
+                  <a href="javascript:void(0)" class="clear-noti"> Xóa sạch </a>
                 </div>
                 <div class="vertical-scroll scroll-demo" >
 
-
-
                   <a href="#" class="items-noticafitions">
                     <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
+                      <span class="avatar">
+                          <img alt="" src="/images/img/blog/blog-1.jpg">
+                      </span>
                       <div class="text-notica">
                         <span class="notica-title">Phạm Hữu Nhân </span>
                         <p class="notica-times">1 phút trước</p>
@@ -206,9 +204,9 @@
 
                   <a href="#" class="items-noticafitions">
                     <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
+                      <span class="avatar">
+                          <img alt="" src="/images/img/blog/blog-1.jpg">
+                      </span>
                       <div class="text-notica">
                         <span class="notica-title">Phạm Hữu Nhân </span>
                         <p class="notica-times">10 phút trước</p>
@@ -223,12 +221,11 @@
                     </div>
                   </a>
 
-
                   <a href="#" class="items-noticafitions">
                     <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
+                      <span class="avatar">
+                          <img alt="" src="/images/img/blog/blog-1.jpg">
+                      </span>
                       <div class="text-notica">
                         <span class="notica-title">Phạm Hữu Nhân </span>
                         <p class="notica-times">15 phút trước</p>
@@ -245,9 +242,9 @@
 
                   <a href="#" class="items-noticafitions">
                     <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
+                      <span class="avatar">
+                          <img alt="" src="/images/img/blog/blog-1.jpg">
+                      </span>
                       <div class="text-notica">
                         <span class="notica-title">Phạm Hữu Nhân </span>
                         <p class="notica-times">10 phút trước</p>
@@ -266,9 +263,9 @@
 
                   <a href="#" class="items-noticafitions">
                     <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
+                      <span class="avatar">
+                          <img alt="" src="/images/img/blog/blog-1.jpg">
+                      </span>
                       <div class="text-notica">
                         <span class="notica-title">Phạm Hữu Nhân </span>
                         <p class="notica-times">10 phút trước</p>
@@ -283,12 +280,9 @@
                     </div>
                   </a>
 
-
-
-
                 </div>
                 <div class="topnav-dropdown-footer">
-                  <a href="activities.html">View all Notifications</a>
+                  <a href="activities.html">Xem tất cả thông báo</a>
                 </div>
               </div>
 
@@ -311,6 +305,7 @@
 <section>
   <div style="height: 150px; width: 100%;"></div>
 </section>
+
 <!-- Shop Details Section Begin -->
 <section class="shop-details">
   <form th:object="${product}"   method="" >
@@ -389,7 +384,7 @@
           <div class="col-lg-8">
             <div class="product__details__text">
               <h4 th:text="${product.tenGiay}"></h4>
-              <h3 class="price-range" th:text="${minPrice} + ' ' + '-' + ' ' + ${maxPrice}" ></h3>
+              <h3 class="price-range" th:text="'₫' + ${#numbers.formatDecimal(minPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' ' + '-' + ' ₫' + ${#numbers.formatDecimal(maxPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}" ></h3>
               <h3 id="price_product"></h3>
               <p th:text="${product.moTa}"></p>
               <div style="display: flex; margin-left: 215px">
@@ -398,7 +393,7 @@
                 <p th:text="'Brand : ' + ${product.hang.tenHang}"></p>
               </div>
 
-              <span>Variation :</span>
+              <span>Phân loại hàng :</span>
               <br>
               <span>----------------------------------</span>
 
@@ -454,28 +449,28 @@
 
               <div class="product__details__cart__option">
                 <div class="quantity">
-                  <p style="display: inline-block; margin: 0;">Quantity :</p>
+                  <p style="display: inline-block; margin: 0;">Số lượng :</p>
                   <div  style="display: inline-block; ">
                     <input id="quantityInput" style="width: 80px;" type="number" class="form-control" placeholder="Enter quantity" aria-label="Quantity" min="1" value="1">
                   </div>
                   <p class="sum-remind" style="display: inline-block; margin: 0;" th:text="${sunProductAvaible}"></p>
                   <p style="display: inline-block; margin: 0;"><span id="quantity_remind"></span></p>
-                  <p style="display: inline-block; margin: 0;">Pieces available</p>
+                  <p style="display: inline-block; margin: 0;">Sản phẩm có sẵn</p>
                 </div>
               </div>
 
               <div th:if="${buyNowAddCartLogged}" class="product__details__cart__option">
-                <a  style="color: white; cursor: pointer;" class="primary-btn" id="buyNowButton" >buy now</a>
-                <a  style="color: white; cursor: pointer;" id="addToCartButton" class="primary-btn" >add to cart</a>
+                <a  style="color: white; cursor: pointer;" class="primary-btn" id="buyNowButton" >Mua ngay</a>
+                <a  style="color: white; cursor: pointer;" id="addToCartButton" class="primary-btn" >Thêm vào giỏ hàng</a>
               </div>
 
               <div th:if="${buyReceiveMail}" class="product__details__cart__option">
-                <a  style="color: white" id="addToCartButton" class="primary-btn" >Receive email when in stock</a>
+                <a  style="color: white" id="addToCartButton" class="primary-btn" >Nhận thông báo khi có hàng</a>
               </div>
 
 
               <div th:if="${heartLogged}" class="product__details__btns__option">
-                <a th:href="@{'/buyer/detail/heart/' + ${product.idGiay} + '/' + ${idHeartMau}}"><i class="fa fa-heart"></i>add to wishlist</a>
+                <a th:href="@{'/buyer/detail/heart/' + ${product.idGiay} + '/' + ${idHeartMau}}"><i class="fa fa-heart"></i>Thêm vào yêu thích</a>
               </div>
 
               <div class="product__details__last__option">

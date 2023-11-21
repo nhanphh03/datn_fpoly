@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
     <link rel="stylesheet" href="/plugins/alertify/alertify.min.css"/>
+
     <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
 
     <link rel="stylesheet" href="/css/style.css">
@@ -442,12 +443,12 @@
                         <table class="table datanew" id="data-table">
                             <thead>
                             <tr>
-                            <th>
-                                <label class="checkboxs">
-                                    <input type="checkbox" id="select-all"/>
-                                    <span class="checkmarks"></span>
-                                </label>
-                            </th>
+                                <th>
+                                    <label class="checkboxs">
+                                        <input type="checkbox" id="select-all"/>
+                                        <span class="checkmarks"></span>
+                                    </label>
+                                </th>
                                 <th>Ảnh Khách Hàng</th>
                                 <th>Ảnh CCCD</th>
                                 <th>Mã Khách Hàng</th>
@@ -474,8 +475,10 @@
                                         <span class="checkmarks"></span>
                                     </label>
                                 </td>
-                                <td><img width="80px" height="90px" th:src="@{'/images/imgsKhachHang/Avatar/'+ ${items.AnhKH}}"></td>
-                                <td><img width="80px" height="90px" th:src="@{'/images/imgsKhachHang/CCCD/'+ ${items.Anhcccd}}"></td>
+                                <td><img width="80px" height="90px"
+                                         th:src="@{'/images/imgsKhachHang/Avatar/'+ ${items.AnhKH}}"></td>
+                                <td><img width="80px" height="90px"
+                                         th:src="@{'/images/imgsKhachHang/CCCD/'+ ${items.Anhcccd}}"></td>
                                 <td th:text="${items.maKH}"></td>
                                 <td th:text="${items.hoTenKH}"></td>
                                 <td>
@@ -493,7 +496,8 @@
                                 <td th:text="${items.matKhau}"></td>
                                 <td>
                                     <p th:if="${items.trangThai == 1}" class="badges bg-lightgreen">Hoạt Động</p>
-                                    <p th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</p>
+                                    <p th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt
+                                        Động</p>
                                 </td>
                                 <td th:text="${items.loaiKhachHang.tenLKH}"></td>
                                 <td th:text="${items.tgThem}"/>
@@ -546,6 +550,8 @@
 
 <script src="/js/script.js"></script>
 <script src="/js/moment.min.js"></script>
+<script src="/plugins/toastr/toastr.min.js"></script>
+<script src="/plugins/toastr/toastr.js"></script>
 <script src="/js/bootstrap-datetimepicker.min.js"></script>
 
 //
@@ -617,12 +623,11 @@
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var maColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
+                var maColumn = $(this).find("td:eq(3)").text(); // Vị trí cột chứa giá trị kích thước
                 if (maColumn === maKH || maKH === "Mã Khách Hàng") {
                     $(this).show();
                 }
             });
-            console.log(maKH);
         });
         //
         $("#KhachHangFilterTen").change(function () {
@@ -633,12 +638,11 @@
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var tenColumn = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
+                var tenColumn = $(this).find("td:eq(4)").text(); // Vị trí cột chứa giá trị kích thước
                 if (tenColumn === hoTenKH || hoTenKH === "Tên Khách Hàng") {
                     $(this).show();
                 }
             });
-            console.log(hoTenKH);
         });
         //
         $("#LoaiKHFilterTen").change(function () {
@@ -648,7 +652,7 @@
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var loaiKH = $(this).find("td:eq(12)").text(); // Vị trí cột chứa giá trị kích thước
+                var loaiKH = $(this).find("td:eq(13)").text(); // Vị trí cột chứa giá trị kích thước
                 if (loaiKH === tenLKH || tenLKH === "Loại Khách Hàng") {
                     $(this).show();
                 }

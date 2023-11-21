@@ -10,24 +10,28 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Hinh_Thuc_Thanh_Toan")
+@Table(name = "Thanh_Toan")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ThanhToan {
+public class ThanhToanHoanTien {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "idHTTT")
     private UUID idHTTT;
 
-    @Column(name="name_HTTT")
-    private String nameHTTT;
+    @Column(name="maKH")
+    private String maKH;
 
-    @Column(name = "tgTao")
-    private Date tgTao;
+    @Column(name = "tgThanhToan")
+    private Date tgThanhToan;
 
     @Column(name = "trang_Thai")
     private int trangThai;
+
+    @Column(name="noiDungThanhToan")
+    private String noiDungThanhToan;
+
 }

@@ -14,6 +14,10 @@ public interface HoaDonService {
     HoaDon getOne(UUID id);
     List<HoaDon> getAllHoaDon();
 
+    List<HoaDon> listAllHoaDonKhachHangOnline(KhachHang khachHang);
+
+    List<HoaDon> listHoaDonKhachHangAndTrangThaiOnline(KhachHang khachHang, int trangThai);
+
     List<HoaDon> findByKhachHang(KhachHang khachHang);
 
     Double tinhTienGiamGiaTaiQuay(HoaDon hoaDon, KhuyenMai khuyenMai);

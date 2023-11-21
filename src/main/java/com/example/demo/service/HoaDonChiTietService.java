@@ -9,6 +9,7 @@ import java.util.UUID;
 public interface HoaDonChiTietService {
 
     HoaDonChiTiet getOne(UUID idHoaDon, UUID idChiTietGiay);
+
     void add(HoaDonChiTiet hoaDonChiTiet);
 
     List<HoaDonChiTiet> findByIdHoaDon(UUID id);
@@ -16,4 +17,6 @@ public interface HoaDonChiTietService {
     List<HoaDonChiTiet> findByHoaDonAndTrangThai(HoaDon hoaDon, int trangThai);
 
     Double tongTien(List<HoaDonChiTiet> list);
+
+    List<HoaDonChiTiet> findByHoaDon(HoaDon hoaDon);
 }

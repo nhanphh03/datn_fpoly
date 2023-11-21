@@ -247,7 +247,7 @@ public class KhachHangController {
     }
 
     @PostMapping("/khach-hang/loai-khach-hang/viewAdd/add")
-    public String addChucVu(@Valid @ModelAttribute("loaiKhachHangAdd") LoaiKhachHang loaiKhachHang
+    public String addLoaiKH(@Valid @ModelAttribute("loaiKhachHangAdd") LoaiKhachHang loaiKhachHang
             , BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             if (result.hasFieldErrors("maLKH")) {
