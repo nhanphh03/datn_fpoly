@@ -55,7 +55,7 @@
 
         <div class="col-lg-3  d-flex align-items-center" >
           <div class="header__top__left">
-            <p>Welcome to the shopping experience</p>
+            <p>Chào mừng đến với trải nghiệm mua sắm</p>
           </div>
         </div>
 
@@ -72,7 +72,7 @@
           <div>
 
             <div th:if="${heartLogged}" class="header__top__links"  >
-              <a th:href="@{'/buyer/purchase'}">Purchase</a>
+              <a th:href="@{'/buyer/purchase'}">Đơn mua</a>
             </div>
 
 
@@ -80,16 +80,16 @@
             <div class="header__top__hover">
               <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
               <ul>
-                <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
-                <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
+                <li><a th:href="@{'/buyer/setting'}" >Cài đặt</a></li>
+                <li><a th:href="@{'/buyer/logout'}">Đăng xuất</a></li>
               </ul>
             </div>
 
             <!--            Buyer FullName End -->
 
             <div class="header__top__links"  >
-              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Login</a>
-              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Register</a>
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Đăng nhập</a>
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Đăng ký</a>
             </div>
 
             <div class="header__top__hover">
@@ -314,11 +314,11 @@
                   <div class="card-body">
                     <div class="shop__sidebar__categories">
                       <ul class="nice-scroll" style="height: 20%">
-                        <li><a href="/buyer/shop" th:text="'All Shoes '+ ${sumProduct}">All Product</a></li>
-                        <li><a href="#">Best Seller</a></li>
-                        <li><a href="#">New Arrivals </a></li>
-                        <li><a href="#">Collections</a></li>
-                        <li><a href="#">Sale off</a></li>
+                        <li><a href="/buyer/shop" th:text="'Tất cả '+ ${sumProduct}"></a></li>
+                        <li><a href="#">Bán chạy</a></li>
+                        <li><a href="#">Hàng mới về </a></li>
+                        <li><a href="#">Bộ sưu tập</a></li>
+                        <li><a href="#">Khuyến Mãi</a></li>
                       </ul>
                     </div>
                   </div>
@@ -326,13 +326,13 @@
               </div>
               <div class="card">
                 <div class="card-heading">
-                  <a data-toggle="collapse" data-target="#collapseTwo">Branding</a>
+                  <a data-toggle="collapse" data-target="#collapseTwo">Hãng</a>
                 </div>
                 <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
                   <div class="card-body">
                     <div class="shop__sidebar__brand">
                       <ul>
-                        <li class="active" data-filter="*"><a href="/buyer/shop" >All Branding</a></li>
+                        <li class="active" data-filter="*"><a href="/buyer/shop" >Tất cả hãng</a></li>
                         <th:block th:each="a : ${listBrand}">
                           <li><a  th:href="@{'/buyer/shop/brand/' + ${a.idHang}}" th:text="${a.tenHang}" > </a></li>
                         </th:block>
@@ -343,7 +343,7 @@
               </div>
               <div class="card">
                 <div class="card-heading">
-                  <a data-toggle="collapse" data-target="#collapseThree">Filter Price</a>
+                  <a data-toggle="collapse" data-target="#collapseThree">Lọc giá</a>
                 </div>
                 <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
                   <div class="card-body">
@@ -378,7 +378,7 @@
               </div>
               <div class="card">
                 <div class="card-heading">
-                  <a data-toggle="collapse" data-target="#collapseFive">Color</a>
+                  <a data-toggle="collapse" data-target="#collapseFive">Màu sắc</a>
                 </div>
                 <div id="collapseFive" class="collapse show" data-parent="#accordionExample">
                   <div class="card-body">
@@ -426,11 +426,11 @@
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6">
               <div class="shop__product__option__right">
-                <p>Sort by Price:</p>
+                <p>Sắp xếp theo giá:</p>
                 <select onchange="window.location.href = this.value;">
                   <option>Choose option</option>
-                  <option value="/buyer/shop/lowToHigh">Low To High</option>
-                  <option value="/buyer/shop/highToLow">High To Low</option>
+                  <option value="/buyer/shop/lowToHigh">Từ thấp đến cao</option>
+                  <option value="/buyer/shop/highToLow">Từ cao xuống thấp</option>
                 </select>
               </div>
             </div>
@@ -449,23 +449,23 @@
                       <li th:if="${heartLogged}">
                         <a th:href="@{'/buyer/heart/' + ${product.idGiay} +'/' + ${product.idMau}}" >
                           <img src="/images/img/icon/heart.png" alt="">
-                          <span>Favourite</span>
+                          <span>Yêu thích</span>
                         </a>
                       </li>
-                      <li><a href="#"><img src="/images/img/icon/compare.png" alt=""><span>Compare</span></a></li>
+                      <li><a href="#"><img src="/images/img/icon/compare.png" alt=""><span>So sánh</span></a></li>
                       <li>
                         <a th:href="@{'/buyer/shop-details/' + ${product.idGiay} +'/' + ${product.idMau}}">
-                          <img src="/images/img/icon/view.png" alt=""><span>Views Detail</span>
+                          <img src="/images/img/icon/view.png" alt=""><span>Chi tiết</span>
                         </a>
                       </li>
                     </ul>
                   </div>
                   <div >
                     <h6 style="margin-top:  10px; margin-bottom: 10px " th:text="${product.tenGiay}"></h6>
-                    <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="${product.minPrice}  + ' ' + '$'"></h5>
+                    <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="'₫' + ${#numbers.formatDecimal(product.minPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
                     <div class="product__color__select" style="display: flex">
-                      <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'pieces available'"></h6>
-                      <h6 style="font-style: italic; font-size: 12px ;margin-left: 100px;" th:text="${product.soLuongDaBan} + ' ' + '  Sold'"></h6>
+                      <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'có sẵn'"></h6>
+                      <h6 style="font-style: italic; font-size: 12px ;margin-left: 100px;" th:text="${product.soLuongDaBan} + ' ' + 'đã bán'"></h6>
                     </div>
                   </div>
                 </div>
@@ -515,17 +515,21 @@
 
                 <div class="product__item__pic set-bg" style="border-radius: 10px;"  th:attr="data-setbg=@{'/images/imgsProducts/' + ${product.hinhAnh}}">
                   <ul class="product__hover">
-                    <li th:if="${heartLogged}"><a th:href="@{'/buyer/heart/' + ${product.idGiay} + '/' + ${product.idGiay}}" ><img src="/images/img/icon/heart.png" alt=""><span>Favourite</span></a></li>
+                    <li th:if="${heartLogged}">
+                      <a th:href="@{'/buyer/heart/' + ${product.idGiay} + '/' + ${product.idGiay}}" >
+                        <img src="/images/img/icon/heart.png" alt=""><span>Yêu thích</span>
+                      </a>
+                    </li>
                     <li><a href="#"><img src="/images/img/icon/compare.png" alt=""><span>Compare</span></a></li>
-                    <li ><a th:href="@{'/buyer/shop-details/sold/' + ${product.idGiay} +'/' + ${product.idMau}}"><img src="/images/img/icon/view.png" alt=""><span>Views Detail</span></a></li>
+                    <li ><a th:href="@{'/buyer/shop-details/sold/' + ${product.idGiay} +'/' + ${product.idMau}}"><img src="/images/img/icon/view.png" alt=""><span>Xem chi tiết</span></a></li>
                   </ul>
                 </div>
                 <div >
                   <h6 style="margin-top:  10px; margin-bottom: 10px " th:text="${product.tenGiay}"></h6>
-                  <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="${product.minPrice}  + ' ' + '$'"></h5>
+                  <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="'₫' + ${#numbers.formatDecimal(product.minPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
                   <div class="product__color__select" style="display: flex">
-                    <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'pieces available'"></h6>
-                    <h6 style="font-style: italic; font-size: 12px ;margin-left: 100px;" th:text="${product.soLuongDaBan} + ' ' + '  Sold'"></h6>
+                    <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'có sẵn'"></h6>
+                    <h6 style="font-style: italic; font-size: 12px ;margin-left: 100px;" th:text="${product.soLuongDaBan} + ' ' + 'đã bán'"></h6>
                   </div>
                 </div>
               </div>

@@ -480,7 +480,7 @@
                                     </a>
                                 </td>
                                 <td th:text="${#dates.format(items.tgThem, 'dd-MM-yyyy')}" align="center"/>
-                                    <td th:text="${#dates.format(items.tgSua, 'dd-MM-yyyy')}" align="center"/>
+                                <td th:text="${#dates.format(items.tgSua, 'dd-MM-yyyy')}" align="center"/>
                             </tr>
                             </tbody>
                         </table>
@@ -516,6 +516,13 @@
         <button type="button" class="toast-close-button" role="button">×</button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Size đã tồn tại.</div>
+    </div>
+</div>
+<div th:if="${importError}" id="importError" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Lỗi không thể nhập liệu.</div>
     </div>
 </div>
 <script>
@@ -610,12 +617,12 @@
         });
     });
 </script>
-<script>
-    $(document).ready(function () {
-        $('#filter_inputs').slideToggle("slow");
-        $('#filter_search').toggleClass("setclose");
-    });
-</script>
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+<!--        $('#filter_inputs').slideToggle("slow");-->
+<!--        $('#filter_search').toggleClass("setclose");-->
+<!--    });-->
+<!--</script>-->
 <script>
     //Mở form
     document.getElementById("show-form-button").addEventListener("click", function () {
@@ -668,6 +675,12 @@
         var warning3 = document.getElementById('warning3');
         if (warning3) {
             warning3.style.display = 'none';
+        }
+    }, 5000);//
+    setTimeout(function () {
+        var importError = document.getElementById('importError');
+        if (importError) {
+            importError.style.display = 'none';
         }
     }, 5000);
 </script>

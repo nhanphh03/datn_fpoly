@@ -143,6 +143,7 @@ public class SizeController {
     @GetMapping("/size/viewUpdate/{id}")
     public String viewUpdateSize(@PathVariable UUID id, Model model
             , @ModelAttribute("message") String message
+            , @ModelAttribute("importError") String importError
             , @ModelAttribute("maSizeError") String maSizeError
             , @ModelAttribute("soSizeError") String soSizeError
             , @ModelAttribute("error") String error
@@ -153,6 +154,9 @@ public class SizeController {
         //
         if (message == null || !"true".equals(message)) {
             model.addAttribute("message", false);
+        }
+        if (importError == null || !"true".equals(importError)) {
+            model.addAttribute("importError", false);
         }
         if (maSizeError == null || !"maSizeError".equals(error)) {
             model.addAttribute("maSizeError", false);
@@ -267,13 +271,15 @@ public class SizeController {
     }
 
     @PostMapping("/size/import")
-    public String importData(@RequestParam("file") MultipartFile file) {
+    public String importData(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         if (file != null && !file.isEmpty()) {
             try {
                 InputStream excelFile = file.getInputStream();
                 sizeService.importDataFromExcel(excelFile); // Gọi phương thức nhập liệu từ Excel
+                redirectAttributes.addFlashAttribute("message", true);
             } catch (Exception e) {
                 e.printStackTrace();
+                redirectAttributes.addFlashAttribute("importError", true);
                 // Xử lý lỗi
             }
         }

@@ -50,7 +50,7 @@
 
                 <div class="col-lg-3  d-flex align-items-center" >
                     <div class="header__top__left">
-                        <p>Welcome to the shopping experience</p>
+                        <p>Chào mừng đến với trải nghiệm mua sắm</p>
                     </div>
                 </div>
 
@@ -67,7 +67,7 @@
                     <div>
 
                         <div class="header__top__links"  >
-                            <a th:href="@{'/buyer/purchase'}">Purchase</a>
+                            <a th:href="@{'/buyer/purchase'}">Đơn mua</a>
                         </div>
 
 
@@ -75,8 +75,8 @@
                         <div class="header__top__hover">
                             <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
                             <ul>
-                                <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
-                                <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
+                                <li><a th:href="@{'/buyer/setting'}" >Cài đặt</a></li>
+                                <li><a th:href="@{'/buyer/logout'}">Đăng xuất</a></li>
                             </ul>
                         </div>
 
@@ -123,7 +123,6 @@
             <div class="col-lg-3 col-md-3">
                 <div class="header__nav__option" style="display: flex;justify-content: end;">
 
-
                     <div class="nav user-menu" style="height: 30px;">
 
                         <li class="nav-item dropdown" style="height: 30px;">
@@ -133,12 +132,10 @@
                             <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
                             <div class="dropdown-menu notifications" style="width:300px; top: -80px; position: absolute;">
                                 <div class="topnav-dropdown-header">
-                                    <span class="notification-title">Notifications</span>
-                                    <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                                    <span class="notification-title">Thông báo</span>
+                                    <a href="javascript:void(0)" class="clear-noti">Xóa sạch</a>
                                 </div>
                                 <div class="vertical-scroll scroll-demo" >
-
-
 
                                     <a href="#" class="items-noticafitions">
                                         <div class="items-notica">
@@ -243,18 +240,18 @@
 
                                 </div>
                                 <div class="topnav-dropdown-footer">
-                                    <a href="activities.html">View all Notifications</a>
+                                    <a href="activities.html">Tất cả thông báo</a>
                                 </div>
                             </div>
 
                         </li>
                     </div>
                     <a th:href="@{'/buyer/fa&recently'}"><img src="/images/img/icon/heart2.png" alt=""></a>
-
                     <a th:href="@{'/buyer/cart'}" style="position: relative; display: inline-block; ">
                         <img src="/images/img/icon/cart.png" alt="">
                         <span class="cart-count" style="position: absolute; height:20px; width: 25px; top: -13px; left: 3px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
                     </a>
+
                 </div>
             </div>
         </div>
@@ -269,11 +266,11 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="breadcrumb__text">
-                    <h4>Favourite & Rencently Viewed</h4>
+                    <h4>Yêu thích & Xem gần đây</h4>
                     <div class="breadcrumb__links">
                         <a th:href="@{'/buyer/home'}" >Home</a>
                         <a th:href="@{'/buyer/shop'}" >Shop</a>
-                        <span>Favourite & Rencently Viewed</span>
+                        <span>Yêu thích & Xem gần đây</span>
                     </div>
                 </div>
             </div>
@@ -304,11 +301,11 @@
                                     <div class="card-body">
                                         <div class="shop__sidebar__categories">
                                             <ul class="nice-scroll" style="height: 20%">
-                                                <li data-filter="*"><a href="#">All Product(20)</a></li>
-                                                <li><a href="#">Best Seller (20)</a></li>
-                                                <li><a href="#">New Arrivals (20)</a></li>
-                                                <li><a href="#">Collections (20)</a></li>
-                                                <li><a href="#">Sale off 20%  (20)</a></li>
+                                                <li data-filter="*"><a href="#">Tất cả</a></li>
+                                                <li><a href="#">Bán chạy</a></li>
+                                                <li><a href="#">Hàng mới về</a></li>
+                                                <li><a href="#">Bộ sưu tập</a></li>
+                                                <li><a href="#">Khuyến mãi</a></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -316,13 +313,15 @@
                             </div>
                             <div class="card">
                                 <div class="card-heading">
-                                    <a data-toggle="collapse" data-target="#collapseTwo">Branding</a>
+                                    <a data-toggle="collapse" data-target="#collapseTwo">Hãng</a>
                                 </div>
                                 <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
                                     <div class="card-body">
                                         <div class="shop__sidebar__brand">
                                             <ul>
-                                                <li class="active" data-filter="*"><a >All Branding</a></li>
+                                                <li class="active" data-filter="*">
+                                                    <a >Tất cả </a>
+                                                </li>
                                                 <th:block th:each="a : ${listBrand}">
                                                     <li><a  th:href="@{'/shop/brand/' + ${a.idHang}}" th:text="${a.tenHang}" > </a></li>
                                                 </th:block>
@@ -333,7 +332,7 @@
                             </div>
                             <div class="card">
                                 <div class="card-heading">
-                                    <a data-toggle="collapse" data-target="#collapseThree">Filter Price</a>
+                                    <a data-toggle="collapse" data-target="#collapseThree">Lọc theo giá</a>
                                 </div>
                                 <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
                                     <div class="card-body">
@@ -407,27 +406,8 @@
                 </div>
             </div>
             <div class="col-lg-9">
-                <div class="shop__product__option">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="shop__product__option__left">
-                                <p>Showing 1–12 of 126 results</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="shop__product__option__right">
-                                <p>Sort by Price:</p>
-                                <select>
-                                    <option value="">Low To High</option>
-                                    <option value="">$0 - $55</option>
-                                    <option value="">$55 - $100</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="breadcrumb__text" style="text-align: center;">
-                    <h4>Favourite Product</h4>
+                    <h4>Sản phẩm yêu thích</h4>
                     <br>
                 </div>
                 <div class="row">
@@ -439,18 +419,18 @@
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" style="border-radius: 10px;"  th:attr="data-setbg=@{'/images/imgsProducts/' + ${product.hinhAnh}}">
                                     <ul class="product__hover">
-                                        <li><img src="/images/img/icon/heart2.png" alt=""><span>Favourite</span></a></li>
-                                        <li><a href="#"><img src="/images/img/icon/compare.png" alt=""><span>Compare</span></a></li>
-                                        <li><a th:href="@{'/buyer/shop-details/' + ${product.giay.idGiay} +'/' + ${product.maMau}}"><img src="/images/img/icon/view.png" alt=""><span>Views Detail</span></a></li>
-                                        <li><a th:href="@{'/buyer/unheart/' + ${product.giay.idGiay} +'/' + ${product.maMau}}"><img src="/images/img/icon/unheart.png" alt=""><span>Un Favourite</span></a></li>
+                                        <li><img src="/images/img/icon/heart2.png" alt=""><span>Yêu thích</span></a></li>
+                                        <li><a href="#"><img src="/images/img/icon/compare.png" alt=""><span>So sánh</span></a></li>
+                                        <li><a th:href="@{'/buyer/shop-details/' + ${product.giay.idGiay} +'/' + ${product.maMau}}"><img src="/images/img/icon/view.png" alt=""><span>Xem Chi Tiết</span></a></li>
+                                        <li><a th:href="@{'/buyer/unheart/' + ${product.giay.idGiay} +'/' + ${product.maMau}}"><img src="/images/img/icon/unheart.png" alt=""><span>Bỏ thích</span></a></li>
                                     </ul>
                                 </div>
                                 <div >
                                     <h6 style="margin-top:  10px; margin-bottom: 10px " th:text="${product.giay.tenGiay}"></h6>
-                                    <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="${product.minPrice}  + ' ' + '$'"></h5>
+                                    <h5 style="font-weight: bold; margin-bottom: 10px;" th:text="'₫' + ${#numbers.formatDecimal(product.minPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}" ></h5>
                                     <div class="product__color__select" style="display: flex">
-                                        <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'pieces available'"></h6>
-                                        <h6 style="font-style: italic; font-size: 12px ;margin-left: 100px;" th:text="${product.soLuongDaBan} + ' ' + '  Sold'"></h6>
+                                        <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'có sẵn'"></h6>
+                                        <h6 style="font-style: italic; font-size: 12px ;margin-left: 100px;" th:text="${product.soLuongDaBan} + ' ' + 'đã bán'"></h6>
                                     </div>
                                 </div>
                             </div>
@@ -460,43 +440,24 @@
                 <!--Show product FA begin-->
 
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="product__pagination">
-                            <a class="active" href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <span>...</span>
-                            <a href="#">21</a>
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-lg-12">-->
+<!--                        <div class="product__pagination">-->
+<!--                            <a class="active" href="#">1</a>-->
+<!--                            <a href="#">2</a>-->
+<!--                            <a href="#">3</a>-->
+<!--                            <span>...</span>-->
+<!--                            <a href="#">21</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
                 <br>
                 <br>
                 <br>
 
-                <div class="shop__product__option">
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="shop__product__option__left">
-                                <p>Showing 1–12 of 126 results</p>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="shop__product__option__right">
-                                <p>Sort by Price:</p>
-                                <select>
-                                    <option value="">Low To High</option>
-                                    <option value="">$0 - $55</option>
-                                    <option value="">$55 - $100</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                 <div class="breadcrumb__text" style="text-align: center;">
-                    <h4>Recently Viewed</h4>
+                    <h4>Xem gần đây</h4>
                     <br>
                 </div>
                 <div class="row">
@@ -508,17 +469,27 @@
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" style="border-radius: 10px;"  th:attr="data-setbg=@{'/images/imgsProducts/' + ${product.hinhAnh}}">
                                     <ul class="product__hover">
-                                        <li><a th:href="@{'/buyer/heart/' + ${product.giay.idGiay} +'/' + ${product.maMau}}"><img src="/images/img/icon/heart.png" alt=""><span>Favourite</span></a></li>
-                                        <li><a href="#"><img src="/images/img/icon/compare.png" alt=""><span>Compare</span></a></li>
-                                        <li><a th:href="@{'/buyer/shop-details/' + ${product.giay.idGiay} +'/' + ${product.maMau}}"><img src="/images/img/icon/view.png" alt=""><span>Views Detail</span></a></li>
+                                        <li>
+                                            <a th:href="@{'/buyer/heart/' + ${product.giay.idGiay} +'/' + ${product.maMau}}">
+                                                <img src="/images/img/icon/heart.png" alt="">
+                                                <span>Yêu thích</span>
+                                            </a>
+                                        </li>
+                                        <li><a href="#"><img src="/images/img/icon/compare.png" alt=""><span>So sánh</span></a></li>
+                                        <li>
+                                            <a th:href="@{'/buyer/shop-details/' + ${product.giay.idGiay} +'/' + ${product.maMau}}">
+                                                <img src="/images/img/icon/view.png" alt="">
+                                                <span>Xem chi tiết</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                                 <div >
                                     <h6 style="margin-top:  10px; margin-bottom: 10px " th:text="${product.giay.tenGiay}"></h6>
-                                    <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="${product.minPrice}  + ' ' + '$'"></h5>
+                                    <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="'₫' + ${#numbers.formatDecimal(product.minPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}" ></h5>
                                     <div class="product__color__select" style="display: flex">
-                                        <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'pieces available'"></h6>
-                                        <h6 style="font-style: italic; font-size: 12px ;margin-left: 100px;" th:text="${product.soLuongDaBan} + ' ' + '  Sold'"></h6>
+                                        <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'có sẵn'"></h6>
+                                        <h6 style="font-style: italic; font-size: 12px ;margin-left: 100px;" th:text="${product.soLuongDaBan} + ' ' + 'đã bán'"></h6>
                                     </div>
                                 </div>
                             </div>
@@ -528,17 +499,17 @@
                     <!--Show product FA begin-->
 
                 </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="product__pagination">
-                            <a class="active" href="#">1</a>
-                            <a href="#">2</a>
-                            <a href="#">3</a>
-                            <span>...</span>
-                            <a href="#">21</a>
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="col-lg-12">-->
+<!--                        <div class="product__pagination">-->
+<!--                            <a class="active" href="#">1</a>-->
+<!--                            <a href="#">2</a>-->
+<!--                            <a href="#">3</a>-->
+<!--                            <span>...</span>-->
+<!--                            <a href="#">21</a>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
                 <br>
             </div>
         </div>

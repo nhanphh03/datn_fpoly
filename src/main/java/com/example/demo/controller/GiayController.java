@@ -23,6 +23,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -223,19 +227,10 @@ public class GiayController {
     }
 
     @PostMapping("/giay/hang/viewAdd/add")
-    public String addHang(@Valid @ModelAttribute("hangAdd") Hang hang, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            if (bindingResult.hasFieldErrors("maHang")) {
-                redirectAttributes.addFlashAttribute("userInput", hang);
-                redirectAttributes.addFlashAttribute("errorHang", "maHangError");
-            }
-            if (bindingResult.hasFieldErrors("tenHang")) {
-                redirectAttributes.addFlashAttribute("userInput", hang);
-                redirectAttributes.addFlashAttribute("errorHang", "tenHangError");
-            }
-            return "redirect:/manage/giay/viewAdd";
-        }
-        //
+    public String addHang(@RequestParam("maHang") String maHang,
+                          @RequestParam("tenHang") String tenHang,
+                          @RequestParam("logoHang") MultipartFile logoHang,
+                          @Valid @ModelAttribute("hangAdd") Hang hang, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         Hang existingHang = hangRepository.findByMaHang(hang.getMaHang());
         if (existingHang != null) {
             redirectAttributes.addFlashAttribute("userInput", hang);
@@ -243,10 +238,22 @@ public class GiayController {
             return "redirect:/manage/giay/viewAdd";
         }
         //
+        Path path = Paths.get("src/main/resources/static/images/logoBrands/");
+        //
         Hang hang1 = new Hang();
-        hang1.setLogoHang(hang.getLogoHang());
-        hang1.setMaHang(hang.getMaHang());
-        hang1.setTenHang(hang.getTenHang());
+        hang1.setMaHang(maHang);
+        hang1.setTenHang(tenHang);
+        if (logoHang.isEmpty()) {
+            return "redirect:/manage/hang";
+        }
+        try {
+            InputStream inputStream = logoHang.getInputStream();
+            Files.copy(inputStream, path.resolve(logoHang.getOriginalFilename()),
+                    StandardCopyOption.REPLACE_EXISTING);
+            hang1.setLogoHang(logoHang.getOriginalFilename().toLowerCase());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         hang1.setTgThem(new Date());
         hang1.setTrangThai(1);
         hangService.save(hang1);

@@ -45,4 +45,9 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
         }
         return tongTien;
     }
+
+    @Override
+    public List<HoaDonChiTiet> findByHoaDon(HoaDon hoaDon) {
+        return hoaDonChiTietRepository.findByHoaDon(hoaDon);
+    }
 }

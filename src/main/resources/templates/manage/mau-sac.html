@@ -10,7 +10,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Sneaker Shop - Admin</title>
 
-    <link rel="shortcut icon" type="image/x-icon"  href="/images/img/icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
@@ -34,6 +34,14 @@
             border: 1px solid #000; /* Viền xung quanh hộp màu */
             margin: 0 5px; /* Khoảng cách giữa các hộp màu */
             border-radius: 50%;
+        }
+    </style>
+    <style>
+        /* Định dạng lớp CSS để làm cho input to hơn */
+        .large-input {
+            /*width: 230px; !* Điều chỉnh kích thước theo nhu cầu của bạn *!*/
+            /*height: 40px; !* Điều chỉnh kích thước theo nhu cầu của bạn *!*/
+            border: none;
         }
     </style>
 </head>
@@ -341,19 +349,27 @@
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã</label>
-                                        <input type="text" th:field="*{ma}"required>
+                                        <input type="text" th:field="*{ma}" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Mã Màu</label>
-                                        <input type="text" th:field="*{maMau}"required>
+                                        <label>Mã Màu (RGB)</label>
+                                        <input type="text" id="rgbValue" th:field="*{maMau}" readonly
+                                               class="form-control" style="margin-top: 5px;">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <label>Chọn Màu:</label>
+                                        <input type="color" onchange="updateRGBValue(this.value)"
+                                               required class="large-input">
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Màu</label>
-                                        <input type="text" th:field="*{tenMau}"required>
+                                        <input type="text" th:field="*{tenMau}" required>
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -502,7 +518,7 @@
                                     </a>
                                 </td>
                                 <td th:text="${#dates.format(items.tgThem, 'dd-MM-yyyy')}" align="center"/>
-                                    <td th:text="${#dates.format(items.tgSua, 'dd-MM-yyyy')}" align="center"/>
+                                <td th:text="${#dates.format(items.tgSua, 'dd-MM-yyyy')}" align="center"/>
 
                             </tr>
                             </tbody>
@@ -616,12 +632,12 @@
         });
     }
 </script>
-<script>
-    $(document).ready(function () {
-        $('#filter_inputs').slideToggle("slow");
-        $('#filter_search').toggleClass("setclose");
-    });
-</script>
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+<!--        $('#filter_inputs').slideToggle("slow");-->
+<!--        $('#filter_search').toggleClass("setclose");-->
+<!--    });-->
+<!--</script>-->
 <script>
     $(document).ready(function () {
         // Lắng nghe sự kiện thay đổi trong dropdown kích thước
@@ -683,7 +699,7 @@
     });
 </script>
 <script>
-    setTimeout(function() {
+    setTimeout(function () {
         var successToast = document.getElementById('toast-container');
         if (successToast) {
             successToast.style.display = 'none';
@@ -720,9 +736,24 @@
 </script>
 <script>
     // In your Javascript (external .js resource or <script> tag)
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.select').select2();
     });
+</script>
+<script>
+    function updateRGBValue(hexValue) {
+        var rgbValue = hexToRgb(hexValue);
+        document.getElementById('rgbValue').value = 'RGB(' + rgbValue.r + ', ' + rgbValue.g + ', ' + rgbValue.b + ')';
+    }
+
+    function hexToRgb(hex) {
+        // Chuyển đổi mã màu hex thành giá trị RGB
+        var bigint = parseInt(hex.substring(1), 16);
+        var r = (bigint >> 16) & 255;
+        var g = (bigint >> 8) & 255;
+        var b = bigint & 255;
+        return {r: r, g: g, b: b};
+    }
 </script>
 </body>
 </html>
