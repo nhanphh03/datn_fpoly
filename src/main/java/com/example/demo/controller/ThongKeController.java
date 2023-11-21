@@ -18,7 +18,7 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("ban-hang")
+@RequestMapping("manage")
 public class ThongKeController {
     @Autowired
     private KhachHangRepository khachHangRepository;
