@@ -36,9 +36,9 @@ public class HoaDon {
     @JoinColumn(name = "id_NV")
     private NhanVien nhanVien;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "id_HTTT")
-    private ThanhToan thanhToan;
+    private ThanhToanHoanTien thanhToanHoanTien;
 
     @Column(name = "ma_HD")
     private String maHD;
@@ -88,8 +88,8 @@ public class HoaDon {
     @Column(name="loai_HD")
     private Integer loaiHD;
 
-    @Column(name = "noi_dung_Thanh_Toan")
-    private String noiDungThanhToan;
+    @Column(name="hinh_Thuc_Thanh_Toan")
+    private Integer hinhThucThanhToan;
 
     @Column(name = "loi_nhan")
     private String loiNhan;
