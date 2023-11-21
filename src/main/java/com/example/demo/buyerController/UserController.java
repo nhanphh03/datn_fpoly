@@ -175,11 +175,8 @@ public class UserController {
 
         UserForm(model, khachHang);
 
-        List<HoaDon> listHoaDonByKhachHang = hoaDonService.listHoaDonKhachHangAndTrangThai(khachHang, 0,0, 1, 2);
+        List<HoaDon> listHoaDonByKhachHang = hoaDonService.listAllHoaDonKhachHangOnline(khachHang);
 
-        for (HoaDon x:listHoaDonByKhachHang ) {
-            System.out.println(x.getIdHD());
-        }
         model.addAttribute("pagePurchaseUser",true);
         model.addAttribute("purchaseAll",true);
         model.addAttribute("listAllHDByKhachHang", listHoaDonByKhachHang);
@@ -195,6 +192,10 @@ public class UserController {
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
 
         UserForm(model, khachHang);
+
+        List<HoaDon> listHoaDonByKhachHang = hoaDonService.listHoaDonKhachHangAndTrangThaiOnline(khachHang, 0);
+
+        model.addAttribute("listAllHDByKhachHang", listHoaDonByKhachHang);
 
         model.addAttribute("pagePurchaseUser",true);
         model.addAttribute("purchasePay",true);
@@ -223,6 +224,10 @@ public class UserController {
 
         UserForm(model, khachHang);
 
+        List<HoaDon> listHoaDonByKhachHang = hoaDonService.listHoaDonKhachHangAndTrangThaiOnline(khachHang, 1);
+
+        model.addAttribute("listAllHDByKhachHang", listHoaDonByKhachHang);
+
         model.addAttribute("pagePurchaseUser",true);
         model.addAttribute("purchaseReceive",true);
         model.addAttribute("type4","active");
@@ -235,6 +240,10 @@ public class UserController {
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
 
         UserForm(model, khachHang);
+
+        List<HoaDon> listHoaDonByKhachHang = hoaDonService.listHoaDonKhachHangAndTrangThaiOnline(khachHang, 2);
+
+        model.addAttribute("listAllHDByKhachHang", listHoaDonByKhachHang);
 
         model.addAttribute("pagePurchaseUser",true);
         model.addAttribute("purchaseCompleted",true);
@@ -249,6 +258,10 @@ public class UserController {
 
         UserForm(model, khachHang);
 
+        List<HoaDon> listHoaDonByKhachHang = hoaDonService.listHoaDonKhachHangAndTrangThaiOnline(khachHang, 3);
+
+        model.addAttribute("listAllHDByKhachHang", listHoaDonByKhachHang);
+
         model.addAttribute("pagePurchaseUser",true);
         model.addAttribute("purchaseCancel",true);
         model.addAttribute("type6","active");
@@ -261,6 +274,10 @@ public class UserController {
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
 
         UserForm(model, khachHang);
+
+        List<HoaDon> listHoaDonByKhachHang = hoaDonService.listHoaDonKhachHangAndTrangThaiOnline(khachHang, 4);
+
+        model.addAttribute("listAllHDByKhachHang", listHoaDonByKhachHang);
 
         model.addAttribute("pagePurchaseUser",true);
         model.addAttribute("purchaseRefund",true);

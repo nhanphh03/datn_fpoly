@@ -7,7 +7,6 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -48,6 +47,7 @@ public class CheckOutController {
     @Autowired
     private ShippingFeeService shippingFeeService;
 
+
     @PostMapping("/checkout")
     private String checkOutCart(Model model, @RequestParam("selectedProducts") List<UUID> selectedProductIds){
 
@@ -76,7 +76,7 @@ public class CheckOutController {
         hoaDon.setMaHD(maHD);
         hoaDon.setLoaiHD(0);
         hoaDon.setTgTao(date);
-        hoaDon.setTrangThai(3);
+        hoaDon.setTrangThai(5);
 
         if (diaChiKHDefault != null){
             hoaDon.setDiaChiNguoiNhan(diaChiKHDefault.getDiaChiChiTiet());
@@ -503,8 +503,7 @@ public class CheckOutController {
 
         String hinhThucThanhToan = request.getParameter("hinhThucThanhToan");
         String loiNhan = request.getParameter("loiNhan");
-        System.out.println(hinhThucThanhToan);
-        System.out.println(loiNhan);
+
 
         KhuyenMai khuyenMaiGiaoHang = (KhuyenMai) session.getAttribute("khuyenMaiGiaoHang");
         KhuyenMai khuyenMaiHoaDon = (KhuyenMai) session.getAttribute("khuyenMaiHoaDon");
@@ -524,11 +523,17 @@ public class CheckOutController {
             tienGiamGiaHoaDon =  shippingFeeService.calculatorVoucherBill(hoaDon, khuyenMaiHoaDon);
         }
 
-        hoaDon.setTrangThai(0);
         hoaDon.setGiamGiaShip(tienGiamGiaShip);
         hoaDon.setGiamGiaHoaDon(tienGiamGiaHoaDon);
         hoaDon.setTienShip(shippingFee);
+        hoaDon.setLoiNhan(loiNhan);
         hoaDon.setTongTienDG(hoaDon.getTongTien() - tienGiamGiaHoaDon - tienGiamGiaShip);
+
+        if (hinhThucThanhToan=="HTT02"){
+            hoaDon.setTrangThai(1);
+        }else{
+            hoaDon.setTrangThai(0);
+        }
 
         hoaDonService.add(hoaDon);
 
