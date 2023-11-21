@@ -529,6 +529,13 @@
         <div class="toast-message">Dữ liệu của bạn đã được cập nhật</div>
     </div>
 </div>
+<div th:if="${importError}" id="importError" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Lỗi không thể nhập liệu.</div>
+    </div>
+</div>
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
@@ -600,12 +607,12 @@
         });
     }
 </script>
-<script>
-    $(document).ready(function () {
-        $('#filter_inputs').slideToggle("slow");
-        $('#filter_search').toggleClass("setclose");
-    });
-</script>
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+<!--        $('#filter_inputs').slideToggle("slow");-->
+<!--        $('#filter_search').toggleClass("setclose");-->
+<!--    });-->
+<!--</script>-->
 <script>
     $(document).ready(function () {
         // Lắng nghe sự kiện thay đổi trong dropdown kích thước
@@ -671,6 +678,12 @@
         var successToast = document.getElementById('toast-container');
         if (successToast) {
             successToast.style.display = 'none';
+        }
+    }, 5000);
+    setTimeout(function () {
+        var importError = document.getElementById('importError');
+        if (importError) {
+            importError.style.display = 'none';
         }
     }, 5000);
 </script>

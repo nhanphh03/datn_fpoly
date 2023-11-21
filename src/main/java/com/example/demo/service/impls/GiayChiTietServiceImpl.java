@@ -125,39 +125,44 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
                 }
                 ChiTietGiay chiTietGiay = new ChiTietGiay();
 
-                // Đối tượng Giay
-                String giayName = row.getCell(0).getStringCellValue(); // Cột 2 trong tệp Excel
-                Giay giay = giayRepository.findByTenGiay(giayName); // Tìm đối tượng Giay theo tên
-                chiTietGiay.setGiay(giay);
-
                 // Đối tượng HinhAnh
-                String hinhAnhName = row.getCell(1).getStringCellValue(); // Cột 3 trong tệp Excel
-                HinhAnh hinhAnh = hinhAnhRepository.findByMaAnh(hinhAnhName); // Tìm đối tượng HinhAnh theo tên
+                String hinhAnhName = row.getCell(0).getStringCellValue();
+                HinhAnh hinhAnh = hinhAnhRepository.findByMaAnh(hinhAnhName);
                 chiTietGiay.setHinhAnh(hinhAnh);
 
+                // Đối tượng Giay
+                String giayName = row.getCell(1).getStringCellValue();
+                Giay giay = giayRepository.findByTenGiay(giayName);
+                chiTietGiay.setGiay(giay);
+
                 // Đối tượng Size
-                int soSize = (int) row.getCell(2).getNumericCellValue(); // Cột 1 trong tệp Excel
-                Size size = sizeRepository.findBySoSize(soSize); // Tìm đối tượng Size theo soSize
+                int soSize = (int) row.getCell(2).getNumericCellValue();
+                Size size = sizeRepository.findBySoSize(soSize);
                 chiTietGiay.setSize(size);
 
                 // Đối tượng MauSac
-                String mauSacName = row.getCell(3).getStringCellValue(); // Cột 4 trong tệp Excel
-                MauSac mauSac = mauSacRepository.findByTenMau(mauSacName); // Tìm đối tượng MauSac theo tên
+                String mauSacName = row.getCell(3).getStringCellValue();
+                MauSac mauSac = mauSacRepository.findByTenMau(mauSacName);
                 chiTietGiay.setMauSac(mauSac);
+
                 //
                 if (row.getCell(4).getCellType() == CellType.NUMERIC) {
-                    chiTietGiay.setNamSX((int) row.getCell(4).getNumericCellValue()); // Chuyển đổi thành kiểu int
+                    chiTietGiay.setSoLuong((int) row.getCell(4).getNumericCellValue());
                 }
-                if (row.getCell(5).getCellType() == CellType.NUMERIC) {
-                    chiTietGiay.setNamBH((int) row.getCell(5).getNumericCellValue()); // Chuyển đổi thành kiểu int
-                }
+
+                chiTietGiay.setSoTienTruocKhiGiam(row.getCell(5).getNumericCellValue());
+
                 if (row.getCell(6).getCellType() == CellType.NUMERIC) {
-                    chiTietGiay.setTrongLuong((int) row.getCell(6).getNumericCellValue()); // Chuyển đổi thành kiểu int
+                    chiTietGiay.setTrongLuong((int) row.getCell(6).getNumericCellValue());
                 }
-                chiTietGiay.setGiaBan(row.getCell(7).getNumericCellValue());
+                if (row.getCell(7).getCellType() == CellType.NUMERIC) {
+                    chiTietGiay.setNamSX((int) row.getCell(7).getNumericCellValue());
+                }
                 if (row.getCell(8).getCellType() == CellType.NUMERIC) {
-                    chiTietGiay.setSoLuong((int) row.getCell(8).getNumericCellValue()); // Chuyển đổi thành kiểu int
+                    chiTietGiay.setNamBH((int) row.getCell(8).getNumericCellValue());
                 }
+
+                chiTietGiay.setGiaBan(row.getCell(9).getNumericCellValue());
 
                 chiTietGiay.setTgThem(new Date());
                 chiTietGiay.setTrangThai(1);
