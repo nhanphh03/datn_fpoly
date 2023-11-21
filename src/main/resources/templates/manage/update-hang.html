@@ -309,7 +309,7 @@
         </div>
     </div>
 </div>
-<form th:object="${hang}" method="post" th:action="@{'/manage/hang/viewUpdate/' + ${hang.idHang}}">
+<form th:object="${hang}" method="post" th:action="@{'/manage/hang/viewUpdate/' + ${hang.idHang}}" enctype="multipart/form-data">
     <div class="page-wrapper">
         <div class="content">
             <div class="page-header">
@@ -324,13 +324,13 @@
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Mã Hãng</label>
-                                <input type="text" th:field="*{maHang}">
+                                <input type="text" th:field="*{maHang}" required>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Tên Hãng</label>
-                                <input type="text" th:field="*{tenHang}">
+                                <input type="text" th:field="*{tenHang}" required>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
@@ -338,6 +338,10 @@
                                 <label>Logo</label>
                                 <img th:src="@{'/images/logoBrands/'+ ${hang.logoHang}}"
                                      style="max-width: 150px; max-height: 150px;"><br>
+                                <input name="logoHang" type="file" id="imageInput" accept="image/*"
+                                       onchange="previewImage(event)">
+                                <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
+                                             style="display: none; max-width: 150px; max-height: 150px;">
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">

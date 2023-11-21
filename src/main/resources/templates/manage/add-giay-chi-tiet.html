@@ -673,7 +673,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form th:object="${hinhAnhAdd}" method="post" th:action="@{/manage/giay-chi-tiet/hinh-anh/viewAdd/add}"
+                <form th:object="${hinhAnhAdd}" method="post" th:action="@{/manage/giay-chi-tiet/hinh-anh/viewAdd/add}" enctype="multipart/form-data"
                       style="width: auto;height: auto">
                     <div class="page-header">
                         <div class="page-title">
@@ -687,14 +687,14 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã</label>
-                                        <input type="text" th:field="*{maAnh}" required>
+                                        <input type="text" name="maAnh" th:field="*{maAnh}" required>
                                     </div>
                                 </div>
                                 <div th:fragment="whitespace">&nbsp;</div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Ảnh 1</label>
-                                        <input th:field="*{url1}" type="file" id="imageInput" accept="image/*"
+                                        <input name="anh1" type="file" id="imageInput" accept="image/*"
                                                onchange="previewImage(event)">
                                         <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
                                                      style="display: none; max-width: 300px; max-height: 300px;">
@@ -704,7 +704,7 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Ảnh 2</label>
-                                        <input th:field="*{url2}" type="file" id="anh2" accept="image/*"
+                                        <input name="anh2" type="file" id="anh2" accept="image/*"
                                                onchange="previewImage(event)">
                                         <br><br><img id="anh22" src="#" alt="Ảnh mô tả"
                                                      style="display: none; max-width: 300px; max-height: 300px;">
@@ -714,7 +714,7 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Ảnh 3</label>
-                                        <input th:field="*{url3}" type="file" id="anh3" accept="image/*"
+                                        <input name="anh3" type="file" id="anh3" accept="image/*"
                                                onchange="previewImage(event)">
                                         <br><br><img id="anh33" src="#" alt="Ảnh mô tả"
                                                      style="display: none; max-width: 300px; max-height: 300px;">
@@ -724,7 +724,7 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Ảnh 4</label>
-                                        <input th:field="*{url4}" type="file" id="anh4" accept="image/*"
+                                        <input name="anh4" type="file" id="anh4" accept="image/*"
                                                onchange="previewImage(event)">
                                         <br><br><img id="anh44" src="#" alt="Ảnh mô tả"
                                                      style="display: none; max-width: 300px; max-height: 300px;">
@@ -1214,7 +1214,13 @@
 <script>
     function previewImage(event) {
         const imageInput = document.getElementById('imageInput');
+        const anh2 = document.getElementById('anh2');
+        const anh3 = document.getElementById('anh3');
+        const anh4 = document.getElementById('anh4');
         const imagePreview = document.getElementById('imagePreview');
+        const anh22 = document.getElementById('anh22');
+        const anh33 = document.getElementById('anh33');
+        const anh44 = document.getElementById('anh44');
 
         if (imageInput.files && imageInput.files[0]) {
             const reader = new FileReader();
@@ -1225,6 +1231,39 @@
             };
 
             reader.readAsDataURL(imageInput.files[0]);
+        }
+        //
+        if (anh2.files && anh2.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                anh22.src = e.target.result;
+                anh22.style.display = 'block';
+            };
+
+            reader.readAsDataURL(anh2.files[0]);
+        }
+        //
+        if (anh3.files && anh3.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                anh33.src = e.target.result;
+                anh33.style.display = 'block';
+            };
+
+            reader.readAsDataURL(anh3.files[0]);
+        }
+        //
+        if (anh4.files && anh4.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                anh44.src = e.target.result;
+                anh44.style.display = 'block';
+            };
+
+            reader.readAsDataURL(anh4.files[0]);
         }
     }
 </script>
