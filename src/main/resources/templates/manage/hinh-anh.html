@@ -10,7 +10,7 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Sneaker Shop - Admin</title>
 
-    <link rel="shortcut icon" type="image/x-icon"  href="/images/img/icon.png">
+    <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
@@ -324,12 +324,14 @@
             <div class="card">
                 <div class="card-body">
                     <div class="hidden-form" style="display: none">
-                        <form th:object="${hinhAnhAdd}" method="post" th:action="@{/manage/hinh-anh/viewAdd/add}">
+                        <form th:object="${hinhAnhAdd}" method="post" th:action="@{/manage/hinh-anh/viewAdd/add}"
+                              enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã</label>
-                                        <input type="text" th:field="*{maAnh}"required>
+                                        <input type="text" name="maAnh" th:field="*{maAnh}" required
+                                               placeholder="Nhập Mã">
                                     </div>
                                 </div>
                                 <div class="col-lg-10 col-sm-6 col-12"></div>
@@ -337,7 +339,7 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Ảnh 1</label>
-                                        <input name="anh1" th:field="*{url1}" type="file" id="imageInput"
+                                        <input name="anh1" type="file" id="imageInput"
                                                accept="image/*"
                                                onchange="previewImage(event)">
                                         <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
@@ -347,7 +349,7 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Ảnh 2</label>
-                                        <input name="anh2" th:field="*{url2}" type="file" id="anh2" accept="image/*"
+                                        <input name="anh2" type="file" id="anh2" accept="image/*"
                                                onchange="previewImage(event)">
                                         <br><br><img id="anh22" src="#" alt="Ảnh mô tả"
                                                      style="display: none; max-width: 300px; max-height: 300px;">
@@ -356,7 +358,7 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Ảnh 3</label>
-                                        <input name="anh3" th:field="*{url3}" type="file" id="anh3" accept="image/*"
+                                        <input name="anh3" type="file" id="anh3" accept="image/*"
                                                onchange="previewImage(event)">
                                         <br><br><img id="anh33" src="#" alt="Ảnh mô tả"
                                                      style="display: none; max-width: 300px; max-height: 300px;">
@@ -365,7 +367,7 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Ảnh 4</label>
-                                        <input name="anh4" th:field="*{url4}" type="file" id="anh4" accept="image/*"
+                                        <input name="anh4" type="file" id="anh4" accept="image/*"
                                                onchange="previewImage(event)">
                                         <br><br><img id="anh44" src="#" alt="Ảnh mô tả"
                                                      style="display: none; max-width: 300px; max-height: 300px;">
@@ -482,7 +484,7 @@
                                     </a>
                                 </td>
                                 <td th:text="${#dates.format(items.tgThem, 'dd-MM-yyyy')}" align="center"/>
-                                    <td th:text="${#dates.format(items.tgSua, 'dd-MM-yyyy')}" align="center"/>
+                                <td th:text="${#dates.format(items.tgSua, 'dd-MM-yyyy')}" align="center"/>
 
                             </tr>
                             </tbody>
@@ -692,12 +694,12 @@
         });
     });
 </script>
-<script>
-    $(document).ready(function () {
-        $('#filter_inputs').slideToggle("slow");
-        $('#filter_search').toggleClass("setclose");
-    });
-</script>
+<!--<script>-->
+<!--    $(document).ready(function () {-->
+<!--        $('#filter_inputs').slideToggle("slow");-->
+<!--        $('#filter_search').toggleClass("setclose");-->
+<!--    });-->
+<!--</script>-->
 <script>
     // In your Javascript (external .js resource or <script> tag)
     $(document).ready(function () {

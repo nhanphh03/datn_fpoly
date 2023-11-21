@@ -17,15 +17,19 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -82,41 +86,48 @@ public class HinhAnhController {
 //    }
 
     @PostMapping("/hinh-anh/viewAdd/add")
-    public String addHinhAnh(@Valid @ModelAttribute("hinhAnh") HinhAnh hinhAnh, BindingResult bindingResult,
+    public String addHinhAnh(@RequestParam("maAnh") String maAnh,
+                             @RequestParam("anh1") MultipartFile anh1,
+                             @RequestParam("anh2") MultipartFile anh2,
+                             @RequestParam("anh3") MultipartFile anh3,
+                             @RequestParam("anh4") MultipartFile anh4,
+                             @Valid @ModelAttribute("hinhAnh") HinhAnh hinhAnh, BindingResult bindingResult,
                              RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            if (bindingResult.hasFieldErrors("maAnh")) {
-                redirectAttributes.addFlashAttribute("userInput", hinhAnh);
-                redirectAttributes.addFlashAttribute("error", "maHinhAnhError");
-            }
-            return "redirect:/manage/hinh-anh";
-        }
-        //
         HinhAnh existingAnh = repository.findByMaAnh(hinhAnh.getMaAnh());
         if (existingAnh != null) {
             redirectAttributes.addFlashAttribute("userInput", hinhAnh);
             redirectAttributes.addFlashAttribute("Errormessage", true);
             return "redirect:/manage/hinh-anh";
         }
-        //
-        String uploadDir = "src/main/resources/static/images/imgsProducts/";
-        File uploadPath = new File(uploadDir);
-        if (!uploadPath.exists()) {
-            uploadPath.mkdirs();
+        HinhAnh hinhAnh1 = new HinhAnh();
+        hinhAnh1.setMaAnh(maAnh);
+        if (anh1.isEmpty() || anh2.isEmpty() || anh3.isEmpty() || anh4.isEmpty()) {
+            return "redirect:/manage/hinh-anh";
         }
+        Path path = Paths.get("src/main/resources/static/images/imgsProducts/");
         try {
-            String fileName = UUID.randomUUID().toString() + ".jpg"; // Tạo tên file duy nhất
-            Path filePath = Paths.get(uploadPath.getAbsolutePath(), fileName);
-            Files.write(filePath, hinhAnh.getUrl1().getBytes());
-        } catch (IOException e) {
+            InputStream inputStream = anh1.getInputStream();
+            Files.copy(inputStream, path.resolve(anh1.getOriginalFilename()),
+                    StandardCopyOption.REPLACE_EXISTING);
+            hinhAnh1.setUrl1(anh1.getOriginalFilename().toLowerCase());
+            //
+            inputStream = anh2.getInputStream();
+            Files.copy(inputStream, path.resolve(anh2.getOriginalFilename()),
+                    StandardCopyOption.REPLACE_EXISTING);
+            hinhAnh1.setUrl2(anh2.getOriginalFilename().toLowerCase());
+            //
+            inputStream = anh3.getInputStream();
+            Files.copy(inputStream, path.resolve(anh3.getOriginalFilename()),
+                    StandardCopyOption.REPLACE_EXISTING);
+            hinhAnh1.setUrl3(anh3.getOriginalFilename().toLowerCase());
+            //
+            inputStream = anh4.getInputStream();
+            Files.copy(inputStream, path.resolve(anh4.getOriginalFilename()),
+                    StandardCopyOption.REPLACE_EXISTING);
+            hinhAnh1.setUrl4(anh4.getOriginalFilename().toLowerCase());
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        HinhAnh hinhAnh1 = new HinhAnh();
-        hinhAnh1.setMaAnh(hinhAnh.getMaAnh());
-        hinhAnh1.setUrl1(hinhAnh.getUrl1());
-        hinhAnh1.setUrl2(hinhAnh.getUrl2());
-        hinhAnh1.setUrl3(hinhAnh.getUrl3());
-        hinhAnh1.setUrl4(hinhAnh.getUrl4());
         hinhAnh1.setTgThem(new Date());
         hinhAnh1.setTrangThai(1);
         hinhAnhService.save(hinhAnh1);
@@ -163,7 +174,12 @@ public class HinhAnhController {
     }
 
     @PostMapping("/hinh-anh/viewUpdate/{id}")
-    public String updateHinhAnh(@PathVariable UUID id, @Valid @ModelAttribute("hinhAnh") HinhAnh hinhAnh, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String updateHinhAnh(@RequestParam("maAnh") String maAnh,
+                                @RequestParam("anh1") MultipartFile anh1,
+                                @RequestParam("anh2") MultipartFile anh2,
+                                @RequestParam("anh3") MultipartFile anh3,
+                                @RequestParam("anh4") MultipartFile anh4,
+                                @PathVariable UUID id, @Valid @ModelAttribute("hinhAnh") HinhAnh hinhAnh, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         HinhAnh hinhAnhDb = hinhAnhService.getByIdHinhAnh(id);
         UUID idAnh = (UUID) session.getAttribute("id");
         String link = "redirect:/manage/hinh-anh/viewUpdate/" + idAnh;
@@ -182,13 +198,35 @@ public class HinhAnhController {
             return link;
         }
         //
+        Path path = Paths.get("src/main/resources/static/images/imgsProducts/");
+        //
         if (hinhAnhDb != null) {
+            hinhAnhDb.setMaAnh(maAnh);
+            try {
+                InputStream inputStream = anh1.getInputStream();
+                Files.copy(inputStream, path.resolve(anh1.getOriginalFilename()),
+                        StandardCopyOption.REPLACE_EXISTING);
+                hinhAnhDb.setUrl1(anh1.getOriginalFilename().toLowerCase());
+                //
+                inputStream = anh2.getInputStream();
+                Files.copy(inputStream, path.resolve(anh2.getOriginalFilename()),
+                        StandardCopyOption.REPLACE_EXISTING);
+                hinhAnhDb.setUrl2(anh2.getOriginalFilename().toLowerCase());
+                //
+                inputStream = anh3.getInputStream();
+                Files.copy(inputStream, path.resolve(anh3.getOriginalFilename()),
+                        StandardCopyOption.REPLACE_EXISTING);
+                hinhAnhDb.setUrl3(anh3.getOriginalFilename().toLowerCase());
+                //
+                inputStream = anh4.getInputStream();
+                Files.copy(inputStream, path.resolve(anh4.getOriginalFilename()),
+                        StandardCopyOption.REPLACE_EXISTING);
+                hinhAnhDb.setUrl4(anh4.getOriginalFilename().toLowerCase());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             hinhAnhDb.setTgSua(new Date());
             hinhAnhDb.setTrangThai(hinhAnh.getTrangThai());
-//            hinhAnhDb.setUrl1(hinhAnh.getUrl1());
-//            hinhAnhDb.setUrl2(hinhAnh.getUrl2());
-//            hinhAnhDb.setUrl3(hinhAnh.getUrl3());
-//            hinhAnhDb.setUrl4(hinhAnh.getUrl4());
             hinhAnhService.save(hinhAnhDb);
             redirectAttributes.addFlashAttribute("message", true);
         }
