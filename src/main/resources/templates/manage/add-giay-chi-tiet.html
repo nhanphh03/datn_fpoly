@@ -566,17 +566,23 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="col-lg-4 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã</label>
                                         <input type="text" th:field="*{ma}" required>
                                     </div>
                                 </div>
-                                <br>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Mã Màu</label>
-                                        <input type="text" th:field="*{maMau}" required>
+                                        <label>Mã Màu (RGB)</label>
+                                        <input type="text" id="rgbValue" th:field="*{maMau}" readonly
+                                               class="form-control" style="margin-top: 5px;">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <input type="color" onchange="updateRGBValue(this.value)"
+                                               required class="large-input">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
@@ -1540,6 +1546,21 @@
             giaBanError.innerText = "";
             giaBanInput.setCustomValidity("");
         }
+    }
+</script>
+<script>
+    function updateRGBValue(hexValue) {
+        var rgbValue = hexToRgb(hexValue);
+        document.getElementById('rgbValue').value = 'RGB(' + rgbValue.r + ', ' + rgbValue.g + ', ' + rgbValue.b + ')';
+    }
+
+    function hexToRgb(hex) {
+        // Chuyển đổi mã màu hex thành giá trị RGB
+        var bigint = parseInt(hex.substring(1), 16);
+        var r = (bigint >> 16) & 255;
+        var g = (bigint >> 8) & 255;
+        var b = bigint & 255;
+        return {r: r, g: g, b: b};
     }
 </script>
 </body>
