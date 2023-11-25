@@ -18,4 +18,6 @@ public interface KMCTHDRepository extends JpaRepository<KhuyenMaiChiTietHoaDon, 
 
     KhuyenMaiChiTietHoaDon findByKhuyenMaiAndAndHoaDon(KhuyenMai khuyenMai, HoaDon hoaDon);
 
+    KhuyenMaiChiTietHoaDon findKhuyenMaiChiTietHoaDonByHoaDon(HoaDon hoaDon);
+
 }
