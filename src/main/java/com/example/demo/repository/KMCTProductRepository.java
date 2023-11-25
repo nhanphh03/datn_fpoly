@@ -11,4 +11,6 @@ import java.util.UUID;
 public interface KMCTProductRepository extends JpaRepository<KhuyenMaiChiTietCTG, UUID> {
 
     KhuyenMaiChiTietCTG findByChiTietGiay(ChiTietGiay chiTietGiay);
+
+    KhuyenMaiChiTietCTG findByTenKM(String tenKM);
 }
