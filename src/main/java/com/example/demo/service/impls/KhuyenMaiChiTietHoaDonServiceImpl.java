@@ -46,4 +46,9 @@ public class KhuyenMaiChiTietHoaDonServiceImpl implements KhuyenMaiChiTietHoaDon
     public KhuyenMaiChiTietHoaDon findByID(UUID idKMCTHD) {
         return kmcthdRepository.findById(idKMCTHD).orElse(null);
     }
+
+    @Override
+    public KhuyenMaiChiTietHoaDon findByHoaDon(HoaDon hoaDon) {
+        return kmcthdRepository.findKhuyenMaiChiTietHoaDonByHoaDon(hoaDon);
+    }
 }
