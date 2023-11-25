@@ -20,4 +20,6 @@ public interface KhuyenMaiChiTietHoaDonService {
     KhuyenMaiChiTietHoaDon findByHoaDonAndKhuyenMai(HoaDon hoaDon, KhuyenMai khuyenMai);
 
     KhuyenMaiChiTietHoaDon findByID(UUID idKMCTHD);
+
+    KhuyenMaiChiTietHoaDon findByHoaDon(HoaDon hoaDon);
 }

@@ -114,4 +114,9 @@ public class HoaDonServiceImpl implements HoaDonService {
         khuyenMaiRepository.save(khuyenMai);
 
     }
+
+    @Override
+    public List<HoaDon> getAllHoaDonOffLine() {
+        return hoaDonRepository.findHoaDonByLoaiHDOrderByTgTaoDesc(1);
+    }
 }
