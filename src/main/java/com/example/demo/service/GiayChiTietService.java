@@ -34,8 +34,6 @@ public interface GiayChiTietService {
 
     public List<ChiTietGiay> fillterGCT(String searchTerm);
 
-    public void importDataFromExcel(InputStream excelFile);
-
     public List<ChiTietGiay> findByGiay(Giay giay);
 
     public List<ChiTietGiay> findByMauSac(MauSac mauSac);

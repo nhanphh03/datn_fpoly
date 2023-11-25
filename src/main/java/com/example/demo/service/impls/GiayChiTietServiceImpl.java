@@ -7,16 +7,16 @@ import com.example.demo.repository.GiayRepository;
 import com.example.demo.service.GiayChiTietService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import org.apache.poi.ss.usermodel.CellType;
-import org.apache.poi.ss.usermodel.Row;
-import org.apache.poi.ss.usermodel.Sheet;
-import org.apache.poi.ss.usermodel.Workbook;
+import jakarta.transaction.Transactional;
+import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,6 +40,9 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
 
     @Autowired
     private HangRepository hangRepository;
+
+    @Autowired
+    private KMCTProductRepository kmctProductRepository;
 
     @Override
     public List<ChiTietGiay> getAllChiTietGiay() {
@@ -113,65 +116,89 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
         return giayChiTietRepository.customSearchGCT(searchTerm);
     }
 
-    @Override
-    public void importDataFromExcel(InputStream excelFile) {
-        try (Workbook workbook = new XSSFWorkbook(excelFile)) {
-            Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên (index 0)
-
-            for (Row row : sheet) {
-                if (row.getRowNum() == 0) {
-                    // Bỏ qua hàng đầu tiên nếu nó là tiêu đề
-                    continue;
-                }
-                ChiTietGiay chiTietGiay = new ChiTietGiay();
-
-                // Đối tượng HinhAnh
-                String hinhAnhName = row.getCell(0).getStringCellValue();
-                HinhAnh hinhAnh = hinhAnhRepository.findByMaAnh(hinhAnhName);
-                chiTietGiay.setHinhAnh(hinhAnh);
-
-                // Đối tượng Giay
-                String giayName = row.getCell(1).getStringCellValue();
-                Giay giay = giayRepository.findByTenGiay(giayName);
-                chiTietGiay.setGiay(giay);
-
-                // Đối tượng Size
-                int soSize = (int) row.getCell(2).getNumericCellValue();
-                Size size = sizeRepository.findBySoSize(soSize);
-                chiTietGiay.setSize(size);
-
-                // Đối tượng MauSac
-                String mauSacName = row.getCell(3).getStringCellValue();
-                MauSac mauSac = mauSacRepository.findByTenMau(mauSacName);
-                chiTietGiay.setMauSac(mauSac);
-
-                //
-                if (row.getCell(4).getCellType() == CellType.NUMERIC) {
-                    chiTietGiay.setSoLuong((int) row.getCell(4).getNumericCellValue());
-                }
-
-                chiTietGiay.setSoTienTruocKhiGiam(row.getCell(5).getNumericCellValue());
-
-                if (row.getCell(6).getCellType() == CellType.NUMERIC) {
-                    chiTietGiay.setTrongLuong((int) row.getCell(6).getNumericCellValue());
-                }
-                if (row.getCell(7).getCellType() == CellType.NUMERIC) {
-                    chiTietGiay.setNamSX((int) row.getCell(7).getNumericCellValue());
-                }
-                if (row.getCell(8).getCellType() == CellType.NUMERIC) {
-                    chiTietGiay.setNamBH((int) row.getCell(8).getNumericCellValue());
-                }
-
-                chiTietGiay.setGiaBan(row.getCell(9).getNumericCellValue());
-
-                chiTietGiay.setTgThem(new Date());
-                chiTietGiay.setTrangThai(1);
+    @Transactional
+    public void importChiTietGiayFromExcel(InputStream excelFile) throws IOException {
+        try (Workbook workbook = WorkbookFactory.create(excelFile)) {
+            Sheet sheet = workbook.getSheetAt(0);
+            Iterator<Row> rowIterator = sheet.iterator();
+            if (rowIterator.hasNext()) {
+                rowIterator.next();
+            }
+            while (rowIterator.hasNext()) {
+                Row row = rowIterator.next();
+                ChiTietGiay chiTietGiay = createChiTietGiayFromRow(row);
                 giayChiTietRepository.save(chiTietGiay);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-            // Xử lý lỗi nếu cần
         }
+    }
+
+    private ChiTietGiay createChiTietGiayFromRow(Row row) {
+        ChiTietGiay chiTietGiay = new ChiTietGiay();
+
+        // Mã CTG (Giả sử là chuỗi)
+        chiTietGiay.setMaCTG(row.getCell(0).getStringCellValue());
+
+        // Size (Giả sử là số nguyên)
+        int soSize = (int) row.getCell(1).getNumericCellValue();
+        Size size = sizeRepository.findBySoSize(soSize);
+        chiTietGiay.setSize(size);
+
+        // Khuyến mãi chi tiết (Giả sử là chuỗi)
+        String tenKM = row.getCell(2).getStringCellValue();
+        KhuyenMaiChiTietCTG khuyenMaiChiTietCTG = kmctProductRepository.findByTenKM(tenKM);
+        chiTietGiay.setKhuyenMaiChiTietCTG(khuyenMaiChiTietCTG);
+
+        // Giày (Giả sử là chuỗi)
+        String giayName = row.getCell(3).getStringCellValue();
+        Giay giay = giayRepository.findByTenGiay(giayName);
+        chiTietGiay.setGiay(giay);
+
+        // Hình ảnh (Giả sử là chuỗi)
+        String hinhAnhName = row.getCell(4).getStringCellValue();
+        HinhAnh hinhAnh = hinhAnhRepository.findByMaAnh(hinhAnhName);
+        chiTietGiay.setHinhAnh(hinhAnh);
+
+        // Màu sắc (Giả sử là chuỗi)
+        String mauSacName = row.getCell(5).getStringCellValue();
+        MauSac mauSac = mauSacRepository.findByTenMau(mauSacName);
+        chiTietGiay.setMauSac(mauSac);
+
+        // Năm sản xuất (Giả sử là số nguyên)
+        chiTietGiay.setNamSX((int) row.getCell(6).getNumericCellValue());
+
+        // Năm bảo hành (Giả sử là số nguyên)
+        chiTietGiay.setNamBH((int) row.getCell(7).getNumericCellValue());
+
+        // Trọng lượng (Giả sử là số nguyên)
+        chiTietGiay.setTrongLuong((int) row.getCell(8).getNumericCellValue());
+
+        // Giá bán (Giả sử là số thập phân)
+        chiTietGiay.setGiaBan(row.getCell(9).getNumericCellValue());
+
+        // Số lượng (Giả sử là số nguyên)
+        chiTietGiay.setSoLuong((int) row.getCell(10).getNumericCellValue());
+
+        // Trạng thái (Giả sử là số nguyên)
+        chiTietGiay.setTrangThai((int) row.getCell(11).getNumericCellValue());
+
+        // Thời gian thêm (Giả sử là ngày tháng)
+        chiTietGiay.setTgThem(row.getCell(12).getDateCellValue());
+
+        // Thời gian sửa (Giả sử là ngày tháng)
+        chiTietGiay.setTgSua(row.getCell(13).getDateCellValue());
+
+        // Mã người sửa (Giả sử là chuỗi)
+        chiTietGiay.setMaNVSua(row.getCell(14).getStringCellValue());
+
+        // Số tiền trước khi giảm (Giả sử là số thập phân)
+        chiTietGiay.setSoTienTruocKhiGiam(row.getCell(15).getNumericCellValue());
+
+        // Lý do sửa (Giả sử là chuỗi)
+        chiTietGiay.setLyDoSua(row.getCell(16).getStringCellValue());
+
+        // Barcode (Giả sử là chuỗi)
+        chiTietGiay.setBarcode(row.getCell(17).getStringCellValue());
+        return chiTietGiay;
     }
 
     public List<Size> findDistinctSizeByGiayAndMauSac(Giay giay, MauSac mauSac) {

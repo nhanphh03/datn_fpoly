@@ -33,8 +33,7 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
             "ORDER BY so_luong_ban DESC;", nativeQuery = true)
     List<Object[]> spBanChay();
 
-    @Query(value = "select sum(Hoa_Don_Chi_Tiet.So_Luong*Hoa_Don_Chi_Tiet.don_gia_khi_giam) from hoa_don\n" +
-            "join hoa_don_chi_tiet on hoa_don.id_hd=hoa_don_chi_tiet.id_hd where month(tg_thanh_toan) = month(GETDATE()) and year(tg_thanh_toan) = year(GETDATE())",
+    @Query(value = "select sum(tong_tien) from hoa_don where month(tg_thanh_toan) = month(GETDATE()) and year(tg_thanh_toan) = year(GETDATE()) and trang_thai=1",
             nativeQuery = true) Double getDoanhThuThang();
 
     @Query(value = "select * from hoa_don_chi_tiet hdct join hoa_don hd on hdct.id_hd=hd.id_hd where hd.trang_thai=1",nativeQuery = true)
@@ -43,7 +42,7 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
     @Query(value = "select * from hoa_don_chi_tiet hdct join hoa_don hd on hdct.id_hd=hd.id_hd where hd.trang_thai=0",nativeQuery = true)
     List<String> getAllHoaDonChoThanhToan();
 
-    @Query(value = "select sum(don_gia_khi_giam*so_luong) from hoa_don_chi_tiet",nativeQuery = true)
+    @Query(value = "select sum(tong_tien) from hoa_don where trang_thai=1",nativeQuery = true)
     Double getTongTien();
 
     @Query(value = "select sum(so_luong) from hoa_don_chi_tiet where MONTH(tg_them) = 1",nativeQuery = true)
@@ -71,10 +70,10 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
     @Query(value = "select sum(so_luong) from hoa_don_chi_tiet where MONTH(tg_them) = 12",nativeQuery = true)
     Integer getThang12();
 
-    @Query(value = "select top 5 a.url1,g.ten_giay,ctg.gia_ban, sum(hdct.so_luong) as topsp from hoa_don_chi_tiet hdct join chi_tiet_giay ctg on hdct.id_ctg=ctg.id_chi_tiet_giay\n" +
-            "join giay g on ctg.id_giay=g.id_giay\n" +
-            "join hinh_anh a on ctg.id_hinh_anh=a.id_hinh_anh\n" +
-            "group by a.url1,g.ten_giay,ctg.gia_ban\n" +
-            "order by topsp desc",nativeQuery = true)
-    List<Object[]> getTop5();
+//    @Query(value = "select top 5 a.url1,g.ten_giay,ctg.gia_ban, sum(hdct.so_luong) as topsp from hoa_don_chi_tiet hdct join chi_tiet_giay ctg on hdct.id_ctg=ctg.id_chi_tiet_giay\n" +
+//            "join giay g on ctg.id_giay=g.id_giay\n" +
+//            "join hinh_anh a on ctg.id_hinh_anh=a.id_hinh_anh\n" +
+//            "group by a.url1,g.ten_giay,ctg.gia_ban\n" +
+//            "order by topsp desc",nativeQuery = true)
+//    List<Object[]> getTop5();
 }
