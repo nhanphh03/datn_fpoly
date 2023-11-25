@@ -4,6 +4,7 @@ import com.example.demo.model.*;
 import com.example.demo.repository.*;
 import com.example.demo.repository.GiayChiTietRepository;
 import com.example.demo.repository.GiayRepository;
+import com.example.demo.service.GHCTService;
 import com.example.demo.service.GiayChiTietService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -40,6 +41,9 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
 
     @Autowired
     private HangRepository hangRepository;
+
+    @Autowired
+    private GHCTService ghctService;
 
     @Override
     public List<ChiTietGiay> getAllChiTietGiay() {
@@ -185,6 +189,14 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
 
     public List<MauSac> findDistinctMauSacByGiay(Giay giay) {
         return giayChiTietRepository.findDistinctMauSacByGiayAndTrangThai(giay);
+    }
+
+    @Override
+    public void updatePriceCTGGHCT(ChiTietGiay chiTietGiay) {
+        GioHangChiTiet gioHangChiTiet = ghctService.findByCTSP(chiTietGiay);
+        gioHangChiTiet.setDonGia(gioHangChiTiet.getSoLuong()*chiTietGiay.getSoTienTruocKhiGiam());
+        gioHangChiTiet.setDonGiaKhiGiam(gioHangChiTiet.getSoLuong()*chiTietGiay.getGiaBan());
+        ghctService.addNewGHCT(gioHangChiTiet);
     }
 
     @Override
