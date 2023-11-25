@@ -215,4 +215,8 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
 
         return products;
     }
+    @Override
+    public ChiTietGiay findByMa(String ma) {
+        return giayChiTietRepository.findByMaCTG(ma);
+    }
 }

@@ -25,4 +25,6 @@ public interface HoaDonService {
     Boolean checkHoaDonGiamGia(HoaDon hoaDon, KhuyenMai khuyenMai);
 
     void saveKhuyenMai(KhuyenMai khuyenMai, HoaDon hoaDon, Double soTienGiam);
+
+    List<HoaDon>  getAllHoaDonOffLine();
 }

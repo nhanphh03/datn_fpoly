@@ -1,9 +1,11 @@
 package com.example.demo.controller;
 
 
+import com.example.demo.model.ChiTietGiay;
 import com.example.demo.model.ChucVu;
 import com.example.demo.model.NhanVien;
 import com.example.demo.service.ChucVuService;
+import com.example.demo.service.GiayChiTietService;
 import com.example.demo.service.NhanVienService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -12,6 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.Date;
+import java.util.List;
 
 @Controller
 public class LoginController {
@@ -29,6 +34,9 @@ public class LoginController {
     @Autowired
     private ChucVuService chucVuService;
 
+    @Autowired
+    private GiayChiTietService giayChiTietService;
+
     @GetMapping("/logout")
     public String logout(HttpServletRequest request, HttpSession session) {
         session.invalidate();
@@ -38,6 +46,14 @@ public class LoginController {
 
     @GetMapping("/login")
     private String getLoginAll(Model model) {
+//        List<ChiTietGiay> list = giayChiTietService.getAllChiTietGiay();
+//        Date date = new Date();
+//        String maCtg = "CTG00"+ date.getDate();
+//        int index = 0;
+//        for (ChiTietGiay chiTietGiay : list){
+//            chiTietGiay.setMaCTG(maCtg + index++);
+//            giayChiTietService.save(chiTietGiay);
+//        }
         return "/login";
     }
 

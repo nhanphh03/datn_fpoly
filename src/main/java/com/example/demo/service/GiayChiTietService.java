@@ -48,4 +48,6 @@ public interface GiayChiTietService {
 
     List<MauSac> findDistinctMauSacByGiay(Giay giay);
 
+    ChiTietGiay findByMa(String ma);
+
 }
