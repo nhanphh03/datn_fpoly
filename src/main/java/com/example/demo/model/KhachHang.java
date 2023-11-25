@@ -46,14 +46,12 @@ public class KhachHang {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngaySinh;
 
-    @Pattern(regexp = "0\\d{9}")
     @Column(name = "SDT_KH")
     private String sdtKH;
 
     @Column(name = "Anh_KH")
     private String AnhKH;
 
-    @Email
     @Column(name = "Email_KH")
     private String emailKH;
 
@@ -66,7 +64,7 @@ public class KhachHang {
     @Column(name = "anhKH_cccd")
     private String Anhcccd;
 
-    @Pattern(regexp = "^(\\d{6})(\\d{6})$")
+
     @Column(name = "CCCD_KH")
     private String CCCDKH;
 
@@ -74,11 +72,9 @@ public class KhachHang {
     private int trangThai;
 
     @Column(name = "tg_Them")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date tgThem;
 
     @Column(name = "tg_Sua")
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date tgSua;
 
 

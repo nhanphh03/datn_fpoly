@@ -324,7 +324,7 @@
             <div class="card">
                 <div class="card-body">
                     <div class="form-hidden-2" style="display: none">
-                        <form action="/manage/nhanVien/import" method="post" enctype="multipart/form-data">
+                        <form action="/manage/diaChi/import" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label> Upload Excel File</label>
                                 <input type="file" name="file" onchange="displaySelectedFileName()"/>
@@ -635,17 +635,17 @@
 </script>
 <script>
     //Mở form
-    document.getElementById("show-form-button").addEventListener("click", function () {
-        var form1 = document.querySelector(".hidden-form");
-        var form2 = document.querySelector(".form-hidden-2");
-        if (form1.style.display === "none" || form1.style.display === "" || form2.style.display === "block") {
-            $('.hidden-form').slideToggle("slow");
-            form1.style.display = "block";  // Hiển thị form
-            form2.style.display = "none";
-        } else {
-            form1.style.display = "none";  // Ẩn form
-        }
-    });
+    // document.getElementById("show-form-button").addEventListener("click", function () {
+    //     var form1 = document.querySelector(".hidden-form");
+    //     var form2 = document.querySelector(".form-hidden-2");
+    //     if (form1.style.display === "none" || form1.style.display === "" || form2.style.display === "block") {
+    //         $('.hidden-form').slideToggle("slow");
+    //         form1.style.display = "block";  // Hiển thị form
+    //         form2.style.display = "none";
+    //     } else {
+    //         form1.style.display = "none";  // Ẩn form
+    //     }
+    // });
     //
     document.getElementById("import-excel").addEventListener("click", function () {
         var form2 = document.querySelector(".form-hidden-2");

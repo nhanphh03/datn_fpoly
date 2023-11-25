@@ -503,9 +503,9 @@
                                 <td th:text="${items.tgThem}"/>
                                 <td th:text="${items.tgSua}"/>
                                 <td>
-                                    <!--                                    <a class="me-3" th:href="@{'/manage/giay/detail/' + ${items.idGiay}}">-->
-                                    <!--                                        <img src="/images/img/icons/eye.svg" alt="img"/>-->
-                                    <!--                                    </a>-->
+                                    <a class="me-3" th:href="@{'/manage/khach-hang/detail/' + ${items.idKH}}">
+                                        <img src="/images/img/icons/eye.svg" alt="img"/>
+                                    </a>
                                     <a class="me-3" th:href="@{'/manage/khach-hang/viewUpdate/' + ${items.idKH}}">
                                         <img src="/images/img/icons/edit.svg" alt="img"/>
                                     </a>
@@ -663,17 +663,17 @@
 </script>
 <script>
     //Mở form
-    document.getElementById("show-form-button").addEventListener("click", function () {
-        var form1 = document.querySelector(".hidden-form");
-        var form2 = document.querySelector(".form-hidden-2");
-        if (form1.style.display === "none" || form1.style.display === "" || form2.style.display === "block") {
-            $('.hidden-form').slideToggle("slow");
-            form1.style.display = "block";  // Hiển thị form
-            form2.style.display = "none";
-        } else {
-            form1.style.display = "none";  // Ẩn form
-        }
-    });
+    // document.getElementById("show-form-button").addEventListener("click", function () {
+    //     var form1 = document.querySelector(".hidden-form");
+    //     var form2 = document.querySelector(".form-hidden-2");
+    //     if (form1.style.display === "none" || form1.style.display === "" || form2.style.display === "block") {
+    //         $('.hidden-form').slideToggle("slow");
+    //         form1.style.display = "block";  // Hiển thị form
+    //         form2.style.display = "none";
+    //     } else {
+    //         form1.style.display = "none";  // Ẩn form
+    //     }
+    // });
     //
     document.getElementById("import-excel").addEventListener("click", function () {
         var form2 = document.querySelector(".form-hidden-2");

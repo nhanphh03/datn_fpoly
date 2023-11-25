@@ -31,5 +31,7 @@ public interface DiaChiKHService {
 
     DiaChiKH findByIdDiaChiKH(UUID idDCKH);
 
+    public List<DiaChiKH> getDiaChibyKhachHang(KhachHang khachHang);
+
 
 }
