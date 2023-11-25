@@ -7,6 +7,7 @@ import com.example.demo.repository.HinhAnhRepository;
 import com.example.demo.repository.MauSacRepository;
 import com.example.demo.repository.SizeRepository;
 import com.example.demo.service.*;
+import com.example.demo.service.impls.GiayChiTietServiceImpl;
 import com.lowagie.text.DocumentException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -66,6 +67,8 @@ public class GiayChiTietController {
     private HinhAnhRepository hinhAnhRepository;
     @Autowired
     private SizeRepository sizeRepository;
+    @Autowired
+    private GiayChiTietServiceImpl giayChiTietServiceImpl;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -1409,11 +1412,11 @@ public class GiayChiTietController {
         if (file != null && !file.isEmpty()) {
             try {
                 InputStream excelFile = file.getInputStream();
-                giayChiTietService.importDataFromExcel(excelFile); // Gọi phương thức nhập liệu từ Excel
+                giayChiTietServiceImpl.importChiTietGiayFromExcel(excelFile); // Gọi phương thức nhập liệu từ Excel
                 redirectAttributes.addFlashAttribute("message", true);
             } catch (Exception e) {
                 e.printStackTrace();
-                redirectAttributes.addFlashAttribute("importError", true);
+                return "Import Failed: " + e.getMessage();
                 // Xử lý lỗi
             }
         }
