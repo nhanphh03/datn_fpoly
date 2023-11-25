@@ -75,26 +75,18 @@
             <div class="header__top__hover">
               <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
               <ul>
-                <li><a th:href="@{'/buyer/setting'}" >Setting</a></li>
-                <li><a th:href="@{'/buyer/logout'}">Log out</a></li>
+                <li><a th:href="@{'/buyer/setting'}" >Cài đặt</a></li>
+                <li><a th:href="@{'/buyer/logout'}">Đăng xuất</a></li>
               </ul>
             </div>
 
             <!--            Buyer FullName End -->
 
-            <div class="header__top__links"  >
-              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Login</a>
-              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Register</a>
+            <div class="header__top__hover"  >
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Đăng nhập</a>
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Đăng ký</a>
             </div>
 
-            <div class="header__top__hover">
-              <span>EN<i class="arrow_carrot-down"></i></span>
-              <ul>
-                <li><a href="?language=vi">VI</a></li>
-                <li><a href="?language=ge">GE</a></li>
-                <li><a href="?language=en">EN</a></li>
-              </ul>
-            </div>
           </div>
         </div>
 

@@ -70,6 +70,12 @@ public class HoaDon {
     @Column(name = "tg_Ship")
     private Date tgShip;
 
+    @Column(name = "tg_Huy")
+    private Date tgHuy;
+
+    @Column(name = "ly_do_huy")
+    private String lyDoHuy;
+
     @Column(name = "tg_Nhan")
     private Date tgNhanDK;
 
