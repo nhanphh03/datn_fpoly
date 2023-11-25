@@ -51,4 +51,6 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
 
     @Query(value = "select sum(so_luong) from chi_tiet_giay",nativeQuery = true)
     Integer getTongGiay();
+
+    ChiTietGiay findByMaCTG(String ma);
 }

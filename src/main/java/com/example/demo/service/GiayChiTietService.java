@@ -34,8 +34,6 @@ public interface GiayChiTietService {
 
     public List<ChiTietGiay> fillterGCT(String searchTerm);
 
-    public void importDataFromExcel(InputStream excelFile);
-
     public List<ChiTietGiay> findByGiay(Giay giay);
 
     public List<ChiTietGiay> findByMauSac(MauSac mauSac);
@@ -47,5 +45,9 @@ public interface GiayChiTietService {
     List<ChiTietGiay> findByMauSacAndGiay(MauSac mauSac, Giay giay, int trangThai);
 
     List<MauSac> findDistinctMauSacByGiay(Giay giay);
+
+    ChiTietGiay findByMa(String ma);
+  
+    void updatePriceCTGGHCT(ChiTietGiay chiTietGiay);
 
 }

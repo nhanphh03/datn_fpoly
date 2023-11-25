@@ -2,6 +2,8 @@ package com.example.demo.controller;
 
 import com.example.demo.repository.*;
 
+import com.example.demo.service.CTGViewModelService;
+import com.example.demo.viewModel.CTGViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +18,7 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Controller
-@RequestMapping("ban-hang")
+@RequestMapping("manage")
 public class ThongKeController {
     @Autowired
     private KhachHangRepository khachHangRepository;
@@ -30,6 +32,8 @@ public class ThongKeController {
     private HinhAnhRepository hinhAnhRepository;
     @Autowired
     private GiayRepository giayRepository;
+    @Autowired
+    private CTGViewModelService ctgViewModelService;
     @GetMapping("/thongke")
     private String getTong(Model model){
         model.addAttribute("tong",khachHangRepository.getTongKH());
@@ -46,8 +50,11 @@ public class ThongKeController {
         model.addAttribute("dtt",formatdtt);
 //
 //        // top 5 sp bán chạy
-            
-        System.out.println(hoaDonChiTietRepository.getTop5().get(1)+"Đã in tc");
+        List<CTGViewModel> listCTGModelBestSeller = ctgViewModelService.getAllOrderBestSeller();
+        List<CTGViewModel> top5CTGModelBestSeller = listCTGModelBestSeller.subList(0, Math.min(listCTGModelBestSeller.size(), 5));
+
+        model.addAttribute("spBanChay",top5CTGModelBestSeller);
+
 //        //chỉ số ở hóa đơn
         model.addAttribute("hdht",hoaDonRepository.getAllHoaDonDaThanhToan());
         model.addAttribute("hdc",hoaDonRepository.getAllHoaDonCho());

@@ -18,6 +18,9 @@ public interface HoaDonService {
 
     List<HoaDon> listHoaDonKhachHangAndTrangThaiOnline(KhachHang khachHang, int trangThai);
 
+    List<HoaDon> listHoaDonKhachHangAndTrangThaiOnlineAndLoaiThanhToan(KhachHang khachHang, int trangThai, int loaiThanhToan);
+
+
     List<HoaDon> findByKhachHang(KhachHang khachHang);
 
     Double tinhTienGiamGiaTaiQuay(HoaDon hoaDon, KhuyenMai khuyenMai);
@@ -25,4 +28,6 @@ public interface HoaDonService {
     Boolean checkHoaDonGiamGia(HoaDon hoaDon, KhuyenMai khuyenMai);
 
     void saveKhuyenMai(KhuyenMai khuyenMai, HoaDon hoaDon, Double soTienGiam);
+
+    List<HoaDon>  getAllHoaDonOffLine();
 }

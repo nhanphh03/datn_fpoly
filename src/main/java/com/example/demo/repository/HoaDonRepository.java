@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @Repository
 public interface HoaDonRepository extends JpaRepository<HoaDon , UUID> {
-    @Query(value = "select * from Hoa_Don where trang_thai = 3 ",nativeQuery = true)
+    @Query(value = "select * from Hoa_Don where trang_thai = 3 and loai_hd = 1 ",nativeQuery = true)
     List<HoaDon> listChuaThanhToan();
 //    @Query(value = "select hd  from HoaDon hd order by hd.tgTao desc")
 //    @Query(value = "select * from hoa_don order by tg_tao desc",nativeQuery = true)
@@ -27,8 +27,11 @@ public interface HoaDonRepository extends JpaRepository<HoaDon , UUID> {
             "from hoa_don where trang_thai =1 ",nativeQuery = true)
     Integer getAllHoaDonDaThanhToan();
 
-    List<HoaDon> findByKhachHangAndLoaiHDAndTrangThai(KhachHang khachHang,int loaiHD, int trangThai);
+    List<HoaDon> findByKhachHangAndLoaiHDAndTrangThaiOrderByTgTaoDesc(KhachHang khachHang,int loaiHD, int trangThai);
 
-    List<HoaDon> findByKhachHangAndLoaiHDAndTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThai(KhachHang khachHang,int loaiHD, int trangThai1, int trangThai2, int trangThai3, int trangThai4, int trangThai5);
+    List<HoaDon> findByKhachHangAndLoaiHDAndTrangThaiAndHinhThucThanhToanOrderByTgTaoDesc(KhachHang khachHang, int loaiHD, int trangThai, int hinhThucThanhToan);
 
+    List<HoaDon> findByKhachHangAndLoaiHDAndTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrderByTgTaoDesc(KhachHang khachHang,int loaiHD, int trangThai1, int trangThai2, int trangThai3, int trangThai4, int trangThai5, int trangThai6);
+
+    List<HoaDon> findHoaDonByLoaiHDOrderByTgTaoDesc(int loaiHoaDon);
 }
