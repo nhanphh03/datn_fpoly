@@ -87,19 +87,11 @@
 
             <!--            Buyer FullName End -->
 
-            <div class="header__top__links"  >
+            <div class="header__top__hover"  >
               <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Đăng nhập</a>
               <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Đăng ký</a>
             </div>
 
-            <div class="header__top__hover">
-              <span>EN<i class="arrow_carrot-down"></i></span>
-              <ul>
-                <li><a href="?language=vi">VI</a></li>
-                <li><a href="?language=ge">GE</a></li>
-                <li><a href="?language=en">EN</a></li>
-              </ul>
-            </div>
           </div>
         </div>
 
