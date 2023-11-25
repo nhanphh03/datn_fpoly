@@ -1259,6 +1259,11 @@ public class GiayChiTietController {
             chiTietGiayDb.setTrangThai(chiTietGiay.getTrangThai());
             chiTietGiayDb.setTrongLuong(chiTietGiay.getTrongLuong());
             giayChiTietService.save(chiTietGiayDb);
+
+//            Nhan update
+            giayChiTietService.updatePriceCTGGHCT(chiTietGiayDb);
+//            End
+
             redirectAttributes.addFlashAttribute("message", true);
         }
         return "redirect:/manage/giay-chi-tiet";
@@ -1326,6 +1331,11 @@ public class GiayChiTietController {
             chiTietGiayDb.setTrangThai(chiTietGiay.getTrangThai());
             chiTietGiayDb.setTrongLuong(chiTietGiay.getTrongLuong());
             giayChiTietService.save(chiTietGiayDb);
+
+//            Nhan update
+            giayChiTietService.updatePriceCTGGHCT(chiTietGiayDb);
+//            End
+
             redirectAttributes.addFlashAttribute("message", true);
         }
         return link1;

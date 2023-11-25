@@ -77,12 +77,9 @@
 
         <div class="col-lg-3 d-flex align-items-center">
           <div>
-
             <div class="header__top__links"  >
               <a th:href="@{'/buyer/purchase'}">Đơn mua</a>
             </div>
-
-
             <!--        Buyer FullName Begin    -->
             <div class="header__top__hover">
               <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
@@ -91,17 +88,9 @@
                 <li><a th:href="@{'/buyer/logout'}">Đăng xuất</a></li>
               </ul>
             </div>
-
             <!--            Buyer FullName End -->
-
-
             <div class="header__top__hover">
-              <span>EN<i class="arrow_carrot-down"></i></span>
-              <ul>
-                <li><a href="?language=vi">VI</a></li>
-                <li><a href="?language=ge">GE</a></li>
-                <li><a href="?language=en">EN</a></li>
-              </ul>
+
             </div>
           </div>
         </div>
@@ -315,7 +304,7 @@
                 <th style="width: 175px;">Phân loại hàng</th>
                 <th style="width: 175px;">Số lượng</th>
                 <th style="width: 140px;">Tổng</th>
-                <th class="cart__close">Hành dồng</th>
+                <th class="cart__close">Thao tác</th>
               </tr>
               </thead>
             </table>
@@ -342,7 +331,7 @@
                           <h6 style="margin-top: -22px;" th:text="${x.chiTietGiay.giay.tenGiay}"></h6>
                         </a>
                         <h5 class="cart__price" th:text="'₫' +  ${#numbers.formatDecimal(x.chiTietGiay.giaBan, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
-                        <h5 style="color: #b7b7b7; font-size: 15px; font-weight: 400; text-decoration: line-through;"></h5>
+                        <h5 th:if="${x.chiTietGiay.giaBan} != ${x.chiTietGiay.soTienTruocKhiGiam}" style="color: #b7b7b7; font-size: 15px; font-weight: 400; text-decoration: line-through;" th:text="'₫' +  ${#numbers.formatDecimal(x.chiTietGiay.soTienTruocKhiGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
                       </div>
 
                     </td>
@@ -902,7 +891,29 @@
             })
             .catch(error => {
             });
+    var quantityItem = input.closest('.quantity__item');
+    var priceElement = quantityItem.getElementsByClassName('cart__price')[0];
+    // Kiểm tra xem priceElement có giá trị không
+    if (priceElement) {
+      var price = parseFloat(priceElement.innerText.replace('₫', '').replace(',', ''));
+
+      var newTotalAmount = quantity * price;
+
+      var totalAmountElement = input.closest('tr').querySelector('.totalAmount');
+      totalAmountElement.innerText = '₫' + formatCurrency(newTotalAmount);
+
+      console.log(newTotalAmount);
+    } else {
+      console.error('Price element not found');
+    }
+
   }
+
+  function formatCurrency(amount) {
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  }
+
+
 </script>
 <!--Update quantity product in cart END -->
 
@@ -955,6 +966,9 @@
   });
 </script>
 <!-- Check choose all product End -->
+
+
+
 
 </body>
 
