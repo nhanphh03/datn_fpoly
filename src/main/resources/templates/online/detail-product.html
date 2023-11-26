@@ -426,11 +426,11 @@
               <div class="product__details__option">
                 <div class="product__details__option__size" style="margin-left: 50px">
 
-                  <div th:if="${sizeBy1Mau}" class="label-container" style="display: flex; flex-wrap: wrap; justify-content: center; ">
+                  <div class="label-container" style="display: flex; flex-wrap: wrap; justify-content: center; ">
                     <th:block th:each="x : ${listSizeCTG}">
                       <label th:name="${x[1]}" class="label" style="width: 200px; margin: 5px; font-weight: unset; font-size: small;height: 40px;" th:text="${x[0]}">
                       </label>
-                      <a th:href="@{'/buyer/receiveMail/' +${x[1]}}"><img th:if="${x[2]}" src="/images/img/icon/view.png"></a>
+                      <a th:if="${x[2]}" th:href="@{'/buyer/receiveMail/' +${x[1]}}"><img src="/images/img/icon/view.png"></a>
                     </th:block>
                   </div>
 

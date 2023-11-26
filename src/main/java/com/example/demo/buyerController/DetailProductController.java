@@ -92,15 +92,10 @@ public class DetailProductController {
         List<MauSac> listMauSacByGiay = giayChiTietService.findDistinctMauSacByGiay(giay);
 
         if (listMauSacByGiay.size() == 1){
-
             model.addAttribute("CTGBy1Mau", true);
-            model.addAttribute("sizeBy1Mau", true);
-            model.addAttribute("listSizeCTG", allSizeByGiay);
             model.addAttribute("tenMau", mau.getTenMau());
         }else {
             model.addAttribute("CTGByMoreMau", true);
-            model.addAttribute("sizeBy1Mau", true);
-            model.addAttribute("listSizeCTG", allSizeByGiay);
             model.addAttribute("listMauSacByGiay", listMauSacByGiay);
         }
 
@@ -135,6 +130,7 @@ public class DetailProductController {
         model.addAttribute("hinhAnh", hinhAnhByGiayAndMau);
         model.addAttribute("idHeartMau", mau.getIdMau());
         model.addAttribute("listMauSacByGiay", listMauSacByGiay);
+        model.addAttribute("listSizeCTG", allSizeByGiay);
 
         addToLuotXemFA(khachHang, mau, giay, minPrice, sumCTGByGiay, 1);
         model.addAttribute(maMau, "true");
@@ -165,13 +161,9 @@ public class DetailProductController {
 
         if (listMauSacByGiay.size() == 1){
             model.addAttribute("CTGBy1Mau", true);
-            model.addAttribute("sizeBy1Mau", true);
-            model.addAttribute("listSizeCTG", listCTGByGiay);
             model.addAttribute("tenMau", mau.getTenMau());
         }else {
             model.addAttribute("CTGByMoreMau", true);
-            model.addAttribute("sizeBy1Mau", true);
-            model.addAttribute("listSizeCTG", listCTGByGiay);
             model.addAttribute("listMauSacByGiay", listMauSacByGiay);
         }
 
@@ -204,6 +196,7 @@ public class DetailProductController {
         model.addAttribute("product", giay);
         model.addAttribute("minPrice", minPrice);
         model.addAttribute("maxPrice", maxPrice);
+        model.addAttribute("listSizeCTG", listCTGByGiay);
 
         model.addAttribute("sunProductAvaible", sumCTGByGiay);
         model.addAttribute("listProducts", listCTGByGiay);

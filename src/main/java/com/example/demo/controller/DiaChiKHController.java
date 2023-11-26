@@ -99,35 +99,10 @@ public class DiaChiKHController {
 
     @GetMapping("/dia-chi/viewAdd")
     public String viewAddDiaChi(Model model
-            , @ModelAttribute("maDCError") String maDCError
-            , @ModelAttribute("tenDCError") String tenDCError
-            , @ModelAttribute("tenNguoiNhanError") String tenNguoiNhanError
-            , @ModelAttribute("xaPhuongError") String xaPhuongError
-            , @ModelAttribute("quanHuyenError") String quanHuyenError
-            , @ModelAttribute("tinhTPError") String tinhTPError
-            , @ModelAttribute("moTaError") String moTaError
-            , @ModelAttribute("diaChiChiTietError") String diaChiChiTietError
-            , @ModelAttribute("mienError") String mienError
-            , @ModelAttribute("loaiError") String loaiError
-            , @ModelAttribute("sdtNguoiNhanError") String sdtNguoiNhanError
-            , @ModelAttribute("khachHangError") String khachHangError
             , @ModelAttribute("errorDC") String errorDC, @ModelAttribute("userInput") DiaChiKH userInputDC
-
             , @ModelAttribute("messageKH") String messageKH
-            , @ModelAttribute("maKHError") String maKHError
-            , @ModelAttribute("tenKHError") String tenKHError
-            , @ModelAttribute("ngaySinhError") String ngaySinhError
-            , @ModelAttribute("sdtKHError") String sdtKHError
-            , @ModelAttribute("emailKHError") String emailKHError
-            , @ModelAttribute("diaChiError") String diaChiError
-            , @ModelAttribute("CCCDKHError") String CCCDKHError
-            , @ModelAttribute("matKhauError") String matKhauError
             , @ModelAttribute("errorKH") String errorKH, @ModelAttribute("userInput") KhachHang userInputKH
-
             , @ModelAttribute("messageLKH") String messageLKH
-            , @ModelAttribute("maLKHError") String maLKHError
-            , @ModelAttribute("tenLKHError") String tenLKHError
-            , @ModelAttribute("soDiemError") String soDiemError
             , @ModelAttribute("errorLKH") String errorLKH, @ModelAttribute("userInput") LoaiKhachHang userInputLKH
             , @ModelAttribute("Errormessage") String Errormessage
             , @ModelAttribute("ErrormessageKH") String ErrormessageKH
@@ -143,44 +118,6 @@ public class DiaChiKHController {
         model.addAttribute("diaChi", new DiaChiKH());
         model.addAttribute("loaiKhachHangAdd", new LoaiKhachHang());
         model.addAttribute("khachHangAdd", new KhachHang());
-        //
-        if (maDCError == null || !"maDCError".equals(errorDC)) {
-            model.addAttribute("maDCError", false);
-        }
-        if (tenDCError == null || !"tenDCError".equals(errorDC)) {
-            model.addAttribute("tenDCError", false);
-        }
-        if (tenNguoiNhanError == null || !"tenNguoiNhanError".equals(errorDC)) {
-            model.addAttribute("tenNguoiNhanError", false);
-        }
-        if (xaPhuongError == null || !"xaPhuongError".equals(errorDC)) {
-            model.addAttribute("xaPhuongError", false);
-        }
-
-        if (quanHuyenError == null || !"quanHuyenError".equals(errorDC)) {
-            model.addAttribute("quanHuyenError", false);
-        }
-        if (tinhTPError == null || !"tinhTPError".equals(errorDC)) {
-            model.addAttribute("tinhTPError", false);
-        }
-        if (moTaError == null || !"moTaError".equals(errorDC)) {
-            model.addAttribute("moTaError", false);
-        }
-        if (diaChiChiTietError == null || !"diaChiChiTietError".equals(errorDC)) {
-            model.addAttribute("diaChiChiTietError", false);
-        }
-        if (mienError == null || !"mienError".equals(errorDC)) {
-            model.addAttribute("mienError", false);
-        }
-        if (loaiError == null || !"loaiError".equals(errorDC)) {
-            model.addAttribute("loaiError", false);
-        }
-        if (sdtNguoiNhanError == null || !"sdtNguoiNhanError".equals(errorDC)) {
-            model.addAttribute("sdtNguoiNhanError", false);
-        }
-        if (khachHangError == null || !"khachHangError".equals(errorDC)) {
-            model.addAttribute("khachHangError", false);
-        }
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInputDC != null) {
             model.addAttribute("diaChi", userInputDC);
@@ -189,30 +126,6 @@ public class DiaChiKHController {
         if (messageKH == null || !"true".equals(messageKH)) {
             model.addAttribute("messageKH", false);
         }
-        if (maKHError == null || !"maKHError".equals(errorKH)) {
-            model.addAttribute("maKHError", false);
-        }
-        if (tenKHError == null || !"tenKHError".equals(errorKH)) {
-            model.addAttribute("tenKHError", false);
-        }
-        if (ngaySinhError == null || !"ngaySinhError".equals(errorKH)) {
-            model.addAttribute("ngaySinhError", false);
-        }
-        if (sdtKHError == null || !"sdtKHError".equals(errorKH)) {
-            model.addAttribute("sdtKHError", false);
-        }
-        if (emailKHError == null || !"emailKHError".equals(errorKH)) {
-            model.addAttribute("emailKHError", false);
-        }
-        if (diaChiError == null || !"diaChiError".equals(errorKH)) {
-            model.addAttribute("diaChiError", false);
-        }
-        if (CCCDKHError == null || !"CCCDKHError".equals(errorKH)) {
-            model.addAttribute("CCCDKHError", false);
-        }
-        if (matKhauError == null || !"matKhauError".equals(errorKH)) {
-            model.addAttribute("matKhauError", false);
-        }
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInputKH != null) {
             model.addAttribute("khachHangAdd", userInputKH);
@@ -220,15 +133,6 @@ public class DiaChiKHController {
         //add LKH
         if (messageLKH == null || !"true".equals(messageLKH)) {
             model.addAttribute("messageLKH", false);
-        }
-        if (maLKHError == null || !"maLKHError".equals(errorLKH)) {
-            model.addAttribute("maLKHError", false);
-        }
-        if (tenLKHError == null || !"tenLKHError".equals(errorLKH)) {
-            model.addAttribute("tenLKHError", false);
-        }
-        if (soDiemError == null || !"soDiemError".equals(errorLKH)) {
-            model.addAttribute("soDiemError", false);
         }
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInputLKH != null) {
@@ -251,7 +155,6 @@ public class DiaChiKHController {
     @PostMapping("/dia-chi/viewAdd/add")
     public String adddiachi(@Valid  @ModelAttribute("diaChi") DiaChiKH diaChiKH, BindingResult result, Model model
             , RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) {
             List<KhachHang> khachHangs = khachHangService.getAllKhachHang();
             Collections.sort(khachHangs, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
             model.addAttribute("khachHang", khachHangs);
@@ -264,58 +167,7 @@ public class DiaChiKHController {
             model.addAttribute("khachHangAdd", new KhachHang());
             model.addAttribute("loaiKhachHangAdd", new LoaiKhachHang());
 
-            //
-            if (result.hasFieldErrors("sdtNguoiNhan")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "sdtNguoiNhanError");
-            }
-            if (result.hasFieldErrors("loai")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "loaiError");
-            }
-            if (result.hasFieldErrors("mien")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "mienError");
-            }
-            if (result.hasFieldErrors("diaChiChiTiet")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "diaChiChiTietError");
-            }
-            if (result.hasFieldErrors("moTa")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "moTaError");
-            }
-            if (result.hasFieldErrors("xaPhuong")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "xaPhuongError");
-            }
-            if (result.hasFieldErrors("quanHuyen")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "quanHuyenError");
-            }
-            if (result.hasFieldErrors("tinhTP")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "tinhTPError");
-            }
-            if (result.hasFieldErrors("tenNguoiNhan")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "tenNguoiNhanError");
-            }
-            if (result.hasFieldErrors("tenDC")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "tenDCError");
-            }
-            if (result.hasFieldErrors("maDC")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "maDCError");
-            }
-            if (result.hasFieldErrors("khachHang")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "khachHangError");
-            }
-            return "redirect:/manage/dia-chi/viewAdd";
-        }
-        //
+           //
         DiaChiKH existingDChi = diaChiRepsitory.findByMaDC(diaChiKH.getMaDC());
         if (existingDChi != null) {
             redirectAttributes.addFlashAttribute("userInput", diaChiKH);
@@ -332,47 +184,6 @@ public class DiaChiKHController {
     @PostMapping("/dia-chi/khach-hang/viewAdd/add")
     public String addkhachHang(@Valid @ModelAttribute("khachHangAdd") KhachHang khachHang
             , BindingResult result, RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) {
-            if (result.hasFieldErrors("matKhau")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "matKhauError");
-            }
-            if (result.hasFieldErrors("CCCDKH")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "CCCDKHError");
-            }
-            if (result.hasFieldErrors("diaChi")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "diaChiError");
-            }
-            if (result.hasFieldErrors("emailKH")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "emailKHError");
-            }
-            if (result.hasFieldErrors("sdtKH")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "sdtKHError");
-            }
-            if (result.hasFieldErrors("ngaySinh")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "ngaySinhError");
-            }
-            if (result.hasFieldErrors("hoTenKH")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "tenKHError");
-            }
-            if (result.hasFieldErrors("maKH")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "maKHError");
-            }
-            if (result.hasFieldErrors("loaiKhachHang")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "loaiKhachHangError");
-            }
-            redirectAttributes.addFlashAttribute("message", true);
-            return "redirect:/manage/dia-chi/viewAdd";
-        }
-        //
         KhachHang existingKH = khachHangRepository.findByMaKH(khachHang.getMaKH());
         if (existingKH != null) {
             redirectAttributes.addFlashAttribute("userInput", khachHang);
@@ -385,6 +196,18 @@ public class DiaChiKHController {
             redirectAttributes.addFlashAttribute("ErrormessageeEmail", true);
             return "redirect:/manage/dia-chi/viewAdd";
         }
+        KhachHang existingKH2 = khachHangRepository.findByCCCDKH(khachHang.getCCCDKH());
+        if (existingKH2 != null ) {
+            redirectAttributes.addFlashAttribute("userInput", khachHang);
+            redirectAttributes.addFlashAttribute("ErrormessageCCCD", true);
+            return "redirect:/manage/dia-chi/viewAdd";
+        }
+        KhachHang existingKH3 = khachHangRepository.findBySdtKH(khachHang.getSdtKH());
+        if (existingKH3 != null ) {
+            redirectAttributes.addFlashAttribute("userInput", khachHang);
+            redirectAttributes.addFlashAttribute("ErrormessageSDT", true);
+            return "redirect:/manage/dia-chi/viewAdd";
+        }
         //
         khachHang.setTgThem(new Date());
         khachHang.setTrangThai(1);
@@ -395,22 +218,6 @@ public class DiaChiKHController {
     @PostMapping("/dia-chi/khach-hang/loai-khach-hang/viewAdd/add")
     public String addLoaiKhachHang(@Valid @ModelAttribute("loaiKhachHangAdd") LoaiKhachHang loaiKhachHang
             , BindingResult result, RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) {
-            if (result.hasFieldErrors("maLKH")) {
-                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
-                redirectAttributes.addFlashAttribute("errorLKH", "maLKHError");
-            }
-            if (result.hasFieldErrors("tenLKH")) {
-                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
-                redirectAttributes.addFlashAttribute("errorLKH", "tenLKHError");
-            }
-            if (result.hasFieldErrors("soDiem")) {
-                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
-                redirectAttributes.addFlashAttribute("errorLKH", "soDiemError");
-            }
-            redirectAttributes.addFlashAttribute("message", true);
-            return "redirect:/manage/dia-chi/viewAdd";
-        }
         //
         LoaiKhachHang existingLKH = loaiKhachHangRepository.findByMaLKH(loaiKhachHang.getMaLKH());
         if (existingLKH != null) {
@@ -435,21 +242,8 @@ public class DiaChiKHController {
         return "redirect:/manage/dia-chi";
     }
 
-
     @GetMapping("/dia-chi/viewUpdate/{id}")
     public String viewUpdatediaChi(@PathVariable UUID id, Model model
-            , @ModelAttribute("maDCError") String maDCError
-            , @ModelAttribute("tenDCError") String tenDCError
-            , @ModelAttribute("tenNguoiNhanError") String tenNguoiNhanError
-            , @ModelAttribute("xaPhuongError") String xaPhuongError
-            , @ModelAttribute("quanHuyenError") String quanHuyenError
-            , @ModelAttribute("tinhTPError") String tinhTPError
-            , @ModelAttribute("moTaError") String moTaError
-            , @ModelAttribute("diaChiChiTietError") String diaChiChiTietError
-            , @ModelAttribute("mienError") String mienError
-            , @ModelAttribute("loaiError") String loaiError
-            , @ModelAttribute("sdtNguoiNhanError") String sdtNguoiNhanError
-            , @ModelAttribute("khachHangError") String khachHangError
             , @ModelAttribute("errorDC") String errorDC, @ModelAttribute("userInput") DiaChiKH userInputDC
             , @ModelAttribute("Errormessage") String Errormessage
             , @ModelAttribute("ErrormessageKH") String ErrormessageKH) {
@@ -461,44 +255,6 @@ public class DiaChiKHController {
         model.addAttribute("khachHang", khachHangs);
         //
         model.addAttribute("khachHangAdd", new KhachHang());
-        //
-        if (maDCError == null || !"maDCError".equals(errorDC)) {
-            model.addAttribute("maDCError", false);
-        }
-        if (tenDCError == null || !"tenDCError".equals(errorDC)) {
-            model.addAttribute("tenDCError", false);
-        }
-        if (tenNguoiNhanError == null || !"tenNguoiNhanError".equals(errorDC)) {
-            model.addAttribute("tenNguoiNhanError", false);
-        }
-        if (xaPhuongError == null || !"xaPhuongError".equals(errorDC)) {
-            model.addAttribute("xaPhuongError", false);
-        }
-
-        if (quanHuyenError == null || !"quanHuyenError".equals(errorDC)) {
-            model.addAttribute("quanHuyenError", false);
-        }
-        if (tinhTPError == null || !"tinhTPError".equals(errorDC)) {
-            model.addAttribute("tinhTPError", false);
-        }
-        if (moTaError == null || !"moTaError".equals(errorDC)) {
-            model.addAttribute("moTaError", false);
-        }
-        if (diaChiChiTietError == null || !"diaChiChiTietError".equals(errorDC)) {
-            model.addAttribute("diaChiChiTietError", false);
-        }
-        if (mienError == null || !"mienError".equals(errorDC)) {
-            model.addAttribute("mienError", false);
-        }
-        if (loaiError == null || !"loaiError".equals(errorDC)) {
-            model.addAttribute("loaiError", false);
-        }
-        if (sdtNguoiNhanError == null || !"sdtNguoiNhanError".equals(errorDC)) {
-            model.addAttribute("sdtNguoiNhanError", false);
-        }
-        if (khachHangError == null || !"khachHangError".equals(errorDC)) {
-            model.addAttribute("khachHangError", false);
-        }
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInputDC != null) {
             model.addAttribute("diaChiUpdate", userInputDC);
@@ -513,62 +269,8 @@ public class DiaChiKHController {
 
     @PostMapping("/dia-chi/viewUpdate/{id}")
     public String updatediaChi(@PathVariable UUID id, @ModelAttribute("diaChi") DiaChiKH diaChiKH
-            , BindingResult result, RedirectAttributes redirectAttributes) {
+            , RedirectAttributes redirectAttributes) {
         DiaChiKH diaChiKHdb = diaChiKHService.getByIdDiaChikh(id);
-        UUID idDC = (UUID) session.getAttribute("id");
-        String link = "redirect:/manage/dia-chi/viewUpdate/" + idDC;
-        if (result.hasErrors()) {
-            if (result.hasFieldErrors("sdtNguoiNhan")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "sdtNguoiNhanError");
-            }
-            if (result.hasFieldErrors("loai")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "loaiError");
-            }
-            if (result.hasFieldErrors("mien")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "mienError");
-            }
-            if (result.hasFieldErrors("diaChiChiTiet")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "diaChiChiTietError");
-            }
-            if (result.hasFieldErrors("moTa")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "moTaError");
-            }
-            if (result.hasFieldErrors("tinhTP")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "tinhTPError");
-            }
-            if (result.hasFieldErrors("quanHuyen")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "quanHuyenError");
-            }
-            if (result.hasFieldErrors("xaPhuong")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "xaPhuongError");
-            }
-            if (result.hasFieldErrors("tenNguoiNhan")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "tenNguoiNhanError");
-            }
-            if (result.hasFieldErrors("tenDC")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "tenDCError");
-            }
-            if (result.hasFieldErrors("maDC")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "maDCError");
-            }
-            if (result.hasFieldErrors("khachHang")) {
-                redirectAttributes.addFlashAttribute("userInput", diaChiKH);
-                redirectAttributes.addFlashAttribute("errorDC", "khachHangError");
-            }
-            return link;
-        }
-
         if (diaChiKHdb != null) {
             diaChiKHdb.setMaDC(diaChiKH.getMaDC());
             diaChiKHdb.setTenDC(diaChiKH.getTenDC());
