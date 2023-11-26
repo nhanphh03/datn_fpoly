@@ -118,4 +118,9 @@ public class DiaChiServicelmpl implements DiaChiKHService {
         return diaChiRepsitory.findById(idDCKH).orElse(null);
     }
 
+    @Override
+    public List<DiaChiKH> getDiaChibyKhachHang(KhachHang khachHang) {
+        return diaChiRepsitory.findByKhachHang(khachHang);
+    }
+
 }

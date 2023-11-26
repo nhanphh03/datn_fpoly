@@ -1,20 +1,16 @@
 package com.example.demo.controller;
 
 import com.example.demo.config.ExcelExporterKhachHang;
-import com.example.demo.config.ExcelExporterNhanVien;
 import com.example.demo.config.PDFExporterKhachHang;
-import com.example.demo.config.PDFExporterNhanVien;
-import com.example.demo.model.ChucVu;
+import com.example.demo.model.DiaChiKH;
 import com.example.demo.model.KhachHang;
 import com.example.demo.model.LoaiKhachHang;
-import com.example.demo.model.NhanVien;
 import com.example.demo.repository.KhachHangRepository;
 import com.example.demo.repository.LoaiKhachHangRepository;
 import com.example.demo.service.DiaChiKHService;
 import com.example.demo.service.KhachHangService;
 import com.example.demo.service.LoaiKhachHangService;
 import com.lowagie.text.DocumentException;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
@@ -74,13 +70,13 @@ public class KhachHangController {
     public String dsKhachHang(Model model, @ModelAttribute("message") String message) {
         List<KhachHang> khachHangs = khachHangService.getAllKhachHang();
         List<LoaiKhachHang> loaiKhachHangs = loaiKhachHangService.getAllLoaiKhachHang();
-        for (KhachHang khachHangItem : khachHangs) {
-            if (khachHangItem.getLoaiKhachHang().getTrangThai() == 0) {
-                khachHangItem.setTrangThai(0);
-                khachHangService.save(khachHangItem);
-            }
-        }
-        Collections.sort(khachHangs, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+//        for (KhachHang khachHangItem : khachHangs) {
+//            if (khachHangItem.getLoaiKhachHang().getTrangThai() == 0) {
+//                khachHangItem.setTrangThai(0);
+//                khachHangService.save(khachHangItem);
+//            }
+//        }
+//        Collections.sort(khachHangs, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
         model.addAttribute("khachHang", khachHangs);
         model.addAttribute("loaiKhachHang", loaiKhachHangs);
         if (message == null || !"true".equals(message)) {
@@ -91,21 +87,9 @@ public class KhachHangController {
 
     @GetMapping("/khach-hang/viewAdd")
     public String viewAddkhachHang(Model model
-            , @ModelAttribute("maKHError") String maKHError
-            , @ModelAttribute("tenKHError") String tenKHError
-            , @ModelAttribute("ngaySinhError") String ngaySinhError
-            , @ModelAttribute("sdtKHError") String sdtKHError
-            , @ModelAttribute("emailKHError") String emailKHError
-            , @ModelAttribute("diaChiError") String diaChiError
-            , @ModelAttribute("CCCDKHError") String CCCDKHError
-            , @ModelAttribute("matKhauError") String matKhauError
-            , @ModelAttribute("loaiKhachHangError") String loaiKhachHangError
-            , @ModelAttribute("errorKH") String errorKH, @ModelAttribute("userInput") KhachHang userInputKH
-
+            , @ModelAttribute("errorKH") String errorKH
+            , @ModelAttribute("userInput") KhachHang userInputKH
             , @ModelAttribute("messageLKH") String messageLKH
-            , @ModelAttribute("maLKHError") String maLKHError
-            , @ModelAttribute("tenLKHError") String tenLKHError
-            , @ModelAttribute("soDiemError") String soDiemError
             , @ModelAttribute("errorLKH") String errorLKH, @ModelAttribute("userInput") LoaiKhachHang userInputLKH
             , @ModelAttribute("Errormessage") String Errormessage
             , @ModelAttribute("ErrormessageLKH") String ErrormessageLKH) {
@@ -115,35 +99,6 @@ public class KhachHangController {
         //
         model.addAttribute("khachHang", new KhachHang());
         model.addAttribute("loaiKhachHangAdd", new LoaiKhachHang());
-        //
-        if (maKHError == null || !"maKHError".equals(errorKH)) {
-            model.addAttribute("maKHError", false);
-        }
-        if (tenKHError == null || !"tenKHError".equals(errorKH)) {
-            model.addAttribute("tenKHError", false);
-        }
-        if (ngaySinhError == null || !"ngaySinhError".equals(errorKH)) {
-            model.addAttribute("ngaySinhError", false);
-        }
-        if (sdtKHError == null || !"sdtKHError".equals(errorKH)) {
-            model.addAttribute("sdtKHError", false);
-        }
-
-        if (emailKHError == null || !"emailKHError".equals(errorKH)) {
-            model.addAttribute("emailKHError", false);
-        }
-        if (diaChiError == null || !"diaChiError".equals(errorKH)) {
-            model.addAttribute("diaChiError", false);
-        }
-        if (CCCDKHError == null || !"CCCDKHError".equals(errorKH)) {
-            model.addAttribute("CCCDKHError", false);
-        }
-        if (matKhauError == null || !"matKhauError".equals(errorKH)) {
-            model.addAttribute("matKhauError", false);
-        }
-        if (loaiKhachHangError == null || !"loaiKhachHangError".equals(errorKH)) {
-            model.addAttribute("loaiKhachHangError", false);
-        }
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInputKH != null) {
             model.addAttribute("khachHang", userInputKH);
@@ -151,15 +106,6 @@ public class KhachHangController {
         //add LKH
         if (messageLKH == null || !"true".equals(messageLKH)) {
             model.addAttribute("messageLKH", false);
-        }
-        if (maLKHError == null || !"maLKHError".equals(errorLKH)) {
-            model.addAttribute("maLKHError", false);
-        }
-        if (tenLKHError == null || !"tenLKHError".equals(errorLKH)) {
-            model.addAttribute("tenLKHError", false);
-        }
-        if (soDiemError == null || !"soDiemError".equals(errorLKH)) {
-            model.addAttribute("soDiemError", false);
         }
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInputLKH != null) {
@@ -177,55 +123,14 @@ public class KhachHangController {
     }
 
     @PostMapping("/khach-hang/viewAdd/add")
-    public String addkhachHang(@Valid @ModelAttribute("khachHang") KhachHang khachHang, BindingResult result,Model model
+    public String addkhachHang(@ModelAttribute("khachHang") KhachHang khachHang,Model model
             , RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) {
             List<LoaiKhachHang> loaiKhachHangList = loaiKhachHangService.getAllLoaiKhachHang();
             Collections.sort(loaiKhachHangList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
             model.addAttribute("loaiKhachHang", loaiKhachHangList);
-            //
             model.addAttribute("khachHang", new KhachHang());
             model.addAttribute("loaiKhachHangAdd", new LoaiKhachHang());
-            //
-            if (result.hasFieldErrors("matKhau")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "matKhauError");
-            }
-            if (result.hasFieldErrors("CCCDKH")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "CCCDKHError");
-            }
-            if (result.hasFieldErrors("diaChi")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "diaChiError");
-            }
-            if (result.hasFieldErrors("emailKH")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "emailKHError");
-            }
-            if (result.hasFieldErrors("sdtKH")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "sdtKHError");
-            }
-            if (result.hasFieldErrors("ngaySinh")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "ngaySinhError");
-            }
-            if (result.hasFieldErrors("hoTenKH")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "tenKHError");
-            }
-            if (result.hasFieldErrors("maKH")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "maKHError");
-            }
-            if (result.hasFieldErrors("loaiKhachHang")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "loaiKhachHangError");
-            }
-            return "redirect:/manage/khach-hang/viewAdd";
-        }
-        //
+
         KhachHang existingKH = khachHangRepository.findByMaKH(khachHang.getMaKH());
         if (existingKH != null) {
             redirectAttributes.addFlashAttribute("userInput", khachHang);
@@ -238,34 +143,41 @@ public class KhachHangController {
             redirectAttributes.addFlashAttribute("ErrormessageeEmail", true);
             return "redirect:/manage/khach-hang/viewAdd";
         }
+        KhachHang existingKH2 = khachHangRepository.findByCCCDKH(khachHang.getCCCDKH());
+        if (existingKH2 != null) {
+            redirectAttributes.addFlashAttribute("userInput", khachHang);
+            redirectAttributes.addFlashAttribute("ErrormessageCCCD", true);
+            return "redirect:/manage/khach-hang/viewAdd";
+        }
+        KhachHang existingKH3 = khachHangRepository.findBySdtKH(khachHang.getSdtKH());
+        if (existingKH3 != null) {
+            redirectAttributes.addFlashAttribute("userInput", khachHang);
+            redirectAttributes.addFlashAttribute("ErrormessageSDT", true);
+            return "redirect:/manage/khach-hang/viewAdd";
+        }
         //
-        khachHang.setTgThem(new Date());
-        khachHang.setTrangThai(1);
-        khachHangService.save(khachHang);
+        KhachHang khachHang1 = new KhachHang();
+        khachHang1.setMaKH(khachHang.getMaKH());
+        khachHang1.setHoTenKH(khachHang.getHoTenKH());
+        khachHang1.setDiaChi(khachHang.getDiaChi());
+        khachHang1.setEmailKH(khachHang.getEmailKH());
+        khachHang1.setMatKhau(khachHang.getMatKhau());
+        khachHang1.setSdtKH(khachHang.getSdtKH());
+        khachHang1.setCCCDKH(khachHang.getCCCDKH());
+        khachHang1.setGioiTinh(khachHang.getGioiTinh());
+        khachHang1.setNgaySinh(khachHang.getNgaySinh());
+        khachHang1.setTgThem(new Date());
+        khachHang1.setTrangThai(1);
+        khachHang1.setLoaiKhachHang(khachHang.getLoaiKhachHang());
+        khachHangService.save(khachHang1);
         redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/khach-hang";
     }
 
     @PostMapping("/khach-hang/loai-khach-hang/viewAdd/add")
     public String addLoaiKH(@Valid @ModelAttribute("loaiKhachHangAdd") LoaiKhachHang loaiKhachHang
-            , BindingResult result, RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) {
-            if (result.hasFieldErrors("maLKH")) {
-                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
-                redirectAttributes.addFlashAttribute("errorLKH", "maLKHError");
-            }
-            if (result.hasFieldErrors("tenLKH")) {
-                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
-                redirectAttributes.addFlashAttribute("errorLKH", "tenLKHError");
-            }
-            if (result.hasFieldErrors("soDiem")) {
-                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
-                redirectAttributes.addFlashAttribute("errorLKH", "soDiemError");
-            }
-            redirectAttributes.addFlashAttribute("message", true);
-            return "redirect:/manage/khach-hang/viewAdd";
-        }
-        //
+            , RedirectAttributes redirectAttributes) {
+
         LoaiKhachHang existingLKH = loaiKhachHangRepository.findByMaLKH(loaiKhachHang.getMaLKH());
         if (existingLKH != null) {
             redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
@@ -273,7 +185,6 @@ public class KhachHangController {
             return "redirect:/manage/khach-hang/viewAdd";
         }
 
-        //
         loaiKhachHang.setTgThem(new Date());
         loaiKhachHang.setTrangThai(1);
         loaiKhachHangService.save(loaiKhachHang);
@@ -299,21 +210,8 @@ public class KhachHangController {
 
     @GetMapping("/khach-hang/viewUpdate/{id}")
     public String viewUpdatekhachhang(@PathVariable UUID id, Model model
-            , @ModelAttribute("maKHError") String maKHError
-            , @ModelAttribute("tenKHError") String tenKHError
-            , @ModelAttribute("ngaySinhError") String ngaySinhError
-            , @ModelAttribute("sdtKHError") String sdtKHError
-            , @ModelAttribute("emailKHError") String emailKHError
-            , @ModelAttribute("diaChiError") String diaChiError
-            , @ModelAttribute("CCCDKHError") String CCCDKHError
-            , @ModelAttribute("matKhauError") String matKhauError
-            , @ModelAttribute("loaiKhachHangError") String loaiKhachHangError
             , @ModelAttribute("errorKH") String errorKH, @ModelAttribute("userInput") KhachHang userInputKH
-
             , @ModelAttribute("messageLKH") String messageLKH
-            , @ModelAttribute("maLKHError") String maLKHError
-            , @ModelAttribute("tenLKHError") String tenLKHError
-            , @ModelAttribute("soDiemError") String soDiemError
             , @ModelAttribute("errorLKH") String errorLKH, @ModelAttribute("userInput") LoaiKhachHang userInputLKH
             , @ModelAttribute("Errormessage") String Errormessage
             , @ModelAttribute("ErrormessageLKH") String ErrormessageLKH) {
@@ -325,34 +223,6 @@ public class KhachHangController {
         model.addAttribute("loaiKhachHang", loaiKhachHangs);
         //
         model.addAttribute("loaiKhachHangAdd", new LoaiKhachHang());
-        //
-        if (maKHError == null || !"maKHError".equals(errorKH)) {
-            model.addAttribute("maKHError", false);
-        }
-        if (tenKHError == null || !"tenKHError".equals(errorKH)) {
-            model.addAttribute("tenKHError", false);
-        }
-        if (ngaySinhError == null || !"ngaySinhError".equals(errorKH)) {
-            model.addAttribute("ngaySinhError", false);
-        }
-        if (sdtKHError == null || !"sdtKHError".equals(errorKH)) {
-            model.addAttribute("sdtKHError", false);
-        }
-        if (emailKHError == null || !"emailKHError".equals(errorKH)) {
-            model.addAttribute("emailKHError", false);
-        }
-        if (diaChiError == null || !"diaChiError".equals(errorKH)) {
-            model.addAttribute("diaChiError", false);
-        }
-        if (CCCDKHError == null || !"CCCDKHError".equals(errorKH)) {
-            model.addAttribute("CCCDKHError", false);
-        }
-        if (matKhauError == null || !"matKhauError".equals(errorKH)) {
-            model.addAttribute("matKhauError", false);
-        }
-        if (loaiKhachHangError == null || !"loaiKhachHangError".equals(errorKH)) {
-            model.addAttribute("loaiKhachHangError", false);
-        }
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInputKH != null) {
             model.addAttribute("khachHangUpdate", userInputKH);
@@ -372,45 +242,6 @@ public class KhachHangController {
         KhachHang khachHangdb = khachHangService.getByIdKhachHang(id);
         UUID idKH = (UUID) session.getAttribute("id");
         String link = "redirect:/manage/khach-hang/viewUpdate/" + idKH;
-        if (result.hasErrors()) {
-            if (result.hasFieldErrors("matKhau")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "matKhauError");
-            }
-            if (result.hasFieldErrors("CCCDKH")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "CCCDKHError");
-            }
-            if (result.hasFieldErrors("diaChi")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "diaChiError");
-            }
-            if (result.hasFieldErrors("emailKH")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "emailKHError");
-            }
-            if (result.hasFieldErrors("sdtKH")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "sdtKHError");
-            }
-            if (result.hasFieldErrors("ngaySinh")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "ngaySinhError");
-            }
-            if (result.hasFieldErrors("hoTenKH")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "tenKHError");
-            }
-            if (result.hasFieldErrors("maKH")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "maKHError");
-            }
-            if (result.hasFieldErrors("loaiKhachHang")) {
-                redirectAttributes.addFlashAttribute("userInput", khachHang);
-                redirectAttributes.addFlashAttribute("errorKH", "loaiKhachHangError");
-            }
-            return link;
-        }
         //
         KhachHang existingKH = khachHangRepository.findByMaKH(khachHang.getMaKH());
         if (existingKH != null && !existingKH.getIdKH().equals(id)) {
@@ -424,8 +255,20 @@ public class KhachHangController {
             redirectAttributes.addFlashAttribute("ErrormessageeEmail", true);
             return link;
         }
+        KhachHang existingKH2 = khachHangRepository.findByCCCDKH(khachHang.getCCCDKH());
+        if (existingKH2 != null && !existingKH.getIdKH().equals(id)) {
+            redirectAttributes.addFlashAttribute("userInput", khachHang);
+            redirectAttributes.addFlashAttribute("ErrormessageCCCD", true);
+            return link;
+        }
+        KhachHang existingKH3 = khachHangRepository.findBySdtKH(khachHang.getSdtKH());
+        if (existingKH3 != null && !existingKH.getIdKH().equals(id)) {
+            redirectAttributes.addFlashAttribute("userInput", khachHang);
+            redirectAttributes.addFlashAttribute("ErrormessageSDT", true);
+            return link;
+        }
 
-        if (khachHangdb != null) {
+        if (khachHangdb != null ) {
             khachHangdb.setMaKH(khachHang.getMaKH());
             khachHangdb.setHoTenKH(khachHang.getHoTenKH());
             khachHangdb.setDiaChi(khachHang.getDiaChi());
@@ -459,7 +302,16 @@ public class KhachHangController {
         PDFExporterKhachHang exporter = new PDFExporterKhachHang(listKhachHang);
         exporter.export(response);
     }
-
+    @GetMapping("/khach-hang/detail/{id}")
+    public String detail(@PathVariable UUID id, Model model, @ModelAttribute("message") String message) {
+        KhachHang khachHang = khachHangService.getByIdKhachHang(id);
+        List<DiaChiKH> diaChiKHS = diaChiKHService.getDiaChibyKhachHang(khachHang);
+        model.addAttribute("diaChiList", diaChiKHS);
+        if (message == null || !"true".equals(message)) {
+            model.addAttribute("message", false);
+        }
+        return "manage/khach-hang-detail";
+    }
     @GetMapping("/khachHang/export/excel")
     public void exportToExcelSize(HttpServletResponse response) throws IOException {
         response.setContentType("application/octet-stream");
