@@ -119,4 +119,29 @@ public class HoaDonServiceImpl implements HoaDonService {
     public List<HoaDon> getAllHoaDonOffLine() {
         return hoaDonRepository.findHoaDonByLoaiHDOrderByTgTaoDesc(1);
     }
+
+    @Override
+    public List<HoaDon> listHoaDonOnline() {
+        return hoaDonRepository.findByLoaiHDAndTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrderByTgTaoDesc(0, 0, 1, 2, 3, 4 ,5);
+    }
+
+    @Override
+    public List<HoaDon> listHoaDonOnlineAndTrangThai(int trangThai) {
+        return hoaDonRepository.findByLoaiHDAndTrangThaiOrderByTgTaoDesc(0, trangThai);
+    }
+
+    @Override
+    public List<HoaDon> listHoaDonOnlineGiaoHang(int trangThai1, int trangThai2) {
+        return hoaDonRepository.findByLoaiHDAndTrangThaiOrTrangThaiOrderByTgTaoDesc(0, 1, 2);
+    }
+
+    @Override
+    public List<HoaDon> listHoaDonOnlineAndHTTT(int httt) {
+        return hoaDonRepository.findByLoaiHDAndHinhThucThanhToan(0, httt);
+    }
+
+    @Override
+    public List<HoaDon> listHoaDonOnlineAndHTTTAndTrangThai(int httt, int trangThai) {
+        return hoaDonRepository.findByLoaiHDAndTrangThaiAndHinhThucThanhToan(0, trangThai, httt);
+    }
 }
