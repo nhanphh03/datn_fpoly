@@ -11,10 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -40,14 +37,45 @@ public class ThongKeController {
         model.addAttribute("tonggiay",giayChiTietRepository.getTongGiay());
 
         //làm tròn doanh thu
-
-        Double Resulttdt = Math.ceil(hoaDonChiTietRepository.getTongTien()*100.0)/100.0;
-        Double Resultdtt = Math.ceil(hoaDonChiTietRepository.getDoanhThuThang()*100.0)/100.0;
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-        String formattdt = currencyFormat.format(Resulttdt);
-        String formatdtt = currencyFormat.format(Resultdtt);
-        model.addAttribute("tdt",formattdt);
-        model.addAttribute("dtt",formatdtt);
+
+        Optional<Double> ltn = hoaDonChiTietRepository.getLaiThangNay();
+        Optional<Double> tdt = hoaDonChiTietRepository.getTienGoc();
+        Optional<Double> tlbr = hoaDonChiTietRepository.getTongTienLaiCuaHang();
+        Optional<Double> ttnh = hoaDonChiTietRepository.getTongTienNhapCuaHang();
+        System.out.println(tlbr.get());
+        if(tdt.isPresent() ){
+            Double a = tdt.get();
+            String formattdt = currencyFormat.format(a);
+            model.addAttribute("tdt",formattdt);
+        }else{
+            model.addAttribute("tdt","0đ");
+        }
+
+        if(ltn.isPresent()){
+            Double b = ltn.get();
+            String formatdtt = currencyFormat.format(b);
+            model.addAttribute("ltn",formatdtt);
+        }else{
+            model.addAttribute("ltn","0đ");
+        }
+        //Tổng tiền của cửa hàng
+        if(tlbr.isPresent()){
+            Double c = tlbr.get();
+            String formatdtt2 = currencyFormat.format(c);
+            model.addAttribute("tlbr",formatdtt2);
+        }else{
+            model.addAttribute("tlbr","0đ");
+        }
+
+        if(ttnh.isPresent()){
+            Double d = ttnh.get();
+            String formatdtt3 = currencyFormat.format(d);
+            model.addAttribute("ttnh",formatdtt3);
+        }else{
+            model.addAttribute("ttnh","0đ");
+        }
+
 //
 //        // top 5 sp bán chạy
         List<CTGViewModel> listCTGModelBestSeller = ctgViewModelService.getAllOrderBestSeller();
@@ -62,6 +90,7 @@ public class ThongKeController {
 //        model.addAttribute("hoaDonCT2",hoaDonChiTietRepository.getAllHoaDonChoThanhToan());
 //        model.addAttribute("hoaDonCT1",hoaDonChiTietRepository.getAllHoaDonDaThanhToan());
         // biểu đồ thống kê
+        //theo tháng
         List<String> listThem= Arrays.asList("Tháng 1","Tháng 2","Tháng 3","Tháng 4","Tháng 5",
                 "Tháng 6","Tháng 7","Tháng 8","Tháng 9","Tháng 10","Tháng 11","Tháng 12");
         List<String> listThang = new ArrayList<>(listThem);
@@ -83,7 +112,25 @@ public class ThongKeController {
         List<Integer> listDoanhSo = new ArrayList<>(list);
         model.addAttribute("listThang", listThang);
         model.addAttribute("listDoanhSo", listDoanhSo);
+// theo ngày
+    List<String> listThemNgay = new ArrayList<>();
+    listThemNgay.add("Ngày Hôm Nay");
+    List<Integer> doanhSoNgay = new ArrayList<>();
+    doanhSoNgay.add(hoaDonChiTietRepository.getNgaythu1());
+        model.addAttribute("Ngay", listThemNgay);
+        model.addAttribute("listSL", doanhSoNgay);
+        //theo năm
+        List<String> listThemNam = new ArrayList<>();
+        listThemNam.add("2021");
+        listThemNam.add("2022");
+        listThemNam.add("2023");
 
+        List<Integer> doanhSoNam = new ArrayList<>();
+        doanhSoNam.add(hoaDonChiTietRepository.Nam2021());
+        doanhSoNam.add(hoaDonChiTietRepository.Nam2022());
+        doanhSoNam.add(hoaDonChiTietRepository.Nam2023());
+        model.addAttribute("Nam", listThemNam);
+        model.addAttribute("listNam", doanhSoNam);
         return "manage/ThongKe/index";
     }
 

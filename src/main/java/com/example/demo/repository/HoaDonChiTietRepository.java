@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -33,17 +34,22 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
             "ORDER BY so_luong_ban DESC;", nativeQuery = true)
     List<Object[]> spBanChay();
 
-    @Query(value = "select sum(tong_tien) from hoa_don where month(tg_thanh_toan) = month(GETDATE()) and year(tg_thanh_toan) = year(GETDATE()) and trang_thai=1",
-            nativeQuery = true) Double getDoanhThuThang();
+    @Query(value = "select sum(tong_tien - (gia_nhap*b.so_luong)) from hoa_don a join hoa_don_chi_tiet b on a.id_hd=b.id_hd \n" +
+            "join chi_tiet_giay c on b.id_ctg=c.id_chi_tiet_giay\n" +
+            "where month(tg_thanh_toan) = month(GETDATE())  and year(tg_thanh_toan) = year(GETDATE()) and a.trang_thai=1",
+            nativeQuery = true)
+    Optional<Double> getLaiThangNay();
 
-    @Query(value = "select * from hoa_don_chi_tiet hdct join hoa_don hd on hdct.id_hd=hd.id_hd where hd.trang_thai=1",nativeQuery = true)
-    List<String> getAllHoaDonDaThanhToan();
-
-    @Query(value = "select * from hoa_don_chi_tiet hdct join hoa_don hd on hdct.id_hd=hd.id_hd where hd.trang_thai=0",nativeQuery = true)
-    List<String> getAllHoaDonChoThanhToan();
+    @Query(value = "select sum(gia_nhap) from chi_tiet_giay",nativeQuery = true)
+    Optional<Double> getTongTienNhapCuaHang();
 
     @Query(value = "select sum(tong_tien) from hoa_don where trang_thai=1",nativeQuery = true)
-    Double getTongTien();
+    Optional<Double> getTongTienLaiCuaHang();
+
+    @Query(value = "select ((gia_nhap*b.so_luong)) from hoa_don a join hoa_don_chi_tiet b on a.id_hd=b.id_hd \n" +
+            "join chi_tiet_giay c on b.id_ctg=c.id_chi_tiet_giay\n" +
+            "where month(tg_thanh_toan) = month(GETDATE()) and year(tg_thanh_toan) = year(GETDATE()) and a.trang_thai=1",nativeQuery = true)
+   Optional<Double> getTienGoc();
 
     @Query(value = "select sum(so_luong) from hoa_don_chi_tiet where MONTH(tg_them) = 1",nativeQuery = true)
     Integer getThang1();
@@ -69,6 +75,21 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
     Integer getThang11();
     @Query(value = "select sum(so_luong) from hoa_don_chi_tiet where MONTH(tg_them) = 12",nativeQuery = true)
     Integer getThang12();
+
+    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet where MONTH(tg_them) = MONTH (getdate()) and Day(tg_them) = Day(getdate())",nativeQuery = true)
+    Integer getNgaythu1();
+
+    @Query(value = "SELECT \n" +
+            "sum(so_luong) from hoa_don_chi_tiet where year(tg_them) like 2023",nativeQuery = true)
+    Integer Nam2023();
+
+    @Query(value = "SELECT \n" +
+            "sum(so_luong) from hoa_don_chi_tiet where year(tg_them) like 2022",nativeQuery = true)
+    Integer Nam2022();
+
+    @Query(value = "SELECT \n" +
+            "sum(so_luong) from hoa_don_chi_tiet where year(tg_them) like 2021",nativeQuery = true)
+    Integer Nam2021();
 
 //    @Query(value = "select top 5 a.url1,g.ten_giay,ctg.gia_ban, sum(hdct.so_luong) as topsp from hoa_don_chi_tiet hdct join chi_tiet_giay ctg on hdct.id_ctg=ctg.id_chi_tiet_giay\n" +
 //            "join giay g on ctg.id_giay=g.id_giay\n" +
