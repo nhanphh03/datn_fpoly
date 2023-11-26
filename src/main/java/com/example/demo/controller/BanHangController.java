@@ -111,7 +111,7 @@ public class BanHangController {
             String ma = String.valueOf(Math.floor(((Math.random() * 899999) + 100000)));
             HoaDon hd = new HoaDon();
             Date date = new Date();
-            hd.setMaHD("hd" + date.getDate() + ma);
+            hd.setMaHD("HD" + date.getDate() + ma);
             hd.setTgTao(new Date());
             hd.setTrangThai(3);
             hd.setLoaiHD(1);

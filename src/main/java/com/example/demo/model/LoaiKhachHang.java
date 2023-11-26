@@ -25,11 +25,9 @@ public class LoaiKhachHang {
     @Column(name ="id_Hang")
     private UUID idLKH;
 
-    @NotBlank
     @Column(name = "ma_LoaiKH")
     private String maLKH;
 
-    @NotBlank
     @Column(name="ten_LoaiKH")
     private String tenLKH;
 
