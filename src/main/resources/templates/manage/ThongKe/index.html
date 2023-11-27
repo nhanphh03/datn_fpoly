@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
@@ -8,13 +8,6 @@
           content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects">
     <meta name="author" content="Dreamguys - Bootstrap Admin Template">
     <meta name="robots" content="noindex, nofollow">
-<!--    <meta charset="ISO-8859-1" />-->
-<!--    <link rel="stylesheet"-->
-<!--          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />-->
-
-<!--    &lt;!&ndash; Optional theme &ndash;&gt;-->
-<!--    <link rel="stylesheet"-->
-<!--          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />-->
     <title>Dreams Pos admin template</title>
 
     <link rel="shortcut icon" type="image/x-icon" href="/images/img/favicon.jpg">
@@ -326,8 +319,8 @@
                     <span><img src="/images/img/icons/dash1.svg" alt="img"></span>
                 </div>
                 <div class="dash-widgetcontent">
-                    <h5><span class="" th:text="${tdt}"></span></h5>
-                    <h6>Tiền gốc tháng</h6>
+                    <h5><span class="" th:text="${tlbr}"></span></h5>
+                    <h6>Tổng tiền bán ra</h6>
                 </div>
             </div>
         </div>
@@ -372,13 +365,13 @@
         <div class="row">
         <div class="col-lg-6 col-sm-6 col-12 d-flex">
             <div class="dash-count">
-                <a class="dash-counts" href="javascript:void(0);" data-bs-toggle="modals"
+                <a class="dash-counts" href="javascript:void(0);" data-bs-toggle="modal"
                    data-bs-target="#exampleModal">
-                    <h4 style="color: black;" th:text="${ttnh}"></h4>
-                    <h5 style="color: black;">Tổng tiền nhập hàng</h5>
+                    <h4 style="color: black;" th:text="${sptt}"> đôi</h4>
+                    <h5 style="color: black;">Sản phẩm đã bán trong tháng</h5>
                 </a>
                 <div class="dash-imgs">
-                    <i data-feather="dollar-sign"></i>
+                    <i data-feather="shopping-bag"></i>
                 </div>
             </div>
         </div>
@@ -387,7 +380,7 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Doanh thu trong ngày</h5>
+                        <h5 class="modal-title">Sản phẩm bán trong tháng</h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
@@ -403,44 +396,63 @@
                         </div>
 
                         <div class="table-responsive">
-                            <table class="table " >
-                                <thead>
-                                <tr>
-                                    <th>Mã hóa đơn</th>
-                                    <th>Khách hàng</th>
-                                    <th>Ngày nhận</th>
-                                    <th>Hình thức</th>
-                                    <th>Số Lượng</th>
-                                    <th>Đơn giá</th>
-                                    <th >Action</th>
-
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="items : ${hoaDonCT1}">
-                                    <td th:text="${items.hoaDon.idHD}"></td>
-                                    <td th:text="${items.hoaDon.tenNguoiNhan}"></td>
-
-                                    <td th:text="${items.hoaDon.tgTao}"></td>
-                                    <td >
-                                        <span th:if="${items.hoaDon.loaiHD == 1}" class="badges bg-lightpurple"><span><img src="/images/img/icon/cart.png" alt="img"></span>Tại quầy</span>
-                                        <span th:if="${items.hoaDon.loaiHD == 0}" class="badges bg-lightgreen"><span><img src="/images/img/icon/xe.png" alt="img"></span>Online</span>
-                                    </td>
-                                    <td th:text="${items.soLuong}"></td>
-                                    <td th:text="${items.donGiaKhiGiam}"></td>
-
-
-                                    <td>
-                                        <a class="me-2" >
-                                            <img src="/images/img/icons/eye.svg" alt="img"/>
+                            <th:block th:each="a : ${getN}">
+                                <ul class="product-lists">
+                                    <li>
+                                        <div class="productimg">
+                                            <div class="productimgs">
+                                                <img th:src="@{'/images/imgsProducts/'+ ${a.chiTietGiay.hinhAnh.url1}}"
+                                                     alt="img">
+                                            </div>
+                                            <div class="productcontet">
+                                                <h4 th:text="${a.chiTietGiay.giay.tenGiay}">
+                                                    <a href="javascript:void(0);" class="ms-2"
+                                                       data-bs-toggle="modal"
+                                                       data-bs-target="#edit"><img
+                                                            src="/images/img/icons/edit-5.svg"
+                                                            alt="img"></a>
+                                                </h4>
+                                                <div class="row">
+                                                    <div class="productlinkset col-6">
+                                                        <h5 th:text="${a.chiTietGiay.size.soSize}"></h5>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <!--                                                            <label class="color-box" th:style="'background-color: ' + ${gioHang.chiTietGiay.mauSac.maMau}"></label>-->
+                                                        <span class="color-box"
+                                                              th:style="'background-color:' +${a.chiTietGiay.mauSac.maMau}"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="increment-decrement">
+                                                    <div class="input-groups">
+                                                        <input type="button" value="-"
+                                                               class="button-minus dec button">
+                                                        <input type="text" name="child"
+                                                               th:value="${a.soLuong}"
+                                                               class="quantity-field">
+                                                        <input type="button" value="+"
+                                                               class="button-plus inc button ">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <!--                                            <div th:text="${gioHang.donGia}"></div>-->
+                                        <div th:text=" ${#numbers.formatDecimal(a.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'"></div>
+                                    </li>
+                                    <li>
+                                        <!--                                            <div th:text="${gioHang.donGia * gioHang.soLuong}"></div>-->
+                                        <div th:text=" ${#numbers.formatDecimal(a.donGia * a.soLuong, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'"></div>
+                                    </li>
+                                    <li>
+                                        <a class="btn"
+                                           th:href="@{'/ban-hang/xoa-gio-hang/'+ ${a.chiTietGiay.idCTG}}"
+                                           onclick="return confirm('Bạn có muốn xóa sản phẩm không')">
+                                            <img src="/images/img/icons/delete-2.svg" alt="img">
                                         </a>
-                                    </td>
-
-
-                                </tr>
-                                </tbody>
-                            </table>
-
+                                    </li>
+                                </ul>
+                            </th:block>
                         </div>
 
                     </div>
@@ -454,11 +466,11 @@
             <div class="dash-count das2">
                 <a class="dash-counts" href="javascript:void(0);" data-bs-toggle="modals"
                    data-bs-target="#create">
-                    <h4 th:text="${tlbr}"></h4>
-                    <h5>Tổng tiền bán ra</h5>
+                    <h4 th:text="${sptn}"> đôi</h4>
+                    <h5>Sản phẩm đã bán trong ngày</h5>
                 </a>
                 <div class="dash-imgs">
-                    <i data-feather="dollar-sign"></i>
+                    <i data-feather="shopping-bag"></i>
                 </div>
             </div>
         </div>
@@ -610,8 +622,9 @@
                 </div>
             </div>
         </div>
-            </div>
+
         </div>
+</div>
 </div>
 
 

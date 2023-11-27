@@ -34,14 +34,19 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
             "ORDER BY so_luong_ban DESC;", nativeQuery = true)
     List<Object[]> spBanChay();
 
-    @Query(value = "select sum(tong_tien - (gia_nhap*b.so_luong)) from hoa_don a join hoa_don_chi_tiet b on a.id_hd=b.id_hd \n" +
+    @Query(value = "select sum(tong_tien) from hoa_don a join hoa_don_chi_tiet b on a.id_hd=b.id_hd \n" +
             "join chi_tiet_giay c on b.id_ctg=c.id_chi_tiet_giay\n" +
             "where month(tg_thanh_toan) = month(GETDATE())  and year(tg_thanh_toan) = year(GETDATE()) and a.trang_thai=1",
             nativeQuery = true)
     Optional<Double> getLaiThangNay();
 
-    @Query(value = "select sum(gia_nhap) from chi_tiet_giay",nativeQuery = true)
-    Optional<Double> getTongTienNhapCuaHang();
+    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet a join hoa_don b on a.id_hd=b.id_hd where month(tg_them) = month(GETDATE())  and year(tg_them) = year(GETDATE()) and b.trang_thai=1" +
+            "and day(tg_them) = year(GETDATE()) ",nativeQuery = true)
+    Optional<Integer> getTongSPBanTrongNgay();
+
+    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet a join hoa_don b on a.id_hd=b.id_hd where month(tg_them) = month(GETDATE())  and year(tg_them) = year(GETDATE()) and" +
+            " b.trang_thai=1",nativeQuery = true)
+    Optional<Integer> getTongSPBanTrongThang();
 
     @Query(value = "select sum(tong_tien) from hoa_don where trang_thai=1",nativeQuery = true)
     Optional<Double> getTongTienLaiCuaHang();
@@ -91,10 +96,14 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
             "sum(so_luong) from hoa_don_chi_tiet where year(tg_them) like 2021",nativeQuery = true)
     Integer Nam2021();
 
-//    @Query(value = "select top 5 a.url1,g.ten_giay,ctg.gia_ban, sum(hdct.so_luong) as topsp from hoa_don_chi_tiet hdct join chi_tiet_giay ctg on hdct.id_ctg=ctg.id_chi_tiet_giay\n" +
-//            "join giay g on ctg.id_giay=g.id_giay\n" +
-//            "join hinh_anh a on ctg.id_hinh_anh=a.id_hinh_anh\n" +
-//            "group by a.url1,g.ten_giay,ctg.gia_ban\n" +
-//            "order by topsp desc",nativeQuery = true)
-//    List<Object[]> getTop5();
+    @Query("SELECT NEW com.example.demo.viewModel.CTHDViewModel(hdct.chiTietGiay.giaBan,hdct.soLuong,hdct.donGia,a.url1) FROM HoaDonChiTiet hdct JOIN ChiTietGiay ctg on ctg.idCTG=hdct.chiTietGiay join Giay g on g.idGiay=ctg.giay JOIN HinhAnh a on a.idHinhAnh = ctg.hinhAnh"
+            )
+
+    List<Object> findHoaDonChiTietByDate();
+
+
+
+
+    @Query("select g from HoaDonChiTiet g where g.hoaDon.trangThai=1 and FUNCTION('MONTH', g.hoaDon.tgThanhToan) = FUNCTION('MONTH', CURRENT_DATE)")
+    List<HoaDonChiTiet> getAllSPBanTrongThang();
 }

@@ -40,16 +40,18 @@ public class ThongKeController {
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
 
         Optional<Double> ltn = hoaDonChiTietRepository.getLaiThangNay();
-        Optional<Double> tdt = hoaDonChiTietRepository.getTienGoc();
+
         Optional<Double> tlbr = hoaDonChiTietRepository.getTongTienLaiCuaHang();
-        Optional<Double> ttnh = hoaDonChiTietRepository.getTongTienNhapCuaHang();
+        Optional<Integer> tongSPBanTrongNgay = hoaDonChiTietRepository.getTongSPBanTrongNgay();
+        Optional<Integer> tongSPBanTrongThang = hoaDonChiTietRepository.getTongSPBanTrongThang();
+
         System.out.println(tlbr.get());
-        if(tdt.isPresent() ){
-            Double a = tdt.get();
-            String formattdt = currencyFormat.format(a);
-            model.addAttribute("tdt",formattdt);
+        if(tongSPBanTrongNgay.isPresent() ){
+            Integer a = tongSPBanTrongNgay.get();
+
+            model.addAttribute("sptn",a);
         }else{
-            model.addAttribute("tdt","0đ");
+            model.addAttribute("sptn","0");
         }
 
         if(ltn.isPresent()){
@@ -65,15 +67,15 @@ public class ThongKeController {
             String formatdtt2 = currencyFormat.format(c);
             model.addAttribute("tlbr",formatdtt2);
         }else{
-            model.addAttribute("tlbr","0đ");
+            model.addAttribute("tlbr","0");
         }
 
-        if(ttnh.isPresent()){
-            Double d = ttnh.get();
-            String formatdtt3 = currencyFormat.format(d);
-            model.addAttribute("ttnh",formatdtt3);
+        if(tongSPBanTrongThang.isPresent()){
+            Integer d = tongSPBanTrongThang.get();
+
+            model.addAttribute("sptt",d);
         }else{
-            model.addAttribute("ttnh","0đ");
+            model.addAttribute("sptt","0");
         }
 
 //
@@ -131,6 +133,9 @@ public class ThongKeController {
         doanhSoNam.add(hoaDonChiTietRepository.Nam2023());
         model.addAttribute("Nam", listThemNam);
         model.addAttribute("listNam", doanhSoNam);
+        // chi tiết sp đã bán trong ngày
+//        model.addAttribute("getN",hoaDonChiTietRepository.findHoaDonChiTietByDate());
+//        model.addAttribute("getT",hoaDonChiTietRepository.getAllSPBanTrongThang());
         return "manage/ThongKe/index";
     }
 

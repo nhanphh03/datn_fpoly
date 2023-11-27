@@ -200,4 +200,5 @@ public interface CTGViewModelRepository extends JpaRepository<CTGViewModel, UUID
             "ORDER BY COALESCE(SUM(cthd.soLuong), 0) DESC")
     List<CTGViewModel> getAllOrderBestSeller();
 
+
 }
