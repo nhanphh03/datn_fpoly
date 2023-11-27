@@ -95,9 +95,4 @@ public class ChiTietGiay {
 
     @Column(name = "barCode")
     private String barcode;
-
-    public String getFormattedGiaBan() {
-        DecimalFormat decimalFormat = new DecimalFormat("#,### VNĐ");
-        return decimalFormat.format(giaBan);
-    }
 }

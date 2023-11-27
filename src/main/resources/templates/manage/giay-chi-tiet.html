@@ -485,11 +485,11 @@
                                     <td th:text="${items.size.soSize}"></td>
                                     <td th:text="${items.mauSac.tenMau}"></td>
                                     <td th:text="${items.soLuong}"></td>
-                                    <td th:text="${items.soTienTruocKhiGiam}"></td>
+                                    <td th:text="${#numbers.formatDecimal(items.soTienTruocKhiGiam, 2, 'COMMA', 1, 'POINT')} + ' đ'"></td>
                                     <td th:text="${items.trongLuong}"></td>
                                     <td th:text="${items.namSX}"></td>
                                     <td th:text="${items.namBH}"></td>
-                                    <td th:text="${items.formattedGiaBan}"></td>
+                                    <td th:text="${#numbers.formatDecimal(items.giaBan, 2, 'COMMA', 1, 'POINT')} + ' đ'"></td>
                                     <td>
                                         <span th:if="${items.trangThai == 1}"
                                               class="badges bg-lightgreen">Hoạt Động</span>
