@@ -49,12 +49,17 @@ public class HoaDonServiceImpl implements HoaDonService {
 
     @Override
     public List<HoaDon> listAllHoaDonKhachHangOnline(KhachHang khachHang) {
-        return hoaDonRepository.findByKhachHangAndLoaiHDAndTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThai(khachHang, 0, 0, 1, 2, 3, 4);
+        return hoaDonRepository.findByKhachHangAndLoaiHDAndTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrderByTgTaoDesc(khachHang, 0, 0, 1, 2, 3, 4, 5);
     }
 
     @Override
     public List<HoaDon> listHoaDonKhachHangAndTrangThaiOnline(KhachHang khachHang, int trangThai) {
-        return hoaDonRepository.findByKhachHangAndLoaiHDAndTrangThai(khachHang, 0 , trangThai);
+        return hoaDonRepository.findByKhachHangAndLoaiHDAndTrangThaiOrderByTgTaoDesc(khachHang, 0 , trangThai);
+    }
+
+    @Override
+    public List<HoaDon> listHoaDonKhachHangAndTrangThaiOnlineAndLoaiThanhToan(KhachHang khachHang, int trangThai, int loaiThanhToan) {
+        return hoaDonRepository.findByKhachHangAndLoaiHDAndTrangThaiAndHinhThucThanhToanOrderByTgTaoDesc(khachHang, 0, trangThai, loaiThanhToan);
     }
 
     @Override
@@ -108,5 +113,35 @@ public class HoaDonServiceImpl implements HoaDonService {
         khuyenMai.setSoLuongDaDung(khuyenMai.getSoLuongDaDung() + 1);
         khuyenMaiRepository.save(khuyenMai);
 
+    }
+
+    @Override
+    public List<HoaDon> getAllHoaDonOffLine() {
+        return hoaDonRepository.findHoaDonByLoaiHDOrderByTgTaoDesc(1);
+    }
+
+    @Override
+    public List<HoaDon> listHoaDonOnline() {
+        return hoaDonRepository.findByLoaiHDAndTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrderByTgTaoDesc(0, 0, 1, 2, 3, 4 ,5);
+    }
+
+    @Override
+    public List<HoaDon> listHoaDonOnlineAndTrangThai(int trangThai) {
+        return hoaDonRepository.findByLoaiHDAndTrangThaiOrderByTgTaoDesc(0, trangThai);
+    }
+
+    @Override
+    public List<HoaDon> listHoaDonOnlineGiaoHang(int trangThai1, int trangThai2) {
+        return hoaDonRepository.findByLoaiHDAndTrangThaiOrTrangThaiOrderByTgTaoDesc(0, 1, 2);
+    }
+
+    @Override
+    public List<HoaDon> listHoaDonOnlineAndHTTT(int httt) {
+        return hoaDonRepository.findByLoaiHDAndHinhThucThanhToan(0, httt);
+    }
+
+    @Override
+    public List<HoaDon> listHoaDonOnlineAndHTTTAndTrangThai(int httt, int trangThai) {
+        return hoaDonRepository.findByLoaiHDAndTrangThaiAndHinhThucThanhToan(0, trangThai, httt);
     }
 }

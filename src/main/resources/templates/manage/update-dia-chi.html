@@ -92,8 +92,7 @@
                     </a>
                 </div>
             </li>
-
-
+            
             <li class="nav-item dropdown">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                     <img src="/images/img/icons/notification-bing.svg" alt="img"> <span
@@ -233,7 +232,7 @@
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="index.html"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
+                        <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
                         </a>
                     </li>
                     <li class="submenu">
@@ -308,7 +307,7 @@
             </div>
         </div>
     </div>
-    <form th:object="${diaChi}" method="post" th:action="@{'/manage/dia-chi/viewUpdate/' + ${diaChi.idDC}}">
+    <form th:object="${diaChi}" method="post" th:action="@{'/manage/dia-chi/viewUpdate/' + ${diaChi.idDC}}" onsubmit="return validateForm()">
         <div class="page-wrapper">
             <div class="content">
                 <div class="page-header">
@@ -324,7 +323,7 @@
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Mã Địa Chỉ</label>
-                                    <input type="text" th:field="*{maDC}">
+                                    <input type="text" th:field="*{maDC}" readonly>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -343,7 +342,7 @@
                                 <div class="form-group">
                                     <label>Tỉnh Thành Phố</label>
                                     <select class="select" th:field="*{tinhTP}" id="tinhthanhpho">
-                                        <option value="" selected>Chọn thành phố</option>
+                                        <option value="" selected>Chọn</option>
                                     </select>
                                 </div>
                             </div>
@@ -440,91 +439,7 @@
         </div>
     </form>
 </div>
-<div th:if="${maDCError}" id="warning1" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Mã DC không được bỏ trống.</div>
-    </div>
-</div>
-<div th:if="${tenDCError}" id="warning2" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Tên DC không được bỏ trống.</div>
-    </div>
-</div>
-<div th:if="${tenNguoiNhanError}" id="warning3" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Tên người nhận không được bỏ trống.</div>
-    </div>
-</div>
-<div th:if="${xaPhuongError}" id="warning4" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Xã Phường không được bỏ trống</div>
-    </div>
-</div>
 
-<div th:if="${quanHuyenError}" id="warning5" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Quận Huyện không được bỏ trống</div>
-    </div>
-</div>
-<div th:if="${tinhTPError}" id="warning6" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Tỉnh TP không được bỏ trống</div>
-    </div>
-</div>
-<div th:if="${moTaError}" id="warning7" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Mô Tả không được bỏ trống</div>
-    </div>
-</div>
-<div th:if="${diaChiChiTietError}" id="warning8" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Địa chỉ chi tiết không được bỏ trống.</div>
-    </div>
-</div>
-<div th:if="${mienError}" id="warning9" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Miền không được bỏ trống.</div>
-    </div>
-</div>
-<div th:if="${loaiError}" id="warning10" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Loại không được bỏ trống.</div>
-    </div>
-</div>
-<div th:if="${sdtNguoiNhanError}" id="warning11" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Số điện thoại phải có 10 chữ số và bắt đầu bằng số 0</div>
-    </div>
-</div>
-<div th:if="${khachHangError}" id="warning12" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Khách Hàng không được bỏ trống.</div>
-    </div>
-</div>
 <div th:if="${Errormessage}" id="checkMaDC" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
         <button type="button" class="toast-close-button" role="button">×</button>
@@ -558,6 +473,33 @@
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+<script>
+    function validateForm() {
+        // Lấy giá trị từ các input
+        var maDC = document.getElementById("maDC").value;
+        var tenDC = document.getElementById("tenDC").value;
+        var tenNguoiNhan = document.getElementById("tenNguoiNhan").value;
+        var sdtNguoiNhan = document.getElementById("sdtNguoiNhan").value;
+
+        // Kiểm tra giá trị trống
+        if (maDC === "" || tenDC === "" || tenNguoiNhan === "" || sdtNguoiNhan === "") {
+            alert("Vui lòng điền đầy đủ thông tin");
+            return false;
+        }
+
+        // Kiểm tra định dạng số điện thoại
+        var phoneRegex = /^0\d{9}$/;
+        if (!phoneRegex.test(sdtNguoiNhan)) {
+            alert("Số điện thoại không hợp lệ");
+            return false;
+        }
+
+        // Các kiểm tra khác tùy theo yêu cầu của bạn
+
+        return true;
+    }
+</script>
 <script>
     const host = "https://provinces.open-api.vn/api/";
     var callAPI = (api) => {
@@ -584,14 +526,8 @@
         array.forEach(element => {
             row += `<option data-id="${element.code}" data-name="${element.name}"  value="${element.name}">${element.name}</option>`
         });
-        document.querySelector("#" + select).innerHTML = row
+        document.querySelector("#" + select).innerHTML += row
     }
-
-    //
-
-    // load du lieu
-
-    // set by id
 
     $("#tinhthanhpho").change(() => {
         callApiDistrict(host + "p/" + $("#tinhthanhpho").find(':selected').data('id') + "?depth=2");
@@ -619,89 +555,6 @@
 </script>
 
 <script>
-    setTimeout(function () {
-        var warning1 = document.getElementById('warning1');
-        if (warning1) {
-            warning1.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning2 = document.getElementById('warning2');
-        if (warning2) {
-            warning2.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning3 = document.getElementById('warning3');
-        if (warning3) {
-            warning3.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning4 = document.getElementById('warning4');
-        if (warning4) {
-            warning4.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning5 = document.getElementById('warning5');
-        if (warning5) {
-            warning5.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning6 = document.getElementById('warning6');
-        if (warning6) {
-            warning6.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning7 = document.getElementById('warning7');
-        if (warning7) {
-            warning7.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning8 = document.getElementById('warning8');
-        if (warning8) {
-            warning8.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning9 = document.getElementById('warning9');
-        if (warning9) {
-            warning9.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning10 = document.getElementById('warning10');
-        if (warning10) {
-            warning10.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning11 = document.getElementById('warning11');
-        if (warning11) {
-            warning11.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning12 = document.getElementById('warning12');
-        if (warning12) {
-            warning12.style.display = 'none';
-        }
-    }, 5000);
     //
     setTimeout(function () {
         var checkMaDC = document.getElementById('checkMaDC');

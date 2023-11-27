@@ -76,7 +76,7 @@ public class CheckOutController {
         hoaDon.setMaHD(maHD);
         hoaDon.setLoaiHD(0);
         hoaDon.setTgTao(date);
-        hoaDon.setTrangThai(5);
+        hoaDon.setTrangThai(6);
 
         if (diaChiKHDefault != null){
             hoaDon.setDiaChiNguoiNhan(diaChiKHDefault.getDiaChiChiTiet());
@@ -113,6 +113,7 @@ public class CheckOutController {
                 .sum();
 
         if(diaChiKHDefault == null){
+            model.addAttribute("addNewAddressNulll", true);
             model.addAttribute("addNewAddressNull", true);
         }else{
             model.addAttribute("diaChiKHDefault", diaChiKHDefault);
@@ -359,9 +360,12 @@ public class CheckOutController {
         List<KhuyenMai> khuyenMaiListShipping = khuyenMaiService.findByLoaiKMAndTrangThai(loaiKhuyenMaiShip);
         List<KhuyenMai> khuyenMaiListBill =  khuyenMaiService.findByLoaiKMAndTrangThai(loaiKhuyenMaiBill);
 
+        Double billVoucher = 0.0;
+
         if ( hoaDon.getTongTien() < khuyenMai.getDieuKienKMBill() ){
             model.addAttribute("noticaAddVoucher", true);
             model.addAttribute("addErr", true);
+            billVoucher = 0.0;
         }else{
             Double voucherBillFee = shippingFeeService.calculatorVoucherBill(hoaDon, khuyenMai);
             model.addAttribute("tienGiamVoucherBill", voucherBillFee);
@@ -369,10 +373,10 @@ public class CheckOutController {
             model.addAttribute("nameVoucher", khuyenMai.getTenKM());
             model.addAttribute("addSuccess", true);
 
+            billVoucher = shippingFeeService.calculatorVoucherBill(hoaDon, khuyenMai);
             session.removeAttribute("khuyenMaiHoaDon");
             session.setAttribute("khuyenMaiHoaDon", khuyenMai);
         }
-
 
         int sumQuantity = hoaDonChiTietList.stream()
                 .mapToInt(HoaDonChiTiet::getSoLuong)
@@ -385,9 +389,7 @@ public class CheckOutController {
         hoaDonService.add(hoaDon);
 //TODO update HoaDon END
 
-
         Double shippingFee = shippingFeeService.calculatorShippingFee(hoaDon, 25000.0);
-        Double billVoucher = shippingFeeService.calculatorVoucherBill(hoaDon, khuyenMai);
 
         Double shippingVoucher = 0.0;
         if (khuyenMaiGiaoHang !=null){
@@ -527,17 +529,36 @@ public class CheckOutController {
         hoaDon.setGiamGiaHoaDon(tienGiamGiaHoaDon);
         hoaDon.setTienShip(shippingFee);
         hoaDon.setLoiNhan(loiNhan);
-        hoaDon.setTongTienDG(hoaDon.getTongTien() - tienGiamGiaHoaDon - tienGiamGiaShip);
+        hoaDon.setTongTienDG(hoaDon.getTongTien() + shippingFee - tienGiamGiaHoaDon - tienGiamGiaShip);
 
-        if (hinhThucThanhToan=="HTT02"){
-            hoaDon.setTrangThai(1);
-        }else{
+        if (hinhThucThanhToan.equals("QRCodeBanking")){
+            hoaDon.setHinhThucThanhToan(1);
             hoaDon.setTrangThai(0);
+            hoaDonService.add(hoaDon);
+
+            UserForm(model);
+
+            model.addAttribute("maHD", hoaDon.getMaHD());
+            model.addAttribute("toTalOder", hoaDon.getTongTienDG());
+            model.addAttribute("thongTinThanhToan", true);
+
+            model.addAttribute("addNewAddressNull", true);
+            model.addAttribute("addNewAddressNulll", false);
+
+
+
+            return "online/checkout";
+        }else{
+            hoaDon.setHinhThucThanhToan(0);
+            hoaDon.setTrangThai(1);
+            hoaDonService.add(hoaDon);
+
+            UserForm(model);
+
+            return "redirect:/buyer/purchase";
         }
 
-        hoaDonService.add(hoaDon);
 
-        return "redirect:/buyer/purchase";
     }
 
     private void UserForm(Model model){
@@ -548,6 +569,11 @@ public class CheckOutController {
         List<GioHangChiTiet> listGHCTActive = ghctService.findByGHActive(gioHang);
         Integer sumProductInCart = listGHCTActive.size();
         model.addAttribute("sumProductInCart", sumProductInCart);
+
+        session.removeAttribute("khuyenMaiGiaoHang");
+        session.removeAttribute("khuyenMaiHoaDon");
+        session.removeAttribute("hoaDonTaoMoi");
+        session.removeAttribute("diaChiGiaoHang");
     }
 
     public String generateRandomNumbers() {

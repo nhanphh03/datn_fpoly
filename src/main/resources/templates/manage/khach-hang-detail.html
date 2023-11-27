@@ -1,6 +1,7 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
     <meta name="description" content="POS - Bootstrap Admin Template">
@@ -10,9 +11,11 @@
     <meta name="robots" content="noindex, nofollow">
     <title>Sneaker Shop - Admin</title>
 
-    <link rel="shortcut icon" type="image/x-icon"  href="/images/img/icon.png">
+    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
 
     <link rel="stylesheet" href="/css/animate.css">
 
@@ -22,6 +25,9 @@
 
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="/plugins/alertify/alertify.min.css"/>
+
+    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
 
     <link rel="stylesheet" href="/css/style.css">
 </head>
@@ -260,7 +266,6 @@
                         <a href="javascript:void(0);"><img src="/images/img/icons/expense1.svg" alt="img"><span> Quản Lý Hóa Đơn</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="/manage/don-hang/hien-thi" class="active">Quản lý đơn hàng</a></li>
                             <li><a href="expenselist.html">Expense List</a></li>
                             <li><a href="createexpense.html">Add Expense</a></li>
                             <li><a href="expensecategory.html">Expense Category</a></li>
@@ -270,7 +275,7 @@
                         <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản Lý Khách Hàng</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="/manage/khach-hang">Khách Hàng</a></li>
+                            <li><a href="/manage/khach-hang" class="active">Khách Hàng</a></li>
                             <li><a href="/manage/dia-chi">Địa Chỉ </a></li>
                             <li><a href="/manage/loai-khach-hang">Loại Khách Hàng</a></li>
                         </ul>
@@ -291,7 +296,6 @@
                         <ul>
                             <li><a href="/manage/chuc-vu">Chức Vụ</a></li>
                             <li><a href="/manage/nhan-vien">Nhân Viên</a></li>
-
                         </ul>
                     </li>
                     <li class="submenu">
@@ -312,15 +316,20 @@
         <div class="content">
             <div class="page-header">
                 <div class="page-title">
-                    <h4>Hóa Đơn Chi Tiết</h4>
-                    <h6>Quản Lý Hóa Đơn</h6>
+                    <h4>List Địa Chỉ Khách Hàng</h4>
+                    <h6>Quản Lý Khách Hàng</h6>
+                </div>
+                <div class="page-btn">
+                    <a th:href="@{'/manage/dia-chi/viewAdd/'+${idDC}}" class="btn btn-added"><img
+                            src="/images/img/icons/plus.svg"
+                            alt="img"
+                            class="me-1"/>Thêm Địa Chỉ</a>
                 </div>
             </div>
-
             <div class="card">
                 <div class="card-body">
                     <div class="form-hidden-2" style="display: none">
-                        <form action="/manage/nhanVien/import" method="post" enctype="multipart/form-data">
+                        <form action="/manage/khachHang/import" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label> Upload Excel File</label>
                                 <input type="file" name="file" onchange="displaySelectedFileName()"/>
@@ -333,13 +342,16 @@
                         <div class="search-set">
                             <div class="search-path">
                                 <a class="btn btn-filter" id="filter_search">
-                                    <img src="/images/img/icons/filter.svg" alt="img">
-                                    <span><img src="/images/img/icons/closes.svg" alt="img"></span>
+                                    <img src="/images/img/icons/filter.svg" alt="img"/>
+                                    <span
+                                    ><img src="/images/img/icons/closes.svg" alt="img"
+                                    /></span>
                                 </a>
                             </div>
                             <div class="search-input">
-                                <a class="btn btn-searchset"><img src="/images/img/icons/search-white.svg"
-                                                                  alt="img"></a>
+                                <a class="btn btn-searchset"
+                                ><img src="/images/img/icons/search-white.svg" alt="img"
+                                /></a>
                             </div>
                         </div>
                         <div class="wordset">
@@ -352,7 +364,7 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/manage/diaChi/export/pdf}"
+                                    <a th:href="@{/manage/khachHang/export/pdf}"
                                        data-bs-toggle="tooltip"
                                        data-bs-placement="top"
                                        title="pdf"
@@ -360,7 +372,7 @@
                                     /></a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/manage/diaChi/export/excel}"
+                                    <a th:href="@{/manage/khachHang/export/excel}"
                                        data-bs-toggle="tooltip"
                                        data-bs-placement="top"
                                        title="excel"
@@ -378,89 +390,105 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="table-responsive">
-                        <div class="page-title">
-                            <h4>Thông tin đơn hàng</h4>
+
+                    <form method="get" th:action="@{/manage/khachHang/filter}">
+                        <div class="card mb-0" id="filter_inputs">
+                            <div class="card-body pb-0">
+                                <div class="row">
+                                    <div class="col-lg-12 col-sm-12">
+                                        <div class="row">
+                                            <div class="col-lg-3 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <select class="select" id="KhachHangFilterMa" name="searchTerm">
+                                                        <option>Mã Khách Hàng</option>
+                                                        <option th:each="loc : ${khachHang}" th:value="${loc.maKH}"
+                                                                th:text="${loc.maKH}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <select class="select" id="KhachHangFilterTen" name="searchTerm">
+                                                        <option>Tên Khách Hàng</option>
+                                                        <option th:each="loc : ${khachHang}" th:value="${loc.hoTenKH}"
+                                                                th:text="${loc.hoTenKH}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <select class="select" id="LoaiKHFilterTen" name="searchTerm">
+                                                        <option>Loại Khách Hàng</option>
+                                                        <option th:each="loc : ${loaiKhachHang}" th:value="${loc.idLKH}"
+                                                                th:text="${loc.tenLKH}"></option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-sm-6 col-12">
+                                                <div class="form-group">
+                                                    <a class="btn btn-filters ms-auto"><img
+                                                            src="/images/img/icons/search-whites.svg"
+                                                            alt="img"/></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <table class="table  datanew text-center">
+                    </form>
+
+                    <div class="table-responsive">
+                        <table class="table  datanew" id="data-table">
                             <thead>
                             <tr>
-                                <th>Mã Hóa Đơn</th>
-                                <th>Khách hàng</th>
-                                <th>SDT</th>
-                                <th>Tổng tiền</th>
-                                <th>Loại đơn hàng</th>
-                                <th>Trạng thái</th>
-                                <th>Ngày tạo</th>
-                                <th>Hành động</th>
+                                <th>Mã Địa Chỉ</th>
+                                <th>Tên Địa Chỉ</th>
+                                <th>Tên Người Nhận</th>
+                                <th>Xã Phường</th>
+                                <th>Quận Huyện</th>
+                                <th>Tỉnh Thành Phố</th>
+                                <th>Mô Tả</th>
+                                <th>Miền</th>
+                                <th>Loại Địa Chỉ</th>
+                                <th>Địa Chỉ Chi tiết</th>
+                                <th>SDT Địa Chỉ</th>
+                                <th>Trạng Thái</th>
+                                <th>Thời Gian Thêm</th>
+                                <th>Thời Gian Sửa</th>
+                                <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-<!--                                <th:block >-->
-<!--                                    <td th:text="${hoaDon.maHD}"></td>-->
-<!--                                </th:block>-->
-<!--                                -->
-                                <!--                                <td>-->
-                                <!--                                    <p th:if="${hoaDon.khachHang == null}">Khách lẻ</p>-->
-                                <!--                                    <p th:if="${hoaDon.khachHang != null}" th:text="${hoaDon.khachHang.hoTenKH}"></p>-->
-                                <!--                                </td>-->
-
-                                <!--                                <td>-->
-                                <!--                                    <p th:if="${hoaDon.khachHang == null}">-</p>-->
-                                <!--                                    <p th:if="${hoaDon.khachHang != null}" th:text="${hoaDon.khachHang.sdtKH}"></p>-->
-                                <!--                                </td>-->
-<!--                                <td>-->
-<!--                                    <p th:if="${hoaDon.tongTien == null}">-</p>-->
-<!--                                    <p th:if="${hoaDon.tongTien != null}" th:text="${hoaDon.tongTien + ' $'}"></p>-->
-<!--                                </td>-->
-                                <!--                                <td>-->
-                                <!--                                    <p th:if="${hoaDon.loaiHD == 1}">Tại quầy</p>-->
-                                <!--                                    <p th:if="${hoaDon.loaiHD == 0}">Online</p>-->
-                                <!--                                </td>-->
-                                <!--                                <td>-->
-                                <!--                                    <p th:if="${hoaDon.trangThai == 3}">Đang chờ</p>-->
-                                <!--                                    <p th:if="${hoaDon.trangThai == 0}">Thanh công</p>-->
-                                <!--                                </td>-->
-                                <!--                                <td th:text="${#dates.format(hoaDon.tgTao, 'dd/MM/yyyy HH:mm:ss')}"></td>-->
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="table-responsive">
-                        <div class="page-title">
-                            <h4>Sản Phẩm</h4>
-                        </div>
-                        <table class="table  datanew text-center" id="data-table">
-                            <thead>
-                            <tr>
-                                <th>Hình ảnh</th>
-                                <th>Sản phẩm</th>
-                                <th>Số lượng</th>
-                                <th>Tổng tiền</th>
-
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="items : ${hoaDonChiTiet}">
+                            <tr th:each="items : ${diaChiList}">
+                                <td th:text="${items.maDC}"></td>
+                                <td th:text="${items.tenDC}"></td>
+                                <td th:text="${items.tenNguoiNhan}"></td>
+                                <td th:text="${items.xaPhuong}"></td>
+                                <td th:text="${items.quanHuyen}"></td>
+                                <td th:text="${items.tinhTP}"></td>
+                                <td th:text="${items.moTa}"></td>
+                                <td th:text="${items.mien}"></td>
                                 <td>
-                                    <img th:src="@{'/images/imgsProducts/'+ ${items.chiTietGiay.hinhAnh.url1}}" alt=""
-                                         height="400"
-                                         width="300">
+                                    <p th:if="${items.loai == true}"  class="badges bg-lightgreen">Mặc định</p>
+                                    <p th:unless="${items.loai == true}" class="badges bg-lightred">Không mặc định</p>
                                 </td>
+                                <td th:text="${items.diaChiChiTiet}"></td>
+                                <td th:text="${items.sdtNguoiNhan}"></td>
                                 <td>
-                                    <p th:text="${items.chiTietGiay.giay.tenGiay}"></p>
-                                    <label th:text="${'Hãng : '+items.chiTietGiay.giay.hang.tenHang}"></label>
-                                    <p th:text="${items.chiTietGiay.size.soSize}"></p>
-                                    <h4 class="text-danger" th:text="${items.chiTietGiay.giaBan} + ' $'"></h4>
+                                    <p th:if="${items.trangThai == 1}"  class="badges bg-lightgreen">Hoạt Động</p>
+                                    <p th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</p>
                                 </td>
-
+                                <td th:text="${items.tgThem}"></td>
+                                <td th:text="${items.tgSua}"></td>
                                 <td>
-                                    <p th:text="${items.soLuong}"></p>
-                                </td>
-                                <td>
-                                    <h3 class="text-danger" th:text="${items.donGia * items.soLuong} + ' $'"></h3>
-
+                                    <a class="me-3" th:href="@{'/manage/dia-chi/viewUpdate/' + ${items.idDC}}">
+                                        <img src="/images/img/icons/edit.svg" alt="img">
+                                    </a>
+                                    <a class="me-2 delete-button"
+                                       th:data-delete-url="@{'/manage/dia-chi/delete/' + ${items.idDC}}">
+                                        <img src="/images/img/icons/delete.svg" alt="img">
+                                    </a>
                                 </td>
                             </tr>
                             </tbody>
@@ -471,6 +499,15 @@
         </div>
     </div>
 </div>
+<div th:if="${message}" id="toast-container" class="toast-container toast-top-right">
+    <div class="toast toast-success" aria-live="polite" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Thành Công</div>
+        <div class="toast-message">Dữ liệu của bạn đã được cập nhật</div>
+    </div>
+</div>
+
+
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
@@ -488,6 +525,10 @@
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
 <script src="/js/script.js"></script>
+<script src="/js/moment.min.js"></script>
+<script src="/plugins/toastr/toastr.min.js"></script>
+<script src="/plugins/toastr/toastr.js"></script>
+<script src="/js/bootstrap-datetimepicker.min.js"></script>
 
 //
 <script>
@@ -550,47 +591,45 @@
 <script>
     $(document).ready(function () {
         // Lắng nghe sự kiện thay đổi trong dropdown kích thước
-        $("#DiaChiFilterMa").change(function () {
-            var maDC = $(this).val();
+        $("#KhachHangFilterMa").change(function () {
+            var maKH = $(this).val();
 
             // Ẩn tất cả các dòng trong bảng
             $("#data-table tbody tr").hide();
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var maColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
-                if (maColumn === maDC || maDC === "Mã Địa Chỉ") {
+                var maColumn = $(this).find("td:eq(3)").text(); // Vị trí cột chứa giá trị kích thước
+                if (maColumn === maKH || maKH === "Mã Khách Hàng") {
                     $(this).show();
                 }
             });
-            console.log(maDC);
-        });
-        //
-        $("#DiaChiFilterTen").change(function () {
-            var tenDC = $(this).val();
-
-            // Ẩn tất cả các dòng trong bảng
-            $("#data-table tbody tr").hide();
-
-            // Hiển thị các dòng có giá trị kích thước tương ứng
-            $("#data-table tbody tr").each(function () {
-                var tenColumn = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
-                if (tenColumn === tenDC || tenDC === "Tên Địa Chỉ") {
-                    $(this).show();
-                }
-            });
-            console.log(tenDC);
         });
         //
         $("#KhachHangFilterTen").change(function () {
-            var hoTenKH = $(this).find(":selected").text();
+            var hoTenKH = $(this).val();
+
             // Ẩn tất cả các dòng trong bảng
             $("#data-table tbody tr").hide();
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var khachHang = $(this).find("td:eq(10)").text(); // Vị trí cột chứa giá trị kích thước
-                if (khachHang === hoTenKH || hoTenKH === "Khách Hàng") {
+                var tenColumn = $(this).find("td:eq(4)").text(); // Vị trí cột chứa giá trị kích thước
+                if (tenColumn === hoTenKH || hoTenKH === "Tên Khách Hàng") {
+                    $(this).show();
+                }
+            });
+        });
+        //
+        $("#LoaiKHFilterTen").change(function () {
+            var tenLKH = $(this).find(":selected").text();
+            // Ẩn tất cả các dòng trong bảng
+            $("#data-table tbody tr").hide();
+
+            // Hiển thị các dòng có giá trị kích thước tương ứng
+            $("#data-table tbody tr").each(function () {
+                var loaiKH = $(this).find("td:eq(13)").text(); // Vị trí cột chứa giá trị kích thước
+                if (loaiKH === tenLKH || tenLKH === "Loại Khách Hàng") {
                     $(this).show();
                 }
             });
@@ -600,17 +639,17 @@
 </script>
 <script>
     //Mở form
-    document.getElementById("show-form-button").addEventListener("click", function () {
-        var form1 = document.querySelector(".hidden-form");
-        var form2 = document.querySelector(".form-hidden-2");
-        if (form1.style.display === "none" || form1.style.display === "" || form2.style.display === "block") {
-            $('.hidden-form').slideToggle("slow");
-            form1.style.display = "block";  // Hiển thị form
-            form2.style.display = "none";
-        } else {
-            form1.style.display = "none";  // Ẩn form
-        }
-    });
+    // document.getElementById("show-form-button").addEventListener("click", function () {
+    //     var form1 = document.querySelector(".hidden-form");
+    //     var form2 = document.querySelector(".form-hidden-2");
+    //     if (form1.style.display === "none" || form1.style.display === "" || form2.style.display === "block") {
+    //         $('.hidden-form').slideToggle("slow");
+    //         form1.style.display = "block";  // Hiển thị form
+    //         form2.style.display = "none";
+    //     } else {
+    //         form1.style.display = "none";  // Ẩn form
+    //     }
+    // });
     //
     document.getElementById("import-excel").addEventListener("click", function () {
         var form2 = document.querySelector(".form-hidden-2");
@@ -623,6 +662,14 @@
             form2.style.display = "none";  // Ẩn form
         }
     });
+</script>
+<script>
+    setTimeout(function () {
+        var successToast = document.getElementById('toast-container');
+        if (successToast) {
+            successToast.style.display = 'none';
+        }
+    }, 5000);
 </script>
 </body>
 </html>

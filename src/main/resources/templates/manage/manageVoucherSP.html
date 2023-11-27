@@ -232,7 +232,7 @@
       <div id="sidebar-menu" class="sidebar-menu">
         <ul>
           <li>
-            <a href="index.html"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống
+            <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống
                                     Kê</span>
             </a>
           </li>
@@ -263,6 +263,7 @@
                                     Quản Lý Hóa Đơn</span>
               <span class="menu-arrow"></span></a>
             <ul>
+              <li><a href="/manage/hoa-don/hien-thi">Hóa đơn tại quầy</a></li>
               <li><a href="/manage/don-hang/hien-thi">Quản lý đơn hàng</a></li>
               <li><a href="expenselist.html">Expense List</a></li>
               <li><a href="createexpense.html">Add Expense</a></li>
@@ -400,7 +401,7 @@
                 <label style="margin: 17px 28px 0 0 ; font-weight: 500;">Lọc khuyến mãi</label>
                 <div style="margin:10px 0 0 20px; width: 200px; display: flex;">
                   <select onchange="window.location.href = this.value;" class="form-control form-small select">
-                    <option selected="selected">Nhan ngu</option>
+                    <option value="/manage/voucher-product" selected="selected">Tất cả</option>
                     <option value="/manage/voucher/voucher-product/product-promotion" >Sản phẩm đã có khuyến mãi</option>
                     <option value="/manage/voucher/voucher-product/product-nonpromotion" >Sản phẩm chưa có khuyến mãi</option>
                   </select>

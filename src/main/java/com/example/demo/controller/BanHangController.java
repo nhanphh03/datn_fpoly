@@ -15,8 +15,11 @@ import com.example.demo.service.HangService;
 import com.example.demo.service.HoaDonChiTietService;
 import com.example.demo.service.HoaDonService;
 import com.example.demo.service.KhachHangService;
+import com.example.demo.service.KhuyenMaiService;
+import com.example.demo.service.LoaiKhuyenMaiService;
 import com.example.demo.service.NhanVienService;
 import com.example.demo.viewModel.GiayViewModel;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,23 +70,29 @@ public class BanHangController {
     private HoaDonChiTietService hoaDonChiTietService;
 
     @Autowired
-    private NhanVienService nhanVienService;
+    private LoaiKhuyenMaiService loaiKhuyenMaiService;
+
+    @Autowired
+    private KhuyenMaiService khuyenMaiService;
+    @Autowired
+    private HttpServletRequest request;
+
     private double tongTien = 0;
+    private double tienKhuyenMai = 0;
+    private double tongTienSauKM = tongTien - tienKhuyenMai;
     private UUID idHoaDon = null;
     private int tongSanPham = 0;
 
-    @GetMapping("/offline")
-    public String offline() {
-        return "manage/activities";
-    }
 
     @RequestMapping(value = {"", "/", "/home", "/hien-thi"})
     public String hienThi(Model model
             , @ModelAttribute("messageSuccess") String messageSuccess
             , @ModelAttribute("messageError") String messageError) {
         model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
-        model.addAttribute("tongtien", this.tongTien);
+        model.addAttribute("tongTien", this.tongTien);
         model.addAttribute("tongSanPham", this.tongSanPham);
+        model.addAttribute("khuyenMai", this.tienKhuyenMai);
+        model.addAttribute("tongTienSauKM", tongTien - tienKhuyenMai);
         model.addAttribute("listKhachHang", khachHangService.findKhachHangByTrangThai());
         if (!"true".equals(messageSuccess)) {
             model.addAttribute("messageSuccess", false);
@@ -95,13 +104,14 @@ public class BanHangController {
     }
 
     @GetMapping("/add-cart")
-    public String taoHoaDon(Model model,RedirectAttributes redirectAttributes) {
+    public String taoHoaDon(Model model, RedirectAttributes redirectAttributes) {
         NhanVien nhanVien = (NhanVien) httpSession.getAttribute("staffLogged");
         List<HoaDon> listHD = hoaDonService.getListHoaDonChuaThanhToan();
         if (listHD.size() < 3) {
             String ma = String.valueOf(Math.floor(((Math.random() * 899999) + 100000)));
             HoaDon hd = new HoaDon();
-            hd.setMaHD("hd" + ma);
+            Date date = new Date();
+            hd.setMaHD("HD" + date.getDate() + ma);
             hd.setTgTao(new Date());
             hd.setTrangThai(3);
             hd.setLoaiHD(1);
@@ -135,10 +145,23 @@ public class BanHangController {
         }
         model.addAttribute("tongTien", hoaDonChiTietService.tongTien(findByIdHoaDon));
         model.addAttribute("listKhachHang", khachHangService.findKhachHangByTrangThai());
-        model.addAttribute("khachHang",httpSession.getAttribute("khachHang"));
-        model.addAttribute("tongSanPham",findByIdHoaDon.size());
-        httpSession.setAttribute("tongSP",findByIdHoaDon.size());
-        httpSession.setAttribute("tongTien",hoaDonChiTietService.tongTien(findByIdHoaDon));
+        model.addAttribute("khachHang", httpSession.getAttribute("khachHang"));
+        model.addAttribute("tongSanPham", findByIdHoaDon.size());
+        httpSession.setAttribute("tongSP", findByIdHoaDon.size());
+        httpSession.setAttribute("tongTien", hoaDonChiTietService.tongTien(findByIdHoaDon));
+
+        //list KH
+        LoaiKhuyenMai loaiKhuyenMai = loaiKhuyenMaiService.findByMaLKM("LKM01");
+        List<KhuyenMai> khuyenMaiList = khuyenMaiService.findByLoaiKMAndTrangThai(loaiKhuyenMai);
+        model.addAttribute("listKhuyenMai", khuyenMaiList);
+
+        //
+        model.addAttribute("khuyenMai", this.tienKhuyenMai);
+        model.addAttribute("tongTienSauKM", hoaDonChiTietService.tongTien(findByIdHoaDon) - tienKhuyenMai);
+        // add tong tièn
+        HoaDon hoaDon = hoaDonService.getOne(idHoaDon);
+        hoaDon.setTongTien(hoaDonChiTietService.tongTien(findByIdHoaDon));
+        hoaDonService.add(hoaDon);
 
         if (messageSuccess == null || !"true".equals(messageSuccess)) {
             System.out.println(messageSuccess);
@@ -161,7 +184,7 @@ public class BanHangController {
             return "redirect:/ban-hang/";
         }
         List<GiayViewModel> list = giayViewModelService.getAll(keyword);
-        if (list.isEmpty()){
+        if (list.isEmpty()) {
             redirectAttributes.addFlashAttribute("messageError", true);
             redirectAttributes.addFlashAttribute("tbaoError", "Không tìm thấy sản phẩm");
             return "redirect:/ban-hang/cart/hoadon/" + this.idHoaDon;
@@ -172,10 +195,11 @@ public class BanHangController {
         List<HoaDonChiTiet> findByIdHoaDon = hoaDonChiTietService.findByIdHoaDon(idHoaDon);
         if (findByIdHoaDon.isEmpty()) {
             model.addAttribute("messageGioHang", "Trong giỏ hàng chưa có sản phẩm");
-        } else {
-            model.addAttribute("tongTien", hoaDonChiTietService.tongTien(findByIdHoaDon));
-            model.addAttribute("gioHang", findByIdHoaDon);
         }
+        model.addAttribute("tongTien", hoaDonChiTietService.tongTien(findByIdHoaDon));
+        model.addAttribute("gioHang", findByIdHoaDon);
+        model.addAttribute("khuyenMai", this.tienKhuyenMai);
+        model.addAttribute("tongTienSauKM", hoaDonChiTietService.tongTien(findByIdHoaDon) - tienKhuyenMai);
         return "offline/index";
     }
 
@@ -186,8 +210,12 @@ public class BanHangController {
         List<ChiTietGiay> sizeList = sizeRepository.findByIdGiayAndMauSac2(idGiay, mauSac);
         model.addAttribute("giay", giay);
         model.addAttribute("listChiTietGiay", sizeList);
-        model.addAttribute("idHoaDon",idHoaDon);
+        model.addAttribute("idHoaDon", idHoaDon);
         model.addAttribute("showModal", true);
+
+        model.addAttribute("tongTien", tongTien);
+        model.addAttribute("khuyenMai", this.tienKhuyenMai);
+        model.addAttribute("tongTienSauKM", tongTien - tienKhuyenMai);
         return "offline/index";
     }
 
@@ -196,14 +224,14 @@ public class BanHangController {
                             @RequestParam("soLuong") int soLuong, Model model,
                             RedirectAttributes redirectAttributes) {
         UUID idHoaDon = (UUID) httpSession.getAttribute("idHoaDon");
-        if (idHoaDon== null){
+        if (idHoaDon == null) {
             redirectAttributes.addFlashAttribute("messageError", true);
             redirectAttributes.addFlashAttribute("tbaoError", "Bạn chưa chọn hóa đơn");
             model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
             return "redirect:/ban-hang/";
         }
         ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(idChiTietGiay);
-        if (soLuong>chiTietGiay.getSoLuong()){
+        if (soLuong > chiTietGiay.getSoLuong()) {
             redirectAttributes.addFlashAttribute("messageError", true);
             redirectAttributes.addFlashAttribute("tbaoError", "Số lượng trong kho không đủ");
             model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
@@ -225,7 +253,7 @@ public class BanHangController {
             hdct.setTrangThai(1);
             hdct.setTgThem(new Date());
             tongSanPham++;
-            httpSession.setAttribute("tongSP",tongSanPham);
+            httpSession.setAttribute("tongSP", tongSanPham);
             hoaDonChiTietService.add(hdct);
         }
 //        List<HoaDonChiTiet> findByIdHoaDon= hoaDonChiTietService.findByIdHoaDon(idHoaDon);
@@ -245,22 +273,25 @@ public class BanHangController {
 
     @GetMapping("/quet-qr/{idChiTietGiay}")
     public String quetQr(@PathVariable(value = "idChiTietGiay") UUID idChiTietGiay,
-                         Model model,RedirectAttributes redirectAttributes) {
+                         Model model, RedirectAttributes redirectAttributes) {
         ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(idChiTietGiay);
         if (chiTietGiay == null) {
             redirectAttributes.addFlashAttribute("messageError", true);
             redirectAttributes.addFlashAttribute("tbaoError", "Ảnh QR không đúng");
-//            model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
             return "redirect:/ban-hang/cart/hoadon/" + this.idHoaDon;
         }
         model.addAttribute("quetQR", chiTietGiay);
-        model.addAttribute("idHoaDon",idHoaDon);
+        model.addAttribute("idHoaDon", idHoaDon);
+        model.addAttribute("khuyenMai", this.tienKhuyenMai);
+        model.addAttribute("tongTienSauKM", tongTien - tienKhuyenMai);
+        model.addAttribute("tongTien", tongTien);
+
         model.addAttribute("showModalQuetQR", true);
         return "offline/index";
     }
 
     @GetMapping("/xoa-gio-hang/{idChiTietGiay}")
-    public String xoaSanPham(@PathVariable("idChiTietGiay") UUID idChiTietGiay,RedirectAttributes redirectAttributes) {
+    public String xoaSanPham(@PathVariable("idChiTietGiay") UUID idChiTietGiay, RedirectAttributes redirectAttributes) {
         ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(idChiTietGiay);
         UUID idHoaDon = (UUID) httpSession.getAttribute("idHoaDon");
         HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.getOne(idHoaDon, idChiTietGiay);
@@ -272,7 +303,7 @@ public class BanHangController {
         hoaDonChiTiet.setSoLuong(0);
         hoaDonChiTietService.add(hoaDonChiTiet);
         tongSanPham--;
-        httpSession.setAttribute("tongSP",tongSanPham);
+        httpSession.setAttribute("tongSP", tongSanPham);
         redirectAttributes.addFlashAttribute("messageSuccess", true);
         redirectAttributes.addFlashAttribute("tb", "Xóa thành công");
         return "redirect:/ban-hang/cart/hoadon/" + idHoaDon;
@@ -284,8 +315,12 @@ public class BanHangController {
         model.addAttribute("gioHang", findByIdHoaDon);
         model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
         model.addAttribute("listKhachHang", khachHangService.findKhachHangByTrangThai());
-        model.addAttribute("idHoaDon",idHoaDon);
+        model.addAttribute("idHoaDon", idHoaDon);
         model.addAttribute("showModalKhachHang", true);
+
+        model.addAttribute("tongTien", hoaDonChiTietService.tongTien(findByIdHoaDon));
+        model.addAttribute("khuyenMai", this.tienKhuyenMai);
+        model.addAttribute("tongTienSauKM", hoaDonChiTietService.tongTien(findByIdHoaDon) - tienKhuyenMai);
         return "offline/index";
     }
 
@@ -296,7 +331,7 @@ public class BanHangController {
         model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
         KhachHang khachHang = khachHangService.getByIdKhachHang(idKhachHang);
         httpSession.setAttribute("khachHang", khachHang);
-        model.addAttribute("khachHang",khachHang);
+        model.addAttribute("khachHang", khachHang);
         //update khách hàng
         UUID idHoaDon = (UUID) httpSession.getAttribute("idHoaDon");
         HoaDon hoaDon = hoaDonService.getOne(idHoaDon);
@@ -313,13 +348,18 @@ public class BanHangController {
         model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
         model.addAttribute("showModalKhachHang", true);
         List<KhachHang> search = khachHangService.findKhachHangByKeyword(keyword);
-        if (search.isEmpty()){
+        if (search.isEmpty()) {
             redirectAttributes.addFlashAttribute("messageError", true);
             redirectAttributes.addFlashAttribute("tbaoError", "Không tìm thấy khách hàng");
-            return "offline/index";
+            return "redirect:/ban-hang/cart/hoadon/" + idHoaDon;
         }
         model.addAttribute("listKhachHang", search);
-        model.addAttribute("idHoaDon",idHoaDon);
+        model.addAttribute("idHoaDon", idHoaDon);
+        model.addAttribute("tongTien", tongTien);
+        model.addAttribute("khuyenMai", this.tienKhuyenMai);
+        model.addAttribute("tongTienSauKM", tongTien - tienKhuyenMai);
+        model.addAttribute("khuyenMai", this.tienKhuyenMai);
+        model.addAttribute("tongTienSauKM", hoaDonChiTietService.tongTien(findByIdHoaDon) - tienKhuyenMai);
         return "offline/index";
     }
 
@@ -354,7 +394,7 @@ public class BanHangController {
 
     //thanh toan
     @GetMapping("/thanh-toan")
-    public String thanhToan(RedirectAttributes redirectAttributes){
+    public String thanhToan(RedirectAttributes redirectAttributes) {
         this.tongSanPham = (int) httpSession.getAttribute("tongSP");
         this.tongTien = (double) httpSession.getAttribute("tongTien");
         HoaDon hoaDon = hoaDonService.getOne(idHoaDon);
@@ -362,43 +402,83 @@ public class BanHangController {
         hoaDon.setTgThanhToan(new Date());
         hoaDon.setTongTien(tongTien);
         hoaDon.setTongSP(tongSanPham);
+
+        hoaDon.setTongTienDG(tongTien - tienKhuyenMai);
+        hoaDon.setGiamGiaHoaDon(this.tienKhuyenMai);
+        hoaDon.setHinhThucThanhToan(0);
         hoaDonService.add(hoaDon);
 
-        this.tongTien =0;
-        this.tongSanPham =0;
+
+        KhuyenMai khuyenMai = (KhuyenMai) httpSession.getAttribute("khuyenMai");
+        if (khuyenMai != null) {
+            hoaDonService.saveKhuyenMai(khuyenMai, hoaDon, tienKhuyenMai);
+        }
+        this.tongTien = 0;
+        this.tongSanPham = 0;
+        this.tienKhuyenMai = 0;
+        this.tongTienSauKM = 0;
         httpSession.removeAttribute("idHoaDon");
         redirectAttributes.addFlashAttribute("messageSuccess", true);
         redirectAttributes.addFlashAttribute("tb", "Thanh toán thành công");
         return "redirect:/ban-hang/hien-thi";
     }
 
-//    Quy trình dùng Khuyến Mãi Bán Hàng tại quầy
+    @PostMapping("/khuyen-mai")
+    public String chonKhuyenMai(Model model, RedirectAttributes redirectAttributes) {
+        this.tongTien = (double) httpSession.getAttribute("tongTien");
+        UUID idVoucherBill = UUID.fromString(request.getParameter("selectVoucherShipping"));
+        UUID idHoaDon = (UUID) httpSession.getAttribute("idHoaDon");
+        KhuyenMai khuyenMai = khuyenMaiService.findByID(idVoucherBill);
+        HoaDon hoaDon = hoaDonService.getOne(idHoaDon);
+        Boolean checkDK = hoaDonService.checkHoaDonGiamGia(hoaDon, khuyenMai);
+        if (checkDK) {
+            redirectAttributes.addFlashAttribute("messageSuccess", true);
+            redirectAttributes.addFlashAttribute("tb", "Áp dụng khuyến mãi thành công");
+            Double soTienGiamGia = hoaDonService.tinhTienGiamGiaTaiQuay(hoaDon, khuyenMai);
+            this.tienKhuyenMai = soTienGiamGia;
+            httpSession.setAttribute("khuyenMai", khuyenMai);
+        } else {
+            redirectAttributes.addFlashAttribute("messageError", true);
+            redirectAttributes.addFlashAttribute("tbaoError", "Chưa đủ điều kiện");
+        }
+
+        return "redirect:/ban-hang/cart/hoadon/" + idHoaDon;
+    }
+
+    @GetMapping("/searchByCode")
+    public String searchByCode(@RequestParam(value = "code", required = false) String code, Model model,
+                               RedirectAttributes redirectAttributes) {
+        UUID idHoaDon = (UUID) httpSession.getAttribute("idHoaDon");
+        if (idHoaDon == null) {
+            redirectAttributes.addFlashAttribute("messageError", true);
+            redirectAttributes.addFlashAttribute("tbaoError", "Bạn chưa chọn hóa đơn");
+            model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
+            return "redirect:/ban-hang/";
+        }
+
+        ChiTietGiay chiTietGiay = giayChiTietService.findByMa(code);
+        if (chiTietGiay == null) {
+            redirectAttributes.addFlashAttribute("messageError", true);
+            redirectAttributes.addFlashAttribute("tbaoError", "Không tìm thấy sản phẩm");
+            return "redirect:/ban-hang/cart/hoadon/" + this.idHoaDon;
+        }
+        model.addAttribute("quetQR", chiTietGiay);
+        model.addAttribute("idHoaDon", idHoaDon);
 
 
-//    1. Hiển thị danh sách Khuyến Mãi - loại khuyến mãi hóa đơn
+        model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
 
-//    LoaiKhuyenMai loaiKhuyenMai = loaiKhuyenMaiService.findByMaLKM("LKM01");
-//    List<KhuyenMai> khuyenMaiList = khuyenMaiService.findByLoaiKMAndTrangThai(loaiKhuyenMai);
+        List<HoaDonChiTiet> findByIdHoaDon = hoaDonChiTietService.findByIdHoaDon(idHoaDon);
+        if (findByIdHoaDon.isEmpty()) {
+            model.addAttribute("messageGioHang", "Trong giỏ hàng chưa có sản phẩm");
+        }
+        model.addAttribute("tongTien", hoaDonChiTietService.tongTien(findByIdHoaDon));
+        model.addAttribute("gioHang", findByIdHoaDon);
+        model.addAttribute("khuyenMai", this.tienKhuyenMai);
+        model.addAttribute("tongTienSauKM", hoaDonChiTietService.tongTien(findByIdHoaDon) - tienKhuyenMai);
 
-//    2. Dùng hàm checkHoaDonGiamGia để xem hóa đơn có đủ điều kiện sử dụng khuyến mãi không
-//    Boolean checkDK = hoaDonService.checkHoaDonGiamGia(hoaDon, khuyenMai);
-//    if(checkDK){
-//      Đủ điều kiện tiến hành tính tiền giảm giá
-//      Double soTienGiamGia = hoaDonService.tinhTienGiamGiaTaiQuay.(hoaDon, khuyenMai);
-//      soTienGiamGia là số tiền được giảm trên tổng hóa đơn
-//      => Lưu tổng tiền
-//      hoaDon.setTongTienDG(hoaDon.getTongTien() - soTienGiamGia);
+        model.addAttribute("showModalQuetQR", true);
+        return "offline/index";
+    }
 
-//    Tiến hành các thao tác khác
-
-
-//    Lưu số lượt dùng vào khuyến mãi
-//    hoaDonService.saveKhuyenMai(khuyenMai, hoaDon, soTienGiamGia);
-
-//    }else{
-//      System.out.println("Hoa Don không đủ điều kiện sử dụng Khuyến Mãi");
-//    Thay thế bằng modal hiển thị thông báo
-//    }
-
-//    P/S :Chúc Em thành công
 }

@@ -40,6 +40,8 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
 
     List<ChiTietGiay> findByMauSacAndGiayAndTrangThai(MauSac mauSac, Giay giay, int trangThai);
 
+    List<ChiTietGiay> findByGiayAndMauSac(Giay giay, MauSac mauSac);
+
     List<ChiTietGiay> findAllByOrderByTgThemDesc();
 
     @Query(value = "SELECT p.id_chi_tiet_giay,g.ma_giay ,g.ten_giay,h.ten_hang, p.nam_bao_hanh \n" +
@@ -51,4 +53,6 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
 
     @Query(value = "select sum(so_luong) from chi_tiet_giay",nativeQuery = true)
     Integer getTongGiay();
+
+    ChiTietGiay findByMaCTG(String ma);
 }

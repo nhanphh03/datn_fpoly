@@ -9,7 +9,7 @@
     <meta name="author" content="Dreamguys - Bootstrap Admin Template">
     <meta name="robots" content="noindex, nofollow">
     <title>Sneaker Shop - Admin</title>
-    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css" />
+    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css"/>
     <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
@@ -233,7 +233,7 @@
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="index.html"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
+                        <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
                         </a>
                     </li>
                     <li class="submenu">
@@ -241,7 +241,7 @@
                             <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="/manage/chat-lieu">Chất Liệu</a></li>
-                            <li><a href="/manage/giay" >Giày</a></li>
+                            <li><a href="/manage/giay">Giày</a></li>
                             <li><a href="/manage/hang">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
                             <li><a href="/manage/mau-sac">Màu Sắc</a></li>
@@ -262,6 +262,7 @@
                         <a href="javascript:void(0);"><img src="/images/img/icons/expense1.svg" alt="img"><span> Quản Lý Hóa Đơn</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
+                            <li><a href="/manage/hoa-don/hien-thi">Hóa đơn tại quầy</a></li>
                             <li><a href="expenselist.html">Expense List</a></li>
                             <li><a href="createexpense.html">Add Expense</a></li>
                             <li><a href="expensecategory.html">Expense Category</a></li>
@@ -271,7 +272,7 @@
                         <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản Lý Khách Hàng</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="/manage/khach-hang"class="active">Khách Hàng</a></li>
+                            <li><a href="/manage/khach-hang" class="active">Khách Hàng</a></li>
                             <li><a href="/manage/dia-chi">Địa Chỉ </a></li>
                             <li><a href="/manage/loai-khach-hang">Loại Khách Hàng</a></li>
                         </ul>
@@ -309,7 +310,7 @@
         </div>
     </div>
     <form th:object="${khachHang}" method="post"
-          th:action="@{/manage/khach-hang/viewAdd/add}">
+          th:action="@{/manage/khach-hang/viewAdd/add}" onsubmit="return validateForm()">
         <div class="page-wrapper">
             <div class="content">
                 <div class="page-header">
@@ -383,10 +384,10 @@
                                 <div class="form-group">
                                     <label>Ngày Sinh</label>
                                     <div class="input-groupicon">
-                                        <input type="date" th:field="*{ngaySinh}" name="ngaysinh"
+                                        <input type="date" id="ngaySinh" name="ngaySinh"  th:field="*{ngaySinh}"
                                                style="width: 100%; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
                                                        font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;"
-                                               th:pattern="yyyy-MM-dd" />
+                                        th:pattern="yyyy-MM-dd"/>
                                         <br><br>
                                         <strong th:if="${#fields.hasErrors('ngaySinh')}"
                                                 class="alert alert-danger alert-dismissible fade"
@@ -491,7 +492,7 @@
             </div>
             <div class="modal-body">
                 <form th:object="${loaiKhachHangAdd}" method="post"
-                      th:action="@{/manage/khach-hang/loai-khach-hang/viewAdd/add}"
+                      th:action="@{/manage/khach-hang/loai-khach-hang/viewAdd/add}" onsubmit="return validateForm1()"
                       style="width: auto;height: auto">
                     <div class="page-header">
                         <div class="page-title">
@@ -506,20 +507,19 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Loại Khách Hàng</label>
-                                        <input type="text" th:field="*{maLKH}"required>
+                                        <input type="text" th:field="*{maLKH}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Loại Khách Hàng</label>
-                                        <input type="text" th:field="*{tenLKH}"required>
+                                        <input type="text" th:field="*{tenLKH}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Số Điểm</label>
-                                        <input type="number" th:field="*{soDiem}" id="soDiem" name="soDiem" min="1"
-                                               required
+                                        <input type="number" th:field="*{soDiem}"
                                                style="border: 1px solid rgba(145, 158, 171, .32);
                                                 height: 40px;
                                                 width: 100%;
@@ -541,73 +541,8 @@
         </div>
     </div>
 </div>
-//
 
-<div th:if="${maKHError}" id="warning1" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Mã KH không được bỏ trống.</div>
-    </div>
-</div>
-<div th:if="${tenKHError}" id="warning2" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Tên KH không được bỏ trống.</div>
-    </div>
-</div>
-<div th:if="${ngaySinhError}" id="warning3" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Ngày Sinh không được bỏ trống.</div>
-    </div>
-</div>
-<div th:if="${sdtKHError}" id="warning4" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Số điện thoại phải có 10 chữ số và bắt đầu bằng số 0</div>
-    </div>
-</div>
 
-<div th:if="${emailKHError}" id="warning5" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Email không được bỏ trống hoặc sai định dạng</div>
-    </div>
-</div>
-<div th:if="${diaChiError}" id="warning6" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Địa Chỉ không được bỏ trống.</div>
-    </div>
-</div>
-<div th:if="${CCCDKHError}" id="warning7" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">CCCD không được bỏ trống hoặc sai định dạng</div>
-    </div>
-</div>
-<div th:if="${matKhauError}" id="warning8" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Mật Khẩu không được bỏ trống.</div>
-    </div>
-</div>
-<div th:if="${loaiKhachHangError}" id="warning9" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">LKH không được bỏ trống.</div>
-    </div>
-</div>
-//Loại Khách Hàng
 <div th:if="${messageLKH}" id="successLKH" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
         <button type="button" class="toast-close-button" role="button">×</button>
@@ -615,29 +550,6 @@
         <div class="toast-message">Loại Khách Hàng của bạn đã được Thêm</div>
     </div>
 </div>
-<div th:if="${maLKHError}" id="warning10" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Mã LKH không được bỏ trống trống.</div>
-    </div>
-</div>
-<div th:if="${tenLKHError}" id="warning11" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Tên LKH không được bỏ trống.</div>
-    </div>
-</div>
-<div th:if="${soDiemError}" id="warning12" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">số điểm không được bỏ trống.</div>
-    </div>
-</div>
-
-//
 <div th:if="${ErrormessageLKH}" id="checkMaLKH" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
         <button type="button" class="toast-close-button" role="button">×</button>
@@ -659,6 +571,21 @@
         <div class="toast-message">Email đã tồn tại.</div>
     </div>
 </div>
+<div th:if="${ErrormessageCCCD}" id="checkCCCD" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">CCCD đã tồn tại.</div>
+    </div>
+</div>
+<div th:if="${ErrormessageSDT}" id="checkSDT" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Sdt đã tồn tại.</div>
+    </div>
+</div>
+
 
 <script src="/js/jquery-3.6.0.min.js"></script>
 
@@ -696,6 +623,83 @@
 //
 
 <script>
+    function validateForm() {
+        var maKH = document.getElementById("maKH").value;
+        var hoTenKH = document.getElementById("hoTenKH").value;
+        var ngaySinh = document.getElementById("ngaySinh").value;
+        var sdtKH = document.getElementById("sdtKH").value;
+        var emailKH = document.getElementById("emailKH").value;
+        var CCCDKH = document.getElementById("CCCDKH").value;
+        var matkhau = document.getElementById("matKhau").value;
+
+        // Kiểm tra không để trống các trường
+        if (maKH === "" || hoTenKH === "" || ngaySinh === "" || sdtKH === "" || emailKH === "" || CCCDKH === "" || matkhau === "" ) {
+            alert("Vui lòng điền đầy đủ thông tin");
+            return false;
+        }
+        // Regular expressions for validation
+        var phoneRegex = /^0\d{9}$/;
+        var emailRegex = /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/;
+        var idCardRegex = /^(\d{6})(\d{6})$/;
+
+
+
+        // Validate phone number
+        if (!phoneRegex.test(sdtKH)) {
+            alert("số điện thoại phải bắt đầu bằng số 0 và đủ 10 số");
+            return false;
+        }
+
+        // Validate email
+        if (!emailRegex.test(emailKH)) {
+            alert("email phải đúng định dạng");
+            return false;
+        }
+
+        // Validate ID card number
+        if (!idCardRegex.test(CCCDKH)) {
+            alert("căn cước phải đúng định dạng");
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<script>
+    function validateForm1() {
+        var maLKHInput = document.getElementById("maLKH");
+        var tenLKHInput = document.getElementById("tenLKH");
+        var soDiemInput = document.getElementById("soDiem");
+
+        var maLKH = maLKHInput.value.trim();
+        var tenLKH = tenLKHInput.value.trim();
+        var soDiem = soDiemInput.value.trim();
+
+        if (maLKH === "") {
+            alert("Vui lòng nhập mã LKH.");
+            return false;
+        }
+
+        if (tenLKH === "") {
+            alert("Vui lòng nhập tên Loại Khách Hàng.");
+            return false;
+        }
+
+        if (soDiem === "") {
+            alert("Vui lòng nhập Số Điểm.");
+            return false;
+        }
+
+        var parsedSoDiem = parseInt(soDiem);
+        if (parsedSoDiem === 0 || parsedSoDiem < 1) {
+            alert("Số Điểm phải lớn hơn 0 hoặc bằng 1");
+            return false;
+        }
+
+        return true;
+    }
+</script>
+<script>
     document.addEventListener("DOMContentLoaded", function () {
         // Lấy phần tử có id="modal"
         var modalElement = document.getElementById("modal-loaiKhachHang");
@@ -731,90 +735,6 @@
 </script>
 <script>
     setTimeout(function () {
-        var warning1 = document.getElementById('warning1');
-        if (warning1) {
-            warning1.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning2 = document.getElementById('warning2');
-        if (warning2) {
-            warning2.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning3 = document.getElementById('warning3');
-        if (warning3) {
-            warning3.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning4 = document.getElementById('warning4');
-        if (warning4) {
-            warning4.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning5 = document.getElementById('warning5');
-        if (warning5) {
-            warning5.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning6 = document.getElementById('warning6');
-        if (warning6) {
-            warning6.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning7 = document.getElementById('warning7');
-        if (warning7) {
-            warning7.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning8 = document.getElementById('warning8');
-        if (warning8) {
-            warning8.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning9 = document.getElementById('warning9');
-        if (warning9) {
-            warning9.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning10 = document.getElementById('warning10');
-        if (warning10) {
-            warning10.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning11 = document.getElementById('warning11');
-        if (warning11) {
-            warning11.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning12 = document.getElementById('warning12');
-        if (warning12) {
-            warning12.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
         var successLKH = document.getElementById('successLKH');
         if (successLKH) {
             successLKH.style.display = 'none';
@@ -840,6 +760,18 @@
         var checkEmail = document.getElementById('checkEmail');
         if (checkEmail) {
             checkEmail.style.display = 'none';
+        }
+    }, 5000);
+    setTimeout(function () {
+        var checkCCCD = document.getElementById('checkCCCD');
+        if (checkCCCD) {
+            checkCCCD.style.display = 'none';
+        }
+    }, 5000);
+    setTimeout(function () {
+        var checkSDT = document.getElementById('checkSDT');
+        if (checkSDT) {
+            checkSDT.style.display = 'none';
         }
     }, 5000);
 </script>

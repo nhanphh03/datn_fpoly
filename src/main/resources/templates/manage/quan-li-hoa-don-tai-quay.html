@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
@@ -23,14 +23,12 @@
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
 
-    <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
-
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-<!--<div id="global-loader">-->
-<!--    <div class="whirly-loader"></div>-->
-<!--</div>-->
+<div id="global-loader">
+    <div class="whirly-loader"></div>
+</div>
 <div class="main-wrapper">
     <div class="header">
 
@@ -233,14 +231,14 @@
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
+                        <a href="index.html"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
                         </a>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/product.svg" alt="img"><span> Quản lý Giày</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="/manage/chat-lieu" class="active">Chất Liệu</a></li>
+                            <li><a href="/manage/chat-lieu">Chất Liệu</a></li>
                             <li><a href="/manage/giay">Giày</a></li>
                             <li><a href="/manage/hang">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
@@ -262,7 +260,7 @@
                         <a href="javascript:void(0);"><img src="/images/img/icons/expense1.svg" alt="img"><span> Quản Lý Hóa Đơn</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="/manage/hoa-don/hien-thi">Hóa đơn tại quầy</a></li>
+                            <li><a href="/manage/don-hang/hien-thi" class="active">Quản lý đơn hàng</a></li>
                             <li><a href="expenselist.html">Expense List</a></li>
                             <li><a href="createexpense.html">Add Expense</a></li>
                             <li><a href="expensecategory.html">Expense Category</a></li>
@@ -293,6 +291,7 @@
                         <ul>
                             <li><a href="/manage/chuc-vu">Chức Vụ</a></li>
                             <li><a href="/manage/nhan-vien">Nhân Viên</a></li>
+
                         </ul>
                     </li>
                     <li class="submenu">
@@ -313,59 +312,20 @@
         <div class="content">
             <div class="page-header">
                 <div class="page-title">
-                    <h4>List Chất Liệu</h4>
-                    <h6>Quản Lý Giày</h6>
+                    <h4>List Hóa Đơn</h4>
+                    <h6>Quản Lý Hóa Đơn</h6>
                 </div>
-                <div class="page-btn">
-                    <button class="btn btn-added" id="show-form-button">
-                        <img src="/images/img/icons/plus.svg" class="me-1" alt="img">Thêm Chất Liệu
-                    </button>
-                </div>
+                <!--                <div class="page-btn">-->
+                <!--                    <a href="/manage/dia-chi/viewAdd" class="btn btn-added">-->
+                <!--                        <img src="/images/img/icons/plus.svg" class="me-1" alt="img">Thêm Địa Chỉ-->
+                <!--                    </a>-->
+                <!--                </div>-->
             </div>
 
             <div class="card">
                 <div class="card-body">
-                    <div class="hidden-form" style="display: none">
-                        <form th:object="${chatLieuAdd}" method="post" th:action="@{/manage/chat-lieu/viewAdd/add}">
-                            <div class="row">
-                                <div class="col-lg-2 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label>Mã Chất Liệu</label>
-                                        <input type="text" th:field="*{maChatLieu}"required>
-                                        <br><br>
-                                        <strong th:if="${#fields.hasErrors('maChatLieu')}"
-                                                class="alert alert-danger alert-dismissible fade show"
-                                                role="alert" th:errors="*{maChatLieu}"></strong>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2 col-sm-6 col-12">
-                                    <div class="form-group">
-                                        <label>Tên Chất Liệu</label>
-                                        <input type="text" th:field="*{tenChatLieu}"required>
-                                        <br><br>
-                                        <strong th:if="${#fields.hasErrors('tenChatLieu')}"
-                                                class="alert alert-danger alert-dismissible fade show"
-                                                role="alert" th:errors="*{tenChatLieu}"></strong>
-                                    </div>
-                                </div>
-                                <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
-                                <!--                                    <div class="form-group">-->
-                                <!--                                        <label>Trạng Thái</label>-->
-                                <!--                                        <select class="select" th:field="*{trangThai}">-->
-                                <!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
-                                <!--                                                    th:text="${loc.value}"></option>-->
-                                <!--                                        </select>-->
-                                <!--                                    </div>-->
-                                <!--                                </div>-->
-                                <div class="col-lg-12">
-                                    <button type="submit" class="btn btn-submit me-2">Submit</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <br>
                     <div class="form-hidden-2" style="display: none">
-                        <form action="/manage/chatLieu/import" method="post" enctype="multipart/form-data">
+                        <form action="/manage/nhanVien/import" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label> Upload Excel File</label>
                                 <input type="file" name="file" onchange="displaySelectedFileName()"/>
@@ -397,101 +357,134 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/manage/chatLieu/export/pdf}" data-bs-toggle="tooltip"
-                                       data-bs-placement="top" title="pdf"><img
-                                            src="/images/img/icons/pdf.svg" alt="img"></a>
+                                    <a th:href="@{/manage/diaChi/export/pdf}"
+                                       data-bs-toggle="tooltip"
+                                       data-bs-placement="top"
+                                       title="pdf"
+                                    ><img src="/images/img/icons/pdf.svg" alt="img"
+                                    /></a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/manage/chatLieu/export/excel}" data-bs-toggle="tooltip"
-                                       data-bs-placement="top" title="excel"><img
-                                            src="/images/img/icons/excel.svg" alt="img"></a>
+                                    <a th:href="@{/manage/diaChi/export/excel}"
+                                       data-bs-toggle="tooltip"
+                                       data-bs-placement="top"
+                                       title="excel"
+                                    ><img src="/images/img/icons/excel.svg" alt="img"
+                                    /></a>
                                 </li>
                                 <li>
-                                    <a id="printButton" data-bs-toggle="tooltip" data-bs-placement="top"
-                                       title="print"><img
-                                            src="/images/img/icons/printer.svg" alt="img"></a>
+                                    <a id="printButton"
+                                       data-bs-toggle="tooltip"
+                                       data-bs-placement="top"
+                                       title="print"
+                                    ><img src="/images/img/icons/printer.svg" alt="img"
+                                    /></a>
                                 </li>
                             </ul>
                         </div>
                     </div>
 
-                    <form method="get" th:action="@{/manage/chatLieu/filter}">
-                        <div class="card" id="filter_inputs">
-                            <div class="card-body pb-0">
-                                <div class="row">
-                                    <div class="col-lg-2 col-sm-6 col-12">
-                                        <div class="form-group">
-                                            <select class="select" id="chatLieuFilterMa">
-                                                <option>Mã Chất Liệu</option>
-                                                <option th:each="loc : ${chatLieu}" th:value="${loc.maChatLieu}"
-                                                        th:text="${loc.maChatLieu}"></option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-2 col-sm-6 col-12">
-                                        <div class="form-group">
-                                            <select class="select" id="chatLieuFilterTen">
-                                                <option>Tên Chất Liệu</option>
-                                                <option th:each="loc : ${chatLieu}" th:value="${loc.tenChatLieu}"
-                                                        th:text="${loc.tenChatLieu}"></option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <!--                                <div class="col-lg-2 col-sm-6 col-12">-->
-                                    <!--                                    <div class="form-group">-->
-                                    <!--                                        <select class="select">-->
-                                    <!--                                            <option>Trạng Thái</option>-->
-                                    <!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
-                                    <!--                                                    th:text="${loc.value}"></option>-->
-                                    <!--                                        </select>-->
-                                    <!--                                    </div>-->
-                                    <!--                                </div>-->
-                                    <div class="col-lg-1 col-sm-6 col-12 ms-auto">
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-filters ms-auto"><img
-                                                    src="/images/img/icons/search-whites.svg"
-                                                    alt="img"></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                    <!--                    <form method="get" th:action="@{/manage/diaChi/filter}">-->
+                    <!--                        <div class="card" id="filter_inputs">-->
+                    <!--                            <div class="card-body pb-0">-->
+                    <!--                                <div class="row">-->
+                    <!--                                    <div class="col-lg-2 col-sm-6 col-12">-->
+                    <!--                                        <div class="form-group">-->
+                    <!--                                            <select class="select" id="DiaChiFilterMa" name="searchTerm">-->
+                    <!--                                                <option>Mã Địa Chỉ</option>-->
+                    <!--                                                <option th:each="loc : ${diaChi}" th:value="${loc.maDC}"-->
+                    <!--                                                        th:text="${loc.maDC}"></option>-->
+                    <!--                                            </select>-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                                    <div class="col-lg-2 col-sm-6 col-12">-->
+                    <!--                                        <div class="form-group">-->
+                    <!--                                            <select class="select" id="DiaChiFilterTen" name="searchTerm">-->
+                    <!--                                                <option>Tên Địa Chỉ</option>-->
+                    <!--                                                <option th:each="loc : ${diaChi}" th:value="${loc.tenDC}"-->
+                    <!--                                                        th:text="${loc.tenDC}"></option>-->
+                    <!--                                            </select>-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                                    &lt;!&ndash;                                    <div class="col-lg-2 col-sm-6 col-12">&ndash;&gt;-->
+                    <!--                                    &lt;!&ndash;                                        <div class="form-group">&ndash;&gt;-->
+                    <!--                                    &lt;!&ndash;                                            <select class="select">&ndash;&gt;-->
+                    <!--                                    &lt;!&ndash;                                                <option>Trạng Thái</option>&ndash;&gt;-->
+                    <!--                                    &lt;!&ndash;                                                <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"&ndash;&gt;-->
+                    <!--                                    &lt;!&ndash;                                                        th:text="${loc.value}"></option>&ndash;&gt;-->
+                    <!--                                    &lt;!&ndash;                                            </select>&ndash;&gt;-->
+                    <!--                                    &lt;!&ndash;                                        </div>&ndash;&gt;-->
+                    <!--                                    &lt;!&ndash;                                    </div>&ndash;&gt;-->
+                    <!--                                    <div class="col-lg-3 col-sm-6 col-12">-->
+                    <!--                                        <div class="form-group">-->
+                    <!--                                            <select class="select" id="KhachHangFilterTen" name="searchTerm">-->
+                    <!--                                                <option>Khách Hàng</option>-->
+                    <!--                                                <option th:each="loc : ${khachHang}" th:value="${loc.idKH}"-->
+                    <!--                                                        th:text="${loc.hoTenKH}"></option>-->
+                    <!--                                            </select>-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                                    <div class="col-lg-1 col-sm-6 col-12 ms-auto">-->
+                    <!--                                        <div class="form-group">-->
+                    <!--                                            <a class="btn btn-filters ms-auto"><img-->
+                    <!--                                                    src="/images/img/icons/search-whites.svg"-->
+                    <!--                                                    alt="img"></a>-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                            </div>-->
+                    <!--                        </div>-->
+                    <!--            datanew        </form>-->
 
                     <div class="table-responsive">
-                        <table class="table datanew" id="data-table">
+                        <table class="table text-center " id="data-table">
                             <thead>
                             <tr>
-                                <th>Mã Chất Liệu</th>
-                                <th>Tên Chất Liệu</th>
-                                <th>Trạng Thái</th>
-                                <th>Action</th>
-                                <th>Thời Gian Thêm</th>
-                                <th>Thời Gian Sửa</th>
-
+                                <th>Mã Hóa Đơn</th>
+                                <th>Khách hàng</th>
+                                <th>SDT</th>
+                                <th>Tổng tiền</th>
+                                <th>Trạng thái</th>
+                                <th>Ngày tạo</th>
+                                <th>Hành động</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr th:each="items : ${chatLieu}">
-                                <td th:text="${items.maChatLieu}"></td>
-                                <td th:text="${items.tenChatLieu}"></td>
+                            <tr th:each="items : ${hoaDonList}">
+                                <td th:text="${items.maHD}"></td>
                                 <td>
-                                    <span th:if="${items.trangThai == 1}" class="badges bg-lightgreen">Hoạt Động</span>
-                                    <span th:unless="${items.trangThai == 1}"
-                                          class="badges bg-lightred">Không Hoạt Động</span>
+                                    <p th:if="${items.khachHang == null}">Khách lẻ</p>
+                                    <p th:if="${items.khachHang != null}" th:text="${items.khachHang.hoTenKH}"></p>
                                 </td>
-                                <td>
-                                    <a class="me-3" th:href="@{'/manage/chat-lieu/viewUpdate/' + ${items.idChatLieu}}">
-                                        <img src="/images/img/icons/edit.svg" alt="img">
-                                    </a>
-                                    <a class="me-3 delete-button"
-                                       th:data-delete-url="@{'/manage/chat-lieu/delete/' + ${items.idChatLieu}}">
-                                        <img src="/images/img/icons/delete.svg" alt="img">
-                                    </a>
-                                </td>
-                                <td th:text="${#dates.format(items.tgThem, 'dd-MM-yyyy')}" align="center"/>
-                                    <td th:text="${#dates.format(items.tgSua, 'dd-MM-yyyy')}" align="center"/>
 
+                                <td>
+                                    <p th:if="${items.khachHang == null}">-</p>
+                                    <p th:if="${items.khachHang != null}" th:text="${items.khachHang.sdtKH}"></p>
+                                </td>
+                                <td>
+                                    <p th:if="${items.tongTien == null}">-</p>
+                                    <p th:if="${items.tongTien != null}" th:text="${items.tongTienDG + ' đ'}"></p>
+                                </td>
+                                <!--                                <td>-->
+                                <!--                                    <p th:if="${items.loaiHD == 1}">Tại quầy</p>-->
+                                <!--                                    <p th:if="${items.loaiHD == 0}">Online</p>-->
+                                <!--                                </td>-->
+                                <td>
+<!--                                    <p th:if="${items.trangThai == 3}">Đang chờ</p>-->
+<!--                                    <p th:if="${items.trangThai == 0}">Thanh công</p>-->
+                                    <span th:if="${items.trangThai == 3}" class="badges bg-warning">Đang chờ</span>
+                                    <span th:unless="${items.trangThai == 3}"
+                                          class="badges bg-success">Thành công</span>
+                                </td>
+                                <!--                                <td>-->
+                                <!--                                    <div th:text="${items.tgTao}"></div>-->
+                                <!--                                </td>-->
+                                <td th:text="${#dates.format(items.tgTao, 'dd/MM/yyyy HH:mm:ss')}"></td>
+                                <td>
+                                    <a class="me-3" th:href="@{'/manage/hoa-don/detail/' + ${items.idHD}}">
+                                        <img src="/images/img/icons/eye.svg" alt="img"/>
+                                    </a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -501,34 +494,149 @@
         </div>
     </div>
 </div>
-<div th:if="${message}" id="toast-container" class="toast-container toast-top-right">
-    <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Thành Công</div>
-        <div class="toast-message">Dữ liệu của bạn đã được cập nhật</div>
+
+
+<div th:if="${modalHoaDon}" class="modal fade" id="detailHoaDon" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true"
+     data-bs-backdrop="static" data-bs-keyboard="false">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Sản phẩm</h5>
+                <a type="button" th:href="@{'/manage/hoa-don/hien-thi'}">
+                    <span aria-hidden="true">×</span>
+                </a>
+            </div>
+            <div class="modal-body">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row ">
+                            <div class="col-3 setvalue m-5">
+                                <ul>
+                                    <li>
+                                        <h4>Mã hóa đơn </h4>
+                                        <h5 th:text="${hoaDon.maHD}"></h5>
+                                    </li>
+                                    <li>
+                                        <h4>Thời gian thanh toán </h4>
+                                        <h5 th:text="${#dates.format(hoaDon.tgThanhToan, 'dd/MM/yyyy HH:mm:ss')}"></h5>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-3 setvalue m-5">
+                                <ul>
+                                    <li>
+                                        <h4>Nhân viên :</h4>
+                                        <h5 th:text="${hoaDon.nhanVien.hoTenNV}"></h5>
+                                    </li>
+                                    <li>
+                                        <h4>Trạng thái</h4>
+                                        <span th:if="${hoaDon.trangThai == 3}" class="badges bg-warning">Đang chờ</span>
+                                        <span th:unless="${hoaDon.trangThai == 3}"
+                                              class="badges bg-success">Thành công</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-3 setvalue m-5">
+                                <ul>
+                                    <li>
+                                        <h4>Tổng tiền :</h4>
+                                        <h5 th:if="${hoaDon.tongTienDG == null}">-</h5>
+                                        <h5 class="text-danger" th:if="${hoaDon.tongTienDG != null}" th:text="${hoaDon.tongTienDG} + 'đ'"></h5>
+                                    </li>
+                                    <li>
+                                        <h4>Khuyến mãi</h4>
+                                        <h5 th:if="${hoaDon.giamGiaHoaDon == null}">-</h5>
+                                        <h5 th:if="${hoaDon.giamGiaHoaDon != null}" th:text="${hoaDon.giamGiaHoaDon} + 'đ'"></h5>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row ">
+                    <table class="table  datanew text-center">
+                        <thead>
+                        <tr>
+                            <th>Hình ảnh</th>
+                            <th>Sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Tổng tiền</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="items : ${hoaDonChiTiet}">
+                            <td>
+                                <img th:src="@{'/images/imgsProducts/'+ ${items.chiTietGiay.hinhAnh.url1}}" alt=""
+                                     height="300"
+                                     width="200">
+                            </td>
+                            <td>
+                                <p th:text="${items.chiTietGiay.giay.tenGiay}"></p>
+                                <p th:text="${'Hãng : '+items.chiTietGiay.giay.hang.tenHang}"></p>
+                                <p th:text="${'Size : '+items.chiTietGiay.size.soSize}"></p>
+                                <p class="text-danger" th:text="${items.chiTietGiay.giaBan} + ' đ'"></p>
+                            </td>
+
+                            <td>
+                                <p th:text="${items.soLuong}"></p>
+                            </td>
+                            <td>
+                                <h6 class="text-danger" th:text="${items.donGia * items.soLuong} + ' đ'"></h6>
+
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--                <div class="row m-3">-->
+                <!--                    <div class="col-6">-->
+                <!--                        <img th:src="@{'/images/imgsProducts/'+ ${giay.chiTietGiayList.get(0).hinhAnh.url1}}" alt=""-->
+                <!--                             height="400"-->
+                <!--                             width="300">-->
+                <!--                    </div>-->
+                <!--                    <div class="col-6">-->
+                <!--                        <div class="container">-->
+                <!--                            <div class="row">-->
+                <!--                                <div class="">-->
+                <!--                                    <div class="text-left fs-2 fw-bolder">-->
+                <!--                                        <label th:text="${giay.tenGiay}"></label>-->
+                <!--                                    </div>-->
+                <!--                                    <div class="text-left fs-3 fw-normal">-->
+                <!--                                        <label th:text="${'Hãng : '+ giay.hang.tenHang}"></label>-->
+                <!--                                    </div>-->
+                <!--                                    <div class="text-left fs-4">-->
+                <!--                                        <form action="/ban-hang/add-to-cart" method="get">-->
+                <!--                                            <div class="">-->
+                <!--                                                <h3>Số lượng</h3>-->
+                <!--                                                <input type="number" name="soLuong" value="1" min="1"-->
+                <!--                                                       class="form-control"/>-->
+                <!--                                            </div>-->
+                <!--                                            <div class="row">-->
+                <!--                                                <div th:each="listChiTietGiay : ${listChiTietGiay}" class="col-md-3">-->
+                <!--                                                    <input type="radio" th:name="idChiTietGiay"-->
+                <!--                                                           th:value="${listChiTietGiay.idCTG}"-->
+                <!--                                                           th:text="${listChiTietGiay.size.soSize}"-->
+                <!--                                                           checked="true"/>-->
+                <!--                                                </div>-->
+                <!--                                            </div>-->
+                <!--                                            <button type="submit" class="btn btn-secondary btn-center mt-3">-->
+                <!--                                                Thêm giỏ hàng-->
+                <!--                                            </button>-->
+                <!--                                        </form>-->
+                <!--                                    </div>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+            </div>
+        </div>
     </div>
 </div>
-<div th:if="${maChatLieuError}" id="warning1" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Mã không được bỏ trống trống.</div>
-    </div>
-</div>
-<div th:if="${tenChatLieuError}" id="warning2" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Tên không được bỏ trống.</div>
-    </div>
-</div>
-<div th:if="${Errormessage}" id="checkMa" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Mã Chất Liệu đã tồn tại.</div>
-    </div>
-</div>
+
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
@@ -544,9 +652,21 @@
 
 <script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
-<script src="/plugins/toastr/toastr.min.js"></script>
-<script src="/plugins/toastr/toastr.js"></script>
+
 <script src="/js/script.js"></script>
+
+//
+<style>
+    .modal-dialog {
+        width: 90%; /* hoặc giá trị cụ thể khác, ví dụ: 800px; */
+        max-width: 100%;
+    }
+</style>
+<script>
+    $(document).ready(function () {
+        $('#detailHoaDon').modal('show');
+    });
+</script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Lấy thẻ nút in bằng id
@@ -598,44 +718,61 @@
         });
     }
 </script>
-<!--<script>-->
-<!--    $(document).ready(function () {-->
-<!--        $('#filter_inputs').slideToggle("slow");-->
-<!--        $('#filter_search').toggleClass("setclose");-->
-<!--    });-->
-<!--</script>-->
+<script>
+    $(document).ready(function () {
+        $('#filter_inputs').slideToggle("slow");
+        $('#filter_search').toggleClass("setclose");
+    });
+</script>
 <script>
     $(document).ready(function () {
         // Lắng nghe sự kiện thay đổi trong dropdown kích thước
-        $("#chatLieuFilterMa").change(function () {
-            var maChatLieu = $(this).val();
+        $("#DiaChiFilterMa").change(function () {
+            var maDC = $(this).val();
 
             // Ẩn tất cả các dòng trong bảng
             $("#data-table tbody tr").hide();
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var maColumn = $(this).find("td:eq(0)").text(); // Vị trí cột chứa giá trị kích thước
-                if (maColumn === maChatLieu || maChatLieu === "Mã Chất Liệu") {
+                var maColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
+                if (maColumn === maDC || maDC === "Mã Địa Chỉ") {
                     $(this).show();
                 }
             });
+            console.log(maDC);
         });
         //
-        $("#chatLieuFilterTen").change(function () {
-            var tenChatLieu = $(this).val();
+        $("#DiaChiFilterTen").change(function () {
+            var tenDC = $(this).val();
 
             // Ẩn tất cả các dòng trong bảng
             $("#data-table tbody tr").hide();
 
             // Hiển thị các dòng có giá trị kích thước tương ứng
             $("#data-table tbody tr").each(function () {
-                var tenColumn = $(this).find("td:eq(1)").text(); // Vị trí cột chứa giá trị kích thước
-                if (tenColumn === tenChatLieu || tenChatLieu === "Tên Chất Liệu") {
+                var tenColumn = $(this).find("td:eq(2)").text(); // Vị trí cột chứa giá trị kích thước
+                if (tenColumn === tenDC || tenDC === "Tên Địa Chỉ") {
+                    $(this).show();
+                }
+            });
+            console.log(tenDC);
+        });
+        //
+        $("#KhachHangFilterTen").change(function () {
+            var hoTenKH = $(this).find(":selected").text();
+            // Ẩn tất cả các dòng trong bảng
+            $("#data-table tbody tr").hide();
+
+            // Hiển thị các dòng có giá trị kích thước tương ứng
+            $("#data-table tbody tr").each(function () {
+                var khachHang = $(this).find("td:eq(10)").text(); // Vị trí cột chứa giá trị kích thước
+                if (khachHang === hoTenKH || hoTenKH === "Khách Hàng") {
                     $(this).show();
                 }
             });
         });
+
     });
 </script>
 <script>
@@ -662,41 +799,6 @@
         } else {
             form2.style.display = "none";  // Ẩn form
         }
-    });
-</script>
-<script>
-    setTimeout(function () {
-        var successToast = document.getElementById('toast-container');
-        if (successToast) {
-            successToast.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning1 = document.getElementById('warning1');
-        if (warning1) {
-            warning1.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var warning2 = document.getElementById('warning2');
-        if (warning2) {
-            warning2.style.display = 'none';
-        }
-    }, 5000);
-    //
-    setTimeout(function () {
-        var checkMa = document.getElementById('checkMa');
-        if (checkMa) {
-            checkMa.style.display = 'none';
-        }
-    }, 5000);
-</script>
-<script>
-    // In your Javascript (external .js resource or <script> tag)
-    $(document).ready(function() {
-        $('.select').select2();
     });
 </script>
 </body>

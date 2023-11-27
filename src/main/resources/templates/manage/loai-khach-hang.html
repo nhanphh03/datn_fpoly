@@ -233,7 +233,7 @@
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="index.html"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
+                        <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
                         </a>
                     </li>
                     <li class="submenu">
@@ -262,6 +262,7 @@
                         <a href="javascript:void(0);"><img src="/images/img/icons/expense1.svg" alt="img"><span> Quản Lý Hóa Đơn</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
+                            <li><a href="/manage/hoa-don/hien-thi">Hóa đơn tại quầy</a></li>
                             <li><a href="expenselist.html">Expense List</a></li>
                             <li><a href="createexpense.html">Add Expense</a></li>
                             <li><a href="expensecategory.html">Expense Category</a></li>
@@ -327,12 +328,12 @@
                 <div class="card-body">
                     <div class="hidden-form" style="display: none">
                         <form th:object="${loaiKhachHangAdd}" method="post"
-                              th:action="@{/manage/loai-khach-hang/viewAdd/add}">
+                              th:action="@{/manage/loai-khach-hang/viewAdd/add}" onsubmit="return validateForm()">
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã LKH</label>
-                                        <input type="text" th:field="*{maLKH}" required>
+                                        <input type="text" th:field="*{maLKH}" >
                                         <br><br>
                                         <strong th:if="${#fields.hasErrors('maLKH')}"
                                                 class="alert alert-danger alert-dismissible fade show"
@@ -342,7 +343,7 @@
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên LKH</label>
-                                        <input type="text" th:field="*{tenLKH}" required>
+                                        <input type="text" th:field="*{tenLKH}">
                                         <br><br>
                                         <strong th:if="${#fields.hasErrors('tenLKH')}"
                                                 class="alert alert-danger alert-dismissible fade show"
@@ -352,8 +353,7 @@
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Số Điểm</label>
-                                        <input type="number" th:field="*{soDiem}" id="soDiem" name="soDiem" min="1"
-                                               required
+                                        <input type="number" th:field="*{soDiem}"
                                                style="border: 1px solid rgba(145, 158, 171, .32);
                                                 height: 40px;
                                                 width: 100%;
@@ -368,15 +368,6 @@
                                                 role="alert" th:errors="*{soDiem}"></strong>
                                     </div>
                                 </div>
-                                <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
-                                <!--                                    <div class="form-group">-->
-                                <!--                                        <label>Trạng Thái</label>-->
-                                <!--                                        <select class="select" th:field="*{trangThai}">-->
-                                <!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
-                                <!--                                                    th:text="${loc.value}"></option>-->
-                                <!--                                        </select>-->
-                                <!--                                    </div>-->
-                                <!--                                </div>-->
                                 <div class="col-lg-12">
                                     <button type="submit" class="btn btn-submit me-2">Submit</button>
                                 </div>
@@ -457,15 +448,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <!--                                    <div class="col-lg-2 col-sm-6 col-12">-->
-                                    <!--                                        <div class="form-group">-->
-                                    <!--                                            <select class="select">-->
-                                    <!--                                                <option>Trạng Thái</option>-->
-                                    <!--                                                <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
-                                    <!--                                                        th:text="${loc.value}"></option>-->
-                                    <!--                                            </select>-->
-                                    <!--                                        </div>-->
-                                    <!--                                    </div>-->
                                     <div class="col-lg-3 col-sm-6 col-12">
                                         <div class="form-group">
                                             <select class="select" id="LKHFilterSoDien" name="searchTerm">
@@ -578,7 +560,41 @@
 
 <script src="/js/script.js"></script>
 
-//
+<script>
+    function validateForm() {
+        var maLKHInput = document.getElementById("maLKH");
+        var tenLKHInput = document.getElementById("tenLKH");
+        var soDiemInput = document.getElementById("soDiem");
+
+        var maLKH = maLKHInput.value.trim();
+        var tenLKH = tenLKHInput.value.trim();
+        var soDiem = soDiemInput.value.trim();
+
+        if (maLKH === "") {
+            alert("Vui lòng nhập mã LKH.");
+            return false;
+        }
+
+        if (tenLKH === "") {
+            alert("Vui lòng nhập tên Loại Khách Hàng.");
+            return false;
+        }
+
+        if (soDiem === "") {
+            alert("Vui lòng nhập Số Điểm.");
+            return false;
+        }
+
+        var parsedSoDiem = parseInt(soDiem);
+        if (parsedSoDiem === 0 || parsedSoDiem < 1) {
+            alert("Số Điểm phải lớn hơn 0 hoặc bằng 1");
+            return false;
+        }
+
+        return true;
+    }
+</script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Lấy thẻ nút in bằng id

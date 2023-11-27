@@ -43,18 +43,16 @@ public class CartController {
     @Autowired
     private LoaiKhuyenMaiService loaiKhuyenMaiService;
 
+    @Autowired
+    private MauSacService mauSacService;
+
+    @Autowired
+    private GiayService giayService;
+
     @GetMapping("/cart")
     private String getShoppingCart(Model model){
-
-        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
-        GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
-
-        List<GioHangChiTiet> listGHCTActive = ghctService.findByGHActive(gioHang);
-        Integer sumProductInCart = listGHCTActive.size();
-
-        model.addAttribute("fullNameLogin", khachHang.getHoTenKH());
-        model.addAttribute("sumProductInCart", sumProductInCart);
-        model.addAttribute("listCartDetail", listGHCTActive);
+        model.addAttribute("reLoadPageCart", true);
+        showDataBuyer(model);
 
         return "/online/shopping-cart";
     }
@@ -73,11 +71,36 @@ public class CartController {
 
     }
 
-    @GetMapping("/cart/options/{idProduct}")
-    private String getOptionProduct(Model model, @PathVariable UUID idProuduct){
+    @GetMapping("/cart/option/{idProduct}/{idMau}/{idCTG}")
+    private String getOptionProduct(Model model, @PathVariable UUID idProduct, @PathVariable UUID idMau, @PathVariable UUID idCTG){
+
+
+        MauSac mauSac = mauSacService.getByIdMauSac(idMau);
+        Giay giay = giayService.getByIdGiay(idProduct);
+
+        if(mauSac == null){
+            giay=giayService.getByIdGiay(idMau);
+            mauSac=mauSacService.getByIdMauSac(idProduct);
+        }
+
+        ChiTietGiay chiTietGiay = gctService.getByIdChiTietGiay(idCTG);
+
+        session.removeAttribute("ctgChangeSize");
+        session.setAttribute("ctgChangeSize", chiTietGiay);
+
+        List<ChiTietGiay> listCTGByGiay = gctService.findByGiayAndMau(giay, mauSac);
+
 
 //        List<GioHangChiTiet> listGHCTActive = ghctService.findByGHActive(idProuduct);
 //        Integer sumProductInCart = listGHCTActive.size();
+
+        model.addAttribute("reLoadPage", true);
+
+        showDataBuyer(model);
+        model.addAttribute("showModalChooseSize", true);
+        model.addAttribute("nameProduct", giay.getTenGiay());
+
+        model.addAttribute("listCTGByGiay", listCTGByGiay);
 
         return "/online/shopping-cart";
     }
@@ -90,9 +113,52 @@ public class CartController {
         gioHangChiTiet.setTrangThai(0);
         ghctService.addNewGHCT(gioHangChiTiet);
 
+        showDataBuyer(model);
+
         return "redirect:/buyer/cart";
     }
 
+
+    @PostMapping("/cart/receive/mail/{idCTG}")
+    @ResponseBody
+    private void receiveMail(@PathVariable UUID idCTG){
+        System.out.println("Nhan ngu");
+        System.out.println(idCTG);
+    }
+
+    @PostMapping("/cart/change/size")
+    private String changeSize(Model model,@RequestParam("selectedValues") List<UUID> selectedValues){
+
+        ChiTietGiay chiTietGiay = (ChiTietGiay) session.getAttribute("ctgChangeSize");
+
+        UUID idCTGChangeSize = selectedValues.get(0);
+
+        ChiTietGiay chiTietGiayChangeSize = gctService.getByIdChiTietGiay(idCTGChangeSize);
+
+        GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
+
+        GioHangChiTiet gioHangChiTiet = ghctService.findByCTGActiveAndKhachHangAndTrangThai(chiTietGiay, gioHang);
+
+        gioHangChiTiet.setTgThem(new Date());
+        gioHangChiTiet.setChiTietGiay(chiTietGiayChangeSize);
+        gioHangChiTiet.setDonGia(gioHangChiTiet.getSoLuong()*chiTietGiay.getGiaBan());
+        ghctService.addNewGHCT(gioHangChiTiet);
+
+        showDataBuyer(model);
+        return "/online/shopping-cart";
+    }
+
+    private void showDataBuyer(Model model){
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+        GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
+
+        List<GioHangChiTiet> listGHCTActive = ghctService.findByGHActive(gioHang);
+        Integer sumProductInCart = listGHCTActive.size();
+
+        model.addAttribute("fullNameLogin", khachHang.getHoTenKH());
+        model.addAttribute("sumProductInCart", sumProductInCart);
+        model.addAttribute("listCartDetail", listGHCTActive);
+    }
     public String generateRandomNumbers() {
         Random random = new Random();
         StringBuilder sb = new StringBuilder();

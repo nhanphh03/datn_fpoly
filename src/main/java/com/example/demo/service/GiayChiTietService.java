@@ -46,4 +46,10 @@ public interface GiayChiTietService {
 
     List<MauSac> findDistinctMauSacByGiay(Giay giay);
 
+    List<ChiTietGiay> findByGiayAndMau(Giay giay, MauSac mauSac);
+
+    ChiTietGiay findByMa(String ma);
+  
+    void updatePriceCTGGHCT(ChiTietGiay chiTietGiay);
+
 }
