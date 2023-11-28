@@ -389,70 +389,59 @@
                         <div class="row">
                             <div class="col-4">
                                 <div class="form-group">
-
+<!--                                    <input id="startDate" class="form-control" type="date" />-->
                                 </div>
                             </div>
 
                         </div>
+                        <div class="table-responsive ">
+                            <table class="table datanew" id="data-table">
+                                <thead>
+                                <tr>
+                                    <th>Giày</th>
+                                    <th>Khách hàng</th>
+                                    <th></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="a : ${getT}">
+                                    <td>
+                                        <li>
+                                            <div class="productimg">
+                                                <div class="productimgs">
+                                                    <img th:src="@{'/images/imgsProducts/'+ ${a.url1}}"
+                                                         alt="img">
+                                                </div>
+                                                <div class="productcontet">
+                                                    <h4 th:text="${a.tenGiay}">
+                                                        <a href="javascript:void(0);" class="ms-2"
+                                                           data-bs-toggle="modal"
+                                                           data-bs-target="#edit"><img
+                                                                src="/images/img/icons/edit-5.svg"
+                                                                alt="img"></a>
+                                                    </h4>
+                                                    <div>Śố lượng: x <span th:text="${a.soLuong}" style="color:#0a58ca;"></span></div>
+                                                    <div>Giá bán: <span th:text="${#numbers.formatDecimal(a.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'" style="color: #6a1a21"></span></div>
 
-                        <div class="table-responsive">
-                            <th:block th:each="a : ${getN}">
-                                <ul class="product-lists">
-                                    <li>
-                                        <div class="productimg">
-                                            <div class="productimgs">
-                                                <img th:src="@{'/images/imgsProducts/'+ ${a.chiTietGiay.hinhAnh.url1}}"
-                                                     alt="img">
-                                            </div>
-                                            <div class="productcontet">
-                                                <h4 th:text="${a.chiTietGiay.giay.tenGiay}">
-                                                    <a href="javascript:void(0);" class="ms-2"
-                                                       data-bs-toggle="modal"
-                                                       data-bs-target="#edit"><img
-                                                            src="/images/img/icons/edit-5.svg"
-                                                            alt="img"></a>
-                                                </h4>
-                                                <div class="row">
-                                                    <div class="productlinkset col-6">
-                                                        <h5 th:text="${a.chiTietGiay.size.soSize}"></h5>
-                                                    </div>
-                                                    <div class="col-6">
-                                                        <!--                                                            <label class="color-box" th:style="'background-color: ' + ${gioHang.chiTietGiay.mauSac.maMau}"></label>-->
-                                                        <span class="color-box"
-                                                              th:style="'background-color:' +${a.chiTietGiay.mauSac.maMau}"></span>
-                                                    </div>
-                                                </div>
-                                                <div class="increment-decrement">
-                                                    <div class="input-groups">
-                                                        <input type="button" value="-"
-                                                               class="button-minus dec button">
-                                                        <input type="text" name="child"
-                                                               th:value="${a.soLuong}"
-                                                               class="quantity-field">
-                                                        <input type="button" value="+"
-                                                               class="button-plus inc button ">
-                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <!--                                            <div th:text="${gioHang.donGia}"></div>-->
-                                        <div th:text=" ${#numbers.formatDecimal(a.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'"></div>
-                                    </li>
-                                    <li>
-                                        <!--                                            <div th:text="${gioHang.donGia * gioHang.soLuong}"></div>-->
-                                        <div th:text=" ${#numbers.formatDecimal(a.donGia * a.soLuong, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'"></div>
-                                    </li>
-                                    <li>
-                                        <a class="btn"
-                                           th:href="@{'/ban-hang/xoa-gio-hang/'+ ${a.chiTietGiay.idCTG}}"
-                                           onclick="return confirm('Bạn có muốn xóa sản phẩm không')">
-                                            <img src="/images/img/icons/delete-2.svg" alt="img">
-                                        </a>
-                                    </li>
-                                </ul>
-                            </th:block>
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <div>Tên người nhận: <span th:text="${a.ten}" class="text-info"></span></div>
+                                        <div>SĐT: <span th:text="${a.sdt}" class="text-info"></span></div>
+                                        <div>Địa chỉ: <span th:text="${a.diaChi}" class="text-info"></span></div>
+                                    </td>
+                                    <td>
+                                        <li>
+                                            <!--                                            <div th:text="${gioHang.donGia * gioHang.soLuong}"></div>-->
+                                            <span>Thành tiền: <div th:text=" ${#numbers.formatDecimal(a.donGia * a.soLuong, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'" style="color: #6a1a21"></div></span>
+                                        </li>
+                                    </td>
+
+                                </tr>
+                                </tbody>
+                            </table>
                         </div>
 
                     </div>
@@ -464,7 +453,7 @@
 
         <div class="col-lg-6 col-sm-6 col-12 d-flex">
             <div class="dash-count das2">
-                <a class="dash-counts" href="javascript:void(0);" data-bs-toggle="modals"
+                <a class="dash-counts" href="javascript:void(0);" data-bs-toggle="modal"
                    data-bs-target="#create">
                     <h4 th:text="${sptn}"> đôi</h4>
                     <h5>Sản phẩm đã bán trong ngày</h5>
@@ -482,7 +471,7 @@
             <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Doanh thu trong tháng</h5>
+                        <h5 class="modal-title">Sản phẩm đã bán trong ngày</h5>
                         <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
@@ -492,49 +481,60 @@
                             <div class="col-4">
                                 <div class="form-group">
                                     <div class="addonset">
-                                        <input id="startDate" class="form-control" type="date" />
+
                                     </div>
                                 </div>
                             </div>
 
                         </div>
-                        <div class="table-responsive">
+                        <div class="table-responsive ">
                             <table class="table ">
                                 <thead>
                                 <tr>
-                                    <th>Mã hóa đơn</th>
+                                    <th>Giày</th>
                                     <th>Khách hàng</th>
-                                    <th>Ngày tạo</th>
-                                    <th>Hình thức</th>
-                                    <th>Số lượng</th>
-                                    <th>Đơn giá</th>
-                                    <th >Action</th>
-
+                                    <th></th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="items: ${hoaDonCT2}">
-                                    <td th:text="${items.hoaDon.idHD}"></td>
-                                    <td th:text="${items.hoaDon.tenNguoiNhan}"></td>
-
-                                    <td th:text="${items.hoaDon.tgTao}"></td>
-                                    <td >
-                                        <span th:if="${items.hoaDon.loaiHD == 1}" class="badges bg-lightpurple"><span><img src="/images/img/icon/cart.png" alt="img"></span>Tại quầy</span>
-                                        <span th:if="${items.hoaDon.loaiHD == 0}" class="badges bg-lightgreen"><span><img src="/images/img/icon/xe.png" alt="img"></span>Online</span>
-                                    </td>
-                                    <td th:text="${items.soLuong}"></td>
-                                    <td th:text="${items.donGiaKhiGiam}"></td>
-
+                                <tr th:each="a : ${getN}">
                                     <td>
-                                        <a class="me-2" href="deltailHoaDon.html">
-                                            <img src="/images/img/icons/eye.svg" alt="img"/>
-                                        </a>
+                                        <li>
+                                            <div class="productimg">
+                                                <div class="productimgs">
+                                                    <img th:src="@{'/images/imgsProducts/'+ ${a.url1}}"
+                                                         alt="img">
+                                                </div>
+                                                <div class="productcontet">
+                                                    <h4 th:text="${a.tenGiay}">
+                                                        <a href="javascript:void(0);" class="ms-2"
+                                                           data-bs-toggle="modal"
+                                                           data-bs-target="#edit"><img
+                                                                src="/images/img/icons/edit-5.svg"
+                                                                alt="img"></a>
+                                                    </h4>
+                                                    <div>Śố lượng: x <span th:text="${a.soLuong}" style="color:#0a58ca;"></span></div>
+                                                    <div>Giá bán: <span th:text="${#numbers.formatDecimal(a.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'" style="color: #6a1a21"></span></div>
+
+                                                </div>
+                                            </div>
+                                        </li>
+                                    </td>
+                                    <td>
+                                        <div>Tên người nhận: <span th:text="${a.ten}" class="text-info"></span></div>
+                                        <div>SĐT: <span th:text="${a.sdt}" class="text-info"></span></div>
+                                        <div>Địa chỉ: <span th:text="${a.diaChi}" class="text-info"></span></div>
+                                    </td>
+                                    <td>
+                                        <li>
+                                            <!--                                            <div th:text="${gioHang.donGia * gioHang.soLuong}"></div>-->
+                                            <span>Thành tiền: <div th:text=" ${#numbers.formatDecimal(a.donGia * a.soLuong, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'" style="color: #6a1a21"></div></span>
+                                        </li>
                                     </td>
 
                                 </tr>
                                 </tbody>
                             </table>
-
                         </div>
                     </div>
                 </div>
@@ -555,7 +555,7 @@
                             <div class="header__top__hover" style="color: #1d1d42 ;right: 5px"></div>
                         </div>
                         <div class="col-lg-4 ">
-                            <select id = "mySelect" class="form-control " onchange="showCorrespondingValue()">
+                            <select id = "mySelect" class="form-select" onchange="showCorrespondingValue()">
                                 <option selected disabled>Lọc theo</option>
                                 <option value="Tháng">Tháng</option>
                                 <option value="Năm">Năm</option>
@@ -590,8 +590,8 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive ">
-                            <table class="table datanew" id="data-table">
+                        <div class="table-responsive">
+                            <table class="table " >
                                 <thead>
                                 <tr>
                                     <th>STT</th>
@@ -655,9 +655,6 @@
 
 <script src="/js/script.js"></script>
 
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>-->
-<!-- Latest compiled and minified JavaScript -->
-<!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>-->
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script th:inline="javascript">

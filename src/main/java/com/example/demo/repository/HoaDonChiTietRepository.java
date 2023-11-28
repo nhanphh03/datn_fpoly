@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import com.example.demo.model.HoaDon;
 import com.example.demo.model.HoaDonChiTiet;
+import com.example.demo.viewModel.CTHDViewModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -40,11 +41,11 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
             nativeQuery = true)
     Optional<Double> getLaiThangNay();
 
-    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet a join hoa_don b on a.id_hd=b.id_hd where month(tg_them) = month(GETDATE())  and year(tg_them) = year(GETDATE()) and b.trang_thai=1" +
-            "and day(tg_them) = year(GETDATE()) ",nativeQuery = true)
+    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet a join hoa_don b on a.id_hd=b.id_hd where month(b.tg_thanh_toan) = month(GETDATE())  and year(b.tg_thanh_toan) = year(GETDATE()) and b.trang_thai=1" +
+            "and day(b.tg_thanh_toan) = day(GETDATE()) ",nativeQuery = true)
     Optional<Integer> getTongSPBanTrongNgay();
 
-    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet a join hoa_don b on a.id_hd=b.id_hd where month(tg_them) = month(GETDATE())  and year(tg_them) = year(GETDATE()) and" +
+    @Query(value = "select sum(so_luong) from hoa_don_chi_tiet a join hoa_don b on a.id_hd=b.id_hd where month(b.tg_thanh_toan) = month(GETDATE())  and year(b.tg_thanh_toan) = year(GETDATE()) and" +
             " b.trang_thai=1",nativeQuery = true)
     Optional<Integer> getTongSPBanTrongThang();
 
@@ -96,14 +97,29 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
             "sum(so_luong) from hoa_don_chi_tiet where year(tg_them) like 2021",nativeQuery = true)
     Integer Nam2021();
 
-    @Query("SELECT NEW com.example.demo.viewModel.CTHDViewModel(hdct.chiTietGiay.giaBan,hdct.soLuong,hdct.donGia,a.url1) FROM HoaDonChiTiet hdct JOIN ChiTietGiay ctg on ctg.idCTG=hdct.chiTietGiay join Giay g on g.idGiay=ctg.giay JOIN HinhAnh a on a.idHinhAnh = ctg.hinhAnh"
-            )
+    @Query(value = "SELECT ctg.gia_ban,g.ten_giay ,hdct.don_gia,hdct.so_luong,ha.url1,hd.ten_nguoi_nhan,\n" +
+            "hd.sdt_nguoi_nhan,\n" +
+            "hd.dia_chi_nguoi_nhan FROM\n" +
+            "hoa_don_chi_tiet hdct\n" +
+            "join hoa_don hd on hdct.id_hd=hd.id_hd\n" +
+            "join chi_tiet_giay ctg on ctg.id_chi_tiet_giay=hdct.id_ctg\n" +
+            "join hinh_anh ha on ha.id_hinh_anh=ctg.id_hinh_anh\n" +
+            "join giay g on g.id_giay=ctg.id_giay\n" +
+            "WHERE hd.trang_thai = 1 AND MONTH(hd.tg_thanh_toan) = MONTH (getdate()) and Day(tg_thanh_toan) = Day(getdate())",nativeQuery = true)
+    List<Object[]> findHoaDonChiTietByDate();
 
-    List<Object> findHoaDonChiTietByDate();
 
 
 
 
-    @Query("select g from HoaDonChiTiet g where g.hoaDon.trangThai=1 and FUNCTION('MONTH', g.hoaDon.tgThanhToan) = FUNCTION('MONTH', CURRENT_DATE)")
-    List<HoaDonChiTiet> getAllSPBanTrongThang();
+    @Query(value = "SELECT ctg.gia_ban,g.ten_giay ,hdct.don_gia,hdct.so_luong,ha.url1,hd.ten_nguoi_nhan,\n" +
+            "hd.sdt_nguoi_nhan,\n" +
+            "hd.dia_chi_nguoi_nhan FROM\n" +
+            "hoa_don_chi_tiet hdct\n" +
+            "join hoa_don hd on hdct.id_hd=hd.id_hd\n" +
+            "join chi_tiet_giay ctg on ctg.id_chi_tiet_giay=hdct.id_ctg\n" +
+            "join hinh_anh ha on ha.id_hinh_anh=ctg.id_hinh_anh\n" +
+            "join giay g on g.id_giay=ctg.id_giay\n" +
+            "WHERE hd.trang_thai = 1 AND MONTH(hd.tg_thanh_toan) = MONTH (getdate()) and year(hd.tg_thanh_toan) = year (getdate())",nativeQuery = true)
+    List<Object[]> findHoaDonChiTietByMonth();
 }

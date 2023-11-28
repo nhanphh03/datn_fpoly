@@ -4,6 +4,7 @@ import com.example.demo.repository.*;
 
 import com.example.demo.service.CTGViewModelService;
 import com.example.demo.viewModel.CTGViewModel;
+import com.example.demo.viewModel.CTHDViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -134,8 +135,33 @@ public class ThongKeController {
         model.addAttribute("Nam", listThemNam);
         model.addAttribute("listNam", doanhSoNam);
         // chi tiết sp đã bán trong ngày
-//        model.addAttribute("getN",hoaDonChiTietRepository.findHoaDonChiTietByDate());
-//        model.addAttribute("getT",hoaDonChiTietRepository.getAllSPBanTrongThang());
+        List<Object[]> k = hoaDonChiTietRepository.findHoaDonChiTietByDate();
+        List<CTHDViewModel> yourDTOList = k.stream()
+                .map(result -> new CTHDViewModel(
+                        (Double) result[0],
+                        (String) result[1],
+                        (Double) result[2],
+                        (Integer) result[3],
+                        (String) result[4],
+                        (String) result[5],
+                        (String) result[6],
+                        (String) result[7]
+                )).collect(Collectors.toList());
+        // chi tiết sp đã bán trong tháng
+        List<Object[]> x = hoaDonChiTietRepository.findHoaDonChiTietByMonth();
+        List<CTHDViewModel> yourDTOList2 = x.stream()
+                .map(result -> new CTHDViewModel(
+                        (Double) result[0],
+                        (String) result[1],
+                        (Double) result[2],
+                        (Integer) result[3],
+                        (String) result[4],
+                        (String) result[5],
+                        (String) result[6],
+                        (String) result[7]
+                )).collect(Collectors.toList());
+            model.addAttribute("getN",yourDTOList);
+            model.addAttribute("getT",yourDTOList2);
         return "manage/ThongKe/index";
     }
 
