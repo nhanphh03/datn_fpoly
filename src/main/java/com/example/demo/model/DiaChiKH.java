@@ -31,7 +31,6 @@ public class DiaChiKH {
     @JoinColumn(name = "id_KH")
     private KhachHang khachHang;
 
-    @NotBlank
     @Column(name = "ma_Dia_Chi")
     private String maDC;
 

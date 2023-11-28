@@ -53,8 +53,6 @@ public class LoaiKhachHangController {
 
     @GetMapping("/loai-khach-hang")
     public String dsloaikhachhang(Model model, @ModelAttribute("message") String message
-            , @ModelAttribute("maLKHError") String maLKHError
-            , @ModelAttribute("tenLKHError") String tenLKHError
             , @ModelAttribute("error") String error
             , @ModelAttribute("userInput") LoaiKhachHang userInput
             , @ModelAttribute("Errormessage") String Errormessage) {
@@ -66,12 +64,6 @@ public class LoaiKhachHangController {
         //
         if (message == null || !"true".equals(message)) {
             model.addAttribute("message", false);
-        }
-        if (maLKHError == null || !"maLKHError".equals(error)) {
-            model.addAttribute("maLKHError", false);
-        }
-        if (tenLKHError == null || !"tenLKHError".equals(error)) {
-            model.addAttribute("tenLKHError", false);
         }
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInput != null) {
@@ -86,28 +78,6 @@ public class LoaiKhachHangController {
 
     @PostMapping("/loai-khach-hang/viewAdd/add")
     public String addloaikhachhang(@Valid @ModelAttribute("loaiKhachHang") LoaiKhachHang loaiKhachHang, BindingResult result, RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) {
-            if (result.hasFieldErrors("tenLKH")) {
-                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
-                redirectAttributes.addFlashAttribute("error", "tenLKHError");
-            }
-            if (result.hasFieldErrors("maLKH")) {
-                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
-                redirectAttributes.addFlashAttribute("error", "maLKHError");
-            }
-            if (result.hasFieldErrors("soDiem")) {
-                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
-                redirectAttributes.addFlashAttribute("error", "soDiemError");
-            }
-            return "redirect:/manage/loai-khach-hang";
-        }
-        //
-        if (loaiKhachHang.getSoDiem() <= 0) {
-            redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
-            redirectAttributes.addFlashAttribute("error", "soDiemError");
-            return "redirect:/manage/loai-khach-hang";
-        }
-        //
         LoaiKhachHang existingLKH = loaiKhachHangRepository.findByMaLKH(loaiKhachHang.getMaLKH());
         if (existingLKH != null) {
             redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
@@ -146,9 +116,6 @@ public class LoaiKhachHangController {
     @GetMapping("/loai-khach-hang/viewUpdate/{id}")
     public String viewUpdateloaikhachhang(@PathVariable UUID id, Model model
             , @ModelAttribute("message") String message
-            , @ModelAttribute("maLKHError") String maLKHError
-            , @ModelAttribute("tenLKHError") String tenLKHError
-            , @ModelAttribute("soDiemLKHError") String soDiemLKHError
             , @ModelAttribute("error") String error, @ModelAttribute("userInput") LoaiKhachHang userInput
             , @ModelAttribute("Errormessage") String Errormessage) {
         LoaiKhachHang loaiKhachHang = loaiKhachHangService.getByIdLoaiKhachHang(id);
@@ -156,15 +123,6 @@ public class LoaiKhachHangController {
         //
         if (message == null || !"true".equals(message)) {
             model.addAttribute("message", false);
-        }
-        if (maLKHError == null || !"maLKHError".equals(error)) {
-            model.addAttribute("maLKHError", false);
-        }
-        if (tenLKHError == null || !"tenLKHError".equals(error)) {
-            model.addAttribute("tenLKHError", false);
-        }
-        if (soDiemLKHError == null || !"soDiemLKHError".equals(error)) {
-            model.addAttribute("soDiemLKHError", false);
         }
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInput != null) {
@@ -185,27 +143,6 @@ public class LoaiKhachHangController {
         LoaiKhachHang loaiKhachHangdb = loaiKhachHangService.getByIdLoaiKhachHang(id);
         UUID idLKH = (UUID) session.getAttribute("id");
         String link = "redirect:/manage/loai-khach-hang/viewUpdate/" + idLKH;
-        if (result.hasErrors()) {
-            if (result.hasFieldErrors("tenLKH")) {
-                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
-                redirectAttributes.addFlashAttribute("error", "tenLKHError");
-            }
-            if (result.hasFieldErrors("maLKH")) {
-                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
-                redirectAttributes.addFlashAttribute("error", "maLKHError");
-            }
-            if (result.hasFieldErrors("soDiem")) {
-                redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
-                redirectAttributes.addFlashAttribute("error", "soDiemLKHError");
-            }
-            return link;
-        }
-        //
-        if (loaiKhachHang.getSoDiem() <= 0) {
-            redirectAttributes.addFlashAttribute("userInput", loaiKhachHang);
-            redirectAttributes.addFlashAttribute("error", "soDiemLKHError");
-            return link;
-        }
         //
         LoaiKhachHang existingLKH = loaiKhachHangRepository.findByMaLKH(loaiKhachHang.getMaLKH());
         if (existingLKH != null && !existingLKH.getIdLKH().equals(id)) {

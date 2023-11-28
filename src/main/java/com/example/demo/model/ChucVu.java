@@ -23,11 +23,9 @@ public class ChucVu {
     @Column(name ="id_Chuc_Vu")
     private UUID idCV;
 
-    @NotBlank
     @Column(name = "ma_Chuc_Vu")
     private String maCV;
 
-    @NotBlank
     @Column(name="ten_Chuc_Vu")
     private String tenCV;
 
