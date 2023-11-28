@@ -5,6 +5,7 @@ import com.example.demo.repository.*;
 import com.example.demo.service.CTGViewModelService;
 import com.example.demo.viewModel.CTGViewModel;
 import com.example.demo.viewModel.CTHDViewModel;
+import com.example.demo.viewModel.Top5SPBanChayTrongThang;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,8 @@ public class ThongKeController {
     private GiayRepository giayRepository;
     @Autowired
     private CTGViewModelService ctgViewModelService;
+    @Autowired
+    private CTGViewModelRepository ctgViewModelRepository;
     @GetMapping("/thongke")
     private String getTong(Model model){
         model.addAttribute("tong",khachHangRepository.getTongKH());
@@ -81,10 +84,14 @@ public class ThongKeController {
 
 //
 //        // top 5 sp bán chạy
-        List<CTGViewModel> listCTGModelBestSeller = ctgViewModelService.getAllOrderBestSeller();
-        List<CTGViewModel> top5CTGModelBestSeller = listCTGModelBestSeller.subList(0, Math.min(listCTGModelBestSeller.size(), 5));
-
-        model.addAttribute("spBanChay",top5CTGModelBestSeller);
+        List<Object[]> listCTGModelBestSeller = ctgViewModelRepository.getTop5SPBanChayTrongThang();
+        List<Top5SPBanChayTrongThang> dataTop5 = listCTGModelBestSeller.stream()
+                .map(result -> new Top5SPBanChayTrongThang(
+                        (String) result[0],
+                        (String) result[1],
+                        (Integer) result[2]
+                )).collect(Collectors.toList());
+        model.addAttribute("spBanChay",dataTop5);
 
 //        //chỉ số ở hóa đơn
         model.addAttribute("hdht",hoaDonRepository.getAllHoaDonDaThanhToan());
