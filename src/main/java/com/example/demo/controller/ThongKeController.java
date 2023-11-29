@@ -4,6 +4,8 @@ import com.example.demo.repository.*;
 
 import com.example.demo.service.CTGViewModelService;
 import com.example.demo.viewModel.CTGViewModel;
+import com.example.demo.viewModel.CTHDViewModel;
+import com.example.demo.viewModel.Top5SPBanChayTrongThang;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,10 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Controller
@@ -34,26 +33,65 @@ public class ThongKeController {
     private GiayRepository giayRepository;
     @Autowired
     private CTGViewModelService ctgViewModelService;
+    @Autowired
+    private CTGViewModelRepository ctgViewModelRepository;
     @GetMapping("/thongke")
     private String getTong(Model model){
         model.addAttribute("tong",khachHangRepository.getTongKH());
         model.addAttribute("tonggiay",giayChiTietRepository.getTongGiay());
 
         //làm tròn doanh thu
-
-        Double Resulttdt = Math.ceil(hoaDonChiTietRepository.getTongTien()*100.0)/100.0;
-        Double Resultdtt = Math.ceil(hoaDonChiTietRepository.getDoanhThuThang()*100.0)/100.0;
         NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
-        String formattdt = currencyFormat.format(Resulttdt);
-        String formatdtt = currencyFormat.format(Resultdtt);
-        model.addAttribute("tdt",formattdt);
-        model.addAttribute("dtt",formatdtt);
+
+        Optional<Double> ltn = hoaDonChiTietRepository.getLaiThangNay();
+
+        Optional<Double> tlbr = hoaDonChiTietRepository.getTongTienLaiCuaHang();
+        Optional<Integer> tongSPBanTrongNgay = hoaDonChiTietRepository.getTongSPBanTrongNgay();
+        Optional<Integer> tongSPBanTrongThang = hoaDonChiTietRepository.getTongSPBanTrongThang();
+
+        System.out.println(tlbr.get());
+        if(tongSPBanTrongNgay.isPresent() ){
+            Integer a = tongSPBanTrongNgay.get();
+
+            model.addAttribute("sptn",a);
+        }else{
+            model.addAttribute("sptn","0");
+        }
+
+        if(ltn.isPresent()){
+            Double b = ltn.get();
+            String formatdtt = currencyFormat.format(b);
+            model.addAttribute("ltn",formatdtt);
+        }else{
+            model.addAttribute("ltn","0đ");
+        }
+        //Tổng tiền của cửa hàng
+        if(tlbr.isPresent()){
+            Double c = tlbr.get();
+            String formatdtt2 = currencyFormat.format(c);
+            model.addAttribute("tlbr",formatdtt2);
+        }else{
+            model.addAttribute("tlbr","0");
+        }
+
+        if(tongSPBanTrongThang.isPresent()){
+            Integer d = tongSPBanTrongThang.get();
+
+            model.addAttribute("sptt",d);
+        }else{
+            model.addAttribute("sptt","0");
+        }
+
 //
 //        // top 5 sp bán chạy
-        List<CTGViewModel> listCTGModelBestSeller = ctgViewModelService.getAllOrderBestSeller();
-        List<CTGViewModel> top5CTGModelBestSeller = listCTGModelBestSeller.subList(0, Math.min(listCTGModelBestSeller.size(), 5));
-
-        model.addAttribute("spBanChay",top5CTGModelBestSeller);
+        List<Object[]> listCTGModelBestSeller = ctgViewModelRepository.getTop5SPBanChayTrongThang();
+        List<Top5SPBanChayTrongThang> dataTop5 = listCTGModelBestSeller.stream()
+                .map(result -> new Top5SPBanChayTrongThang(
+                        (String) result[0],
+                        (String) result[1],
+                        (Integer) result[2]
+                )).collect(Collectors.toList());
+        model.addAttribute("spBanChay",dataTop5);
 
 //        //chỉ số ở hóa đơn
         model.addAttribute("hdht",hoaDonRepository.getAllHoaDonDaThanhToan());
@@ -62,6 +100,7 @@ public class ThongKeController {
 //        model.addAttribute("hoaDonCT2",hoaDonChiTietRepository.getAllHoaDonChoThanhToan());
 //        model.addAttribute("hoaDonCT1",hoaDonChiTietRepository.getAllHoaDonDaThanhToan());
         // biểu đồ thống kê
+        //theo tháng
         List<String> listThem= Arrays.asList("Tháng 1","Tháng 2","Tháng 3","Tháng 4","Tháng 5",
                 "Tháng 6","Tháng 7","Tháng 8","Tháng 9","Tháng 10","Tháng 11","Tháng 12");
         List<String> listThang = new ArrayList<>(listThem);
@@ -83,7 +122,53 @@ public class ThongKeController {
         List<Integer> listDoanhSo = new ArrayList<>(list);
         model.addAttribute("listThang", listThang);
         model.addAttribute("listDoanhSo", listDoanhSo);
+// theo ngày
+    List<String> listThemNgay = new ArrayList<>();
+    listThemNgay.add("Ngày Hôm Nay");
+    List<Integer> doanhSoNgay = new ArrayList<>();
+    doanhSoNgay.add(hoaDonChiTietRepository.getNgaythu1());
+        model.addAttribute("Ngay", listThemNgay);
+        model.addAttribute("listSL", doanhSoNgay);
+        //theo năm
+        List<String> listThemNam = new ArrayList<>();
+        listThemNam.add("2021");
+        listThemNam.add("2022");
+        listThemNam.add("2023");
 
+        List<Integer> doanhSoNam = new ArrayList<>();
+        doanhSoNam.add(hoaDonChiTietRepository.Nam2021());
+        doanhSoNam.add(hoaDonChiTietRepository.Nam2022());
+        doanhSoNam.add(hoaDonChiTietRepository.Nam2023());
+        model.addAttribute("Nam", listThemNam);
+        model.addAttribute("listNam", doanhSoNam);
+        // chi tiết sp đã bán trong ngày
+        List<Object[]> k = hoaDonChiTietRepository.findHoaDonChiTietByDate();
+        List<CTHDViewModel> yourDTOList = k.stream()
+                .map(result -> new CTHDViewModel(
+                        (Double) result[0],
+                        (String) result[1],
+                        (Double) result[2],
+                        (Integer) result[3],
+                        (String) result[4],
+                        (String) result[5],
+                        (String) result[6],
+                        (String) result[7]
+                )).collect(Collectors.toList());
+        // chi tiết sp đã bán trong tháng
+        List<Object[]> x = hoaDonChiTietRepository.findHoaDonChiTietByMonth();
+        List<CTHDViewModel> yourDTOList2 = x.stream()
+                .map(result -> new CTHDViewModel(
+                        (Double) result[0],
+                        (String) result[1],
+                        (Double) result[2],
+                        (Integer) result[3],
+                        (String) result[4],
+                        (String) result[5],
+                        (String) result[6],
+                        (String) result[7]
+                )).collect(Collectors.toList());
+            model.addAttribute("getN",yourDTOList);
+            model.addAttribute("getT",yourDTOList2);
         return "manage/ThongKe/index";
     }
 
