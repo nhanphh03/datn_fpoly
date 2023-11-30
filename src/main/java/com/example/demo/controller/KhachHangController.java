@@ -3,8 +3,10 @@ package com.example.demo.controller;
 import com.example.demo.config.ExcelExporterKhachHang;
 import com.example.demo.config.PDFExporterKhachHang;
 import com.example.demo.model.DiaChiKH;
+import com.example.demo.model.Giay;
 import com.example.demo.model.KhachHang;
 import com.example.demo.model.LoaiKhachHang;
+import com.example.demo.repository.DiaChiRepsitory;
 import com.example.demo.repository.KhachHangRepository;
 import com.example.demo.repository.LoaiKhachHangRepository;
 import com.example.demo.service.DiaChiKHService;
@@ -48,6 +50,9 @@ public class KhachHangController {
 
     @Autowired
     private LoaiKhachHangRepository loaiKhachHangRepository;
+
+    @Autowired
+    private DiaChiRepsitory diaChiRepsitory;
 
     @ModelAttribute("dsTrangThai")
     public Map<Integer, String> getDsTrangThai() {
@@ -163,7 +168,8 @@ public class KhachHangController {
         khachHang1.setEmailKH(khachHang.getEmailKH());
         khachHang1.setMatKhau(khachHang.getMatKhau());
         khachHang1.setSdtKH(khachHang.getSdtKH());
-        khachHang1.setCCCDKH(khachHang.getCCCDKH());
+        khachHang1.setAnhKH(khachHang.getAnhKH());
+        khachHang1.setAnhcccd(khachHang.getAnhcccd());
         khachHang1.setGioiTinh(khachHang.getGioiTinh());
         khachHang1.setNgaySinh(khachHang.getNgaySinh());
         khachHang1.setTgThem(new Date());
@@ -307,9 +313,11 @@ public class KhachHangController {
         KhachHang khachHang = khachHangService.getByIdKhachHang(id);
         List<DiaChiKH> diaChiKHS = diaChiKHService.getDiaChibyKhachHang(khachHang);
         model.addAttribute("diaChiList", diaChiKHS);
+        model.addAttribute("idDC", id);
         if (message == null || !"true".equals(message)) {
             model.addAttribute("message", false);
         }
+        session.setAttribute("idDC",id);
         return "manage/khach-hang-detail";
     }
     @GetMapping("/khachHang/export/excel")
