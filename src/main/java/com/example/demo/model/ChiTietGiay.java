@@ -33,7 +33,6 @@ public class ChiTietGiay {
 
     @ManyToOne
     @JoinColumn(name = "id_Size")
-    @NotNull
     private Size size;
 
     @OneToOne
@@ -71,7 +70,7 @@ public class ChiTietGiay {
     @Column(name = "gia_Ban")
     private double giaBan;
 
-    @Min(value = 0)
+    @Min(value = 1)
     @Column(name = "so_Luong")
     private int soLuong;
 

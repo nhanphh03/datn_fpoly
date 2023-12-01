@@ -241,7 +241,8 @@
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
+                        <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg"
+                                                       alt="img"><span> Thống Kê</span>
                         </a>
                     </li>
                     <li class="submenu">
@@ -487,7 +488,7 @@
                                     <td th:text="${items.mauSac.tenMau}"></td>
                                     <td th:text="${items.soLuong}"></td>
                                     <td th:text="${#numbers.formatDecimal(items.soTienTruocKhiGiam, 2, 'COMMA', 1, 'POINT')} + ' đ'"></td>
-                                    <td th:text="${items.trongLuong}"></td>
+                                    <td th:text="${items.trongLuong}+' gram'"></td>
                                     <td th:text="${items.namSX}"></td>
                                     <td th:text="${items.namBH}"></td>
                                     <td th:text="${#numbers.formatDecimal(items.giaBan, 2, 'COMMA', 1, 'POINT')} + ' đ'"></td>
