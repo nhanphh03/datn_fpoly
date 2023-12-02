@@ -1,6 +1,8 @@
 package com.example.demo.repository;
 
 import com.example.demo.viewModel.CTGViewModel;
+import com.example.demo.viewModel.HieuSuatBanHang;
+import com.example.demo.viewModel.SanPhamSapHet;
 import com.example.demo.viewModel.Top5SPBanChayTrongThang;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -220,4 +222,12 @@ public interface CTGViewModelRepository extends JpaRepository<CTGViewModel, UUID
             "            ORDER BY COALESCE(SUM(cthd.so_luong), 0) DESC",nativeQuery = true)
     List<Object[]> getTop5SPBanChayTrongThang();
 
+    @Query(value = "select a.url1,g.ten_giay,sum (ctg.so_luong)from chi_tiet_giay ctg \n" +
+            "                        JOIN Giay g ON g.id_giay = ctg.id_giay\n" +
+            "                        JOIN hinh_anh a ON a.id_hinh_anh = ctg.id_hinh_anh\n" +
+            "                        JOIN mau_sac ms ON ms.id_mau = ctg.id_mau\n" +
+            "\t\t\t\t\t\twhere ctg.so_luong<10\n" +
+            "\t\t\t\t\t\tgroup by a.url1,g.ten_giay\n" +
+            "\t\t\t\t\t\torder by sum(ctg.so_luong) desc",nativeQuery = true)
+    List<Object[]> spSapHet();
 }
