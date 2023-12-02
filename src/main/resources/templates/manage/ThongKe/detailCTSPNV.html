@@ -8,36 +8,22 @@
           content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects">
     <meta name="author" content="Dreamguys - Bootstrap Admin Template">
     <meta name="robots" content="noindex, nofollow">
-    <title>Chi tiết sản phẩm nhân viên đã bán</title>
+    <title>Sneaker Shop - Admin</title>
 
-    <link rel="shortcut icon" type="image/x-icon" href="/images/img/favicon.jpg">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js">
+    <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
+
     <link rel="stylesheet" href="/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="/css/animate.css">
 
-    <link rel="stylesheet" href="/plugins/owlcarousel/owl.carousel.min.css">
-    <link rel="stylesheet" href="/plugins/owlcarousel/owl.theme.default.min.css">
-
     <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
 
-    <link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
+
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
 
     <link rel="stylesheet" href="/css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/quagga"></script>
-    <style>
-        .modal-body{
-            max-height: 90vh;
-            overflow-y: auto;
-        }.card{
-             min-height: 400px;
-             overflow-y: auto;
-
-         }
-    </style>
 </head>
 
 <!--<div id="global-loader">-->
@@ -326,7 +312,7 @@
 
 
 
-<div class="card flex-fill">
+            <div class="card flex-fill">
 <h3 class="card-header pb-0 d-flex justify-content-between align-items-center">Chi tiết sản phẩm nhân viên đã bán (tháng này)</h3>
     <div class="card-body">
         <div class="table-responsive a">
@@ -381,18 +367,9 @@
     </div>
 
 </div>
-<!--            <div class="card">-->
-<!--                <div class="card-header">-->
-<!--                    <div class="card-title">Bar Chart</div>-->
-<!--                </div>-->
-<!--                <div class="card-body">-->
-<!--                    <div id="morrisBar1" class="chart-set"></div>-->
-<!--                </div>-->
-<!--            </div>-->
         </div>
     </div>
 </div>
-
 
 <script src="/js/jquery-3.6.0.min.js"></script>
 
@@ -400,63 +377,16 @@
 
 <script src="/js/jquery.slimscroll.min.js"></script>
 
-<script src="/js/bootstrap.bundle.min.js"></script>
-
 <script src="/js/jquery.dataTables.min.js"></script>
 <script src="/js/dataTables.bootstrap4.min.js"></script>
 
-<script src="/plugins/select2/js/select2.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
 
-<script src="/plugins/owlcarousel/owl.carousel.min.js"></script>
+<script src="/plugins/select2/js/select2.min.js"></script>
 
 <script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
-<script src="/plugins/flot/jquery.flot.js"></script>
-<script src="/plugins/flot/jquery.flot.fillbetween.js"></script>
-<script src="/plugins/flot/jquery.flot.pie.js"></script>
-<script src="/plugins/flot/chart-data.js"></script>
-
 <script src="/js/script.js"></script>
-
-
-<script>
-    $(document).ready(function() {
-        $('#dataTable').DataTable();
-    });
-</script>
-<script src="/plugins/morris/chart-data.js"></script>
-<script src="/plugins/morris/raphael-min.js"></script>
-<script src="/plugins/morris/morris.min.js"></script>
-<script>
-
-    $(document).ready(function () {
-        'use strict';
-        var morrisData = [
-            { y: 'Tháng 1', a: 12, b: 18 },
-            { y: 'Tháng 2', a: 18, b: 22 },
-            { y: 'Tháng 3', a: 15, b: 18 },
-            { y: 'Tháng 4', a: 25, b: 28 },
-            { y: 'Tháng 5', a: 30, b: 35 },
-            { y: 'Tháng 6', a: 18, b: 28 },
-            { y: 'Tháng 7', a: 12, b: 18 },
-            { y: 'Tháng 8', a: 12, b: 18 },
-            { y: 'Tháng 9', a: 12, b: 18 },
-            { y: 'Tháng 10', a: 12, b: 18 },
-            { y: 'Tháng 11', a: 12, b: 18 },
-            { y: 'Tháng 12', a: 12, b: 18 }];
-
-        new Morris.Bar({
-            element: 'morrisBar1',
-            data: morrisData,
-            xkey: 'y',
-            ykeys: ['a', 'b'],
-            labels: ['Tổng tiền', 'Tổng tiền đã giảm'],
-            barColors: ['#664dc9', '#44c4fa'],
-            gridTextSize: 11,
-            hideHover: 'auto',
-            resize: true });
-    });
-</script>
 </body>
 </html>
