@@ -1,13 +1,11 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.ChiTietGiay;
 import com.example.demo.model.HoaDonChiTiet;
 import com.example.demo.repository.*;
-
-import com.example.demo.service.CTGViewModelService;
 import com.example.demo.viewModel.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +31,8 @@ public class ThongKeController {
     private GiayRepository giayRepository;
     @Autowired
     private CTGViewModelRepository ctgViewModelRepository;
-
+    @Autowired
+    private test test;
     public NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
     @GetMapping("/thongke")
     private String getTong(Model model, HttpServletRequest request){
@@ -262,7 +261,33 @@ public class ThongKeController {
         model.addAttribute("ttdgtn",listTTDGTN);
         model.addAttribute("tttn",listTTTN);
         model.addAttribute("listNam",nam);
-        return "manage/ThongKe/test";
+
+        //gửi mail
+//        List<Object[]> w = giayChiTietRepository.getSoLuongTon();
+//        List<GuiMail> tests = w.stream()
+//                .map(result -> new GuiMail(
+//                        (Integer) result[0],
+//                        (Integer) result[1]
+//                )).collect(Collectors.toList());
+//        ChiTietGiay a = new ChiTietGiay();
+//
+//        for(int i = 0;i<tests.size();i++) {
+//            GuiMail g = tests.get(i);
+//            if (g.getSoLuong()<=10&&g.getTrangThaiMail()==0) {
+//                String to = "Thiencobklo@gmail.com";
+//                String sub = "Sản phẩm sắp hết hàng !!!";
+//                String text = "aa";
+//                test.sendEmail(to, sub, text);
+//
+//                a.setTrangThaiMail(1);
+//                giayChiTietRepository.save(a);
+//
+//            } else if (g.getSoLuong() > 10) {
+//                a.setTrangThaiMail(0);
+//                giayChiTietRepository.save(a);
+//            }
+//        }
+            return "manage/ThongKe/test";
     }
     @GetMapping("/thongke/{maNV}")
     public String getEmployeeDetail(@PathVariable("maNV") String maNV, Model model) {
@@ -276,7 +301,6 @@ public class ThongKeController {
         model.addAttribute("ctspNV",hoaDonChiTiets);
 
 
-
         return "manage/ThongKe/detailCTSPNV";
 
     }
@@ -284,18 +308,6 @@ public class ThongKeController {
 
 
 
-//    @GetMapping("/hoadoncho/filter")
-//    public String searchHoaDonCho(Model model, @RequestParam(name = "searchTerm") String searchTerm) {
-//        List<HoaDon> filteredHoaDonCho;
-//        if ("Giày".equals(searchTerm) && "Size".equals(searchTerm) && "Màu Sắc".equals(searchTerm)) {
-//
-//            filteredHoaDonCho = hoaDonCho.getAll();
-//        } else {
-//
-//            filteredHoaDonCho = hoaDonCho.fillterHoaDonCho(searchTerm);
-//        }
-//        model.addAttribute("HoaDon", filteredHoaDonCho);
-//        model.addAttribute("HoaDonAll", hoaDonCho.getAll());
-//        return "manage/giay";
-//    }
+
+
 }
