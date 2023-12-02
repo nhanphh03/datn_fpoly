@@ -131,16 +131,16 @@ public class ThongKeController {
         model.addAttribute("listSL", doanhSoNgay);
         //theo năm
         List<String> listThemNam = new ArrayList<>();
-        listThemNam.add("2021");
         listThemNam.add("2022");
         listThemNam.add("2023");
+        listThemNam.add("2024");
 
         List<Integer> doanhSoNam = new ArrayList<>();
-        doanhSoNam.add(hoaDonChiTietRepository.Nam2021());
         doanhSoNam.add(hoaDonChiTietRepository.Nam2022());
         doanhSoNam.add(hoaDonChiTietRepository.Nam2023());
+        doanhSoNam.add(hoaDonChiTietRepository.Nam2024());
         model.addAttribute("Nam", listThemNam);
-        model.addAttribute("listNam", doanhSoNam);
+        model.addAttribute("listNam1", doanhSoNam);
         // chi tiết sp đã bán trong ngày
         List<Object[]> k = hoaDonChiTietRepository.findHoaDonChiTietByDate();
         List<CTHDViewModel> yourDTOList = k.stream()

@@ -88,16 +88,16 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
     Integer getNgaythu1();
 
     @Query(value = "SELECT \n" +
-            "sum(so_luong) from hoa_don_chi_tiet where year(tg_them) like 2023",nativeQuery = true)
-    Integer Nam2023();
-
-    @Query(value = "SELECT \n" +
             "sum(so_luong) from hoa_don_chi_tiet where year(tg_them) like 2022",nativeQuery = true)
     Integer Nam2022();
 
     @Query(value = "SELECT \n" +
-            "sum(so_luong) from hoa_don_chi_tiet where year(tg_them) like 2021",nativeQuery = true)
-    Integer Nam2021();
+            "sum(so_luong) from hoa_don_chi_tiet where year(tg_them) like 2023",nativeQuery = true)
+    Integer Nam2023();
+
+    @Query(value = "SELECT \n" +
+            "sum(so_luong) from hoa_don_chi_tiet where year(tg_them) like 2024",nativeQuery = true)
+    Integer Nam2024();
 
     @Query(value = "SELECT ctg.gia_ban,g.ten_giay ,hdct.don_gia_khi_giam,hdct.so_luong,ha.url1,hd.ten_nguoi_nhan,\n" +
             "hd.sdt_nguoi_nhan,\n" +
