@@ -53,7 +53,7 @@ public class ChucVuController {
     public String dsChucVu(Model model, @ModelAttribute("message") String message
             , @ModelAttribute("error") String error
             , @ModelAttribute("userInput") ChucVu userInput, @ModelAttribute("Errormessage") String Errormessage) {
-        List<ChucVu> chucVu = chucVuService.getAllChucVu();
+        List<ChucVu> chucVu = chucVuRepsitory.getAllChucVu();
         model.addAttribute("chucVu", chucVu);
         //
         model.addAttribute("chucVuAdd", new ChucVu());

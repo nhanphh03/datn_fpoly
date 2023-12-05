@@ -3,7 +3,9 @@ package com.example.demo.repository;
 
 import com.example.demo.model.ChucVu;
 
+import com.example.demo.model.KhachHang;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,4 +17,7 @@ public interface ChucVuRepsitory extends JpaRepository<ChucVu, UUID> {
 
     ChucVu findByMaCV(String maCV);
     ChucVu findByTenCV(String name);
+
+    @Query(value = "select cv from ChucVu cv order by cv.tgThem desc")
+    List<ChucVu> getAllChucVu();
 }

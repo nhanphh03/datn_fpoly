@@ -11,10 +11,9 @@ import java.util.UUID;
 
 @Repository
 public interface HoaDonRepository extends JpaRepository<HoaDon , UUID> {
-    @Query(value = "select * from Hoa_Don where trang_thai = 3 and loai_hd = 1 ",nativeQuery = true)
+    @Query(value = "select * from Hoa_Don where trang_thai = 0 and loai_hd = 1 ",nativeQuery = true)
     List<HoaDon> listChuaThanhToan();
-//    @Query(value = "select hd  from HoaDon hd order by hd.tgTao desc")
-//    @Query(value = "select * from hoa_don order by tg_tao desc",nativeQuery = true)
+
     List<HoaDon> findAllByOrderByTgTaoDesc();
 
     List<HoaDon> findByKhachHangAndLoaiHDOrderByTgTaoDesc(KhachHang khachHang, int loaiHD);
