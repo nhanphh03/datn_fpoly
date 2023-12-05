@@ -297,26 +297,6 @@
                                         <button id="scanButton" class="btn btn-outline-dark">Quét QR</button>
                                         <button id="stopButton" class="btn btn-danger mt-2">Tắt Video</button>
                                     </div>
-
-                                    <div id="timKiem" class="row mt-2">
-                                        <form method="get" action="/ban-hang/searchByCode">
-                                            <div class="search-set">
-                                                <div class="search-path">
-                                                    <button class="btn btn-searchset" type="submit"><img
-                                                            src="/images/img/icons/search-white.svg"
-                                                            alt="img"></button>
-                                                </div>
-                                                <div>
-                                                    <div>
-                                                        <input
-                                                                type="search" class="form-control form-control-sm"
-                                                                name="code"
-                                                                placeholder="Search code" aria-controls="DataTables_Table_0">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -455,9 +435,12 @@
                                                         <div class="input-groups">
                                                             <input type="button" value="-"
                                                                    class="button-minus dec button">
-                                                            <input type="text" name="child"
-                                                                   th:value="${gioHang.soLuong}"
-                                                                   class="quantity-field">
+<!--                                                            <input type="text" name="child"-->
+<!--                                                                   th:value="${gioHang.soLuong}"-->
+<!--                                                                   class="quantity-field">-->
+                                                            <input  class="quantityInput" oninput="updateTotalAmount(this)" th:value="${gioHang.soLuong}"
+                                                                    style="width: 30px; text-align: center; border: none;" type="text"
+                                                                    th:name="${gioHang.chiTietGiay.idCTG}" value="1" min="1">
                                                             <input type="button" value="+"
                                                                    class="button-plus inc button ">
                                                         </div>
@@ -1511,7 +1494,7 @@
                                         <form action="/ban-hang/add-to-cart" method="get">
                                             <div class="">
                                                 <span>Số lượng</span>
-                                                <input type="number" name="soLuong" value="1" min="0"
+                                                <input type="number" name="soLuong" value="1" min="1"
                                                        class="form-control"/>
                                             </div>
                                             <div>
@@ -1602,14 +1585,13 @@
                                            name="selectVoucherShipping" th:value="${xxx.idKM}">
                                 </div>
                                 <div class="col-lg-11">
-                                    <div style="display: flex; width: 396px; ">
-                                        <p th:text="${xxx.tenKM}"
-                                           style="font-size: 12pt; font-weight: 600 ;margin:10px 15px 0 0;"></p>
-                                        <p th:text="'Ngày hết hạn: ' + ${#dates.format(xxx.tgKetThuc, 'dd-MM-yyyy')}"
-                                           style="font-size: 9pt; font-style: italic; margin-top: 10px;"></p>
+                                    <div style="margin: 10px 20px 0 10px;">
+                                        <p th:text="${xxx.tenKM}" style="display: inline; font-size: 12pt; font-weight: 600 ;"></p>
+                                        <p th:text="'Ngày hết hạn: ' + ${#dates.format(xxx.tgKetThuc, 'dd-MM-yyyy')} "
+                                           style="display: inline; font-size: 9pt; font-style: italic;"></p>
                                     </div>
 
-                                    <div style="display: flex; margin: -15px 20px 0 10px;">
+                                    <div style="display: flex; margin: 10px 20px 0 10px;">
                                         <p th:if="${xxx.loaiGiam}" th:text="${xxx.phanTramGiam*100} + '% giảm'"
                                            style="margin: 0 10px 0 0;"></p>
                                         <p th:unless="${xxx.loaiGiam}"
@@ -1617,14 +1599,14 @@
                                            style="margin: 0 10px 0 0;"></p>
                                         <p th:if="${xxx.loaiGiam}"
                                            th:text=" 'Đơn tối thiểu ₫' + ${#numbers.formatDecimal(xxx.dieuKienKMBill, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' Giảm tối đa ₫' + ${#numbers.formatDecimal(xxx.giaTienGiamToiDaPT, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"
-                                           style="font-size: 10pt; margin-right: 5px; font-style: italic;"></p>
+                                           style="font-size: 10pt; margin: 0 10px 0 0; font-style: italic;"></p>
                                         <p th:unless="${xxx.loaiGiam}"
                                            th:text="'Đơn tối thiểu ₫' + ${#numbers.formatDecimal(xxx.dieuKienKMBill, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"
-                                           style="font-size: 10pt; margin-right: 5px; font-style: italic;"></p>
+                                           style="font-size: 10pt; margin: 0 10px 0 0; font-style: italic;"></p>
                                     </div>
 
                                     <p th:text="${xxx.soLuongDaDung} + ' đã dùng (số lượng ' + ${xxx.soLuong} + ' ) '"
-                                       style="margin: -15px 20px 0 10px; font-size: 10pt;"></p>
+                                       style="margin: 10px 20px 0 10px; font-size: 10pt;"></p>
 
                                 </div>
                             </div>
@@ -1718,11 +1700,10 @@
     let scanner = new Instascan.Scanner({video: document.getElementById('video')});
     const videoElement = document.getElementById('video');
     const stopButton = document.getElementById('stopButton');
-    const inputSearch = document.getElementById('timKiem');
     scanButton.addEventListener('click', () => {
         // Ẩn nút quét QR
         scanButton.style.display = 'none';
-        inputSearch.style.display = 'none';
+
         // Hiển thị video
         videoElement.style.display = 'block';
         stopButton.style.display = 'block';
@@ -1754,48 +1735,43 @@
         stopButton.style.display = 'none';
         // Hiển thị lại nút quét QR
         scanButton.style.display = 'block';
-        inputSearch.style.display = 'block';
+
     });
 </script>
-<!--<script type="text/javascript">-->
-<!--    // import Quagga from 'quagga';-->
-<!--    // Đảm bảo QuaggaJS đã được tải-->
-<!--    if (typeof Quagga === 'undefined') {-->
-<!--        console.error('QuaggaJS chưa được tải.');-->
-<!--    } else {-->
-<!--        Quagga.init({-->
-<!--            inputStream: {-->
-<!--                name: "Live",-->
-<!--                type: "LiveStream",-->
-<!--                target: document.querySelector('#reader'),-->
-<!--                constraints: {-->
-<!--                    width: 640,-->
-<!--                    height: 480,-->
-<!--                    facingMode: "environment"-->
-<!--                },-->
-<!--            },-->
-<!--            decoder: {-->
-<!--                readers: ["code_128_reader", "ean_reader", "ean_8_reader", "code_39_reader", "code_39_vin_reader", "codabar_reader", "upc_reader", "upc_e_reader", "i2of5_reader"]-->
-<!--            }-->
-<!--        }, function (err) {-->
-<!--            if (err) {-->
-<!--                console.error(err);-->
-<!--                return;-->
-<!--            }-->
-<!--            console.log("QuaggaJS đã sẵn sàng để quét mã vạch và mã QR.");-->
-<!--            Quagga.start();-->
-<!--        });-->
+<script>
+    function updateTotalAmount(input) {
+        var quantity = input.value;
+        var idCTG = input.getAttribute('name');
 
-<!--        Quagga.onDetected(function (result) {-->
+        fetch('/ban-hang/updateQuantity', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: 'idCTG=' + encodeURIComponent(idCTG) + '&quantity=' + encodeURIComponent(quantity),
+        })
+            .then(response => response.text())
+            .then(data => {
+            })
+            .catch(error => {
+            });
+        var quantityItem = input.closest('.quantity__item');
+        var priceElement = quantityItem.getElementsByClassName('cart__price')[0];
+        // Kiểm tra xem priceElement có giá trị không
+        if (priceElement) {
+            var price = parseFloat(priceElement.innerText.replace('₫', '').replace(',', ''));
 
-<!--            console.log("Mã quét:", result.codeResult);-->
-<!--            console.log("Mã quét 2:", result.codeResult.id);-->
-<!--            console.log("Mã quét 3:", result);-->
-<!--            //chuyn duong dan url den trng /ok-->
-<!--            window.location.href =  `/ok/${result.codedRect}`;-->
-<!--            alert("Quét mã thành công " + result )-->
-<!--        });-->
-<!--    }-->
-<!--</script>-->
+            var newTotalAmount = quantity * price;
+
+            var totalAmountElement = input.closest('tr').querySelector('.totalAmount');
+            totalAmountElement.innerText = '₫' + formatCurrency(newTotalAmount);
+
+            console.log(newTotalAmount);
+        } else {
+            console.error('Price element not found');
+        }
+
+    }
+</script>
 </body>
 </html>
