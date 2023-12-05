@@ -320,16 +320,19 @@
                     <h6>Quản Lý Khách Hàng</h6>
                 </div>
                 <div class="page-btn">
-                    <a th:href="@{'/manage/dia-chi/viewAdd/'+${idDC}}" class="btn btn-added"><img
+                    <a th:href="@{'/manage/View-add-dia-chi/viewAdd/'+${idDC}}" class="btn btn-added"
+                    ><img
                             src="/images/img/icons/plus.svg"
                             alt="img"
-                            class="me-1"/>Thêm Địa Chỉ</a>
+                            class="me-1"
+                    />Thêm Địa Chỉ</a
+                    >
                 </div>
             </div>
             <div class="card">
                 <div class="card-body">
                     <div class="form-hidden-2" style="display: none">
-                        <form action="/manage/khachHang/import" method="post" enctype="multipart/form-data">
+                        <form action="/manage/diaChi/import" method="post" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label> Upload Excel File</label>
                                 <input type="file" name="file" onchange="displaySelectedFileName()"/>
@@ -364,22 +367,6 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a th:href="@{/manage/khachHang/export/pdf}"
-                                       data-bs-toggle="tooltip"
-                                       data-bs-placement="top"
-                                       title="pdf"
-                                    ><img src="/images/img/icons/pdf.svg" alt="img"
-                                    /></a>
-                                </li>
-                                <li>
-                                    <a th:href="@{/manage/khachHang/export/excel}"
-                                       data-bs-toggle="tooltip"
-                                       data-bs-placement="top"
-                                       title="excel"
-                                    ><img src="/images/img/icons/excel.svg" alt="img"
-                                    /></a>
-                                </li>
-                                <li>
                                     <a id="printButton"
                                        data-bs-toggle="tooltip"
                                        data-bs-placement="top"
@@ -390,54 +377,6 @@
                             </ul>
                         </div>
                     </div>
-
-                    <form method="get" th:action="@{/manage/khachHang/filter}">
-                        <div class="card mb-0" id="filter_inputs">
-                            <div class="card-body pb-0">
-                                <div class="row">
-                                    <div class="col-lg-12 col-sm-12">
-                                        <div class="row">
-                                            <div class="col-lg-3 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <select class="select" id="KhachHangFilterMa" name="searchTerm">
-                                                        <option>Mã Khách Hàng</option>
-                                                        <option th:each="loc : ${khachHang}" th:value="${loc.maKH}"
-                                                                th:text="${loc.maKH}"></option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <select class="select" id="KhachHangFilterTen" name="searchTerm">
-                                                        <option>Tên Khách Hàng</option>
-                                                        <option th:each="loc : ${khachHang}" th:value="${loc.hoTenKH}"
-                                                                th:text="${loc.hoTenKH}"></option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <select class="select" id="LoaiKHFilterTen" name="searchTerm">
-                                                        <option>Loại Khách Hàng</option>
-                                                        <option th:each="loc : ${loaiKhachHang}" th:value="${loc.idLKH}"
-                                                                th:text="${loc.tenLKH}"></option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-sm-6 col-12">
-                                                <div class="form-group">
-                                                    <a class="btn btn-filters ms-auto"><img
-                                                            src="/images/img/icons/search-whites.svg"
-                                                            alt="img"/></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-
                     <div class="table-responsive">
                         <table class="table  datanew" id="data-table">
                             <thead>
@@ -453,6 +392,7 @@
                                 <th>Loại Địa Chỉ</th>
                                 <th>Địa Chỉ Chi tiết</th>
                                 <th>SDT Địa Chỉ</th>
+                                <th>Khách Hàng</th>
                                 <th>Trạng Thái</th>
                                 <th>Thời Gian Thêm</th>
                                 <th>Thời Gian Sửa</th>
@@ -475,18 +415,19 @@
                                 </td>
                                 <td th:text="${items.diaChiChiTiet}"></td>
                                 <td th:text="${items.sdtNguoiNhan}"></td>
+                                <td th:text="${items.khachHang.hoTenKH}"></td>
                                 <td>
                                     <p th:if="${items.trangThai == 1}"  class="badges bg-lightgreen">Hoạt Động</p>
                                     <p th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</p>
                                 </td>
-                                <td th:text="${items.tgThem}"></td>
-                                <td th:text="${items.tgSua}"></td>
+                                <td th:text="${#dates.format(items.tgThem, 'dd-MM-yyyy')}" align="center"/>
+                                <td th:text="${#dates.format(items.tgSua, 'dd-MM-yyyy')}" align="center"/>
                                 <td>
-                                    <a class="me-3" th:href="@{'/manage/dia-chi/viewUpdate/' + ${items.idDC}}">
+                                    <a class="me-3" th:href="@{'/manage/dia-chi-kh/viewUpdate/' + ${items.idDC}}">
                                         <img src="/images/img/icons/edit.svg" alt="img">
                                     </a>
                                     <a class="me-2 delete-button"
-                                       th:data-delete-url="@{'/manage/dia-chi/delete/' + ${items.idDC}}">
+                                       th:data-delete-url="@{'/manage/dia-chi-kh/delete/' + ${items.idDC}}">
                                         <img src="/images/img/icons/delete.svg" alt="img">
                                     </a>
                                 </td>
@@ -583,74 +524,6 @@
     }
 </script>
 <script>
-    $(document).ready(function () {
-        $('#filter_inputs').slideToggle("slow");
-        $('#filter_search').toggleClass("setclose");
-    });
-</script>
-<script>
-    $(document).ready(function () {
-        // Lắng nghe sự kiện thay đổi trong dropdown kích thước
-        $("#KhachHangFilterMa").change(function () {
-            var maKH = $(this).val();
-
-            // Ẩn tất cả các dòng trong bảng
-            $("#data-table tbody tr").hide();
-
-            // Hiển thị các dòng có giá trị kích thước tương ứng
-            $("#data-table tbody tr").each(function () {
-                var maColumn = $(this).find("td:eq(3)").text(); // Vị trí cột chứa giá trị kích thước
-                if (maColumn === maKH || maKH === "Mã Khách Hàng") {
-                    $(this).show();
-                }
-            });
-        });
-        //
-        $("#KhachHangFilterTen").change(function () {
-            var hoTenKH = $(this).val();
-
-            // Ẩn tất cả các dòng trong bảng
-            $("#data-table tbody tr").hide();
-
-            // Hiển thị các dòng có giá trị kích thước tương ứng
-            $("#data-table tbody tr").each(function () {
-                var tenColumn = $(this).find("td:eq(4)").text(); // Vị trí cột chứa giá trị kích thước
-                if (tenColumn === hoTenKH || hoTenKH === "Tên Khách Hàng") {
-                    $(this).show();
-                }
-            });
-        });
-        //
-        $("#LoaiKHFilterTen").change(function () {
-            var tenLKH = $(this).find(":selected").text();
-            // Ẩn tất cả các dòng trong bảng
-            $("#data-table tbody tr").hide();
-
-            // Hiển thị các dòng có giá trị kích thước tương ứng
-            $("#data-table tbody tr").each(function () {
-                var loaiKH = $(this).find("td:eq(13)").text(); // Vị trí cột chứa giá trị kích thước
-                if (loaiKH === tenLKH || tenLKH === "Loại Khách Hàng") {
-                    $(this).show();
-                }
-            });
-        });
-
-    });
-</script>
-<script>
-    //Mở form
-    // document.getElementById("show-form-button").addEventListener("click", function () {
-    //     var form1 = document.querySelector(".hidden-form");
-    //     var form2 = document.querySelector(".form-hidden-2");
-    //     if (form1.style.display === "none" || form1.style.display === "" || form2.style.display === "block") {
-    //         $('.hidden-form').slideToggle("slow");
-    //         form1.style.display = "block";  // Hiển thị form
-    //         form2.style.display = "none";
-    //     } else {
-    //         form1.style.display = "none";  // Ẩn form
-    //     }
-    // });
-    //
     document.getElementById("import-excel").addEventListener("click", function () {
         var form2 = document.querySelector(".form-hidden-2");
         var form1 = document.querySelector(".hidden-form");

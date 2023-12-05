@@ -60,6 +60,7 @@ public class DiaChiKHController {
         dsTrangThai.put(0, "Không hoạt động");
         return dsTrangThai;
     }
+
     @ModelAttribute("dsGioiTinh")
     public Map<Integer, String> getDsGioiTinh() {
         Map<Integer, String> dsGioiTinh = new HashMap<>();
@@ -68,6 +69,7 @@ public class DiaChiKHController {
         dsGioiTinh.put(2, "Khác");
         return dsGioiTinh;
     }
+
     @ModelAttribute("dsLoaiDC")
     public Map<Boolean, String> getDsLoaiDC() {
         Map<Boolean, String> dsLoaiDC = new HashMap<>();
@@ -79,8 +81,8 @@ public class DiaChiKHController {
 
 
     @GetMapping("/dia-chi")
-    public String dsDiaChiKH(Model model,@ModelAttribute("message") String message) {
-        List<DiaChiKH> diaChiKHS = diaChiKHService.getAllDiaChiKH();
+    public String dsDiaChiKH(Model model, @ModelAttribute("message") String message) {
+        List<DiaChiKH> diaChiKHS = diaChiRepsitory.getAllDiaChi();
         List<KhachHang> khachHangs = khachHangService.getAllKhachHang();
         for (DiaChiKH diaChiItem : diaChiKHS) {
             if (diaChiItem.getKhachHang().getTrangThai() == 0) {
@@ -118,6 +120,7 @@ public class DiaChiKHController {
         model.addAttribute("diaChi", new DiaChiKH());
         model.addAttribute("loaiKhachHangAdd", new LoaiKhachHang());
         model.addAttribute("khachHangAdd", new KhachHang());
+
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInputDC != null) {
             model.addAttribute("diaChi", userInputDC);
@@ -152,22 +155,124 @@ public class DiaChiKHController {
         return "manage/add-dia-chi";
     }
 
-    @PostMapping("/dia-chi/viewAdd/add")
-    public String adddiachi(@Valid  @ModelAttribute("diaChi") DiaChiKH diaChiKH, BindingResult result, Model model
-            , RedirectAttributes redirectAttributes) {
-            List<KhachHang> khachHangs = khachHangService.getAllKhachHang();
-            Collections.sort(khachHangs, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
-            model.addAttribute("khachHang", khachHangs);
-            //
-            List<LoaiKhachHang> loaiKhachHangList = loaiKhachHangService.getAllLoaiKhachHang();
-            Collections.sort(loaiKhachHangList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
-            model.addAttribute("loaiKhachHang", loaiKhachHangList);
-            //
-            model.addAttribute("diacChi", new DiaChiKH());
-            model.addAttribute("khachHangAdd", new KhachHang());
-            model.addAttribute("loaiKhachHangAdd", new LoaiKhachHang());
+    @GetMapping("/View-add-dia-chi/viewAdd/{id}")
+    public String viewAddDiaChiKH(@PathVariable UUID id, Model model
+            , @ModelAttribute("errorDC") String errorDC, @ModelAttribute("userInput") DiaChiKH userInputDC
+            , @ModelAttribute("messageKH") String messageKH
+            , @ModelAttribute("errorKH") String errorKH, @ModelAttribute("userInput") KhachHang userInputKH
+            , @ModelAttribute("messageLKH") String messageLKH
+            , @ModelAttribute("errorLKH") String errorLKH, @ModelAttribute("userInput") LoaiKhachHang userInputLKH
+            , @ModelAttribute("Errormessage") String Errormessage
+            , @ModelAttribute("ErrormessageKH") String ErrormessageKH
+            , @ModelAttribute("ErrormessageLKH") String ErrormessageLKH) {
+        List<KhachHang> khachHangs = khachHangService.getAllKhachHang();
+        Collections.sort(khachHangs, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("khachHang", khachHangs.stream().filter((item) -> (item.getIdKH().equals(id))));
+        model.addAttribute("diaChi", new DiaChiKH());
+        model.addAttribute("khachHangAdd", new KhachHang());
 
-           //
+        session.removeAttribute("idViewAddDC");
+        session.setAttribute("idViewAddDC", id);
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInputDC != null) {
+            model.addAttribute("diaChi", userInputDC);
+        }
+        //add KH
+        if (messageKH == null || !"true".equals(messageKH)) {
+            model.addAttribute("messageKH", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInputKH != null) {
+            model.addAttribute("khachHangAdd", userInputKH);
+        }
+        //add LKH
+        if (messageLKH == null || !"true".equals(messageLKH)) {
+            model.addAttribute("messageLKH", false);
+        }
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInputLKH != null) {
+            model.addAttribute("loaiKhachHangAdd", userInputLKH);
+        }
+        //CHECK MÃ
+        if (ErrormessageKH == null || !"true".equals(ErrormessageKH)) {
+            model.addAttribute("ErrormessageKH", false);
+        }
+        if (ErrormessageLKH == null || !"true".equals(ErrormessageLKH)) {
+            model.addAttribute("ErrormessageLKH", false);
+        }
+
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
+        }
+        return "manage/add-dia-chi-kh";
+    }
+
+    @PostMapping("/View-add-dia-chi/viewAdd/add")
+    public String adddiachiKH(@Valid @ModelAttribute("diaChi") DiaChiKH diaChiKH, BindingResult result, Model model
+            , RedirectAttributes redirectAttributes) {
+        UUID idViewAddDC = (UUID) session.getAttribute("idViewAddDC");
+        String link1 = "redirect:/manage/View-add-dia-chi/viewAdd/" + idViewAddDC;
+
+        List<KhachHang> khachHangs = khachHangService.getAllKhachHang();
+        Collections.sort(khachHangs, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("khachHang", khachHangs);
+        //
+
+        model.addAttribute("diaChi", new DiaChiKH());
+        model.addAttribute("khachHangAdd", new KhachHang());
+        //
+        DiaChiKH existingDChi = diaChiRepsitory.findByMaDC(diaChiKH.getMaDC());
+        if (existingDChi != null) {
+            redirectAttributes.addFlashAttribute("userInput", diaChiKH);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return link1;
+        }
+        //
+        DiaChiKH diaChiKHdb = new DiaChiKH();
+        diaChiKHdb.setMaDC(diaChiKH.getMaDC());
+        diaChiKHdb.setTenDC(diaChiKH.getTenDC());
+        diaChiKHdb.setTenNguoiNhan(diaChiKH.getTenNguoiNhan());
+        diaChiKHdb.setXaPhuong(diaChiKH.getXaPhuong());
+        diaChiKHdb.setQuanHuyen(diaChiKH.getQuanHuyen());
+        diaChiKHdb.setTinhTP(diaChiKH.getTinhTP());
+        diaChiKHdb.setMoTa(diaChiKH.getMoTa());
+        diaChiKHdb.setSdtNguoiNhan(diaChiKH.getSdtNguoiNhan());
+        diaChiKHdb.setMien(diaChiKH.getMien());
+        diaChiKHdb.setDiaChiChiTiet(diaChiKH.getDiaChiChiTiet());
+        diaChiKHdb.setTrangThai(1);
+        diaChiKHdb.setKhachHang(diaChiKH.getKhachHang());
+        diaChiKHdb.setTgThem(new Date());
+        if(diaChiKH.isLoai() == true){
+            for (DiaChiKH x: diaChiKHService.findByKhachHang(diaChiKH.getKhachHang())){
+                x.setLoai(false);
+                diaChiKHService.save(x);
+            }
+            diaChiKHdb.setLoai(true);
+        }else{
+            diaChiKHdb.setLoai(false);
+        }
+        diaChiKHService.save(diaChiKHdb);
+        redirectAttributes.addFlashAttribute("message", true);
+        String link2 = "redirect:/manage/khach-hang/detail/" + idViewAddDC;
+        return link2;
+    }
+
+    @PostMapping("/dia-chi/viewAdd/add")
+    public String adddiachi(@Valid @ModelAttribute("diaChi") DiaChiKH diaChiKH, BindingResult result, Model model
+            , RedirectAttributes redirectAttributes) {
+        List<KhachHang> khachHangs = khachHangService.getAllKhachHang();
+        Collections.sort(khachHangs, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("khachHang", khachHangs);
+        //
+        List<LoaiKhachHang> loaiKhachHangList = loaiKhachHangService.getAllLoaiKhachHang();
+        Collections.sort(loaiKhachHangList, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("loaiKhachHang", loaiKhachHangList);
+        //
+        model.addAttribute("diaChi", new DiaChiKH());
+        model.addAttribute("khachHangAdd", new KhachHang());
+        model.addAttribute("loaiKhachHangAdd", new LoaiKhachHang());
+
+        //
         DiaChiKH existingDChi = diaChiRepsitory.findByMaDC(diaChiKH.getMaDC());
         if (existingDChi != null) {
             redirectAttributes.addFlashAttribute("userInput", diaChiKH);
@@ -181,6 +286,7 @@ public class DiaChiKHController {
         redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/dia-chi";
     }
+
     @PostMapping("/dia-chi/khach-hang/viewAdd/add")
     public String addkhachHang(@Valid @ModelAttribute("khachHangAdd") KhachHang khachHang
             , BindingResult result, RedirectAttributes redirectAttributes) {
@@ -197,24 +303,37 @@ public class DiaChiKHController {
             return "redirect:/manage/dia-chi/viewAdd";
         }
         KhachHang existingKH2 = khachHangRepository.findByCCCDKH(khachHang.getCCCDKH());
-        if (existingKH2 != null ) {
+        if (existingKH2 != null) {
             redirectAttributes.addFlashAttribute("userInput", khachHang);
             redirectAttributes.addFlashAttribute("ErrormessageCCCD", true);
             return "redirect:/manage/dia-chi/viewAdd";
         }
         KhachHang existingKH3 = khachHangRepository.findBySdtKH(khachHang.getSdtKH());
-        if (existingKH3 != null ) {
+        if (existingKH3 != null) {
             redirectAttributes.addFlashAttribute("userInput", khachHang);
             redirectAttributes.addFlashAttribute("ErrormessageSDT", true);
             return "redirect:/manage/dia-chi/viewAdd";
         }
         //
-        khachHang.setTgThem(new Date());
-        khachHang.setTrangThai(1);
-        khachHangService.save(khachHang);
+        KhachHang khachHang1 = new KhachHang();
+        khachHang1.setMaKH(khachHang.getMaKH());
+        khachHang1.setHoTenKH(khachHang.getHoTenKH());
+        khachHang1.setDiaChi(khachHang.getDiaChi());
+        khachHang1.setEmailKH(khachHang.getEmailKH());
+        khachHang1.setMatKhau(khachHang.getMatKhau());
+        khachHang1.setSdtKH(khachHang.getSdtKH());
+        khachHang1.setAnhKH(khachHang.getAnhKH());
+        khachHang1.setAnhcccd(khachHang.getAnhcccd());
+        khachHang1.setGioiTinh(khachHang.getGioiTinh());
+        khachHang1.setNgaySinh(khachHang.getNgaySinh());
+        khachHang1.setTgThem(new Date());
+        khachHang1.setTrangThai(1);
+        khachHang1.setLoaiKhachHang(khachHang.getLoaiKhachHang());
+        khachHangService.save(khachHang1);
         redirectAttributes.addFlashAttribute("messageKH", true);
         return "redirect:/manage/dia-chi/viewAdd";
     }
+
     @PostMapping("/dia-chi/khach-hang/loai-khach-hang/viewAdd/add")
     public String addLoaiKhachHang(@Valid @ModelAttribute("loaiKhachHangAdd") LoaiKhachHang loaiKhachHang
             , BindingResult result, RedirectAttributes redirectAttributes) {
@@ -234,12 +353,25 @@ public class DiaChiKHController {
     }
 
     @GetMapping("/dia-chi/delete/{id}")
-    public String deleteDiaChi(@PathVariable UUID id) {
+    public String deleteDiaChi(@PathVariable UUID id, RedirectAttributes redirectAttributes) {
         DiaChiKH diaChiKH = diaChiKHService.getByIdDiaChikh(id);
         diaChiKH.setTrangThai(0);
         diaChiKH.setTgSua(new Date());
         diaChiKHService.save(diaChiKH);
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/dia-chi";
+    }
+
+    @GetMapping("/dia-chi-kh/delete/{id}")
+    public String deleteDiaChiKH(@PathVariable UUID id, RedirectAttributes redirectAttributes) {
+        UUID idDC = (UUID) session.getAttribute("idDC");
+        String link1 = "redirect:/manage/khach-hang/detail/" + idDC;
+        DiaChiKH diaChiKH = diaChiKHService.getByIdDiaChikh(id);
+        diaChiKH.setTrangThai(0);
+        diaChiKH.setTgSua(new Date());
+        diaChiKHService.save(diaChiKH);
+        redirectAttributes.addFlashAttribute("message", true);
+        return link1;
     }
 
     @GetMapping("/dia-chi/viewUpdate/{id}")
@@ -267,10 +399,36 @@ public class DiaChiKHController {
         return "manage/update-dia-chi";
     }
 
+    @GetMapping("/dia-chi-kh/viewUpdate/{id}")
+    public String viewUpdatediaChikh(@PathVariable UUID id, Model model
+            , @ModelAttribute("errorDC") String errorDC, @ModelAttribute("userInput") DiaChiKH userInputDC
+            , @ModelAttribute("Errormessage") String Errormessage
+            , @ModelAttribute("ErrormessageKH") String ErrormessageKH) {
+        DiaChiKH diaChiKH = diaChiKHService.getByIdDiaChikh(id);
+        model.addAttribute("diaChi", diaChiKH);
+        //
+        List<KhachHang> khachHangs = khachHangService.getAllKhachHang();
+        Collections.sort(khachHangs, (a, b) -> b.getTgThem().compareTo(a.getTgThem()));
+        model.addAttribute("khachHang", khachHangs);
+        //
+        model.addAttribute("khachHangAdd", new KhachHang());
+        // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
+        if (userInputDC != null) {
+            model.addAttribute("diaChiUpdate", userInputDC);
+        }
+        //
+        if (Errormessage == null || !"true".equals(Errormessage)) {
+            model.addAttribute("Errormessage", false);
+        }
+        session.setAttribute("id", id);
+        return "manage/update-dia-chi-kh";
+    }
+
     @PostMapping("/dia-chi/viewUpdate/{id}")
-    public String updatediaChi(@PathVariable UUID id, @ModelAttribute("diaChi") DiaChiKH diaChiKH
+    public String updatediaChi(@PathVariable UUID id, @Valid @ModelAttribute("diaChi") DiaChiKH diaChiKH
             , RedirectAttributes redirectAttributes) {
         DiaChiKH diaChiKHdb = diaChiKHService.getByIdDiaChikh(id);
+
         if (diaChiKHdb != null) {
             diaChiKHdb.setMaDC(diaChiKH.getMaDC());
             diaChiKHdb.setTenDC(diaChiKH.getTenDC());
@@ -279,6 +437,7 @@ public class DiaChiKHController {
             diaChiKHdb.setQuanHuyen(diaChiKH.getQuanHuyen());
             diaChiKHdb.setTinhTP(diaChiKH.getTinhTP());
             diaChiKHdb.setMoTa(diaChiKH.getMoTa());
+            diaChiKHdb.setSdtNguoiNhan(diaChiKH.getSdtNguoiNhan());
             diaChiKHdb.setMien(diaChiKH.getMien());
             diaChiKHdb.setDiaChiChiTiet(diaChiKH.getDiaChiChiTiet());
             diaChiKHdb.setTrangThai(diaChiKH.getTrangThai());
@@ -289,6 +448,54 @@ public class DiaChiKHController {
         }
         return "redirect:/manage/dia-chi";
     }
+
+    @PostMapping("/dia-chi-kh/viewUpdate/{id}")
+    public String updatediaChikh(@PathVariable UUID id, @Valid @ModelAttribute("diaChi") DiaChiKH diaChiKH
+            , RedirectAttributes redirectAttributes) {
+        DiaChiKH diaChiKHdb = diaChiKHService.getByIdDiaChikh(id);
+
+        UUID idDC = (UUID) session.getAttribute("idViewAddDC");
+        String link = "redirect:/manage/dia-chi-kh/viewUpdate" + idDC;
+        UUID idDC1 = (UUID) session.getAttribute("idDC");
+        String link1 = "redirect:/manage/khach-hang/detail/" + idDC1;
+
+        DiaChiKH existingDC = diaChiRepsitory.findByMaDC(diaChiKH.getMaDC());
+        if (existingDC != null && !existingDC.getIdDC().equals(id)) {
+            redirectAttributes.addFlashAttribute("userInput", diaChiKH);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return link;
+        }
+        if (diaChiKHdb != null) {
+            diaChiKHdb.setMaDC(diaChiKH.getMaDC());
+            diaChiKHdb.setTenDC(diaChiKH.getTenDC());
+            diaChiKHdb.setTenNguoiNhan(diaChiKH.getTenNguoiNhan());
+            diaChiKHdb.setXaPhuong(diaChiKH.getXaPhuong());
+            diaChiKHdb.setQuanHuyen(diaChiKH.getQuanHuyen());
+            diaChiKHdb.setTinhTP(diaChiKH.getTinhTP());
+            diaChiKHdb.setMoTa(diaChiKH.getMoTa());
+            diaChiKHdb.setSdtNguoiNhan(diaChiKH.getSdtNguoiNhan());
+            diaChiKHdb.setMien(diaChiKH.getMien());
+            diaChiKHdb.setDiaChiChiTiet(diaChiKH.getDiaChiChiTiet());
+            diaChiKHdb.setTrangThai(diaChiKH.getTrangThai());
+            diaChiKHdb.setTgSua(new Date());
+            diaChiKHdb.setKhachHang(diaChiKH.getKhachHang());
+
+            if(diaChiKH.isLoai() == true){
+                for (DiaChiKH x: diaChiKHService.findByKhachHang(diaChiKH.getKhachHang())){
+                    x.setLoai(false);
+                    diaChiKHService.save(x);
+                }
+                diaChiKHdb.setLoai(true);
+            }else{
+                diaChiKHdb.setLoai(false);
+            }
+
+            diaChiKHService.save(diaChiKHdb);
+            redirectAttributes.addFlashAttribute("message", true);
+        }
+        return link1;
+    }
+
     @GetMapping("/diaChi/export/pdf")
     public void exportToPDFChatLieu(HttpServletResponse response) throws DocumentException, IOException {
         response.setContentType("application/pdf");

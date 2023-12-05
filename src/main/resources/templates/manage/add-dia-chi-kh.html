@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="/plugins/alertify/alertify.min.css"/>
     <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
 
+
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
@@ -92,6 +93,7 @@
                     </a>
                 </div>
             </li>
+
 
             <li class="nav-item dropdown">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
@@ -262,6 +264,7 @@
                         <a href="javascript:void(0);"><img src="/images/img/icons/expense1.svg" alt="img"><span> Quản Lý Hóa Đơn</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
+                            <li><a href="/manage/hoa-don/hien-thi">Hóa đơn tại quầy</a></li>
                             <li><a href="expenselist.html">Expense List</a></li>
                             <li><a href="createexpense.html">Add Expense</a></li>
                             <li><a href="expensecategory.html">Expense Category</a></li>
@@ -308,69 +311,95 @@
             </div>
         </div>
     </div>
-    <form th:object="${diaChi}" method="post" th:action="@{'/manage/dia-chi/viewUpdate/' + ${diaChi.idDC}}"
-          onsubmit="return validateForm()">
+    <form th:object="${diaChi}" method="post"
+          th:action="@{/manage/View-add-dia-chi/viewAdd/add}" onsubmit="return validateForm()">
         <div class="page-wrapper">
             <div class="content">
                 <div class="page-header">
                     <div class="page-title">
-                        <h4>Update Địa Chỉ</h4>
+                        <h4>Thêm Địa Chỉ</h4>
                         <h6>Quản Lý Địa Chỉ</h6>
                     </div>
                 </div>
-
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Mã Địa Chỉ</label>
-                                    <input type="text" th:field="*{maDC}" readonly>
+                                    <input type="text" th:field="*{maDC}">
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('maDC')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{maDC}"></strong>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Tên Địa Chỉ</label>
                                     <input type="text" th:field="*{tenDC}">
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('tenDC')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{tenDC}"></strong>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Tên Người Nhận</label>
                                     <input type="text" th:field="*{tenNguoiNhan}">
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('tenNguoiNhan')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{tenNguoiNhan}"></strong>
                                 </div>
                             </div>
+
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Tỉnh Thành Phố</label>
-                                    <select class="select" id="tinhthanhpho">
+                                    <select class="select" th:field="*{tinhTP}" id="tinhthanhpho">
                                         <option value="" selected>Chọn thành phố</option>
                                     </select>
-                                    <input type="text" hidden th:field="*{tinhTP}" id="tinh-tp-hidden"/>
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('tinhTP')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{tinhTP}"></strong>
+                                    <span th:field="*{tinhTP}"></span>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Quận Huyện</label>
-                                    <select class="select"  id="quanhuyen">
+                                    <select class="select" th:field="*{quanHuyen}" id="quanhuyen">
                                         <option value="" selected>Chọn quận huyện</option>
                                     </select>
-                                    <input type="text" hidden th:field="*{quanHuyen}" id="quan-huyen-hidden"/>
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('quanHuyen')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{quanHuyen}"></strong>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Xã Phường</label>
-                                    <select class="select" id="xaphuong">
+                                    <select class="select" th:field="*{xaPhuong}" id="xaphuong">
                                         <option value="" selected>Chọn xã phường</option>
                                     </select>
-                                    <input type="text" hidden th:field="*{xaPhuong}" id="phuong-xa-hidden"/>
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('xaPhuong')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{xaPhuong}"></strong>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Mô Tả</label>
                                     <input type="text" th:field="*{moTa}">
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('moTa')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{moTa}"></strong>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -393,13 +422,33 @@
                                 <div class="form-group">
                                     <label>Địa Chỉ Chi Tiết</label>
                                     <input type="text" th:field="*{diaChiChiTiet}" id="diachict">
-
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('diaChiChiTiet')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{diaChiChiTiet}"></strong>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>SốĐT Địa Chỉ</label>
                                     <input type="text" th:field="*{sdtNguoiNhan}">
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('sdtNguoiNhan')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{sdtNguoiNhan}"></strong>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Khách Hàng</label>
+                                    <select class="select" th:field="*{khachHang}">
+                                        <option th:each="loc : ${khachHang}" th:value="${loc.idKH}"
+                                                th:text="${loc.hoTenKH}"></option>
+                                    </select>
+                                    <br><br>
+                                    <strong th:if="${#fields.hasErrors('khachHang')}"
+                                            class="alert alert-danger alert-dismissible fade"
+                                            role="alert" th:errors="*{khachHang}"></strong>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -408,34 +457,20 @@
                                     <select class="select" th:field="*{mien}" id="loc" name="loc"
                                             style="width: 100%; height:40px; border: 1px solid rgba(145,158,171,0.32); border-radius: 5px;
                                                        font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;">
-                                        <option th:value="Mien_Bac">Miền Bắc</option>
-                                        <option th:value="Mien_Trung">Miền Trung</option>
-                                        <option th:value="Mien_Nam">Miền Nam</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Khách Hàng</label>
-                                    <select class="select" th:field="*{khachHang}">
-                                        <option th:each="loc : ${khachHang}" th:value="${loc.idKH}"
-                                                th:text="${loc.hoTenKH}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Trạng Thái</label>
-                                    <select class="select" th:field="*{trangThai}" id="trangthai" name="trangThai">
-                                        <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
-                                                th:text="${loc.value}"></option>
+                                        <option th:value="Mien_Bac" th:selected="${mien == 'Mien_Bac'}">Miền Bắc
+                                        </option>
+                                        <option th:value="Mien_Trung" th:selected="${mien == 'Mien_Trung'}">Miền Trung
+                                        </option>
+                                        <option th:value="Mien_Nam" th:selected="${mien == 'Mien_Nam'}">Miền Nam
+                                        </option>
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <button type="submit" value="submit" class="btn btn-submit me-2">Submit</button>
-                                <a href="#" id="cancelButton" class="btn btn-cancel">Cancel</a>
+                                <button type="submit" id="btn-submit-add" value="Submit" class="btn btn-submit me-2">
+                                    Submit
+                                </button>
+                                <a onclick="goBack()" class="btn btn-cancel">Cancel</a>
                             </div>
                         </div>
                     </div>
@@ -445,6 +480,7 @@
     </form>
 </div>
 
+
 <div th:if="${Errormessage}" id="checkMaDC" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
         <button type="button" class="toast-close-button" role="button">×</button>
@@ -452,6 +488,22 @@
         <div class="toast-message">Mã Địa chỉ đã tồn tại.</div>
     </div>
 </div>
+<div th:if="${ErrormessageKH}" id="checkMaKH" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Mã KH đã tồn tại.</div>
+    </div>
+</div>
+<div th:if="${ErrormessageSDT}" id="checkSDT" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button">×</button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Sdt đã tồn tại.</div>
+    </div>
+</div>
+
+
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
@@ -474,11 +526,19 @@
 
 <script src="/plugins/alertify/custom-alertify.min.js"></script>
 
-<script src="/js/script.js"></script>
+<script src="/plugins/toastr/toastr.min.js"></script>
 
+<script src="/plugins/toastr/toastr.js"></script>
+<script src="/js/script.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
 <script>
 
     function validateForm() {
@@ -492,51 +552,54 @@
             alert("Vui lòng điền đầy đủ thông tin");
             return false;
         }
+        var tinhTP = document.getElementById("tinhthanhpho").value;
+        if (tinhTP === "") {
+            alert("Vui lòng chọn Tỉnh/Thành phố");
+            return false;
+        }
+
+        // Kiểm tra giá trị của trường Quận/Huyện
+        var quanHuyen = document.getElementById("quanhuyen").value;
+        if (quanHuyen === "") {
+            alert("Vui lòng chọn Quận/Huyện");
+            return false;
+        }
+
+        // Kiểm tra giá trị của trường Xã/Phường
+        var xaPhuong = document.getElementById("xaphuong").value;
+        if (xaPhuong === "") {
+            alert("Vui lòng chọn Xã/Phường");
+            return false;
+        }
+
         // Kiểm tra định dạng số điện thoại
         var phoneRegex = /^0\d{9}$/;
         if (!phoneRegex.test(sdtNguoiNhan)) {
             alert("Số điện thoại không hợp lệ");
             return false;
         }
-
-        // Các kiểm tra khác tùy theo yêu cầu của bạn
-
         return true;
     }
 </script>
 <script>
-    const valueTP = document.querySelector("#tinh-tp-hidden").value;
-    const valueQH = document.querySelector("#quan-huyen-hidden").value;
-    const valuePX = document.querySelector("#phuong-xa-hidden").value;
-
     const host = "https://provinces.open-api.vn/api/";
-    var callAPI = async (api) => {
-        return await axios.get(api)
+    var callAPI = (api) => {
+        return axios.get(api)
             .then((response) => {
                 renderData(response.data, "tinhthanhpho");
-                return response;
             });
     }
-
-    callAPI('https://provinces.open-api.vn/api/?depth=1').then(res => {
-        document.querySelector("#select2-tinhthanhpho-container").innerText = valueTP;
-        document.querySelector("#select2-quanhuyen-container").innerText = valueQH;
-        document.querySelector("#select2-xaphuong-container").innerText = valuePX;
-
-    })
-
-    var callApiDistrict = async (api) => {
-        return await axios.get(api)
+    callAPI('https://provinces.open-api.vn/api/?depth=1');
+    var callApiDistrict = (api) => {
+        return axios.get(api)
             .then((response) => {
                 renderData(response.data.districts, "quanhuyen");
-                return response;
             });
     }
-    var callApiWard = async (api) => {
-        return await axios.get(api)
+    var callApiWard = (api) => {
+        return axios.get(api)
             .then((response) => {
                 renderData(response.data.wards, "xaphuong");
-                return response;
             });
     }
     var renderData = (array, select) => {
@@ -548,20 +611,14 @@
     }
 
     $("#tinhthanhpho").change(() => {
-        const tinhtp = $("#tinhthanhpho").find(':selected')
-        callApiDistrict(host + "p/" + tinhtp.data('id') + "?depth=2");
-        document.getElementById("tinh-tp-hidden").value = tinhtp.text();
+        callApiDistrict(host + "p/" + $("#tinhthanhpho").find(':selected').data('id') + "?depth=2");
         printResult();
     });
     $("#quanhuyen").change(() => {
-        const quanhuyen =  $("#quanhuyen").find(':selected')
-        callApiWard(host + "d/" + quanhuyen.data('id') + "?depth=2");
-        document.getElementById("quan-huyen-hidden").value = quanhuyen.text();
+        callApiWard(host + "d/" + $("#quanhuyen").find(':selected').data('id') + "?depth=2");
         printResult();
     });
     $("#xaphuong").change(() => {
-        const phuongxa =  $("#xaphuong").find(':selected')
-        document.getElementById("phuong-xa-hidden").value = phuongxa.text();
         printResult();
     })
 
@@ -570,30 +627,119 @@
         const quanHuyen = $("#quanhuyen").find(':selected').data('name');
         const xaPhuong = $("#xaphuong").find(':selected').data('name');
         const tinhTP = $("#tinhthanhpho").find(':selected').data('name');
-
-        if (quanHuyen != "" && xaPhuong != "" &&
-            tinhTP != "") {
+        if (quanHuyen && xaPhuong &&
+            tinhTP) {
             let idDiaChi = $("#diachict");
             idDiaChi[0].value = xaPhuong + " , " + quanHuyen + " , " + tinhTP;
         }
-        console.log(tinhTP);
     }
 </script>
 <script>
-    document.getElementById("cancelButton").addEventListener("click", function (event) {
-        event.preventDefault(); // Ngăn chặn hành động mặc định của nút hoặc liên kết
-        history.back(); // Quay lại trang trước đó trong lịch sử trình duyệt
-        setTimeout(function () {
-            location.reload(); // Tải lại trang trước đó
-        }, 100); // Sử dụng setTimeout để đảm bảo quay lại trang trước đủ thời gian
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy phần tử có id="modal"
+        var modalElement = document.getElementById("modal-khachHang");
+        // Lắng nghe sự kiện click trên phần tử có id="modal"
+        modalElement.addEventListener("click", function () {
+            // Khi người dùng nhấn vào phần tử có id="modal", kích hoạt modal
+            $('#myModal-khachHang').modal('show');
+        });
+
+        var closeButton = document.querySelector(".khachHang");
+        closeButton.addEventListener("click", function () {
+            // Tắt modal có id="myModal"
+            $('#myModal-khachHang').modal('hide');
+        });
     });
 </script>
 <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lấy phần tử có id="modal"
+        var modalElement = document.getElementById("modal-loaiKhachHang");
+        // Lắng nghe sự kiện click trên phần tử có id="modal"
+        modalElement.addEventListener("click", function () {
+            // Khi người dùng nhấn vào phần tử có id="modal", kích hoạt modal
+            $('#myModal-loaiKhachHang').modal('show');
+        });
+
+        var closeButton = document.querySelector(".loaiKhachHang");
+        closeButton.addEventListener("click", function () {
+            // Tắt modal có id="myModal"
+            $('#myModal-loaiKhachHang').modal('hide');
+        });
+    });
+</script>
+<script>
+    function previewImage(event) {
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
+
+        if (imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            };
+
+            reader.readAsDataURL(imageInput.files[0]);
+        }
+    }
+</script>
+<script>
+
+    setTimeout(function () {
+        var successLKH = document.getElementById('successLKH');
+        if (successLKH) {
+            successLKH.style.display = 'none';
+        }
+    }, 5000);
+    //
+
+    setTimeout(function () {
+        var checkMaLKH = document.getElementById('checkMaLKH');
+        if (checkMaLKH) {
+            checkMaLKH.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var successKH = document.getElementById('successKH');
+        if (successKH) {
+            successKH.style.display = 'none';
+        }
+    }, 5000);
     //
     setTimeout(function () {
         var checkMaDC = document.getElementById('checkMaDC');
         if (checkMaDC) {
             checkMaDC.style.display = 'none';
+        }
+    }, 5000);
+
+    setTimeout(function () {
+        var checkMaKH = document.getElementById('checkMaKH');
+        if (checkMaKH) {
+            checkMaKH.style.display = 'none';
+        }
+    }, 5000);
+
+    //
+    setTimeout(function () {
+        var checkEmail = document.getElementById('checkEmail');
+        if (checkEmail) {
+            checkEmail.style.display = 'none';
+        }
+    }, 5000);
+    setTimeout(function () {
+        var checkCCCD = document.getElementById('checkCCCD');
+        if (checkCCCD) {
+            checkCCCD.style.display = 'none';
+        }
+    }, 5000);
+    setTimeout(function () {
+        var checkSDT = document.getElementById('checkSDT');
+        if (checkSDT) {
+            checkSDT.style.display = 'none';
         }
     }, 5000);
 </script>
