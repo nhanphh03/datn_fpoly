@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -84,6 +86,35 @@ public class HoaDonOnlineController {
         return "manage/manage-bill-online";
     }
 
+    @PostMapping("online/confirm/pay/{idHD}")
+    private String confirmPayBill(Model model, @PathVariable UUID idHD){
+
+
+        HoaDon hoaDonThanhToan = hoaDonService.getOne(idHD);
+
+        String thoiGianThanhToan = request.getParameter("thoiGianThanhToan");
+
+        Date thoiGianThanhToanFormat = new Date();
+
+        String pattern = "HH:mm yyyy-MM-dd";
+
+
+        // Sử dụng SimpleDateFormat để chuyển đổi
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+
+        try {
+            thoiGianThanhToanFormat = inputFormat.parse(thoiGianThanhToan);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        hoaDonThanhToan.setTrangThai(1);
+        hoaDonThanhToan.setTgThanhToan(thoiGianThanhToanFormat);
+
+        hoaDonService.add(hoaDonThanhToan);
+
+        return "redirect:/manage/bill/online";
+    }
 
 
     private void showData(Model model){
@@ -134,7 +165,7 @@ public class HoaDonOnlineController {
         model.addAttribute("hoaDonDaHoan", hoaDonDaHoan);
 
         model.addAttribute("listHoaDonOnline", listHoaDonOnline);
-        model.addAttribute("listHoaDonOnlineChuaThanhToan", listHoaDonOnlineChuaThanhToan);
+        model.addAttribute("listHoaDonOnlineQRCode", listHoaDonOnlineQRCode);
         model.addAttribute("listHoaDonOnlineGiaoHang", listHoaDonOnlineGiaoHang);
     }
 }
