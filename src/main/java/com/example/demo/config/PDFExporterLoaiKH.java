@@ -1,6 +1,6 @@
 package com.example.demo.config;
 
-import com.example.demo.model.Hang;
+
 import com.example.demo.model.LoaiKhachHang;
 import com.lowagie.text.Font;
 import com.lowagie.text.*;
@@ -37,6 +37,9 @@ public class PDFExporterLoaiKH {
         cell.setPhrase(new Phrase("Ten LKH", font));
         table.addCell(cell);
 
+        cell.setPhrase(new Phrase("So Diem", font));
+        table.addCell(cell);
+
         cell.setPhrase(new Phrase("Trang Thai", font));
         table.addCell(cell);
 
@@ -47,6 +50,7 @@ public class PDFExporterLoaiKH {
             table.addCell(String.valueOf(loaiKhachHang.getIdLKH()));
             table.addCell(loaiKhachHang.getMaLKH());
             table.addCell(loaiKhachHang.getTenLKH());
+            table.addCell(String.valueOf(loaiKhachHang.getSoDiem()));
             String trangThaiText = (loaiKhachHang.getTrangThai() == 1) ? "Hoat Dong" : "Khong Hoat Dong";
             table.addCell(trangThaiText);
         }

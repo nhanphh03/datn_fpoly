@@ -97,4 +97,12 @@ public class ChiTietGiay {
 
     @Column(name = "barCode")
     private String barcode;
+
+    @Column(name = "trang_thai_mail")
+    private Integer trangThaiMail;
+
+    public String getFormattedGiaBan() {
+        DecimalFormat decimalFormat = new DecimalFormat("#,### VNĐ");
+        return decimalFormat.format(giaBan);
+    }
 }

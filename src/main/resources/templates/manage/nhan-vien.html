@@ -493,8 +493,8 @@
                                     <p th:unless="${items.trangThai == 1}"  class="badges bg-lightred">Không Hoạt Động</p>
                                 </td>
                                 <td th:text="${items.chucVu.tenCV}"></td>
-                                <td th:text="${items.tgThem}"></td>
-                                <td th:text="${items.tgSua}"></td>
+                                <td th:text="${#dates.format(items.tgThem, 'dd-MM-yyyy')}" align="center"/>
+                                <td th:text="${#dates.format(items.tgSua, 'dd-MM-yyyy')}" align="center"/>
                                 <td>
                                     <!--                                    <a class="me-3" th:href="@{'/manage/giay/detail/' + ${items.idGiay}}">-->
                                     <!--                                        <img src="/images/img/icons/eye.svg" alt="img"/>-->
