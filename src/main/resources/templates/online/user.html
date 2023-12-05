@@ -1556,56 +1556,58 @@
 
                             <th:block th:each="x : ${listAllHDByKhachHang}">
 
-                            <div class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+                                <div th:unless="${x.trangThai == 6}" class="" style=" display: block; width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
 
-                            <div style="float: right; display: flex; padding: 10px 0 0 0;">
-                                <p style="float: right; display: flex; " th:text="${x.maHD}"></p>
-                                <p style="margin: 0 10px 0 10px;">|</p>
-                                <p th:if="${x.trangThai == 0}" style="color: red; margin-right: 20px;">CHỜ THANH TOÁN</p>
-                                <p th:if="${x.trangThai == 1}" style="color: red; margin-right: 20px;">CHỜ GIAO HÀNG</p>
-                                <p th:if="${x.trangThai == 2}" style="color: red; margin-right: 20px;">ĐANG GIAO</p>
-                                <p th:if="${x.trangThai == 3}" style="color: red; margin-right: 20px;">GIAO THÀNH CÔNG</p>
-                                <p th:if="${x.trangThai == 4}" style="color: red; margin-right: 20px;">ĐÃ HỦY</p>
-                                <p th:if="${x.trangThai == 5}" style="color: red; margin-right: 20px;">ĐÃ HOÀN TIỀN</p>
-                            </div>
-
-                            <div style="width: 90%; margin: 40px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
-
-
-                            <!-- List CTDP in HD begin -->
-                            <th:block th:each="product : ${x.hoaDonChiTiets}">
-                                <div style="display: flex; padding-left: 40px;">
-                                    <img th:src="@{'/images/imgsProducts/' + ${product.chiTietGiay.hinhAnh.url1}}" style="height: 80px; width: 80px; border-radius: 5px;" alt="">
-                                    <div style="width: 300px;">
-                                        <p style="margin: 5px 0 0 15px; color: #637381; font-size: 11pt;" th:text="${product.chiTietGiay.giay.tenGiay}"></p>
-                                        <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Phân loại: ' + ${product.chiTietGiay.mauSac.tenMau} +' | ' + ${product.chiTietGiay.size.soSize} "></p>
-                                        <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Số lượng: ' + ${product.soLuong}"></p>
+                                    <div style="float: right; display: flex; padding: 10px 0 0 0;">
+                                        <p style="float: right; display: flex; " th:text="${x.maHD}"></p>
+                                        <p style="margin: 0 10px 0 10px;">|</p>
+                                        <p th:if="${x.trangThai == 0}" style="color: red; margin-right: 20px;">CHỜ THANH TOÁN</p>
+                                        <p th:if="${x.trangThai == 1}" style="color: red; margin-right: 20px;">CHỜ GIAO HÀNG</p>
+                                        <p th:if="${x.trangThai == 2}" style="color: red; margin-right: 20px;">ĐANG GIAO</p>
+                                        <p th:if="${x.trangThai == 3}" style="color: red; margin-right: 20px;">GIAO THÀNH CÔNG</p>
+                                        <p th:if="${x.trangThai == 4}" style="color: red; margin-right: 20px;">ĐÃ HỦY</p>
+                                        <p th:if="${x.trangThai == 5}" style="color: red; margin-right: 20px;">ĐÃ HOÀN TIỀN</p>
                                     </div>
-                                    <p style="color: #b7b7b7;text-decoration: line-through;margin:10px 20px 0 150px;" th:text="'₫' + ${#numbers.formatDecimal(product.chiTietGiay.soTienTruocKhiGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
-                                    <p style="margin:10px 10px 0 0; font-size: 12pt; color: black;" th:text="'₫' + ${#numbers.formatDecimal(product.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+
+                                    <div style="width: 90%; margin: 40px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
+
+                                    <!-- List CTDP in HD begin -->
+                                    <th:block th:each="product : ${x.hoaDonChiTiets}">
+                                        <div style="display: flex; padding-left: 40px;">
+                                            <img th:src="@{'/images/imgsProducts/' + ${product.chiTietGiay.hinhAnh.url1}}" style="height: 80px; width: 80px; border-radius: 5px;" alt="">
+                                            <div style="width: 300px;">
+                                                <p style="margin: 5px 0 0 15px; color: #637381; font-size: 11pt;" th:text="${product.chiTietGiay.giay.tenGiay}"></p>
+                                                <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Phân loại: ' + ${product.chiTietGiay.mauSac.tenMau} +' | ' + ${product.chiTietGiay.size.soSize} "></p>
+                                                <p style="margin: 0 0 0 15px; color: #637381; font-size: 10pt;" th:text="'Số lượng: ' + ${product.soLuong}"></p>
+                                            </div>
+                                            <p style="color: #b7b7b7;text-decoration: line-through;margin:10px 20px 0 150px;" th:text="'₫' + ${#numbers.formatDecimal(product.chiTietGiay.soTienTruocKhiGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                            <p style="margin:10px 10px 0 0; font-size: 12pt; color: black;" th:text="'₫' + ${#numbers.formatDecimal(product.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                        </div>
+
+                                        <div style="width: 90%; margin: 15px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
+                                    </th:block>
+                                    <!-- List CTDP in HD end -->
+
+                                    <div style=" margin: 0 0 20px 560px;">
+
+                                        <p style="font-size: 13pt; color: black; font-weight: 600; margin-right: 50px; " th:text="'Thanh toán      : ₫' + ${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+
+                                    </div>
+
+                                    <div style="float: right; margin: 0 0 20px 0;">
+                                        <div style="display: flex; margin-right: 20px;">
+                                            <a th:href="@{'/buyer/purchase/bill/detail/' + ${x.idHD}}" style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Xem chi tiết</a>
+                                            <a th:if="${x.trangThai == 3 or x.trangThai == 4 or x.trangThai == 5}" th:href="@{'/buyer/buy/again/' + ${x.idHD}}"  style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Mua lại</a>
+                                            <a th:if="${x.trangThai == 3}" th:href="@{'/buyer/buy/again/' + ${x.idHD}}"  style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Đánh giá</a>
+                                            <a th:if="${x.trangThai == 3}" th:href="@{'/buyer/buy/again/' + ${x.idHD}}"  style="font-size: 10pt; color: black; text-align: center; padding-top: 5px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Yêu cầu hoàn hàng/trả tiền</a>
+                                            <a th:if="${x.trangThai == 0}" th:data-bs-toggle="modal"
+                                               th:data-bs-target="'#modalQRCode' + ${x.idHD}"  style="cursor: pointer; color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Thanh Toán</a>
+                                            <a th:if="${x.trangThai == 0 or x.trangThai == 1}" th:href="@{'/buyer/buy/again/' + ${x.idHD}}"  style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Hủy đơn</a>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div style="width: 90%; margin: 15px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
                             </th:block>
-                            <!-- List CTDP in HD end -->
-
-                            <div style="float: right; margin: 0 0 20px 0;">
-
-                                <p style="font-size: 13pt; color: black; font-weight: 600; margin-left: 80px;" th:text="'Thanh toán      : ₫' + ${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
-
-                                <div style="display: flex; margin-right: 20px;">
-                                    <a th:href="@{'/buyer/purchase/bill/detail/' + ${x.idHD}}" style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Xem chi tiết</a>
-                                    <a th:if="${x.trangThai == 3 or x.trangThai == 4 or x.trangThai == 5}" th:href="@{'/buyer/buy/again/' + ${x.idHD}}"  style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Mua lại</a>
-                                    <a th:if="${x.trangThai == 3}" th:href="@{'/buyer/buy/again/' + ${x.idHD}}"  style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Đánh giá</a>
-                                    <a th:if="${x.trangThai == 3}" th:href="@{'/buyer/buy/again/' + ${x.idHD}}"  style="font-size: 10pt; color: black; text-align: center; padding-top: 5px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Yêu cầu hoàn hàng/trả tiền</a>
-                                    <a th:if="${x.trangThai == 0}" th:data-bs-toggle="modal"
-                                       th:data-bs-target="'#modalQRCode' + ${x.idHD}"  style="cursor: pointer; color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Thanh Toán</a>
-                                    <a th:if="${x.trangThai == 0 or x.trangThai == 1}" th:href="@{'/buyer/buy/again/' + ${x.idHD}}"  style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Hủy đơn</a>
-                                </div>
-                            </div>
-                            </div>
-
-                        </th:block>
 
                         <!-- List All Hoa Don End -->
 

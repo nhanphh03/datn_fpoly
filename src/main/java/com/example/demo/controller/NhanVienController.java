@@ -64,7 +64,7 @@ public class NhanVienController {
 
     @GetMapping("/nhan-vien")
     public String dsNhanVien(Model model, @ModelAttribute("message") String message) {
-        List<NhanVien> nhanViens = nhanVienService.getAllNhanVien();
+        List<NhanVien> nhanViens = nhanVienRepsitory.getAllNhanVien();
         List<ChucVu> chucVus = chucVuService.getAllChucVu();
         model.addAttribute("nhanVien", nhanViens);
         model.addAttribute("chucVu", chucVus);

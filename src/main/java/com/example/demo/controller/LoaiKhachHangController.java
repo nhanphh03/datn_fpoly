@@ -56,7 +56,7 @@ public class LoaiKhachHangController {
             , @ModelAttribute("error") String error
             , @ModelAttribute("userInput") LoaiKhachHang userInput
             , @ModelAttribute("Errormessage") String Errormessage) {
-        List<LoaiKhachHang> loaikhachhang = loaiKhachHangService.getAllLoaiKhachHang();
+        List<LoaiKhachHang> loaikhachhang = loaiKhachHangRepository.getAllLoaiKhachHang();
         //
         model.addAttribute("loaiKhachHang", loaikhachhang);
         //

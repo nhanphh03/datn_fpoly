@@ -11,13 +11,12 @@ import java.util.UUID;
 
 @Repository
 public interface HoaDonRepository extends JpaRepository<HoaDon , UUID> {
-    @Query(value = "select * from Hoa_Don where trang_thai = 3 and loai_hd = 1 ",nativeQuery = true)
+    @Query(value = "select * from Hoa_Don where trang_thai = 0 and loai_hd = 1 ",nativeQuery = true)
     List<HoaDon> listChuaThanhToan();
-//    @Query(value = "select hd  from HoaDon hd order by hd.tgTao desc")
-//    @Query(value = "select * from hoa_don order by tg_tao desc",nativeQuery = true)
+
     List<HoaDon> findAllByOrderByTgTaoDesc();
 
-    List<HoaDon> findByKhachHangAndLoaiHD(KhachHang khachHang, int loaiHD);
+    List<HoaDon> findByKhachHangAndLoaiHDOrderByTgTaoDesc(KhachHang khachHang, int loaiHD);
 
     @Query(value = "select COUNT(id_hd)\n" +
             "from hoa_don where trang_thai =0",nativeQuery = true)
@@ -31,7 +30,7 @@ public interface HoaDonRepository extends JpaRepository<HoaDon , UUID> {
 
     List<HoaDon> findByKhachHangAndLoaiHDAndTrangThaiAndHinhThucThanhToanOrderByTgTaoDesc(KhachHang khachHang, int loaiHD, int trangThai, int hinhThucThanhToan);
 
-    List<HoaDon> findByLoaiHDAndTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrderByTgTaoDesc(int loaiHD, int trangThai1, int trangThai2, int trangThai3, int trangThai4, int trangThai5, int trangThai6);
+    List<HoaDon> findByLoaiHDOrderByTgTaoDesc(int loaiHD);
 
     List<HoaDon> findByKhachHangAndLoaiHDAndTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrderByTgTaoDesc(KhachHang khachHang,int loaiHD, int trangThai1, int trangThai2, int trangThai3, int trangThai4, int trangThai5, int trangThai6);
 
@@ -39,12 +38,10 @@ public interface HoaDonRepository extends JpaRepository<HoaDon , UUID> {
 
     List<HoaDon> findByLoaiHDAndTrangThaiOrTrangThaiOrderByTgTaoDesc(int loaiHD, int trangThai1, int trangThai2);
 
-    List<HoaDon> findByLoaiHDOrderByTgTaoDesc(int loaiHD);
-
     List<HoaDon> findByLoaiHDAndTrangThaiOrderByTgTaoDesc(int loaiHD, int trangThai);
 
-    List<HoaDon> findByLoaiHDAndHinhThucThanhToan(int loaiHD, int httt);
+    List<HoaDon> findByLoaiHDAndHinhThucThanhToanOrderByTgTaoDesc(int loaiHD, int httt);
 
-    List<HoaDon> findByLoaiHDAndTrangThaiAndHinhThucThanhToan(int loaiHD, int trangThai, int httt);
+    List<HoaDon> findByLoaiHDAndTrangThaiAndHinhThucThanhToanOrderByTgTaoDesc(int loaiHD, int trangThai, int httt);
 
 }

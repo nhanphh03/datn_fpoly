@@ -72,4 +72,26 @@ public class DiaChiKH {
 
     @Column(name="loai_DC")
     private boolean loai;
+
+    @Override
+    public String toString() {
+        return "DiaChiKH{" +
+                "idDC=" + idDC +
+                ", khachHang=" + khachHang +
+                ", maDC='" + maDC + '\'' +
+                ", sdtNguoiNhan='" + sdtNguoiNhan + '\'' +
+                ", tenDC='" + tenDC + '\'' +
+                ", tenNguoiNhan='" + tenNguoiNhan + '\'' +
+                ", xaPhuong='" + xaPhuong + '\'' +
+                ", quanHuyen='" + quanHuyen + '\'' +
+                ", tinhTP='" + tinhTP + '\'' +
+                ", moTa='" + moTa + '\'' +
+                ", diaChiChiTiet='" + diaChiChiTiet + '\'' +
+                ", trangThai=" + trangThai +
+                ", tgThem=" + tgThem +
+                ", tgSua=" + tgSua +
+                ", mien='" + mien + '\'' +
+                ", loai=" + loai +
+                '}';
+    }
 }

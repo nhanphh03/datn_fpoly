@@ -443,9 +443,9 @@
                 <div class="quantity">
                   <p style="display: inline-block; margin: 0;">Số lượng :</p>
                   <div  style="display: inline-block; ">
-                    <input id="quantityInput" style="width: 80px;" type="number" class="form-control" placeholder="Enter quantity" aria-label="Quantity" min="1" value="1">
+                    <input  oninput="validateInput()" id="quantityInput" style="width: 80px;" type="number" class="form-control" aria-label="Quantity" min="1" max="5" value="1">
                   </div>
-                  <p class="sum-remind" style="display: inline-block; margin: 0;" th:text="${sunProductAvaible}"></p>
+                  <p class="sum-remind" id="quantityProductMax" style="display: inline-block; margin: 0;" th:text="${sunProductAvaible}"></p>
                   <p style="display: inline-block; margin: 0;"><span id="quantity_remind"></span></p>
                   <p style="display: inline-block; margin: 0;">Sản phẩm có sẵn</p>
                 </div>
@@ -457,7 +457,7 @@
               </div>
 
               <div th:if="${buyReceiveMail}" class="product__details__cart__option">
-                <a  style="color: white" id="addToCartButton" class="primary-btn" >Nhận thông báo khi có hàng</a>
+                <a  style="color: white" id="addToCartButtons" class="primary-btn" >Nhận thông báo khi có hàng</a>
               </div>
 
 
@@ -1123,14 +1123,46 @@
 </footer>
 <!-- Footer Section End -->
 
+<!--Modal Begin-->
+<div class="modal fade" id="noticaAddVoucher" tabindex="-1" role="dialog" aria-labelledby="messAddThanhCongTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="messAddThanhCongTitle" >Thông báo !</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div style="align-items: center; text-align: center; width: 465px; margin-top: 10px; margin-bottom: 10px;">
+          <p style="font-size: 13pt; font-weight: 600;">Vui lòng chọn một sản phẩm trước khi thêm vào giỏ hàng.</p>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--Modal End-->
 
 <!--<script>-->
 <!--     alert("Please login to add the product to cart");-->
 <!--</script>-->
 <script src="/js/jquery-3.6.0.min.js"></script>
+<script>
+  function validateInput() {
+    var inputElement = document.getElementById('quantityInput');
+    var inputValue = inputElement.value;
 
+    if (inputValue <= 0 || isNaN(inputValue)) {
+      inputElement.value = 1;
+    }
+  }
+</script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   document.getElementById("addToCartButton").addEventListener("click", function () {
     var quantity = document.getElementById("quantityInput").value;
@@ -1143,7 +1175,7 @@
       window.location.href = '/buyer/shop/addProductCart?idDetailProduct=' + labelName + '&quantity=' + quantity;
 
     } else {
-      alert("Vui lòng chọn một sản phẩm trước khi thêm vào giỏ hàng.");
+      $('#noticaAddVoucher').modal('show');
       event.preventDefault();
     }
   });
@@ -1162,7 +1194,7 @@
       window.location.href = '/buyer/shop/buyNowButton?idDetailProduct=' + labelName + '&quantity=' + quantity;
 
     } else {
-      alert("Vui lòng chọn một sản phẩm trước khi mua hàng.");
+      $('#noticaAddVoucher').modal('show');
       event.preventDefault();
     }
   });

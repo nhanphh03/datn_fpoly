@@ -501,8 +501,8 @@
                                         Động</p>
                                 </td>
                                 <td th:text="${items.loaiKhachHang.tenLKH}"></td>
-                                <td th:text="${items.tgThem}"/>
-                                <td th:text="${items.tgSua}"/>
+                                <td th:text="${#dates.format(items.tgThem, 'dd-MM-yyyy')}" align="center"/>
+                                <td th:text="${#dates.format(items.tgSua, 'dd-MM-yyyy')}" align="center"/>
                                 <td>
                                     <a class="me-3" th:href="@{'/manage/khach-hang/detail/' + ${items.idKH}}">
                                         <img src="/images/img/icons/eye.svg" alt="img"/>
