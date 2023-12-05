@@ -29,6 +29,10 @@ public interface KhachHangRepository extends JpaRepository<KhachHang, UUID> {
     KhachHang findBySdtKH(String sdtKH);
 
 
+
+    @Query(value = "select kh from KhachHang kh order by kh.tgThem desc")
+    List<KhachHang> getAllKhachHang();
+
     @Query(value = "select * from khach_hang where trang_thai = 1",nativeQuery = true)
     List<KhachHang> getKhachHangByTrangThai();
 

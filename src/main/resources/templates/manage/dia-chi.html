@@ -481,8 +481,8 @@
                                     <p th:if="${items.trangThai == 1}"  class="badges bg-lightgreen">Hoạt Động</p>
                                     <p th:unless="${items.trangThai == 1}" class="badges bg-lightred">Không Hoạt Động</p>
                                 </td>
-                                <td th:text="${items.tgThem}"></td>
-                                <td th:text="${items.tgSua}"></td>
+                                <td th:text="${#dates.format(items.tgThem, 'dd-MM-yyyy')}" align="center"/>
+                                <td th:text="${#dates.format(items.tgSua, 'dd-MM-yyyy')}" align="center"/>
                                 <td>
                                     <a class="me-3" th:href="@{'/manage/dia-chi/viewUpdate/' + ${items.idDC}}">
                                         <img src="/images/img/icons/edit.svg" alt="img">
