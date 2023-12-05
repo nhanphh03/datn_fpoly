@@ -20,7 +20,7 @@ public interface HoaDonService {
 
     List<HoaDon> listHoaDonKhachHangAndTrangThaiOnlineAndLoaiThanhToan(KhachHang khachHang, int trangThai, int loaiThanhToan);
 
-    List<HoaDon> findByKhachHang(KhachHang khachHang);
+    List<HoaDon> findHoaDonByKhachHang(KhachHang khachHang);
 
     Double tinhTienGiamGiaTaiQuay(HoaDon hoaDon, KhuyenMai khuyenMai);
 

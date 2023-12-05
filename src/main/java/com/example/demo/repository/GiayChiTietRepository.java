@@ -55,4 +55,7 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
     Integer getTongGiay();
 
     ChiTietGiay findByMaCTG(String ma);
+
+    @Query(value = "select g.so_luong,g.trang_thai_mail from chi_tiet_giay g where g.trang_thai_mail=0",nativeQuery = true)
+    List<Object[]> getSoLuongTon();
 }
