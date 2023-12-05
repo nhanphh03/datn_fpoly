@@ -271,6 +271,7 @@ public class BanHangController {
             hdct.setChiTietGiay(chiTietGiay);
             hdct.setHoaDon(hoaDon);
             hdct.setDonGia(chiTietGiay.getGiaBan());
+            hdct.setDonGiaKhiGiam(chiTietGiay.getGiaBan());
             hdct.setSoLuong(soLuong);
             hdct.setTrangThai(1);
             hdct.setTgThem(new Date());
