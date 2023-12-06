@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Table(name= "don_vi_van_chuyen")
@@ -19,8 +20,8 @@ import java.util.Date;
 public class DonViVanChuyen {
 
     @Id
-    @Column(name = "id_cvvc")
-    private int IdDistrict;
+    @Column(name = "id_DVVC")
+    private UUID IdDVVC;
 
     @Column(name = "ma_DVVC")
     private String maDVVC;
