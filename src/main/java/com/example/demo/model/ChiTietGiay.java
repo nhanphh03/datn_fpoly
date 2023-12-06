@@ -90,11 +90,8 @@ public class ChiTietGiay {
     private Double soTienTruocKhiGiam;
 
     @Column(name = "LD_Sua")
-    private String lyDoSua;
-
-    @Column(name = "gia_nhap")
-    private Double giaNhap;
-
+    private String lyDoSua; 
+    
     @Column(name = "barCode")
     private String barcode;
 

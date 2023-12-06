@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -28,6 +29,9 @@ public class KhachHang {
     @OneToOne
     @JoinColumn(name = "id_GH")
     private GioHang gioHang;
+
+    @OneToMany(mappedBy = "khachHang")
+    private List<PhieuTraHang> phieuTraHangs;
 
     @ManyToOne
     @JoinColumn(name = "id_LKH")
@@ -63,7 +67,6 @@ public class KhachHang {
 
     @Column(name = "anhKH_cccd")
     private String Anhcccd;
-
 
     @Column(name = "CCCD_KH")
     private String CCCDKH;

@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+  <meta name="description" content="POS - Bootstrap Admin Template">
+  <meta name="keywords"
+        content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects">
+  <meta name="author" content="Dreamguys - Bootstrap Admin Template">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Sneaker Shop - Admin</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
+
+  <link rel="stylesheet" href="/css/animate.css">
+
+  <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
+
+  <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+  <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/plugins/scrollbar/scroll.min.css">
+  <link rel="stylesheet" href="/plugins/icons/feather/feather.css">
+  <link rel="stylesheet" href="/plugins/lightbox/glightbox.min.css">
+
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+<div id="global-loader">
+  <div class="whirly-loader"></div>
+</div>
+<div class="main-wrapper">
+
+  <div class="header">
+
+    <ul class="nav user-menu">
+
+      <li class="nav-item">
+        <div class="top-nav-search">
+          <a href="javascript:void(0);" class="responsive-search">
+            <i class="fa fa-search"></i>
+          </a>
+          <form action="#">
+            <div class="searchinputs">
+              <input type="text" placeholder="Search Here ...">
+              <div class="search-addon">
+                <span><img src="/images/img/icons/closes.svg" alt="img"></span>
+              </div>
+            </div>
+            <a class="btn" id="searchdiv"><img src="/images/img/icons/search.svg" alt="img"></a>
+          </form>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+          <img src="/images/img/icons/notification-bing.svg" alt="img"> <span
+                class="badge rounded-pill">4</span>
+        </a>
+        <div class="dropdown-menu notifications">
+          <div class="topnav-dropdown-header">
+            <span class="notification-title">Notifications</span>
+            <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+          </div>
+          <div class="noti-content">
+            <ul class="notification-list">
+              <li class="notification-message">
+                <a href="activities.html">
+                  <div class="media d-flex">
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="/images/img/profiles/avatar-02.jpg">
+                                            </span>
+                    <div class="media-body flex-grow-1">
+                      <p class="noti-details"><span class="noti-title">John Doe</span> added
+                        new
+                        task <span class="noti-title">Patient appointment booking</span></p>
+                      <p class="noti-time"><span class="notification-time">4 mins ago</span>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="notification-message">
+                <a href="activities.html">
+                  <div class="media d-flex">
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="/images/img/profiles/avatar-03.jpg">
+                                            </span>
+                    <div class="media-body flex-grow-1">
+                      <p class="noti-details"><span class="noti-title">Tarah Shropshire</span>
+                        changed the task name <span class="noti-title">Appointment booking
+                                                        with payment gateway</span>
+                      </p>
+                      <p class="noti-time"><span class="notification-time">6 mins ago</span>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="notification-message">
+                <a href="activities.html">
+                  <div class="media d-flex">
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="/images/img/profiles/avatar-06.jpg">
+                                            </span>
+                    <div class="media-body flex-grow-1">
+                      <p class="noti-details"><span class="noti-title">Misty Tison</span>
+                        added
+                        <span class="noti-title">Domenic Houston</span> and <span
+                                class="noti-title">Claire Mapes</span> to project <span
+                                class="noti-title">Doctor available module</span>
+                      </p>
+                      <p class="noti-time"><span class="notification-time">8 mins ago</span>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="notification-message">
+                <a href="activities.html">
+                  <div class="media d-flex">
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="/images/img/profiles/avatar-17.jpg">
+                                            </span>
+                    <div class="media-body flex-grow-1">
+                      <p class="noti-details"><span class="noti-title">Rolland Webber</span>
+                        completed task <span class="noti-title">Patient and Doctor video
+                                                        conferencing</span>
+                      </p>
+                      <p class="noti-time"><span class="notification-time">12 mins ago</span>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+              <li class="notification-message">
+                <a href="activities.html">
+                  <div class="media d-flex">
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="/images/img/profiles/avatar-13.jpg">
+                                            </span>
+                    <div class="media-body flex-grow-1">
+                      <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span>
+                        added new task <span class="noti-title">Private chat module</span>
+                      </p>
+                      <p class="noti-time"><span class="notification-time">2 days ago</span>
+                      </p>
+                    </div>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="topnav-dropdown-footer">
+            <a href="activities.html">View all Notifications</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown has-arrow main-drop">
+        <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
+                        <span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}"
+                                                    alt="">
+                            <span class="status online"></span></span>
+        </a>
+        <div class="dropdown-menu menu-drop-user">
+          <div class="profilename">
+            <div class="profileset">
+                                <span class="user-img"><img
+                                        th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
+                                    <span class="status online"></span></span>
+              <div class="profilesets">
+                <h6 th:text="${session.managerLogged.hoTenNV}"></h6>
+                <h5 th:text="${session.managerLogged.chucVu.tenCV}"></h5>
+              </div>
+            </div>
+            <hr class="m-0">
+            <a class="dropdown-item" href="profile.html"> <i class="me-2" data-feather="user"></i> My
+              Profile</a>
+            <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
+                                                                    data-feather="settings"></i>Settings</a>
+            <hr class="m-0">
+            <a class="dropdown-item logout pb-0" href="/logout"><img src="/images/img/icons/log-out.svg"
+                                                                     class="me-2" alt="img">Logout</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+
+    <div class="dropdown mobile-user-menu">
+      <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+         aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item" href="profile.html">My Profile</a>
+        <a class="dropdown-item" href="generalsettings.html">Settings</a>
+        <a class="dropdown-item" href="signin.html">Logout</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="content" style="margin-top: 90px;">
+    <div class="page-header">
+      <div class="page-title" style="display: flex;">
+        <a style="display: flex; margin-left: 20px;" href="/manage/bill/online">
+          <svg style="width: 30px; height: 30px;" viewBox="0 0 1024 1024" fill="#000000" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="24.576"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M669.6 849.6c8.8 8 22.4 7.2 30.4-1.6s7.2-22.4-1.6-30.4l-309.6-280c-8-7.2-8-17.6 0-24.8l309.6-270.4c8.8-8 9.6-21.6 2.4-30.4-8-8.8-21.6-9.6-30.4-2.4L360.8 480.8c-27.2 24-28 64-0.8 88.8l309.6 280z" fill=""></path></g></svg>
+          <p style="margin:4px 0 0 0; font-weight: 600; font-size: 12pt;">Quay lại</p>
+        </a>
+        <h4 style="margin: 10px 0 0 450px;">Chi tiết đơn hàng hoàn</h4>
+      </div>
+    </div>
+    <div class="page-body">
+      <form th:action="@{'/manage/bill/online/refund/detail/dismist/accept/' +${hoaDon.idHD}}" id="purchaseForm" method="post">
+        <div class="row" style="margin: 50px 50px 0 50px;">
+          <div class="col-lg-3 col-sm-12 col-12">
+            <div class="form-group">
+              <label>Mã hóa đơn cũ :</label>
+              <p style="font-size: 13pt; font-weight: 700;" th:text="${hoaDonOld.maHD}"></p>
+            </div>
+          </div>
+          <div class="col-lg-2 col-sm-12 col-12">
+            <div class="form-group">
+              <label>Tổng tiền :</label>
+              <p style="font-size: 11pt; font-weight: 700;"  th:text="'₫' + ${#numbers.formatDecimal(hoaDonOld.tongTien, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+            </div>
+          </div>
+          <div class="col-lg-2 col-sm-12 col-12">
+            <div class="form-group">
+              <label>Thời gian tạo :</label>
+              <p th:text="${#dates.format(hoaDonOld.tgTao, 'HH:mm yyyy-MM-dd')}" style="font-size: 11pt; font-weight: 600;">01:03 2011/04/25</p>
+            </div>
+          </div>
+          <div class="col-lg-2 col-sm-12 col-12">
+            <div class="form-group">
+              <label>Thời gian nhận hàng :</label>
+              <p th:text="${#dates.format(hoaDonOld.tgNhan, 'HH:mm yyyy-MM-dd')}" style="font-size: 11pt; font-weight: 600;"></p>
+            </div>
+          </div>
+          <div class="col-lg- col-sm-12 col-12">
+            <div class="form-group">
+              <label>SDT Khách hàng :</label>
+              <p style="font-size: 11pt; font-weight: 600;" th:text="${hoaDonOld.khachHang.sdtKH}"></p>
+            </div>
+            <div class="form-group">
+              <label>SDT Nhận hàng:</label>
+              <p style="font-size: 11pt; font-weight: 600;" th:text="${hoaDonOld.sdtNguoiNhan}"></p>
+            </div>
+          </div>
+          <div class="col-lg-12 col-sm-12 col-12" style="border: 0.5px solid #ff9f43; padding: 10px;">
+            <div class="vertical-scroll scroll-demo" >
+              <table class="table  datanew " >
+                <thead>
+                <tr>
+                  <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Ảnh</th>
+                  <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Tên sản phẩm</th>
+                  <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Phân loại</th>
+                  <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Số lượng</th>
+                  <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Tổng tiền</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="product : ${hoaDonOld.hoaDonChiTiets}">
+                  <tr>
+                    <td>
+                      <img  th:src="@{'/images/imgsProducts/' + ${product.chiTietGiay.hinhAnh.url1}}" style="height: 50px; width: 50px;" alt="">
+                    </td>
+                    <td th:text="${product.chiTietGiay.giay.tenGiay}"></td>
+                    <td th:text="'Phân loại: ' + ${product.chiTietGiay.mauSac.tenMau} +' | Size:' + ${product.chiTietGiay.size.soSize} "></td>
+                    <td th:text="${product.soLuong}"></td>
+                    <td th:text="'₫' + ${#numbers.formatDecimal(product.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
+                  </tr>
+                </th:block>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-lg-12 col-sm-12 col-12" style="height: 1px; background-color: #ff9f43; margin: 20px 0 20px 0;">
+
+          </div>
+          <div class="col-lg-12 col-sm-12 col-12" style="text-align: center; align-items: center; margin-bottom: 20px;">
+            <h4>Hóa đơn hoàn hàng</h4>
+          </div>
+          <div class="col-lg-3 col-sm-12 col-12">
+            <div class="form-group">
+              <label>Mã hóa đơn mới :</label>
+              <p th:text="${hoaDon.maHD}" style="font-size: 13pt; font-weight: 700;"></p>
+            </div>
+          </div>
+          <div class="col-lg-2 col-sm-12 col-12">
+            <div class="form-group">
+              <label>Tổng tiền :</label>
+              <p  th:text="'₫' + ${#numbers.formatDecimal(hoaDon.tongTien, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}" style="font-size: 11pt; font-weight: 700;"></p>
+            </div>
+          </div>
+          <div class="col-lg-2 col-sm-12 col-12">
+            <div class="form-group">
+              <label>Thời gian yêu cầu hoàn :</label>
+              <p style="font-size: 11pt; font-weight: 600;" th:text="${#dates.format(hoaDonOld.tgTao, 'HH:mm yyyy-MM-dd')}" ></p>
+            </div>
+          </div>
+          <div class="col-lg-2 col-sm-12 col-12">
+            <div class="form-group">
+              <label>SDT Khách hàng :</label>
+              <p style="font-size: 11pt; font-weight: 600;" th:text="${hoaDon.khachHang.sdtKH}"></p>
+            </div>
+          </div>
+          <div class="col-lg-2 col-sm-12 col-12">
+            <div class="form-group">
+              <label>Số lượng :</label>
+              <p style="font-size: 11pt; font-weight: 600;" th:text="${hoaDon.tongSP}"></p>
+            </div>
+          </div>
+          <div class="col-lg-12 col-sm-12 col-12" style="text-align: center; align-items: center; margin: 30px 0 30px 0;">
+            <h4>Sản phẩm muốn hoàn</h4>
+          </div>
+          <div class="col-lg-12 col-sm-12 col-12" style="border: 0.5px solid #ff9f43; padding: 10px;">
+            <div class="vertical-scroll scroll-demo" >
+              <table class="table  datanew" >
+                <thead>
+                  <tr>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;"><input id="checkAll" type="checkbox" style="height: 20px; width: 20px;"></th>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Ảnh</th>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Tên sản phẩm</th>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Phân loại</th>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Số lượng</th>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Tổng tiền</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                <th:block th:each="product : ${hoaDon.hoaDonChiTiets}">
+                  <tr>
+                    <th><input class="itemsCart" name="idCTGHoanHang" th:value="${product.chiTietGiay.idCTG}" type="checkbox" style="height: 20px; width: 20px;"></th>
+                    <td>
+                      <img  th:src="@{'/images/imgsProducts/' + ${product.chiTietGiay.hinhAnh.url1}}" style="height: 50px; width: 50px;" alt="">
+                    </td>
+                    <td th:text="${product.chiTietGiay.giay.tenGiay}"></td>
+                    <td th:text="'Phân loại: ' + ${product.chiTietGiay.mauSac.tenMau} +' | Size:' + ${product.chiTietGiay.size.soSize} "></td>
+                    <td th:text="${product.soLuong}"></td>
+                    <td th:text="'₫' + ${#numbers.formatDecimal(product.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
+                  </tr>
+                </th:block>
+
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-lg-12 col-sm-12 col-12">
+            <div class="form-group">
+              <label style="font-size: 14pt; font-weight: 600; margin: 40px 0 20px;">Lý do muốn hoàn:</label>
+              <p style="font-size: 11pt;" th:text="${phieuTraHang.lyDoHoanHang}"> </p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-sm-12 col-12">
+            <a th:href="@{'/images/imagesRate/' + ${phieuTraHang.hinh1}}" class="image-popup-desc" data-title="Lý do hoàn"
+               th:data-description="${phieuTraHang.lyDoHoanHang}">
+              <img th:src="@{'/images/imagesRate/' + ${phieuTraHang.hinh1}}" style="height: 300px; width: 300px;" class="img-fluid" alt="work-thumbnail">
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-12 col-12">
+            <a th:href="@{'/images/imagesRate/' + ${phieuTraHang.hinh2}}" class="image-popup-desc" data-title="Lý do hoàn"
+               th:data-description="${phieuTraHang.lyDoHoanHang}">
+              <img th:src="@{'/images/imagesRate/' + ${phieuTraHang.hinh2}}" style="height: 300px; width: 300px;" class="img-fluid" alt="work-thumbnail">
+            </a>
+          </div>
+          <div class="col-lg-4 col-sm-12 col-12">
+            <a th:href="@{'/images/imagesRate/' + ${phieuTraHang.hinh3}}" class="image-popup-desc" data-title="Lý do hoàn"
+               th:data-description="${phieuTraHang.lyDoHoanHang}">
+              <img th:src="@{'/images/imagesRate/' + ${phieuTraHang.hinh3}}" style="height: 300px; width: 300px;" class="img-fluid" alt="work-thumbnail">
+            </a>
+          </div>
+          <div class="col-lg-12 col-sm-12 col-12">
+            <div class="form-group">
+              <label style="font-size: 14pt; font-weight: 600; margin: 40px 0 20px;">Lý do từ chối hoàn hàng </label>
+              <textarea name="lyDoTuChoi" id="" cols="30" rows="10"></textarea>
+            </div>
+            <!-- Thong bao xac nhan hoan Start -->
+            <div class="modal fade" id="tuChoiHoanHang" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+              <div class="modal-dialog modal-lg modal-dialog-centered" role="document"
+                   style="width: 570px;">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Thông báo</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal"
+                            aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <h6 style="margin-bottom: 20px;">Bạn chắc chắn từ chối hủy yêu cầu hoàn hàng này không ?</h6>
+
+                    <div class="col-lg-12">
+                      <button name="dismist" onclick="return validatePurchase()" type="submit"
+                              class="btn btn-submit me-2" style="background-color: rgb(240,28,28);">Từ chối</button>
+                      <a class="btn btn-cancel" data-bs-dismiss="modal">Bỏ qua</a>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Thong bao xac nhan hoan End -->
+
+            <!-- Thong bao xac nhan huy begin -->
+            <div class="modal fade" id="xacNhanHoanHang" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+              <div class="modal-dialog modal-lg modal-dialog-centered" role="document"
+                   style="width: 570px;">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Thông báo</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal"
+                            aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <h6 style="margin-bottom: 20px;">Bạn chắc chắn xác nhận hoàn đơn hàng này không ?</h6>
+                    <div class="col-lg-12">
+                      <button name="accept" value="accept" onclick="return validatePurchase()" class="btn btn-submit me-2" type="submit"
+                         style="background-color: rgb(28, 116, 240);">Xác nhận</button>
+                      <a class="btn btn-cancel" data-bs-dismiss="modal">Bỏ qua</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Thong bao xac nhan huy End -->
+          </div>
+          <div class="col-lg-12"> </div>
+          <div class="col-lg-12">
+            <a href="javascript:void(0);" data-bs-toggle="modal"
+               data-bs-target="#tuChoiHoanHang" style="margin-right: 50px;" class="btn btn-danger">Từ chối yêu cầu hoàn</a>
+            <a href="javascript:void(0);" data-bs-toggle="modal"
+               data-bs-target="#xacNhanHoanHang" class="btn btn-info" >Xác nhận yêu cầu hoàn</a>
+          </div>
+          <div class="col-lg-12" style="height: 50px;"> </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+
+<section>
+
+
+  <div class="modal fade" id="messAddThanhCong" tabindex="-1" role="dialog" aria-labelledby="messAddThanhCongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="messAddThanhCongTitle" style="color: red">Thông báo !</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div style="align-items: center; text-align: center; width: 500px; margin-top: 10px; margin-bottom: 10px;">
+            <p style="font-size: 13pt; font-weight: 600;">Chọn ít nhất 1 sản phẩm để xác nhận/từ chối hoàn hàng !!</p>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+
+<script src="/js/jquery-3.6.0.min.js"></script>
+
+<script src="/js/feather.min.js"></script>
+
+<script src="/js/jquery.slimscroll.min.js"></script>
+
+<script src="/js/jquery.dataTables.min.js"></script>
+<script src="/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/lightbox/glightbox.min.js"></script>
+<script src="/plugins/lightbox/lightbox.js"></script>
+
+<script src="/js/script.js"></script>
+
+<!-- Check choose all product Begin -->
+<script>
+  var checkboxes = document.querySelectorAll('.itemsCart');
+  var chonTatCa = document.getElementById('checkAll');
+
+  chonTatCa.addEventListener('change', function() {
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].checked = chonTatCa.checked;
+    }
+
+  });
+
+  checkboxes.forEach(function(checkbox) {
+    checkbox.addEventListener('change', function() {
+      chonTatCa.checked = Array.from(checkboxes).every(function(cb) {
+        return cb.checked;
+      });
+    });
+  });
+</script>
+<script>
+  function validatePurchase() {
+    var form = document.getElementById('purchaseForm');
+    var checkboxes = form.querySelectorAll('input[type="checkbox"]');
+    var atLeastOneChecked = false;
+
+    checkboxes.forEach(function (checkbox) {
+      if (checkbox.checked) {
+        atLeastOneChecked = true;
+        return;
+      }
+    });
+
+    if (!atLeastOneChecked) {
+      $('#messAddThanhCong').modal('show');
+      event.preventDefault();
+    }
+
+    return true;
+  }
+</script>
+<!-- Check choose all product End -->
+</body>
+
+</html>

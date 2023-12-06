@@ -32,13 +32,12 @@ public class HoaDon {
     @OneToMany(mappedBy = "hoaDon")
     private List<HoaDonChiTiet> hoaDonChiTiets;
 
+    @OneToMany(mappedBy = "hoaDon")
+    private List<GiaoHang> giaoHangs;
+
     @ManyToOne
     @JoinColumn(name = "id_NV")
     private NhanVien nhanVien;
-
-    @ManyToOne
-    @JoinColumn(name = "id_HTTT")
-    private ThanhToanHoanTien thanhToanHoanTien;
 
     @Column(name = "ma_HD")
     private String maHD;
@@ -70,13 +69,16 @@ public class HoaDon {
     @Column(name = "tg_Ship")
     private Date tgShip;
 
+    @Column(name = "tg_Nhan")
+    private Date tgNhan;
+
     @Column(name = "tg_Huy")
     private Date tgHuy;
 
     @Column(name = "ly_do_huy")
     private String lyDoHuy;
 
-    @Column(name = "tg_Nhan")
+    @Column(name = "tg_Nhan_DK")
     private Date tgNhanDK;
 
     @Column(name = "ten_Nguoi_Nhan")
@@ -99,5 +101,14 @@ public class HoaDon {
 
     @Column(name = "loi_nhan")
     private String loiNhan;
+
+    @Column(name = "id_HDOld")
+    private UUID idHDOld;
+
+    @Column(name = "ma_HDOld")
+    private String maHDOld;
+
+    @Column(name = "trang_Thai_Hoan")
+    private int trangThaiHoan;
 
 }
