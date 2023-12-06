@@ -40,7 +40,7 @@ public class ExcelExporterKhachHang {
         createCell(row, 1, "Mã", style);
         createCell(row, 2, "Tên Khách Hàng", style);
         createCell(row, 3, "Loại Khách Hàng", style);
-        createCell(row, 5, "Trạng Thái", style);
+        createCell(row, 4, "Trạng Thái", style);
 
     }
 

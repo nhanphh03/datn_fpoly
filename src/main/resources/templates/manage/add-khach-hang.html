@@ -326,25 +326,23 @@
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Ảnh</label>
-                                    <input th:field="*{AnhKH}" type="file" id="imageInput" accept="image/*"
+                                    <input th:field="*{AnhKH}" type="file"
+                                           id="imageInput"
+                                           accept="image/*"
                                            onchange="previewImage(event)">
                                     <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
                                                  style="display: none; max-width: 150px; max-height: 150px;"><br><br>
-                                    <strong th:if="${#fields.hasErrors('AnhKH')}"
-                                            class="alert alert-danger alert-dismissible fade show"
-                                            role="alert" th:errors="*{AnhKH}"></strong>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Ảnh CCCD</label>
-                                    <input th:field="*{Anhcccd}" type="file" id="imageInput" accept="image/*"
+                                    <input th:field="*{Anhcccd}" type="file"
+                                           id="imageInput1"
+                                           accept="image/*"
                                            onchange="previewImage(event)">
-                                    <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
+                                    <br><br><img id="imagePreview1" src="#" alt="Ảnh mô tả"
                                                  style="display: none; max-width: 150px; max-height: 150px;"><br><br>
-                                    <strong th:if="${#fields.hasErrors('Anhcccd')}"
-                                            class="alert alert-danger alert-dismissible fade show"
-                                            role="alert" th:errors="*{Anhcccd}"></strong>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -631,9 +629,11 @@
         var emailKH = document.getElementById("emailKH").value;
         var CCCDKH = document.getElementById("CCCDKH").value;
         var matkhau = document.getElementById("matKhau").value;
+        var anhKH = document.getElementById("imageInput").value;
+        var anhCCCD = document.getElementById("imageInput1").value;
 
         // Kiểm tra không để trống các trường
-        if (maKH === "" || hoTenKH === "" || ngaySinh === "" || sdtKH === "" || emailKH === "" || CCCDKH === "" || matkhau === "" ) {
+        if (maKH === "" || hoTenKH === "" || ngaySinh === "" || sdtKH === "" || emailKH === "" || CCCDKH === "" || matkhau === "" || anhKH === "" || anhCCCD === "") {
             alert("Vui lòng điền đầy đủ thông tin");
             return false;
         }
@@ -719,7 +719,10 @@
 <script>
     function previewImage(event) {
         const imageInput = document.getElementById('imageInput');
+        const imageInput1 = document.getElementById('imageInput1');
         const imagePreview = document.getElementById('imagePreview');
+        const imagePreview1 = document.getElementById('imagePreview1');
+
 
         if (imageInput.files && imageInput.files[0]) {
             const reader = new FileReader();
@@ -730,6 +733,17 @@
             };
 
             reader.readAsDataURL(imageInput.files[0]);
+        }
+        //
+        if (imageInput1.files && imageInput1.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview1.src = e.target.result;
+                imagePreview1.style.display = 'block';
+            };
+
+            reader.readAsDataURL(imageInput1.files[0]);
         }
     }
 </script>

@@ -72,6 +72,7 @@ public class ExcelExporterLoaiKhachHang {
             createCell(row, columnCount++, String.valueOf(loaiKhachHang.getIdLKH()), style);
             createCell(row, columnCount++, loaiKhachHang.getMaLKH(), style);
             createCell(row, columnCount++, loaiKhachHang.getTenLKH(), style);
+            createCell(row, columnCount++, loaiKhachHang.getSoDiem(), style);
             if (loaiKhachHang.getTrangThai() == 1) {
                 createCell(row, columnCount++, "Hoạt động", style);
             } else if (loaiKhachHang.getTrangThai() == 0) {

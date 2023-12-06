@@ -1,6 +1,7 @@
 package com.example.demo.buyerController;
 
 
+import com.beust.ah.A;
 import com.example.demo.model.*;
 import com.example.demo.service.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -10,10 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 @RequestMapping("/buyer")
@@ -181,14 +179,14 @@ public class UserController {
         return "online/user";
     }
 
-    @RequestMapping(value = {"/purchase", "/purchase/all"})
+    @GetMapping("/purchase")
     private String getPurchaseAccount(Model model){
 
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
 
         UserForm(model, khachHang);
 
-        List<HoaDon> listHoaDonByKhachHang = hoaDonService.listAllHoaDonKhachHangOnline(khachHang);
+        List<HoaDon> listHoaDonByKhachHang = hoaDonService.findHoaDonByKhachHang(khachHang);
 
         List<HoaDon> listHoaDonChoThanhToan = hoaDonService.listHoaDonKhachHangAndTrangThaiOnline(khachHang, 0);
 
@@ -501,19 +499,23 @@ public class UserController {
             hoaDonHuy.setLyDoHuy(lyDoHuy);
             hoaDonHuy.setTgHuy(new Date());
             hoaDonService.add(hoaDonHuy);
-        }else  if (lyDoHuy.equals("lyDoKhac")) {
+        }else if (lyDoHuy.equals("lyDoKhac")) {
             lyDoHuy = request.getParameter("hutThuocNenDauDaDay");
             hoaDonHuy.setTrangThai(4);
             hoaDonHuy.setLyDoHuy(lyDoHuy);
             hoaDonHuy.setTgHuy(new Date());
             hoaDonService.add(hoaDonHuy);
-            return "redirect:/buyer/purchase/cancel";
+        }else if(lyDoHuy.equals("changeSize")) {
+            lyDoHuy = request.getParameter("hutThuocNenDauDaDay");
+            hoaDonHuy.setTrangThai(4);
+            hoaDonHuy.setLyDoHuy(lyDoHuy);
+            hoaDonHuy.setTgHuy(new Date());
+            hoaDonService.add(hoaDonHuy);
         }
+    return "redirect:/buyer/purchase/cancel";
 
-        return "redirect:/buyer/purchase/cancel";
     }
 
-//
     @PostMapping("/purchaser/bill/buy/again/{idHD}")
     private String buyAgain(Model model, @PathVariable UUID idHD){
         HoaDon hoaDonBuyAgain = hoaDonService.getOne(idHD);
@@ -550,8 +552,6 @@ public class UserController {
 
         return "redirect:/buyer/cart";
     }
-
-
 
     private void UserForm(Model model, KhachHang khachHang){
         GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;

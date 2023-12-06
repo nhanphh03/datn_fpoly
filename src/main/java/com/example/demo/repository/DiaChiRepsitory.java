@@ -5,6 +5,7 @@ import com.example.demo.model.DiaChiKH;
 import com.example.demo.model.KhachHang;
 import com.example.demo.model.NhanVien;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -25,4 +26,7 @@ public interface DiaChiRepsitory extends JpaRepository<DiaChiKH, UUID>{
     List<DiaChiKH> findByKhachHangAndTrangThai(KhachHang khachHang, Integer trangThai);
 
     DiaChiKH findByMaDC(String maDC);
+
+    @Query(value = "select dc from DiaChiKH dc order by dc.tgThem desc")
+    List<DiaChiKH> getAllDiaChi();
 }
