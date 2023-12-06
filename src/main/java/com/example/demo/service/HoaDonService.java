@@ -3,6 +3,7 @@ package com.example.demo.service;
 import com.example.demo.model.HoaDon;
 import com.example.demo.model.KhachHang;
 import com.example.demo.model.KhuyenMai;
+import com.example.demo.model.NhanVien;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,8 +11,11 @@ import java.util.UUID;
 
 public interface HoaDonService {
     List<HoaDon> getListHoaDonChuaThanhToan();
+
     void add(HoaDon hoaDon);
+
     HoaDon getOne(UUID id);
+
     List<HoaDon> getAllHoaDon();
 
     List<HoaDon> listAllHoaDonKhachHangOnline(KhachHang khachHang);
@@ -32,11 +36,21 @@ public interface HoaDonService {
 
     List<HoaDon>  listHoaDonOnline();
 
+    List<HoaDon>  listAllHoaDonOnline();
+
     List<HoaDon>  listHoaDonOnlineAndTrangThai(int trangThai);
 
     List<HoaDon>  listHoaDonOnlineGiaoHang(int trangThai1, int trangThai2);
 
     List<HoaDon> listHoaDonOnlineAndHTTT(int httt);
 
+    List<HoaDon> listHoaDonByNhanVienAndTrangThai(NhanVien nhanVien, int trangThai);
+
+    List<HoaDon> listHoaDonHuyAndThanhCongByNhanVien(NhanVien nhanVien);
+
+    List<HoaDon> listAllHoaDonByNhanVien(NhanVien nhanVien);
+
     List<HoaDon> listHoaDonOnlineAndHTTTAndTrangThai(int httt, int trangThai);
+
+    HoaDon findByIdHoaDonOld(UUID idHDOld);
 }

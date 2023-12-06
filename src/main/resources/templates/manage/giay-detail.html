@@ -541,10 +541,11 @@
                                     <th>Size</th>
                                     <th>Màu Sắc</th>
                                     <th>Số Lượng</th>
-                                    <th>Gía Bán</th>
+                                    <th>Gía Bán (Trước Giảm)</th>
                                     <th>Trọng Lượng</th>
                                     <th>Năm Sản Xuất</th>
                                     <th>Năm Bảo Hành</th>
+                                    <th>Gía Bán (Sau Giảm)</th>
                                     <th>Trạng Thái</th>
                                     <th>Action</th>
                                     <th>Thời Gian Thêm</th>
@@ -559,10 +560,11 @@
                                     <td th:text="${items.size.soSize}"></td>
                                     <td th:text="${items.mauSac.tenMau}"></td>
                                     <td th:text="${items.soLuong}"></td>
-                                    <td th:text="${items.giaBan}"></td>
-                                    <td th:text="${items.trongLuong}"></td>
+                                    <td th:text="${#numbers.formatDecimal(items.soTienTruocKhiGiam, 2, 'COMMA', 1, 'POINT')} + ' đ'"></td>
+                                    <td th:text="${items.trongLuong}+' gram'"></td>
                                     <td th:text="${items.namSX}"></td>
                                     <td th:text="${items.namBH}"></td>
+                                    <td th:text="${#numbers.formatDecimal(items.giaBan, 2, 'COMMA', 1, 'POINT')} + ' đ'"></td>
                                     <td>
                                         <span th:if="${items.trangThai == 1}"
                                               class="badges bg-lightgreen">Hoạt Động</span>

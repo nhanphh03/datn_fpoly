@@ -449,7 +449,7 @@
                                             </a>
                                             <a th:text="${items.giay.tenGiay}"></a>
                                         </td>
-                                        <td th:text="${items.giaBan}"></td>
+                                        <td th:text="${#numbers.formatDecimal(items.giaBan, 2, 'COMMA', 1, 'POINT')} + ' đ'"></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -465,7 +465,6 @@
                         <table class="table datatable">
                             <thead>
                             <tr>
-                                <th>ID</th>
                                 <th>Mã Giày</th>
                                 <th>Tên Giày</th>
                                 <th>Tên Hãng</th>
@@ -475,7 +474,7 @@
                             </thead>
                             <tbody>
                             <tr th:each="chiTietGiayDTO : ${dsHetBaoHanh}">
-                                <td th:text="${chiTietGiayDTO.idCTG}"></td>
+<!--                                <td th:text="${chiTietGiayDTO.idCTG}"></td>-->
                                 <td th:text="${chiTietGiayDTO.maGiay}"></td>
                                 <td th:text="${chiTietGiayDTO.tenGiay}"></td>
                                 <td th:text="${chiTietGiayDTO.tenHang}"></td>
