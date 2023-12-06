@@ -22,22 +22,13 @@
 
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
 
     <link rel="stylesheet" href="/css/style.css">
-    <style>
-        .col-lg-10 image img {
-            background: none;
-            border: none;
-        }
-    </style>
 </head>
-<body>
-<div id="global-loader">
-    <div class="whirly-loader"></div>
-</div>
+
+<!--<div id="global-loader">-->
+<!--    <div class="whirly-loader"></div>-->
+<!--</div>-->
 <div class="main-wrapper">
     <div class="header">
 
@@ -248,7 +239,7 @@
                             <span class="menu-arrow"></span></a>
                         <ul>
                             <li><a href="/manage/chat-lieu">Chất Liệu</a></li>
-                            <li><a href="/manage/giay" class="active">Giày</a></li>
+                            <li><a href="/manage/giay">Giày</a></li>
                             <li><a href="/manage/hang">Hãng</a></li>
                             <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
                             <li><a href="/manage/mau-sac">Màu Sắc</a></li>
@@ -316,137 +307,86 @@
             </div>
         </div>
     </div>
-    <form th:object="${giayChiTietDetail}" method="post"
-          th:action="@{'/manage/giay-chi-tiet/detail/'+ ${giayChiTietDetail.idCTG}}">
-        <div class="page-wrapper">
-            <div class="content">
-                <div class="page-header">
-                    <div class="page-title">
-                        <h4>Giày Chi Tiết Detail</h4>
-                        <h6>Quản Lý Giày</h6>
-                    </div>
-                </div>
+    <div class="page-wrapper">
+        <div class="content">
 
-                <div class="row">
-                    <div class="col-lg-8 col-sm-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="bar-code-view">
-                                    <div class="row">
-                                        <div class="col-lg-10 image">
-                                            <img th:src="@{'/images/imgsBarcode/' + ${giayChiTietDetail.idCTG} +'.png'}"
-                                                 alt="barcode">
-                                        </div>
-                                        <div class="col-lg-2"><a class="printimg">
-                                            <img src="/images/img/icons/printer.svg" alt="print">
-                                        </a></div>
-                                    </div>
+
+
+            <div class="card flex-fill">
+<h3 class="card-header pb-0 d-flex justify-content-between align-items-center">Chi tiết sản phẩm nhân viên đã bán (tháng này)</h3>
+    <div class="card-body">
+        <div class="table-responsive a">
+            <table class="table datanew" id="dataTable">
+                <thead>
+                <tr>
+                    <th>STT<th></th>
+                    <th>Sản phẩm</th>
+                    <th colspan="1"></th>
+                    <th colspan="1"></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="a,index: ${ctspNV}">
+                    <td th:text="${index.index+1}"></td>
+                    <td>
+                        <li>
+                            <div class="productimg">
+                                <div class="productimgs">
+                                    <img th:src="@{'/images/imgsProducts/'+ ${a.chiTietGiay.hinhAnh.url1}}"
+                                         alt="img">
                                 </div>
-                                <div class="productdetails">
-                                    <ul class="product-bar">
-                                        <li>
-                                            <h4>Tên Giày</h4>
-                                            <h6 th:text="${giayChiTietDetail.giay.tenGiay}"></h6>
-                                        </li>
-                                        <li>
-                                            <h4>Size</h4>
-                                            <h6 th:text="${giayChiTietDetail.size.soSize}"></h6>
-                                        </li>
-                                        <li>
-                                            <h4>Màu Sắc</h4>
-                                            <h6 th:text="${giayChiTietDetail.mauSac.tenMau}"></h6>
-                                        </li>
-                                        <li>
-                                            <h4>Số Lượng</h4>
-                                            <h6 th:text="${giayChiTietDetail.soLuong}"></h6>
-                                        </li>
-                                        <li>
-                                            <h4>Giá Bán</h4>
-                                            <h6 th:text="${giayChiTietDetail.giaBan}"></h6>
-                                        </li>
-                                        <li>
-                                            <h4>Trọng Lượng</h4>
-                                            <h6 th:text="${giayChiTietDetail.trongLuong}"> gram</h6>
-                                        </li>
-                                        <li>
-                                            <h4>Năm Sản Xuất</h4>
-                                            <h6 th:text="${giayChiTietDetail.namSX}"></h6>
-                                        </li>
-                                        <li>
-                                            <h4>Năm Bảo Hành</h4>
-                                            <h6 th:text="${giayChiTietDetail.namBH}"></h6>
-                                        </li>
-                                        <li>
-                                            <h4>Trạng Thái</h4>
-                                            <h6 th:if="${giayChiTietDetail.trangThai == 1}">Hoạt Động</h6>
-                                            <h6 th:unless="${giayChiTietDetail.trangThai == 1}">Không Hoạt Động</h6>
-                                        </li>
-                                        <li>
-                                            <h4>Mô Tả</h4>
-                                            <h6 th:text="${giayChiTietDetail.giay.moTa}"></h6>
-                                        </li>
-                                    </ul>
+                                <div class="productcontet">
+                                    <h4 th:text="${a.chiTietGiay.giay.tenGiay}">
+                                        <a href="javascript:void(0);" class="ms-2"
+                                           data-bs-toggle="modal"
+                                           data-bs-target="#edit"><img
+                                                src="/images/img/icons/edit-5.svg"
+                                                alt="img"></a>
+                                    </h4>
+                                    <div>Śố lượng: x <span th:text="${a.soLuong}" style="color:#0a58ca;"></span></div>
+                                    <div>Giá bán: <span th:text="${#numbers.formatDecimal(a.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'" style="color: #6a1a21"></span></div>
+
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-sm-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="slider-product-details">
-                                    <div class="owl-carousel owl-theme">
-                                        <div class="slider-product">
-                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url1}}"
-                                                 alt="img"/>
-                                        </div>
-                                        <div class="slider-product">
-                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url2}}"
-                                                 alt="img"/>
-                                        </div>
-                                        <div class="slider-product">
-                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url3}}"
-                                                 alt="img"/>
-                                        </div>
-                                        <div class="slider-product">
-                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url4}}"
-                                                 alt="img"/>
-                                        </div>
-                                        <!--                                        <div class="slider-product">-->
-                                        <!--                                            <img th:src="@{'/images/imgsProducts/'+ ${giayChiTietDetail.hinhAnh.url5}}"-->
-                                        <!--                                                 alt="img"/>-->
-                                        <!--                                        </div>-->
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                        </li>
+                    </td>
+                    <td>
+                        <li>
+                            <!--                                            <div th:text="${gioHang.donGia * gioHang.soLuong}"></div>-->
+                            <span>Thành tiền: <div th:text=" ${#numbers.formatDecimal(a.donGia * a.soLuong, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'" style="color: #6a1a21"></div></span>
+                        </li>
+                    </td>
+                    <td >
+                        <div>Ngày bán: </div>
+                        <h6 th:text="${a.hoaDon.tgThanhToan}"></h6>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
-    </form>
+    </div>
+
 </div>
+        </div>
+    </div>
+</div>
+
 <script src="/js/jquery-3.6.0.min.js"></script>
 
 <script src="/js/feather.min.js"></script>
 
 <script src="/js/jquery.slimscroll.min.js"></script>
 
-<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/js/jquery.dataTables.min.js"></script>
+<script src="/js/dataTables.bootstrap4.min.js"></script>
 
-<script src="/plugins/owlcarousel/owl.carousel.min.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
 
 <script src="/plugins/select2/js/select2.min.js"></script>
 
+<script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
+<script src="/plugins/sweetalert/sweetalerts.min.js"></script>
+
 <script src="/js/script.js"></script>
-<script>
-    $(document).ready(function () {
-        $(".owl-carousel").owlCarousel({
-            items: 1,
-            autoplay: true,
-            autoplayTimeout: 3000,
-            loop: true,
-        });
-    });
-</script>
 </body>
 </html>

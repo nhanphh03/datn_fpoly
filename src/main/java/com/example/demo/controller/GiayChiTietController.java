@@ -2,10 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.config.*;
 import com.example.demo.model.*;
-import com.example.demo.repository.GiayRepository;
-import com.example.demo.repository.HinhAnhRepository;
-import com.example.demo.repository.MauSacRepository;
-import com.example.demo.repository.SizeRepository;
+import com.example.demo.repository.*;
 import com.example.demo.service.*;
 import com.example.demo.service.impls.GiayChiTietServiceImpl;
 import com.lowagie.text.DocumentException;
@@ -67,6 +64,8 @@ public class GiayChiTietController {
     private HinhAnhRepository hinhAnhRepository;
     @Autowired
     private SizeRepository sizeRepository;
+    @Autowired
+    private HangRepository hangRepository;
     @Autowired
     private GiayChiTietServiceImpl giayChiTietServiceImpl;
 
@@ -482,6 +481,7 @@ public class GiayChiTietController {
 
     @PostMapping("/giay-chi-tiet/viewAdd/add")
     public String addGiayChiTiet(@Valid @ModelAttribute("giayChiTiet") ChiTietGiay chiTietGiay,
+                                 @RequestParam("listSize") List<UUID> listSize,
                                  BindingResult bindingResult, Model model,
                                  RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
@@ -549,32 +549,36 @@ public class GiayChiTietController {
             }
             return "redirect:/manage/giay-chi-tiet/viewAdd";
         }
-        ChiTietGiay chiTietGiay1 = new ChiTietGiay();
-        chiTietGiay1.setGiay(chiTietGiay.getGiay());
-        chiTietGiay1.setNamSX(chiTietGiay.getNamSX());
-        chiTietGiay1.setNamBH(chiTietGiay.getNamBH());
-        chiTietGiay1.setTrongLuong(chiTietGiay.getTrongLuong());
-        chiTietGiay1.setGiaBan(chiTietGiay.getGiaBan());
-        chiTietGiay1.setSoLuong(chiTietGiay.getSoLuong());
-        chiTietGiay1.setTrangThai(1);
-        chiTietGiay1.setMauSac(chiTietGiay.getMauSac());
-        chiTietGiay1.setHinhAnh(chiTietGiay.getHinhAnh());
-        chiTietGiay1.setSize(chiTietGiay.getSize());
-        chiTietGiay1.setTgThem(new Date());
-        giayChiTietService.save(chiTietGiay1);
-        // Lấy id đã được tạo sau khi thêm sản phẩm mới
-        UUID idNew = chiTietGiay1.getIdCTG();
-        String barcodeNew = idNew.toString();
-        chiTietGiay1.setBarcode(barcodeNew);
-        // Cập nhật thông tin sản phẩm giày
-        ZxingHelperBarCode.saveBarcodeImage(idNew, 200, 100); // Tạo và lưu mã vạch
-        giayChiTietService.update(chiTietGiay1);
+        for (UUID x : listSize) {
+            ChiTietGiay chiTietGiay1 = new ChiTietGiay();
+            chiTietGiay1.setGiay(chiTietGiay.getGiay());
+            chiTietGiay1.setNamSX(chiTietGiay.getNamSX());
+            chiTietGiay1.setNamBH(chiTietGiay.getNamBH());
+            chiTietGiay1.setTrongLuong(chiTietGiay.getTrongLuong());
+            chiTietGiay1.setGiaBan(chiTietGiay.getGiaBan());
+            chiTietGiay1.setSoTienTruocKhiGiam(chiTietGiay.getGiaBan());
+            chiTietGiay1.setSoLuong(chiTietGiay.getSoLuong());
+            chiTietGiay1.setTrangThai(1);
+            chiTietGiay1.setMauSac(chiTietGiay.getMauSac());
+            chiTietGiay1.setHinhAnh(chiTietGiay.getHinhAnh());
+            chiTietGiay1.setSize(sizeService.getByIdSize(x));
+            chiTietGiay1.setTgThem(new Date());
+            giayChiTietService.save(chiTietGiay1);
+            // Lấy id đã được tạo sau khi thêm sản phẩm mới
+            UUID idNew = chiTietGiay1.getIdCTG();
+            String barcodeNew = idNew.toString();
+            chiTietGiay1.setBarcode(barcodeNew);
+            // Cập nhật thông tin sản phẩm giày
+            ZxingHelperBarCode.saveBarcodeImage(idNew, 200, 100); // Tạo và lưu mã vạch
+            giayChiTietService.update(chiTietGiay1);
+        }
         redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/giay-chi-tiet";
     }
 
     @PostMapping("/chi-tiet-giay/viewAdd/add")
     public String addChiTietGiay(@Valid @ModelAttribute("chiTietGiay") ChiTietGiay chiTietGiay, BindingResult bindingResult,
+                                 @RequestParam("listSize") List<UUID> listSize,
                                  RedirectAttributes redirectAttributes) {
         //
         UUID idCTGViewAdd = (UUID) session.getAttribute("idViewAddCTG");
@@ -624,26 +628,29 @@ public class GiayChiTietController {
             return link1;
         }
         ///
-        ChiTietGiay chiTietGiay2 = new ChiTietGiay();
-        chiTietGiay2.setGiay(giay);
-        chiTietGiay2.setNamSX(chiTietGiay.getNamSX());
-        chiTietGiay2.setNamBH(chiTietGiay.getNamBH());
-        chiTietGiay2.setTrongLuong(chiTietGiay.getTrongLuong());
-        chiTietGiay2.setGiaBan(chiTietGiay.getGiaBan());
-        chiTietGiay2.setSoLuong(chiTietGiay.getSoLuong());
-        chiTietGiay2.setTrangThai(1);
-        chiTietGiay2.setMauSac(chiTietGiay.getMauSac());
-        chiTietGiay2.setHinhAnh(chiTietGiay.getHinhAnh());
-        chiTietGiay2.setSize(chiTietGiay.getSize());
-        chiTietGiay2.setTgThem(new Date());
-        giayChiTietService.save(chiTietGiay2);
-        // Lấy id đã được tạo sau khi thêm sản phẩm mới
-        UUID idNew = chiTietGiay2.getIdCTG();
-        String barcodeNew = idNew.toString();
-        chiTietGiay2.setBarcode(barcodeNew);
-        // Cập nhật thông tin sản phẩm giày
-        ZxingHelperBarCode.saveBarcodeImage(idNew, 200, 100); // Tạo và lưu mã vạch
-        giayChiTietService.update(chiTietGiay2);
+        for (UUID x : listSize) {
+            ChiTietGiay chiTietGiay2 = new ChiTietGiay();
+            chiTietGiay2.setGiay(giay);
+            chiTietGiay2.setNamSX(chiTietGiay.getNamSX());
+            chiTietGiay2.setNamBH(chiTietGiay.getNamBH());
+            chiTietGiay2.setTrongLuong(chiTietGiay.getTrongLuong());
+            chiTietGiay2.setGiaBan(chiTietGiay.getGiaBan());
+            chiTietGiay2.setSoTienTruocKhiGiam(chiTietGiay.getGiaBan());
+            chiTietGiay2.setSoLuong(chiTietGiay.getSoLuong());
+            chiTietGiay2.setTrangThai(1);
+            chiTietGiay2.setMauSac(chiTietGiay.getMauSac());
+            chiTietGiay2.setHinhAnh(chiTietGiay.getHinhAnh());
+            chiTietGiay2.setSize(sizeService.getByIdSize(x));
+            chiTietGiay2.setTgThem(new Date());
+            giayChiTietService.save(chiTietGiay2);
+            // Lấy id đã được tạo sau khi thêm sản phẩm mới
+            UUID idNew = chiTietGiay2.getIdCTG();
+            String barcodeNew = idNew.toString();
+            chiTietGiay2.setBarcode(barcodeNew);
+            // Cập nhật thông tin sản phẩm giày
+            ZxingHelperBarCode.saveBarcodeImage(idNew, 200, 100); // Tạo và lưu mã vạch
+            giayChiTietService.update(chiTietGiay2);
+        }
         //
         redirectAttributes.addFlashAttribute("message", true);
         //
@@ -728,22 +735,33 @@ public class GiayChiTietController {
     }
 
     @PostMapping("/giay-chi-tiet/giay/hang/viewAdd/add")
-    public String addHangCT(@Valid @ModelAttribute("hangAdd") Hang hang, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            if (bindingResult.hasFieldErrors("maHang")) {
-                redirectAttributes.addFlashAttribute("userInput", hang);
-                redirectAttributes.addFlashAttribute("errorHang", "maHangError");
-            }
-            if (bindingResult.hasFieldErrors("tenHang")) {
-                redirectAttributes.addFlashAttribute("userInput", hang);
-                redirectAttributes.addFlashAttribute("errorHang", "tenHangError");
-            }
-            return "redirect:/manage/giay-chi-tiet/viewAdd";
+    public String addHangCT(@RequestParam("maHang") String maHang,
+                            @RequestParam("tenHang") String tenHang,
+                            @RequestParam("logoHang") MultipartFile logoHang,
+                            @Valid @ModelAttribute("hangAdd") Hang hang, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        Hang existingHang = hangRepository.findByMaHang(hang.getMaHang());
+        if (existingHang != null) {
+            redirectAttributes.addFlashAttribute("userInput", hang);
+            redirectAttributes.addFlashAttribute("Errormessage", true);
+            return "redirect:/manage/hang";
         }
+        //
+        Path path = Paths.get("src/main/resources/static/images/logoBrands/");
+        //
         Hang hang1 = new Hang();
-        hang1.setLogoHang(hang.getLogoHang());
-        hang1.setMaHang(hang.getMaHang());
-        hang1.setTenHang(hang.getTenHang());
+        hang1.setMaHang(maHang);
+        hang1.setTenHang(tenHang);
+        if (logoHang.isEmpty()) {
+            return "redirect:/manage/hang";
+        }
+        try {
+            InputStream inputStream = logoHang.getInputStream();
+            Files.copy(inputStream, path.resolve(logoHang.getOriginalFilename()),
+                    StandardCopyOption.REPLACE_EXISTING);
+            hang1.setLogoHang(logoHang.getOriginalFilename().toLowerCase());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         hang1.setTgThem(new Date());
         hang1.setTrangThai(1);
         hangService.save(hang1);

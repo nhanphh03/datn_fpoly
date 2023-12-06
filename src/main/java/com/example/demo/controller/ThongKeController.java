@@ -1,16 +1,14 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.ChiTietGiay;
+import com.example.demo.model.HoaDonChiTiet;
 import com.example.demo.repository.*;
-
-import com.example.demo.service.CTGViewModelService;
-import com.example.demo.viewModel.CTGViewModel;
-import com.example.demo.viewModel.CTHDViewModel;
-import com.example.demo.viewModel.Top5SPBanChayTrongThang;
+import com.example.demo.viewModel.*;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.NumberFormat;
 import java.util.*;
@@ -32,16 +30,17 @@ public class ThongKeController {
     @Autowired
     private GiayRepository giayRepository;
     @Autowired
-    private CTGViewModelService ctgViewModelService;
-    @Autowired
     private CTGViewModelRepository ctgViewModelRepository;
+    @Autowired
+    private test test;
+    public NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
     @GetMapping("/thongke")
-    private String getTong(Model model){
+    private String getTong(Model model, HttpServletRequest request){
         model.addAttribute("tong",khachHangRepository.getTongKH());
         model.addAttribute("tonggiay",giayChiTietRepository.getTongGiay());
 
         //làm tròn doanh thu
-        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(new Locale("vi", "VN"));
+
 
         Optional<Double> ltn = hoaDonChiTietRepository.getLaiThangNay();
 
@@ -49,7 +48,7 @@ public class ThongKeController {
         Optional<Integer> tongSPBanTrongNgay = hoaDonChiTietRepository.getTongSPBanTrongNgay();
         Optional<Integer> tongSPBanTrongThang = hoaDonChiTietRepository.getTongSPBanTrongThang();
 
-        System.out.println(tlbr.get());
+
         if(tongSPBanTrongNgay.isPresent() ){
             Integer a = tongSPBanTrongNgay.get();
 
@@ -71,7 +70,7 @@ public class ThongKeController {
             String formatdtt2 = currencyFormat.format(c);
             model.addAttribute("tlbr",formatdtt2);
         }else{
-            model.addAttribute("tlbr","0");
+            model.addAttribute("tlbr","0đ");
         }
 
         if(tongSPBanTrongThang.isPresent()){
@@ -131,16 +130,16 @@ public class ThongKeController {
         model.addAttribute("listSL", doanhSoNgay);
         //theo năm
         List<String> listThemNam = new ArrayList<>();
-        listThemNam.add("2021");
         listThemNam.add("2022");
         listThemNam.add("2023");
+        listThemNam.add("2024");
 
         List<Integer> doanhSoNam = new ArrayList<>();
-        doanhSoNam.add(hoaDonChiTietRepository.Nam2021());
         doanhSoNam.add(hoaDonChiTietRepository.Nam2022());
         doanhSoNam.add(hoaDonChiTietRepository.Nam2023());
+        doanhSoNam.add(hoaDonChiTietRepository.Nam2024());
         model.addAttribute("Nam", listThemNam);
-        model.addAttribute("listNam", doanhSoNam);
+        model.addAttribute("listNam1", doanhSoNam);
         // chi tiết sp đã bán trong ngày
         List<Object[]> k = hoaDonChiTietRepository.findHoaDonChiTietByDate();
         List<CTHDViewModel> yourDTOList = k.stream()
@@ -169,7 +168,141 @@ public class ThongKeController {
                 )).collect(Collectors.toList());
             model.addAttribute("getN",yourDTOList);
             model.addAttribute("getT",yourDTOList2);
-        return "manage/ThongKe/index";
+
+            //hiệu suất nhân viên
+        List<Object[]> objects = hoaDonChiTietRepository.getHieuSuatNhanVienBanHang();
+        List<HieuSuatBanHang> hs = objects.stream()
+                .map(result -> new HieuSuatBanHang(
+                        (String) result[0],
+                        (String) result[1],
+                        (String) result[2],
+                        (Integer) result[3]
+
+                )).collect(Collectors.toList());
+        model.addAttribute("hieuSuat",hs);
+        //sp sắp hết hàng
+        List<Object[]> v = ctgViewModelRepository.spSapHet();
+        List<SanPhamSapHet> sh = v.stream()
+                .map(result -> new SanPhamSapHet(
+                        (String) result[0],
+                        (String) result[1],
+                        (Integer) result[2]
+
+                )).collect(Collectors.toList());
+        model.addAttribute("hieuSuat",hs);
+        model.addAttribute("spSapHet",sh);
+        // biểu đồ thống kê doanh thu
+        //*lọc theo tháng
+        List<Double> l = Arrays.asList(
+                hoaDonChiTietRepository.getTongTienDaGiamThang1(),
+                hoaDonChiTietRepository.getTongTienDaGiamThang2(),
+                hoaDonChiTietRepository.getTongTienDaGiamThang3(),
+                hoaDonChiTietRepository.getTongTienDaGiamThang4(),
+                hoaDonChiTietRepository.getTongTienDaGiamThang5(),
+                hoaDonChiTietRepository.getTongTienDaGiamThang6(),
+                hoaDonChiTietRepository.getTongTienDaGiamThang7(),
+                hoaDonChiTietRepository.getTongTienDaGiamThang8(),
+                hoaDonChiTietRepository.getTongTienDaGiamThang9(),
+                hoaDonChiTietRepository.getTongTienDaGiamThang10(),
+                hoaDonChiTietRepository.getTongTienDaGiamThang11(),
+                hoaDonChiTietRepository.getTongTienDaGiamThang12()
+        );
+        List<Double> listTongtienDaGiamTheoThang = new ArrayList<>(l);
+        for(int i =0;i<listTongtienDaGiamTheoThang.size();i++) {
+            if (listTongtienDaGiamTheoThang.get(i)==null) {
+                listTongtienDaGiamTheoThang.set(i,0.0);
+            }
+        }
+        List<Double> q = Arrays.asList(
+                hoaDonChiTietRepository.getTongTienThang1(),
+                hoaDonChiTietRepository.getTongTienThang2(),
+                hoaDonChiTietRepository.getTongTienThang3(),
+                hoaDonChiTietRepository.getTongTienThang4(),
+                hoaDonChiTietRepository.getTongTienThang5(),
+                hoaDonChiTietRepository.getTongTienThang6(),
+                hoaDonChiTietRepository.getTongTienThang7(),
+                hoaDonChiTietRepository.getTongTienThang8(),
+                hoaDonChiTietRepository.getTongTienThang9(),
+                hoaDonChiTietRepository.getTongTienThang10(),
+                hoaDonChiTietRepository.getTongTienThang11(),
+                hoaDonChiTietRepository.getTongTienThang12()
+        );
+        List<Double> listTongtienTheoThang = new ArrayList<>(q);
+        for(int i =0;i<listTongtienTheoThang.size();i++) {
+            if (listTongtienTheoThang.get(i)==null) {
+                listTongtienTheoThang.set(i,0.0);
+            }
+        }
+        model.addAttribute("ttdgtt",listTongtienDaGiamTheoThang);
+        model.addAttribute("tttt",listTongtienTheoThang);
+        //*lọc theo năm
+        List<String> nam = new ArrayList<>();
+        nam.add(0,"Năm 2021");
+        nam.add(1,"Năm 2022");
+        nam.add(2,"Năm 2023");
+        nam.add(3,"Năm 2024");
+        nam.add(4,"Năm 2025");
+        List<Double> s = Arrays.asList(
+                hoaDonChiTietRepository.getTongTienDaGiamNam2021(),
+                hoaDonChiTietRepository.getTongTienDaGiamNam2022(),
+                hoaDonChiTietRepository.getTongTienDaGiamNam2023(),
+                hoaDonChiTietRepository.getTongTienDaGiamNam2024(),
+                hoaDonChiTietRepository.getTongTienDaGiamNam2025()
+        );
+        List<Double> listTTDGTN=new ArrayList<>(s);
+        List<Double> m = Arrays.asList(
+                hoaDonChiTietRepository.getTongTienNam2021(),
+                hoaDonChiTietRepository.getTongTienNam2022(),
+                hoaDonChiTietRepository.getTongTienNam2023(),
+                hoaDonChiTietRepository.getTongTienNam2024(),
+                hoaDonChiTietRepository.getTongTienNam2025()
+        );
+        List<Double> listTTTN =new ArrayList<>(m);
+        model.addAttribute("ttdgtn",listTTDGTN);
+        model.addAttribute("tttn",listTTTN);
+        model.addAttribute("listNam",nam);
+
+        //gửi mail
+//        List<Object[]> w = giayChiTietRepository.getSoLuongTon();
+//        List<GuiMail> tests = w.stream()
+//                .map(result -> new GuiMail(
+//                        (Integer) result[0],
+//                        (Integer) result[1]
+//                )).collect(Collectors.toList());
+//        ChiTietGiay a = new ChiTietGiay();
+//
+//        for(int i = 0;i<tests.size();i++) {
+//            GuiMail g = tests.get(i);
+//            if (g.getSoLuong()<=10&&g.getTrangThaiMail()==0) {
+//                String to = "Thiencobklo@gmail.com";
+//                String sub = "Sản phẩm sắp hết hàng !!!";
+//                String text = "aa";
+//                test.sendEmail(to, sub, text);
+//
+//                a.setTrangThaiMail(1);
+//                giayChiTietRepository.save(a);
+//
+//            } else if (g.getSoLuong() > 10) {
+//                a.setTrangThaiMail(0);
+//                giayChiTietRepository.save(a);
+//            }
+//        }
+            return "manage/ThongKe/test";
+    }
+    @GetMapping("/thongke/{maNV}")
+    public String getEmployeeDetail(@PathVariable("maNV") String maNV, Model model) {
+        // Xử lý dữ liệu chi tiết nhân viên dựa trên maNv
+        System.out.println("Đã sang tc");
+        List<HoaDonChiTiet> hoaDonChiTiets = hoaDonChiTietRepository.getChiTietSPNhanVienBan(maNV);
+        model.addAttribute("giay",giayRepository.findAll());
+        model.addAttribute("chiTietGiay",giayChiTietRepository.findAll());
+        model.addAttribute("hinhAnh",hinhAnhRepository.findAll());
+        model.addAttribute("hoaDon",hoaDonRepository.findAll());
+        model.addAttribute("ctspNV",hoaDonChiTiets);
+
+
+        return "manage/ThongKe/detailCTSPNV";
+
     }
 
 
@@ -177,20 +310,4 @@ public class ThongKeController {
 
 
 
-
-
-//    @GetMapping("/hoadoncho/filter")
-//    public String searchHoaDonCho(Model model, @RequestParam(name = "searchTerm") String searchTerm) {
-//        List<HoaDon> filteredHoaDonCho;
-//        if ("Giày".equals(searchTerm) && "Size".equals(searchTerm) && "Màu Sắc".equals(searchTerm)) {
-//
-//            filteredHoaDonCho = hoaDonCho.getAll();
-//        } else {
-//
-//            filteredHoaDonCho = hoaDonCho.fillterHoaDonCho(searchTerm);
-//        }
-//        model.addAttribute("HoaDon", filteredHoaDonCho);
-//        model.addAttribute("HoaDonAll", hoaDonCho.getAll());
-//        return "manage/giay";
-//    }
 }

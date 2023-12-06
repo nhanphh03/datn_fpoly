@@ -92,7 +92,7 @@
                     </a>
                 </div>
             </li>
-            
+
             <li class="nav-item dropdown">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                     <img src="/images/img/icons/notification-bing.svg" alt="img"> <span
@@ -232,7 +232,8 @@
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
+                        <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg"
+                                                       alt="img"><span> Thống Kê</span>
                         </a>
                     </li>
                     <li class="submenu">
@@ -307,7 +308,8 @@
             </div>
         </div>
     </div>
-    <form th:object="${diaChi}" method="post" th:action="@{'/manage/dia-chi/viewUpdate/' + ${diaChi.idDC}}" onsubmit="return validateForm()">
+    <form th:object="${diaChi}" method="post" th:action="@{'/manage/dia-chi/viewUpdate/' + ${diaChi.idDC}}"
+          onsubmit="return validateForm()">
         <div class="page-wrapper">
             <div class="content">
                 <div class="page-header">
@@ -341,25 +343,28 @@
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Tỉnh Thành Phố</label>
-                                    <select class="select" th:field="*{tinhTP}" id="tinhthanhpho">
-                                        <option value="" selected>Chọn</option>
+                                    <select class="select" id="tinhthanhpho">
+                                        <option value="" selected>Chọn thành phố</option>
                                     </select>
+                                    <input type="text" hidden th:field="*{tinhTP}" id="tinh-tp-hidden"/>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Quận Huyện</label>
-                                    <select class="select" th:field="*{quanHuyen}" id="quanhuyen">
+                                    <select class="select"  id="quanhuyen">
                                         <option value="" selected>Chọn quận huyện</option>
                                     </select>
+                                    <input type="text" hidden th:field="*{quanHuyen}" id="quan-huyen-hidden"/>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Xã Phường</label>
-                                    <select class="select" th:field="*{xaPhuong}" id="xaphuong">
+                                    <select class="select" id="xaphuong">
                                         <option value="" selected>Chọn xã phường</option>
                                     </select>
+                                    <input type="text" hidden th:field="*{xaPhuong}" id="phuong-xa-hidden"/>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -429,8 +434,8 @@
                                 </div>
                             </div>
                             <div class="col-lg-12">
-                                <button type="submit" class="btn btn-submit me-2">Submit</button>
-                                <a href="/manage/dia-chi" class="btn btn-cancel">Cancel</a>
+                                <button type="submit" value="submit" class="btn btn-submit me-2">Submit</button>
+                                <a href="#" id="cancelButton" class="btn btn-cancel">Cancel</a>
                             </div>
                         </div>
                     </div>
@@ -475,19 +480,18 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
 <script>
+
     function validateForm() {
         // Lấy giá trị từ các input
         var maDC = document.getElementById("maDC").value;
         var tenDC = document.getElementById("tenDC").value;
         var tenNguoiNhan = document.getElementById("tenNguoiNhan").value;
         var sdtNguoiNhan = document.getElementById("sdtNguoiNhan").value;
-
         // Kiểm tra giá trị trống
         if (maDC === "" || tenDC === "" || tenNguoiNhan === "" || sdtNguoiNhan === "") {
             alert("Vui lòng điền đầy đủ thông tin");
             return false;
         }
-
         // Kiểm tra định dạng số điện thoại
         var phoneRegex = /^0\d{9}$/;
         if (!phoneRegex.test(sdtNguoiNhan)) {
@@ -501,24 +505,38 @@
     }
 </script>
 <script>
+    const valueTP = document.querySelector("#tinh-tp-hidden").value;
+    const valueQH = document.querySelector("#quan-huyen-hidden").value;
+    const valuePX = document.querySelector("#phuong-xa-hidden").value;
+
     const host = "https://provinces.open-api.vn/api/";
-    var callAPI = (api) => {
-        return axios.get(api)
+    var callAPI = async (api) => {
+        return await axios.get(api)
             .then((response) => {
                 renderData(response.data, "tinhthanhpho");
+                return response;
             });
     }
-    callAPI('https://provinces.open-api.vn/api/?depth=1');
-    var callApiDistrict = (api) => {
-        return axios.get(api)
+
+    callAPI('https://provinces.open-api.vn/api/?depth=1').then(res => {
+        document.querySelector("#select2-tinhthanhpho-container").innerText = valueTP;
+        document.querySelector("#select2-quanhuyen-container").innerText = valueQH;
+        document.querySelector("#select2-xaphuong-container").innerText = valuePX;
+
+    })
+
+    var callApiDistrict = async (api) => {
+        return await axios.get(api)
             .then((response) => {
                 renderData(response.data.districts, "quanhuyen");
+                return response;
             });
     }
-    var callApiWard = (api) => {
-        return axios.get(api)
+    var callApiWard = async (api) => {
+        return await axios.get(api)
             .then((response) => {
                 renderData(response.data.wards, "xaphuong");
+                return response;
             });
     }
     var renderData = (array, select) => {
@@ -526,18 +544,24 @@
         array.forEach(element => {
             row += `<option data-id="${element.code}" data-name="${element.name}"  value="${element.name}">${element.name}</option>`
         });
-        document.querySelector("#" + select).innerHTML += row
+        document.querySelector("#" + select).innerHTML = row
     }
 
     $("#tinhthanhpho").change(() => {
-        callApiDistrict(host + "p/" + $("#tinhthanhpho").find(':selected').data('id') + "?depth=2");
+        const tinhtp = $("#tinhthanhpho").find(':selected')
+        callApiDistrict(host + "p/" + tinhtp.data('id') + "?depth=2");
+        document.getElementById("tinh-tp-hidden").value = tinhtp.text();
         printResult();
     });
     $("#quanhuyen").change(() => {
-        callApiWard(host + "d/" + $("#quanhuyen").find(':selected').data('id') + "?depth=2");
+        const quanhuyen =  $("#quanhuyen").find(':selected')
+        callApiWard(host + "d/" + quanhuyen.data('id') + "?depth=2");
+        document.getElementById("quan-huyen-hidden").value = quanhuyen.text();
         printResult();
     });
     $("#xaphuong").change(() => {
+        const phuongxa =  $("#xaphuong").find(':selected')
+        document.getElementById("phuong-xa-hidden").value = phuongxa.text();
         printResult();
     })
 
@@ -546,14 +570,24 @@
         const quanHuyen = $("#quanhuyen").find(':selected').data('name');
         const xaPhuong = $("#xaphuong").find(':selected').data('name');
         const tinhTP = $("#tinhthanhpho").find(':selected').data('name');
+
         if (quanHuyen != "" && xaPhuong != "" &&
             tinhTP != "") {
             let idDiaChi = $("#diachict");
             idDiaChi[0].value = xaPhuong + " , " + quanHuyen + " , " + tinhTP;
         }
+        console.log(tinhTP);
     }
 </script>
-
+<script>
+    document.getElementById("cancelButton").addEventListener("click", function (event) {
+        event.preventDefault(); // Ngăn chặn hành động mặc định của nút hoặc liên kết
+        history.back(); // Quay lại trang trước đó trong lịch sử trình duyệt
+        setTimeout(function () {
+            location.reload(); // Tải lại trang trước đó
+        }, 100); // Sử dụng setTimeout để đảm bảo quay lại trang trước đủ thời gian
+    });
+</script>
 <script>
     //
     setTimeout(function () {
