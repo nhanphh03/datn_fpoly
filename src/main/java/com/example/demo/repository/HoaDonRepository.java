@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import com.example.demo.model.HoaDon;
 import com.example.demo.model.KhachHang;
+import com.example.demo.model.NhanVien;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -35,6 +36,8 @@ public interface HoaDonRepository extends JpaRepository<HoaDon , UUID> {
 
     List<HoaDon> findByKhachHangAndLoaiHDAndTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrderByTgTaoDesc(KhachHang khachHang,int loaiHD, int trangThai1, int trangThai2, int trangThai3, int trangThai4, int trangThai5, int trangThai6);
 
+    List<HoaDon> findByLoaiHDAndTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrderByTgTaoDesc(int loaiHD, int trangThai1, int trangThai2, int trangThai3, int trangThai4, int trangThai5, int trangThai6);
+
     List<HoaDon> findHoaDonByLoaiHDOrderByTgTaoDesc(int loaiHoaDon);
 
     List<HoaDon> findByLoaiHDAndTrangThaiOrTrangThaiOrderByTgTaoDesc(int loaiHD, int trangThai1, int trangThai2);
@@ -44,5 +47,14 @@ public interface HoaDonRepository extends JpaRepository<HoaDon , UUID> {
     List<HoaDon> findByLoaiHDAndHinhThucThanhToanOrderByTgTaoDesc(int loaiHD, int httt);
 
     List<HoaDon> findByLoaiHDAndTrangThaiAndHinhThucThanhToanOrderByTgTaoDesc(int loaiHD, int trangThai, int httt);
+
+    List<HoaDon> findByNhanVienAndLoaiHDAndTrangThaiOrderByTgTaoDesc(NhanVien nhanVien, int loaiHD, int trangThai);
+
+    List<HoaDon> findByNhanVienAndLoaiHDAndTrangThaiOrTrangThaiOrderByTgTaoDesc(NhanVien nhanVien, int loaiHD, int trangThai1, int trangThai2);
+
+    List<HoaDon> findByNhanVienOrderByTgTaoDesc(NhanVien nhanVien);
+
+    HoaDon findByIdHDOld(UUID idHDOld);
+
 
 }

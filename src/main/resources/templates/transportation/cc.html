@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+  <meta name="description" content="POS - Bootstrap Admin Template">
+  <meta name="keywords"
+        content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern,  html5, responsive">
+  <meta name="author" content="Dreamguys - Bootstrap Admin Template">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Dreams Pos admin template</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.jpg">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/css/animate.css">
+
+  <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
+
+  <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+  <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Bar Chart</div>
+      </div>
+      <div class="card-body">
+        <div id="morrisBar1" class="chart-set"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/js/jquery-3.6.0.min.js"></script>
+
+<script src="/js/feather.min.js"></script>
+
+<script src="/js/jquery.slimscroll.min.js"></script>
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+<script src="/plugins/morris/raphael-min.js"></script>
+<script src="/plugins/morris/morris.min.js"></script>
+<script>
+  $(document).ready(function () {
+    'use strict';
+    var morrisData = [
+      { y: 'Tháng 1', a: 12, b: 18 },
+      { y: 'Tháng 2', a: 18, b: 22 },
+      { y: 'Tháng 3', a: 15, b: 18 },
+      { y: 'Tháng 4', a: 25, b: 28 },
+      { y: 'Tháng 5', a: 30, b: 35 },
+      { y: 'Tháng 6', a: 18, b: 28 },
+      { y: 'Tháng 7', a: 12, b: 18 },
+      { y: 'Tháng 8', a: 12, b: 18 },
+      { y: 'Tháng 9', a: 12, b: 18 },
+      { y: 'Tháng 10', a: 12, b: 18 },
+      { y: 'Tháng 11', a: 12, b: 18 },
+      { y: 'Tháng 12', a: 12, b: 18 }];
+
+    new Morris.Bar({
+      element: 'morrisBar1',
+      data: morrisData,
+      xkey: 'y',
+      ykeys: ['a', 'b'],
+      labels: ['Tổng tiền', 'Tổng tiền đã giảm'],
+      barColors: ['#664dc9', '#44c4fa'],
+      gridTextSize: 11,
+      hideHover: 'auto',
+      resize: true });
+  });
+</script>
+<script src="/plugins/morris/chart-data.js"></script>
+
+<script src="/js/script.js"></script>
+</body>
+
+</html>

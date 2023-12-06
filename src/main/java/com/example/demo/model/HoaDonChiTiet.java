@@ -38,8 +38,8 @@ public class HoaDonChiTiet {
     @Column(name = "so_Luong")
     private int soLuong;
 
-    @Column(name = "don_Gia_Khi_Giam")
-    private double donGiaKhiGiam;
+    @Column(name = "don_Gia_Truoc_Khi_Giam")
+    private double donGiaTruocGiam;
 
     @Column(name = "so_Tien_Giam")
     private double soTienGiam;
@@ -52,6 +52,9 @@ public class HoaDonChiTiet {
 
     @Column(name = "tg_Sua")
     private Date tgSua;
+
+    @Column(name = "mo_ta")
+    private String moTa;
 
 
 }
