@@ -122,6 +122,7 @@ public class BanHangController {
             hd.setTgTao(new Date());
             hd.setTrangThai(0);
             hd.setLoaiHD(1);
+            hd.setTrangThaiHoan(8);
             hd.setNhanVien(nhanVien);
             hoaDonService.add(hd);
             model.addAttribute("message", "Tạo hóa đơn thành công");
@@ -282,14 +283,15 @@ public class BanHangController {
             hoaDonChiTiet.setSoLuong(hoaDonChiTiet.getSoLuong() + soLuong);
             hoaDonChiTiet.setTgSua(new Date());
             hoaDonChiTiet.setTrangThai(1);
-
+            hoaDonChiTiet.setDonGia(chiTietGiay.getGiaBan() * (hoaDonChiTiet.getSoLuong() + soLuong));
+            hoaDonChiTiet.setDonGiaTruocGiam(chiTietGiay.getSoTienTruocKhiGiam() * (hoaDonChiTiet.getSoLuong() + soLuong));
             hoaDonChiTietService.add(hoaDonChiTiet);
         } else {
             HoaDonChiTiet hdct = new HoaDonChiTiet();
             hdct.setChiTietGiay(chiTietGiay);
             hdct.setHoaDon(hoaDon);
-            hdct.setDonGia(chiTietGiay.getGiaBan());
-            hdct.setDonGiaKhiGiam(chiTietGiay.getGiaBan());
+            hdct.setDonGia(chiTietGiay.getGiaBan()* soLuong);
+            hdct.setDonGiaTruocGiam(chiTietGiay.getSoTienTruocKhiGiam()*soLuong);
             hdct.setSoLuong(soLuong);
             hdct.setTrangThai(1);
             hdct.setTgThem(new Date());

@@ -27,6 +27,13 @@ public class GiaoHang {
     @JoinColumn(name="idHD")
     private HoaDon hoaDon;
 
+    @ManyToOne
+    @JoinColumn(name="id_DVVC")
+    private DonViVanChuyen donViVanChuyen;
+
+    @Column(name = "ma_van_don")
+    private String maVanDon;
+
     @Column(name="trang_Thai")
     private int trangThai;
 
