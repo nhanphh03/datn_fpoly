@@ -1,9 +1,6 @@
 package com.example.demo.service.impls;
 
-import com.example.demo.model.HoaDon;
-import com.example.demo.model.KhachHang;
-import com.example.demo.model.KhuyenMai;
-import com.example.demo.model.KhuyenMaiChiTietHoaDon;
+import com.example.demo.model.*;
 import com.example.demo.repository.HoaDonRepository;
 import com.example.demo.repository.KMCTHDRepository;
 import com.example.demo.repository.KhuyenMaiRepository;
@@ -126,6 +123,11 @@ public class HoaDonServiceImpl implements HoaDonService {
     }
 
     @Override
+    public List<HoaDon> listAllHoaDonOnline() {
+        return hoaDonRepository.findByLoaiHDAndTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrTrangThaiOrderByTgTaoDesc(0, 0, 1 ,2 ,3 ,4 ,5 );
+    }
+
+    @Override
     public List<HoaDon> listHoaDonOnlineAndTrangThai(int trangThai) {
         return hoaDonRepository.findByLoaiHDAndTrangThaiOrderByTgTaoDesc(0, trangThai);
     }
@@ -141,7 +143,29 @@ public class HoaDonServiceImpl implements HoaDonService {
     }
 
     @Override
+    public List<HoaDon> listHoaDonByNhanVienAndTrangThai(NhanVien nhanVien, int trangThai) {
+        return hoaDonRepository.findByNhanVienAndLoaiHDAndTrangThaiOrderByTgTaoDesc(nhanVien, 0, trangThai);
+    }
+
+    @Override
+    public List<HoaDon> listHoaDonHuyAndThanhCongByNhanVien(NhanVien nhanVien) {
+        return hoaDonRepository.findByNhanVienAndLoaiHDAndTrangThaiOrTrangThaiOrderByTgTaoDesc(nhanVien,  0 , 3,4);
+    }
+
+    @Override
+    public List<HoaDon> listAllHoaDonByNhanVien(NhanVien nhanVien) {
+        return hoaDonRepository.findByNhanVienOrderByTgTaoDesc(nhanVien);
+    }
+
+    @Override
     public List<HoaDon> listHoaDonOnlineAndHTTTAndTrangThai(int httt, int trangThai) {
         return hoaDonRepository.findByLoaiHDAndTrangThaiAndHinhThucThanhToanOrderByTgTaoDesc(0, trangThai, httt);
     }
+
+    @Override
+    public HoaDon findByIdHoaDonOld(UUID idHDOld) {
+        return hoaDonRepository.findByIdHDOld(idHDOld);
+    }
+
+
 }
