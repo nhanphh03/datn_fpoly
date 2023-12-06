@@ -263,21 +263,23 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/expense1.svg" alt="img"><span>
-                                    Quản Lý Hóa Đơn</span>
-                            <span class="menu-arrow"></span></a>
+                        <a href="javascript:void(0);">
+                            <img src="/images/img/icons/expense1.svg" alt="img">
+                            <span> Quản Lý Hóa Đơn</span>
+                            <span class="menu-arrow"></span>
+                        </a>
                         <ul>
-                            <li><a href="/manage/hoa-don/hien-thi">Hóa đơn tại quầy</a></li>
-                            <li><a href="/manage/don-hang/hien-thi">Quản lý đơn hàng</a></li>
-                            <li><a href="expenselist.html">Expense List</a></li>
-                            <li><a href="createexpense.html">Add Expense</a></li>
-                            <li><a href="expensecategory.html">Expense Category</a></li>
+                            <li><a href="/manage/bill/offline">Hóa đơn tại quầy</a></li>
+                            <li><a class="active" href="/manage/bill/online">Quản lý hóa đơn online</a></li>
+                            <li><a href="/manage/bill/pay">Quản lý thanh toán</a></li>
+                            <li><a href="/manage/bill/offline">Quản lý hóa đơn online</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản
-                                    Lý Khách Hàng</span>
-                            <span class="menu-arrow"></span></a>
+                        <a href="javascript:void(0);">
+                            <img src="/images/img/icons/users1.svg" alt="img"><span> Quản Lý Khách Hàng</span>
+                            <span class="menu-arrow"></span>
+                        </a>
                         <ul>
                             <li><a href="/manage/khach-hang">Khách Hàng</a></li>
                             <li><a href="/manage/dia-chi">Địa Chỉ </a></li>
@@ -311,7 +313,7 @@
                         </a>
                         <ul>
                             <li><a href="/manage/voucher">Khuyến Mãi Chung</a></li>
-                            <li><a class="active" href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
+                            <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
                             <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
                             <li><a href="/manage/voucher-ship">Khuyến Mãi Giao Hàng</a></li>
                         </ul>
@@ -520,6 +522,7 @@
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="solid-rounded-justified-tab2">
+
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <div class="card">
@@ -574,6 +577,7 @@
                                             </div>
 
                                         </div>
+
                                     </div>
                                     <div class="tab-pane" id="solid-rounded-justified-tab3">
                                         <div class="row">
@@ -650,30 +654,39 @@
                                                                 <table class="table  datanew ">
                                                                     <thead>
                                                                     <tr>
-                                                                        <th>Mã Hóa Đơn</th>
-                                                                        <th>Nhân viên giao</th>
-                                                                        <th>Thời gian tạo</th>
-                                                                        <th>Khách hàng</th>
-                                                                        <th>Tổng tiền</th>
-                                                                        <th>Trạng thái</th>
-                                                                        <th>Hành động</th>
+                                                                        <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Mã Hóa Đơn Hoàn</th>
+                                                                        <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Mã Hóa Đơn Cũ</th>
+                                                                        <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Trạng thái</th>
+                                                                        <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Khách hàng</th>
+                                                                        <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Tổng tiền</th>
+                                                                        <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Ngày tạo</th>
+                                                                        <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Hành động</th>
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                    <tr>
-                                                                        <td>HD_KH001_2446274436</td>
-                                                                        <td>Nhan suffy</td>
-                                                                        <td>01:03 2011/04/25</td>
-                                                                        <td>Nhân ngu</td>
-                                                                        <td>Chưa thanh toán</td>
-                                                                        <td>HD_KH001_2446274436</td>
-                                                                        <th>
-                                                                            <i class="fe fe-edit-3" data-bs-toggle="tooltip"
-                                                                               title="Chỉnh sửa" style="cursor: pointer; margin: 0 10px 0 20px;" ></i>
-                                                                            <i class="fe fe-eye" data-bs-toggle="tooltip"
-                                                                               title="Xem vận đơn" style="cursor: pointer;"></i>
-                                                                        </th>
-                                                                    </tr>
+                                                                        <th:block th:each="x : ${listBillRefund}">
+                                                                            <tr>
+                                                                                <td th:text="${x.hoaDon.maHD}"></td>
+                                                                                <td th:text="${x.hoaDon.maHDOld}"></td>
+                                                                                <td th:if="${x.trangThai == 0}">Chờ xác nhận</td>
+                                                                                <td th:if="${x.trangThai == 1}">Đã xác nhận</td>
+                                                                                <td th:if="${x.trangThai == 3}">Khách Hủy</td>
+                                                                                <td th:if="${x.trangThai == 2}">Từ chối</td>
+                                                                                <td th:if="${x.trangThai == 4}">Đang hoàn</td>
+                                                                                <td th:if="${x.trangThai == 5}">Đã hoàn</td>
+                                                                                <td th:text="${x.hoaDon.khachHang.hoTenKH}">Nhan ngu</td>
+                                                                                <td th:text="'₫' + ${#numbers.formatDecimal(x.hoaDon.tongTien, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
+                                                                                <td th:text="${#dates.format(x.hoaDon.tgTao, 'HH:mm yyyy-MM-dd')}"></td>
+                                                                                <th>
+
+                                                                                    <i class="fe fe-eye" data-bs-toggle="modal"
+                                                                                       data-bs-target="#modalAll" style="cursor: pointer; margin: 0 10px 0 20px; color: #ff9f43;"></i>
+                                                                                    <a th:href="@{'/manage/bill/online/refund/detail/' + ${x.hoaDon.idHD}}">
+                                                                                        <i style="cursor: pointer; margin: 0 10px 0 20px;" class="fe fe-edit-3" ></i>
+                                                                                    </a>
+                                                                                </th>
+                                                                            </tr>
+                                                                        </th:block>
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -856,7 +869,7 @@
                                 <div class="col-lg-12 col-sm-12 col-12">
                                     <div class="form-group">
                                         <label>Nội dung chuyển khoản</label>
-                                        <input th:value="${bill.maHD}" class="inputMaHD" type="text" placeholder="Vui lòng nhập đúng thông tin khách chuyển khoản"  >
+                                        <input name="noiDungThanhToan" th:value="${bill.maHD}" class="inputMaHD" type="text" placeholder="Vui lòng nhập đúng thông tin khách chuyển khoản"  >
                                     </div>
                                 </div>
 

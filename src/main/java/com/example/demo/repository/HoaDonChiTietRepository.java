@@ -135,7 +135,7 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
             "\t\t\torder by SUM(cthd.so_luong) desc",nativeQuery = true)
     List<Object[]> getHieuSuatNhanVienBanHang();
 
-    @Query("select g from HoaDonChiTiet g where g.hoaDon.nhanVien.maNV =:maNV")
+    @Query("select g from HoaDonChiTiet g where g.hoaDon.nhanVien.maNV =:maNV and g.hoaDon.trangThai=1")
     List<HoaDonChiTiet> getChiTietSPNhanVienBan( String maNV);
 //code chart thống kê doanh thu
     @Query(value = "select  sum(tong_tien_da_giam) from hoa_don where MONTH(tg_thanh_toan) = 1 and trang_thai=1 and year(tg_thanh_toan)=year(getdate())",nativeQuery = true)
