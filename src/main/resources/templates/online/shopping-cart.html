@@ -33,18 +33,6 @@
         width: 100%;
         z-index: 100;
       }
-
-      .itemsCart:checked {
-        /* Custom styles for the checked state */
-        background-color: #4CAF50; /* Đổi màu sắc khi được chọn */
-        color: white; /* Đổi màu chữ khi được chọn */
-      }
-
-      .itemsCart:checked {
-        /* Custom styles for the checked state */
-        background-color: #181818; /* Đổi màu sắc khi được chọn */
-        color: white; /* Đổi màu chữ khi được chọn */
-      }
     </style>
   </head>
 
@@ -259,7 +247,7 @@
 <section class="shopping-cart spad" style="margin-top: -80px">
   <div class="container">
 
-    <form action="/buyer/checkout" method="post" id="purchaseForm">
+    <form action="/buyer/checkout" method="post">
       <div style="z-index: 100; width: 1170px;  position: fixed;margin-bottom: 50px">
         <div class="row" style="background-color: #f3f2ee; height: 80px; width: 1170px;  ">
           <div class="col-lg-8">
@@ -814,7 +802,7 @@
         <div class="modal-body">
 
           <div style="align-items: center; text-align: center; width: 465px; margin-top: 10px; margin-bottom: 10px;">
-            <p style="font-size: 13pt; font-weight: 600;">Please select at least 1 product to checkout !!</p>
+            <p style="font-size: 13pt; font-weight: 600;">Chọn ít nhất 1 sản phẩm để mua hàng !!</p>
           </div>
 
         </div>

@@ -1,12 +1,970 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="description" content="Male_Fashion Template">
+        <meta name="keywords" content="Male_Fashion, unica, creative, html">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Sneaker Shop - Transport</title>
+
+        <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/animate.css">
+
+    <link rel="stylesheet" href="/plugins/icons/feather/feather.css">
+    <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
+
+    <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+
+    <link rel="stylesheet" href="/css/style.css">
+
 </head>
+
 <body>
-This is home Shipper
+<div id="global-loader">
+    <div class="whirly-loader"> </div>
+</div>
+
+<div class="header">
+
+    <a id="mobile_btn" class="mobile_btn" href="#sidebar">
+            <span class="bar-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+    </a>
+
+    <ul class="nav user-menu">
+
+        <li class="nav-item dropdown">
+            <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+                <img src="/images/img/icons/notification-bing.svg" alt="img"> <span
+                    class="badge rounded-pill">4</span>
+            </a>
+            <div class="dropdown-menu notifications">
+                <div class="topnav-dropdown-header">
+                    <span class="notification-title">Notifications</span>
+                    <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                </div>
+                <div class="noti-content">
+                    <ul class="notification-list">
+                        <li class="notification-message">
+                            <a href="activities.html">
+                                <div class="media d-flex">
+                                        <span class="avatar flex-shrink-0">
+                                            <img alt="" src="assets/img/profiles/avatar-02.jpg">
+                                        </span>
+                                    <div class="media-body flex-grow-1">
+                                        <p class="noti-details"><span class="noti-title">John Doe</span> added
+                                            new task <span class="noti-title">Patient appointment booking</span>
+                                        </p>
+                                        <p class="noti-time"><span class="notification-time">4 mins ago</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="notification-message">
+                            <a href="activities.html">
+                                <div class="media d-flex">
+                                        <span class="avatar flex-shrink-0">
+                                            <img alt="" src="/images/img/profiles/avatar-03.jpg">
+                                        </span>
+                                    <div class="media-body flex-grow-1">
+                                        <p class="noti-details"><span class="noti-title">Tarah Shropshire</span>
+                                            changed the task name <span class="noti-title">Appointment booking
+                                                    with payment gateway</span></p>
+                                        <p class="noti-time"><span class="notification-time">6 mins ago</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="notification-message">
+                            <a href="activities.html">
+                                <div class="media d-flex">
+                                        <span class="avatar flex-shrink-0">
+                                            <img alt="" src="assets/img/profiles/avatar-06.jpg">
+                                        </span>
+                                    <div class="media-body flex-grow-1">
+                                        <p class="noti-details"><span class="noti-title">Misty Tison</span>
+                                            added <span class="noti-title">Domenic Houston</span> and <span
+                                                    class="noti-title">Claire Mapes</span> to project <span
+                                                    class="noti-title">Doctor available module</span></p>
+                                        <p class="noti-time"><span class="notification-time">8 mins ago</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="notification-message">
+                            <a href="activities.html">
+                                <div class="media d-flex">
+                                        <span class="avatar flex-shrink-0">
+                                            <img alt="" src="assets/img/profiles/avatar-17.jpg">
+                                        </span>
+                                    <div class="media-body flex-grow-1">
+                                        <p class="noti-details"><span class="noti-title">Rolland Webber</span>
+                                            completed task <span class="noti-title">Patient and Doctor video
+                                                    conferencing</span></p>
+                                        <p class="noti-time"><span class="notification-time">12 mins ago</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="notification-message">
+                            <a href="activities.html">
+                                <div class="media d-flex">
+                                        <span class="avatar flex-shrink-0">
+                                            <img alt="" src="assets/img/profiles/avatar-13.jpg">
+                                        </span>
+                                    <div class="media-body flex-grow-1">
+                                        <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span>
+                                            added new task <span class="noti-title">Private chat module</span>
+                                        </p>
+                                        <p class="noti-time"><span class="notification-time">2 days ago</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="topnav-dropdown-footer">
+                    <a href="activities.html">View all Notifications</a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item dropdown has-arrow main-drop">
+            <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
+                    <span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
+                        <span class="status online"></span></span>
+            </a>
+            <div class="dropdown-menu menu-drop-user">
+                <div class="profilename">
+                    <div class="profileset">
+                            <span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
+                                <span class="status online"></span></span>
+                        <div class="profilesets">
+                            <h6 th:text="${nameNhanVien}"></h6>
+                            <h5>Shipper</h5>
+                        </div>
+                    </div>
+                    <hr class="m-0">
+                    <a class="dropdown-item" href="profile.html"> <i class="me-2" data-feather="user"></i> My
+                        Profile</a>
+                    <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
+                                                                            data-feather="settings"></i>Settings</a>
+                    <hr class="m-0">
+                    <a class="dropdown-item logout pb-0" href="signin.html"><img
+                            src="/images/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+
+    <div class="dropdown mobile-user-menu">
+        <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+           aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="profile.html">Tài khoản cá nhân</a>
+            <a class="dropdown-item" href="generalsettings.html">Cài đặt</a>
+            <a class="dropdown-item" href="signin.html">Đăng xuất</a>
+        </div>
+    </div>
+
+</div>
+
+<div class="">
+    <div class="content">
+        <div class="page-header">
+            <div class="page-title">
+            </div>
+        </div>
+        <section class="comp-section">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card bg-white">
+
+                        <div class="card-header" style="margin-top: 40px;">
+                            <h4 style="font-weight: 700; font-size: 13pt">Quản lý đơn hàng</h4>
+                        </div>
+
+                        <div class="card-body">
+                            <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded nav-justified">
+                                <li class="nav-item"><a th:class="${activeAll}"
+                                                        href="#solid-rounded-justified-tab1" data-bs-toggle="tab">Tổng quan</a>
+                                </li>
+                                <li class="nav-item"><a th:class="${activeVanChuyen}"
+                                                        href="#solid-rounded-justified-tab2"
+                                                        data-bs-toggle="tab">Đang vận chuyển</a></li>
+                                <li class="nav-item">
+                                    <a th:class="${activeDone}"
+                                       href="#solid-rounded-justified-tab3"
+                                       data-bs-toggle="tab">Hoàn thành/Hủy</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div th:class="${tabpane1}" id="solid-rounded-justified-tab1">
+                                    <div class="row">
+                                        <div class="col-lg-4 col-sm-6 col-12">
+                                            <div class="dash-widget">
+                                                <div class="dash-widgetimg">
+                                                    <span><img src="/images/img/icons/dash1.svg" alt="img"></span>
+                                                </div>
+                                                <div class="dash-widgetcontent">
+                                                    <h5><span class="counters" th:data-count="${sumDH}"></span></h5>
+                                                    <h6>Đơn hàng</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6 col-12">
+                                            <div class="dash-widget dash1">
+                                                <div class="dash-widgetimg">
+                                                            <span>
+                                                                <svg style="height: 25px; width: 25px;" viewBox="0 0 24.00 24.00" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" fill="#28c76f" stroke="#28c76f">
+                                                                <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                                <g id="SVGRepo_iconCarrier">
+                                                                    <defs>
+                                                                        <style>.cls-1{fill:none;stroke:#28c76f;stroke-miterlimit:10;stroke-width:0.8879999999999999;}</style>
+                                                                    </defs>
+                                                                    <circle class="cls-1" cx="6.27" cy="19.64" r="1.91"></circle>
+                                                                    <circle class="cls-1" cx="17.73" cy="19.64" r="1.91"></circle>
+                                                                    <path class="cls-1" d="M19.64,19.64H22.5V13.91L21,7.71A1.9,1.9,0,0,0,19.1,6.27H15.82V19.64"></path>
+                                                                    <polyline class="cls-1" points="8.18 19.64 15.82 19.64 15.82 14.86 1.5 14.86 1.5 19.64 4.36 19.64"></polyline>
+                                                                    <rect class="cls-1" x="1.5" y="2.45" width="14.32" height="12.41"></rect>
+                                                                    <polyline class="cls-1" points="15.82 12 17.73 12 19.64 13.91 22.5 13.91"></polyline>
+                                                                </g>
+                                                            </svg>
+                                                        </span>
+                                                </div>
+                                                <div class="dash-widgetcontent">
+                                                    <h5><span class="counters" data-count="10"></span></h5>
+                                                    <h6>Đang giao</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4 col-sm-6 col-12">
+                                            <div class="dash-widget dash2">
+                                                <div class="dash-widgetimg">
+                                                            <span>
+                                                                <svg width="25px" height="25px" viewBox="0 -0.5 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" fill="#00cfe8" stroke="#00cfe8">
+                                                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                                                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                                                    <g id="SVGRepo_iconCarrier">
+                                                                        <title>done [#1477]</title>
+                                                                            <desc>Created with Sketch.</desc>
+                                                                        <defs> </defs>
+                                                                            <g id="Page-1" stroke-width="0.00021000000000000004" fill="none" fill-rule="evenodd">
+                                                                            <g id="Dribbble-Light-Preview" transform="translate(-179.000000, -400.000000)" fill="#00cfe8">
+                                                                                    <g id="icons" transform="translate(56.000000, 160.000000)">
+                                                                                    <path d="M141.9,243 C141.9,242.448 141.4296,242 140.85,242 L126.15,242 C125.5704,242 125.1,242.448 125.1,243 L125.1,257 C125.1,257.552 125.5704,258 126.15,258 L140.85,258 C141.4296,258 141.9,257.552 141.9,257 L141.9,243 Z M144,242 L144,258 C144,259.105 143.06025,260 141.9,260 L125.1,260 C123.93975,260 123,259.105 123,258 L123,242 C123,240.895 123.93975,240 125.1,240 L141.9,240 C143.06025,240 144,240.895 144,242 L144,242 Z M137.72205,247.015 C138.1326,247.405 138.1326,248.039 137.72205,248.429 L133.63965,252.317 C133.0233,252.903 132.0258,252.903 131.40945,252.317 L129.5541,250.55 C129.1446,250.16 129.1446,249.527 129.5541,249.136 C129.96465,248.746 130.6293,248.746 131.0388,249.136 L131.7801,249.842 C132.19065,250.233 132.8574,250.233 133.269,249.842 L136.23735,247.015 C136.64685,246.624 137.31255,246.624 137.72205,247.015 L137.72205,247.015 Z" id="done-[#1477]"> </path>
+                                                                                </g>
+                                                                                </g>
+                                                                            </g>
+                                                                        </g>
+                                                                </svg>
+                                                            </span>
+                                                </div>
+                                                <div class="dash-widgetcontent">
+                                                    <h5><span class="counters" data-count="20"></span></h5>
+                                                    <h6>Hoàn thành</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="vertical-scroll scroll-demo">
+                                            <table class="table  datanew ">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Mã Hóa Đơn</th>
+                                                        <th>Thời gian tạo</th>
+                                                        <th>Thanh Toán</th>
+                                                        <th>Trạng thái</th>
+                                                        <th>Khách hàng</th>
+                                                        <th>Tổng SP</th>
+                                                        <th>Tổng tiền</th>
+                                                        <th>Vị trí đơn hàng</th>
+                                                        <th>Hành động</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <th:block th:each="x: ${allHoaDonList}">
+                                                        <tr th:if="${x.hinhThucThanhToan == 1}">
+                                                            <td th:text="${x.maHD}"></td>
+                                                            <td th:text="${x.tgTao}"></td>
+                                                            <td>Đã Thanh toán</td>
+
+                                                            <td th:if="${x.trangThai == 2}">Đang giao</td>
+                                                            <td style="color: #0875eb;" th:if="${x.trangThai == 3}">Thành công</td>
+                                                            <td style="color: #e01627;" th:if="${x.trangThai == 4}">Đã hủy</td>
+
+                                                            <td th:text="${x.tenNguoiNhan}"></td>
+                                                            <td th:text="${x.tongSP}"></td>
+                                                            <td th:text="'₫'+${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
+                                                            <td>Đơn hàng tại Thanh Hóa</td>
+                                                            <th>
+                                                                <i class="fe fe-eye" data-bs-toggle="modal"
+                                                                   data-bs-target="#modalAll" style="cursor: pointer; margin: 0 10px 0 20px; color: #ff9f43;"></i>
+                                                                <a th:href="@{'http://localhost:8081/order/bill/print/' + ${x.idHD}}"
+                                                                   onclick="window.open(this.href, '_blank'); return false;">
+                                                                    <i class="fe fe-printer" data-bs-toggle="tooltip" title="" style="cursor: pointer; color: #ff9f43;"
+                                                                       data-bs-original-title="In hóa đơn" aria-label="fe fe-printer"></i>
+                                                                </a>
+                                                            </th>
+                                                        </tr>
+
+                                                        <tr th:if="${x.hinhThucThanhToan == 0}">
+                                                            <td th:text="${x.maHD}"></td>
+                                                            <td th:text="${x.tgTao}"></td>
+
+                                                            <td th:if="${x.trangThai == 2}">Chưa Thanh toán</td>
+                                                            <td th:if="${x.trangThai == 3}">Đã thanh toán</td>
+                                                            <td th:if="${x.trangThai == 4}">Đã Thanh toán</td>
 
 
+                                                            <td th:if="${x.trangThai == 2}">Đang giao</td>
+                                                            <td style="color: #0875eb;" th:if="${x.trangThai == 3}">Thành công</td>
+                                                            <td style="color: #e01627;" th:if="${x.trangThai == 4}">Đã hủy</td>
+
+                                                            <td th:text="${x.tenNguoiNhan}"></td>
+                                                            <td th:text="${x.tongSP}"></td>
+                                                            <td th:text="'₫'+${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
+                                                            <td>Đơn hàng tại Thanh Hóa</td>
+                                                            <th>
+                                                                <i class="fe fe-eye" data-bs-toggle="modal"
+                                                                   data-bs-target="#modalAll" style="cursor: pointer; margin: 0 10px 0 20px; color: #ff9f43;"></i>
+                                                                <a th:href="@{'http://localhost:8081/order/bill/print/' + ${x.idHD}}"
+                                                                   onclick="window.open(this.href, '_blank'); return false;">
+                                                                    <i class="fe fe-printer" data-bs-toggle="tooltip" title="" style="cursor: pointer; color: #ff9f43;"
+                                                                       data-bs-original-title="In hóa đơn" aria-label="fe fe-printer"></i>
+                                                                </a>
+                                                            </th>
+                                                        </tr>
+                                                    </th:block>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div th:class="${tabpane2}" id="solid-rounded-justified-tab2">
+
+                                    <div th:if="${showHTGH}" class="row" th:object="${HoaDonVanChuyen}" style="border: 0.5px solid #ff9f43; margin-bottom: 50px" >
+                                        <div class="col-md-8">
+
+                                            <form th:action="'/order/delivery/update/' + ${HoaDonVanChuyen.idHD}" method="post">
+                                                <div class="row" style="padding: 10px;">
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Mã đơn hàng :</label>
+                                                            <p style="font-size: 13pt; font-weight: 700;" th:text="${HoaDonVanChuyen.maHD}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Số tiền :</label>
+                                                            <p style="font-size: 11pt; font-weight: 600;" th:text="'₫'+${#numbers.formatDecimal(HoaDonVanChuyen.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Thanh toán :</label>
+                                                            <p th:if="${HoaDonVanChuyen.loaiHD == 0 }" style="font-size: 11pt; font-weight: 600;">Thanh toán nhận hàng</p>
+                                                            <p th:if="${HoaDonVanChuyen.loaiHD == 1 }" style="font-size: 11pt; font-weight: 600;">Đã thanh toán</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Thời gian giao dự kiến :</label>
+                                                            <p style="font-size: 11pt; font-weight: 600;">11 tháng 3</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Địa chỉ nhận:</label>
+                                                            <p style="font-size: 11pt; font-weight: 600;" th:text="${HoaDonVanChuyen.diaChiNguoiNhan}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Đơn hàng </label>
+                                                            <select name="trangThaiGiaoHang" class="select" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;  ">
+                                                                <option  value="dangGiao" selected>Đang giao</option>
+                                                                <option value="thanhCong" >Giao thành công</option>
+                                                                <option value="thatBai" >Giao thất bại(Bị Hủy)</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Vị trí hiện tại :</label>
+                                                            <p style="font-size: 11pt; font-weight: 600;">Đơn hàng đã đến Thanh Hóa</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Thời gian đã giao :</label>
+                                                            <p style="font-size: 11pt; font-weight: 600;">01:03 2011/04/25</p>
+                                                        </div>
+                                                    </div>
+                                                    <div style="border-top: 1px solid black;" class="col-lg-12 col-sm-12 col-12">
+                                                        <div class="form-group" style="display: flex;">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Địa chỉ cập nhật:</label>
+                                                            <p style="color: red; font-size: 9pt; margin: 2px 0 0 20px;"> *Chuyển hàng tối đa 3 lần sẽ hoàn hàng về </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Tỉnh :</label>
+                                                            <select class="select" id="city" name="city" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                            font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;  ">
+                                                                <option value="" selected>Chọn thành phố</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Quận/Huyện :</label>
+                                                            <select class="select" id="district" name="district" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;">
+                                                                <option value="" selected>Chọn quận/huyện</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Phường Xã :</label>
+                                                            <select class="select" id="ward" name="ward" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;">
+                                                                <option value="" selected>Chọn phường xã</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Mô tả :</label>
+                                                            <textarea name="moTa" style="height: 80px;" id="" cols="1" rows="1"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <button style="height: 50.33px;" type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                        <div class="col-md-4" style=" border-left: 0.5 px solid black ;">
+                                            <p style="font-size: 14pt; font-weight: 700; margin-top: 20px; text-align: center;">Vị trí đơn hàng</p>
+
+                                            <th:block th:each="x: ${giaoHangListActive}">
+                                                <p th:if="${x.trangThai == 2}" style="color: red; margin-top: 30px;" th:text="${#dates.format(x.thoiGian, 'HH:mm yyyy-MM-dd')}"></p>
+                                                <p th:if="${x.trangThai == 2}" style="color: red;" th:text="${x.viTri}"></p>
+
+                                                <p th:if="${x.trangThai == 1}" style="color: blue; margin-top: 30px;" th:text="${#dates.format(x.thoiGian, 'HH:mm yyyy-MM-dd')}"></p>
+                                                <p th:if="${x.trangThai == 1}" style="color: blue;" th:text="${x.viTri}"></p>
+
+                                                <p th:if="${x.trangThai == 0}" style=" margin-top: 30px;" th:text="${#dates.format(x.thoiGian, 'HH:mm yyyy-MM-dd')}"></p>
+                                                <p th:if="${x.trangThai == 0}" th:text="${x.viTri}"></p>
+                                            </th:block>
+
+
+                                        </div>
+                                    </div>
+
+                                    <div style="border: 0.5px solid #ff9f43; padding: 10px;" class="row">
+                                        <div class="vertical-scroll scroll-demo">
+                                            <table class="table  datanew ">
+                                                <thead>
+                                                <tr>
+                                                    <th>Mã Hóa Đơn</th>
+                                                    <th>Thời gian tạo</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Khách hàng</th>
+                                                    <th>Tổng SP</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Vị trí đơn hàng</th>
+                                                    <th>Hành động</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <th:block th:each="x: ${hoaDonDGList}">
+                                                        <tr>
+                                                            <td th:text="${x.maHD}"></td>
+                                                            <td th:text="${x.tgTao}"></td>
+                                                            <td>Đang giao</td>
+                                                            <td th:text="${x.tenNguoiNhan}"></td>
+                                                            <td th:text="${x.tongSP}"></td>
+                                                            <td th:text="'₫'+${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
+                                                            <td>Đơn hàng tại Thanh Hóa</td>
+                                                            <th>
+                                                                <i class="fe fe-eye" data-bs-toggle="modal"
+                                                                   data-bs-target="#modalDVC" title="" style="cursor: pointer; margin-left: 20px; color: #ff9f43;"></i>
+                                                                <a th:href="@{'/order/delivery/update/' + ${x.idHD}}">
+                                                                    <i class="fe fe-edit-3" data-bs-original-title="Cập nhật giao hàng"
+                                                                       data-bs-toggle="tooltip" title="" style="cursor: pointer; margin-left: 20px; color: #ff9f43;"></i>
+                                                                </a>
+                                                            </th>
+                                                        </tr>
+                                                    </th:block>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div th:class="${tabpane3}" id="solid-rounded-justified-tab3">
+                                    <div class="row">
+                                        <div class="vertical-scroll scroll-demo">
+                                            <table class="table  datanew ">
+                                                <thead>
+                                                <tr>
+                                                    <th>Mã Hóa Đơn</th>
+                                                    <th>Thời gian bắt đầu</th>
+                                                    <th>Trạng thái</th>
+                                                    <th>Khách hàng</th>
+                                                    <th>Tổng SP</th>
+                                                    <th>Tổng tiền</th>
+                                                    <th>Thời gian thành công/hủy</th>
+                                                    <th>Hành động</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <th:block th:each="x: ${hoaDonDoneList}">
+                                                        <tr>
+                                                            <td th:text="${x.maHD}"></td>
+                                                            <td th:text="${x.tgTao}"></td>
+
+                                                            <td th:if="${x.trangThai == 3}" style="color: #219edf;">Thành công</td>
+                                                            <td th:if="${x.trangThai == 4}" style="color: #fe2857;">Hủy đơn</td>
+
+                                                            <td th:text="${x.tenNguoiNhan}"></td>
+                                                            <td th:text="${x.tongSP}"></td>
+                                                            <td th:text="'₫'+${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
+                                                            <td>01:03 2011/04/29</td>
+                                                            <th>
+                                                                <i class="fe fe-eye" data-bs-toggle="modal"
+                                                                   data-bs-target="#modalDone" style="cursor: pointer; margin-left: 30px; color: #ff9f43;"
+                                                                   aria-label="fe fe-printer"></i>
+                                                            </th>
+                                                        </tr>
+                                                    </th:block>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<section>
+    <!-- Modal All giao hàng Begin -->
+    <div class="modal fade" id="modalAll" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+        <div id='parent' class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 900px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Chi tiết hóa đơn đang giao</h5>
+                    <a href="#">Xem hành trình đơn hàng</a>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Mã đơn hàng :</label>
+                                <p style="font-size: 13pt; font-weight: 700;">HD_KH001_2446274436</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Số tiền :</label>
+                                <p style="font-size: 11pt; font-weight: 6600;">đ2556392000</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Số lượng SP :</label>
+                                <p style="font-size: 12pt; font-weight: 700;">3</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Thời gian tạo :</label>
+                                <p style="font-size: 11pt; font-weight: 600;">01:03 2011/04/25</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Nhân viên giao :</label>
+                                <p style="font-size: 12pt; font-weight: 700;">Nhan Suy</p>
+
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Số điện thoại người nhận:</label>
+                                <p style="font-size: 12pt; font-weight: 700;">0384329003</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Tên khách hàng :</label>
+                                <p style="font-size: 12pt; font-weight: 700;">3</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Thời gian giao hàng :</label>
+                                <p style="font-size: 11pt; font-weight: 600;">01:03 2011/04/25</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Lời nhắn :</label>
+                                <p style="font-size: 11pt; font-weight: 600;">
+                                    Chúc mừng sinh nhật Cậu</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Địa chỉ :</label>
+                                <p style="font-size: 11pt; font-weight: 600;">
+                                    Toà Nhà T1, Số 35, Lê Văn Lương, Phường Nhân Chính, Quận Thanh Xuân, Hà Nội</p>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Vị trí đơn hàng hiện tại </label>
+                                <p style="font-size: 11pt; font-weight: 600;">
+                                    Đơn hàng đã giao đến Thanh Hóa</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <a class="btn btn-cancel" data-bs-dismiss="modal">OK</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal All Purchase End -->
+
+    <!-- Modal All giao hàng Begin -->
+    <div class="modal fade" id="modalDVC" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 900px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Chi tiết hóa đơn đang giao</h5>
+                    <a href="#">Xem hành trình đơn hàng</a>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Mã đơn hàng :</label>
+                                <p style="font-size: 13pt; font-weight: 700;">HD_KH001_2446274436</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Số tiền :</label>
+                                <p style="font-size: 11pt; font-weight: 6600;">đ2556392000</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Số lượng SP :</label>
+                                <p style="font-size: 12pt; font-weight: 700;">3</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Thời gian tạo :</label>
+                                <p style="font-size: 11pt; font-weight: 600;">01:03 2011/04/25</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Nhân viên giao :</label>
+                                <!-- <p style="font-size: 12pt; font-weight: 700;">Nhan Suy</p> -->
+                                <select class="form-control nested">
+                                    <option selected="selected">orange</option>
+                                    <option>white</option>
+                                    <option>purple</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Số điện thoại người nhận:</label>
+                                <p style="font-size: 12pt; font-weight: 700;">0384329003</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Tên khách hàng :</label>
+                                <p style="font-size: 12pt; font-weight: 700;">3</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Thời gian giao hàng :</label>
+                                <p style="font-size: 11pt; font-weight: 600;">01:03 2011/04/25</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Địa chỉ :</label>
+                                <p style="font-size: 11pt; font-weight: 600;">
+                                    Toà Nhà T1, Số 35, Lê Văn Lương, Phường Nhân Chính, Quận Thanh Xuân, Hà Nội</p>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Vị trí đơn hàng hiện tại </label>
+                                <p style="font-size: 11pt; font-weight: 600;">
+                                    Đơn hàng đã giao đến Thanh Hóa</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <a class="btn btn-cancel" data-bs-dismiss="modal">OK</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal All Purchase End -->
+
+    <!-- Modal All giao hàng Begin -->
+    <div class="modal fade" id="modalUpdateDVC" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 900px;">
+
+        </div>
+    </div>
+    <!-- Modal All Purchase End -->
+
+    <!-- Modal All giao hàng Begin -->
+    <div class="modal fade" id="modalDone" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 900px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Chi tiết hóa đơn đang giao</h5>
+                    <a href="#">Xem hành trình đơn hàng</a>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Mã đơn hàng :</label>
+                                <p style="font-size: 13pt; font-weight: 700;">HD_KH001_2446274436</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Số tiền :</label>
+                                <p style="font-size: 11pt; font-weight: 6600;">đ2556392000</p>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-2 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Số lượng SP :</label>
+                                <p style="font-size: 12pt; font-weight: 700;">3</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Thời gian tạo :</label>
+                                <p style="font-size: 11pt; font-weight: 600;">01:03 2011/04/25</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Nhân viên giao :</label>
+                                <!-- <p style="font-size: 12pt; font-weight: 700;">Nhan Suy</p> -->
+                                <select class="form-control nested">
+                                    <option selected="selected">orange</option>
+                                    <option>white</option>
+                                    <option>purple</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Số điện thoại người nhận:</label>
+                                <p style="font-size: 12pt; font-weight: 700;">0384329003</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Tên khách hàng :</label>
+                                <p style="font-size: 12pt; font-weight: 700;">3</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Thời gian giao hàng :</label>
+                                <p style="font-size: 11pt; font-weight: 600;">01:03 2011/04/25</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Địa chỉ :</label>
+                                <p style="font-size: 11pt; font-weight: 600;">
+                                    Toà Nhà T1, Số 35, Lê Văn Lương, Phường Nhân Chính, Quận Thanh Xuân, Hà Nội</p>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-12 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Vị trí đơn hàng hiện tại </label>
+                                <p style="font-size: 11pt; font-weight: 600;">
+                                    Đơn hàng đã giao đến Thanh Hóa</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <a class="btn btn-cancel" data-bs-dismiss="modal">OK</a>
+                            <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- Modal All Purchase End -->
+</section>
+
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+<script>
+    // function printDiv() {
+    //     var div = document.getElementById('parent');
+    //     var win = window.open('', '', 'height=700,width=700');
+    //     win.document.write(div.outerHTML);
+    //     win.document.close();
+    //     win.print();
+    // }
+    //
+    // function saveImage() {
+    //     var div = document.getElementById('parent');
+    //
+    //     // Sử dụng html2canvas để chụp ảnh của thẻ div
+    //     html2canvas(div).then(function(canvas) {
+    //         // Chuyển đổi ảnh thành đường dẫn dữ liệu
+    //         var imageData = canvas.toDataURL("image/png");
+    //
+    //         // Tạo một liên kết để tải về ảnh
+    //         var link = document.createElement('a');
+    //         link.href = imageData;
+    //         link.download = 'div_image.png';
+    //         link.click();
+    //     });
+    // }
+</script>
+
+
+<script src="/js/jquery-3.6.0.min.js"></script>
+
+<script src="/js/feather.min.js"></script>
+
+<script src="/js/jquery.slimscroll.min.js"></script>
+
+<script src="/js/jquery.dataTables.min.js"></script>
+<script src="/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+<script src="/js/script.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+
+<script>
+    const host = "https://provinces.open-api.vn/api/";
+    var callAPI = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data, "city");
+            });
+    }
+    callAPI('https://provinces.open-api.vn/api/?depth=1');
+    var callApiDistrict = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data.districts, "district");
+            });
+    }
+    var callApiWard = (api) => {
+        return axios.get(api)
+            .then((response) => {
+                renderData(response.data.wards, "ward");
+            });
+    }
+
+    var renderData = (array, select) => {
+        let row = ' <option disable value="">Chọn</option>';
+        array.forEach(element => {
+            row += `<option data-id="${element.code}" value="${element.name}">${element.name}</option>`
+        });
+        document.querySelector("#" + select).innerHTML = row
+    }
+
+    $("#city").change(() => {
+        callApiDistrict(host + "p/" + $("#city").find(':selected').data('id') + "?depth=2");
+        printResult();
+    });
+    $("#district").change(() => {
+        callApiWard(host + "d/" + $("#district").find(':selected').data('id') + "?depth=2");
+        printResult();
+    });
+    $("#ward").change(() => {
+        printResult();
+    })
+
+    var printResult = () => {
+        if ($("#district").find(':selected').data('id') != "" && $("#ward").find(':selected').data('id') != "" &&
+            $("#city").find(':selected').data('id') != "") {
+        }
+    }
+</script>
 </body>
+
 </html>

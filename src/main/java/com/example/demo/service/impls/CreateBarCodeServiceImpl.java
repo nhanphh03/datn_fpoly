@@ -34,7 +34,9 @@ public class CreateBarCodeServiceImpl implements CreateBarCode {
     @Override
     public void saveBarcodeImage(ChiTietGiay chiTietGiay, int width, int height) {
         try {
-            String qrCodePath = "C:\\imagesBarcode\\";
+            String projectPath = System.getProperty("user.dir");
+            String qrCodePath = projectPath + "/src/main/resources/static/images/imgsBarcode/";
+//            String qrCodePath = getClass().getResource("src/main/resources/static/images/imgsBarcode/").getPath();
             String qrCodeName = qrCodePath + chiTietGiay.getIdCTG() + ".png";
             Color backgroundColor = Color.white;
             QRCodeWriter qrCodeWriter = new QRCodeWriter();
@@ -57,7 +59,9 @@ public class CreateBarCodeServiceImpl implements CreateBarCode {
     }
     @Override
     public void deleteQRCode() {
-        String qrCodePath = "C:\\imagesBarcode\\";
+        String projectPath = System.getProperty("user.dir");
+        String qrCodePath = projectPath + "/src/main/resources/static/images/imgsBarcode/";
+//        String qrCodePath = getClass().getResource("src/main/resources/static/images/imgsBarcode/").getPath();
         File directory = new File(qrCodePath);
         if (directory.exists() && directory.isDirectory()) {
             File[] files = directory.listFiles();
