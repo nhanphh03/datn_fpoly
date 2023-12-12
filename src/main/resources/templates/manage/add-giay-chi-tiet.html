@@ -25,6 +25,47 @@
     <link rel="stylesheet" href="/plugins/alertify/alertify.min.css"/>
     <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
     <link rel="stylesheet" href="/css/style.css">
+    <!-- Thêm link thư viện Alertify -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/themes/default.min.css"/>
+    <style>
+        .image-option {
+            display: flex; /* Sắp xếp các phần tử con theo chiều ngang */
+            align-items: center; /* Căn giữa theo chiều dọc */
+        }
+
+        .image-option img {
+            width: 50px; /* Điều chỉnh kích thước ảnh */
+            height: 50px;
+            margin-right: 10px; /* Khoảng cách giữa ảnh và nội dung khác */
+        }
+
+        .my-checkbox-x2 {
+            transform: scale(2);
+            margin-left: 40px;
+            margin-right: 10px;
+        }
+
+    </style>
+    <style>
+        .alertify .ajs-message {
+            background-color: black;
+            color: #ffffff;
+        }
+
+        /* Thay đổi màu nền của tiêu đề */
+        .alertify .ajs-header {
+            background-color: coral;
+            color: #ffffff;
+        }
+
+        /* Thay đổi màu nền của các nút */
+        .alertify .ajs-buttons .ajs-ok {
+            background-color: #2ecc71;
+            color: #ffffff;
+        }
+    </style>
+
 </head>
 <body>
 <div id="global-loader">
@@ -232,7 +273,8 @@
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
+                        <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg"
+                                                       alt="img"><span> Thống Kê</span>
                         </a>
                     </li>
                     <li class="submenu">
@@ -308,7 +350,8 @@
             </div>
         </div>
     </div>
-    <form th:object="${giayChiTiet}" method="post" th:action="@{/manage/giay-chi-tiet/viewAdd/add}">
+    <form th:object="${giayChiTiet}" method="post" th:action="@{/manage/giay-chi-tiet/viewAdd/add}" id="formId"
+          onsubmit="return validateForm()">
         <div class="page-wrapper">
             <div class="content">
                 <div class="page-header">
@@ -321,20 +364,17 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Giày</label>
-                                    <select class="select" th:field="*{giay}">
+                                    <select class="select" th:field="*{giay}" name="giay"
+                                            onchange="updatePreviewTable()">
                                         <option th:each="loc : ${giay}" th:value="${loc.idGiay}"
                                                 th:text="${loc.tenGiay}"></option>
                                     </select>
-                                    <!--                                    <br><br>-->
-                                    <!--                                    <strong th:if="${#fields.hasErrors('giay')}"-->
-                                    <!--                                            class="alert alert-danger alert-dismissible fade show"-->
-                                    <!--                                            role="alert" th:errors="*{giay}"></strong>-->
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-2 col-2 ps-0">
+                            <div class="col-lg-1 col-sm-2 col-2 ps-0">
                                 <div class="add-icon">
                                     <a href="javascript:void(0);" id="modal-giay" data-toggle="modal"
                                        data-target="#myModal"><img
@@ -342,16 +382,24 @@
                                             alt="img"></a>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="col-lg-5 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Số Lượng</label>
+                                    <input type="text" th:field="*{soLuong}" name="soLuong" required>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Màu Sắc</label>
-                                    <select class="select" th:field="*{mauSac}">
+                                    <select class="select" th:field="*{mauSac}" name="mauSac"
+                                            onchange="updatePreviewTable()">
                                         <option th:each="loc : ${mauSac}" th:value="${loc.idMau}"
-                                                th:text="${loc.tenMau}"></option>
+                                                th:text="${loc.tenMau}"
+                                                th:style="'color: '+ ${loc.maMau}"></option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-2 col-2 ps-0">
+                            <div class="col-lg-1 col-sm-2 col-2 ps-0">
                                 <div class="add-icon">
                                     <a href="javascript:void(0);" id="modal-mauSac" data-toggle="modal"
                                        data-target="#myModal"><img
@@ -359,33 +407,30 @@
                                             alt="img"></a>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="col-lg-2 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Hình Ảnh</label>
-                                    <select class="select" th:field="*{hinhAnh}">
-                                        <option th:each="loc : ${hinhAnh}" th:value="${loc.idHinhAnh}"
-                                                th:text="${loc.maAnh}"></option>
-                                    </select>
+                                    <label>Năm Sản Xuất</label>
+                                    <input type="text" th:field="*{namSX}" name="namSX" required>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-2 col-2 ps-0">
-                                <div class="add-icon">
-                                    <a href="javascript:void(0);" id="modal-hinhAnh" data-toggle="modal"
-                                       data-target="#myModal"><img
-                                            src="/images/img/icons/plus1.svg"
-                                            alt="img"></a>
+                            <div class="col-lg-2 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Năm Bảo Hành</label>
+                                    <input type="text" th:field="*{namBH}" name="namBH" required>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="col-lg-1 col-sm-6 col-12">
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Size</label>
-                                    <select class="select" th:field="*{size}">
-                                        <option th:each="loc : ${size}" th:value="${loc.idSize}"
-                                                th:text="${loc.soSize}"></option>
-                                    </select>
+                                    <input type="checkbox" th:each="loc : ${size}" th:value="${loc.idSize}"
+                                           th:text="${loc.soSize}"
+                                           th:if="${loc.trangThai} == 1"
+                                           name="listSize" class="my-checkbox-x2" onchange="updatePreviewTable()">
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-2 col-2 ps-0">
+                            <div class="col-lg-1 col-sm-2 col-2 ps-0">
                                 <div class="add-icon">
                                     <a href="javascript:void(0);" id="modal-size" data-toggle="modal"
                                        data-target="#myModal"><img
@@ -393,55 +438,75 @@
                                             alt="img"></a>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Năm Sản Xuất</label>
-                                    <input type="text" th:field="*{namSX}" required>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Năm Bảo Hành</label>
-                                    <input type="text" th:field="*{namBH}" required>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="col-lg-5 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Trọng Lượng</label>
-                                    <input type="text" th:field="*{trongLuong}" required>
+                                    <input type="text" th:field="*{trongLuong}" name="trongLuong" required>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Hình Ảnh</label>
+                                    <select class="select image" th:field="*{hinhAnh}" name="hinhAnh"
+                                            onchange="updatePreviewTable()">
+                                        <option th:each="loc : ${hinhAnh}" th:value="${loc.idHinhAnh}"
+                                                th:data-url1="${loc.url1}" th:data-url2="${loc.url2}"
+                                                th:data-url3="${loc.url3}" th:data-url4="${loc.url4}">
+                                            <div class="image-option">
+                                                <span th:text="${loc.maAnh}"></span>
+                                            </div>
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-1 col-sm-2 col-2 ps-0">
+                                <div class="add-icon">
+                                    <a href="javascript:void(0);" id="modal-hinhAnh" data-toggle="modal"
+                                       data-target="#myModal"><img
+                                            src="/images/img/icons/plus1.svg"
+                                            alt="img"></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-5 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Giá Bán</label>
-                                    <input type="text" th:field="*{giaBan}" required>
+                                    <input type="text" th:field="*{giaBan}" name="giaBan" required>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Số Lượng</label>
-                                    <input type="text" th:field="*{soLuong}" required>
-                                </div>
+                            <div class="col-lg-12 col-sm-6 col-12">
+                                <img id="selectedImage1" alt="Ảnh sản phẩm 1" style="width: 200px; height: 200px;">
+                                <img id="selectedImage2" alt="Ảnh sản phẩm 2" style="width: 200px; height: 200px;">
+                                <img id="selectedImage3" alt="Ảnh sản phẩm 3" style="width: 200px; height: 200px;">
+                                <img id="selectedImage4" alt="Ảnh sản phẩm 4" style="width: 200px; height: 200px;">
+                                <br><br>
                             </div>
-                            <!--                            <div class="col-lg-3 col-sm-6 col-12">-->
-                            <!--                                <div class="form-group">-->
-                            <!--                                    <label>Trạng Thái</label>-->
-                            <!--                                    <select class="select" th:field="*{trangThai}">-->
-                            <!--                                        <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
-                            <!--                                                th:text="${loc.value}"></option>-->
-                            <!--                                    </select>-->
-                            <!--                                </div>-->
-                            <!--                            </div>-->
-
-
                             <div class="col-lg-12">
                                 <button type="submit" class="btn btn-submit me-2">Submit</button>
-                                <a href="#" id="cancelButton" class="btn btn-cancel">Cancel</a>
+                                <a id="cancelButton" class="btn btn-cancel">Cancel</a>
+                                <br><br>
                             </div>
+                            <table id="previewTable" class="table">
+                                <thead>
+                                <tr>
+                                    <th>Giày</th>
+                                    <th>Số Lượng</th>
+                                    <th>Màu Sắc</th>
+                                    <th>Năm Sản Xuất</th>
+                                    <th>Năm Bảo Hành</th>
+                                    <th>Size</th>
+                                    <th>Trọng Lượng</th>
+                                    <th>Mã Ảnh</th>
+                                    <th>Giá Bán</th>
+                                    <!-- Thêm các cột khác tương ứng với form của bạn -->
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <!-- Dữ liệu sẽ được thêm vào đây bằng JavaScript -->
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </form>
@@ -450,7 +515,7 @@
 <div class="modal fade" id="myModal-giay" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel-giay"></h5>
@@ -467,7 +532,6 @@
                             <h6>Quản Lý Giày</h6>
                         </div>
                     </div>
-
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
@@ -567,17 +631,23 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="col-lg-4 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã</label>
                                         <input type="text" th:field="*{ma}" required>
                                     </div>
                                 </div>
-                                <br>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Mã Màu</label>
-                                        <input type="text" th:field="*{maMau}" required>
+                                        <label>Mã Màu (RGB)</label>
+                                        <input type="text" id="rgbValue" th:field="*{maMau}" readonly
+                                               class="form-control" style="margin-top: 5px;">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 col-sm-6 col-12">
+                                    <div class="form-group">
+                                        <input type="color" onchange="updateRGBValue(this.value)"
+                                               required class="large-input">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
@@ -665,7 +735,7 @@
 <div class="modal fade" id="myModal-hinhAnh" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel-hinhAnh"></h5>
@@ -674,7 +744,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form th:object="${hinhAnhAdd}" method="post" th:action="@{/manage/giay-chi-tiet/hinh-anh/viewAdd/add}" enctype="multipart/form-data"
+                <form th:object="${hinhAnhAdd}" method="post" th:action="@{/manage/giay-chi-tiet/hinh-anh/viewAdd/add}"
+                      enctype="multipart/form-data"
                       style="width: auto;height: auto">
                     <div class="page-header">
                         <div class="page-title">
@@ -701,7 +772,6 @@
                                                      style="display: none; max-width: 300px; max-height: 300px;">
                                     </div>
                                 </div>
-                                <div th:fragment="whitespace">&nbsp;</div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Ảnh 2</label>
@@ -721,7 +791,6 @@
                                                      style="display: none; max-width: 300px; max-height: 300px;">
                                     </div>
                                 </div>
-                                <div th:fragment="whitespace">&nbsp;</div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Ảnh 4</label>
@@ -766,6 +835,7 @@
             </div>
             <div class="modal-body">
                 <form th:object="${hangAdd}" method="post" th:action="@{/manage/giay-chi-tiet/giay/hang/viewAdd/add}"
+                      enctype="multipart/form-data"
                       style="width: auto;height: auto">
                     <div class="page-header">
                         <div class="page-title">
@@ -779,31 +849,29 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Logo</label>
-                                        <input th:field="*{logoHang}" type="file" id="imageInput"
-                                               accept="image/*"
+                                        <input name="logoHang" type="file" id="anhHang" accept="image/*"
                                                onchange="previewImage(event)">
-                                        <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
+                                        <br><br><img id="anhHang1" src="#" alt="Ảnh mô tả"
                                                      style="display: none; max-width: 150px; max-height: 150px;">
                                     </div>
                                 </div>
-                                <div th:utext="'&nbsp;'"></div>
+                                <div class="col-lg-6 col-sm-6 col-12"></div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Mã Hãng</label>
-                                        <input type="text" th:field="*{maHang}" required>
+                                        <label>Mã Hãng</label><br><br>
+                                        <input type="text" name="maHang" required>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Tên Hãng</label>
-                                        <input type="text" th:field="*{tenHang}" required>
+                                        <label>Tên Hãng</label><br><br>
+                                        <input type="text" name="tenHang" required>
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
                                 <!--                                    <div class="form-group">-->
                                 <!--                                        <label>Trạng Thái</label>-->
-                                <!--                                        <select class="select" th:field="*{trangThai}" id="trangThaiHang"-->
-                                <!--                                                name="trangThaiHang">-->
+                                <!--                                        <select class="select" th:field="*{trangThai}">-->
                                 <!--                                            <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"-->
                                 <!--                                                    th:text="${loc.value}"></option>-->
                                 <!--                                        </select>-->
@@ -1137,6 +1205,7 @@
 
 <script src="/js/script.js"></script>
 <script src="/plugins/alertify/custom-alertify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Lấy phần tử có id="modal"
@@ -1265,6 +1334,23 @@
             };
 
             reader.readAsDataURL(anh4.files[0]);
+        }
+    }
+</script>
+<script>
+    function previewImage(event) {
+        const imageInput = document.getElementById('anhHang');
+        const imagePreview = document.getElementById('anhHang1');
+
+        if (imageInput.files && imageInput.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+                imagePreview.src = e.target.result;
+                imagePreview.style.display = 'block';
+            };
+
+            reader.readAsDataURL(imageInput.files[0]);
         }
     }
 </script>
@@ -1541,6 +1627,188 @@
             giaBanError.innerText = "";
             giaBanInput.setCustomValidity("");
         }
+    }
+</script>
+<script>
+    function updateRGBValue(hexValue) {
+        var rgbValue = hexToRgb(hexValue);
+        document.getElementById('rgbValue').value = 'RGB(' + rgbValue.r + ', ' + rgbValue.g + ', ' + rgbValue.b + ')';
+    }
+
+    function hexToRgb(hex) {
+        // Chuyển đổi mã màu hex thành giá trị RGB
+        var bigint = parseInt(hex.substring(1), 16);
+        var r = (bigint >> 16) & 255;
+        var g = (bigint >> 8) & 255;
+        var b = bigint & 255;
+        return {r: r, g: g, b: b};
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        function updateSelectedImages() {
+            var selectedValue = $('.image').val();
+            var selectedOption = $('option[value="' + selectedValue + '"]');
+            var imageUrl1 = selectedOption.attr('data-url1');
+            var imageUrl2 = selectedOption.attr('data-url2');
+            var imageUrl3 = selectedOption.attr('data-url3');
+            var imageUrl4 = selectedOption.attr('data-url4');
+            $('#selectedImage1').attr('src', '/images/imgsProducts/' + imageUrl1);
+            $('#selectedImage2').attr('src', '/images/imgsProducts/' + imageUrl2);
+            $('#selectedImage3').attr('src', '/images/imgsProducts/' + imageUrl3);
+            $('#selectedImage4').attr('src', '/images/imgsProducts/' + imageUrl4);
+        }
+        updateSelectedImages();
+        $('.image').change(function () {
+            updateSelectedImages();
+        });
+    });
+</script>
+<script th:inline="javascript">
+    // Đoạn mã JavaScript
+    document.addEventListener("DOMContentLoaded", function () {
+        var form = document.getElementById("formId");
+        var previewTableBody = document.querySelector("#previewTable tbody");
+        form.addEventListener("input", function () {
+            updatePreviewTable();
+        });
+        window.updatePreviewTable = function () {
+            previewTableBody.innerHTML = "";
+            var giaySelect = form.elements["giay"];
+            var giayText = giaySelect.options[giaySelect.selectedIndex].text;
+            var soLuongValue = document.querySelector("[name='soLuong']").value;
+            var mauSacSelect = form.elements["mauSac"];
+            var selectedMauSac = mauSacSelect.options[mauSacSelect.selectedIndex];
+            var mauSacValue = selectedMauSac.text;
+            var mauSacColor = selectedMauSac.style.color;
+            var namSXValue = document.querySelector("[name='namSX']").value;
+            var namBHValue = document.querySelector("[name='namBH']").value;
+            var sizeCheckboxes = document.querySelectorAll("[name='listSize']:checked");
+
+            sizeCheckboxes.forEach(function (checkbox) {
+                var sizeValue = checkbox.nextSibling.textContent || checkbox.nextSibling.innerText;
+                var trongLuongValue = document.querySelector("[name='trongLuong']").value + " gram";
+                var hinhAnhSelect = form.elements["hinhAnh"];
+                var hinhAnhText = hinhAnhSelect.options[hinhAnhSelect.selectedIndex].text;
+                var giaBanValue = document.querySelector("[name='giaBan']").value;
+                var giaBanNumber = parseFloat(giaBanValue);
+                if (!isNaN(giaBanNumber)) {
+                    var formattedGiaBan = giaBanNumber.toLocaleString('vi-VN', {
+                        style: 'currency',
+                        currency: 'VND',
+                        minimumFractionDigits: 0,
+                        maximumFractionDigits: 2
+                    });
+
+                    console.log(formattedGiaBan);
+                } else {
+                    console.log("Giá bán không hợp lệ");
+                }
+                var newRow = previewTableBody.insertRow();
+                var cell1 = newRow.insertCell(0);
+                var cell2 = newRow.insertCell(1);
+                var cell3 = newRow.insertCell(2);
+                var cell4 = newRow.insertCell(3);
+                var cell5 = newRow.insertCell(4);
+                var cell6 = newRow.insertCell(5);
+                var cell7 = newRow.insertCell(6);
+                var cell8 = newRow.insertCell(7);
+                var cell9 = newRow.insertCell(8);
+
+                cell1.innerHTML = giayText;
+                cell2.innerHTML = soLuongValue;
+                var mauSacDiv = document.createElement("div");
+                mauSacDiv.style.color = mauSacColor;
+                mauSacDiv.innerText = mauSacValue;
+                cell3.appendChild(mauSacDiv);
+                cell4.innerHTML = namSXValue;
+                cell5.innerHTML = namBHValue;
+                cell6.innerHTML = sizeValue;
+                cell7.innerHTML = trongLuongValue;
+                cell8.innerHTML = hinhAnhText;
+                cell9.innerHTML = formattedGiaBan;
+            });
+        }
+    });
+</script>
+<script>
+    function validateForm() {
+        var giay = document.forms["formId"]["giay"].value;
+        var soLuong = document.forms["formId"]["soLuong"].value;
+        var mauSac = document.forms["formId"]["mauSac"].value;
+        var namSX = document.forms["formId"]["namSX"].value;
+        var namBH = document.forms["formId"]["namBH"].value;
+        var listSize = document.forms["formId"]["listSize"].value;
+        var trongLuong = document.forms["formId"]["trongLuong"].value;
+        var hinhAnh = document.forms["formId"]["hinhAnh"].value;
+        var giaBan = document.forms["formId"]["giaBan"].value;
+
+        if (giay === "") {
+            showAlert("Vui lòng chọn Giày");
+            return false;
+        }
+
+        if (soLuong === "" || isNaN(soLuong) || soLuong <= 0 || soLuong > 10000) {
+            showAlert("Vui lòng nhập một số hợp lệ (10,000 > soLuong > 0) cho Số Lượng");
+            return false;
+        }
+
+        if (mauSac === "") {
+            showAlert("Vui lòng chọn Màu Sắc");
+            return false;
+        }
+
+        if (!isValidYear(namSX)) {
+            showAlert("Vui lòng nhập một năm hợp lệ cho Năm Sản Xuất");
+            return false;
+        }
+
+        if (!isValidYear(namBH)) {
+            showAlert("Vui lòng nhập một năm hợp lệ cho Năm Bảo Hành");
+            return false;
+        }
+
+        var checkboxes = document.forms["formId"]["listSize"];
+        var checked = false;
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                checked = true;
+                break;
+            }
+        }
+        if (!checked) {
+            showAlert("Vui lòng chọn ít nhất một Size");
+            return false;
+        }
+
+        if (trongLuong === "" || isNaN(trongLuong) || trongLuong <= 0) {
+            showAlert("Vui lòng nhập một số hợp lệ ( > 0) cho Trọng Lượng");
+            return false;
+        }
+
+        if (hinhAnh === "") {
+            showAlert("Vui lòng chọn Hình Ảnh");
+            return false;
+        }
+
+        if (giaBan === "" || isNaN(giaBan) || giaBan <= 0 || giaBan > 50000000) {
+            showAlert("Vui lòng nhập một số hợp lệ (50,000,000 > giaBan > 0) cho Giá Bán");
+            return false;
+        }
+
+        return true;
+    }
+
+    function isValidYear(year) {
+        var yearPattern = /^\d{4}$/;
+        return yearPattern.test(year);
+    }
+
+    function showAlert(message) {
+        alertify.alert(message).setting({
+            'title': 'Thông báo',
+            'label': 'Đồng ý',
+        }).show();
     }
 </script>
 </body>
