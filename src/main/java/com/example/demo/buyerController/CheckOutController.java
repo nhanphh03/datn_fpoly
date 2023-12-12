@@ -123,6 +123,7 @@ public class CheckOutController {
 
         hoaDon.setTongTien(total);
         hoaDon.setTongSP(sumQuantity);
+        hoaDon.setTrangThaiHoan(8);
 
         hoaDonService.add(hoaDon);
 

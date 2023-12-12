@@ -23,13 +23,16 @@ public class GiaoHang {
     @Column(name = "id_Giao_Hang")
     private UUID idGH;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name="idHD")
     private HoaDon hoaDon;
 
     @ManyToOne
-    @JoinColumn(name="idNV")
-    private NhanVien nhanVien;
+    @JoinColumn(name="id_DVVC")
+    private DonViVanChuyen donViVanChuyen;
+
+    @Column(name = "ma_van_don")
+    private String maVanDon;
 
     @Column(name="trang_Thai")
     private int trangThai;
@@ -39,4 +42,7 @@ public class GiaoHang {
 
     @Column(name ="noi_Dung")
     private String noiDung;
+
+    @Column(name ="vi_Tri_DH")
+    private String viTri;
 }

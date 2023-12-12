@@ -15,15 +15,19 @@ import java.util.UUID;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ThanhToanHoanTien {
+public class LichSuThanhToan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "idHTTT")
     private UUID idHTTT;
 
-    @Column(name="maKH")
-    private String maKH;
+    @Column(name="maLSTT")
+    private String maLSTT;
+
+    @ManyToOne
+    @JoinColumn(name="idKH")
+    private KhachHang khachHang;
 
     @Column(name = "tgThanhToan")
     private Date tgThanhToan;
@@ -31,7 +35,16 @@ public class ThanhToanHoanTien {
     @Column(name = "trang_Thai")
     private int trangThai;
 
+    @Column(name = "loai_thanh_toan")
+    private int loaiTT;
+
     @Column(name="noiDungThanhToan")
     private String noiDungThanhToan;
 
+    @Column(name = "soTienTT")
+    private Double soTienThanhToan;
+
+    @ManyToOne
+    @JoinColumn(name="idHD")
+    private HoaDon hoaDon;
 }
