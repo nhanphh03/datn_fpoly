@@ -949,85 +949,92 @@
 </div>
 <div th:if="${namSXError}" id="warning1" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của số năm sản xuất phải lớn hơn hoặc bằng 1.</div>
     </div>
 </div>
 <div th:if="${namBHError}" id="warning2" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của số năm bảo hành phải lớn hơn hoặc bằng 1.</div>
     </div>
 </div>
 <div th:if="${trongLuongError}" id="warning3" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của trọng lượng phải lớn hơn hoặc bằng 1.</div>
     </div>
 </div>
 <div th:if="${giaBanError}" id="warning4" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của giá bán phải lớn hơn hoặc bằng 1.</div>
     </div>
 </div>
 <div th:if="${soLuongError}" id="warning5" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của số lượng phải lớn hơn hoặc bằng 0.</div>
     </div>
 </div>
 <div th:if="${mauSacError}" id="warning6" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Hãy chọn trường màu sắc.</div>
     </div>
 </div>
 <div th:if="${hinhAnhError}" id="warning7" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Hãy chọn trường hình ảnh.</div>
     </div>
 </div>
 <div th:if="${giayError}" id="warning8" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Hãy chọn trường giày.</div>
     </div>
 </div>
 <div th:if="${sizeError}" id="warning9" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Hãy chọn trường size.</div>
+    </div>
+</div>
+<div th:if="${daTonTai}" id="daTonTai" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button"></button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Giày chi tiết đã tồn tại trong cơ sở dữ liệu.</div>
     </div>
 </div>
 <!--//Size-->
 <div th:if="${messageSize}" id="successSize" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Size của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${maSizeError}" id="warning10" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Size không được trống.</div>
     </div>
 </div>
 <div th:if="${soSizeError}" id="warning11" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của số Size phải lớn hơn hoặc bằng 1. Và nhỏ hơn hoặc bằng 50.</div>
     </div>
@@ -1035,28 +1042,28 @@
 <!--//Màu-->
 <div th:if="${messageMau}" id="successMau" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Màu của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${maError}" id="warning12" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã không được trống.</div>
     </div>
 </div>
 <div th:if="${maMauError}" id="warning13" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã màu không được để trống.</div>
     </div>
 </div>
 <div th:if="${tenMauError}" id="warning14" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Tên màu không được để trống.</div>
     </div>
@@ -1064,35 +1071,35 @@
 <!--//Giay-->
 <div th:if="${messageGiay}" id="successGiay" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Giày của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${maGiayError}" id="warning19" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${tenGiayError}" id="warning15" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Tên Giày không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${hangError}" id="warning16" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Hãng không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${chatLieuError}" id="warning17" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Chất Liệu không được bỏ trống.</div>
     </div>
@@ -1100,14 +1107,14 @@
 <!--//Anh-->
 <div th:if="${messageAnh}" id="successAnh" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Ảnh của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${maHinhAnhError}" id="warning18" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã không được trống.</div>
     </div>
@@ -1115,21 +1122,21 @@
 <!--//Hãng-->
 <div th:if="${messageHang}" id="successHang" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Hãng của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${maHangError}" id="warning20" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Hãng không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${tenHangError}" id="warning21" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Tên Hãng không được bỏ trống.</div>
     </div>
@@ -1137,21 +1144,21 @@
 <!--//Chất liệu-->
 <div th:if="${messageChatLieu}" id="successChatLieu" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Chất Liệu của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${maChatLieuError}" id="warning22" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Chất Liệu không được bỏ trống trống.</div>
     </div>
 </div>
 <div th:if="${tenChatLieuError}" id="warning23" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Tên Chất Liệu không được bỏ trống.</div>
     </div>
@@ -1159,28 +1166,28 @@
 <!--//check mã-->
 <div th:if="${ErrormessageGiay}" id="checkMaGiay" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Giày đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${ErrormessageMau}" id="checkMaMau" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Màu đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${ErrormessageSize}" id="checkMaSize" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Size đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${ErrormessageAnh}" id="checkMaAnh" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Ảnh đã tồn tại.</div>
     </div>
@@ -1593,6 +1600,13 @@
         var checkMaAnh = document.getElementById('checkMaAnh');
         if (checkMaAnh) {
             checkMaAnh.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var daTonTai = document.getElementById('daTonTai');
+        if (daTonTai) {
+            daTonTai.style.display = 'none';
         }
     }, 5000);
 </script>
