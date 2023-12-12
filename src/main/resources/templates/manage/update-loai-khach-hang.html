@@ -324,21 +324,21 @@
                         <div class="row">
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Mã Loại Khách Hàng</label>
+                                    <label>Mã Loại Khách Hàng <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{maLKH}" readonly>
 
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Tên Loại Khách Hàng</label>
+                                    <label>Tên Loại Khách Hàng <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{tenLKH}">
 
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Số Điểm</label>
+                                    <label>Số Điểm <span style="color: red;">*</span></label>
                                     <input type="number" th:field="*{soDiem}"
                                            style="border: 1px solid rgba(145, 158, 171, .32);
                                             height: 40px;
@@ -352,7 +352,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Trạng Thái</label>
+                                    <label>Trạng Thái <span style="color: red;">*</span></label>
                                     <select class="select" th:field="*{trangThai}">
                                         <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
                                                 th:text="${loc.value}"></option>
