@@ -40,15 +40,7 @@ public class HomeOrder {
 
         showData(model);
 
-        model.addAttribute("activeAll", "nav-link active");
-        model.addAttribute("activeVanChuyen", "nav-link");
-        model.addAttribute("activeDone", "nav-link");
-
-        model.addAttribute("tabpane1", "tab-pane show active");
-        model.addAttribute("tabpane2", "tab-pane");
-        model.addAttribute("tabpane3", "tab-pane");
-
-
+        showDataTab1(model);
         return "transportation/index";
     }
 
@@ -59,6 +51,7 @@ public class HomeOrder {
 
         HoaDon hoaDon = hoaDonService.getOne(idHD);
         showDataGH(model, hoaDon);
+        showDataTab4(model);
 
         return "transportation/index";
 
@@ -91,7 +84,9 @@ public class HomeOrder {
             hoaDon.setTgNhan(new Date());
             hoaDonService.add(hoaDon);
 
-            showDataGH(model, hoaDon);
+//            showDataGH(model, hoaDon);
+            showData(model);
+            showDataTab2(model);
             return "transportation/index";
         } else if (trangThaiGiaoHang.equals("thatBai")){
             String viTri = "Đơn hàng giao thất bại ( " +moTa + " )";
@@ -111,7 +106,7 @@ public class HomeOrder {
                 hoaDon.setLyDoHuy(moTa);
                 hoaDonService.add(hoaDon);
 
-                showDataDoneAndCancel(model, hoaDon);
+                showDataTab2(model);
 
                 showData(model);
 
@@ -119,6 +114,7 @@ public class HomeOrder {
             }
 
             showDataGH(model, hoaDon);
+            showDataTab2(model);
             return "transportation/index";
         } else {
             String viTri = "Đơn hàng đã đến"  + ", " + ward + ", " + district + " , " + thanhPho;
@@ -140,6 +136,7 @@ public class HomeOrder {
             giaoHangService.saveGiaoHang(giaoHang);
 
             showDataGH(model, hoaDon);
+            showDataTab2(model);
             return "transportation/index";
 
         }
@@ -150,10 +147,44 @@ public class HomeOrder {
 
         HoaDon hoaDon = hoaDonService.getOne(idHD);
 
-
         model.addAttribute("billPrint", hoaDon);
 
         return "transportation/printBill";
+    }
+
+    @GetMapping("/delivery/refund/update/{idHD}")
+    private String viewUpdateRefundGiaoHang(Model model, @PathVariable UUID idHD){
+
+        showData(model);
+        HoaDon hoaDon = hoaDonService.getOne(idHD);
+        showDataGHHH(model, hoaDon);
+        showDataTab5(model);
+
+        return "transportation/index";
+
+    }
+    @PostMapping("/delivery/refund/update/{idHD}")
+    private String updateRefundGiaoHang(Model model, @PathVariable UUID idHD){
+
+        showData(model);
+
+        HoaDon hoaDon = hoaDonService.getOne(idHD);
+        showDataGHHH(model, hoaDon);
+        System.out.println("CCCCCCC");
+
+        showDataTab2(model);
+        return "transportation/index";
+
+    }
+
+    @GetMapping("/bill/refund/print/{idHD}")
+    private String printBillRefund(Model model, @PathVariable UUID idHD){
+
+        HoaDon hoaDon = hoaDonService.getOne(idHD);
+
+        model.addAttribute("billPrint", hoaDon);
+
+        return "transportation/printBillRefund";
     }
 
     private void showData(Model model){
@@ -176,23 +207,89 @@ public class HomeOrder {
         model.addAttribute("showHTGH", "true");
         model.addAttribute("HoaDonVanChuyen", hoaDon);
         model.addAttribute("giaoHangListActive", giaoHangListActive);
+    }
+
+    private void showDataGHHH(Model model, HoaDon hoaDon){
+
+        List<GiaoHang> giaoHangListActive = giaoHangService.listGiaoHangByHoaDon(hoaDon);
+        model.addAttribute("showHTGHHH", "true");
+        model.addAttribute("HoaDonVanChuyen", hoaDon);
+        model.addAttribute("giaoHangListActive", giaoHangListActive);
+
+    }
+
+    private void showDataTab1(Model model){
+
+        model.addAttribute("activeAll", "nav-link active");
+        model.addAttribute("activeVanChuyen", "nav-link");
+        model.addAttribute("activeDone", "nav-link");
+        model.addAttribute("activeMuaHang", "nav-link active");
+        model.addAttribute("activeHoanHang", "nav-link");
+
+        model.addAttribute("tabpane1", "tab-pane show active");
+        model.addAttribute("tabpane2", "tab-pane");
+        model.addAttribute("tabpane3", "tab-pane");
+        model.addAttribute("tabpane4", "tab-pane");
+        model.addAttribute("tabpane5", "tab-pane");
+    }
+
+    private void showDataTab2(Model model){
+
         model.addAttribute("activeAll", "nav-link");
         model.addAttribute("activeVanChuyen", "nav-link active");
         model.addAttribute("activeDone", "nav-link");
+        model.addAttribute("activeMuaHang", "nav-link active");
+        model.addAttribute("activeHoanHang", "nav-link");
 
         model.addAttribute("tabpane1", "tab-pane");
         model.addAttribute("tabpane2", "tab-pane show active");
         model.addAttribute("tabpane3", "tab-pane");
+        model.addAttribute("tabpane4", "tab-pane show active");
+        model.addAttribute("tabpane5", "tab-pane");
     }
 
-    private void showDataDoneAndCancel(Model model, HoaDon hoaDon){
+    private void showDataTab3(Model model){
 
         model.addAttribute("activeAll", "nav-link");
         model.addAttribute("activeVanChuyen", "nav-link");
         model.addAttribute("activeDone", "nav-link active");
+        model.addAttribute("activeMuaHang", "nav-link active");
+        model.addAttribute("activeHoanHang", "nav-link");
 
         model.addAttribute("tabpane1", "tab-pane");
         model.addAttribute("tabpane2", "tab-pane");
         model.addAttribute("tabpane3", "tab-pane show active");
+        model.addAttribute("tabpane4", "tab-pane");
+        model.addAttribute("tabpane5", "tab-pane");
+    }
+
+    private void showDataTab4(Model model){
+
+        model.addAttribute("activeAll", "nav-link");
+        model.addAttribute("activeVanChuyen", "nav-link active");
+        model.addAttribute("activeDone", "nav-link");
+        model.addAttribute("activeMuaHang", "nav-link active");
+        model.addAttribute("activeHoanHang", "nav-link");
+
+        model.addAttribute("tabpane1", "tab-pane");
+        model.addAttribute("tabpane2", "tab-pane show active");
+        model.addAttribute("tabpane3", "tab-pane");
+        model.addAttribute("tabpane4", "tab-pane show active");
+        model.addAttribute("tabpane5", "tab-pane");
+    }
+
+    private void showDataTab5(Model model){
+
+        model.addAttribute("activeAll", "nav-link");
+        model.addAttribute("activeVanChuyen", "nav-link active");
+        model.addAttribute("activeDone", "nav-link");
+        model.addAttribute("activeMuaHang", "nav-link");
+        model.addAttribute("activeHoanHang", "nav-link active");
+
+        model.addAttribute("tabpane1", "tab-pane");
+        model.addAttribute("tabpane2", "tab-pane show active");
+        model.addAttribute("tabpane3", "tab-pane");
+        model.addAttribute("tabpane4", "tab-pane");
+        model.addAttribute("tabpane5", "tab-pane show active");
     }
 }
