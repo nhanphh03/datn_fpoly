@@ -95,6 +95,7 @@ public class UserController {
 
         }
         model.addAttribute("pageAddressesUser",true);
+        model.addAttribute("addNewAddressSetting",true);
         return "online/user";
     }
 
@@ -105,7 +106,6 @@ public class UserController {
         String nameAddress = request.getParameter("nameAddress");
         String fullName = request.getParameter("fullName");
         String phoneAddress = request.getParameter("phoneAddress");
-        String thernAddress = request.getParameter("thernAddress");
         String city = request.getParameter("city");
         String district = request.getParameter("district");
         String ward = request.getParameter("ward");
@@ -119,7 +119,6 @@ public class UserController {
         diaChiKH.setKhachHang(khachHang);
         diaChiKH.setTrangThai(1);
         diaChiKH.setMaDC( "DC_" + khachHang.getMaKH() );
-        diaChiKH.setMien(thernAddress);
         diaChiKH.setSdtNguoiNhan(phoneAddress);
         diaChiKH.setQuanHuyen(district);
         diaChiKH.setTenDC(nameAddress);
@@ -312,23 +311,15 @@ public class UserController {
 
         UserForm(model, khachHang);
 
-        List<HoaDon> listHoaDonByKhachHang = hoaDonService.listHoaDonKhachHangAndTrangThaiOnline(khachHang, 7);
+        List<HoaDon> listHoaDonByKhachHang = hoaDonService.listHoaDonKhachHangAndTrangThaiOnline(khachHang, 3);
 
-        List<HoaDon> hoaDonList = new ArrayList<>();
-
-        for (HoaDon x: listHoaDonByKhachHang) {
-            UUID idHDOld = x.getIdHDOld();
-            HoaDon hoaDon = hoaDonService.getOne(idHDOld);
-            hoaDonList.add(hoaDon);
-        }
-        model.addAttribute("listAllHDByKhachHang", hoaDonList);
+        model.addAttribute("listAllHDByKhachHang", listHoaDonByKhachHang);
 
         model.addAttribute("pagePurchaseUser",true);
         model.addAttribute("purchaseRefund",true);
         model.addAttribute("type7","active");
         return "online/user";
     }
-//
 
     @GetMapping("/purchase/bill/detail/{idHD}")
     private String getDetailForm(Model model, @PathVariable UUID idHD){
@@ -436,10 +427,23 @@ public class UserController {
 
         HoaDon hoaDon= hoaDonService.getOne(idHD);
 
+        session.removeAttribute("billRefundDetail");
+        session.setAttribute("billRefundDetail", hoaDon);
 
+        model.addAttribute("diaChiKHDefault", diaChiKHDefault);
+        model.addAttribute("addNewAddressNotNull", true);
+        model.addAttribute("listAddressKH", diaChiKHList);
 
         model.addAttribute("detailBillRefundMoney", true);
         model.addAttribute("billDetailRefund", hoaDon);
+
+        session.removeAttribute("diaChiChiTiet");
+        session.removeAttribute("sdtNguoiNhan");
+        session.removeAttribute("hoTenNguoiNhan");
+
+        session.setAttribute("diaChiChiTiet", hoaDon.getDiaChiNguoiNhan());
+        session.setAttribute("sdtNguoiNhan", hoaDon.getSdtNguoiNhan());
+        session.setAttribute("hoTenNguoiNhan", hoaDon.getTenNguoiNhan());
 
 
         return "online/user";                                                      
@@ -473,8 +477,10 @@ public class UserController {
 
         PhieuTraHang phieuTraHang = phieuTraHangServices.findByHoaDon(hoaDonNew);
 
-        if(hoaDonChiTietList != null){
+        if(hoaDonChiTietList.size() >= 1){
+
             model.addAttribute("lyDoTuChoi", hoaDonChiTietList.get(0).getMoTa());
+
         }
 
         model.addAttribute("tongTienHoan", tongTienHoan);
@@ -490,55 +496,148 @@ public class UserController {
             model.addAttribute("listAddressKH", diaChiKHList);
         }
 
+
+        return "online/user";
+    }
+
+    @PostMapping("/purchase/refund/add/address")
+    public String addNewAddressBillRefund(Model model,@RequestParam(name = "defaultSelected", defaultValue = "false") boolean defaultSelected){
+
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+        HoaDon hoaDon = (HoaDon) session.getAttribute("billRefundDetail") ;
+        Date date = new Date();
+
+        String nameAddress = request.getParameter("nameAddress");
+        String fullName = request.getParameter("fullName");
+        String phoneAddress = request.getParameter("phoneAddress");
+        String city = request.getParameter("city");
+        String district = request.getParameter("district");
+        String ward = request.getParameter("ward");
+        String description = request.getParameter("description");
+        String diaChiChiTiet = description + ", " + ward + ", " + district + ", " + city;
+
+        DiaChiKH diaChiKH = new DiaChiKH();
+
+        diaChiKH.setDiaChiChiTiet(diaChiChiTiet);
+        diaChiKH.setMoTa(description);
+        diaChiKH.setKhachHang(khachHang);
+        diaChiKH.setTrangThai(1);
+        diaChiKH.setMaDC( "DC_" + khachHang.getMaKH() + date.getDay() + generateRandomNumbers());
+        diaChiKH.setSdtNguoiNhan(phoneAddress);
+        diaChiKH.setQuanHuyen(district);
+        diaChiKH.setTenDC(nameAddress);
+        diaChiKH.setTinhTP(city);
+        diaChiKH.setTenNguoiNhan(fullName);
+        diaChiKH.setXaPhuong(ward);
+        diaChiKH.setTgThem(new Date());
+        diaChiKH.setLoai(defaultSelected);
+
+        diaChiKHService.save(diaChiKH);
+
+        List<DiaChiKH> diaChiKHList = diaChiKHService.findbyKhachHangAndLoaiAndTrangThai(khachHang, false, 1);
+        DiaChiKH diaChiKHDefault = diaChiKHService.findDCKHDefaulByKhachHang(khachHang);
+
+        UserForm(model, khachHang);
+
+        session.removeAttribute("diaChiChiTiet");
+        session.removeAttribute("sdtNguoiNhan");
+        session.removeAttribute("hoTenNguoiNhan");
+
+        session.setAttribute("diaChiChiTiet", diaChiKH.getDiaChiChiTiet());
+        session.setAttribute("sdtNguoiNhan", diaChiKH.getSdtNguoiNhan());
+        session.setAttribute("hoTenNguoiNhan", diaChiKH.getTenNguoiNhan());
+
+        model.addAttribute("diaChiKHDefault", diaChiKHDefault);
+        model.addAttribute("addNewAddressNotNull", true);
+        model.addAttribute("listAddressKH", diaChiKHList);
+
+        model.addAttribute("detailBillRefundMoney", true);
+        model.addAttribute("billDetailRefund", hoaDon);
+
+        return "online/user";
+
+    }
+
+    @PostMapping("/purchase/refund/change/address")
+    private String changeAddressBillRefund(Model model){
+
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+        HoaDon hoaDon = (HoaDon) session.getAttribute("billRefundDetail") ;
+
+        UUID idDCKH = UUID.fromString(request.getParameter("idDCKH"));
+        DiaChiKH diaChiKHChange = diaChiKHService.findByIdDiaChiKH(idDCKH);
+
+        List<DiaChiKH> diaChiKHList = diaChiKHService.findbyKhachHangAndLoaiAndTrangThai(khachHang, false, 1);
+        DiaChiKH diaChiKHDefault = diaChiKHService.findDCKHDefaulByKhachHang(khachHang);
+
+        UserForm(model, khachHang);
+
+        session.removeAttribute("diaChiChiTiet");
+        session.removeAttribute("sdtNguoiNhan");
+        session.removeAttribute("hoTenNguoiNhan");
+
+        session.setAttribute("diaChiChiTiet", diaChiKHChange.getDiaChiChiTiet());
+        session.setAttribute("sdtNguoiNhan", diaChiKHChange.getSdtNguoiNhan());
+        session.setAttribute("hoTenNguoiNhan", diaChiKHChange.getTenNguoiNhan());
+
+        model.addAttribute("diaChiKHDefault", diaChiKHDefault);
+        model.addAttribute("addNewAddressNotNull", true);
+        model.addAttribute("listAddressKH", diaChiKHList);
+
+        model.addAttribute("detailBillRefundMoney", true);
+        model.addAttribute("billDetailRefund", hoaDon);
+
         return "online/user";
     }
 
     @PostMapping("/purchase/bill/refund/request/{idHD}")
     private String getDetailRefundRequestForm(Model model, @PathVariable UUID idHD,
                                               @RequestParam("imagesRequest") List<MultipartFile> files,
-                                              @RequestParam("ctspSelected") List<String> idCTGAndQuantity) {
+                                              @RequestParam("idCTGSelectted") List<UUID> listIdCTGSelectted,
+                                              @RequestParam("soLuong") List<Integer> listSoLuong) {
 
         String lyDoMuonTra = request.getParameter("lyDoMuonTra");
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+
+        String diaChiChiTiet = (String) session.getAttribute("diaChiChiTiet");
+        String sdtLayHang = (String) session.getAttribute("sdtNguoiNhan");
+        String hoTenNguoiNhan = (String) session.getAttribute("hoTenNguoiNhan");
+
+        session.removeAttribute("diaChiChiTiet");
+        session.removeAttribute("sdtNguoiNhan");
+        session.removeAttribute("hoTenNguoiNhan");
 
         Date date = new Date();
 
         HoaDon hoaDon = hoaDonService.getOne(idHD);
         HoaDon hoaDonNew = new HoaDon();
 
-        hoaDonNew.setTrangThai(7);
+        hoaDonNew.setTrangThai(5);
         hoaDonNew.setIdHDOld(hoaDon.getIdHD());
         hoaDonNew.setMaHDOld(hoaDon.getMaHD());
         hoaDonNew.setTgTao(date);
         hoaDonNew.setMaHD("HD001_" + khachHang.getMaKH() + date.getDay() + generateRandomNumbers());
+        hoaDonNew.setHinhThucThanhToan(1);
+        hoaDonNew.setSdtNguoiNhan(sdtLayHang);
+        hoaDonNew.setDiaChiNguoiNhan(diaChiChiTiet);
+        hoaDonNew.setTenNguoiNhan(hoTenNguoiNhan);
         hoaDonNew.setKhachHang(khachHang);
 
         hoaDonService.add(hoaDonNew);
         List<HoaDonChiTiet> hoaDonChiTiets = new ArrayList<>();
 
-        for (String x:idCTGAndQuantity) {
-            String[] pairs = x.split(", ");
+        int i = 0;
+        for (UUID x:listIdCTGSelectted) {
+            Integer quantity = listSoLuong.get(i);
+            i++;
 
-            Map<String, String> data = new HashMap<>();
-
-            for (String pair : pairs) {
-                String[] keyValue = pair.split("=");
-                data.put(keyValue[0], keyValue[1]);
-            }
-
-            UUID productId = UUID.fromString(data.get("id"));
-            Integer quantity = Integer.parseInt(data.get("quantity"));
-
-            HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.getOne(hoaDon.getIdHD(), productId);
-
+            HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.getOne(hoaDon.getIdHD(), x);
             Double phanTramCTG = hoaDonChiTiet.getDonGia()/hoaDonChiTiet.getSoLuong()/hoaDon.getTongTien();
-
             Double giaBanCTG = hoaDon.getTongTienDG()*phanTramCTG;
-
             HoaDonChiTiet hoaDonChiTietNew = new HoaDonChiTiet();
 
             hoaDonChiTietNew.setSoLuong(quantity);
-            hoaDonChiTietNew.setChiTietGiay(giayChiTietService.getByIdChiTietGiay(productId));
+            hoaDonChiTietNew.setChiTietGiay(giayChiTietService.getByIdChiTietGiay(x));
             hoaDonChiTietNew.setTrangThai(1);
             hoaDonChiTietNew.setHoaDon(hoaDonNew);
             hoaDonChiTietNew.setDonGia(giaBanCTG*quantity);
@@ -560,12 +659,10 @@ public class UserController {
         hoaDonNew.setTongSP(sumQuantity);
         hoaDonNew.setTienShip(0.0);
         hoaDonNew.setTongTienDG(total);
-        hoaDonNew.setHinhThucThanhToan(1);
         hoaDonNew.setLoaiHD(0);
         hoaDonNew.setGiamGiaHoaDon(0.0);
         hoaDonNew.setGiamGiaShip(0.0);
         hoaDonService.add(hoaDonNew);
-
 
         String maPHH = "PHH_" + khachHang.getMaKH() + date.getDay() + generateRandomNumbers();
 
@@ -612,8 +709,7 @@ public class UserController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-        hoaDon.setMaHDOld("0");
+        hoaDon.setTrangThaiHoan(0);
         hoaDonService.add(hoaDon);
 
         return "redirect:/buyer/home";
@@ -713,9 +809,6 @@ public class UserController {
     private String getAcceptRefundForm(Model model, @PathVariable UUID idHD){
 
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
-        DiaChiKH diaChiKHDefault = diaChiKHService.findDCKHDefaulByKhachHang(khachHang);
-        List<DiaChiKH> diaChiKHList = diaChiKHService.findbyKhachHangAndLoaiAndTrangThai(khachHang, false, 1);
-
 
         HoaDon hoaDonOld = hoaDonService.getOne(idHD);
 
@@ -738,6 +831,8 @@ public class UserController {
         hoaDonNew.setTongTien(total);
         hoaDonNew.setTongTienDG(total);
         hoaDonNew.setTongSP(sumQuantity);
+        hoaDonNew.setTrangThai(1);
+        hoaDonNew.setTrangThaiHoan(4);
         hoaDonService.add(hoaDonNew);
 
         PhieuTraHang phieuTraHang = phieuTraHangServices.findByHoaDon(hoaDonNew);
@@ -746,18 +841,16 @@ public class UserController {
         phieuTraHangServices.savePTH(phieuTraHang);
 
         hoaDonOld.setMaHDOld("4");
+        hoaDonOld.setHinhThucThanhToan(1);
         hoaDonService.add(hoaDonOld);
 
         model.addAttribute("thongTinHoanHang", true);
 
         model.addAttribute("tongTienHoan", hoaDonNew.getTongTien());
         model.addAttribute("phieuTraHang", phieuTraHang);
-        model.addAttribute("diaChiHoanHang", true);
         model.addAttribute("detailBillRefundMoneyRequest", true);
         model.addAttribute("billDetailRefund", hoaDonOld);
         model.addAttribute("billDetailRefundNew", hoaDonNew);
-        model.addAttribute("diaChiKHDefault", diaChiKHDefault);
-        model.addAttribute("listAddressKH", diaChiKHList);
 
         return "redirect:/buyer/purchase/refund";
     }
@@ -954,6 +1047,17 @@ public class UserController {
         return "redirect:/buyer/cart";
     }
 
+    @PostMapping("/purchase/bill/refund/confirm/{idHD}")
+    private String confirmBillRefund(Model model, @PathVariable UUID idHD){
+
+        String dvvc = request.getParameter("donViNhanHang");
+        String maVanDon = request.getParameter("maVanDon");
+
+        System.out.println(dvvc+maVanDon);
+
+        return "redirect:/buyer/";
+    }
+
     private void UserForm(Model model, KhachHang khachHang){
         GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
         model.addAttribute("fullNameLogin", khachHang.getHoTenKH());
@@ -977,7 +1081,7 @@ public class UserController {
         long timestamp = System.currentTimeMillis();
         String[] parts = originalFileName.split("\\.");
         String extension = parts[parts.length - 1];
-        return "new_file_" + timestamp + "." + extension;
+        return "yeu_cau_hoan_hang_" + timestamp + "." + extension;
     }
 
 }

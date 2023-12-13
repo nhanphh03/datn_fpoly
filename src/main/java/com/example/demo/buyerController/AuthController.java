@@ -5,6 +5,7 @@ import com.example.demo.repository.CTGViewModelRepository;
 import com.example.demo.repository.GiayChiTietRepository;
 import com.example.demo.service.*;
 import com.example.demo.viewModel.CTGViewModel;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,10 +61,9 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    private String buyerLogin(Model model, RedirectAttributes redirectAttributes,
-                              HttpSession session){
+    private String buyerLogin(Model model, HttpSession session) throws MessagingException {
 
-
+//        sendMailService.sendMimeMessage("nhanphh2003@gmail.com", "", "");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
 
