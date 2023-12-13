@@ -26,6 +26,27 @@
     <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
 
     <link rel="stylesheet" href="/css/style.css">
+    <!-- Thêm link thư viện Alertify -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/themes/default.min.css"/>
+    <style>
+        .alertify .ajs-message {
+            background-color: black;
+            color: #ffffff;
+        }
+
+        /* Thay đổi màu nền của tiêu đề */
+        .alertify .ajs-header {
+            background-color: coral;
+            color: #ffffff;
+        }
+
+        /* Thay đổi màu nền của các nút */
+        .alertify .ajs-buttons .ajs-ok {
+            background-color: #2ecc71;
+            color: #ffffff;
+        }
+    </style>
 </head>
 <body>
 <div id="global-loader">
@@ -309,7 +330,7 @@
         </div>
     </div>
 </div>
-<form th:object="${size}" method="post" th:action="@{'/manage/size/viewUpdate/' + ${size.idSize}}">
+<form th:object="${size}" method="post" th:action="@{'/manage/size/viewUpdate/' + ${size.idSize}}" onsubmit="return validateSizeForm()" name="sizeForm">
     <div class="page-wrapper">
         <div class="content">
             <div class="page-header">
@@ -363,28 +384,28 @@
 </form>
 <div th:if="${message}" id="success" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Dữ liệu của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${maSizeError}" id="warning1" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Size không được trống.</div>
     </div>
 </div>
 <div th:if="${soSizeError}" id="warning2" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của số Size phải lớn hơn hoặc bằng 1. Và nhỏ hơn hoặc bằng 50.</div>
     </div>
 </div>
 <div th:if="${Errormessage}" id="warning3" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Size đã tồn tại.</div>
     </div>
@@ -406,6 +427,8 @@
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
 <script src="/js/script.js"></script>
+<script src="/plugins/alertify/custom-alertify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js"></script>
 <script>
     setTimeout(function () {
         var successToast = document.getElementById('success');
@@ -434,6 +457,42 @@
             warning3.style.display = 'none';
         }
     }, 5000);
+</script>
+<script>
+    function validateSizeForm() {
+        var maSize = document.forms["sizeForm"]["maSize"].value;
+        var soSize = document.forms["sizeForm"]["soSize"].value;
+
+        if (maSize === "") {
+            showAlert("Vui lòng nhập Mã Size");
+            return false;
+        }
+
+        if (!maSize.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Mã Size chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        if (soSize === "") {
+            showAlert("Vui lòng nhập Số Size");
+            return false;
+        }
+
+        var soSizeValue = parseInt(soSize); // Chuyển đổi giá trị soSize sang số nguyên
+
+        if (isNaN(soSizeValue) || soSizeValue <= 0) {
+            showAlert("Số Size phải là một số nguyên lớn hơn 0");
+            return false;
+        }
+
+        return true;
+    }
+    function showAlert(message) {
+        alertify.alert(message).setting({
+            'title': 'Thông báo',
+            'label': 'Đồng ý',
+        }).show();
+    }
 </script>
 </body>
 </html>

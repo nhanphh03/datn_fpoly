@@ -122,6 +122,7 @@ public class GiayChiTietController {
             , @ModelAttribute("hinhAnhError") String hinhAnhError
             , @ModelAttribute("giayError") String giayError
             , @ModelAttribute("sizeError") String sizeError
+            , @ModelAttribute("daTonTai") String daTonTai
             , @ModelAttribute("error") String error
             , @ModelAttribute("userInput") ChiTietGiay userInput
 
@@ -222,6 +223,9 @@ public class GiayChiTietController {
         }
         if (sizeError == null || !"sizeError".equals(error)) {
             model.addAttribute("sizeError", false);
+        }
+        if (daTonTai == null || !"daTonTai".equals(error)) {
+            model.addAttribute("daTonTai", false);
         }
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInput != null) {
@@ -344,6 +348,7 @@ public class GiayChiTietController {
             , @ModelAttribute("hinhAnhError") String hinhAnhError
             , @ModelAttribute("giayError") String giayError
             , @ModelAttribute("sizeError") String sizeError
+            , @ModelAttribute("daTonTai") String daTonTai
             , @ModelAttribute("error") String error
             , @ModelAttribute("userInput") ChiTietGiay userInput
 
@@ -418,6 +423,9 @@ public class GiayChiTietController {
         }
         if (sizeError == null || !"sizeError".equals(error)) {
             model.addAttribute("sizeError", false);
+        }
+        if (daTonTai == null || !"daTonTai".equals(error)) {
+            model.addAttribute("daTonTai", false);
         }
         // Kiểm tra xem có dữ liệu người dùng đã nhập không và điền lại vào trường nhập liệu
         if (userInput != null) {
@@ -549,7 +557,22 @@ public class GiayChiTietController {
             }
             return "redirect:/manage/giay-chi-tiet/viewAdd";
         }
+
         for (UUID x : listSize) {
+            //
+            boolean isDuplicate = giayChiTietService.isDuplicateChiTietGiay(
+                    chiTietGiay.getGiay().getIdGiay(),
+                    x,
+                    chiTietGiay.getMauSac().getIdMau(),
+                    chiTietGiay.getHinhAnh().getIdHinhAnh()
+            );
+            if (isDuplicate) {
+                // Xử lý sự trùng lặp, ví dụ: hiển thị thông báo và không thêm mới
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "daTonTai");
+                return "redirect:/manage/giay-chi-tiet/viewAdd";
+            }
+            //
             ChiTietGiay chiTietGiay1 = new ChiTietGiay();
             chiTietGiay1.setGiay(chiTietGiay.getGiay());
             chiTietGiay1.setNamSX(chiTietGiay.getNamSX());
@@ -574,6 +597,7 @@ public class GiayChiTietController {
         }
         redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/giay-chi-tiet";
+
     }
 
     @PostMapping("/chi-tiet-giay/viewAdd/add")
@@ -629,6 +653,20 @@ public class GiayChiTietController {
         }
         ///
         for (UUID x : listSize) {
+            //
+            boolean isDuplicate = giayChiTietService.isDuplicateChiTietGiay(
+                    chiTietGiay.getGiay().getIdGiay(),
+                    x,
+                    chiTietGiay.getMauSac().getIdMau(),
+                    chiTietGiay.getHinhAnh().getIdHinhAnh()
+            );
+            if (isDuplicate) {
+                // Xử lý sự trùng lặp, ví dụ: hiển thị thông báo và không thêm mới
+                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
+                redirectAttributes.addFlashAttribute("error", "daTonTai");
+                return link1;
+            }
+            //
             ChiTietGiay chiTietGiay2 = new ChiTietGiay();
             chiTietGiay2.setGiay(giay);
             chiTietGiay2.setNamSX(chiTietGiay.getNamSX());
