@@ -450,11 +450,11 @@
                                         </li>
                                         <li>
                                             <!--                                            <div th:text="${gioHang.donGia}"></div>-->
-                                            <div th:text=" ${#numbers.formatDecimal(gioHang.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'"></div>
+                                            <div th:text=" ${#numbers.formatDecimal(gioHang.chiTietGiay.giaBan, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'"></div>
                                         </li>
                                         <li>
                                             <!--                                            <div th:text="${gioHang.donGia * gioHang.soLuong}"></div>-->
-                                            <div th:text=" ${#numbers.formatDecimal(gioHang.donGia * gioHang.soLuong, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'"></div>
+                                            <div th:text=" ${#numbers.formatDecimal(gioHang.chiTietGiay.giaBan * gioHang.soLuong, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'"></div>
                                         </li>
                                         <li>
                                             <a class="btn"

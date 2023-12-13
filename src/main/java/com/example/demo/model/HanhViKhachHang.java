@@ -10,7 +10,7 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name= "_Hanh_Vi_Khach_Hang")
+@Table(name= "Hanh_Vi_Khach_Hang")
 @Getter
 @Setter
 @AllArgsConstructor
