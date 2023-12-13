@@ -1194,9 +1194,10 @@
         var mauSac = document.forms["formId"]["mauSac"].value;
         var namSX = document.forms["formId"]["namSX"].value;
         var namBH = document.forms["formId"]["namBH"].value;
-        var listSize = document.forms["formId"]["listSize"].value;
+        var size = document.forms["formId"]["size"].value;
         var trongLuong = document.forms["formId"]["trongLuong"].value;
         var hinhAnh = document.forms["formId"]["hinhAnh"].value;
+        var trangThai = document.forms["formId"]["trangThai"].value;
         var giaBan = document.forms["formId"]["giaBan"].value;
 
         if (giay === "") {
@@ -1214,8 +1215,26 @@
             return false;
         }
 
+        if (size === "") {
+            showAlert("Vui lòng chọn Size");
+            return false;
+        }
+
         if (!isValidYear(namSX)) {
             showAlert("Vui lòng nhập một năm hợp lệ cho Năm Sản Xuất");
+            return false;
+        }
+
+        // Kiểm tra năm sản xuất phải lớn hơn hoặc bằng 1830
+        if (parseInt(namSX) < 1830) {
+            showAlert("Năm Sản Xuất phải lớn hơn hoặc bằng năm 1830");
+            return false;
+        }
+
+        // Kiểm tra năm sản xuất không quá năm hiện tại
+        var currentYear = new Date().getFullYear();
+        if (parseInt(namSX) > currentYear) {
+            showAlert("Năm Sản Xuất không được quá năm hiện tại");
             return false;
         }
 
@@ -1224,16 +1243,15 @@
             return false;
         }
 
-        var checkboxes = document.forms["formId"]["listSize"];
-        var checked = false;
-        for (var i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].checked) {
-                checked = true;
-                break;
-            }
+        // Kiểm tra năm bảo hành không được trước năm sản xuất
+        if (parseInt(namBH) <= parseInt(namSX)) {
+            showAlert("Năm Bảo Hành phải sau Năm Sản Xuất");
+            return false;
         }
-        if (!checked) {
-            showAlert("Vui lòng chọn ít nhất một Size");
+
+        // Kiểm tra năm bảo hành phải dưới 10 năm
+        if ((parseInt(namBH) - parseInt(namSX)) >= 10) {
+            showAlert("Năm Bảo Hành không được quá 10 năm so với Năm Sản Xuất");
             return false;
         }
 
@@ -1244,6 +1262,10 @@
 
         if (hinhAnh === "") {
             showAlert("Vui lòng chọn Hình Ảnh");
+            return false;
+        }
+        if (trangThai === "") {
+            showAlert("Vui lòng chọn Trạng Thái");
             return false;
         }
 
