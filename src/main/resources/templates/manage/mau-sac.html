@@ -26,6 +26,27 @@
     <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
 
     <link rel="stylesheet" href="/css/style.css">
+    <!-- Thêm link thư viện Alertify -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/themes/default.min.css"/>
+    <style>
+        .alertify .ajs-message {
+            background-color: black;
+            color: #ffffff;
+        }
+
+        /* Thay đổi màu nền của tiêu đề */
+        .alertify .ajs-header {
+            background-color: coral;
+            color: #ffffff;
+        }
+
+        /* Thay đổi màu nền của các nút */
+        .alertify .ajs-buttons .ajs-ok {
+            background-color: #2ecc71;
+            color: #ffffff;
+        }
+    </style>
     <style>
         .color-box {
             width: 40px; /* Độ rộng của hộp màu */
@@ -305,12 +326,12 @@
             <div class="card">
                 <div class="card-body">
                     <div class="hidden-form" style="display: none">
-                        <form th:object="${mauSacAdd}" method="post" th:action="@{/manage/mau-sac/viewAdd/add}">
+                        <form th:object="${mauSacAdd}" method="post" th:action="@{/manage/mau-sac/viewAdd/add}" onsubmit="return validateMauSacForm()" name="mauSacForm">
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã</label>
-                                        <input type="text" th:field="*{ma}" required>
+                                        <input type="text" th:field="*{ma}" >
                                     </div>
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-12">
@@ -330,7 +351,7 @@
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Màu</label>
-                                        <input type="text" th:field="*{tenMau}" required>
+                                        <input type="text" th:field="*{tenMau}" >
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -492,35 +513,35 @@
 </div>
 <div th:if="${message}" id="toast-container" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Dữ liệu của bạn đã được cập nhật</div>
     </div>
 </div>
 <div th:if="${maError}" id="warning1" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã không được trống.</div>
     </div>
 </div>
 <div th:if="${maMauError}" id="warning2" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã màu không được để trống.</div>
     </div>
 </div>
 <div th:if="${tenMauError}" id="warning3" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Tên màu không được để trống.</div>
     </div>
 </div>
 <div th:if="${Errormessage}" id="checkMa" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Màu đã tồn tại.</div>
     </div>
@@ -542,6 +563,8 @@
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
 <script src="/js/script.js"></script>
+<script src="/plugins/alertify/custom-alertify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Lấy thẻ nút in bằng id
@@ -716,5 +739,47 @@
         return {r: r, g: g, b: b};
     }
 </script>
+<script>
+    function validateMauSacForm() {
+        var ma = document.forms["mauSacForm"]["ma"].value;
+        var maMau = document.forms["mauSacForm"]["maMau"].value;
+        var tenMau = document.forms["mauSacForm"]["tenMau"].value;
+
+        if (ma === "") {
+            showAlert("Vui lòng nhập Mã");
+            return false;
+        }
+
+        if (!ma.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Mã Chất Liệu chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        if (maMau === "") {
+            showAlert("Vui lòng chọn Mã Màu");
+            return false;
+        }
+
+        if (tenMau === "") {
+            showAlert("Vui lòng nhập Tên Màu");
+            return false;
+        }
+
+        if (!tenMau.match(/^[a-zA-Z0-9\s]+$/)) {
+            showAlert("Tên Màu chỉ được chứa chữ cái, số và khoảng trắng");
+            return false;
+        }
+
+        return true;
+    }
+
+    function showAlert(message) {
+        alertify.alert(message).setting({
+            'title': 'Thông báo',
+            'label': 'Đồng ý',
+        }).show();
+    }
+</script>
+
 </body>
 </html>

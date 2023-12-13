@@ -286,7 +286,7 @@
                         <div class="row">
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Mã Địa Chỉ</label>
+                                    <label>Mã Địa Chỉ <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{maDC}">
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('maDC')}"
@@ -296,7 +296,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Tên Địa Chỉ</label>
+                                    <label>Tên Địa Chỉ <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{tenDC}">
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('tenDC')}"
@@ -306,7 +306,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Tên Người Nhận</label>
+                                    <label>Tên Người Nhận <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{tenNguoiNhan}">
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('tenNguoiNhan')}"
@@ -317,7 +317,7 @@
 
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Tỉnh Thành Phố</label>
+                                    <label>Tỉnh Thành Phố <span style="color: red;">*</span></label>
                                     <select class="select" th:field="*{tinhTP}" id="tinhthanhpho">
                                         <option value="" selected>Chọn thành phố</option>
                                     </select>
@@ -330,7 +330,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Quận Huyện</label>
+                                    <label>Quận Huyện <span style="color: red;">*</span></label>
                                     <select class="select" th:field="*{quanHuyen}" id="quanhuyen">
                                         <option value="" selected>Chọn quận huyện</option>
                                     </select>
@@ -342,7 +342,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Xã Phường</label>
+                                    <label>Xã Phường <span style="color: red;">*</span></label>
                                     <select class="select" th:field="*{xaPhuong}" id="xaphuong">
                                         <option value="" selected>Chọn xã phường</option>
                                     </select>
@@ -354,7 +354,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Mô Tả</label>
+                                    <label>Mô Tả <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{moTa}">
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('moTa')}"
@@ -380,7 +380,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Địa Chỉ Chi Tiết</label>
+                                    <label>Địa Chỉ Chi Tiết <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{diaChiChiTiet}" id="diachict">
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('diaChiChiTiet')}"
@@ -390,7 +390,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>SốĐT Địa Chỉ</label>
+                                    <label>SốĐT Địa Chỉ <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{sdtNguoiNhan}">
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('sdtNguoiNhan')}"
@@ -400,7 +400,7 @@
                             </div>
                             <div class="col-lg-4 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Khách Hàng</label>
+                                    <label>Khách Hàng <span style="color: red;">*</span></label>
                                     <select class="select" th:field="*{khachHang}">
                                         <option th:each="loc : ${khachHang}" th:value="${loc.idKH}"
                                                 th:text="${loc.hoTenKH}"></option>
@@ -422,7 +422,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Miền</label>
+                                    <label>Miền <span style="color: red;">*</span></label>
                                     <select class="select" th:field="*{mien}" id="loc" name="loc"
                                             style="width: 100%; height:40px; border: 1px solid rgba(145,158,171,0.32); border-radius: 5px;
                                                        font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;">
@@ -477,7 +477,7 @@
                                 <div th:fragment="whitespace">&nbsp;</div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Ảnh</label>
+                                        <label>Ảnh <span style="color: red;">*</span></label>
                                         <input th:field="*{AnhKH}" type="file"
                                                id="imageInput"
                                                accept="image/*"
@@ -488,7 +488,7 @@
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Ảnh CCCD</label>
+                                        <label>Ảnh CCCD <span style="color: red;">*</span></label>
                                         <input th:field="*{Anhcccd}" type="file"
                                                id="imageInput1"
                                                accept="image/*"
@@ -500,19 +500,19 @@
                                 <div th:fragment="whitespace">&nbsp;</div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Mã Khách Hàng</label>
+                                        <label>Mã Khách Hàng <span style="color: red;">*</span></label>
                                         <input type="text" th:field="*{maKH}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Tên Khách Hàng</label>
+                                        <label>Tên Khách Hàng <span style="color: red;">*</span></label>
                                         <input type="text" th:field="*{hoTenKH}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Giới Tính</label>
+                                        <label>Giới Tính <span style="color: red;">*</span></label>
                                         <select class="select" th:field="*{gioiTinh}" id="gioitinh" name="gioitinh">
                                             <option th:each="loc : ${dsGioiTinh.entrySet()}" th:value="${loc.key}"
                                                     th:text="${loc.value}"></option>
@@ -521,7 +521,7 @@
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Ngày Sinh</label>
+                                        <label>Ngày Sinh <span style="color: red;">*</span></label>
                                         <div class="input-groupicon">
                                             <input type="date" th:field="*{ngaySinh}" name="ngaysinh"
                                                    style="width: 100%; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
@@ -532,31 +532,31 @@
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>SDT</label>
+                                        <label>SDT <span style="color: red;">*</span></label>
                                         <input type="text" th:field="*{sdtKH}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Email</label>
+                                        <label>Email <span style="color: red;">*</span></label>
                                         <input type="text" th:field="*{emailKH}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Địa Chỉ</label>
+                                        <label>Địa Chỉ <span style="color: red;">*</span></label>
                                         <input type="text" th:field="*{diaChi}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Căn Cước Công Dân</label>
+                                        <label>Căn Cước Công Dân <span style="color: red;">*</span></label>
                                         <input type="text" th:field="*{CCCDKH}">
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Loại Khách Hàng</label>
+                                        <label>Loại Khách Hàng <span style="color: red;">*</span></label>
                                         <select class="select" th:field="*{loaiKhachHang}" id="loaiKhachHang"
                                                 name="loaiKhachHang">
                                             <option th:each="loc : ${loaiKhachHang}" th:value="${loc.idLKH}"
@@ -574,7 +574,7 @@
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Mật Khẩu</label>
+                                        <label>Mật Khẩu <span style="color: red;">*</span></label>
                                         <input type="text" th:field="*{matKhau}">
                                     </div>
                                 </div>
@@ -618,19 +618,19 @@
                             <div class="row">
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Mã Loại Khách Hàng</label>
+                                        <label>Mã Loại Khách Hàng <span style="color: red;">*</span></label>
                                         <input type="text" th:field="*{maLKH}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Tên Loại Khách Hàng</label>
+                                        <label>Tên Loại Khách Hàng <span style="color: red;">*</span></label>
                                         <input type="text" th:field="*{tenLKH}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Số Điểm</label>
+                                        <label>Số Điểm <span style="color: red;">*</span></label>
                                         <input type="number" th:field="*{soDiem}"
                                                style="border: 1px solid rgba(145, 158, 171, .32);
                                                 height: 40px;
@@ -657,56 +657,56 @@
 
 <div th:if="${messageKH}" id="successKH" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Khách Hàng của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${ErrormessageLKH}" id="checkMaLKH" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã LKH đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${messageLKH}" id="successLKH" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Loại Khách Hàng của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${Errormessage}" id="checkMaDC" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Địa chỉ đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${ErrormessageKH}" id="checkMaKH" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã KH đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${ErrormessageeEmail}" id="checkEmail" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Email đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${ErrormessageCCCD}" id="checkCCCD" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">CCCD đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${ErrormessageSDT}" id="checkSDT" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Sdt đã tồn tại.</div>
     </div>

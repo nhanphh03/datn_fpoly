@@ -41,7 +41,9 @@ public class HoaDonChiTietServiceImpl implements HoaDonChiTietService {
     public Double tongTien(List<HoaDonChiTiet> list) {
         double tongTien = 0;
         for (HoaDonChiTiet hoaDonChiTiet : list){
-            tongTien += hoaDonChiTiet.getSoLuong()* hoaDonChiTiet.getDonGia();
+            if (hoaDonChiTiet.getTrangThai() == 1){
+                tongTien += hoaDonChiTiet.getDonGia();
+            }
         }
         return tongTien;
     }

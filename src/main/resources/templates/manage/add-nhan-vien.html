@@ -285,7 +285,7 @@
                         <div class="row">
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Mã Nhân Viên</label>
+                                    <label>Mã Nhân Viên <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{maNV}">
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('maNV')}"
@@ -295,7 +295,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Tên Nhân Viên</label>
+                                    <label>Tên Nhân Viên <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{hoTenNV}">
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('hoTenNV')}"
@@ -305,7 +305,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Giới Tính</label>
+                                    <label>Giới Tính <span style="color: red;">*</span></label>
                                     <select class="select" th:field="*{gioiTinh}" id="gioitinh" name="gioitinh">
                                         <option th:each="loc : ${dsGioiTinh.entrySet()}" th:value="${loc.key}"
                                                 th:text="${loc.value}"></option>
@@ -318,7 +318,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Ngày Sinh</label>
+                                    <label>Ngày Sinh <span style="color: red;">*</span></label>
                                     <div class="input-groupicon">
                                         <input type="date" th:field="*{ngaySinh}"
                                                style="width: 100%; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
@@ -333,7 +333,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>SDT Nhân Viên</label>
+                                    <label>SDT Nhân Viên <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{sdtNV}">
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('sdtNV')}"
@@ -343,7 +343,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Ảnh Nhân Viên</label>
+                                    <label>Ảnh Nhân Viên <span style="color: red;">*</span></label>
                                     <input th:field="*{AnhNV}" type="file" id="imageInput" accept="image/*"
                                            onchange="previewImage(event)">
                                     <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
@@ -355,7 +355,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Email Nhân Viên</label>
+                                    <label>Email Nhân Viên <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{emailNV}">
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('emailNV')}"
@@ -365,7 +365,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Địa Chỉ</label>
+                                    <label>Địa Chỉ <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{diaChi}">
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('diaChi')}"
@@ -375,7 +375,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Căn Cước Công Dân</label>
+                                    <label>Căn Cước Công Dân <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{CCCDNV}">
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('CCCDNV')}"
@@ -385,7 +385,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Mật Khẩu</label>
+                                    <label>Mật Khẩu <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{matKhau}">
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('matKhau')}"
@@ -395,7 +395,7 @@
                             </div>
                             <div class="col-lg-5 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Chức Vụ</label>
+                                    <label>Chức Vụ <span style="color: red;">*</span></label>
                                     <select class="select" th:field="*{chucVu}" id="loc" name="loc">
                                         <option th:each="loc : ${chucVu}" th:value="${loc.idCV}"
                                                 th:text="${loc.tenCV}"></option>
@@ -453,13 +453,13 @@
                                 <div th:utext="'&nbsp;'"></div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Mã Chức Vụ</label>
+                                        <label>Mã Chức Vụ <span style="color: red;">*</span></label>
                                         <input type="text" th:field="*{maCV}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Tên Chức Vụ</label>
+                                        <label>Tên Chức Vụ <span style="color: red;">*</span></label>
                                         <input type="text" th:field="*{tenCV}">
                                     </div>
                                 </div>
@@ -480,7 +480,7 @@
 //Chức Vụ
 <div th:if="${messageCV}" id="successCV" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Chức Vụ của bạn đã được Thêm</div>
     </div>
@@ -489,35 +489,35 @@
 //
 <div th:if="${ErrormessageCV}" id="checkMaCV" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Chức Vụ đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${Errormessage}" id="checkMaNV" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Nhân Viên đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${ErrormessageeEmail}" id="checkEmail" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Email đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${ErrormessageCCCD}" id="checkCCCD" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">CCCD đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${ErrormessageSDT}" id="checkSDT" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Sdt đã tồn tại.</div>
     </div>

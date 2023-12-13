@@ -285,21 +285,21 @@
                         <div class="row">
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Mã Loại Khách Hàng</label>
+                                    <label>Mã Loại Khách Hàng <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{maLKH}" readonly>
 
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Tên Loại Khách Hàng</label>
+                                    <label>Tên Loại Khách Hàng <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{tenLKH}">
 
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Số Điểm</label>
+                                    <label>Số Điểm <span style="color: red;">*</span></label>
                                     <input type="number" th:field="*{soDiem}"
                                            style="border: 1px solid rgba(145, 158, 171, .32);
                                             height: 40px;
@@ -313,7 +313,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Trạng Thái</label>
+                                    <label>Trạng Thái <span style="color: red;">*</span></label>
                                     <select class="select" th:field="*{trangThai}">
                                         <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
                                                 th:text="${loc.value}"></option>
@@ -335,14 +335,14 @@
 </div>
 <div th:if="${message}" id="toast-container" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Dữ liệu của bạn đã được cập nhật</div>
     </div>
 </div>
 <div th:if="${Errormessage}" id="checkMa" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã LKH đã tồn tại.</div>
     </div>

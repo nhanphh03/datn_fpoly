@@ -570,7 +570,7 @@
                                 <div class="col-lg-4 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã</label>
-                                        <input type="text" th:field="*{ma}" required>
+                                        <input type="text" th:field="*{ma}" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
@@ -876,63 +876,63 @@
 </div>
 <div th:if="${namSXError}" id="warning1" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của số năm sản xuất phải lớn hơn hoặc bằng 1.</div>
     </div>
 </div>
 <div th:if="${namBHError}" id="warning2" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của số năm bảo hành phải lớn hơn hoặc bằng 1.</div>
     </div>
 </div>
 <div th:if="${trongLuongError}" id="warning3" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của trọng lượng phải lớn hơn hoặc bằng 1.</div>
     </div>
 </div>
 <div th:if="${giaBanError}" id="warning4" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của giá bán phải lớn hơn hoặc bằng 1.</div>
     </div>
 </div>
 <div th:if="${soLuongError}" id="warning5" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của số lượng phải lớn hơn hoặc bằng 0.</div>
     </div>
 </div>
 <div th:if="${mauSacError}" id="warning6" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Hãy chọn trường màu sắc.</div>
     </div>
 </div>
 <div th:if="${hinhAnhError}" id="warning7" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Hãy chọn trường hình ảnh.</div>
     </div>
 </div>
 <div th:if="${giayError}" id="warning8" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Hãy chọn trường giày.</div>
     </div>
 </div>
 <div th:if="${sizeError}" id="warning9" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Hãy chọn trường size.</div>
     </div>
@@ -1155,9 +1155,10 @@
         var mauSac = document.forms["formId"]["mauSac"].value;
         var namSX = document.forms["formId"]["namSX"].value;
         var namBH = document.forms["formId"]["namBH"].value;
-        var listSize = document.forms["formId"]["listSize"].value;
+        var size = document.forms["formId"]["size"].value;
         var trongLuong = document.forms["formId"]["trongLuong"].value;
         var hinhAnh = document.forms["formId"]["hinhAnh"].value;
+        var trangThai = document.forms["formId"]["trangThai"].value;
         var giaBan = document.forms["formId"]["giaBan"].value;
 
         if (giay === "") {
@@ -1175,8 +1176,26 @@
             return false;
         }
 
+        if (size === "") {
+            showAlert("Vui lòng chọn Size");
+            return false;
+        }
+
         if (!isValidYear(namSX)) {
             showAlert("Vui lòng nhập một năm hợp lệ cho Năm Sản Xuất");
+            return false;
+        }
+
+        // Kiểm tra năm sản xuất phải lớn hơn hoặc bằng 1830
+        if (parseInt(namSX) < 1830) {
+            showAlert("Năm Sản Xuất phải lớn hơn hoặc bằng năm 1830");
+            return false;
+        }
+
+        // Kiểm tra năm sản xuất không quá năm hiện tại
+        var currentYear = new Date().getFullYear();
+        if (parseInt(namSX) > currentYear) {
+            showAlert("Năm Sản Xuất không được quá năm hiện tại");
             return false;
         }
 
@@ -1185,16 +1204,15 @@
             return false;
         }
 
-        var checkboxes = document.forms["formId"]["listSize"];
-        var checked = false;
-        for (var i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].checked) {
-                checked = true;
-                break;
-            }
+        // Kiểm tra năm bảo hành không được trước năm sản xuất
+        if (parseInt(namBH) <= parseInt(namSX)) {
+            showAlert("Năm Bảo Hành phải sau Năm Sản Xuất");
+            return false;
         }
-        if (!checked) {
-            showAlert("Vui lòng chọn ít nhất một Size");
+
+        // Kiểm tra năm bảo hành phải dưới 10 năm
+        if ((parseInt(namBH) - parseInt(namSX)) >= 10) {
+            showAlert("Năm Bảo Hành không được quá 10 năm so với Năm Sản Xuất");
             return false;
         }
 
@@ -1205,6 +1223,10 @@
 
         if (hinhAnh === "") {
             showAlert("Vui lòng chọn Hình Ảnh");
+            return false;
+        }
+        if (trangThai === "") {
+            showAlert("Vui lòng chọn Trạng Thái");
             return false;
         }
 

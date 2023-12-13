@@ -26,6 +26,27 @@
     <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
 
     <link rel="stylesheet" href="/css/style.css">
+    <!-- Thêm link thư viện Alertify -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/themes/default.min.css"/>
+    <style>
+        .alertify .ajs-message {
+            background-color: black;
+            color: #ffffff;
+        }
+
+        /* Thay đổi màu nền của tiêu đề */
+        .alertify .ajs-header {
+            background-color: coral;
+            color: #ffffff;
+        }
+
+        /* Thay đổi màu nền của các nút */
+        .alertify .ajs-buttons .ajs-ok {
+            background-color: #2ecc71;
+            color: #ffffff;
+        }
+    </style>
 </head>
 <body class="mini-sidebar">
 <div id="global-loader">
@@ -270,7 +291,7 @@
         </div>
     </div>
 </div>
-<form th:object="${hinhAnh}" method="post" th:action="@{'/manage/hinh-anh/viewUpdate/' + ${hinhAnh.idHinhAnh}}" enctype="multipart/form-data">
+<form th:object="${hinhAnh}" method="post" th:action="@{'/manage/hinh-anh/viewUpdate/' + ${hinhAnh.idHinhAnh}}" enctype="multipart/form-data" onsubmit="return validateHinhAnhForm()" name="hinhAnhForm">
     <div class="page-wrapper">
         <div class="content">
             <div class="page-header">
@@ -285,7 +306,7 @@
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Mã</label>
-                                <input type="text" th:field="*{maAnh}" required>
+                                <input type="text" th:field="*{maAnh}" >
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
@@ -353,21 +374,21 @@
 </form>
 <div th:if="${message}" id="toast-container" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Dữ liệu của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${maHinhAnhError}" id="warning1" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã không được trống.</div>
     </div>
 </div>
 <div th:if="${Errormessage}" id="checkMa" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Ảnh đã tồn tại.</div>
     </div>
@@ -389,6 +410,8 @@
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
 <script src="/js/script.js"></script>
+<script src="/plugins/alertify/custom-alertify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js"></script>
 <script>
     function previewImage(event) {
         const imageInput = document.getElementById('imageInput');
@@ -466,6 +489,43 @@
             checkMa.style.display = 'none';
         }
     }, 5000);
+</script>
+<script>
+    function validateHinhAnhForm() {
+        var maAnh = document.forms["hinhAnhForm"]["maAnh"].value;
+
+        if (maAnh === "") {
+            showAlert("Vui lòng nhập Mã Ảnh");
+            return false;
+        }
+
+        if (!maAnh.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Mã Ảnh chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        for (var i = 1; i <= 4; i++) {
+            var inputId = "anh" + i;
+            var previewId = "anh" + i + i;
+
+            var fileInput = document.forms["hinhAnhForm"][inputId];
+            var imagePreview = document.getElementById(previewId);
+
+            if (fileInput.files.length === 0) {
+                showAlert("Vui lòng chọn ảnh " + i);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    function showAlert(message) {
+        alertify.alert(message).setting({
+            'title': 'Thông báo',
+            'label': 'Đồng ý',
+        }).show();
+    }
 </script>
 </body>
 </html>

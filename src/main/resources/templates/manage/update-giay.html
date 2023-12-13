@@ -25,6 +25,27 @@
     <link rel="stylesheet" href="/plugins/alertify/alertify.min.css"/>
     <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
     <link rel="stylesheet" href="/css/style.css">
+    <!-- Thêm link thư viện Alertify -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/themes/default.min.css"/>
+    <style>
+        .alertify .ajs-message {
+            background-color: black;
+            color: #ffffff;
+        }
+
+        /* Thay đổi màu nền của tiêu đề */
+        .alertify .ajs-header {
+            background-color: coral;
+            color: #ffffff;
+        }
+
+        /* Thay đổi màu nền của các nút */
+        .alertify .ajs-buttons .ajs-ok {
+            background-color: #2ecc71;
+            color: #ffffff;
+        }
+    </style>
 </head>
 <body class="mini-sidebar">
 <div id="global-loader">
@@ -268,7 +289,7 @@
             </div>
         </div>
     </div>
-    <form th:object="${giay}" method="post" th:action="@{'/manage/giay/viewUpdate/' + ${giay.idGiay}}">
+    <form th:object="${giay}" method="post" th:action="@{'/manage/giay/viewUpdate/' + ${giay.idGiay}}" onsubmit="return validateGiayForm()" name="giayForm">
         <div class="page-wrapper">
             <div class="content">
                 <div class="page-header">
@@ -326,6 +347,12 @@
 <!--                                            alt="img"></a>-->
 <!--                                </div>-->
 <!--                            </div>-->
+                            <div class="col-lg-12 col-sm-6 col-12">
+                                <div class="form-group">
+                                    <label>Mô tả</label>
+                                    <textarea class="form-control" th:field="*{moTa}" ></textarea>
+                                </div>
+                            </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Trạng Thái</label>
@@ -470,35 +497,35 @@
 </div>
 <div th:if="${maGiayError}" id="warning1" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${tenGiayError}" id="warning2" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Tên Giày không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${hangError}" id="warning3" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Hãng không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${chatLieuError}" id="warning4" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Chất Liệu không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${Errormessage}" id="checkMa" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Giày đã tồn tại.</div>
     </div>
@@ -520,6 +547,8 @@
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 <script src="/plugins/alertify/alertify.min.js"></script>
 <script src="/js/script.js"></script>
+<script src="/plugins/alertify/custom-alertify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Lấy phần tử có id="modal"
@@ -607,6 +636,60 @@
     $(document).ready(function () {
         $('.select').select2();
     });
+</script>
+<script>
+    function validateGiayForm() {
+        var maGiay = document.forms["giayForm"]["maGiay"].value;
+        var moTa = document.forms["giayForm"]["moTa"].value;
+        var tenGiay = document.forms["giayForm"]["tenGiay"].value;
+        var hang = document.forms["giayForm"]["hang"].value;
+        var chatLieu = document.forms["giayForm"]["chatLieu"].value;
+
+        // Kiểm tra cho từng trường
+        if (maGiay === "") {
+            showAlert("Vui lòng nhập Mã Giày");
+            return false;
+        }
+
+        if (!maGiay.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Mã Giày chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        if (moTa === "") {
+            showAlert("Vui lòng nhập Mô tả");
+            return false;
+        }
+
+        if (tenGiay === "") {
+            showAlert("Vui lòng nhập Tên Giày");
+            return false;
+        }
+
+        if (!tenGiay.match(/^[a-zA-Z0-9\s]+$/)) {
+            showAlert("Tên Giày chỉ được chứa chữ cái, số và khoảng trắng");
+            return false;
+        }
+
+        if (hang === "") {
+            showAlert("Vui lòng chọn Hãng");
+            return false;
+        }
+
+        if (chatLieu === "") {
+            showAlert("Vui lòng chọn Chất Liệu");
+            return false;
+        }
+
+        return true;
+    }
+
+    function showAlert(message) {
+        alertify.alert(message).setting({
+            'title': 'Thông báo',
+            'label': 'Đồng ý',
+        }).show();
+    }
 </script>
 </body>
 </html>
