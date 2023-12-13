@@ -25,6 +25,27 @@
     <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
 
     <link rel="stylesheet" href="/css/style.css">
+    <!-- Thêm link thư viện Alertify -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/themes/default.min.css"/>
+    <style>
+        .alertify .ajs-message {
+            background-color: black;
+            color: #ffffff;
+        }
+
+        /* Thay đổi màu nền của tiêu đề */
+        .alertify .ajs-header {
+            background-color: coral;
+            color: #ffffff;
+        }
+
+        /* Thay đổi màu nền của các nút */
+        .alertify .ajs-buttons .ajs-ok {
+            background-color: #2ecc71;
+            color: #ffffff;
+        }
+    </style>
 </head>
 <body>
 <!--<div id="global-loader">-->
@@ -232,7 +253,8 @@
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
                     <li>
-                        <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
+                        <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg"
+                                                       alt="img"><span> Thống Kê</span>
                         </a>
                     </li>
                     <li class="submenu">
@@ -326,12 +348,12 @@
                 <div class="card-body">
                     <div class="hidden-form" style="display: none">
                         <form th:object="${hinhAnhAdd}" method="post" th:action="@{/manage/hinh-anh/viewAdd/add}"
-                              enctype="multipart/form-data">
+                              enctype="multipart/form-data" onsubmit="return validateHinhAnhForm()" name="hinhAnhForm">
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã</label>
-                                        <input type="text" name="maAnh" th:field="*{maAnh}" required
+                                        <input type="text" name="maAnh" th:field="*{maAnh}"
                                                placeholder="Nhập Mã">
                                     </div>
                                 </div>
@@ -498,21 +520,21 @@
 </div>
 <div th:if="${message}" id="toast-container" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Dữ liệu của bạn đã được cập nhật</div>
     </div>
 </div>
 <div th:if="${maHinhAnhError}" id="warning1" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã không được trống.</div>
     </div>
 </div>
 <div th:if="${Errormessage}" id="checkMa" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Ảnh đã tồn tại.</div>
     </div>
@@ -535,6 +557,8 @@
 <script src="/plugins/toastr/toastr.min.js"></script>
 <script src="/plugins/toastr/toastr.js"></script>
 <script src="/js/script.js"></script>
+<script src="/plugins/alertify/custom-alertify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Lấy thẻ nút in bằng id
@@ -706,6 +730,43 @@
     $(document).ready(function () {
         $('.select').select2();
     });
+</script>
+<script>
+    function validateHinhAnhForm() {
+        var maAnh = document.forms["hinhAnhForm"]["maAnh"].value;
+
+        if (maAnh === "") {
+            showAlert("Vui lòng nhập Mã Ảnh");
+            return false;
+        }
+
+        if (!maAnh.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Mã Ảnh chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        for (var i = 1; i <= 4; i++) {
+            var inputId = "anh" + i;
+            var previewId = "anh" + i + i;
+
+            var fileInput = document.forms["hinhAnhForm"][inputId];
+            var imagePreview = document.getElementById(previewId);
+
+            if (fileInput.files.length === 0) {
+                showAlert("Vui lòng chọn ảnh " + i);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    function showAlert(message) {
+        alertify.alert(message).setting({
+            'title': 'Thông báo',
+            'label': 'Đồng ý',
+        }).show();
+    }
 </script>
 </body>
 </html>
