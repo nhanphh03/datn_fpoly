@@ -332,7 +332,7 @@
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Mã Chức Vụ</label>
+                                        <label>Mã Chức Vụ <span style="color: red;">*</span></label>
                                         <input type="text" th:field="*{maCV}">
                                         <br><br>
                                         <strong th:if="${#fields.hasErrors('maCV')}"
@@ -342,7 +342,7 @@
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Tên Chức Vụ</label>
+                                        <label>Tên Chức Vụ <span style="color: red;">*</span></label>
                                         <input type="text" th:field="*{tenCV}">
                                         <br><br>
                                         <strong th:if="${#fields.hasErrors('tenCV')}"
@@ -496,14 +496,14 @@
 </div>
 <div th:if="${message}" id="toast-container" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Dữ liệu của bạn đã được cập nhật</div>
     </div>
 </div>
 <div th:if="${Errormessage}" id="checkMa" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Chức Vụ đã tồn tại.</div>
     </div>

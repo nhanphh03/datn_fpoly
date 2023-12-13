@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
@@ -58,4 +59,12 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
 
     @Query(value = "select g.so_luong,g.trang_thai_mail from chi_tiet_giay g where g.trang_thai_mail=0",nativeQuery = true)
     List<Object[]> getSoLuongTon();
+
+    @Query("SELECT c FROM ChiTietGiay c WHERE c.giay.idGiay = :giayId AND c.size.idSize = :sizeId AND c.mauSac.idMau = :mauSacId AND c.hinhAnh.idHinhAnh = :hinhAnhId")
+    Optional<ChiTietGiay> findByGiayAndSizeAndMauSacAndHinhAnh(
+            @Param("giayId") UUID giayId,
+            @Param("sizeId") UUID sizeId,
+            @Param("mauSacId") UUID mauSacId,
+            @Param("hinhAnhId") UUID hinhAnhId
+    );
 }
