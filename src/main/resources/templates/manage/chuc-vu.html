@@ -332,7 +332,7 @@
                             <div class="row">
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Mã Chức Vụ</label>
+                                        <label>Mã Chức Vụ <span style="color: red;">*</span></label>
                                         <input type="text" th:field="*{maCV}">
                                         <br><br>
                                         <strong th:if="${#fields.hasErrors('maCV')}"
@@ -342,7 +342,7 @@
                                 </div>
                                 <div class="col-lg-2 col-sm-6 col-12">
                                     <div class="form-group">
-                                        <label>Tên Chức Vụ</label>
+                                        <label>Tên Chức Vụ <span style="color: red;">*</span></label>
                                         <input type="text" th:field="*{tenCV}">
                                         <br><br>
                                         <strong th:if="${#fields.hasErrors('tenCV')}"
