@@ -459,6 +459,8 @@
                                     <div class="form-group">
                                         <label>Mã Loại Khách Hàng <span style="color: red;">*</span></label>
                                         <input type="text" th:field="*{maLKH}"required>
+                                        <label>Mã Loại Khách Hàng</label>
+                                        <input type="text" th:field="*{maLKH}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
@@ -496,28 +498,28 @@
 //
 <div th:if="${Errormessage}" id="checkMaKH" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Khách Hàng đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${ErrormessageeEmail}" id="checkEmail" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Email đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${ErrormessageCCCD}" id="checkCCCD" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">CCCD đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${ErrormessageSDT}" id="checkSDT" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Sdt đã tồn tại.</div>
     </div>

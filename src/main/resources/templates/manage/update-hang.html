@@ -26,6 +26,27 @@
     <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
 
     <link rel="stylesheet" href="/css/style.css">
+    <!-- Thêm link thư viện Alertify -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/themes/default.min.css"/>
+    <style>
+        .alertify .ajs-message {
+            background-color: black;
+            color: #ffffff;
+        }
+
+        /* Thay đổi màu nền của tiêu đề */
+        .alertify .ajs-header {
+            background-color: coral;
+            color: #ffffff;
+        }
+
+        /* Thay đổi màu nền của các nút */
+        .alertify .ajs-buttons .ajs-ok {
+            background-color: #2ecc71;
+            color: #ffffff;
+        }
+    </style>
 </head>
 <body>
 <div id="global-loader">
@@ -309,7 +330,7 @@
         </div>
     </div>
 </div>
-<form th:object="${hang}" method="post" th:action="@{'/manage/hang/viewUpdate/' + ${hang.idHang}}" enctype="multipart/form-data">
+<form th:object="${hang}" method="post" th:action="@{'/manage/hang/viewUpdate/' + ${hang.idHang}}" enctype="multipart/form-data" onsubmit="return validateHangForm()" name="hangForm">
     <div class="page-wrapper">
         <div class="content">
             <div class="page-header">
@@ -324,13 +345,13 @@
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Mã Hãng</label>
-                                <input type="text" th:field="*{maHang}" required>
+                                <input type="text" th:field="*{maHang}" >
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
                                 <label>Tên Hãng</label>
-                                <input type="text" th:field="*{tenHang}" required>
+                                <input type="text" th:field="*{tenHang}" >
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
@@ -365,28 +386,28 @@
 </form>
 <div th:if="${message}" id="toast-container" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Dữ liệu của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${maHangError}" id="warning1" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${tenHangError}" id="warning2" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Tên hãng không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${Errormessage}" id="checkMa" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Hãng đã tồn tại.</div>
     </div>
@@ -408,6 +429,8 @@
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
 <script src="/js/script.js"></script>
+<script src="/plugins/alertify/custom-alertify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js"></script>
 <script>
     function previewImage(event) {
         const imageInput = document.getElementById('imageInput');
@@ -453,6 +476,46 @@
             checkMa.style.display = 'none';
         }
     }, 5000);
+</script>
+<script>
+    function validateHangForm() {
+        var maHang = document.forms["hangForm"]["maHang"].value;
+        var tenHang = document.forms["hangForm"]["tenHang"].value;
+        var logoHang = document.forms["hangForm"]["logoHang"].value;
+
+
+        if (maHang === "") {
+            showAlert("Vui lòng nhập Mã Hãng");
+            return false;
+        }
+
+        if (!maHang.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Mã Hãng chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        if (tenHang === "") {
+            showAlert("Vui lòng nhập Tên Hãng");
+            return false;
+        }
+
+        if (!tenHang.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Tên Hãng chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        if (logoHang === "") {
+            showAlert("Vui lòng chọn Logo Hãng");
+            return false;
+        }
+        return true;
+    }
+    function showAlert(message) {
+        alertify.alert(message).setting({
+            'title': 'Thông báo',
+            'label': 'Đồng ý',
+        }).show();
+    }
 </script>
 </body>
 </html>
