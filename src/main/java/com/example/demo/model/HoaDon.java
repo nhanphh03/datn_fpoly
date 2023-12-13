@@ -109,6 +109,6 @@ public class HoaDon {
     private String maHDOld;
 
     @Column(name = "trang_Thai_Hoan")
-    private int trangThaiHoan;
+    private Integer trangThaiHoan;
 
 }

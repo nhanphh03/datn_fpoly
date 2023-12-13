@@ -324,25 +324,25 @@
                         <div class="row">
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Mã Địa Chỉ</label>
+                                    <label>Mã Địa Chỉ <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{maDC}" readonly>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Tên Địa Chỉ</label>
+                                    <label>Tên Địa Chỉ <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{tenDC}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Tên Người Nhận</label>
+                                    <label>Tên Người Nhận <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{tenNguoiNhan}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Tỉnh Thành Phố</label>
+                                    <label>Tỉnh Thành Phố <span style="color: red;">*</span></label>
                                     <select class="select" id="tinhthanhpho">
                                         <option value="" selected>Chọn thành phố</option>
                                     </select>
@@ -351,7 +351,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Quận Huyện</label>
+                                    <label>Quận Huyện <span style="color: red;">*</span></label>
                                     <select class="select"  id="quanhuyen">
                                         <option value="" selected>Chọn quận huyện</option>
                                     </select>
@@ -360,7 +360,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Xã Phường</label>
+                                    <label>Xã Phường <span style="color: red;">*</span></label>
                                     <select class="select" id="xaphuong">
                                         <option value="" selected>Chọn xã phường</option>
                                     </select>
@@ -369,13 +369,13 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Mô Tả</label>
+                                    <label>Mô Tả <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{moTa}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Loại Địa Chỉ</label>
+                                    <label>Loại Địa Chỉ <span style="color: red;">*</span></label>
                                     <div style="display: flex;
                                     gap: 20px;
                                     align-items: center;
@@ -391,20 +391,20 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Địa Chỉ Chi Tiết</label>
+                                    <label>Địa Chỉ Chi Tiết <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{diaChiChiTiet}" id="diachict">
 
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>SốĐT Địa Chỉ</label>
+                                    <label>SốĐT Địa Chỉ <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{sdtNguoiNhan}">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Miền</label>
+                                    <label>Miền <span style="color: red;">*</span></label>
                                     <select class="select" th:field="*{mien}" id="loc" name="loc"
                                             style="width: 100%; height:40px; border: 1px solid rgba(145,158,171,0.32); border-radius: 5px;
                                                        font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;">
@@ -417,7 +417,7 @@
 
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Khách Hàng</label>
+                                    <label>Khách Hàng <span style="color: red;">*</span></label>
                                     <select class="select" th:field="*{khachHang}">
                                         <option th:each="loc : ${khachHang}" th:value="${loc.idKH}"
                                                 th:text="${loc.hoTenKH}"></option>
@@ -426,7 +426,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
-                                    <label>Trạng Thái</label>
+                                    <label>Trạng Thái <span style="color: red;">*</span></label>
                                     <select class="select" th:field="*{trangThai}" id="trangthai" name="trangThai">
                                         <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
                                                 th:text="${loc.value}"></option>

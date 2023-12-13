@@ -328,19 +328,19 @@
                     <div class="row">
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
-                                <label>Mã Chức Vụ</label>
+                                <label>Mã Chức Vụ <span style="color: red;">*</span></label>
                                 <input type="text" th:field="*{maCV}" readonly>
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
-                                <label>Tên Chức Vụ</label>
+                                <label>Tên Chức Vụ <span style="color: red;">*</span></label>
                                 <input type="text" th:field="*{tenCV}" >
                             </div>
                         </div>
                         <div class="col-lg-6 col-sm-6 col-12">
                             <div class="form-group">
-                                <label>Trạng Thái</label>
+                                <label>Trạng Thái <span style="color: red;">*</span></label>
                                 <select class="select" th:field="*{trangThai}">
                                     <option th:each="loc : ${dsTrangThai.entrySet()}" th:value="${loc.key}"
                                             th:text="${loc.value}"></option>
