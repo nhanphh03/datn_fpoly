@@ -115,32 +115,10 @@
                 </th:block>
 
                 <tr>
-                  <th scope="row" colspan="4" class="text-end">Tổng tiền</th>
-                  <td class="text-end" th:text="'₫'+${#numbers.formatDecimal(billPrint.tongTien, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
-                </tr>
-
-                <tr>
-                  <th scope="row" colspan="4" class="border-0 text-end">
-                    Giảm giá :</th>
-                  <td class="border-0 text-end" th:text="'₫'+${#numbers.formatDecimal(billPrint.giamGiaHoaDon, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
-                </tr>
-
-                <tr>
-                  <th scope="row" colspan="4" class="border-0 text-end">
-                    Phí giao hàng :</th>
-                  <td class="border-0 text-end" th:text="'₫'+${#numbers.formatDecimal(billPrint.tienShip, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
-                </tr>
-
-                <tr>
-                  <th scope="row" colspan="4" class="border-0 text-end">
-                    Giảm giá giao hàng :</th>
-                  <td class="border-0 text-end" th:text="'₫'+${#numbers.formatDecimal(billPrint.giamGiaShip, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
-                </tr>
-
-                <tr>
-                  <th scope="row" colspan="4" class="border-0 text-end">Tổng</th>
+                  <th scope="row" colspan="4" class="border-0 text-end">Tổng tiền cần thu</th>
                   <td class="border-0 text-end">
-                    <h4 class="m-0 fw-semibold" th:text="'₫'+${#numbers.formatDecimal(billPrint.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h4>
+                    <h4 th:if="${billPrint.hinhThucThanhToan == 0}" class="m-0 fw-semibold" th:text="'₫'+${#numbers.formatDecimal(billPrint.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h4>
+                    <h4 th:if="${billPrint.hinhThucThanhToan == 1}" class="m-0 fw-semibold">₫ 0</h4>
                   </td>
                 </tr>
 
