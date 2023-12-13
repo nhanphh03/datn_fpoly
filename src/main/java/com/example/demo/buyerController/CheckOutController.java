@@ -96,6 +96,7 @@ public class CheckOutController {
             hoaDonChiTiet.setChiTietGiay(giayChiTietService.getByIdChiTietGiay(x));
             hoaDonChiTiet.setDonGia(gioHangChiTiet.getDonGia());
             hoaDonChiTiet.setSoLuong(gioHangChiTiet.getSoLuong());
+            hoaDonChiTiet.setDonGiaTruocGiam(gioHangChiTiet.getSoLuong() * gioHangChiTiet.getChiTietGiay().getSoTienTruocKhiGiam());
             hoaDonChiTiet.setTgThem(new Date());
             hoaDonChiTiet.setTrangThai(1);
 
@@ -157,7 +158,7 @@ public class CheckOutController {
     }
 
     @PostMapping("/checkout/add/address")
-    public String addNewAddresslaceOrder(Model model,@RequestParam(name = "defaultSelected", defaultValue = "false") boolean defaultSelected){
+    public String addNewAddressPlaceOrder(Model model,@RequestParam(name = "defaultSelected", defaultValue = "false") boolean defaultSelected){
 
         KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
         HoaDon hoaDon = (HoaDon) session.getAttribute("hoaDonTaoMoi") ;
@@ -187,7 +188,6 @@ public class CheckOutController {
         String nameAddress = request.getParameter("nameAddress");
         String fullName = request.getParameter("fullName");
         String phoneAddress = request.getParameter("phoneAddress");
-        String thernAddress = request.getParameter("thernAddress");
         String city = request.getParameter("city");
         String district = request.getParameter("district");
         String ward = request.getParameter("ward");
@@ -201,7 +201,6 @@ public class CheckOutController {
         diaChiKH.setKhachHang(khachHang);
         diaChiKH.setTrangThai(1);
         diaChiKH.setMaDC( "DC_" + khachHang.getMaKH() + date.getDay() + generateRandomNumbers());
-        diaChiKH.setMien(thernAddress);
         diaChiKH.setSdtNguoiNhan(phoneAddress);
         diaChiKH.setQuanHuyen(district);
         diaChiKH.setTenDC(nameAddress);

@@ -247,12 +247,12 @@
 <section class="shopping-cart spad" style="margin-top: -80px">
   <div class="container">
 
-    <form action="/buyer/checkout" method="post">
+    <form action="/buyer/checkout" method="post" id="purchaseForm">
       <div style="z-index: 100; width: 1170px;  position: fixed;margin-bottom: 50px">
         <div class="row" style="background-color: #f3f2ee; height: 80px; width: 1170px;  ">
           <div class="col-lg-8">
             <p style="margin: 20px 0 5px 50px;">
-              <input  style="height: 20px; width: 20px; margin-right: 10px;" type="checkbox" name="" id="checkAll" th:text="'Chọn tất cả ( ' +${sumProductInCart} +' sản phẩm )'"></p>
+              <input onclick="selectAllItems(this)" style="height: 20px; width: 20px; margin-right: 10px;" type="checkbox" name="" id="checkAll" th:text="'Chọn tất cả ( ' +${sumProductInCart} +' sản phẩm )'"></p>
             <a style="margin: 10px 0 0 50px; color: red;" href="">Xóa</a>
 
           </div>
@@ -262,7 +262,7 @@
             <p>Tiết kiệm</p>
           </div>
           <div class="col-lg-2">
-            <h5 style=" margin: 20px 0 5px 0;"> 800 $</h5>
+            <h5 style=" margin: 20px 0 5px 0;" id="grandTotal"></h5>
             <p>-200$</p>
           </div>
         </div>
@@ -308,7 +308,7 @@
                   <tr id="productId" th:value="${x.chiTietGiay.idCTG}">
 
                     <td>
-                      <input style="height: 20px; width: 20px;" class="itemsCart" name="selectedProducts" type="checkbox" th:value="${x.chiTietGiay.idCTG}">
+                      <input style="height: 20px; width: 20px;" class="itemsCart" onclick="updateTotalAmount(this)" name="selectedProducts" type="checkbox" th:value="${x.chiTietGiay.idCTG}">
                     </td>
                     <td style="width: 400px;" class="product__cart__item" >
                       <div class="product__cart__item__pic">
@@ -326,7 +326,9 @@
                     <td style="width: 175px;"  class="quantity__item">
                       <div  style="margin-top: -20px; display: block;">
                           <span id="showButton" style="font-weight: normal; font-size: medium;">Phân loại :</span>
-                          <a th:href="@{'/buyer/cart/option/' + ${x.chiTietGiay.giay.idGiay} + '/' + ${x.chiTietGiay.mauSac.idMau}+ '/' + ${x.chiTietGiay.idCTG}}"> <img style="height: 10px; width: 10px;" src="/images/img/icon/dropdown.png" alt=""> </a>
+                          <a th:href="@{'/buyer/cart/option/' + ${x.chiTietGiay.giay.idGiay} + '/' + ${x.chiTietGiay.mauSac.idMau}+ '/' + ${x.chiTietGiay.idCTG}}">
+                            <img style="height: 10px; width: 10px;" src="/images/img/icon/dropdown.png" alt="">
+                          </a>
                       </div>
                       <div style="padding-right: 20px;">
                         <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" th:text="'Colors : ' + ${x.chiTietGiay.mauSac.tenMau}"></span>
@@ -735,7 +737,7 @@
 
 <!--Modal show option product begin-->
   <div th:if="${showModalChooseSize}" class="modal fade" id="showOptionProductInCart" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="width: 600px;">
       <form action="/buyer/cart/change/size" method="post">
         <div class="modal-content">
           <div class="modal-header">
@@ -854,6 +856,7 @@
   function updateTotalAmount(input) {
     var quantity = input.value;
     var idCTG = input.getAttribute('name');
+    var totalAmount = 0;
 
     fetch('/buyer/cart/updateQuantity', {
       method: 'POST',
@@ -867,28 +870,29 @@
             })
             .catch(error => {
             });
-    var quantityItem = input.closest('.quantity__item');
-    var priceElement = quantityItem.getElementsByClassName('cart__price')[0];
-    // Kiểm tra xem priceElement có giá trị không
-    if (priceElement) {
-      var price = parseFloat(priceElement.innerText.replace('₫', '').replace(',', ''));
 
-      var newTotalAmount = quantity * price;
+    $(".itemsCart:checked").each(function () {
+      var priceProduct = parseFloat($(this).closest("tr").find(".cart__price").text().replace('₫', '').replace(/,/g, '').trim());
+      var quantity = parseInt($(this).closest("tr").find(".quantityInput").val());
+      totalAmount += priceProduct * quantity;
+    });
 
-      var totalAmountElement = input.closest('tr').querySelector('.totalAmount');
-      totalAmountElement.innerText = '₫' + formatCurrency(newTotalAmount);
+    $("#grandTotal").text("₫" + totalAmount.toLocaleString());
 
-      console.log(newTotalAmount);
-    } else {
-      console.error('Price element not found');
-    }
+    var priceProduct = parseFloat($(input).closest("tr").find(".cart__price").text().replace('₫', '').replace(/,/g, '').trim());
+    var quantity = parseInt($(input).closest("tr").find(".quantityInput").val());
+    var totalAmountElement = $(input).closest("tr").find(".totalAmount");
+    var totalAmount = quantity * priceProduct;
+    totalAmountElement.text("₫" + totalAmount.toLocaleString());
 
   }
-
+  function selectAllItems(checkbox) {
+    $(".itemsCart").prop("checked", $(checkbox).prop("checked"));
+    updateTotalAmount();
+  }
   function formatCurrency(amount) {
     return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
   }
-
 
 </script>
 <!--Update quantity product in cart END -->
@@ -917,38 +921,11 @@
 </script>
 <!-- Check choose product End -->
 
-<!-- Check choose all product Begin -->
-<script>
-  var checkboxes = document.querySelectorAll('.itemsCart');
-  var chonTatCa = document.getElementById('checkAll');
-
-  chonTatCa.addEventListener('change', function() {
-    for (var i = 0; i < checkboxes.length; i++) {
-      checkboxes[i].checked = chonTatCa.checked;
-    }
-
-    // Lưu tổng tiền ban đầu khi chọn tất cả
-    if (chonTatCa.checked) {
-      initialTotalAmount = parseFloat($("#grandTotal").text());
-    }
-  });
-
-  checkboxes.forEach(function(checkbox) {
-    checkbox.addEventListener('change', function() {
-      chonTatCa.checked = Array.from(checkboxes).every(function(cb) {
-        return cb.checked;
-      });
-    });
-  });
-</script>
-<!-- Check choose all product End -->
-
 <script>
   $(document).ready(function () {
     $('#showOptionProductInCart').modal('show');
   });
 </script>
-
 
 <!--Receive mail begin-->
 <script>

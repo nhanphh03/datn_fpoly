@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.beust.ah.A;
 import com.example.demo.model.*;
 import com.example.demo.service.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -48,6 +49,7 @@ public class HoaDonOnlineController {
     private String manageBillOnline(Model model){
         model.addAttribute("reLoadPage", true);
         showData(model);
+        showTab1(model);
         return "manage/manage-bill-online";
     }
 
@@ -61,6 +63,7 @@ public class HoaDonOnlineController {
         model.addAttribute("billDelivery", billDelivery);
         model.addAttribute("showEditBillDelivery", true);
 
+        showTab3(model);
 
         showData(model);
 
@@ -95,7 +98,8 @@ public class HoaDonOnlineController {
 
         model.addAttribute("showMessThanhCong", true);
         model.addAttribute("reLoadPage", true);
-
+        showData(model);
+        showTab3(model);
         return "manage/manage-bill-online";
     }
 
@@ -112,10 +116,6 @@ public class HoaDonOnlineController {
 
         Date thoiGianThanhToanFormat = new Date();
 
-        String pattern = "HH:mm yyyy-MM-dd";
-
-
-        // Sử dụng SimpleDateFormat để chuyển đổi
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
         try {
@@ -136,24 +136,17 @@ public class HoaDonOnlineController {
         lichSuThanhToan.setMaLSTT(maLSTT);
         lichSuThanhToan.setLoaiTT(0); //Thanh toán online
         lichSuThanhToan.setNoiDungThanhToan(noiDungThanhToan);
-
         lsThanhToanService.addLSTT(lichSuThanhToan);
 
         hoaDonThanhToan.setTrangThai(1);
         hoaDonThanhToan.setTgThanhToan(thoiGianThanhToanFormat);
         hoaDonService.add(hoaDonThanhToan);
 
-        return "redirect:/manage/bill/online";
-    }
+        showData(model);
+        showTab2(model);
+        model.addAttribute("reLoadPage", true);
 
-    @GetMapping("pay")
-    private String payHistory(Model model){
-
-        List<LichSuThanhToan> lichSuThanhToanList = lsThanhToanService.getAllLSTT();
-
-        model.addAttribute("lichSuThanhToanList", lichSuThanhToanList);
-
-        return "manage/manage-pay";
+        return "manage/manage-bill-online";
     }
 
     @GetMapping("/online/refund/detail/{idHD}")
@@ -183,7 +176,11 @@ public class HoaDonOnlineController {
                                      @RequestParam("idCTGHoanHang") List<String> listIdCTGHoanHang,
                                      @RequestParam("lyDoTuChoi") String lyDoTuChoi,
                                      @RequestParam(name = "accept", required = false) String accept,
-                                     @RequestParam(name = "dismist", required = false) String dismist){
+                                     @RequestParam(name = "dismist", required = false) String dismist,
+                                     @RequestParam(name = "inputCheckAll", defaultValue = "false") boolean inputCheckAll){
+
+
+
 
         if (accept != null) {
             List<HoaDonChiTiet> hoaDonChiTietList = hoaDonChiTietService.findByHoaDon(hoaDonService.getOne(idHD));
@@ -205,11 +202,19 @@ public class HoaDonOnlineController {
                 x.setTrangThai(1);
                 hoaDonChiTietService.add(x);
             }
-
             PhieuTraHang phieuTraHang = phieuTraHangServices.findByHoaDon(hoaDonService.getOne(idHD));
             phieuTraHang.setTrangThai(1);
 
-            hoaDonOld.setMaHDOld("1");
+
+            hoaDonOld.setTrangThaiHoan(1);
+
+            if (inputCheckAll) {
+                hoaDonOld.setTrangThaiHoan(4);
+                phieuTraHang.setTrangThai(4);
+                hoaDon.setTrangThaiHoan(4);
+            }
+
+            hoaDonService.add(hoaDon);
             hoaDonService.add(hoaDonOld);
 
             phieuTraHang.setTgXacNhan(new Date());
@@ -235,85 +240,256 @@ public class HoaDonOnlineController {
 
             PhieuTraHang phieuTraHang = phieuTraHangServices.findByHoaDon(hoaDonService.getOne(idHD));
             if (hoaDonChiTietList.size() == 0){
-                phieuTraHang.setTrangThai(2);
 
+                phieuTraHang.setTrangThai(2);
                 hoaDonOld.setMaHDOld("2");
                 hoaDonService.add(hoaDonOld);
+
+                hoaDon.setTrangThaiHoan(4);
+                hoaDonService.add(hoaDon);
             }
 
-            hoaDonOld.setMaHDOld("1");
+            hoaDonOld.setTrangThaiHoan(1);
             hoaDonService.add(hoaDonOld);
 
             phieuTraHang.setTgXacNhan(new Date());
             phieuTraHangServices.savePTH(phieuTraHang);
 
         }
-        return"redirect:/manage/bill/online";
+        model.addAttribute("reLoadPage", true);
+        showData(model);
+        showTab4(model);
+        return "manage/manage-bill-online";
     }
+
+
+    @GetMapping("/online/print/{idHD}")
+    private String printBillOnline(Model model, @PathVariable UUID idHD){
+
+        HoaDon hoaDon = hoaDonService.getOne(idHD);
+
+        model.addAttribute("billPrint", hoaDon);
+
+        return "manage/managePrintBill";
+    }
+
+    @PostMapping("online/refund/delivery/confirm/{idHD}")
+    private String confirmNVGHBillRefund(Model model,  @PathVariable UUID idHD){
+
+        UUID idNV = UUID.fromString(request.getParameter("idNhanVien"));
+
+        Date date = new Date();
+        NhanVien nhanVien = nhanVienService.getByIdNhanVien(idNV);
+        HoaDon hoaDon = hoaDonService.getOne(idHD);
+
+        hoaDon.setNhanVien(nhanVien);
+        hoaDon.setTrangThai(2);
+        hoaDon.setTgShip(date);
+
+        hoaDonService.add(hoaDon);
+
+        GiaoHang giaoHang = new GiaoHang();
+        giaoHang.setHoaDon(hoaDon);
+        giaoHang.setTrangThai(1);
+        giaoHang.setThoiGian(new Date());
+        giaoHang.setNoiDung("Xác nhận nhân viên giao hàng");
+        giaoHang.setViTri("Xác nhận nhân viên giao hàng");
+
+        giaoHangService.saveGiaoHang(giaoHang);
+
+        showData(model);
+
+        model.addAttribute("showMessThanhCong", true);
+        model.addAttribute("reLoadPage", true);
+        showData(model);
+        showTab3(model);
+        return "manage/manage-bill-online";
+    }
+
+    @GetMapping("online/bill/refund/delivery/{idHD}")
+    private String editBillRefundOnline(Model model, @PathVariable UUID idHD){
+
+        HoaDon billDelivery = hoaDonService.getOne(idHD);
+        List<NhanVien> listNhanVienGiao = nhanVienService.findByTrangThai(1);
+
+        model.addAttribute("listNhanVienGiao", listNhanVienGiao);
+        model.addAttribute("billDelivery", billDelivery);
+        model.addAttribute("showEditBillRefundDelivery", true);
+
+        showTab4(model);
+
+        showData(model);
+
+        return "manage/manage-bill-online";
+    }
+
+    @GetMapping("/online/print/refund/bill/{idHD}")
+    private String printBillRefundOnline(Model model, @PathVariable UUID idHD){
+
+        HoaDon hoaDon = hoaDonService.getOne(idHD);
+
+        model.addAttribute("billPrint", hoaDon);
+
+        return "manage/managePrintBillRefund";
+    }
+
+
+
+
 
     private void showData(Model model){
 
-        List<HoaDon> listHoaDonOnline = hoaDonService.listAllHoaDonOnline();
-        List<HoaDon> listHoaDonOnlineQRCode = hoaDonService.listHoaDonOnlineAndHTTT(1);
-        List<HoaDon> listHoaDonOnlineThanhToanNhanHang = hoaDonService.listHoaDonOnlineAndHTTT(0);
+        List<HoaDon> listAllHoaDonOnline = hoaDonService.listHoaDonOnline();
 
 
-        List<PhieuTraHang> phieuTraHangList = phieuTraHangServices.getAll();
+        List<HoaDon> listHoaDonHoan = new ArrayList<>();
+
+        List<HoaDon> listAllHoaDonOnline2 = new ArrayList<>();
+        List<HoaDon> listAllHoaDonDangGiao = new ArrayList<>();
+        List<HoaDon> listHoaDonOnlineQRCode = new ArrayList<>();
 
 
+        int soLuongHoaDonHoan = 0;
+        int soLuongHoaDonOnline = 0;
+        int soLuongHoaDonHuy = 0;
+        int soLuongHoaDonDaThanhToan = 0 ;
+        int soLuongHoaDonChuaThanhToanQRCode = 0 ;
+        int soLuongHoaDonChuaThanhToanNhanHang = 0 ;
+        int soLuongHoaDonDangGiao = 0;
+        int soLuongHoaDonBanking = 0;
+        int soLuongHoaDonDaNhan = 0;
 
+        int soLuongHoaDonThanhToanKhiNhanHang = 0;
 
-        List<HoaDon> listHoaDonOnlineDaThanhToan = hoaDonService.listHoaDonOnlineAndTrangThai(1);
-
-        int soLuongDaThanhToan = hoaDonService.listHoaDonOnlineAndHTTTAndTrangThai(0 , 3).size() +
-                hoaDonService.listHoaDonOnlineAndHTTTAndTrangThai(1, 1).size() ;
-
-        int soLuongChuaThanhToan = hoaDonService.listHoaDonOnlineAndHTTTAndTrangThai(0 , 1).size() +
-                hoaDonService.listHoaDonOnlineAndHTTTAndTrangThai(0, 2).size() +
-                hoaDonService.listHoaDonOnlineAndHTTTAndTrangThai(1, 0).size();
-
-        List<HoaDon> listHoaDonOnlineDangGiao = hoaDonService.listHoaDonOnlineAndTrangThai(2);
-        List<HoaDon> listHoaDonOnlineDaNhan = hoaDonService.listHoaDonOnlineAndTrangThai(3);
-        List<HoaDon> listHoaDonOnlineHuy = hoaDonService.listHoaDonOnlineAndTrangThai(4);
-        List<HoaDon> listHoaDonOnlineDaHoan = hoaDonService.listHoaDonOnlineAndTrangThai(5);
-
-        double totalAmount = listHoaDonOnline.stream()
-                .mapToDouble(HoaDon::getTongTienDG)
-                .sum();
-
-        int sumBillOnline = listHoaDonOnline.size();
-        int sumBillQRCode = listHoaDonOnlineQRCode.size();
-        int sumQuantityDelivery = listHoaDonOnlineThanhToanNhanHang.size();
-        int hoaDonDangGiao = listHoaDonOnlineDangGiao.size();
-        int hoaDonHuy = listHoaDonOnlineHuy.size();
-        int hoaDonDaNhan = listHoaDonOnlineDaNhan.size();
-        int hoaDonDaHoan = listHoaDonOnlineDaHoan.size();
-
-        List<HoaDon> listHoaDonOnlineGiaoHang = new ArrayList<>();
-
-        for (HoaDon bill : listHoaDonOnlineDaThanhToan) {
-            listHoaDonOnlineGiaoHang.add(bill);
+        double tongTienHoaDon = 0.0;
+        if (listAllHoaDonOnline != null) {
+            for (HoaDon x : listAllHoaDonOnline) {
+                if (x.getTrangThai() == 6 || x.getTrangThai() == 7) {
+                    System.out.println("abc");
+                } else {
+                    tongTienHoaDon += x.getTongTienDG();
+                }
+            }
         }
 
-        for (HoaDon bill: listHoaDonOnlineDangGiao) {
-            listHoaDonOnlineGiaoHang.add(bill);
+        if (listAllHoaDonOnline != null){
+            for (HoaDon x: listAllHoaDonOnline) {
+                if (x.getTrangThai() == 6 || x.getTrangThai() == 7){
+                    System.out.println("abc");
+                }else{
+                    if (x.getIdHDOld() != null){
+                        soLuongHoaDonHoan ++;
+                        listHoaDonHoan.add(x);
+                    }
+                    if (x.getIdHDOld() == null){
+                        listAllHoaDonOnline2.add(x);
+                        soLuongHoaDonOnline ++;
+                    }
+                    if(x.getTrangThai() == 4){
+                        soLuongHoaDonHuy ++;
+                    }
+                    if (x.getHinhThucThanhToan() == 1 && x.getIdHDOld() == null){
+                        soLuongHoaDonBanking ++;
+                        listHoaDonOnlineQRCode.add(x);
+                    }
+                    if (x.getHinhThucThanhToan() == 0){
+                        soLuongHoaDonThanhToanKhiNhanHang ++;
+                    }
+                    if (x.getHinhThucThanhToan() == 1 && x.getTrangThai() == 0){
+                        soLuongHoaDonChuaThanhToanQRCode ++;
+                    }
+                    if ( x.getTrangThai() == 1 || x.getTrangThai() == 2){
+                        if (x.getHinhThucThanhToan() == 0){
+                            soLuongHoaDonChuaThanhToanQRCode ++;
+                        }
+                    }
+                    if (x.getTrangThai() == 1 && x.getHinhThucThanhToan() == 1 && x.getIdHDOld() == null){
+                        soLuongHoaDonDaThanhToan ++;
+                    }
+                    if (x.getTrangThai() == 3 && x.getHinhThucThanhToan() == 0 && x.getIdHDOld() == null){
+                        soLuongHoaDonDaThanhToan ++;
+                    }
+                    if (x.getTrangThai() == 2 && x.getIdHDOld() == null){
+                        soLuongHoaDonDangGiao ++;
+                        listAllHoaDonDangGiao.add(x);
+                    }
+                    if (x.getTrangThai() == 1 && x.getIdHDOld() == null ){
+                        soLuongHoaDonDangGiao ++;
+                        listAllHoaDonDangGiao.add(x);
+                    }
+                    if (x.getTrangThai() == 4 && x.getIdHDOld() == null){
+                        soLuongHoaDonHuy ++;
+                    }
+                    if (x.getTrangThai() == 3 && x.getIdHDOld() == null){
+                        soLuongHoaDonDaNhan ++;
+                    }
+                }
+                if(x.getIdHDOld() != null){
+
+                }
+            }
         }
 
-        model.addAttribute("sumBillOnline", sumBillOnline);
-        model.addAttribute("totalAmount", totalAmount);
-        model.addAttribute("sumQuantityQRCode", sumBillQRCode);
-        model.addAttribute("sumQuantityDelivery", sumQuantityDelivery);
-        model.addAttribute("hoaDonChuaThanhToan", soLuongChuaThanhToan);
-        model.addAttribute("hoaDonDaThanhToan", soLuongDaThanhToan);
-        model.addAttribute("hoaDonDangGiao", hoaDonDangGiao);
-        model.addAttribute("hoaDonHuy", hoaDonHuy);
-        model.addAttribute("hoaDonDaNhan", hoaDonDaNhan);
-        model.addAttribute("hoaDonDaHoan", hoaDonDaHoan);
+        int soLuongHoaDonChuaThanhToan =  soLuongHoaDonChuaThanhToanNhanHang +  soLuongHoaDonChuaThanhToanQRCode;
 
-        model.addAttribute("listBillRefund", phieuTraHangList);
-        model.addAttribute("listHoaDonOnline", listHoaDonOnline);
+        double tongTienHoan = 0.0;
+        int soLuongSPHoan = 0;
+        int soLuongHdHoanChoXacNhan = 0;
+        int soLuongHdHoanKhachHuy = 0;
+        int soLuongHdHoanDangHoan = 0;
+        int soLuongHdHoanChuaHoanTien = 0;
+        int soLuongHdHoanDaHoanTien = 0;
+        int soLuongHdHoanTuChoi = 0;
+
+        if (listHoaDonHoan.size() != 0){
+            for (HoaDon x:listHoaDonHoan) {
+                tongTienHoan += x.getTongTienDG();
+                soLuongSPHoan += x.getTongSP();
+                if(x.getTrangThaiHoan() == 0){
+                    soLuongHdHoanChoXacNhan ++;
+                }
+                if(x.getTrangThaiHoan() == 3){
+                    soLuongHdHoanKhachHuy ++;
+                }
+                if(x.getTrangThaiHoan() == 5){
+                    soLuongHdHoanDangHoan ++;
+                }
+                if(x.getTrangThaiHoan() == 7){
+                    soLuongHdHoanChuaHoanTien ++;
+                }
+                if(x.getTrangThaiHoan() == 8){
+                    soLuongHdHoanDaHoanTien ++;
+                }
+                if(x.getTrangThaiHoan() == 2){
+                    soLuongHdHoanTuChoi ++;
+                }
+            }
+        }
+
+        model.addAttribute("sumBillOnline", soLuongHoaDonOnline);
+        model.addAttribute("totalAmount", tongTienHoaDon);
+        model.addAttribute("sumQuantityQRCode", soLuongHoaDonBanking);
+        model.addAttribute("sumQuantityDelivery", soLuongHoaDonThanhToanKhiNhanHang);
+        model.addAttribute("hoaDonChuaThanhToan", soLuongHoaDonChuaThanhToan);
+        model.addAttribute("hoaDonDaThanhToan", soLuongHoaDonDaThanhToan);
+        model.addAttribute("hoaDonDangGiao", soLuongHoaDonDangGiao);
+        model.addAttribute("hoaDonHuy", soLuongHoaDonHuy);
+        model.addAttribute("hoaDonDaNhan", soLuongHoaDonDaNhan);
+        model.addAttribute("hoaDonDaHoan", soLuongHoaDonHoan);
+
+        model.addAttribute("tongTienHoan", tongTienHoan);
+        model.addAttribute("soLuongSPHoan", soLuongSPHoan);
+        model.addAttribute("soLuongHdHoanChoXacNhan", soLuongHdHoanChoXacNhan);
+        model.addAttribute("soLuongHdHoanKhachHuy", soLuongHdHoanKhachHuy);
+        model.addAttribute("soLuongHdHoanDangHoan", soLuongHdHoanDangHoan);
+        model.addAttribute("soLuongHdHoanChuaHoanTien", soLuongHdHoanChuaHoanTien);
+        model.addAttribute("soLuongHdHoanDaHoanTien", soLuongHdHoanDaHoanTien);
+        model.addAttribute("soLuongHdHoanTuChoi", soLuongHdHoanTuChoi);
+
+        model.addAttribute("listBillRefund", listHoaDonHoan);
+        model.addAttribute("listHoaDonOnline", listAllHoaDonOnline);
         model.addAttribute("listHoaDonOnlineQRCode", listHoaDonOnlineQRCode);
-        model.addAttribute("listHoaDonOnlineGiaoHang", listHoaDonOnlineGiaoHang);
+        model.addAttribute("listHoaDonOnlineGiaoHang", listAllHoaDonDangGiao);
     }
 
     public String generateRandomNumbers() {
@@ -325,4 +501,56 @@ public class HoaDonOnlineController {
         }
         return sb.toString();
     }
+
+    private void showTab1(Model model){
+        model.addAttribute("activeAll", "nav-link active");
+        model.addAttribute("xac_nhan_tt", "nav-link");
+        model.addAttribute("van_chuyen", "nav-link");
+        model.addAttribute("hoan_hang", "nav-link");
+
+        model.addAttribute("tabpane1", "tab-pane show active");
+        model.addAttribute("tabpane2", "tab-pane");
+        model.addAttribute("tabpane3", "tab-pane");
+        model.addAttribute("tabpane4", "tab-pane");
+    }
+
+    private void showTab2(Model model){
+
+        model.addAttribute("activeAll", "nav-link");
+        model.addAttribute("xac_nhan_tt", "nav-link active");
+        model.addAttribute("van_chuyen", "nav-link");
+        model.addAttribute("hoan_hang", "nav-link");
+
+        model.addAttribute("tabpane1", "tab-pane");
+        model.addAttribute("tabpane2", "tab-pane show active");
+        model.addAttribute("tabpane3", "tab-pane");
+        model.addAttribute("tabpane4", "tab-pane");
+    }
+
+    private void showTab3(Model model){
+
+        model.addAttribute("activeAll", "nav-link");
+        model.addAttribute("xac_nhan_tt", "nav-link");
+        model.addAttribute("van_chuyen", "nav-link active");
+        model.addAttribute("hoan_hang", "nav-link");
+
+        model.addAttribute("tabpane1", "tab-pane");
+        model.addAttribute("tabpane2", "tab-pane");
+        model.addAttribute("tabpane3", "tab-pane show active");
+        model.addAttribute("tabpane4", "tab-pane");
+    }
+
+    private void showTab4(Model model){
+
+        model.addAttribute("activeAll", "nav-link");
+        model.addAttribute("xac_nhan_tt", "nav-link");
+        model.addAttribute("van_chuyen", "nav-link");
+        model.addAttribute("hoan_hang", "nav-link active");
+
+        model.addAttribute("tabpane1", "tab-pane");
+        model.addAttribute("tabpane2", "tab-pane");
+        model.addAttribute("tabpane3", "tab-pane");
+        model.addAttribute("tabpane4", "tab-pane show active");
+
+        }
 }
