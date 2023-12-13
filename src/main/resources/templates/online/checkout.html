@@ -391,7 +391,7 @@
 
                 <p style="margin-left: 10px; margin-top: 17px;">Lời nhắn :</p>
 
-                <textarea class="form-group" style="height: 40px; width: 300px; margin: 10px 0 0 20px" placeholder="Please leave a message ...." name="loiNhan"></textarea>
+                <textarea class="form-group" style="height: 40px; width: 300px; margin: 10px 0 0 20px" placeholder="Ghi chú cho đơn hàng ...." name="loiNhan"></textarea>
               </div>
               <div class="col-lg-5" style="padding-left: 60px;">
 
@@ -746,7 +746,7 @@
 <section>
 
   <div th:if="${addNewAddressNotNull}" class="modal fade" id="modalAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle2" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="width: 600px;">
       <form action="/buyer/checkout/change/address" method="post">
 
         <div class="modal-content">
@@ -807,7 +807,7 @@
   </div>
 
   <div th:if="${addNewAddressNotNull}" class="modal fade" id="addNewAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="width: 550px">
       <div class="modal-content">
         <form action="/buyer/checkout/add/address" method="post">
           <div class="modal-header">
@@ -829,42 +829,37 @@
                 <input style="height: 40px; margin-left: 38px; margin-right: 30px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
                                 font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;" type="text" placeholder="SDT người nhận" name="phoneAddress">
 
-                <select class="select" id="loc" name="thernAddress"
+                <select class="select" id="city" name="city"
                         style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
                                                        font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;">
-                  <option th:value="mien_bac" >Miền Bắc</option>
-                  <option th:value="mien_trung" >Miền Trung</option>
-                  <option th:value="mien_nam">Miền Nam</option>
+                  <option value="" selected>Chọn thành phố</option>
                 </select>
               </div>
 
               <div class="row" style="margin-bottom: 20px;">
 
-                <select class="select" id="city" name="city" style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
-                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;  margin-right: 30px; margin-left: 38px;">
-                  <option value="" selected>Chọn thành phố</option>
+                <select class="select" id="district" name="district" style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px; margin-left: 38px; margin-right: 30px; ">
+                  <option value="" selected>Chọn quận huyện</option>
                 </select>
 
-                <select class="select" id="district" name="district" style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
-                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;">
-                  <option value="" selected>Chọn quận huyện</option>
+                <select class="select" id="ward" name="ward" style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px; ">
+                  <option value="" selected>Chọn phường/xã</option>
                 </select>
 
               </div>
 
               <div class="row" style="margin-bottom: 20px;" >
 
-                <select class="select" id="ward" name="ward" style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
-                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;  margin-right: 30px; margin-left: 38px;">
-                  <option value="" selected>Chọn phường/xã</option>
-                </select>
-
-                <input name="description" style="height: 40px;width: 190px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
-                                font-weight: 500; font-size: 14px; color: #637381;  padding: 10px 15px;" type="text" placeholder="Mô tả" >
+                <input name="description" style="height: 40px;width: 410px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                font-weight: 500; font-size: 14px; color: #637381;  padding: 10px 15px; margin-left: 38px;" type="text" placeholder="Mô tả";  >
 
               </div>
 
+              <div style="width: 100%; height:15px;"></div>
               <div style="width: 100%; height: 0.5px; background-color: rgb(64, 64, 64) ;"></div>
+              <div style="width: 100%; height:15px;"></div>
 
               <div class="row">
                 <input style="margin: 0 10px 0 38px;" type="checkbox" name="defaultSelected">  Đặt làm mặc định
@@ -882,7 +877,7 @@
   </div>
 
   <div th:if="${addNewAddressNulll}" class="modal fade" id="addNewAddressNull" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="width: 550px">
       <div class="modal-content">
         <form action="/buyer/checkout/add/address" method="post">
           <div class="modal-header">
@@ -905,38 +900,32 @@
                 <input style="height: 40px; margin-left: 38px; margin-right: 30px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
                                 font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;" type="text" placeholder="Số điện thoại người nhận" name="phoneAddress">
 
-                <select class="select" id="loc" name="thernAddress"
+                <select class="select" id="city" name="city"
                         style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
                                                        font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;">
-                  <option th:value="mien_bac" >Miền Bắc</option>
-                  <option th:value="mien_trung" >Miền Trung</option>
-                  <option th:value="mien_nam">Miền Nam</option>
+                  <option value="" selected>Chọn tỉnh/Thành phố</option>
                 </select>
               </div>
 
               <div class="row" style="margin-bottom: 20px;">
 
-                <select class="select" id="city" name="city" style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
-                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;  margin-right: 30px; margin-left: 38px;">
-                  <option value="" selected>Chọn tỉnh/Thành phố</option>
+
+                <select class="select" id="district" name="district" style="margin-left: 38px; width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px; margin-right: 30px;">
+                  <option value="" selected>Chọn Quận/Huyện</option>
                 </select>
 
-                <select class="select" id="district" name="district" style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                <select class="select" id="ward" name="ward" style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
                                 font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;">
-                  <option value="" selected>Chọn Quận/Huyện</option>
+                  <option value="" selected>Chọn Phường/Xã</option>
                 </select>
 
               </div>
 
               <div class="row" style="margin-bottom: 20px;" >
 
-                <select class="select" id="ward" name="ward" style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
-                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;  margin-right: 30px; margin-left: 38px;">
-                  <option value="" selected>Chọn Phường/Xã</option>
-                </select>
-
-                <input name="description" style="height: 40px;width: 190px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
-                                font-weight: 500; font-size: 14px; color: #637381;  padding: 10px 15px;" type="text" placeholder="Mô tả" >
+                <input name="description" style="margin-left: 38px; height: 40px;width: 410px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                font-weight: 500; font-size: 14px; color: #637381;  padding: 10px 15px;" type="text" placeholder="Mô tả";>
 
               </div>
 

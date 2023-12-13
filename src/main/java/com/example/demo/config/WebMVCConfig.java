@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
@@ -32,6 +33,14 @@ public class WebMVCConfig  implements WebMvcConfigurer {
 
     @Autowired
     private ManageLoginInterceptor manageLoginInterceptor;
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // Disable caching for all resources
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/static/")
+                .setCachePeriod(0);
+    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
