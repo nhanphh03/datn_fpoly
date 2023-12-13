@@ -385,7 +385,7 @@
                             <div class="col-lg-5 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Số Lượng</label>
-                                    <input type="text" th:field="*{soLuong}" name="soLuong" required>
+                                    <input type="text" th:field="*{soLuong}" name="soLuong" >
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -410,13 +410,13 @@
                             <div class="col-lg-2 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Năm Sản Xuất</label>
-                                    <input type="text" th:field="*{namSX}" name="namSX" required>
+                                    <input type="text" th:field="*{namSX}" name="namSX" >
                                 </div>
                             </div>
                             <div class="col-lg-2 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Năm Bảo Hành</label>
-                                    <input type="text" th:field="*{namBH}" name="namBH" required>
+                                    <input type="text" th:field="*{namBH}" name="namBH" >
                                 </div>
                             </div>
                             <div class="col-lg-1 col-sm-6 col-12">
@@ -441,7 +441,7 @@
                             <div class="col-lg-5 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Trọng Lượng</label>
-                                    <input type="text" th:field="*{trongLuong}" name="trongLuong" required>
+                                    <input type="text" th:field="*{trongLuong}" name="trongLuong" >
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -470,7 +470,7 @@
                             <div class="col-lg-5 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Giá Bán</label>
-                                    <input type="text" th:field="*{giaBan}" name="giaBan" required>
+                                    <input type="text" th:field="*{giaBan}" name="giaBan" >
                                 </div>
                             </div>
                             <div class="col-lg-12 col-sm-6 col-12">
@@ -524,7 +524,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form th:object="${giayAdd}" method="post" th:action="@{/manage/giay-chi-tiet/giay/viewAdd/add}"
+                <form th:object="${giayAdd}" method="post" th:action="@{/manage/giay-chi-tiet/giay/viewAdd/add}" onsubmit="return validateGiayForm()" name="giayForm"
                       style="width: auto;height: auto">
                     <div class="page-header">
                         <div class="page-title">
@@ -538,13 +538,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Giày</label>
-                                        <input type="text" th:field="*{maGiay}" required>
+                                        <input type="text" th:field="*{maGiay}" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Giày</label>
-                                        <input type="text" th:field="*{tenGiay}" required>
+                                        <input type="text" th:field="*{tenGiay}" >
                                     </div>
                                 </div>
                                 <div class="col-lg-10 col-sm-6 col-12">
@@ -621,7 +621,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form th:object="${mauSacAdd}" method="post" th:action="@{/manage/giay-chi-tiet/mau-sac/viewAdd/add}">
+                <form th:object="${mauSacAdd}" method="post" th:action="@{/manage/giay-chi-tiet/mau-sac/viewAdd/add}" onsubmit="return validateMauSacForm()" name="mauSacForm">
                     <div class="page-header">
                         <div class="page-title">
                             <h4>Thêm Màu </h4>
@@ -634,7 +634,7 @@
                                 <div class="col-lg-4 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã</label>
-                                        <input type="text" th:field="*{ma}" required>
+                                        <input type="text" th:field="*{ma}" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
@@ -653,7 +653,7 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Màu</label>
-                                        <input type="text" th:field="*{tenMau}" required>
+                                        <input type="text" th:field="*{tenMau}" >
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -689,7 +689,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form th:object="${sizeAdd}" method="post" th:action="@{/manage/giay-chi-tiet/size/viewAdd/add}">
+                <form th:object="${sizeAdd}" method="post" th:action="@{/manage/giay-chi-tiet/size/viewAdd/add}" onsubmit="return validateSizeForm()" name="sizeForm">
                     <div class="page-header">
                         <div class="page-title">
                             <h4>Thêm Size </h4>
@@ -702,13 +702,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Size</label>
-                                        <input type="text" th:field="*{maSize}" required>
+                                        <input type="text" th:field="*{maSize}" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Size</label>
-                                        <input type="text" th:field="*{soSize}" required>
+                                        <input type="text" th:field="*{soSize}" >
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -745,7 +745,7 @@
             </div>
             <div class="modal-body">
                 <form th:object="${hinhAnhAdd}" method="post" th:action="@{/manage/giay-chi-tiet/hinh-anh/viewAdd/add}"
-                      enctype="multipart/form-data"
+                      enctype="multipart/form-data" onsubmit="return validateHinhAnhForm()" name="hinhAnhForm"
                       style="width: auto;height: auto">
                     <div class="page-header">
                         <div class="page-title">
@@ -759,7 +759,7 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã</label>
-                                        <input type="text" name="maAnh" th:field="*{maAnh}" required>
+                                        <input type="text" name="maAnh" th:field="*{maAnh}" >
                                     </div>
                                 </div>
                                 <div th:fragment="whitespace">&nbsp;</div>
@@ -835,7 +835,7 @@
             </div>
             <div class="modal-body">
                 <form th:object="${hangAdd}" method="post" th:action="@{/manage/giay-chi-tiet/giay/hang/viewAdd/add}"
-                      enctype="multipart/form-data"
+                      enctype="multipart/form-data" onsubmit="return validateHangForm()" name="hangForm"
                       style="width: auto;height: auto">
                     <div class="page-header">
                         <div class="page-title">
@@ -859,13 +859,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Hãng</label><br><br>
-                                        <input type="text" name="maHang" required>
+                                        <input type="text" name="maHang" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Hãng</label><br><br>
-                                        <input type="text" name="tenHang" required>
+                                        <input type="text" name="tenHang" >
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -901,7 +901,7 @@
             </div>
             <div class="modal-body">
                 <form th:object="${chatLieuAdd}" method="post"
-                      th:action="@{/manage/giay-chi-tiet/giay/chat-lieu/viewAdd/add}"
+                      th:action="@{/manage/giay-chi-tiet/giay/chat-lieu/viewAdd/add}" onsubmit="return validateChatLieuForm()" name="chatLieuForm"
                       style="width: auto;height: auto">
                     <div class="page-header">
                         <div class="page-title">
@@ -915,13 +915,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Chất Liệu</label>
-                                        <input type="text" th:field="*{maChatLieu}" required>
+                                        <input type="text" th:field="*{maChatLieu}" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Chất Liệu</label>
-                                        <input type="text" th:field="*{tenChatLieu}" required>
+                                        <input type="text" th:field="*{tenChatLieu}" >
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -949,85 +949,92 @@
 </div>
 <div th:if="${namSXError}" id="warning1" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của số năm sản xuất phải lớn hơn hoặc bằng 1.</div>
     </div>
 </div>
 <div th:if="${namBHError}" id="warning2" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của số năm bảo hành phải lớn hơn hoặc bằng 1.</div>
     </div>
 </div>
 <div th:if="${trongLuongError}" id="warning3" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của trọng lượng phải lớn hơn hoặc bằng 1.</div>
     </div>
 </div>
 <div th:if="${giaBanError}" id="warning4" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của giá bán phải lớn hơn hoặc bằng 1.</div>
     </div>
 </div>
 <div th:if="${soLuongError}" id="warning5" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của số lượng phải lớn hơn hoặc bằng 0.</div>
     </div>
 </div>
 <div th:if="${mauSacError}" id="warning6" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Hãy chọn trường màu sắc.</div>
     </div>
 </div>
 <div th:if="${hinhAnhError}" id="warning7" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Hãy chọn trường hình ảnh.</div>
     </div>
 </div>
 <div th:if="${giayError}" id="warning8" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Hãy chọn trường giày.</div>
     </div>
 </div>
 <div th:if="${sizeError}" id="warning9" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Hãy chọn trường size.</div>
+    </div>
+</div>
+<div th:if="${daTonTai}" id="daTonTai" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button"></button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Giày chi tiết đã tồn tại trong cơ sở dữ liệu.</div>
     </div>
 </div>
 <!--//Size-->
 <div th:if="${messageSize}" id="successSize" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Size của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${maSizeError}" id="warning10" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Size không được trống.</div>
     </div>
 </div>
 <div th:if="${soSizeError}" id="warning11" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Giá trị của số Size phải lớn hơn hoặc bằng 1. Và nhỏ hơn hoặc bằng 50.</div>
     </div>
@@ -1035,28 +1042,28 @@
 <!--//Màu-->
 <div th:if="${messageMau}" id="successMau" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Màu của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${maError}" id="warning12" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã không được trống.</div>
     </div>
 </div>
 <div th:if="${maMauError}" id="warning13" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã màu không được để trống.</div>
     </div>
 </div>
 <div th:if="${tenMauError}" id="warning14" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Tên màu không được để trống.</div>
     </div>
@@ -1064,35 +1071,35 @@
 <!--//Giay-->
 <div th:if="${messageGiay}" id="successGiay" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Giày của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${maGiayError}" id="warning19" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${tenGiayError}" id="warning15" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Tên Giày không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${hangError}" id="warning16" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Hãng không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${chatLieuError}" id="warning17" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Chất Liệu không được bỏ trống.</div>
     </div>
@@ -1100,14 +1107,14 @@
 <!--//Anh-->
 <div th:if="${messageAnh}" id="successAnh" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Ảnh của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${maHinhAnhError}" id="warning18" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã không được trống.</div>
     </div>
@@ -1115,21 +1122,21 @@
 <!--//Hãng-->
 <div th:if="${messageHang}" id="successHang" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Hãng của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${maHangError}" id="warning20" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Hãng không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${tenHangError}" id="warning21" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Tên Hãng không được bỏ trống.</div>
     </div>
@@ -1137,21 +1144,21 @@
 <!--//Chất liệu-->
 <div th:if="${messageChatLieu}" id="successChatLieu" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Chất Liệu của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${maChatLieuError}" id="warning22" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Chất Liệu không được bỏ trống trống.</div>
     </div>
 </div>
 <div th:if="${tenChatLieuError}" id="warning23" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Tên Chất Liệu không được bỏ trống.</div>
     </div>
@@ -1159,28 +1166,28 @@
 <!--//check mã-->
 <div th:if="${ErrormessageGiay}" id="checkMaGiay" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Giày đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${ErrormessageMau}" id="checkMaMau" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Màu đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${ErrormessageSize}" id="checkMaSize" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Size đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${ErrormessageAnh}" id="checkMaAnh" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Ảnh đã tồn tại.</div>
     </div>
@@ -1595,6 +1602,13 @@
             checkMaAnh.style.display = 'none';
         }
     }, 5000);
+    //
+    setTimeout(function () {
+        var daTonTai = document.getElementById('daTonTai');
+        if (daTonTai) {
+            daTonTai.style.display = 'none';
+        }
+    }, 5000);
 </script>
 <script>
     // In your Javascript (external .js resource or <script> tag)
@@ -1763,8 +1777,33 @@
             return false;
         }
 
+        // Kiểm tra năm sản xuất phải lớn hơn hoặc bằng 1830
+        if (parseInt(namSX) < 1830) {
+            showAlert("Năm Sản Xuất phải lớn hơn hoặc bằng năm 1830");
+            return false;
+        }
+
+        // Kiểm tra năm sản xuất không quá năm hiện tại
+        var currentYear = new Date().getFullYear();
+        if (parseInt(namSX) > currentYear) {
+            showAlert("Năm Sản Xuất không được quá năm hiện tại");
+            return false;
+        }
+
         if (!isValidYear(namBH)) {
             showAlert("Vui lòng nhập một năm hợp lệ cho Năm Bảo Hành");
+            return false;
+        }
+
+        // Kiểm tra năm bảo hành không được trước năm sản xuất
+        if (parseInt(namBH) <= parseInt(namSX)) {
+            showAlert("Năm Bảo Hành phải sau Năm Sản Xuất");
+            return false;
+        }
+
+        // Kiểm tra năm bảo hành phải dưới 10 năm
+        if ((parseInt(namBH) - parseInt(namSX)) >= 10) {
+            showAlert("Năm Bảo Hành không được quá 10 năm so với Năm Sản Xuất");
             return false;
         }
 
@@ -1804,6 +1843,250 @@
         return yearPattern.test(year);
     }
 
+    function showAlert(message) {
+        alertify.alert(message).setting({
+            'title': 'Thông báo',
+            'label': 'Đồng ý',
+        }).show();
+    }
+</script>
+<script>
+    function validateGiayForm() {
+        var maGiay = document.forms["giayForm"]["maGiay"].value;
+        var moTa = document.forms["giayForm"]["moTa"].value;
+        var tenGiay = document.forms["giayForm"]["tenGiay"].value;
+        var hang = document.forms["giayForm"]["hang"].value;
+        var chatLieu = document.forms["giayForm"]["chatLieu"].value;
+
+        // Kiểm tra cho từng trường
+        if (maGiay === "") {
+            showAlert("Vui lòng nhập Mã Giày");
+            return false;
+        }
+
+        if (!maGiay.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Mã Giày chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        if (moTa === "") {
+            showAlert("Vui lòng nhập Mô tả");
+            return false;
+        }
+
+        if (tenGiay === "") {
+            showAlert("Vui lòng nhập Tên Giày");
+            return false;
+        }
+
+        if (!tenGiay.match(/^[a-zA-Z0-9\s]+$/)) {
+            showAlert("Tên Giày chỉ được chứa chữ cái, số và khoảng trắng");
+            return false;
+        }
+
+        if (hang === "") {
+            showAlert("Vui lòng chọn Hãng");
+            return false;
+        }
+
+        if (chatLieu === "") {
+            showAlert("Vui lòng chọn Chất Liệu");
+            return false;
+        }
+
+        return true;
+    }
+
+    function showAlert(message) {
+        alertify.alert(message).setting({
+            'title': 'Thông báo',
+            'label': 'Đồng ý',
+        }).show();
+    }
+</script>
+<script>
+    function validateMauSacForm() {
+        var ma = document.forms["mauSacForm"]["ma"].value;
+        var maMau = document.forms["mauSacForm"]["maMau"].value;
+        var tenMau = document.forms["mauSacForm"]["tenMau"].value;
+
+        if (ma === "") {
+            showAlert("Vui lòng nhập Mã");
+            return false;
+        }
+
+        if (!ma.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Mã Chất Liệu chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        if (maMau === "") {
+            showAlert("Vui lòng chọn Mã Màu");
+            return false;
+        }
+
+        if (tenMau === "") {
+            showAlert("Vui lòng nhập Tên Màu");
+            return false;
+        }
+
+        if (!tenMau.match(/^[a-zA-Z0-9\s]+$/)) {
+            showAlert("Tên Màu chỉ được chứa chữ cái, số và khoảng trắng");
+            return false;
+        }
+
+        return true;
+    }
+
+    function showAlert(message) {
+        alertify.alert(message).setting({
+            'title': 'Thông báo',
+            'label': 'Đồng ý',
+        }).show();
+    }
+</script>
+<script>
+    function validateSizeForm() {
+        var maSize = document.forms["sizeForm"]["maSize"].value;
+        var soSize = document.forms["sizeForm"]["soSize"].value;
+
+        if (maSize === "") {
+            showAlert("Vui lòng nhập Mã Size");
+            return false;
+        }
+
+        if (!maSize.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Mã Size chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        if (soSize === "") {
+            showAlert("Vui lòng nhập Số Size");
+            return false;
+        }
+
+        var soSizeValue = parseInt(soSize); // Chuyển đổi giá trị soSize sang số nguyên
+
+        if (isNaN(soSizeValue) || soSizeValue <= 0) {
+            showAlert("Số Size phải là một số nguyên lớn hơn 0");
+            return false;
+        }
+
+        return true;
+    }
+    function showAlert(message) {
+        alertify.alert(message).setting({
+            'title': 'Thông báo',
+            'label': 'Đồng ý',
+        }).show();
+    }
+</script>
+<script>
+    function validateHinhAnhForm() {
+        var maAnh = document.forms["hinhAnhForm"]["maAnh"].value;
+
+        if (maAnh === "") {
+            showAlert("Vui lòng nhập Mã Ảnh");
+            return false;
+        }
+
+        if (!maAnh.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Mã Ảnh chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        for (var i = 1; i <= 4; i++) {
+            var inputId = "anh" + i;
+            var previewId = "anh" + i + i;
+
+            var fileInput = document.forms["hinhAnhForm"][inputId];
+            var imagePreview = document.getElementById(previewId);
+
+            if (fileInput.files.length === 0) {
+                showAlert("Vui lòng chọn ảnh " + i);
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    function showAlert(message) {
+        alertify.alert(message).setting({
+            'title': 'Thông báo',
+            'label': 'Đồng ý',
+        }).show();
+    }
+</script>
+<script>
+    function validateChatLieuForm() {
+        var maChatLieu = document.forms["chatLieuForm"]["maChatLieu"].value;
+        var tenChatLieu = document.forms["chatLieuForm"]["tenChatLieu"].value;
+
+        if (maChatLieu === "") {
+            showAlert("Vui lòng nhập Mã Chất Liệu");
+            return false;
+        }
+
+        if (!maChatLieu.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Mã Chất Liệu chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        if (tenChatLieu === "") {
+            showAlert("Vui lòng nhập Tên Chất Liệu");
+            return false;
+        }
+
+        if (!tenChatLieu.match(/^[a-zA-Z0-9\s]+$/)) {
+            showAlert("Tên Chất Liệu chỉ được chứa chữ cái, số và khoảng trắng");
+            return false;
+        }
+
+
+        return true;
+    }
+
+    function showAlert(message) {
+        alertify.alert(message).setting({
+            'title': 'Thông báo',
+            'label': 'Đồng ý',
+        }).show();
+    }
+</script>
+<script>
+    function validateHangForm() {
+        var maHang = document.forms["hangForm"]["maHang"].value;
+        var tenHang = document.forms["hangForm"]["tenHang"].value;
+        var logoHang = document.forms["hangForm"]["logoHang"].value;
+
+
+        if (maHang === "") {
+            showAlert("Vui lòng nhập Mã Hãng");
+            return false;
+        }
+
+        if (!maHang.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Mã Hãng chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        if (tenHang === "") {
+            showAlert("Vui lòng nhập Tên Hãng");
+            return false;
+        }
+
+        if (!tenHang.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Tên Hãng chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        if (logoHang === "") {
+            showAlert("Vui lòng chọn Logo Hãng");
+            return false;
+        }
+        return true;
+    }
     function showAlert(message) {
         alertify.alert(message).setting({
             'title': 'Thông báo',

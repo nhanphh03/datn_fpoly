@@ -26,6 +26,45 @@
     <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
 
     <link rel="stylesheet" href="/css/style.css">
+    <!-- Thêm link thư viện Alertify -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/themes/default.min.css"/>
+    <style>
+        .alertify .ajs-message {
+            background-color: black;
+            color: #ffffff;
+        }
+
+        /* Thay đổi màu nền của tiêu đề */
+        .alertify .ajs-header {
+            background-color: coral;
+            color: #ffffff;
+        }
+
+        /* Thay đổi màu nền của các nút */
+        .alertify .ajs-buttons .ajs-ok {
+            background-color: #2ecc71;
+            color: #ffffff;
+        }
+    </style>
+    <style>
+        .color-box {
+            width: 40px; /* Độ rộng của hộp màu */
+            height: 40px; /* Chiều cao của hộp màu */
+            display: inline-block; /* Hiển thị như một hộp chữ nằm cạnh nhau */
+            border: 1px solid #000; /* Viền xung quanh hộp màu */
+            margin: 0 5px; /* Khoảng cách giữa các hộp màu */
+            border-radius: 50%;
+        }
+    </style>
+    <style>
+        /* Định dạng lớp CSS để làm cho input to hơn */
+        .large-input {
+            /*width: 230px; !* Điều chỉnh kích thước theo nhu cầu của bạn *!*/
+            /*height: 40px; !* Điều chỉnh kích thước theo nhu cầu của bạn *!*/
+            border: none;
+        }
+    </style>
     <style>
         /* Định dạng lớp CSS để làm cho input to hơn */
         .large-input {
@@ -315,7 +354,7 @@
         </div>
     </div>
 </div>
-<form th:object="${mauSac}" method="post" th:action="@{'/manage/mau-sac/viewUpdate/' + ${mauSac.idMau}}">
+<form th:object="${mauSac}" method="post" th:action="@{'/manage/mau-sac/viewUpdate/' + ${mauSac.idMau}}" onsubmit="return validateMauSacForm()" name="mauSacForm">
     <div class="page-wrapper">
         <div class="content">
             <div class="page-header">
@@ -382,35 +421,35 @@
 </form>
 <div th:if="${message}" id="toast-container" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Dữ liệu của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${maError}" id="warning1" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã không được trống.</div>
     </div>
 </div>
 <div th:if="${maMauError}" id="warning2" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã màu không được để trống.</div>
     </div>
 </div>
 <div th:if="${tenMauError}" id="warning3" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Tên màu không được để trống.</div>
     </div>
 </div>
 <div th:if="${Errormessage}" id="checkMa" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Màu đã tồn tại.</div>
     </div>
@@ -432,6 +471,8 @@
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
 
 <script src="/js/script.js"></script>
+<script src="/plugins/alertify/custom-alertify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js"></script>
 <script>
     setTimeout(function () {
         var successToast = document.getElementById('toast-container');
@@ -481,6 +522,47 @@
         var g = (bigint >> 8) & 255;
         var b = bigint & 255;
         return {r: r, g: g, b: b};
+    }
+</script>
+<script>
+    function validateMauSacForm() {
+        var ma = document.forms["mauSacForm"]["ma"].value;
+        var maMau = document.forms["mauSacForm"]["maMau"].value;
+        var tenMau = document.forms["mauSacForm"]["tenMau"].value;
+
+        if (ma === "") {
+            showAlert("Vui lòng nhập Mã");
+            return false;
+        }
+
+        if (!ma.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Mã Chất Liệu chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        if (maMau === "") {
+            showAlert("Vui lòng chọn Mã Màu");
+            return false;
+        }
+
+        if (tenMau === "") {
+            showAlert("Vui lòng nhập Tên Màu");
+            return false;
+        }
+
+        if (!tenMau.match(/^[a-zA-Z0-9\s]+$/)) {
+            showAlert("Tên Màu chỉ được chứa chữ cái, số và khoảng trắng");
+            return false;
+        }
+
+        return true;
+    }
+
+    function showAlert(message) {
+        alertify.alert(message).setting({
+            'title': 'Thông báo',
+            'label': 'Đồng ý',
+        }).show();
     }
 </script>
 </body>

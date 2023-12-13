@@ -49,7 +49,8 @@ public interface GiayChiTietService {
     List<ChiTietGiay> findByGiayAndMau(Giay giay, MauSac mauSac);
 
     ChiTietGiay findByMa(String ma);
-  
+
     void updatePriceCTGGHCT(ChiTietGiay chiTietGiay);
 
+    boolean isDuplicateChiTietGiay(UUID giayId, UUID sizeId, UUID mauSacId, UUID hinhAnhId);
 }
