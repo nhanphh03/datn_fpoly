@@ -1,10 +1,10 @@
 package com.example.demo.shipperController;
 
-import com.example.demo.model.GiaoHang;
-import com.example.demo.model.HoaDon;
-import com.example.demo.model.NhanVien;
+import com.example.demo.model.*;
 import com.example.demo.service.GiaoHangService;
 import com.example.demo.service.HoaDonService;
+import com.example.demo.service.PhieuTraHangServices;
+import com.example.demo.service.ViTriDonHangServices;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +35,12 @@ public class HomeOrder {
     @Autowired
     private GiaoHangService giaoHangService;
 
+    @Autowired
+    private ViTriDonHangServices viTriDonHangServices;
+
+    @Autowired
+    private PhieuTraHangServices phieuTraHangServices;
+
     @RequestMapping(value = {"", "/", "/home"})
     private String getHomeShipping(Model model){
 
@@ -51,54 +57,122 @@ public class HomeOrder {
 
         HoaDon hoaDon = hoaDonService.getOne(idHD);
         showDataGH(model, hoaDon);
-        showDataTab4(model);
+        showDataTab2(model);
 
         return "transportation/index";
 
     }
 
     @PostMapping("/delivery/update/{idHD}")
-    private String updateGiaoHang(Model model, @PathVariable UUID idHD){
+    private String updateGiaoHang(Model model, @PathVariable UUID idHD) {
 
         HoaDon hoaDon = hoaDonService.getOne(idHD);
+
         showData(model);
 
+        ViTriDonHang viTriDonHang = new ViTriDonHang();
+
         String trangThaiGiaoHang = request.getParameter("trangThaiGiaoHang");
+
         String thanhPho = request.getParameter("city");
         String district = request.getParameter("district");
         String ward = request.getParameter("ward");
         String moTa = request.getParameter("moTa");
 
-        if (trangThaiGiaoHang.equals("thanhCong")){
+        if (trangThaiGiaoHang.equals("daGuiHang")){
+
+            String donViVanChuyen = request.getParameter("donViVanChuyen");
+            GiaoHang giaoHang= hoaDon.getGiaoHang();
+
+            giaoHang.setTenDVVC("Human Express");
+            giaoHangService.saveGiaoHang(giaoHang);
+
+            if(!donViVanChuyen.equals("humanExpress")){
+                String maVanDonGH = request.getParameter("maVanDonGH");
+                Double phiGiaoHangGH = Double.parseDouble(request.getParameter("phiGiaoHangGH"));
+                if(donViVanChuyen.equals("ghn")){
+                    giaoHang.setTenDVVC("Giao hàng nhanh");
+                    giaoHang.setPhiGiaoHang(phiGiaoHangGH);
+                    giaoHang.setMaVanDon(maVanDonGH);
+                }
+                if(donViVanChuyen.equals("ghtk")){
+                    giaoHang.setTenDVVC("Giao Hàng Tiết Kiệm");
+                    giaoHang.setPhiGiaoHang(phiGiaoHangGH);
+                    giaoHang.setMaVanDon(maVanDonGH);
+                }
+                if(donViVanChuyen.equals("viettelPost")){
+                    giaoHang.setTenDVVC("Viettel Post");
+                    giaoHang.setPhiGiaoHang(phiGiaoHangGH);
+                    giaoHang.setMaVanDon(maVanDonGH);
+                }
+                if(donViVanChuyen.equals("ahamove")){
+                    giaoHang.setTenDVVC("Ahamove");
+                    giaoHang.setPhiGiaoHang(phiGiaoHangGH);
+                    giaoHang.setMaVanDon(maVanDonGH);
+                }
+                if(donViVanChuyen.equals("grab")){
+                    giaoHang.setTenDVVC("Grab");
+                    giaoHang.setPhiGiaoHang(phiGiaoHangGH);
+                    giaoHang.setMaVanDon(maVanDonGH);
+                }
+                if(donViVanChuyen.equals("be")){
+                    giaoHang.setTenDVVC("Be");
+                    giaoHang.setPhiGiaoHang(phiGiaoHangGH);
+                    giaoHang.setMaVanDon(maVanDonGH);
+                }
+                giaoHangService.saveGiaoHang(giaoHang);
+            }
+
+            viTriDonHang.setViTri("Đã lấy/gửi hành thành công ");
+            viTriDonHang.setTrangThai(1);
+            viTriDonHang.setGiaoHang(hoaDon.getGiaoHang());
+            viTriDonHang.setThoiGian(new Date());
+            viTriDonHang.setNoiDung(moTa);
+
+            viTriDonHangServices.addViTriDonHang(viTriDonHang);
+
+            showData(model);
+            showDataTab2(model);
+            return "transportation/index";
+
+        }else if (trangThaiGiaoHang.equals("thanhCong")){
             String viTri = "Đơn hàng đã giao hàng thành công";
 
-            GiaoHang giaoHang = new GiaoHang();
-            giaoHang.setHoaDon(hoaDon);
-            giaoHang.setTrangThai(1);
-            giaoHang.setViTri(viTri);
-            giaoHang.setThoiGian(new Date());
-            giaoHangService.saveGiaoHang(giaoHang);
+            viTriDonHang.setViTri(viTri);
+            viTriDonHang.setThoiGian(new Date());
+            viTriDonHang.setTrangThai(1);
+            viTriDonHang.setNoiDung(moTa);
+            viTriDonHang.setGiaoHang(hoaDon.getGiaoHang());
+            viTriDonHangServices.addViTriDonHang(viTriDonHang);
 
             hoaDon.setTrangThai(3);
             hoaDon.setTgThanhToan(new Date());
             hoaDon.setTgNhan(new Date());
             hoaDonService.add(hoaDon);
 
-//            showDataGH(model, hoaDon);
             showData(model);
             showDataTab2(model);
             return "transportation/index";
         } else if (trangThaiGiaoHang.equals("thatBai")){
+
             String viTri = "Đơn hàng giao thất bại ( " +moTa + " )";
 
-            GiaoHang giaoHang = new GiaoHang();
-            giaoHang.setHoaDon(hoaDon);
-            giaoHang.setTrangThai(2);
-            giaoHang.setViTri(viTri);
-            giaoHang.setThoiGian(new Date());
-            giaoHangService.saveGiaoHang(giaoHang);
+            GiaoHang giaoHang = hoaDon.getGiaoHang();
 
-            List<GiaoHang> giaoHangList = giaoHangService.findByHoaDonAndTrangThai(hoaDon, 2);
+            viTriDonHang.setViTri(viTri);
+            viTriDonHang.setThoiGian(new Date());
+            viTriDonHang.setTrangThai(2);
+            viTriDonHang.setNoiDung(moTa);
+            viTriDonHang.setGiaoHang(giaoHang);
+            viTriDonHangServices.addViTriDonHang(viTriDonHang);
+
+            List<ViTriDonHang> giaoHangList = giaoHang.getViTriDonHangs();
+
+            for (ViTriDonHang  xx:giaoHangList) {
+                if (xx.getTrangThai() == 2){
+                    giaoHangList.remove(xx);
+                }
+            }
 
             if (giaoHangList.size() == 3){
                 hoaDon.setTrangThai(4);
@@ -119,21 +193,23 @@ public class HomeOrder {
         } else {
             String viTri = "Đơn hàng đã đến"  + ", " + ward + ", " + district + " , " + thanhPho;
 
-            List<GiaoHang> giaoHangList = giaoHangService.listGiaoHangByHoaDon(hoaDon);
+            GiaoHang giaoHang = hoaDon.getGiaoHang();
 
-            for (GiaoHang x: giaoHangList) {
+            viTriDonHang.setViTri(viTri);
+            viTriDonHang.setThoiGian(new Date());
+            viTriDonHang.setTrangThai(1);
+            viTriDonHang.setNoiDung(moTa);
+            viTriDonHang.setGiaoHang(giaoHang);
+            viTriDonHangServices.addViTriDonHang(viTriDonHang);
+
+            List<ViTriDonHang> giaoHangList = giaoHang.getViTriDonHangs();
+
+            for (ViTriDonHang x: giaoHangList) {
                 if(x.getTrangThai() == 1){
                     x.setTrangThai(0);
-                    giaoHangService.saveGiaoHang(x);
+                    viTriDonHangServices.addViTriDonHang(x);
                 }
             }
-
-            GiaoHang giaoHang = new GiaoHang();
-            giaoHang.setHoaDon(hoaDon);
-            giaoHang.setTrangThai(1);
-            giaoHang.setViTri(viTri);
-            giaoHang.setThoiGian(new Date());
-            giaoHangService.saveGiaoHang(giaoHang);
 
             showDataGH(model, hoaDon);
             showDataTab2(model);
@@ -155,26 +231,196 @@ public class HomeOrder {
     @GetMapping("/delivery/refund/update/{idHD}")
     private String viewUpdateRefundGiaoHang(Model model, @PathVariable UUID idHD){
 
+
         showData(model);
         HoaDon hoaDon = hoaDonService.getOne(idHD);
         showDataGHHH(model, hoaDon);
-        showDataTab5(model);
+        showDataTab2(model);
 
         return "transportation/index";
 
     }
+
     @PostMapping("/delivery/refund/update/{idHD}")
     private String updateRefundGiaoHang(Model model, @PathVariable UUID idHD){
 
         showData(model);
-
+        String trangThaiGiaoHang = request.getParameter("trangThaiGiaoHang");
         HoaDon hoaDon = hoaDonService.getOne(idHD);
-        showDataGHHH(model, hoaDon);
-        System.out.println("CCCCCCC");
 
-        showDataTab2(model);
-        return "transportation/index";
+        HoaDon hoaDonOld = hoaDonService.findByIdHoaDonOld(hoaDon.getIdHDOld());
 
+        String thanhPho = request.getParameter("city");
+        String district = request.getParameter("district");
+        String ward = request.getParameter("ward");
+        String moTa = request.getParameter("moTa");
+        ViTriDonHang viTriDonHang = new ViTriDonHang();
+
+        if (trangThaiGiaoHang.equals("daLayHang")){
+
+            String donViVanChuyen = request.getParameter("donViVanChuyen");
+            GiaoHang giaoHang= hoaDon.getGiaoHang();
+
+            giaoHang.setTenDVVC("Human Express");
+            giaoHangService.saveGiaoHang(giaoHang);
+
+            if(!donViVanChuyen.equals("humanExpress")){
+                String maVanDonGH = request.getParameter("maVanDonGH");
+                Double phiGiaoHangGH = Double.parseDouble(request.getParameter("phiGiaoHangGH"));
+                if(donViVanChuyen.equals("ghn")){
+                    giaoHang.setTenDVVC("Giao hàng nhanh");
+                    giaoHang.setPhiGiaoHang(phiGiaoHangGH);
+                    giaoHang.setMaVanDon(maVanDonGH);
+                }
+                if(donViVanChuyen.equals("ghtk")){
+                    giaoHang.setTenDVVC("Giao Hàng Tiết Kiệm");
+                    giaoHang.setPhiGiaoHang(phiGiaoHangGH);
+                    giaoHang.setMaVanDon(maVanDonGH);
+                }
+                if(donViVanChuyen.equals("viettelPost")){
+                    giaoHang.setTenDVVC("Viettel Post");
+                    giaoHang.setPhiGiaoHang(phiGiaoHangGH);
+                    giaoHang.setMaVanDon(maVanDonGH);
+                }
+                if(donViVanChuyen.equals("ahamove")){
+                    giaoHang.setTenDVVC("Ahamove");
+                    giaoHang.setPhiGiaoHang(phiGiaoHangGH);
+                    giaoHang.setMaVanDon(maVanDonGH);
+                }
+                if(donViVanChuyen.equals("grab")){
+                    giaoHang.setTenDVVC("Grab");
+                    giaoHang.setPhiGiaoHang(phiGiaoHangGH);
+                    giaoHang.setMaVanDon(maVanDonGH);
+                }
+                if(donViVanChuyen.equals("be")){
+                    giaoHang.setTenDVVC("Be");
+                    giaoHang.setPhiGiaoHang(phiGiaoHangGH);
+                    giaoHang.setMaVanDon(maVanDonGH);
+                }
+                giaoHangService.saveGiaoHang(giaoHang);
+            }
+            viTriDonHang.setViTri("Đã lấy/gửi hàng hoàn thành công ");
+            viTriDonHang.setTrangThai(1);
+            viTriDonHang.setGiaoHang(hoaDon.getGiaoHang());
+            viTriDonHang.setThoiGian(new Date());
+            viTriDonHang.setNoiDung(moTa);
+
+            viTriDonHangServices.addViTriDonHang(viTriDonHang);
+
+            hoaDon.setTrangThaiHoan(5);
+            hoaDonService.add(hoaDon);
+            hoaDonOld.setTrangThaiHoan(5);
+            hoaDonService.add(hoaDonOld);
+
+            PhieuTraHang phieuTraHang = hoaDon.getPhieuTraHang();
+            phieuTraHang.setTrangThai(5);
+            phieuTraHangServices.savePTH(phieuTraHang);
+
+            showData(model);
+            showDataTab2(model);
+
+            return "transportation/index";
+
+        }else if(trangThaiGiaoHang.equals("thatBai")){
+            String viTri = "Đơn hàng hoàn thất bại ( " +moTa + " )";
+
+            GiaoHang giaoHang = hoaDon.getGiaoHang();
+
+            viTriDonHang.setViTri(viTri);
+            viTriDonHang.setThoiGian(new Date());
+            viTriDonHang.setTrangThai(2);
+            viTriDonHang.setNoiDung(moTa);
+            viTriDonHang.setGiaoHang(giaoHang);
+            viTriDonHangServices.addViTriDonHang(viTriDonHang);
+
+            List<ViTriDonHang> giaoHangList = giaoHang.getViTriDonHangs();
+
+            for (ViTriDonHang  xx:giaoHangList) {
+                if (xx.getTrangThai() == 2){
+                    giaoHangList.remove(xx);
+                }
+            }
+
+            if (giaoHangList.size() == 3){
+                PhieuTraHang phieuTraHang = hoaDon.getPhieuTraHang();
+                phieuTraHang.setTgKhachHuy(new Date());
+                phieuTraHang.setTrangThai(3);
+                phieuTraHangServices.savePTH(phieuTraHang);
+
+                hoaDon.setTrangThaiHoan(3);
+                hoaDon.setTgHuy(new Date());
+                hoaDon.setLyDoHuy(moTa);
+                hoaDonService.add(hoaDon);
+
+                hoaDonOld.setTrangThaiHoan(3);
+                hoaDonService.add(hoaDonOld);
+
+                showDataTab2(model);
+                showData(model);
+
+                return "transportation/index";
+            }
+
+            showDataGH(model, hoaDon);
+            showDataTab2(model);
+            return "transportation/index";
+
+        }else if(trangThaiGiaoHang.equals("dangGiao")){
+            String viTri = "Đơn hàng đã đến"  + ", " + ward + ", " + district + " , " + thanhPho;
+
+            GiaoHang giaoHang = hoaDon.getGiaoHang();
+
+            viTriDonHang.setViTri(viTri);
+            viTriDonHang.setThoiGian(new Date());
+            viTriDonHang.setTrangThai(1);
+            viTriDonHang.setNoiDung(moTa);
+            viTriDonHang.setGiaoHang(giaoHang);
+            viTriDonHangServices.addViTriDonHang(viTriDonHang);
+
+            List<ViTriDonHang> giaoHangList = giaoHang.getViTriDonHangs();
+
+            for (ViTriDonHang x: giaoHangList) {
+                if(x.getTrangThai() == 1){
+                    x.setTrangThai(0);
+                    viTriDonHangServices.addViTriDonHang(x);
+                }
+            }
+
+            showDataGH(model, hoaDon);
+            showDataTab2(model);
+
+            return "transportation/index";
+
+        }else if(trangThaiGiaoHang.equals("thanhCong")){
+            String viTri = "Đơn hàng đã hoàn hàng thành công";
+
+            viTriDonHang.setViTri(viTri);
+            viTriDonHang.setThoiGian(new Date());
+            viTriDonHang.setTrangThai(1);
+            viTriDonHang.setNoiDung(moTa);
+            viTriDonHang.setGiaoHang(hoaDon.getGiaoHang());
+            viTriDonHangServices.addViTriDonHang(viTriDonHang);
+
+            PhieuTraHang phieuTraHang = hoaDon.getPhieuTraHang();
+
+            phieuTraHang.setTrangThai(6);
+            phieuTraHang.setTgHoanThanhCong(new Date());
+            phieuTraHangServices.savePTH(phieuTraHang);
+
+            hoaDon.setTrangThaiHoan(6);
+            hoaDonService.add(hoaDon);
+
+            hoaDonOld.setTrangThaiHoan(6);
+            hoaDonService.add(hoaDonOld);
+
+            showData(model);
+            showDataTab2(model);
+            return "transportation/index";
+
+        }
+            showData(model);
+            showDataTab2(model);
+            return "transportation/index";
     }
 
     @GetMapping("/bill/refund/print/{idHD}")
@@ -203,7 +449,7 @@ public class HomeOrder {
 
     private void showDataGH(Model model, HoaDon hoaDon){
 
-        List<GiaoHang> giaoHangListActive = giaoHangService.listGiaoHangByHoaDon(hoaDon);
+        GiaoHang giaoHangListActive = hoaDon.getGiaoHang();
         model.addAttribute("showHTGH", "true");
         model.addAttribute("HoaDonVanChuyen", hoaDon);
         model.addAttribute("giaoHangListActive", giaoHangListActive);
@@ -211,8 +457,8 @@ public class HomeOrder {
 
     private void showDataGHHH(Model model, HoaDon hoaDon){
 
-        List<GiaoHang> giaoHangListActive = giaoHangService.listGiaoHangByHoaDon(hoaDon);
-        model.addAttribute("showHTGHHH", "true");
+        GiaoHang giaoHangListActive = hoaDon.getGiaoHang();
+        model.addAttribute("showDonHangHoan", "true");
         model.addAttribute("HoaDonVanChuyen", hoaDon);
         model.addAttribute("giaoHangListActive", giaoHangListActive);
 
@@ -223,14 +469,10 @@ public class HomeOrder {
         model.addAttribute("activeAll", "nav-link active");
         model.addAttribute("activeVanChuyen", "nav-link");
         model.addAttribute("activeDone", "nav-link");
-        model.addAttribute("activeMuaHang", "nav-link active");
-        model.addAttribute("activeHoanHang", "nav-link");
 
         model.addAttribute("tabpane1", "tab-pane show active");
         model.addAttribute("tabpane2", "tab-pane");
         model.addAttribute("tabpane3", "tab-pane");
-        model.addAttribute("tabpane4", "tab-pane");
-        model.addAttribute("tabpane5", "tab-pane");
     }
 
     private void showDataTab2(Model model){
@@ -238,14 +480,10 @@ public class HomeOrder {
         model.addAttribute("activeAll", "nav-link");
         model.addAttribute("activeVanChuyen", "nav-link active");
         model.addAttribute("activeDone", "nav-link");
-        model.addAttribute("activeMuaHang", "nav-link active");
-        model.addAttribute("activeHoanHang", "nav-link");
 
         model.addAttribute("tabpane1", "tab-pane");
         model.addAttribute("tabpane2", "tab-pane show active");
         model.addAttribute("tabpane3", "tab-pane");
-        model.addAttribute("tabpane4", "tab-pane show active");
-        model.addAttribute("tabpane5", "tab-pane");
     }
 
     private void showDataTab3(Model model){
@@ -253,43 +491,9 @@ public class HomeOrder {
         model.addAttribute("activeAll", "nav-link");
         model.addAttribute("activeVanChuyen", "nav-link");
         model.addAttribute("activeDone", "nav-link active");
-        model.addAttribute("activeMuaHang", "nav-link active");
-        model.addAttribute("activeHoanHang", "nav-link");
 
         model.addAttribute("tabpane1", "tab-pane");
         model.addAttribute("tabpane2", "tab-pane");
         model.addAttribute("tabpane3", "tab-pane show active");
-        model.addAttribute("tabpane4", "tab-pane");
-        model.addAttribute("tabpane5", "tab-pane");
-    }
-
-    private void showDataTab4(Model model){
-
-        model.addAttribute("activeAll", "nav-link");
-        model.addAttribute("activeVanChuyen", "nav-link active");
-        model.addAttribute("activeDone", "nav-link");
-        model.addAttribute("activeMuaHang", "nav-link active");
-        model.addAttribute("activeHoanHang", "nav-link");
-
-        model.addAttribute("tabpane1", "tab-pane");
-        model.addAttribute("tabpane2", "tab-pane show active");
-        model.addAttribute("tabpane3", "tab-pane");
-        model.addAttribute("tabpane4", "tab-pane show active");
-        model.addAttribute("tabpane5", "tab-pane");
-    }
-
-    private void showDataTab5(Model model){
-
-        model.addAttribute("activeAll", "nav-link");
-        model.addAttribute("activeVanChuyen", "nav-link active");
-        model.addAttribute("activeDone", "nav-link");
-        model.addAttribute("activeMuaHang", "nav-link");
-        model.addAttribute("activeHoanHang", "nav-link active");
-
-        model.addAttribute("tabpane1", "tab-pane");
-        model.addAttribute("tabpane2", "tab-pane show active");
-        model.addAttribute("tabpane3", "tab-pane");
-        model.addAttribute("tabpane4", "tab-pane");
-        model.addAttribute("tabpane5", "tab-pane show active");
     }
 }

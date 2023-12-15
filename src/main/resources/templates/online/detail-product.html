@@ -124,7 +124,7 @@
 
             <!--            Buyer FullName End -->
 
-            <div class="header__top__hover"  >
+            <div class="header__top__links"  >
               <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Đăng nhập</a>
               <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Đăng ký</a>
             </div>
@@ -308,7 +308,7 @@
             <div class="product__details__breadcrumb">
               <a th:href="@{'/buyer/homeBuyer'}" >Home</a>
               <a th:href="@{'/buyer/shop'}" >Shop</a>
-              <span>Product Details</span>
+              <span>Chi tiết sản phẩm</span>
             </div>
           </div>
         </div>
@@ -466,12 +466,7 @@
               </div>
 
               <div class="product__details__last__option">
-                <h5><span>Guaranteed Safe Checkout</span></h5>
-                <ul>
-                  <li><span>SKU:</span> 3812912</li>
-                  <li><span>Categories:</span> Clothes</li>
-                  <li><span>Tag:</span> Clothes, Skin, Body</li>
-                </ul>
+                <h5><span>Thanh toán được đảm bảo</span></h5>
               </div>
             </div>
           </div>
@@ -484,15 +479,13 @@
                 <ul class="nav nav-tabs" role="tablist">
                   <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#tabs-5"
-                       role="tab">Description</a>
+                       role="tab">Gợi ý sản phẩm</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tabs-6" role="tab">Customer
-                      Previews(5)</a>
+                    <a class="nav-link" data-toggle="tab" href="#tabs-6" role="tab">Đánh giá</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tabs-7" role="tab">Additional
-                      information</a>
+                    <a class="nav-link" data-toggle="tab" href="#tabs-7" role="tab">Thông tin thêm</a>
                   </li>
                 </ul>
                 <div class="tab-content">
@@ -896,15 +889,15 @@
                   <div class="tab-pane" id="tabs-6" role="tabpanel">
                     <div class="product__details__tab__content">
                       <div class="product__details__tab__content__item">
-                        <h5>Product Ratings</h5>
+                        <h5>Đánh giá sản phẩm</h5>
                         <div class="rating">
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star-o"></i>
-                          <span> - 5 Reviews</span>
-                          <span> (13 Sold)</span>
+                          <span> - 5 Đã đánh giá</span>
+                          <span> (13 Đã bán)</span>
                         </div>
                       </div>
                     </div>
@@ -912,102 +905,65 @@
                     <hr>
 
                     <div class="product__details__tab__content">
-                      <div style="display: flex;">
-                        <img src="/images/img/blog/blog-1.jpg" alt=""
-                             style="height: 70px; width: 70px; border-radius: 50%; margin-right: 30px">
-                        <div class="product__details__tab__content__item">
+                      <th:block th:each="x : ${listDanhGiaKhachHang}">
+                        <div style="display: flex;">
+                          <img src="/images/img/blog/blog-1.jpg" alt=""
+                               style="height: 70px; width: 70px; border-radius: 50%; margin-right: 30px">
+                          <div class="product__details__tab__content__item">
 
-                          <h5>Nguye2n Van A</h5>
+                            <h5 th:text="${x.hoaDon.khachHang.hoTenKH}"></h5>
 
-                          <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                            <span> - 5 Reviews</span>
+                            <div th:if="${x.soSao == 1}" class="rating">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star-o"></i>
+                              <i class="fa fa-star-o"></i>
+                              <i class="fa fa-star-o"></i>
+                              <i class="fa fa-star-o"></i>
+                            </div>
+
+                            <div th:if="${x.soSao == 2}" class="rating">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star-o"></i>
+                              <i class="fa fa-star-o"></i>
+                              <i class="fa fa-star-o"></i>
+                            </div>
+
+                            <div th:if="${x.soSao == 3}" class="rating">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star-o"></i>
+                              <i class="fa fa-star-o"></i>
+                            </div>
+
+                            <div th:if="${x.soSao == 4}" class="rating">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star-o"></i>
+                            </div>
+
+                            <div th:if="${x.soSao == 5}" class="rating">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+
+                            <p th:text="${x.noiDungDG}"></p>
+                            <br>
+
+                            <img th:src="@{'/images/imagesRate/' + ${x.anhDG}}" style="height: 150px;" alt="">
+                            <img th:if="x.anhDG2 != null" th:src="@{'/images/imagesRate/' + ${x.anhDG2}}" style="height: 150px;" alt="">
+                            <img th:if="x.anhDG3 != null" th:src="@{'/images/imagesRate/' + ${x.anhDG3}}" style="height: 150px;" alt="">
+
                           </div>
-                          <p>As is the case with any new technology product, the cost of a Pocket
-                            PC
-                            was substantial during it’s early release. For approximately
-                            $700.00,
-                            consumers could purchase one of top-of-the-line Pocket PCs in 2003.
-                            These days, customers are finding that prices have become much more
-                            reasonable now that the newness is wearing off. For approximately
-                            $350.00, a new Pocket PC can now be purchased.</p>
-                          <br>
-
-                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
-                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
-                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
-
                         </div>
-                      </div>
-                      <hr>
-                      <div style="display: flex;">
-                        <img src="/images/img/blog/blog-1.jpg" alt=""
-                             style="height: 70px; width: 70px; border-radius: 50%; margin-right: 30px">
-                        <div class="product__details__tab__content__item">
-
-                          <h5>Nguye2n Van A</h5>
-
-                          <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                            <span> - 5 Reviews</span>
-                          </div>
-                          <p>As is the case with any new technology product, the cost of a Pocket
-                            PC
-                            was substantial during it’s early release. For approximately
-                            $700.00,
-                            consumers could purchase one of top-of-the-line Pocket PCs in 2003.
-                            These days, customers are finding that prices have become much more
-                            reasonable now that the newness is wearing off. For approximately
-                            $350.00, a new Pocket PC can now be purchased.</p>
-                          <br>
-
-                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
-                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
-                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
-
-                        </div>
-                      </div>
-                      <hr>
-                      <div style="display: flex;">
-                        <img src="/images/img/blog/blog-1.jpg" alt=""
-                             style="height: 70px; width: 70px; border-radius: 50%; margin-right: 30px">
-                        <div class="product__details__tab__content__item">
-
-                          <h5>Nguye2n Van A</h5>
-
-                          <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                            <span> - 5 Reviews</span>
-                          </div>
-                          <p>As is the case with any new technology product, the cost of a Pocket
-                            PC
-                            was substantial during it’s early release. For approximately
-                            $700.00,
-                            consumers could purchase one of top-of-the-line Pocket PCs in 2003.
-                            These days, customers are finding that prices have become much more
-                            reasonable now that the newness is wearing off. For approximately
-                            $350.00, a new Pocket PC can now be purchased.</p>
-                          <br>
-
-                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
-                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
-                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
-
-                        </div>
-                      </div>
-                      <hr>
+                        <hr>
+                      </th:block>
                     </div>
 
                   </div>

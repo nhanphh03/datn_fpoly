@@ -49,6 +49,9 @@ public class DetailProductController {
     @Autowired
     private LoaiHVService loaiHVService;
 
+    @Autowired
+    private DanhGiaServices danhGiaServices;
+
 
     @GetMapping("/shop-details/{idGiay}/{idMau}")
     private String getFormDetail(Model model,@PathVariable UUID idGiay, @PathVariable UUID idMau){
@@ -122,7 +125,10 @@ public class DetailProductController {
 
         String maMau = mau.getMaMau();
 
+        List<DanhGiaKhachHang> danhGiaKhachHangs = danhGiaServices.findByGiay(giay);
 
+
+        model.addAttribute("listDanhGiaKhachHang", danhGiaKhachHangs);
         model.addAttribute("product", giay);
         model.addAttribute("minPrice", minPrice);
         model.addAttribute("maxPrice", maxPrice);
@@ -190,6 +196,9 @@ public class DetailProductController {
 
         HinhAnh hinhAnhByGiayAndMau = giayChiTietService.hinhAnhByGiayAndMau(giay, mau);
 
+        List<DanhGiaKhachHang> danhGiaKhachHangs = danhGiaServices.findByGiay(giay);
+
+        model.addAttribute("listDanhGiaKhachHang", danhGiaKhachHangs);
         model.addAttribute("hinhAnh", hinhAnhByGiayAndMau);
         model.addAttribute("material", material);
         model.addAttribute("nameBrand", brand);
@@ -197,15 +206,11 @@ public class DetailProductController {
         model.addAttribute("minPrice", minPrice);
         model.addAttribute("maxPrice", maxPrice);
         model.addAttribute("listSizeCTG", listCTGByGiay);
-
         model.addAttribute("sunProductAvaible", sumCTGByGiay);
         model.addAttribute("listProducts", listCTGByGiay);
-
         model.addAttribute("listMauSacByGiay", listMauSacByGiay);
 
         addToLuotXemFA(khachHang, mau, giay, minPrice, sumCTGByGiay, 1);
-
-
 
         return "online/detail-product";
     }
