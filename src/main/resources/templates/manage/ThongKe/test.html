@@ -412,7 +412,7 @@
                                                                                                     alt="img"></a>
                                                                                         </h4>
                                                                                         <div>Śố lượng: x <span th:text="${a.soLuong}" style="color:#0a58ca;"></span></div>
-                                                                                        <div>Giá bán: <span th:text="${#numbers.formatDecimal(a.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'" style="color: #6a1a21"></span></div>
+                                                                                        <div>Giá bán: <span th:text="${#numbers.formatDecimal(a.donGia/a.soLuong, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'" style="color: #6a1a21"></span></div>
 
                                                                                     </div>
                                                                                 </div>
@@ -426,7 +426,7 @@
                                                                         <td>
                                                                             <li>
                                                                                 <!--                                            <div th:text="${gioHang.donGia * gioHang.soLuong}"></div>-->
-                                                                                <span>Thành tiền: <div th:text=" ${#numbers.formatDecimal(a.donGia * a.soLuong, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'" style="color: #6a1a21"></div></span>
+                                                                                <span>Thành tiền: <div th:text=" ${#numbers.formatDecimal(a.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'" style="color: #6a1a21"></div></span>
                                                                             </li>
                                                                         </td>
 
@@ -507,7 +507,7 @@
                                                                                                     alt="img"></a>
                                                                                         </h4>
                                                                                         <div>Śố lượng: x <span th:text="${a.soLuong}" style="color:#0a58ca;"></span></div>
-                                                                                        <div>Giá bán: <span th:text="${#numbers.formatDecimal(a.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'" style="color: #6a1a21"></span></div>
+                                                                                        <div>Giá bán: <span th:text="${#numbers.formatDecimal(a.donGia/a.soLuong, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'" style="color: #6a1a21"></span></div>
 
                                                                                     </div>
                                                                                 </div>
@@ -521,7 +521,7 @@
                                                                         <td>
                                                                             <li>
                                                                                 <!--                                            <div th:text="${gioHang.donGia * gioHang.soLuong}"></div>-->
-                                                                                <span>Thành tiền: <div th:text=" ${#numbers.formatDecimal(a.donGia * a.soLuong, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'" style="color: #6a1a21"></div></span>
+                                                                                <span>Thành tiền: <div th:text=" ${#numbers.formatDecimal(a.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'" style="color: #6a1a21"></div></span>
                                                                             </li>
                                                                         </td>
 
@@ -813,7 +813,7 @@
                                                         alt="img"></a>
                                             </h4>
                                             <div>Śố lượng: x <span th:text="${a.soLuong}" style="color:#0a58ca;"></span></div>
-                                            <div>Giá bán: <span th:text="${#numbers.formatDecimal(a.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'" style="color: #6a1a21"></span></div>
+                                            <div>Giá bán: <span th:text="${#numbers.formatDecimal(a.donGia/a.soLuong, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'" style="color: #6a1a21"></span></div>
 
                                         </div>
                                     </div>
@@ -822,7 +822,7 @@
                             <td>
                                 <li>
                                     <!--                                            <div th:text="${gioHang.donGia * gioHang.soLuong}"></div>-->
-                                    <span>Thành tiền: <div th:text=" ${#numbers.formatDecimal(a.donGia * a.soLuong, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'" style="color: #6a1a21"></div></span>
+                                    <span>Thành tiền: <div th:text=" ${#numbers.formatDecimal(a.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'" style="color: #6a1a21"></div></span>
                                 </li>
                             </td>
 
