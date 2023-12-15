@@ -24,12 +24,12 @@ public class DanhGiaKhachHang {
     private UUID idDGKH;
 
     @ManyToOne
-    @JoinColumn(name = "id_KH")
-    private KhachHang khachHang;
-
-    @ManyToOne
     @JoinColumn(name = "id_Giay")
     private Giay giay;
+
+    @ManyToOne
+    @JoinColumn(name = "id_HD")
+    private HoaDon hoaDon;
 
     @Column(name="noi_Dung_DG")
     private String noiDungDG;

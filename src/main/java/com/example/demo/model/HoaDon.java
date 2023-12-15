@@ -32,8 +32,13 @@ public class HoaDon {
     @OneToMany(mappedBy = "hoaDon")
     private List<HoaDonChiTiet> hoaDonChiTiets;
 
-    @OneToMany(mappedBy = "hoaDon")
-    private List<GiaoHang> giaoHangs;
+    @OneToOne
+    @JoinColumn(name = "id_Giao_Hang")
+    private GiaoHang giaoHang;
+
+    @OneToOne
+    @JoinColumn(name = "id_MPTH")
+    private PhieuTraHang phieuTraHang;
 
     @ManyToOne
     @JoinColumn(name = "id_NV")

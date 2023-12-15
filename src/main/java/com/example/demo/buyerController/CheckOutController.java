@@ -77,17 +77,16 @@ public class CheckOutController {
         hoaDon.setLoaiHD(0);
         hoaDon.setTgTao(date);
         hoaDon.setTrangThai(6);
-
+        hoaDon.setTrangThaiHoan(9);
+        hoaDonService.add(hoaDon);
         if (diaChiKHDefault != null){
             hoaDon.setDiaChiNguoiNhan(diaChiKHDefault.getDiaChiChiTiet());
             hoaDon.setSdtNguoiNhan(diaChiKHDefault.getSdtNguoiNhan());
             hoaDon.setTenNguoiNhan(diaChiKHDefault.getTenNguoiNhan());
             session.removeAttribute("diaChiGiaoHang");
             session.setAttribute("diaChiGiaoHang", diaChiKHDefault);
+            hoaDonService.add(hoaDon);
         }
-
-        hoaDonService.add(hoaDon);
-
         for (UUID x: selectedProductIds) {
             HoaDonChiTiet hoaDonChiTiet = new HoaDonChiTiet();
             GioHangChiTiet gioHangChiTiet = ghctService.findByCTGActiveAndKhachHangAndTrangThai(giayChiTietService.getByIdChiTietGiay(x), gioHang);
@@ -124,7 +123,6 @@ public class CheckOutController {
 
         hoaDon.setTongTien(total);
         hoaDon.setTongSP(sumQuantity);
-        hoaDon.setTrangThaiHoan(8);
 
         hoaDonService.add(hoaDon);
 
