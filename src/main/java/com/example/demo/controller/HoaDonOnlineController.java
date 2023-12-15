@@ -45,6 +45,9 @@ public class HoaDonOnlineController {
     @Autowired
     private PhieuTraHangServices  phieuTraHangServices;
 
+    @Autowired
+    private ViTriDonHangServices viTriDonHangServices;
+
     @GetMapping("online")
     private String manageBillOnline(Model model){
         model.addAttribute("reLoadPage", true);
@@ -85,14 +88,26 @@ public class HoaDonOnlineController {
 
         hoaDonService.add(hoaDon);
 
+        String maGH = "GH_" + hoaDon.getMaHD() ;
+
         GiaoHang giaoHang = new GiaoHang();
         giaoHang.setHoaDon(hoaDon);
         giaoHang.setTrangThai(1);
+        giaoHang.setMaGiaoHang(maGH);
         giaoHang.setThoiGian(new Date());
+        giaoHang.setPhiGiaoHang(0.0);
         giaoHang.setNoiDung("Xác nhận nhân viên giao hàng");
-        giaoHang.setViTri("Xác nhận nhân viên giao hàng");
-
         giaoHangService.saveGiaoHang(giaoHang);
+
+        hoaDon.setGiaoHang(giaoHang);
+        hoaDonService.add(hoaDon);
+
+        ViTriDonHang viTriDonHang = new ViTriDonHang();
+        viTriDonHang.setGiaoHang(giaoHang);
+        viTriDonHang.setViTri("Xác nhận nhân viên giao hàng");
+        viTriDonHang.setTrangThai(1);
+        viTriDonHang.setThoiGian(new Date());
+        viTriDonHangServices.addViTriDonHang(viTriDonHang);
 
         showData(model);
 
@@ -178,9 +193,6 @@ public class HoaDonOnlineController {
                                      @RequestParam(name = "accept", required = false) String accept,
                                      @RequestParam(name = "dismist", required = false) String dismist,
                                      @RequestParam(name = "inputCheckAll", defaultValue = "false") boolean inputCheckAll){
-
-
-
 
         if (accept != null) {
             List<HoaDonChiTiet> hoaDonChiTietList = hoaDonChiTietService.findByHoaDon(hoaDonService.getOne(idHD));
@@ -288,14 +300,26 @@ public class HoaDonOnlineController {
 
         hoaDonService.add(hoaDon);
 
+        String maGH = "GH_" + hoaDon.getMaHD() ;
+
         GiaoHang giaoHang = new GiaoHang();
         giaoHang.setHoaDon(hoaDon);
         giaoHang.setTrangThai(1);
+        giaoHang.setMaGiaoHang(maGH);
         giaoHang.setThoiGian(new Date());
-        giaoHang.setNoiDung("Xác nhận nhân viên giao hàng");
-        giaoHang.setViTri("Xác nhận nhân viên giao hàng");
-
+        giaoHang.setPhiGiaoHang(0.0);
+        giaoHang.setNoiDung("Xác nhận nhân viên hoàn hàng");
         giaoHangService.saveGiaoHang(giaoHang);
+
+        hoaDon.setGiaoHang(giaoHang);
+        hoaDonService.add(hoaDon);
+
+        ViTriDonHang viTriDonHang = new ViTriDonHang();
+        viTriDonHang.setGiaoHang(giaoHang);
+        viTriDonHang.setViTri("Xác nhận nhân viên hoàn hàng");
+        viTriDonHang.setTrangThai(1);
+        viTriDonHang.setThoiGian(new Date());
+        viTriDonHangServices.addViTriDonHang(viTriDonHang);
 
         showData(model);
 

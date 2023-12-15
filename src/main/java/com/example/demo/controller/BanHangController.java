@@ -344,8 +344,8 @@ public class BanHangController {
 
         hoaDonChiTiet.setTrangThai(0);
         hoaDonChiTiet.setSoLuong(0);
-        hoaDonChiTiet.setDonGia(0);
-        hoaDonChiTiet.setDonGiaTruocGiam(0);
+        hoaDonChiTiet.setDonGia(0.0);
+        hoaDonChiTiet.setDonGiaTruocGiam(0.0);
         hoaDonChiTietService.add(hoaDonChiTiet);
         tongSanPham--;
         httpSession.setAttribute("tongSP", tongSanPham);

@@ -393,6 +393,7 @@
                               </div>
                             <div>
                                 <h6 style="margin-top:  10px; margin-bottom: 10px " th:text="${product.tenGiay}"></h6>
+                                <h5 th:if="${product.minPrice != product.minPriceTruocGiam}" style="font-weight: bold; margin-bottom: 10px; " th:text="'₫' + ${#numbers.formatDecimal(product.minPriceTruocGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
                                 <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="'₫' + ${#numbers.formatDecimal(product.minPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
                                 <div class="product__color__select" style="display: flex">
                                     <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'có sẵn'"></h6>
@@ -432,6 +433,7 @@
                             <div>
 
                                 <h6 style="margin-top:  10px; margin-bottom: 10px " th:text="${product.tenGiay}"></h6>
+                                <h5 th:if="${product.minPrice != product.minPriceTruocGiam}" style="font-weight: bold; margin-bottom: 10px; " th:text="'₫' + ${#numbers.formatDecimal(product.minPriceTruocGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
                                 <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="'₫' + ${#numbers.formatDecimal(product.minPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
                                 <div class="product__color__select" style="display: flex">
                                     <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'có sẵn'"></h6>
@@ -473,7 +475,7 @@
                             <div>
 
                                 <h6 style="margin-top:  10px; margin-bottom: 10px " th:text="${product.tenGiay}"></h6>
-                                <h5 style="color: #b7b7b7; text-decoration: line-through; margin-bottom: 10px;" th:text="'₫' + ${#numbers.formatDecimal(product.minPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
+                                <h5 th:if="${product.minPrice != product.minPriceTruocGiam}" style="font-weight: bold; margin-bottom: 10px; " th:text="'₫' + ${#numbers.formatDecimal(product.minPriceTruocGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
                                 <h5 style="font-weight: bold; margin-bottom: 10px;" th:text="'₫' + ${#numbers.formatDecimal(product.minPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
                                 <div class="product__color__select" style="display: flex">
                                     <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'có sẵn'"></h6>
