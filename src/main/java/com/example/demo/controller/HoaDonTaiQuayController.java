@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("/manage/hoa-don")
+@RequestMapping("/manage/bill")
 @Controller
 public class HoaDonTaiQuayController {
     @Autowired
@@ -29,11 +29,11 @@ public class HoaDonTaiQuayController {
     @Autowired
     private KhuyenMaiChiTietHoaDonService khuyenMaiChiTietHoaDonService;
 
-    @GetMapping("/hien-thi")
+    @GetMapping("/offline")
     public String getAll(Model model){
         List<HoaDon> hoaDonList = hoaDonService.getAllHoaDonOffLine();
-        model.addAttribute("hoaDonList",hoaDonList);
-        return "manage/quan-li-hoa-don-tai-quay";
+//        model.addAttribute("hoaDonList",hoaDonList);
+        return "manage/manage-bill-offline";
     }
 
     @GetMapping("/detail/{idHoaDon}")
