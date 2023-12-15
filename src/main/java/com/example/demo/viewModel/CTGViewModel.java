@@ -20,6 +20,9 @@ public class CTGViewModel {
     @Column(name = "id_mau")
     private UUID idMau;
 
+    @Column(name = "min_price_truoc_giam")
+    private Double minPriceTruocGiam;
+
     @Column(name = "min_price")
     private Double minPrice;
 
@@ -45,9 +48,10 @@ public class CTGViewModel {
     private Date tgNhapHang;
 
 
-    public CTGViewModel(UUID idMau,UUID idGiay, Double minPrice, String tenGiay, String tenMau, Long slTon, String hinhAnh, Long soLuongDaBan, String tenKM, Date tgNhapHang) {
+    public CTGViewModel(UUID idMau,UUID idGiay, Double minPriceTruocGiam, Double minPrice, String tenGiay, String tenMau, Long slTon, String hinhAnh, Long soLuongDaBan, String tenKM, Date tgNhapHang) {
         this.idMau = idMau;
         this.idGiay = idGiay;
+        this.minPriceTruocGiam = minPriceTruocGiam.doubleValue();
         this.minPrice = minPrice.doubleValue();
         this.tenGiay = tenGiay;
         this.tenMau = tenMau;
