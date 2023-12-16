@@ -50,6 +50,8 @@ public interface HoaDonService {
 
     List<HoaDon> listAllHoaDonByNhanVien(NhanVien nhanVien);
 
+    List<HoaDon> listAllHoaDonByNhanVienHienTai(NhanVien nhanVien);
+
     List<HoaDon> listHoaDonOnlineAndHTTTAndTrangThai(int httt, int trangThai);
 
     HoaDon findByIdHoaDonOld(UUID idHDOld);

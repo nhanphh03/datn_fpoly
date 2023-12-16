@@ -54,7 +54,7 @@ public class WebMVCConfig  implements WebMvcConfigurer {
                 .addPathPatterns("/order/**")
                 .excludePathPatterns("/login");
         registry.addInterceptor(staffLoginInterceptor)
-                .addPathPatterns("/sell/**")
+                .addPathPatterns("/ban-hang/**")
                 .excludePathPatterns("/login");
     }
 

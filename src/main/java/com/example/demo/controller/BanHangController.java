@@ -90,10 +90,12 @@ public class BanHangController {
 
     private double dieuKienKhuyenMai = 0;
 
-    @RequestMapping(value = {"", "/", "/home", "/hien-thi"})
+    @RequestMapping(value = {"/", "/home", "/hien-thi"})
     public String hienThi(Model model
             , @ModelAttribute("messageSuccess") String messageSuccess
             , @ModelAttribute("messageError") String messageError) {
+        NhanVien nhanVien = (NhanVien) httpSession.getAttribute("staffLogged");
+
         model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
         model.addAttribute("tongTien", 0);
         model.addAttribute("tongSanPham", 0);
@@ -107,6 +109,10 @@ public class BanHangController {
         if (!"true".equals(messageError)) {
             model.addAttribute("messageError", false);
         }
+
+        List<HoaDon> listHoaDonHomNay = hoaDonService.listAllHoaDonByNhanVienHienTai(nhanVien);
+        model.addAttribute("listHoaDonHomNay", listHoaDonHomNay);
+
         return "offline/index";
     }
 
@@ -548,5 +554,12 @@ public class BanHangController {
         hoaDonChiTiet.setSoLuong(quantity);
         hoaDonChiTietService.add(hoaDonChiTiet);
         return "redirect:/ban-hang/cart/hoadon/" + idHoaDon;
+    }
+
+    @GetMapping("/bill/print/{idHD}")
+    private String printBill(Model model, @PathVariable UUID idHD){
+        HoaDon hoaDon = hoaDonService.getOne(idHD);
+        model.addAttribute("billPrint", hoaDon);
+        return "offline/printBillOffline";
     }
 }

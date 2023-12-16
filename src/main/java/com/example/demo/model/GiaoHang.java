@@ -51,4 +51,7 @@ public class GiaoHang {
 
     @Column(name ="phi_giao_hang")
     private Double phiGiaoHang;
+
+    @Column(name ="phi_hoan_hang")
+    private Double phiHoanHang;
 }
