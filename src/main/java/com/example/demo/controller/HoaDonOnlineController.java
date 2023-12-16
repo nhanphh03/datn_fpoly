@@ -48,11 +48,16 @@ public class HoaDonOnlineController {
     @Autowired
     private ViTriDonHangServices viTriDonHangServices;
 
+    @Autowired
+    private ThongBaoServices thongBaoServices;
+
     @GetMapping("online")
     private String manageBillOnline(Model model){
         model.addAttribute("reLoadPage", true);
         showData(model);
         showTab1(model);
+        showThongBao(model);
+
         return "manage/manage-bill-online";
     }
 
@@ -220,17 +225,29 @@ public class HoaDonOnlineController {
 
             hoaDonOld.setTrangThaiHoan(1);
 
+            ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+            thongBaoKhachHang.setKhachHang(hoaDon.getKhachHang());
+            thongBaoKhachHang.setTgTB(new Date());
+            thongBaoKhachHang.setHoaDon(hoaDon);
+            thongBaoKhachHang.setTrangThai(0);
+            thongBaoKhachHang.setNoiDungTB("Vui lòng xác nhận đơn hàng hoàn");
+
+
             if (inputCheckAll) {
                 hoaDonOld.setTrangThaiHoan(4);
                 phieuTraHang.setTrangThai(4);
                 hoaDon.setTrangThaiHoan(4);
+                thongBaoKhachHang.setNoiDungTB("Đơn hàng hoàn đã được xác nhận");
             }
 
+            thongBaoServices.addThongBao(thongBaoKhachHang);
             hoaDonService.add(hoaDon);
             hoaDonService.add(hoaDonOld);
 
             phieuTraHang.setTgXacNhan(new Date());
             phieuTraHangServices.savePTH(phieuTraHang);
+
+
 
         } else if (dismist != null) {
             List<HoaDonChiTiet> hoaDonChiTietList = hoaDonChiTietService.findByHoaDon(hoaDonService.getOne(idHD));
@@ -358,7 +375,19 @@ public class HoaDonOnlineController {
     }
 
 
+    private void showThongBao(Model model){
+        int soThongBao = 0;
 
+        List<ThongBaoKhachHang> thongBaoKhachHangs =  thongBaoServices.getAll();
+        for (ThongBaoKhachHang x: thongBaoKhachHangs) {
+            if (x.getTrangThai() == 3){
+                soThongBao++;
+            }
+        }
+
+        model.addAttribute("soThongBao", soThongBao);
+        model.addAttribute("listThongBao", thongBaoKhachHangs);
+    }
 
 
     private void showData(Model model){

@@ -56,9 +56,19 @@ public class HomeOrder {
         showData(model);
 
         HoaDon hoaDon = hoaDonService.getOne(idHD);
+        GiaoHang giaoHang = hoaDon.getGiaoHang();
+        List<ViTriDonHang> giaoHangList = viTriDonHangServices.findByGiaoHang(giaoHang);
+        int soLanHuy = 0;
+        for (ViTriDonHang xx : giaoHangList) {
+            if (xx.getTrangThai() == 2){
+                soLanHuy ++;
+            }
+        }
+
         showDataGH(model, hoaDon);
         showDataTab2(model);
-
+        model.addAttribute("soLanHuy", soLanHuy);
+        model.addAttribute("giaoHangList", giaoHangList);
         return "transportation/index";
 
     }
@@ -79,10 +89,20 @@ public class HomeOrder {
         String ward = request.getParameter("ward");
         String moTa = request.getParameter("moTa");
 
+        GiaoHang giaoHang = hoaDon.getGiaoHang();
+        List<ViTriDonHang> giaoHangList = viTriDonHangServices.findByGiaoHang(giaoHang);
+
+        int soLanHuy = 0;
+
+        for (ViTriDonHang xx : giaoHangList) {
+            if (xx.getTrangThai() == 2){
+                soLanHuy ++;
+            }
+        }
+
         if (trangThaiGiaoHang.equals("daGuiHang")){
 
             String donViVanChuyen = request.getParameter("donViVanChuyen");
-            GiaoHang giaoHang= hoaDon.getGiaoHang();
 
             giaoHang.setTenDVVC("Human Express");
             giaoHangService.saveGiaoHang(giaoHang);
@@ -134,7 +154,6 @@ public class HomeOrder {
             showData(model);
             showDataTab2(model);
             return "transportation/index";
-
         }else if (trangThaiGiaoHang.equals("thanhCong")){
             String viTri = "Đơn hàng đã giao hàng thành công";
 
@@ -157,8 +176,6 @@ public class HomeOrder {
 
             String viTri = "Đơn hàng giao thất bại ( " +moTa + " )";
 
-            GiaoHang giaoHang = hoaDon.getGiaoHang();
-
             viTriDonHang.setViTri(viTri);
             viTriDonHang.setThoiGian(new Date());
             viTriDonHang.setTrangThai(2);
@@ -166,34 +183,21 @@ public class HomeOrder {
             viTriDonHang.setGiaoHang(giaoHang);
             viTriDonHangServices.addViTriDonHang(viTriDonHang);
 
-            List<ViTriDonHang> giaoHangList = giaoHang.getViTriDonHangs();
-
-            for (ViTriDonHang  xx:giaoHangList) {
-                if (xx.getTrangThai() == 2){
-                    giaoHangList.remove(xx);
-                }
-            }
-
-            if (giaoHangList.size() == 3){
+            if (soLanHuy == 3){
                 hoaDon.setTrangThai(4);
                 hoaDon.setTgHuy(new Date());
                 hoaDon.setLyDoHuy(moTa);
                 hoaDonService.add(hoaDon);
 
                 showDataTab2(model);
-
                 showData(model);
-
                 return "transportation/index";
             }
-
-            showDataGH(model, hoaDon);
+            showData(model);
             showDataTab2(model);
             return "transportation/index";
         } else {
             String viTri = "Đơn hàng đã đến"  + ", " + ward + ", " + district + " , " + thanhPho;
-
-            GiaoHang giaoHang = hoaDon.getGiaoHang();
 
             viTriDonHang.setViTri(viTri);
             viTriDonHang.setThoiGian(new Date());
@@ -202,16 +206,13 @@ public class HomeOrder {
             viTriDonHang.setGiaoHang(giaoHang);
             viTriDonHangServices.addViTriDonHang(viTriDonHang);
 
-            List<ViTriDonHang> giaoHangList = giaoHang.getViTriDonHangs();
-
             for (ViTriDonHang x: giaoHangList) {
                 if(x.getTrangThai() == 1){
                     x.setTrangThai(0);
                     viTriDonHangServices.addViTriDonHang(x);
                 }
             }
-
-            showDataGH(model, hoaDon);
+            showData(model);
             showDataTab2(model);
             return "transportation/index";
 
@@ -423,13 +424,40 @@ public class HomeOrder {
             return "transportation/index";
     }
 
-    @GetMapping("/bill/refund/print/{idHD}")
+    @GetMapping("/delivery/update/{idHD}")
+    private String viewUpdateReturnGiaoHang(Model model, @PathVariable UUID idHD){
+
+        showData(model);
+
+        HoaDon hoaDon = hoaDonService.getOne(idHD);
+        GiaoHang giaoHang = hoaDon.getGiaoHang();
+        List<ViTriDonHang> giaoHangList = viTriDonHangServices.findByGiaoHang(giaoHang);
+        int soLanHuy = 0;
+        for (ViTriDonHang xx : giaoHangList) {
+            if (xx.getTrangThai() == 2){
+                soLanHuy ++;
+            }
+        }
+
+        showDataGH(model, hoaDon);
+        showDataTab2(model);
+        model.addAttribute("soLanHuy", soLanHuy);
+        model.addAttribute("giaoHangList", giaoHangList);
+        return "transportation/index";
+
+    }
+
+    @GetMapping("/return/{idHD}")
     private String printBillRefund(Model model, @PathVariable UUID idHD){
+
 
         HoaDon hoaDon = hoaDonService.getOne(idHD);
 
-        model.addAttribute("billPrint", hoaDon);
+        model.addAttribute("showHuyHoanHang", hoaDon);
 
+        showData(model);
+        model.addAttribute("showHuyHoanHang", true);
+        showDataTab3(model);
         return "transportation/printBillRefund";
     }
 

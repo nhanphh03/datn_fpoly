@@ -47,6 +47,9 @@ public class CheckOutController {
     @Autowired
     private ShippingFeeService shippingFeeService;
 
+    @Autowired
+    private ThongBaoServices thongBaoServices;
+
 
     @PostMapping("/checkout")
     private String checkOutCart(Model model, @RequestParam("selectedProducts") List<UUID> selectedProductIds){
@@ -500,6 +503,7 @@ public class CheckOutController {
     public String placeOrder(Model model){
 
         HoaDon hoaDon = (HoaDon) session.getAttribute("hoaDonTaoMoi");
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
 
         String hinhThucThanhToan = request.getParameter("hinhThucThanhToan");
         String loiNhan = request.getParameter("loiNhan");
@@ -543,13 +547,29 @@ public class CheckOutController {
             model.addAttribute("addNewAddressNull", true);
             model.addAttribute("addNewAddressNulll", false);
 
-
+            ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+            thongBaoKhachHang.setKhachHang(hoaDon.getKhachHang());
+            thongBaoKhachHang.setTgTB(new Date());
+            thongBaoKhachHang.setHoaDon(hoaDon);
+            thongBaoKhachHang.setTrangThai(3);
+            thongBaoKhachHang.setKhachHang(khachHang);
+            thongBaoKhachHang.setNoiDungTB(" đã đặt đơn hàng với hình thức QR Code Banking. Mã đơn hàng: ");
+            thongBaoServices.addThongBao(thongBaoKhachHang);
 
             return "online/checkout";
         }else{
             hoaDon.setHinhThucThanhToan(0);
             hoaDon.setTrangThai(1);
             hoaDonService.add(hoaDon);
+
+            ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+            thongBaoKhachHang.setKhachHang(hoaDon.getKhachHang());
+            thongBaoKhachHang.setTgTB(new Date());
+            thongBaoKhachHang.setHoaDon(hoaDon);
+            thongBaoKhachHang.setTrangThai(3);
+            thongBaoKhachHang.setKhachHang(khachHang);
+            thongBaoKhachHang.setNoiDungTB(" đã đặt đơn hàng với hình thức thanh toán khi nhận hàng. Mã đơn hàng:");
+            thongBaoServices.addThongBao(thongBaoKhachHang);
 
             UserForm(model);
 
