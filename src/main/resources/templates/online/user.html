@@ -192,7 +192,7 @@
                             <a data-bs-toggle="dropdown" href="#" >
                                 <img style="margin-bottom: 42px; width: 18px; height: 18px;"   src="/images/img/icon/notification.png" >
                             </a>
-                            <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
+                            <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${soThongBao}"></span>
                             <div class="dropdown-menu notifications" style="width:300px; top: -80px; position: absolute;">
                                 <div class="topnav-dropdown-header">
                                     <span class="notification-title">Thông báo</span>
@@ -200,104 +200,27 @@
                                 </div>
                                 <div class="vertical-scroll scroll-demo" >
 
-                                    <a href="#" class="items-noticafitions">
-                                        <div class="items-notica">
+                                    <th:block th:each="x : ${listThongBao}">
+                                        <a href="#" class="items-noticafitions">
+                                            <div class="items-notica">
                                         <span class="avatar">
                                             <img alt="" src="/images/img/blog/blog-1.jpg">
                                         </span>
-                                            <div class="text-notica">
-                                                <span class="notica-title">Phạm Hữu Nhân </span>
-                                                <p class="notica-times">1 phút trước</p>
-                                                <input checkedS class="notica-read" type="radio" name="" id="">
-                                            </div>
-                                            <p class="notica-status">deliever oder</p>
-                                            <div class="text-contents">
-                                                <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
-                                            </div>
+                                                <div class="text-notica">
+                                                    <span class="notica-title" th:text="${fullNameLogin}"></span>
+                                                    <p class="notica-times">1 phút trước</p>
+                                                    <input th:if="x.trangThai == 1" checked class="notica-read" type="radio" name="" id="">
+                                                    <input th:if="x.trangThai == 0">
+                                                </div>
+                                                <p class="notica-status">---------</p>
+                                                <div class="text-contents">
+                                                    <p class="notica-contents" th:text="${x.noiDungTB}"></p>
+                                                </div>
 
-
-                                        </div>
-                                    </a>
-
-                                    <a href="#" class="items-noticafitions">
-                                        <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
-                                            <div class="text-notica">
-                                                <span class="notica-title">Phạm Hữu Nhân </span>
-                                                <p class="notica-times">10 phút trước</p>
-                                                <input class="notica-read" type="radio" name="" id="" checked>
-                                            </div>
-                                            <p class="notica-status">deliever oder</p>
-                                            <div class="text-contents">
-                                                <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
-                                            </div>
-
-
-                                        </div>
-                                    </a>
-
-
-                                    <a href="#" class="items-noticafitions">
-                                        <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
-                                            <div class="text-notica">
-                                                <span class="notica-title">Phạm Hữu Nhân </span>
-                                                <p class="notica-times">15 phút trước</p>
-                                                <!-- <input class="notica-read" type="radio" checked name="" id=""> -->
-                                            </div>
-                                            <p class="notica-status">deliever oder</p>
-                                            <div class="text-contents">
-                                                <p class="notica-contents" >Vui long xac nhan don hang</p>
-                                            </div>
-
-
-                                        </div>
-                                    </a>
-
-                                    <a href="#" class="items-noticafitions">
-                                        <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
-                                            <div class="text-notica">
-                                                <span class="notica-title">Phạm Hữu Nhân </span>
-                                                <p class="notica-times">10 phút trước</p>
 
                                             </div>
-                                            <input class="notica-read" type="radio" name="" id="">
-                                            <p class="notica-status">deliever oder</p>
-                                            <div class="text-contents">
-                                                <p class="notica-contents" >Don hang cua ban dang duoc giao
-                                                </p>
-                                            </div>
-
-
-                                        </div>
-                                    </a>
-
-                                    <a href="#" class="items-noticafitions">
-                                        <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
-                                            <div class="text-notica">
-                                                <span class="notica-title">Phạm Hữu Nhân </span>
-                                                <p class="notica-times">10 phút trước</p>
-                                                <input class="notica-read" type="radio" name="" id="">
-                                            </div>
-                                            <p class="notica-status">deliever oder</p>
-                                            <div class="text-contents">
-                                                <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
-                                            </div>
-
-
-                                        </div>
-                                    </a>
-
+                                        </a>
+                                    </th:block>
                                 </div>
                                 <div class="topnav-dropdown-footer">
                                     <a href="activities.html">Tất cả thông báo</a>
@@ -3044,7 +2967,7 @@
     <div th:if="${modalHuyHoaDonInDetailBillPay}" class="modal fade" id="modalHuyHoaDonInDetailBillPay" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
         <!--       Modal Hủy chờ thanh toán begin-->
-        <div th:if="${detailBillPay}" class="modal-dialog modal-dialog-centered" role="document" th:object="${billDetailPay}" >
+        <div th:if="${detailBillPay}" class="modal-dialog modal-dialog-centered" role="document" style="width: 600px;" th:object="${billDetailPay}" >
             <form th:action="@{'/buyer/purchase/bill/pay/cancel/' + ${billDetailPay.idHD}}" method="post">
                 <div class="modal-content" >
 

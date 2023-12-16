@@ -69,7 +69,7 @@
       <li class="nav-item dropdown">
         <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
           <img src="/images/img/icons/notification-bing.svg" alt="img"> <span
-                class="badge rounded-pill">4</span>
+                class="badge rounded-pill" th:text="${soThongBao}"></span>
         </a>
         <div class="dropdown-menu notifications">
           <div class="topnav-dropdown-header">
@@ -78,80 +78,27 @@
           </div>
           <div class="noti-content">
             <ul class="notification-list">
-              <li class="notification-message">
-                <a href="activities.html">
-                  <div class="media d-flex">
+              <th:block  th:each="x : ${listThongBao}">
+                <li th:if="${x.trangThai == 3}"class="notification-message">
+                  <a href="activities.html">
+                    <div class="media d-flex">
                                         <span class="avatar flex-shrink-0">
                                         <img alt="" src="/images/img/profiles/avatar-02.jpg">
                                         </span>
-                    <div class="media-body flex-grow-1">
-                      <p class="noti-details"><span class="noti-title">John Doe</span> added new
-                        task <span class="noti-title">Patient appointment booking</span></p>
-                      <p class="noti-time"><span class="notification-time">4 mins ago</span></p>
+                      <div class="media-body flex-grow-1">
+                        <p class="noti-details" >
+                          <span class="noti-title" th:text="${x.khachHang.hoTenKH}"></span>
+                          <span th:text="${x.noiDungTB}"></span>
+                          <span class="noti-title" th:text="${x.hoaDon.maHD}"></span>
+                        </p>
+                        <p class="noti-time">
+                          <span class="notification-time"th:text="${#dates.format(x.tgTB, 'HH:mm yyyy-MM-dd')}"></span>
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </a>
-              </li>
-              <li class="notification-message">
-                <a href="activities.html">
-                  <div class="media d-flex">
-                                        <span class="avatar flex-shrink-0">
-                                        <img alt="" src="/images/img/profiles/avatar-03.jpg">
-                                        </span>
-                    <div class="media-body flex-grow-1">
-                      <p class="noti-details"><span class="noti-title">Tarah Shropshire</span>
-                        changed the task name <span class="noti-title">Appointment booking with payment gateway</span>
-                      </p>
-                      <p class="noti-time"><span class="notification-time">6 mins ago</span></p>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li class="notification-message">
-                <a href="activities.html">
-                  <div class="media d-flex">
-                                        <span class="avatar flex-shrink-0">
-                                        <img alt="" src="/images/img/profiles/avatar-06.jpg">
-                                        </span>
-                    <div class="media-body flex-grow-1">
-                      <p class="noti-details"><span class="noti-title">Misty Tison</span> added
-                        <span class="noti-title">Domenic Houston</span> and <span
-                                class="noti-title">Claire Mapes</span> to project <span
-                                class="noti-title">Doctor available module</span></p>
-                      <p class="noti-time"><span class="notification-time">8 mins ago</span></p>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li class="notification-message">
-                <a href="activities.html">
-                  <div class="media d-flex">
-                                        <span class="avatar flex-shrink-0">
-                                        <img alt="" src="/images/img/profiles/avatar-17.jpg">
-                                        </span>
-                    <div class="media-body flex-grow-1">
-                      <p class="noti-details"><span class="noti-title">Rolland Webber</span>
-                        completed task <span class="noti-title">Patient and Doctor video conferencing</span>
-                      </p>
-                      <p class="noti-time"><span class="notification-time">12 mins ago</span></p>
-                    </div>
-                  </div>
-                </a>
-              </li>
-              <li class="notification-message">
-                <a href="activities.html">
-                  <div class="media d-flex">
-                                        <span class="avatar flex-shrink-0">
-                                        <img alt="" src="/images/img/profiles/avatar-13.jpg">
-                                        </span>
-                    <div class="media-body flex-grow-1">
-                      <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span>
-                        added new task <span class="noti-title">Private chat module</span></p>
-                      <p class="noti-time"><span class="notification-time">2 days ago</span></p>
-                    </div>
-                  </div>
-                </a>
-              </li>
+                  </a>
+                </li>
+              </th:block>
             </ul>
           </div>
           <div class="topnav-dropdown-footer">
@@ -280,7 +227,7 @@
     <div class="content">
       <div class="page-header">
         <div class="page-title">
-          <h4>Quản lý hóa đơn online</h4>
+          <h4>Quản lý thanh toán chuyển khoản</h4>
         </div>
       </div>
       <section class="comp-section">
@@ -318,7 +265,7 @@
                             <span><img style="height: 30px; width: 30px;" src="/images/img/icons/dash1.svg" alt="img"></span>
                           </div>
                           <div class="dash-widgetcontent">
-                            <h5><span class="counters" data-count="4"></span></h5>
+                            <h5><span class="counters" th:data-count="${tongHoaDon}"></span></h5>
                             <h6>Hóa đơn chuyển khoản</h6>
                           </div>
                         </div>
@@ -329,7 +276,7 @@
                             <span><img style="height: 30px; width: 30px;"  src="/images/img/icons/dash2.svg" alt="img"></span>
                           </div>
                           <div class="dash-widgetcontent">
-                            <h5>₫<span class="counters"  >222</span></h5>
+                            <h5>₫<span class="counters" th:text="${tongTienQRCode}">222</span></h5>
                             <h6>Tổng tiền</h6>
                           </div>
                         </div>
@@ -342,7 +289,7 @@
                                 </span>
                           </div>
                           <div class="dash-widgetcontent">
-                            <h5><span class="counters" data-count="10"></span></h5>
+                            <h5><span class="counters" th:data-count="${soKhachMua}"></span></h5>
                             <h6>Khách mua</h6>
                           </div>
                         </div>
@@ -355,8 +302,8 @@
                                 </span>
                           </div>
                           <div class="dash-widgetcontent" >
-                            <h5><span class="counters" data-count="11"></span></h5>
-                            <h6>Hoàn tiền</h6>
+                            <h5><span class="counters" th:data-count="11"></span></h5>
+                            <h6>Hủy/hoàn tiền</h6>
                           </div>
                         </div>
                       </div>
@@ -375,12 +322,14 @@
                                 <table class="table  datanew ">
                                   <thead>
                                     <tr>
-                                      <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Mã Lịch Sử TT</th>
                                       <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Mã HD</th>
-                                      <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Loại Thanh Toán</th>
+                                      <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Loại HD</th>
+                                      <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Trạng thái HD</th>
                                       <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Khách hàng</th>
-                                      <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Trạng thái</th>
+                                      <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Trạng thái TT</th>
+                                      <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Ngày tạo HD</th>
                                       <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Ngày thanh toán</th>
+                                      <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Ngày hoàn</th>
                                       <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Tổng tiền</th>
                                       <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">Hành động</th>
                                     </tr>
@@ -388,14 +337,60 @@
                                   <tbody>
 
                                   <th:block th:each="items: ${lichSuThanhToanList}">
-                                    <tr>
-                                      <td th:text="${items.maLSTT}"></td>
+                                    <tr th:if="${items.hoaDon.idHDOld == null}">
                                       <td th:text="${items.hoaDon.maHD}"></td>
 
-                                      <td th:if="${items.loaiTT == 0}">TT Hóa Đơn</td>
-                                      <td th:if="${items.loaiTT == 1}">TT Hoàn tiền</td>
+                                      <td>HD Mua Hàng</td>
+
+                                      <td th:if="${items.trangThai == 0}">Chưa thanh toán</td>
+                                      <td th:if="${items.trangThai == 1}">Đã thanh toán</td>
+                                      <td th:if="${items.trangThai == 2}">Đã hủy</td>
+                                      <td th:if="${items.trangThai == 3}">Đã hoàn tiền</td>
 
                                       <td th:text="${items.khachHang.maKH}"></td>
+
+                                      <td th:text="${#dates.format(items.hoaDon.tgTao, 'HH:mm yyyy-MM-dd')}"></td>
+
+                                      <td th:if="${items.tgThanhToan == null}">Chưa có</td>
+                                      <td th:text="${#dates.format(items.tgThanhToan, 'HH:mm yyyy-MM-dd')}"></td>
+
+                                      <td th:if="${items.tgThanhToan == null}">Chưa có</td>
+                                      <td th:text="${#dates.format(items.tgThanhToan, 'HH:mm yyyy-MM-dd')}"></td>
+
+                                      <td th:if="${items.trangThai == 1 and items.loaiTT == 0}">Đã thanh toán</td>
+                                      <td th:if="${items.trangThai == 1 and items.loaiTT == 1}">Đã Hoàn tiền</td>
+                                      <td th:if="${items.trangThai == 0 and items.loaiTT == 1}">Chưa Hoàn tiền</td>
+
+                                      <td th:text="${#dates.format(items.tgThanhToan, 'HH:mm yyyy-MM-dd')}"></td>
+                                      <td th:text="'₫'+${#numbers.formatDecimal(items.soTienThanhToan, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
+
+                                      <th>
+                                        <i class="fe fe-edit-3" th:data-bs-toggle="modal"
+                                           th:data-bs-target="'#detailKMM' + ${items.idHTTT}"
+                                           style="cursor: pointer; margin: 0 10px 0 20px;"></i>
+                                      </th>
+                                    </tr>
+
+                                    <tr th:if="${items.hoaDon.idHDOld != null}">
+                                      <td th:text="${items.hoaDon.maHD}"></td>
+
+                                      <td>HD Hoàn tiền</td>
+
+                                      <td th:if="${items.trangThai == 0}">Chưa hoàn</td>
+                                      <td th:if="${items.trangThai == 1}">Đã hoàn</td>
+
+                                      <td th:text="${#dates.format(items.hoaDon.tgTao, 'HH:mm yyyy-MM-dd')}"></td>
+
+                                      <td th:text="${items.khachHang.maKH}"></td>
+
+                                      <td th:if="${items.trangThai == 0}">Đã hoàn tiền</td>
+                                      <td th:if="${items.trangThai == 1}">TT Hoàn tiền</td>
+
+                                      <td th:if="${items.tgThanhToan == null}">Chưa có</td>
+                                      <td th:text="${#dates.format(items.tgThanhToan, 'HH:mm yyyy-MM-dd')}"></td>
+
+                                      <td th:if="${items.tgThanhToan == null}">Chưa có</td>
+                                      <td th:text="${#dates.format(items.tgThanhToan, 'HH:mm yyyy-MM-dd')}"></td>
 
                                       <td th:if="${items.trangThai == 1 and items.loaiTT == 0}">Đã thanh toán</td>
                                       <td th:if="${items.trangThai == 1 and items.loaiTT == 1}">Đã Hoàn tiền</td>
