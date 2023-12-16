@@ -424,40 +424,23 @@ public class HomeOrder {
             return "transportation/index";
     }
 
-    @GetMapping("/delivery/update/{idHD}")
-    private String viewUpdateReturnGiaoHang(Model model, @PathVariable UUID idHD){
-
-        showData(model);
-
-        HoaDon hoaDon = hoaDonService.getOne(idHD);
-        GiaoHang giaoHang = hoaDon.getGiaoHang();
-        List<ViTriDonHang> giaoHangList = viTriDonHangServices.findByGiaoHang(giaoHang);
-        int soLanHuy = 0;
-        for (ViTriDonHang xx : giaoHangList) {
-            if (xx.getTrangThai() == 2){
-                soLanHuy ++;
-            }
-        }
-
-        showDataGH(model, hoaDon);
-        showDataTab2(model);
-        model.addAttribute("soLanHuy", soLanHuy);
-        model.addAttribute("giaoHangList", giaoHangList);
-        return "transportation/index";
-
-    }
-
     @GetMapping("/return/{idHD}")
-    private String printBillRefund(Model model, @PathVariable UUID idHD){
-
-
-        HoaDon hoaDon = hoaDonService.getOne(idHD);
-
-        model.addAttribute("showHuyHoanHang", hoaDon);
+    private String viewReturnGiaoHang(Model model, @PathVariable UUID idHD){
 
         showData(model);
         model.addAttribute("showHuyHoanHang", true);
         showDataTab3(model);
+        return "transportation/index";
+
+    }
+
+    @GetMapping("/bill/refund/print/{idHD}")
+    private String printBillRefund(Model model, @PathVariable UUID idHD){
+
+        HoaDon hoaDon = hoaDonService.getOne(idHD);
+
+        model.addAttribute("billPrint", hoaDon);
+
         return "transportation/printBillRefund";
     }
 
