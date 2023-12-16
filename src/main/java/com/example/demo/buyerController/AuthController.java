@@ -53,6 +53,9 @@ public class AuthController {
     @Autowired
     private HanhViKHService hanhViKHService;
 
+    @Autowired
+    private ThongBaoServices thongBaoServices;
+
     @GetMapping("/login")
     public String getFormBuyerLogin(){
 
@@ -245,6 +248,14 @@ public class AuthController {
             KHRegiter.setTrangThai(1);
             khachHangService.save(KHRegiter);
             session.invalidate();
+
+            ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+            thongBaoKhachHang.setKhachHang(KHRegiter);
+            thongBaoKhachHang.setTrangThai(0);
+            thongBaoKhachHang.setNoiDungTB("Tạo tài khoản thành công");
+            thongBaoKhachHang.setTgTB(new Date());
+            thongBaoServices.addThongBao(thongBaoKhachHang);
+
             return"online/login";
         }else {
             model.addAttribute("formRegister", false);

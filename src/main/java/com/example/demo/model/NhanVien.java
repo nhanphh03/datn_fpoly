@@ -30,14 +30,11 @@ public class NhanVien {
     @JoinColumn( name = "id_Chuc_Vu")
     private ChucVu chucVu;
 
-
     @Column(name = "ma_NV")
     private String maNV;
 
-
     @Column(name = "ho_Ten_NV")
     private String hoTenNV;
-
 
     @Column(name = "mk_NV")
     private String matKhau;
@@ -49,13 +46,11 @@ public class NhanVien {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date ngaySinh;
 
-
     @Column(name = "SDT_NV")
     private String sdtNV;
 
     @Column(name = "Anh_NV")
     private String AnhNV;
-
 
     @Column(name = "Email_NV")
     private String emailNV;
