@@ -130,12 +130,14 @@
                 </div>
 
                 <div class="col-lg-6 d-flex align-items-center" >
-                    <div style="width: 100%; display: flex; background-color: white; border: 10px;">
-                        <input  class="form-control" style="border: none; width: 90%;"  placeholder="Nhập văn bản..." type="text">
-                        <div style="width: 60px; background-color: #f3f2ee; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                            <a href=""><img src="/images/img/icon/search.png" alt=""></a>
+                    <form action="/buyer/search" method="post">
+                        <div style="width: 100%; display: flex; background-color: white; border: 10px;">
+                            <input th:value="${keyword}" name="keyWord" class="form-control" style="border: none; width: 500px;"  placeholder="Nhập văn bản..." type="text">
+                            <div style="width: 60px; background-color: #f3f2ee; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                <a type="submit" href=""><img src="/images/img/icon/search.png" alt=""></a>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
 
                 <div class="col-lg-3 d-flex align-items-center">
@@ -187,7 +189,6 @@
 
 
                     <div class="nav user-menu" style="height: 30px;">
-
                         <li class="nav-item dropdown" style="height: 30px;">
                             <a data-bs-toggle="dropdown" href="#" >
                                 <img style="margin-bottom: 42px; width: 18px; height: 18px;"   src="/images/img/icon/notification.png" >
@@ -196,11 +197,10 @@
                             <div class="dropdown-menu notifications" style="width:300px; top: -80px; position: absolute;">
                                 <div class="topnav-dropdown-header">
                                     <span class="notification-title">Thông báo</span>
-                                    <a href="javascript:void(0)" class="clear-noti"> Xóa sạch</a>
+                                    <a class="clear-noti"> Xóa sạch </a>
                                 </div>
                                 <div class="vertical-scroll scroll-demo" >
-
-                                    <th:block th:each="x : ${listThongBao}">
+                                    <th:block th:if="${x.trangThai != 3}" th:each="x : ${listThongBao}">
                                         <a href="#" class="items-noticafitions">
                                             <div class="items-notica">
                                         <span class="avatar">
@@ -223,7 +223,7 @@
                                     </th:block>
                                 </div>
                                 <div class="topnav-dropdown-footer">
-                                    <a href="activities.html">Tất cả thông báo</a>
+                                    <a href="activities.html">Xem tất cả thông báo</a>
                                 </div>
                             </div>
 
@@ -913,6 +913,7 @@
                             <div class="col-lg-8">
                                 <p style="font-size: 12pt; font-weight: 600;" th:text="'Lý do hủy đơn : ' + ${billDetailCancel.lyDoHuy}"></p>
                                 <p style="font-size: 10pt;">*Tiền sẽ được hoàn vào tài khoản ngân hàng của bạn trong vòng 24h (nếu bạn đã thanh toán)</p>
+                                <p style="font-size: 10pt; color: red;">*Đơn hàng đã giao nếu không nhận hàng sẽ không được hoàn lại tiền đã thanh toán</p>
                                 <p style="font-size: 9pt; margin-top: 10px;">Mọi chi tiết xin liên hệ tới tổng đài <b>0384329003</b> để được nhân viên CSKH tư vấn</p>
                             </div>
                             <div class="col-lg-4">
@@ -2458,31 +2459,31 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="footer__about">
                     <div class="footer__logo">
-                        <a href="#"><img src="/images/img/footer-logo.png" alt=""></a>
+                        <a href="#"><img src="/Logo.png" alt=""></a>
                     </div>
-                    <p>The customer is at the heart of our unique business model, which includes design.</p>
-                    <a href="#"><img src="/images/img/payment.png" alt=""></a>
+                    <p> Khách hàng là trung tâm của mô hình kinh doanh độc đáo của chúng tôi, bao gồm cả thiết kế.</p>
+                    <a href="#"><img src="img/payment.png" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
                 <div class="footer__widget">
-                    <h6>Shopping</h6>
+                    <h6>Cửa hàng</h6>
                     <ul>
-                        <li><a href="#">Clothing Store</a></li>
-                        <li><a href="#">Trending Shoes</a></li>
-                        <li><a href="#">Accessories</a></li>
-                        <li><a href="#">Sale</a></li>
+                        <li><a href="/buyer/shop">Gian hàng</a></li>
+                        <li><a href="/buyer/shop">Xu Hướng</a></li>
+                        <li><a href="/buyer/shop">Đề Xuất</a></li>
+                        <li><a href="/buyer/shop/sale">Giảm giá</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-6">
                 <div class="footer__widget">
-                    <h6>Shopping</h6>
+                    <h6>Mua sắm</h6>
                     <ul>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Payment Methods</a></li>
-                        <li><a href="#">Delivary</a></li>
-                        <li><a href="#">Return & Exchanges</a></li>
+                        <li><a href="#">Liên Hệ</a></li>
+                        <li><a href="#">Thanh Toán</a></li>
+                        <li><a href="#">Giao Hàng</a></li>
+                        <li><a href="#">Hoàn Hàng/Tiền</a></li>
                     </ul>
                 </div>
             </div>
@@ -2490,7 +2491,7 @@
                 <div class="footer__widget">
                     <h6>NewLetter</h6>
                     <div class="footer__newslatter">
-                        <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+                        <p>Hãy là người đầu tiên biết về hàng mới, sách tra cứu, khuyến mại và khuyến mãi!</p>
                         <form action="#">
                             <input type="text" placeholder="Your email">
                             <button type="submit"><span class="icon_mail_alt"></span></button>
@@ -2504,13 +2505,10 @@
                 <div class="footer__copyright__text">
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     <p>Copyright ©
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script>
-                        2020
-                        All rights reserved | This template is made with <i class="fa fa-heart-o"
+                        2023
+                        All rights reserved | This template is edit with <i class="fa fa-heart-o"
                                                                             aria-hidden="true"></i> by <a
-                                href="https://colorlib.com" target="_blank">Colorlib</a>
+                                href="https://www.instagram.com/nhanngu_03/" target="_blank">Nhan Pham</a>
                     </p>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </div>
@@ -2519,8 +2517,6 @@
     </div>
 </footer>
 <!-- Footer Section End -->
-
-
 <!--Modal begin-->
 <section>
 
