@@ -155,6 +155,13 @@ public class CartController {
         List<GioHangChiTiet> listGHCTActive = ghctService.findByGHActive(gioHang);
         Integer sumProductInCart = listGHCTActive.size();
 
+        if (listGHCTActive != null){
+            for (GioHangChiTiet gioHangChiTiet: listGHCTActive) {
+                gioHangChiTiet.setDonGia(gioHangChiTiet.getChiTietGiay().getGiaBan()* gioHangChiTiet.getSoLuong());
+                gioHangChiTiet.setDonGiaTruocKhiGiam(gioHangChiTiet.getChiTietGiay().getSoTienTruocKhiGiam()* gioHangChiTiet.getSoLuong());
+                ghctService.addNewGHCT(gioHangChiTiet);
+            }
+        }
         model.addAttribute("fullNameLogin", khachHang.getHoTenKH());
         model.addAttribute("sumProductInCart", sumProductInCart);
         model.addAttribute("listCartDetail", listGHCTActive);

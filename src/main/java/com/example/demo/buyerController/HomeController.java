@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -75,9 +76,21 @@ public class HomeController {
         List<CTGViewModel> top12CTGModelNew = listCTGModelNew.subList(0, Math.min(listCTGModelNew.size(), 12));
         List<CTGViewModel> top12CTGModelBestSeller = listCTGModelBestSeller.subList(0, Math.min(listCTGModelBestSeller.size(), 12));
 
+        List<CTGViewModel> ctgViewModelList = new ArrayList<>();
+
+        for (CTGViewModel xx:listCTGModelNew) {
+            if (xx.getTenKM() != null){
+                ctgViewModelList.add(xx);
+            }
+        }
+
         model.addAttribute("listCTGModelNew",top12CTGModelNew);
+        model.addAttribute("listCTGModelSaleOff",ctgViewModelList);
         model.addAttribute("listCTGModelBestSeller",top12CTGModelBestSeller);
         return "online/index";
 
     }
+
+
+
 }

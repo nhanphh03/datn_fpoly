@@ -38,7 +38,7 @@ public class GioHangChiTiet {
     private double donGia;
 
     @Column(name = "don_Gia_Khi_Giam")
-    private double donGiaKhiGiam;
+    private Double donGiaTruocKhiGiam;
 
     @Column(name = "trang_Thai")
     private int trangThai;

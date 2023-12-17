@@ -49,9 +49,15 @@ public class GiaoHang {
     @Column(name ="ma_van_don")
     private String maVanDon;
 
+    @Column(name ="ma_van_don_hoan")
+    private String maVanDonHoan;
+
     @Column(name ="phi_giao_hang")
     private Double phiGiaoHang;
 
     @Column(name ="phi_hoan_hang")
     private Double phiHoanHang;
+
+    @Column(name = "thoi_Gian_Hoan")
+    private Date thoiGianHoan;
 }

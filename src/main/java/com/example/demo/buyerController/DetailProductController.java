@@ -137,6 +137,7 @@ public class DetailProductController {
         model.addAttribute("idHeartMau", mau.getIdMau());
         model.addAttribute("listMauSacByGiay", listMauSacByGiay);
         model.addAttribute("listSizeCTG", allSizeByGiay);
+        model.addAttribute("listGiavaSize", listCTGByGiay);
 
         addToLuotXemFA(khachHang, mau, giay, minPrice, sumCTGByGiay, 1);
         model.addAttribute(maMau, "true");
@@ -228,6 +229,7 @@ public class DetailProductController {
             gioHangChiTiet.setSoLuong(gioHangChiTiet.getSoLuong() + quantity);
             gioHangChiTiet.setTgThem(new Date());
             gioHangChiTiet.setDonGia(quantity*ctg.getGiaBan() + gioHangChiTiet.getDonGia());
+            gioHangChiTiet.setDonGiaTruocKhiGiam(quantity*ctg.getSoTienTruocKhiGiam() + gioHangChiTiet.getDonGiaTruocKhiGiam());
             ghctService.addNewGHCT(gioHangChiTiet);
         }else {
             GioHangChiTiet gioHangChiTietNew = new GioHangChiTiet();
@@ -237,6 +239,8 @@ public class DetailProductController {
             gioHangChiTietNew.setSoLuong(quantity);
             gioHangChiTietNew.setTgThem(new Date());
             gioHangChiTietNew.setDonGia(quantity * ctg.getGiaBan());
+            System.out.println(quantity*ctg.getSoTienTruocKhiGiam());
+//            gioHangChiTiet.setDonGiaTruocKhiGiam(quantity*ctg.getSoTienTruocKhiGiam());
             gioHangChiTietNew.setTrangThai(1);
 
             ghctService.addNewGHCT(gioHangChiTietNew);

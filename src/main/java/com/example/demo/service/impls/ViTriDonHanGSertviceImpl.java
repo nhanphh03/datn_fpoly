@@ -23,7 +23,7 @@ public class ViTriDonHanGSertviceImpl implements ViTriDonHangServices {
 
     @Override
     public List<ViTriDonHang> findByGiaoHang(GiaoHang giaoHang) {
-        return viTriDonHangRepository.findByGiaoHangOrderByThoiGian(giaoHang);
+        return viTriDonHangRepository.findByGiaoHangOrderByThoiGianDesc(giaoHang);
     }
 
     @Override

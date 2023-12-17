@@ -100,7 +100,6 @@ public class KhuyenMaiController {
         khuyenMai.setGiaTienGiamToiDaPT(soTienGiamGiaTD);
         khuyenMaiService.createKhuyenMais(khuyenMai);
 
-
         if (khuyenMai.getLoaiKhuyenMai() == loaiKhuyenMai || trangThai == 0){
             List<KhuyenMaiChiTietCTG> khuyenMaiChiTietCTGList = khuyenMai.getKhuyenMaiChiTietCTGList();
             for (KhuyenMaiChiTietCTG x: khuyenMaiChiTietCTGList ) {
