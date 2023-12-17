@@ -322,11 +322,11 @@
                                         </li>
                                         <li>
                                             <h4>Giá Bán</h4>
-                                            <h6 th:text="${giayChiTietDetail.giaBan}"></h6>
+                                            <h6 th:text="${#numbers.formatDecimal(giayChiTietDetail.giaBan, 2, 'COMMA', 1, 'POINT')} + ' đ'"></h6>
                                         </li>
                                         <li>
                                             <h4>Trọng Lượng</h4>
-                                            <h6 th:text="${giayChiTietDetail.trongLuong}"> gram</h6>
+                                            <h6 th:text="${giayChiTietDetail.trongLuong} + ' gram'"></h6>
                                         </li>
                                         <li>
                                             <h4>Năm Sản Xuất</h4>

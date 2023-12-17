@@ -1,10 +1,7 @@
 package com.example.demo.shipperController;
 
 import com.example.demo.model.*;
-import com.example.demo.service.GiaoHangService;
-import com.example.demo.service.HoaDonService;
-import com.example.demo.service.PhieuTraHangServices;
-import com.example.demo.service.ViTriDonHangServices;
+import com.example.demo.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +38,9 @@ public class HomeOrder {
     @Autowired
     private PhieuTraHangServices phieuTraHangServices;
 
+    @Autowired
+    private GiayChiTietService giayChiTietService;
+
     @RequestMapping(value = {"", "/", "/home"})
     private String getHomeShipping(Model model){
 
@@ -56,9 +56,19 @@ public class HomeOrder {
         showData(model);
 
         HoaDon hoaDon = hoaDonService.getOne(idHD);
+        GiaoHang giaoHang = hoaDon.getGiaoHang();
+        List<ViTriDonHang> giaoHangList = viTriDonHangServices.findByGiaoHang(giaoHang);
+        int soLanHuy = 0;
+        for (ViTriDonHang xx : giaoHangList) {
+            if (xx.getTrangThai() == 2){
+                soLanHuy ++;
+            }
+        }
+
         showDataGH(model, hoaDon);
         showDataTab2(model);
-
+        model.addAttribute("soLanHuy", soLanHuy);
+        model.addAttribute("giaoHangList", giaoHangList);
         return "transportation/index";
 
     }
@@ -70,8 +80,6 @@ public class HomeOrder {
 
         showData(model);
 
-        ViTriDonHang viTriDonHang = new ViTriDonHang();
-
         String trangThaiGiaoHang = request.getParameter("trangThaiGiaoHang");
 
         String thanhPho = request.getParameter("city");
@@ -79,10 +87,20 @@ public class HomeOrder {
         String ward = request.getParameter("ward");
         String moTa = request.getParameter("moTa");
 
+        GiaoHang giaoHang = hoaDon.getGiaoHang();
+        List<ViTriDonHang> giaoHangList = viTriDonHangServices.findByGiaoHang(giaoHang);
+
+        int soLanHuy = 0;
+
+        for (ViTriDonHang xx : giaoHangList) {
+            if (xx.getTrangThai() == 2){
+                soLanHuy ++;
+            }
+        }
+
         if (trangThaiGiaoHang.equals("daGuiHang")){
 
             String donViVanChuyen = request.getParameter("donViVanChuyen");
-            GiaoHang giaoHang= hoaDon.getGiaoHang();
 
             giaoHang.setTenDVVC("Human Express");
             giaoHangService.saveGiaoHang(giaoHang);
@@ -122,6 +140,7 @@ public class HomeOrder {
                 }
                 giaoHangService.saveGiaoHang(giaoHang);
             }
+            ViTriDonHang viTriDonHang = new ViTriDonHang();
 
             viTriDonHang.setViTri("Đã lấy/gửi hành thành công ");
             viTriDonHang.setTrangThai(1);
@@ -134,9 +153,9 @@ public class HomeOrder {
             showData(model);
             showDataTab2(model);
             return "transportation/index";
-
         }else if (trangThaiGiaoHang.equals("thanhCong")){
             String viTri = "Đơn hàng đã giao hàng thành công";
+            ViTriDonHang viTriDonHang = new ViTriDonHang();
 
             viTriDonHang.setViTri(viTri);
             viTriDonHang.setThoiGian(new Date());
@@ -156,8 +175,7 @@ public class HomeOrder {
         } else if (trangThaiGiaoHang.equals("thatBai")){
 
             String viTri = "Đơn hàng giao thất bại ( " +moTa + " )";
-
-            GiaoHang giaoHang = hoaDon.getGiaoHang();
+            ViTriDonHang viTriDonHang = new ViTriDonHang();
 
             viTriDonHang.setViTri(viTri);
             viTriDonHang.setThoiGian(new Date());
@@ -166,34 +184,31 @@ public class HomeOrder {
             viTriDonHang.setGiaoHang(giaoHang);
             viTriDonHangServices.addViTriDonHang(viTriDonHang);
 
-            List<ViTriDonHang> giaoHangList = giaoHang.getViTriDonHangs();
-
-            for (ViTriDonHang  xx:giaoHangList) {
-                if (xx.getTrangThai() == 2){
-                    giaoHangList.remove(xx);
-                }
-            }
-
-            if (giaoHangList.size() == 3){
+            if (soLanHuy == 2){
                 hoaDon.setTrangThai(4);
                 hoaDon.setTgHuy(new Date());
                 hoaDon.setLyDoHuy(moTa);
                 hoaDonService.add(hoaDon);
 
+                ViTriDonHang viTriDonHang2 = new ViTriDonHang();
+
+                viTriDonHang.setViTri("Đơn hàng đã bị hủy");
+                viTriDonHang.setThoiGian(new Date());
+                viTriDonHang.setTrangThai(2);
+                viTriDonHang.setNoiDung(moTa);
+                viTriDonHang.setGiaoHang(giaoHang);
+                viTriDonHangServices.addViTriDonHang(viTriDonHang);
+
                 showDataTab2(model);
-
                 showData(model);
-
                 return "transportation/index";
             }
-
-            showDataGH(model, hoaDon);
+            showData(model);
             showDataTab2(model);
             return "transportation/index";
         } else {
             String viTri = "Đơn hàng đã đến"  + ", " + ward + ", " + district + " , " + thanhPho;
-
-            GiaoHang giaoHang = hoaDon.getGiaoHang();
+            ViTriDonHang viTriDonHang = new ViTriDonHang();
 
             viTriDonHang.setViTri(viTri);
             viTriDonHang.setThoiGian(new Date());
@@ -202,16 +217,13 @@ public class HomeOrder {
             viTriDonHang.setGiaoHang(giaoHang);
             viTriDonHangServices.addViTriDonHang(viTriDonHang);
 
-            List<ViTriDonHang> giaoHangList = giaoHang.getViTriDonHangs();
-
             for (ViTriDonHang x: giaoHangList) {
                 if(x.getTrangThai() == 1){
                     x.setTrangThai(0);
                     viTriDonHangServices.addViTriDonHang(x);
                 }
             }
-
-            showDataGH(model, hoaDon);
+            showData(model);
             showDataTab2(model);
             return "transportation/index";
 
@@ -352,6 +364,13 @@ public class HomeOrder {
                 hoaDon.setLyDoHuy(moTa);
                 hoaDonService.add(hoaDon);
 
+                viTriDonHang.setViTri("Lấy hàng hoàn không thành công, hủy đơn hàng");
+                viTriDonHang.setThoiGian(new Date());
+                viTriDonHang.setTrangThai(2);
+                viTriDonHang.setNoiDung(moTa);
+                viTriDonHang.setGiaoHang(giaoHang);
+                viTriDonHangServices.addViTriDonHang(viTriDonHang);
+
                 hoaDonOld.setTrangThaiHoan(3);
                 hoaDonService.add(hoaDonOld);
 
@@ -421,6 +440,108 @@ public class HomeOrder {
             showData(model);
             showDataTab2(model);
             return "transportation/index";
+    }
+
+    @GetMapping("/return/{idHD}")
+    private String viewReturnGiaoHang(Model model, @PathVariable UUID idHD){
+        HoaDon hoaDon = hoaDonService.getOne(idHD);
+        GiaoHang giaoHang = hoaDon.getGiaoHang();
+
+        if (giaoHang.getPhiHoanHang() == null){
+            model.addAttribute("chuaBatDau", true);
+        }else{
+            model.addAttribute("daBatDau", true);
+        }
+        showData(model);
+        showDataTab3(model);
+        model.addAttribute("showHuyHoanHang", true);
+        model.addAttribute("HoaDonVanChuyen", hoaDon);
+        List<ViTriDonHang> giaoHangList = viTriDonHangServices.findByGiaoHang(giaoHang);
+        model.addAttribute("giaoHangList", giaoHangList);
+        return "transportation/index";
+
+    }
+
+    @PostMapping("/return/update/{idHD}")
+    private String updateBillReturn(Model model,  @PathVariable UUID idHD){
+
+        HoaDon hoaDon = hoaDonService.getOne(idHD);
+        GiaoHang giaoHang = hoaDon.getGiaoHang();
+        String trangThaiHoan = request.getParameter("trangThaiGiaoHang");
+
+        if (trangThaiHoan.equals("batDauHoan")){
+            if(giaoHang.getMaVanDonHoan() == null){
+                giaoHang.setThoiGianHoan(new Date());
+                giaoHangService.saveGiaoHang(giaoHang);
+
+                ViTriDonHang viTriDonHang = new ViTriDonHang();
+                viTriDonHang.setViTri("Bắt đầu hoàn hàng về kho");
+                viTriDonHang.setGiaoHang(giaoHang);
+                viTriDonHang.setTrangThai(3);
+                viTriDonHang.setThoiGian(new Date());
+                viTriDonHangServices.addViTriDonHang(viTriDonHang);
+            }else{
+                String maVanDonHoan = request.getParameter("maVanDonGH");
+                Double phiHoanHang = Double.parseDouble(request.getParameter("phiGiaoHangGH"));
+
+                giaoHang.setPhiHoanHang(phiHoanHang);
+                giaoHang.setMaVanDonHoan(maVanDonHoan);
+                giaoHang.setThoiGianHoan(new Date());
+                giaoHangService.saveGiaoHang(giaoHang);
+
+                ViTriDonHang viTriDonHang = new ViTriDonHang();
+                viTriDonHang.setViTri("Bắt đầu hoàn hàng về kho");
+                viTriDonHang.setGiaoHang(giaoHang);
+                viTriDonHang.setTrangThai(3);
+                viTriDonHang.setThoiGian(new Date());
+                viTriDonHangServices.addViTriDonHang(viTriDonHang);
+            }
+        }else if(trangThaiHoan.equals("dangGiao")){
+            String thanhPho = request.getParameter("city");
+            String district = request.getParameter("district");
+            String ward = request.getParameter("ward");
+            String moTa = request.getParameter("moTa");
+
+            String viTri = "Đơn hàng đã đến"  + ", " + ward + ", " + district + " , " + thanhPho + " || " + moTa;
+
+            ViTriDonHang viTriDonHang = new ViTriDonHang();
+            viTriDonHang.setThoiGian(new Date());
+            viTriDonHang.setGiaoHang(giaoHang);
+            viTriDonHang.setViTri(viTri);
+            viTriDonHang.setTrangThai(4);
+            viTriDonHang.setNoiDung(moTa);
+            viTriDonHangServices.addViTriDonHang(viTriDonHang);
+
+
+        }else{
+            String thanhPho = request.getParameter("city");
+            String district = request.getParameter("district");
+            String ward = request.getParameter("ward");
+            String moTa = request.getParameter("moTa");
+
+            System.out.println("Buon thoi ruot");
+            String viTri = "Đơn hàng đã về kho "  + ", " + ward + ", " + district + " , " + thanhPho + " || " + moTa;
+
+            ViTriDonHang viTriDonHang = new ViTriDonHang();
+            viTriDonHang.setThoiGian(new Date());
+            viTriDonHang.setGiaoHang(giaoHang);
+            viTriDonHang.setViTri(viTri);
+            viTriDonHang.setTrangThai(5);
+            viTriDonHang.setNoiDung(moTa);
+            viTriDonHangServices.addViTriDonHang(viTriDonHang);
+
+            for (HoaDonChiTiet xx: hoaDon.getHoaDonChiTiets()) {
+                ChiTietGiay chiTietGiay = xx.getChiTietGiay();
+                chiTietGiay.setSoLuong(xx.getSoLuong() + xx.getSoLuong());
+                giayChiTietService.save(chiTietGiay);
+            }
+
+
+        }
+
+        showData(model);
+        showDataTab3(model);
+        return "transportation/index";
     }
 
     @GetMapping("/bill/refund/print/{idHD}")
