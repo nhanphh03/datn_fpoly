@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.LichSuThanhToan;
+import com.example.demo.model.ThongBaoKhachHang;
 import com.example.demo.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -40,6 +41,8 @@ public class LichSuThanhToanController {
     @Autowired
     private LSThanhToanService lsThanhToanService;
 
+    @Autowired
+    private ThongBaoServices thongBaoServices;
 
     @GetMapping("pay")
     private String payHistory(Model model){
@@ -47,7 +50,7 @@ public class LichSuThanhToanController {
         List<LichSuThanhToan> lichSuThanhToanList = lsThanhToanService.getAllLSTT();
 
         model.addAttribute("lichSuThanhToanList", lichSuThanhToanList);
-
+        showThongBao(model);
         return "manage/manage-pay";
     }
 
@@ -57,7 +60,22 @@ public class LichSuThanhToanController {
         List<LichSuThanhToan> lichSuThanhToanList = lsThanhToanService.getAllLSTT();
 
         model.addAttribute("lichSuThanhToanList", lichSuThanhToanList);
+        showThongBao(model);
 
         return "manage/manage-delivery";
+    }
+
+    private void showThongBao(Model model){
+        int soThongBao = 0;
+
+        List<ThongBaoKhachHang> thongBaoKhachHangs =  thongBaoServices.getAll();
+        for (ThongBaoKhachHang x: thongBaoKhachHangs) {
+            if (x.getTrangThai() == 3){
+                soThongBao++;
+            }
+        }
+
+        model.addAttribute("soThongBao", soThongBao);
+        model.addAttribute("listThongBao", thongBaoKhachHangs);
     }
 }
