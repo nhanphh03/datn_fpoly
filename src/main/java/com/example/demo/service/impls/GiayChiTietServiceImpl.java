@@ -222,7 +222,7 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
     public void updatePriceCTGGHCT(ChiTietGiay chiTietGiay) {
         GioHangChiTiet gioHangChiTiet = ghctService.findByCTSP(chiTietGiay);
         gioHangChiTiet.setDonGia(gioHangChiTiet.getSoLuong() * chiTietGiay.getSoTienTruocKhiGiam());
-        gioHangChiTiet.setDonGiaKhiGiam(gioHangChiTiet.getSoLuong() * chiTietGiay.getGiaBan());
+        gioHangChiTiet.setDonGiaTruocKhiGiam(gioHangChiTiet.getSoLuong() * chiTietGiay.getGiaBan());
         ghctService.addNewGHCT(gioHangChiTiet);
     }
 

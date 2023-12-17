@@ -1,13 +1,11 @@
 package com.example.demo.buyerController;
 
 
-import com.example.demo.model.ChiTietGiay;
-import com.example.demo.model.GioHang;
-import com.example.demo.model.GioHangChiTiet;
-import com.example.demo.model.KhachHang;
+import com.example.demo.model.*;
 import com.example.demo.service.CTGViewModelService;
 import com.example.demo.service.GHCTService;
 import com.example.demo.service.GiayChiTietService;
+import com.example.demo.service.ThongBaoServices;
 import com.example.demo.viewModel.CTGViewModel;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +18,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
@@ -40,6 +39,9 @@ public class HomeController {
     @Autowired
     private GiayChiTietService giayChiTietService;
 
+    @Autowired
+    private ThongBaoServices thongBaoServices;
+
     @RequestMapping(value = {"", "/", "/home"})
     public String home(Model model){
 
@@ -49,11 +51,20 @@ public class HomeController {
             model.addAttribute("fullNameLogin", fullName);
             GioHang gioHang = (GioHang) session.getAttribute("GHLogged") ;
 
+            int soThongBao = 0;
             List<GioHangChiTiet> listGHCTActive = ghctService.findByGHActive(gioHang);
 
+            List<ThongBaoKhachHang> thongBaoKhachHangs =  thongBaoServices.findByKhachHang(khachHang);
+            for (ThongBaoKhachHang x: thongBaoKhachHangs) {
+                if (x.getTrangThai() == 1){
+                    soThongBao++;
+                }
+            }
             Integer sumProductInCart = listGHCTActive.size();
             model.addAttribute("sumProductInCart", sumProductInCart);
             model.addAttribute("heartLogged", true);
+            model.addAttribute("soThongBao", soThongBao);
+            model.addAttribute("listThongBao", thongBaoKhachHangs);
 
         }else {
             model.addAttribute("messageLoginOrSignin", true);
@@ -65,9 +76,21 @@ public class HomeController {
         List<CTGViewModel> top12CTGModelNew = listCTGModelNew.subList(0, Math.min(listCTGModelNew.size(), 12));
         List<CTGViewModel> top12CTGModelBestSeller = listCTGModelBestSeller.subList(0, Math.min(listCTGModelBestSeller.size(), 12));
 
+        List<CTGViewModel> ctgViewModelList = new ArrayList<>();
+
+        for (CTGViewModel xx:listCTGModelNew) {
+            if (xx.getTenKM() != null){
+                ctgViewModelList.add(xx);
+            }
+        }
+
         model.addAttribute("listCTGModelNew",top12CTGModelNew);
+        model.addAttribute("listCTGModelSaleOff",ctgViewModelList);
         model.addAttribute("listCTGModelBestSeller",top12CTGModelBestSeller);
         return "online/index";
 
     }
+
+
+
 }
