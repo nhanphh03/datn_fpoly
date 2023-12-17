@@ -12,6 +12,6 @@ import java.util.UUID;
 @Repository
 public interface ViTriDonHangRepository extends JpaRepository<ViTriDonHang, UUID> {
 
-    List<ViTriDonHang> findByGiaoHangOrderByThoiGian(GiaoHang giaoHang);
+    List<ViTriDonHang> findByGiaoHangOrderByThoiGianDesc(GiaoHang giaoHang);
 
 }
