@@ -32,6 +32,9 @@ public class HoaDon {
     @OneToMany(mappedBy = "hoaDon")
     private List<HoaDonChiTiet> hoaDonChiTiets;
 
+    @OneToMany(mappedBy = "hoaDon")
+    private List<LichSuThanhToan> lichSuThanhToans;
+
     @OneToOne
     @JoinColumn(name = "id_Giao_Hang")
     private GiaoHang giaoHang;
@@ -115,5 +118,11 @@ public class HoaDon {
 
     @Column(name = "trang_Thai_Hoan")
     private Integer trangThaiHoan;
+
+    @Column(name = "so_lan_thay_doi_vi_tri_nhan")
+    private Integer soLanThayDoiViTriShip;
+
+    @Column(name = "so_lan_danh_gia")
+    private Integer soLanDanhGia;
 
 }

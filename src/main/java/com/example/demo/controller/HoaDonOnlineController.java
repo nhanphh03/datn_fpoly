@@ -74,6 +74,7 @@ public class HoaDonOnlineController {
         showTab3(model);
 
         showData(model);
+        showThongBao(model);
 
         return "manage/manage-bill-online";
     }
@@ -120,6 +121,8 @@ public class HoaDonOnlineController {
         model.addAttribute("reLoadPage", true);
         showData(model);
         showTab3(model);
+        showThongBao(model);
+
         return "manage/manage-bill-online";
     }
 
@@ -164,6 +167,8 @@ public class HoaDonOnlineController {
 
         showData(model);
         showTab2(model);
+        showThongBao(model);
+
         model.addAttribute("reLoadPage", true);
 
         return "manage/manage-bill-online";
@@ -186,6 +191,8 @@ public class HoaDonOnlineController {
         model.addAttribute("phieuTraHang", phieuTraHang);
 
         model.addAttribute("hoaDonOld", hoaDonOld);
+        showThongBao(model);
+
 
         return "manage/detailBillRefund";
     }
@@ -288,6 +295,8 @@ public class HoaDonOnlineController {
         model.addAttribute("reLoadPage", true);
         showData(model);
         showTab4(model);
+        showThongBao(model);
+
         return "manage/manage-bill-online";
     }
 
@@ -344,6 +353,8 @@ public class HoaDonOnlineController {
         model.addAttribute("reLoadPage", true);
         showData(model);
         showTab3(model);
+        showThongBao(model);
+
         return "manage/manage-bill-online";
     }
 
@@ -388,7 +399,6 @@ public class HoaDonOnlineController {
         model.addAttribute("soThongBao", soThongBao);
         model.addAttribute("listThongBao", thongBaoKhachHangs);
     }
-
 
     private void showData(Model model){
 
