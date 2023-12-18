@@ -528,12 +528,11 @@
                                                             <br>
                                                             <div class="setvalue">
                                                                 <ul>
-                                                                    <li>
+                                                                    <li style="margin-bottom: 20px;" >
                                                                         <h5>Tạm tính :</h5>
-                                                                        <!--                                            <h6 th:text="${tongTien} +' đ'"></h6>-->
-                                                                        <h6 th:text=" ${#numbers.formatDecimal(tongTien, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'"></h6>
+                                                                        <h6 style="font-size: 13pt;" th:text=" ${#numbers.formatDecimal(tongTien, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'"></h6>
                                                                     </li>
-                                                                    <li>
+                                                                    <li style="margin-bottom: 20px;">
                                                                         <h5>
                                                                             <a type="button" class="btn btn-primary"
                                                                                data-bs-toggle="modal"
@@ -546,26 +545,25 @@
                                                                             <h6 th:text="' - '+ ${#numbers.formatDecimal(khuyenMai, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'"></h6>
                                                                         </h5>
                                                                     </li>
-                                                                    <li>
+                                                                    <li style="margin-bottom: 20px;">
                                                                         <h5>Tổng tiền : </h5>
                                                                         <h5 class="text-danger"
                                                                             th:text=" ${#numbers.formatDecimal(tongTienSauKM, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'"></h5>
-                                                                        <h5 class="text-danger" id="tongTien" th:text="${tongTienSauKM} +' đ'" style="display: none"></h5>
+                                                                        <h5  class="text-danger" id="tongTien" th:text="${tongTienSauKM} +' đ'" style="display: none; font-size: 13pt;"></h5>
                                                                     </li>
-                                                                    <li>
+                                                                    <li style="margin-bottom: 20px;">
                                                                         <h5>Tiền khách đưa : </h5>
                                                                         <input type="number" name="tienKhachDua" min="1" id="tienKhachDua"
                                                                                class="form-control" oninput="tinhTienThua()"
                                                                                style="width: 300px "
                                                                         >
                                                                     </li>
-                                                                    <li>
+                                                                    <li style="margin-bottom: 20px;">
                                                                         <h5><b>Tiền thừa:</b></h5>
                                                                         <h5>
-                                                                            <label id="tienThua" name="tienThua"></label>
+                                                                            <label style="font-size: 13pt;" id="tienThua" name="tienThua"></label>
                                                                         </h5>
                                                                     </li>
-
                                                                 </ul>
                                                             </div>
                                                             <div class="text-center">
@@ -583,7 +581,7 @@
                                                                     </button>
                                                                     <!-- Modal -->
                                                                     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel6" aria-hidden="true">
-                                                                        <div class="modal-dialog modal-md">
+                                                                        <div class="modal-dialog modal-md" style="width: 550px;">
                                                                             <div class="modal-content">
                                                                                 <div class="modal-header">
                                                                                     <h1 class="modal-title fs-5" id="exampleModalLabel6">Xác nhận</h1>
@@ -593,12 +591,6 @@
                                                                                     <div class="text-center">Bạn có chắc muốn thanh toán </div>
                                                                                 </div>
                                                                                 <div class="modal-footer">
-                                                                                    <a class="btn btn-secondary"
-                                                                                       style="background-color: #37517E;cursor: pointer;color: white;border: none;padding: 10px 20px;border-radius: 10px"
-                                                                                       th:href="@{'http://localhost:8081/ban-hang/bill/print/' + ${idHoaDon}}"
-                                                                                       onclick="window.open(this.href, '_blank'); return false;">
-                                                                                        In hóa đơn
-                                                                                    </a>
                                                                                     <a type="button" class="btn btn-warning" th:href="@{'/ban-hang/thanh-toan'}"
                                                                                        style="background-color: #37517E;cursor: pointer;color: white;border: none;padding: 10px 20px;border-radius: 10px"
                                                                                     >Thanh toán</a>
@@ -728,1090 +720,1086 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="calculator" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Define Quantity</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="calculator-set">
-                    <div class="calculatortotal">
-                        <h4>0</h4>
+
+<!--Modal begin-->
+<section>
+    <div class="modal fade" id="calculator" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Define Quantity</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="calculator-set">
+                        <div class="calculatortotal">
+                            <h4>0</h4>
+                        </div>
+                        <ul>
+                            <li>
+                                <a href="javascript:void(0);">1</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);">2</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);">3</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);">4</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);">5</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);">6</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);">7</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);">8</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);">9</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="btn btn-closes"><img
+                                        src="/images/img/icons/close-circle.svg" alt="img"></a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);">0</a>
+                            </li>
+                            <li>
+                                <a href="javascript:void(0);" class="btn btn-reverse"><img
+                                        src="/images/img/icons/reverse.svg" alt="img"></a>
+                            </li>
+                        </ul>
                     </div>
-                    <ul>
-                        <li>
-                            <a href="javascript:void(0);">1</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">2</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">3</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">4</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">5</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">6</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">7</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">8</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">9</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" class="btn btn-closes"><img
-                                    src="/images/img/icons/close-circle.svg" alt="img"></a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);">0</a>
-                        </li>
-                        <li>
-                            <a href="javascript:void(0);" class="btn btn-reverse"><img
-                                    src="/images/img/icons/reverse.svg" alt="img"></a>
-                        </li>
-                    </ul>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="modal fade" id="holdsales" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Hold order</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="hold-order">
-                    <h2>4500.00</h2>
+    <div class="modal fade" id="holdsales" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Hold order</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
                 </div>
-                <div class="form-group">
-                    <label>Order Reference</label>
-                    <input type="text">
-                </div>
-                <div class="para-set">
-                    <p>The current order will be set on hold. You can retreive this order from the pending order
-                        button.
-                        Providing a reference to it might help you to identify the order more quickly.</p>
-                </div>
-                <div class="col-lg-12">
-                    <a class="btn btn-submit me-2">Submit</a>
-                    <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
+                <div class="modal-body">
+                    <div class="hold-order">
+                        <h2>4500.00</h2>
+                    </div>
+                    <div class="form-group">
+                        <label>Order Reference</label>
+                        <input type="text">
+                    </div>
+                    <div class="para-set">
+                        <p>The current order will be set on hold. You can retreive this order from the pending order
+                            button.
+                            Providing a reference to it might help you to identify the order more quickly.</p>
+                    </div>
+                    <div class="col-lg-12">
+                        <a class="btn btn-submit me-2">Submit</a>
+                        <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div class="modal fade" id="edit" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Edit Order</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
+    <div class="modal fade" id="edit" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Order</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Product Price</label>
+                                <input type="text" value="20">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Product Price</label>
+                                <select class="select">
+                                    <option>Exclusive</option>
+                                    <option>Inclusive</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label> Tax</label>
+                                <div class="input-group">
+                                    <input type="text">
+                                    <a class="scanner-set input-group-text">
+                                        %
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Discount Type</label>
+                                <select class="select">
+                                    <option>Fixed</option>
+                                    <option>Percentage</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Discount</label>
+                                <input type="text" value="20">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Sales Unit</label>
+                                <select class="select">
+                                    <option>Kilogram</option>
+                                    <option>Grams</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <a class="btn btn-submit me-2">Submit</a>
+                        <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
+                    </div>
+                </div>
             </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-6 col-sm-12 col-12">
-                        <div class="form-group">
-                            <label>Product Price</label>
-                            <input type="text" value="20">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12">
-                        <div class="form-group">
-                            <label>Product Price</label>
-                            <select class="select">
-                                <option>Exclusive</option>
-                                <option>Inclusive</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12">
-                        <div class="form-group">
-                            <label> Tax</label>
-                            <div class="input-group">
+        </div>
+    </div>
+    <div class="modal fade" id="create" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Customer Name</label>
                                 <input type="text">
-                                <a class="scanner-set input-group-text">
-                                    %
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="text">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Country</label>
+                                <input type="text">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>City</label>
+                                <input type="text">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12">
+                            <div class="form-group">
+                                <label>Address</label>
+                                <input type="text">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <a class="btn btn-submit me-2">Submit</a>
+                        <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="delete" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Order Deletion</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="delete-order">
+                        <img src="/images/img/icons/close-circle1.svg" alt="img">
+                    </div>
+                    <div class="para-set text-center">
+                        <p>The current order will be deleted as no payment has been <br> made so far.</p>
+                    </div>
+                    <div class="col-lg-12 text-center">
+                        <a class="btn btn-danger me-2">Yes</a>
+                        <a class="btn btn-cancel" data-bs-dismiss="modal">No</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="recents" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Recent Transactions</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="tabs-sets">
+                        <ul class="nav nav-tabs" id="myTabs" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="purchase-tab" data-bs-toggle="tab"
+                                        data-bs-target="#purchase" type="button" aria-controls="purchase"
+                                        aria-selected="true" role="tab">Purchase
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="payment-tab" data-bs-toggle="tab"
+                                        data-bs-target="#payment"
+                                        type="button" aria-controls="payment" aria-selected="false" role="tab">
+                                    Payment
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="return-tab" data-bs-toggle="tab"
+                                        data-bs-target="#return"
+                                        type="button" aria-controls="return" aria-selected="false" role="tab">Return
+                                </button>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade show active" id="purchase" role="tabpanel"
+                                 aria-labelledby="purchase-tab">
+                                <div class="table-top">
+                                    <div class="search-set">
+                                        <div class="search-input">
+                                            <a class="btn btn-searchset"><img
+                                                    src="/images/img/icons/search-white.svg"
+                                                    alt="img"></a>
+                                        </div>
+                                    </div>
+                                    <div class="wordset">
+                                        <ul>
+                                            <li>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
+                                                        src="/images/img/icons/pdf.svg" alt="img"></a>
+                                            </li>
+                                            <li>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                   title="excel"><img
+                                                        src="/images/img/icons/excel.svg" alt="img"></a>
+                                            </li>
+                                            <li>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                   title="print"><img
+                                                        src="/images/img/icons/printer.svg" alt="img"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table datanew">
+                                        <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Reference</th>
+                                            <th>Customer</th>
+                                            <th>Amount</th>
+                                            <th class="text-end">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>2022-05-07</td>
+                                            <td>INV/SL0101</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 1700.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2021-03-07</td>
+                                            <td>INV/SL0101</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 2000.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2002-03-07</td>
+                                            <td>INV/SL0101</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 13.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2022-03-07</td>
+                                            <td>INV/SL0101</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 1500.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2022-03-07</td>
+                                            <td>INV/SL0101</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 1500.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2022-03-07</td>
+                                            <td>INV/SL0101</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 1500.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2022-03-07</td>
+                                            <td>INV/SL0101</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 1500.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="payment" role="tabpanel">
+                                <div class="table-top">
+                                    <div class="search-set">
+                                        <div class="search-input">
+                                            <a class="btn btn-searchset"><img
+                                                    src="/images/img/icons/search-white.svg"
+                                                    alt="img"></a>
+                                        </div>
+                                    </div>
+                                    <div class="wordset">
+                                        <ul>
+                                            <li>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
+                                                        src="/images/img/icons/pdf.svg" alt="img"></a>
+                                            </li>
+                                            <li>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                   title="excel"><img
+                                                        src="/images/img/icons/excel.svg" alt="img"></a>
+                                            </li>
+                                            <li>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                   title="print"><img
+                                                        src="/images/img/icons/printer.svg" alt="img"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table datanew">
+                                        <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Reference</th>
+                                            <th>Customer</th>
+                                            <th>Amount</th>
+                                            <th class="text-end">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>2022-09-07</td>
+                                            <td>0101</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 2000.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2021-03-07</td>
+                                            <td>0102</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 12.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2022-03-23</td>
+                                            <td>0103</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 1500.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2022-03-10</td>
+                                            <td>0104</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 1500.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2022-03-02</td>
+                                            <td>0105</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 1300.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2022-03-07</td>
+                                            <td>0106</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 1500.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2022-03-07</td>
+                                            <td>0107</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 1500.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="return" role="tabpanel">
+                                <div class="table-top">
+                                    <div class="search-set">
+                                        <div class="search-input">
+                                            <a class="btn btn-searchset"><img
+                                                    src="/images/img/icons/search-white.svg"
+                                                    alt="img"></a>
+                                        </div>
+                                    </div>
+                                    <div class="wordset">
+                                        <ul>
+                                            <li>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
+                                                        src="/images/img/icons/pdf.svg" alt="img"></a>
+                                            </li>
+                                            <li>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                   title="excel"><img
+                                                        src="/images/img/icons/excel.svg" alt="img"></a>
+                                            </li>
+                                            <li>
+                                                <a data-bs-toggle="tooltip" data-bs-placement="top"
+                                                   title="print"><img
+                                                        src="/images/img/icons/printer.svg" alt="img"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table class="table datanew">
+                                        <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Reference</th>
+                                            <th>Customer</th>
+                                            <th>Amount</th>
+                                            <th class="text-end">Action</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>2022-03-07</td>
+                                            <td>0101</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 1500.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2022-03-07</td>
+                                            <td>0102</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 1500.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2022-03-07</td>
+                                            <td>0103</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 1500.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2022-03-07</td>
+                                            <td>0104</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 1500.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2022-03-07</td>
+                                            <td>0105</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 1500.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2022-03-07</td>
+                                            <td>0106</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 1500.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2022-03-07</td>
+                                            <td>0107</td>
+                                            <td>Walk-in Customer</td>
+                                            <td>$ 1500.00</td>
+                                            <td>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/eye.svg" alt="img">
+                                                </a>
+                                                <a class="me-3" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/edit.svg" alt="img">
+                                                </a>
+                                                <a class="me-3 confirm-text" href="javascript:void(0);">
+                                                    <img src="/images/img/icons/delete.svg" alt="img">
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${showModalKhachHang}" class="modal fade" id="chonTaiKhoan" tabindex="-1"
+         aria-labelledby="exampleModalLabel3"
+         aria-hidden="true"
+         data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel3">Khách hàng</h5>
+                    <a type="button" th:href="@{'/ban-hang/cart/hoadon/'+ ${idHoaDon} }">
+                        <span aria-hidden="true">×</span>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <form method="get" action="/ban-hang/search-khach-hang">
+                        <div class="row">
+                            <div class="col-4">
+                                <input name="keyword" class="form-control" type="text" placeholder="Tên hoặc SDT">
+                            </div>
+                            <div class="col-3">
+                                <button type="submit" class="btn btn-dark">Search</button>
+                            </div>
+                            <div class="col-2 offset-3" style="float:right">
+                                <a class="btn" href="/ban-hang/khach-hang/viewAdd">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                         class="bi bi-person-add" viewBox="0 0 16 16">
+                                        <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
+                                        <path d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z"/>
+                                    </svg>
                                 </a>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12">
-                        <div class="form-group">
-                            <label>Discount Type</label>
-                            <select class="select">
-                                <option>Fixed</option>
-                                <option>Percentage</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12">
-                        <div class="form-group">
-                            <label>Discount</label>
-                            <input type="text" value="20">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12">
-                        <div class="form-group">
-                            <label>Sales Unit</label>
-                            <select class="select">
-                                <option>Kilogram</option>
-                                <option>Grams</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <a class="btn btn-submit me-2">Submit</a>
-                    <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="create" tabindex="-1" aria-labelledby="create" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Create</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-6 col-sm-12 col-12">
-                        <div class="form-group">
-                            <label>Customer Name</label>
-                            <input type="text">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12">
-                        <div class="form-group">
-                            <label>Email</label>
-                            <input type="text">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12">
-                        <div class="form-group">
-                            <label>Phone</label>
-                            <input type="text">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12">
-                        <div class="form-group">
-                            <label>Country</label>
-                            <input type="text">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12">
-                        <div class="form-group">
-                            <label>City</label>
-                            <input type="text">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12">
-                        <div class="form-group">
-                            <label>Address</label>
-                            <input type="text">
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <a class="btn btn-submit me-2">Submit</a>
-                    <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="delete" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Order Deletion</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="delete-order">
-                    <img src="/images/img/icons/close-circle1.svg" alt="img">
-                </div>
-                <div class="para-set text-center">
-                    <p>The current order will be deleted as no payment has been <br> made so far.</p>
-                </div>
-                <div class="col-lg-12 text-center">
-                    <a class="btn btn-danger me-2">Yes</a>
-                    <a class="btn btn-cancel" data-bs-dismiss="modal">No</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="modal fade" id="recents" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Recent Transactions</h5>
-                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="tabs-sets">
-                    <ul class="nav nav-tabs" id="myTabs" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="purchase-tab" data-bs-toggle="tab"
-                                    data-bs-target="#purchase" type="button" aria-controls="purchase"
-                                    aria-selected="true" role="tab">Purchase
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="payment-tab" data-bs-toggle="tab"
-                                    data-bs-target="#payment"
-                                    type="button" aria-controls="payment" aria-selected="false" role="tab">
-                                Payment
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="return-tab" data-bs-toggle="tab"
-                                    data-bs-target="#return"
-                                    type="button" aria-controls="return" aria-selected="false" role="tab">Return
-                            </button>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
-                        <div class="tab-pane fade show active" id="purchase" role="tabpanel"
-                             aria-labelledby="purchase-tab">
-                            <div class="table-top">
-                                <div class="search-set">
-                                    <div class="search-input">
-                                        <a class="btn btn-searchset"><img
-                                                src="/images/img/icons/search-white.svg"
-                                                alt="img"></a>
-                                    </div>
-                                </div>
-                                <div class="wordset">
-                                    <ul>
-                                        <li>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
-                                                    src="/images/img/icons/pdf.svg" alt="img"></a>
-                                        </li>
-                                        <li>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                               title="excel"><img
-                                                    src="/images/img/icons/excel.svg" alt="img"></a>
-                                        </li>
-                                        <li>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                               title="print"><img
-                                                    src="/images/img/icons/printer.svg" alt="img"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table datanew">
-                                    <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Reference</th>
-                                        <th>Customer</th>
-                                        <th>Amount</th>
-                                        <th class="text-end">Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>2022-05-07</td>
-                                        <td>INV/SL0101</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 1700.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2021-03-07</td>
-                                        <td>INV/SL0101</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 2000.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2002-03-07</td>
-                                        <td>INV/SL0101</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 13.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022-03-07</td>
-                                        <td>INV/SL0101</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022-03-07</td>
-                                        <td>INV/SL0101</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022-03-07</td>
-                                        <td>INV/SL0101</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022-03-07</td>
-                                        <td>INV/SL0101</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="payment" role="tabpanel">
-                            <div class="table-top">
-                                <div class="search-set">
-                                    <div class="search-input">
-                                        <a class="btn btn-searchset"><img
-                                                src="/images/img/icons/search-white.svg"
-                                                alt="img"></a>
-                                    </div>
-                                </div>
-                                <div class="wordset">
-                                    <ul>
-                                        <li>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
-                                                    src="/images/img/icons/pdf.svg" alt="img"></a>
-                                        </li>
-                                        <li>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                               title="excel"><img
-                                                    src="/images/img/icons/excel.svg" alt="img"></a>
-                                        </li>
-                                        <li>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                               title="print"><img
-                                                    src="/images/img/icons/printer.svg" alt="img"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table datanew">
-                                    <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Reference</th>
-                                        <th>Customer</th>
-                                        <th>Amount</th>
-                                        <th class="text-end">Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>2022-09-07</td>
-                                        <td>0101</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 2000.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2021-03-07</td>
-                                        <td>0102</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 12.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022-03-23</td>
-                                        <td>0103</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022-03-10</td>
-                                        <td>0104</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022-03-02</td>
-                                        <td>0105</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 1300.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022-03-07</td>
-                                        <td>0106</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022-03-07</td>
-                                        <td>0107</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="return" role="tabpanel">
-                            <div class="table-top">
-                                <div class="search-set">
-                                    <div class="search-input">
-                                        <a class="btn btn-searchset"><img
-                                                src="/images/img/icons/search-white.svg"
-                                                alt="img"></a>
-                                    </div>
-                                </div>
-                                <div class="wordset">
-                                    <ul>
-                                        <li>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top" title="pdf"><img
-                                                    src="/images/img/icons/pdf.svg" alt="img"></a>
-                                        </li>
-                                        <li>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                               title="excel"><img
-                                                    src="/images/img/icons/excel.svg" alt="img"></a>
-                                        </li>
-                                        <li>
-                                            <a data-bs-toggle="tooltip" data-bs-placement="top"
-                                               title="print"><img
-                                                    src="/images/img/icons/printer.svg" alt="img"></a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="table datanew">
-                                    <thead>
-                                    <tr>
-                                        <th>Date</th>
-                                        <th>Reference</th>
-                                        <th>Customer</th>
-                                        <th>Amount</th>
-                                        <th class="text-end">Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>2022-03-07</td>
-                                        <td>0101</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022-03-07</td>
-                                        <td>0102</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022-03-07</td>
-                                        <td>0103</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022-03-07</td>
-                                        <td>0104</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022-03-07</td>
-                                        <td>0105</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022-03-07</td>
-                                        <td>0106</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>2022-03-07</td>
-                                        <td>0107</td>
-                                        <td>Walk-in Customer</td>
-                                        <td>$ 1500.00</td>
-                                        <td>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/eye.svg" alt="img">
-                                            </a>
-                                            <a class="me-3" href="javascript:void(0);">
-                                                <img src="/images/img/icons/edit.svg" alt="img">
-                                            </a>
-                                            <a class="me-3 confirm-text" href="javascript:void(0);">
-                                                <img src="/images/img/icons/delete.svg" alt="img">
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div th:if="${showModalKhachHang}" class="modal fade" id="chonTaiKhoan" tabindex="-1"
-     aria-labelledby="exampleModalLabel3"
-     aria-hidden="true"
-     data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel3">Khách hàng</h5>
-                <a type="button" th:href="@{'/ban-hang/cart/hoadon/'+ ${idHoaDon} }">
-                    <span aria-hidden="true">×</span>
-                </a>
-            </div>
-            <div class="modal-body">
-                <form method="get" action="/ban-hang/search-khach-hang">
-                    <div class="row">
-                        <div class="col-4">
-                            <input name="keyword" class="form-control" type="text" placeholder="Tên hoặc SDT">
-                        </div>
-                        <div class="col-3">
-                            <button type="submit" class="btn btn-dark">Search</button>
-                        </div>
-                        <div class="col-2 offset-3" style="float:right">
-                            <a class="btn" href="/ban-hang/khach-hang/viewAdd">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                                     class="bi bi-person-add" viewBox="0 0 16 16">
-                                    <path d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm.5-5v1h1a.5.5 0 0 1 0 1h-1v1a.5.5 0 0 1-1 0v-1h-1a.5.5 0 0 1 0-1h1v-1a.5.5 0 0 1 1 0Zm-2-6a3 3 0 1 1-6 0 3 3 0 0 1 6 0ZM8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"/>
-                                    <path d="M8.256 14a4.474 4.474 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10c.26 0 .507.009.74.025.226-.341.496-.65.804-.918C9.077 9.038 8.564 9 8 9c-5 0-6 3-6 4s1 1 1 1h5.256Z"/>
-                                </svg>
-                            </a>
-                        </div>
-                    </div>
-                </form>
+                    </form>
 
-                <table class="table mt-3 text-center">
-                    <thead>
-                    <tr>
-                        <th>Mã</th>
-                        <th>Họ tên</th>
-                        <th>SDT</th>
-                        <th>Trạng thái</th>
-                        <th colspan="2">Action</th>
-                    </tr>
-                    </thead>
-                    <tbdoy>
-                        <th:block th:each="listKH : ${listKhachHang}">
-                            <div th:if="${listKhachHang == null}" class="error-message text-center text-dark">Không tìm
-                                thấy khách hàng
-                            </div>
-                            <tr>
-                                <td th:text="${listKH.maKH}"></td>
-                                <td th:text="${listKH.hoTenKH}"></td>
-                                <td th:text="${listKH.sdtKH}"></td>
-                                <td th:text="${listKH.trangThai ==1 ? 'Đang hoạt động' : 'Ngừng hoạt động'}"></td>
-                                <td>
-                                    <a th:href="@{'/ban-hang/chon-khach-hang/'+ ${listKH.idKH}}"
-                                       class="btn btn-outline-secondary">Chon</a>
-                                </td>
-                            </tr>
-                        </th:block>
-
-                    </tbdoy>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
-<div th:if="${showModal}" class="modal fade" id="chonSize" tabindex="-1" aria-labelledby="exampleModalLabel"
-     aria-hidden="true"
-     data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Sản phẩm</h5>
-                <a type="button" th:href="@{'/ban-hang/cart/hoadon/'+ ${idHoaDon} }">
-                    <span aria-hidden="true">×</span>
-                </a>
-            </div>
-            <div class="modal-body">
-                <div class="row m-3">
-                    <div class="col-6">
-                        <img th:src="@{'/images/imgsProducts/'+ ${giay.chiTietGiayList.get(0).hinhAnh.url1}}" alt=""
-                             height="400"
-                             width="300">
-                    </div>
-                    <div class="col-6">
-                        <div class="container">
-                            <div class="row">
-                                <div class="">
-                                    <div class="text-left fs-2 fw-bolder">
-                                        <label th:text="${giay.tenGiay}"></label>
-                                    </div>
-                                    <div class="text-left fs-3 fw-normal">
-                                        <label th:text="${'Hãng : '+ giay.hang.tenHang}"></label>
-                                    </div>
-                                    <div class="text-left fs-4">
-                                        <form action="/ban-hang/add-to-cart" method="get">
-                                            <div class="">
-                                                <h3>Số lượng</h3>
-                                                <input type="number" name="soLuong" value="1" min="1"
-                                                       class="form-control"/>
-                                            </div>
-                                            <div class="row">
-                                                <div th:each="listChiTietGiay : ${listChiTietGiay}" class="col-md-3">
-                                                    <input style="height: 15px; width: 15px;margin-right: 10px;"
-                                                           type="radio" th:name="idChiTietGiay"
-                                                           th:value="${listChiTietGiay.idCTG}"
-                                                           th:text="${listChiTietGiay.size.soSize}"
-                                                           checked="true"/>
-                                                </div>
-                                            </div>
-                                            <button type="submit" class="btn btn-secondary btn-center mt-3">
-                                                Thêm giỏ hàng
-                                            </button>
-                                        </form>
-                                    </div>
+                    <table class="table mt-3 text-center">
+                        <thead>
+                        <tr>
+                            <th>Mã</th>
+                            <th>Họ tên</th>
+                            <th>SDT</th>
+                            <th>Trạng thái</th>
+                            <th colspan="2">Action</th>
+                        </tr>
+                        </thead>
+                        <tbdoy>
+                            <th:block th:each="listKH : ${listKhachHang}">
+                                <div th:if="${listKhachHang == null}" class="error-message text-center text-dark">Không tìm
+                                    thấy khách hàng
                                 </div>
-                            </div>
-                        </div>
-                    </div>
+                                <tr>
+                                    <td th:text="${listKH.maKH}"></td>
+                                    <td th:text="${listKH.hoTenKH}"></td>
+                                    <td th:text="${listKH.sdtKH}"></td>
+                                    <td th:text="${listKH.trangThai ==1 ? 'Đang hoạt động' : 'Ngừng hoạt động'}"></td>
+                                    <td>
+                                        <a th:href="@{'/ban-hang/chon-khach-hang/'+ ${listKH.idKH}}"
+                                           class="btn btn-outline-secondary">Chon</a>
+                                    </td>
+                                </tr>
+                            </th:block>
+
+                        </tbdoy>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<div th:if="${showModalQuetQR}" class="modal fade" id="quetQR" tabindex="-1" aria-labelledby="exampleModalLabel1"
-     aria-hidden="true"
-     data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1">Sản phẩm</h5>
-                <a type="button" th:href="@{'/ban-hang/cart/hoadon/'+ ${idHoaDon}}">
-                    <span aria-hidden="true">×</span>
-                </a>
-
-            </div>
-            <div class="modal-body">
-                <div class="row m-3">
-                    <div class="col-6">
-                        <img th:src="@{'/images/imgsProducts/'+ ${quetQR.hinhAnh.url1}}" alt="" height="400"
-                             width="300">
-                    </div>
-                    <div class="col-6">
-                        <div class="container">
-                            <div class="row">
-                                <div class="">
-                                    <div class="text-left fs-2 fw-bolder">
-                                        <label th:text="${quetQR.giay.tenGiay}"></label>
-                                    </div>
-                                    <div class="text-left fs-3 fw-normal">
-                                        <label th:text="${'Hãng : '+ quetQR.giay.hang.tenHang}"></label>
-                                    </div>
-                                    <div class="text-left fs-4 fw-bolder">
-                                        <form action="/ban-hang/add-to-cart" method="get">
-                                            <div class="">
-                                                <span>Số lượng</span>
-                                                <input type="number" name="soLuong" value="1" min="1"
-                                                       class="form-control"/>
-                                            </div>
-                                            <div>
-                                                <label>Size : </label>
-                                                <input type="radio" th:name="idChiTietGiay" th:value="${quetQR.idCTG}"
-                                                       th:text="${quetQR.size.soSize}" checked="true"/>
-                                            </div>
-                                            <div>
-                                                <label>Giá bán : </label>
-                                                <!--                                                <label th:text="${quetQR.giaBan} +' đ'"></label>-->
-                                                <label th:text=" ${#numbers.formatDecimal(quetQR.giaBan, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'"></label>
-
-                                            </div>
-                                            <button type="submit" class="btn btn-secondary btn-center mt-3">Thêm
-                                                giỏ hàng
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div th:if="${showModal}" class="modal fade" id="chonSize" tabindex="-1" aria-labelledby="exampleModalLabel"
+         aria-hidden="true"
+         data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sản phẩm</h5>
+                    <a type="button" th:href="@{'/ban-hang/cart/hoadon/'+ ${idHoaDon} }">
+                        <span aria-hidden="true">×</span>
+                    </a>
                 </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div th:if="${showModalAddKH}" class="modal fade" id="addKhachHang" tabindex="-1"
-     aria-labelledby="exampleModalLabel5"
-     aria-hidden="true"
-     data-bs-backdrop="static" data-bs-keyboard="false">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel5">Thêm Khách Hàng</h5>
-                <a type="button" href="/ban-hang/list-khach-hang">
-                    <span aria-hidden="true">×</span>
-                </a>
-            </div>
-            <div class="modal-body">
-                <form th:object="${addKH}" method="post" th:action="@{'/ban-hang/khach-hang/add'}">
-                    <div class="row">
-                        <div class="form-group">
-                            <label>Họ tên</label>
-                            <input type="text" th:field="*{hoTenKH}">
-                            <br><br>
-                            <strong th:if="${#fields.hasErrors('hoTenKH')}"
-                                    class="alert alert-danger alert-dismissible fade"
-                                    role="alert" th:errors="*{hoTenKH}"></strong>
-                        </div>
-                        <div class="form-group">
-                            <label>Sdt</label>
-                            <input type="text" th:field="*{sdtKH}">
-                            <br><br>
-                            <strong th:if="${#fields.hasErrors('sdtKH')}"
-                                    class="alert alert-danger alert-dismissible fade"
-                                    role="alert" th:errors="*{sdtKH}"></strong>
-                        </div>
-                    </div>
-                    <div class="mt-3 text-center">
-                        <button type="submit" class="btn btn-submit me-2">Submit</button>
-                        <a href="/ban-hang/list-khach-hang" class="btn btn-cancel">Cancel</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-     aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <form action="/ban-hang/khuyen-mai" method="post">
                 <div class="modal-body">
-                    <div class="vertical-scroll scroll-demo" style="padding-right: 10px ; width: 520px;">
-                        <th:block th:each="xxx : ${listKhuyenMai}">
-                            <div class="row"
-                                 style="border: 0.3px solid rgb(52, 52, 52); margin: 10px 0 10px 0; height: 100px ;width: 500px;">
-                                <div class="col-lg-1">
-                                    <input type="radio" style="height: 20px; width: 20px; margin-top: 40px;"
-                                           name="selectVoucherShipping" th:value="${xxx.idKM}">
-                                </div>
-                                <div class="col-lg-11">
-                                    <div style="margin: 10px 20px 0 10px;">
-                                        <p th:text="${xxx.tenKM}"
-                                           style="display: inline; font-size: 12pt; font-weight: 600 ;"></p>
-                                        <p th:text="'Ngày hết hạn: ' + ${#dates.format(xxx.tgKetThuc, 'dd-MM-yyyy')} "
-                                           style="display: inline; font-size: 9pt; font-style: italic;"></p>
+                    <div class="row m-3">
+                        <div class="col-6">
+                            <img th:src="@{'/images/imgsProducts/'+ ${giay.chiTietGiayList.get(0).hinhAnh.url1}}" alt=""
+                                 height="400"
+                                 width="300">
+                        </div>
+                        <div class="col-6">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="">
+                                        <div class="text-left fs-2 fw-bolder">
+                                            <label th:text="${giay.tenGiay}"></label>
+                                        </div>
+                                        <div class="text-left fs-3 fw-normal">
+                                            <label th:text="${'Hãng : '+ giay.hang.tenHang}"></label>
+                                        </div>
+                                        <div class="text-left fs-4">
+                                            <form action="/ban-hang/add-to-cart" method="get">
+                                                <div class="">
+                                                    <h3>Số lượng</h3>
+                                                    <input type="number" name="soLuong" value="1" min="1"
+                                                           class="form-control"/>
+                                                </div>
+                                                <div class="row">
+                                                    <div th:each="listChiTietGiay : ${listChiTietGiay}" class="col-md-3">
+                                                        <input style="height: 15px; width: 15px;margin-right: 10px;"
+                                                               type="radio" th:name="idChiTietGiay"
+                                                               th:value="${listChiTietGiay.idCTG}"
+                                                               th:text="${listChiTietGiay.size.soSize}"
+                                                               checked="true"/>
+                                                    </div>
+                                                </div>
+                                                <button type="submit" class="btn btn-secondary btn-center mt-3">
+                                                    Thêm giỏ hàng
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
-
-                                    <div style="display: flex; margin: 10px 20px 0 10px;">
-                                        <p th:if="${xxx.loaiGiam}" th:text="${xxx.phanTramGiam*100} + '% giảm'"
-                                           style="margin: 0 10px 0 0;"></p>
-                                        <p th:unless="${xxx.loaiGiam}"
-                                           th:text="'₫' + ${#numbers.formatDecimal(xxx.giaTienGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' giảm'"
-                                           style="margin: 0 10px 0 0;"></p>
-                                        <p th:if="${xxx.loaiGiam}"
-                                           th:text=" 'Đơn tối thiểu ₫' + ${#numbers.formatDecimal(xxx.dieuKienKMBill, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' Giảm tối đa ₫' + ${#numbers.formatDecimal(xxx.giaTienGiamToiDaPT, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"
-                                           style="font-size: 10pt; margin: 0 10px 0 0; font-style: italic;"></p>
-                                        <p th:unless="${xxx.loaiGiam}"
-                                           th:text="'Đơn tối thiểu ₫' + ${#numbers.formatDecimal(xxx.dieuKienKMBill, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"
-                                           style="font-size: 10pt; margin: 0 10px 0 0; font-style: italic;"></p>
-                                    </div>
-
-                                    <p th:text="${xxx.soLuongDaDung} + ' đã dùng (số lượng ' + ${xxx.soLuong} + ' ) '"
-                                       style="margin: 10px 20px 0 10px; font-size: 10pt;"></p>
-
                                 </div>
                             </div>
-                        </th:block>
+                        </div>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Áp dụng</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
-</div>
-<div th:if="${messageSuccess}" id="success" class="toast-container toast-top-right">
-    <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button"></button>
-        <div class="toast-title">Thành Công</div>
-        <div class="toast-message" th:text="${tb}"></div>
-    </div>
-</div>
-<div th:if="${messageError}" id="error" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button"></button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message" th:text="${tbaoError}"></div>
-    </div>
-</div>
+    <div th:if="${showModalQuetQR}" class="modal fade" id="quetQR" tabindex="-1" aria-labelledby="exampleModalLabel1"
+         aria-hidden="true"
+         data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">Sản phẩm</h5>
+                    <a type="button" th:href="@{'/ban-hang/cart/hoadon/'+ ${idHoaDon}}">
+                        <span aria-hidden="true">×</span>
+                    </a>
 
+                </div>
+                <div class="modal-body">
+                    <div class="row m-3">
+                        <div class="col-6">
+                            <img th:src="@{'/images/imgsProducts/'+ ${quetQR.hinhAnh.url1}}" alt="" height="400"
+                                 width="300">
+                        </div>
+                        <div class="col-6">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="">
+                                        <div class="text-left fs-2 fw-bolder">
+                                            <label th:text="${quetQR.giay.tenGiay}"></label>
+                                        </div>
+                                        <div class="text-left fs-3 fw-normal">
+                                            <label th:text="${'Hãng : '+ quetQR.giay.hang.tenHang}"></label>
+                                        </div>
+                                        <div class="text-left fs-4 fw-bolder">
+                                            <form action="/ban-hang/add-to-cart" method="get">
+                                                <div class="">
+                                                    <span>Số lượng</span>
+                                                    <input type="number" name="soLuong" value="1" min="1"
+                                                           class="form-control"/>
+                                                </div>
+                                                <div>
+                                                    <label>Size : </label>
+                                                    <input type="radio" th:name="idChiTietGiay" th:value="${quetQR.idCTG}"
+                                                           th:text="${quetQR.size.soSize}" checked="true"/>
+                                                </div>
+                                                <div>
+                                                    <label>Giá bán : </label>
+                                                    <!--                                                <label th:text="${quetQR.giaBan} +' đ'"></label>-->
+                                                    <label th:text=" ${#numbers.formatDecimal(quetQR.giaBan, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'"></label>
+
+                                                </div>
+                                                <button type="submit" class="btn btn-secondary btn-center mt-3">Thêm
+                                                    giỏ hàng
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div th:if="${showModalAddKH}" class="modal fade" id="addKhachHang" tabindex="-1"
+         aria-labelledby="exampleModalLabel5"
+         aria-hidden="true"
+         data-bs-backdrop="static" data-bs-keyboard="false">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel5">Thêm Khách Hàng</h5>
+                    <a type="button" href="/ban-hang/list-khach-hang">
+                        <span aria-hidden="true">×</span>
+                    </a>
+                </div>
+                <div class="modal-body">
+                    <form th:object="${addKH}" method="post" th:action="@{'/ban-hang/khach-hang/add'}">
+                        <div class="row">
+                            <div class="form-group">
+                                <label>Họ tên</label>
+                                <input type="text" th:field="*{hoTenKH}">
+                                <br><br>
+                                <strong th:if="${#fields.hasErrors('hoTenKH')}"
+                                        class="alert alert-danger alert-dismissible fade"
+                                        role="alert" th:errors="*{hoTenKH}"></strong>
+                            </div>
+                            <div class="form-group">
+                                <label>Sdt</label>
+                                <input type="text" th:field="*{sdtKH}">
+                                <br><br>
+                                <strong th:if="${#fields.hasErrors('sdtKH')}"
+                                        class="alert alert-danger alert-dismissible fade"
+                                        role="alert" th:errors="*{sdtKH}"></strong>
+                            </div>
+                        </div>
+                        <div class="mt-3 text-center">
+                            <button type="submit" class="btn btn-submit me-2">Submit</button>
+                            <a href="/ban-hang/list-khach-hang" class="btn btn-cancel">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-md modal-dialog-centered" style="width: 600px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="staticBackdropLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/ban-hang/khuyen-mai" method="post">
+                    <div class="modal-body">
+                        <div class="vertical-scroll scroll-demo" style="padding-right: 10px ; width: 520px;">
+                            <th:block th:each="xxx : ${listKhuyenMai}">
+                                <div class="row"
+                                     style="border: 0.3px solid rgb(52, 52, 52); margin: 10px 0 10px 0; height: 100px ;width: 500px;">
+                                    <div class="col-lg-1">
+                                        <input type="radio" style="height: 20px; width: 20px; margin-top: 40px;"
+                                               name="selectVoucherShipping" th:value="${xxx.idKM}">
+                                    </div>
+                                    <div class="col-lg-11">
+                                        <div style="margin: 10px 20px 0 10px;">
+                                            <p th:text="${xxx.tenKM}"
+                                               style="display: inline; font-size: 12pt; font-weight: 600 ;"></p>
+                                            <p th:text="'Ngày hết hạn: ' + ${#dates.format(xxx.tgKetThuc, 'dd-MM-yyyy')} "
+                                               style="display: inline; font-size: 9pt; font-style: italic;"></p>
+                                        </div>
+
+                                        <div style="display: flex; margin: 10px 20px 0 10px;">
+                                            <p th:if="${xxx.loaiGiam}" th:text="${xxx.phanTramGiam*100} + '% giảm'"
+                                               style="margin: 0 10px 0 0;"></p>
+                                            <p th:unless="${xxx.loaiGiam}"
+                                               th:text="'₫' + ${#numbers.formatDecimal(xxx.giaTienGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' giảm'"
+                                               style="margin: 0 10px 0 0;"></p>
+                                            <p th:if="${xxx.loaiGiam}"
+                                               th:text=" 'Đơn tối thiểu ₫' + ${#numbers.formatDecimal(xxx.dieuKienKMBill, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' Giảm tối đa ₫' + ${#numbers.formatDecimal(xxx.giaTienGiamToiDaPT, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"
+                                               style="font-size: 10pt; margin: 0 10px 0 0; font-style: italic;"></p>
+                                            <p th:unless="${xxx.loaiGiam}"
+                                               th:text="'Đơn tối thiểu ₫' + ${#numbers.formatDecimal(xxx.dieuKienKMBill, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"
+                                               style="font-size: 10pt; margin: 0 10px 0 0; font-style: italic;"></p>
+                                        </div>
+
+                                        <p th:text="${xxx.soLuongDaDung} + ' đã dùng (số lượng ' + ${xxx.soLuong} + ' ) '"
+                                           style="margin: 10px 20px 0 10px; font-size: 10pt;"></p>
+
+                                    </div>
+                                </div>
+                            </th:block>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Áp dụng</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div th:if="${messageSuccess}" id="success" class="toast-container toast-top-right">
+        <div class="toast toast-success" aria-live="polite" style="display: block;">
+            <button type="button" class="toast-close-button" role="button"></button>
+            <div class="toast-title">Thành Công</div>
+            <div class="toast-message" th:text="${tb}"></div>
+        </div>
+    </div>
+    <div th:if="${messageError}" id="error" class="toast-container toast-top-right">
+        <div class="toast toast-error" aria-live="assertive" style="display: block;">
+            <button type="button" class="toast-close-button" role="button"></button>
+            <div class="toast-title">Error!</div>
+            <div class="toast-message" th:text="${tbaoError}"></div>
+        </div>
+    </div>
+</section>
+<!--Modal end-->
 <script src="/js/jquery-3.6.0.min.js"></script>
-
 <script src="/js/feather.min.js"></script>
-
 <script src="/js/jquery.slimscroll.min.js"></script>
-
 <script src="/js/bootstrap.bundle.min.js"></script>
-
 <script src="/js/jquery.dataTables.min.js"></script>
 <script src="/js/dataTables.bootstrap4.min.js"></script>
-
 <script src="/plugins/select2/js/select2.min.js"></script>
-
 <script src="/plugins/owlcarousel/owl.carousel.min.js"></script>
-
 <script src="/plugins/sweetalert/sweetalert2.all.min.js"></script>
 <script src="/plugins/sweetalert/sweetalerts.min.js"></script>
-
 <script src="/js/script.js"></script>
+
 <script>
     function tinhTienThua() {
         var tongTien = parseFloat(document.getElementById('tongTien').innerText.replace(' đ', ''));
@@ -1845,7 +1833,6 @@
         }
     }, 5000);
 </script>
-<!-- JavaScript để kích hoạt modal mặc định -->
 <script>
     $(document).ready(function () {
         $('#chonTaiKhoan').modal('show');
@@ -1948,5 +1935,6 @@
 
     }
 </script>
+
 </body>
 </html>

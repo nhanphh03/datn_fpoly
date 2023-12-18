@@ -97,7 +97,7 @@
                 <tbody>
 
                 <th:block th:each="x , index: ${billPrint.hoaDonChiTiets}">
-                    <tr>
+                    <tr th:if="${x.trangThai != 0}">
                       <th scope="row" th:text="${index.count}"></th>
                       <td>
                         <div>

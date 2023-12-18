@@ -1,5 +1,6 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.HoaDon;
 import com.example.demo.model.LichSuThanhToan;
 import com.example.demo.model.ThongBaoKhachHang;
 import com.example.demo.service.*;
@@ -51,6 +52,35 @@ public class LichSuThanhToanController {
 
         model.addAttribute("lichSuThanhToanList", lichSuThanhToanList);
         showThongBao(model);
+
+        int tongHoaDon = 0;
+        int huyHoanTien = 0;
+        Double tongTienQRCode = 0.0;
+
+        List<HoaDon> hoaDonList = hoaDonService.listHoaDonOnline();
+
+        for (HoaDon x: hoaDonList) {
+            if (x.getTrangThai() == 6 || x.getTrangThai() == 7){
+            }else{
+                tongTienQRCode += x.getTongTienDG();
+                if (x.getHinhThucThanhToan() == 1 && x.getIdHDOld() == null){
+                    tongHoaDon ++;
+                }
+                if (x.getIdHDOld() != null){
+                    huyHoanTien ++;
+                }
+                if (x.getTrangThai() == 4 && x.getIdHDOld() == null){
+                    huyHoanTien ++;
+                    tongHoaDon ++;
+                }
+
+            }
+        }
+
+
+        model.addAttribute("tongHoaDon", tongHoaDon);
+        model.addAttribute("tongTienQRCode", tongTienQRCode);
+        model.addAttribute("huyHoanTien", huyHoanTien);
         return "manage/manage-pay";
     }
 

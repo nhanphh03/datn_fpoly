@@ -11,4 +11,6 @@ public interface ShippingFeeService {
 
     Double calculatorVoucherShipping(HoaDon hoaDon, KhuyenMai khuyenMai, Double tienShip);
 
+    Integer tinhNgayNhanDuKien (HoaDon hoaDon);
+
 }
