@@ -228,8 +228,8 @@ public class DetailProductController {
         if (gioHangChiTiet != null){
             gioHangChiTiet.setSoLuong(gioHangChiTiet.getSoLuong() + quantity);
             gioHangChiTiet.setTgThem(new Date());
-            gioHangChiTiet.setDonGia(quantity*ctg.getGiaBan() + gioHangChiTiet.getDonGia());
-            gioHangChiTiet.setDonGiaTruocKhiGiam(quantity*ctg.getSoTienTruocKhiGiam() + gioHangChiTiet.getDonGiaTruocKhiGiam());
+            gioHangChiTiet.setDonGia(quantity*ctg.getGiaBan());
+            gioHangChiTiet.setDonGiaTruocKhiGiam(quantity*ctg.getSoTienTruocKhiGiam());
             ghctService.addNewGHCT(gioHangChiTiet);
         }else {
             GioHangChiTiet gioHangChiTietNew = new GioHangChiTiet();

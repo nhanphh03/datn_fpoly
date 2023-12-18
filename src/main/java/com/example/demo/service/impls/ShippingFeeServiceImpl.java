@@ -104,4 +104,28 @@ public class ShippingFeeServiceImpl implements ShippingFeeService {
 
         return voucherShipping;
     }
+
+    @Override
+    public Integer tinhNgayNhanDuKien(HoaDon hoaDon) {
+
+
+        String diaChiChiTiet = hoaDon.getDiaChiNguoiNhan();
+
+        String[] parts = diaChiChiTiet.split(",");
+        String thanhPho = parts[parts.length - 1].trim();
+
+        int soNgaySauDo = 0;
+        Province province = thanhPhoService.findByNameProvince(thanhPho);
+
+        if(province == null){
+            List<Province> provinceList =  thanhPhoService.getAll();
+            for (Province xxxx: provinceList) {
+                if(thanhPho.contains(xxxx.getNameProvince())){
+                    province = xxxx;
+                }
+            }
+        }
+        soNgaySauDo = province.getTransportCoefficient();
+        return soNgaySauDo;
+    }
 }

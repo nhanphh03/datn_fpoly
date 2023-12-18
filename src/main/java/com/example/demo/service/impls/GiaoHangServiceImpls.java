@@ -29,4 +29,9 @@ public class GiaoHangServiceImpls implements GiaoHangService {
     public void saveGiaoHang(GiaoHang giaoHang) {
         giaoHangRepsitory.save(giaoHang);
     }
+
+    @Override
+    public List<GiaoHang> getAllGiaoHangs() {
+        return giaoHangRepsitory.findAll();
+    }
 }
