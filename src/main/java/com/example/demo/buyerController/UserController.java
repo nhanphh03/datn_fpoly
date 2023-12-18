@@ -750,6 +750,15 @@ public class UserController {
         lichSuThanhToan.setNoiDungThanhToan("Tạo hóa đơn hoàn hàng " + hoaDon.getMaHD());
         lsThanhToanService.addLSTT(lichSuThanhToan);
 
+        ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+        thongBaoKhachHang.setKhachHang(hoaDon.getKhachHang());
+        thongBaoKhachHang.setTgTB(new Date());
+        thongBaoKhachHang.setHoaDon(hoaDon);
+        thongBaoKhachHang.setTrangThai(3);
+        thongBaoKhachHang.setKhachHang(khachHang);
+        thongBaoKhachHang.setNoiDungTB(" đã yêu cầu hoàn đơn hàng. Vui lòng xem yêu cầu hoàn. Mã đơn hàng:");
+        thongBaoServices.addThongBao(thongBaoKhachHang);
+
         return "redirect:/buyer/home";
     }
 
@@ -1048,6 +1057,16 @@ public class UserController {
                 thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán QR CodeBanking, vui lòng xem lại trạng thái thanh toán" +
                         " Mã đơn hàng:");
                 thongBaoServices.addThongBao(thongBaoKhachHang);
+            }else{
+                ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+                thongBaoKhachHang.setKhachHang(hoaDonHuy.getKhachHang());
+                thongBaoKhachHang.setTgTB(new Date());
+                thongBaoKhachHang.setHoaDon(hoaDonHuy);
+                thongBaoKhachHang.setTrangThai(3);
+                thongBaoKhachHang.setKhachHang(khachHang);
+                thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán khi nhận hàng, vui lòng xem lại trạng thái thanh toán" +
+                        " Mã đơn hàng:");
+                thongBaoServices.addThongBao(thongBaoKhachHang);
             }
 
             LichSuThanhToan lichSuThanhToan =  new LichSuThanhToan();
@@ -1080,6 +1099,16 @@ public class UserController {
                 thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán QR CodeBankink, vui lòng xem lại trạng thái thanh toán" +
                         " Mã đơn hàng:");
                 thongBaoServices.addThongBao(thongBaoKhachHang);
+            }else{
+                ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+                thongBaoKhachHang.setKhachHang(hoaDonHuy.getKhachHang());
+                thongBaoKhachHang.setTgTB(new Date());
+                thongBaoKhachHang.setHoaDon(hoaDonHuy);
+                thongBaoKhachHang.setTrangThai(3);
+                thongBaoKhachHang.setKhachHang(khachHang);
+                thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán khi nhận hàng, vui lòng xem lại trạng thái thanh toán" +
+                        " Mã đơn hàng:");
+                thongBaoServices.addThongBao(thongBaoKhachHang);
             }
 
             LichSuThanhToan lichSuThanhToan =  new LichSuThanhToan();
@@ -1110,6 +1139,16 @@ public class UserController {
                 thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán QR CodeBankink, vui lòng xem lại trạng thái thanh toán" +
                         " Mã đơn hàng:");
                 thongBaoServices.addThongBao(thongBaoKhachHang);
+            }else{
+                ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+                thongBaoKhachHang.setKhachHang(hoaDonHuy.getKhachHang());
+                thongBaoKhachHang.setTgTB(new Date());
+                thongBaoKhachHang.setHoaDon(hoaDonHuy);
+                thongBaoKhachHang.setTrangThai(3);
+                thongBaoKhachHang.setKhachHang(khachHang);
+                thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán khi nhận hàng, vui lòng xem lại trạng thái thanh toán" +
+                        " Mã đơn hàng:");
+                thongBaoServices.addThongBao(thongBaoKhachHang);
             }
             LichSuThanhToan lichSuThanhToan =  new LichSuThanhToan();
             lichSuThanhToan.setTgThanhToan(new Date());
@@ -1138,6 +1177,16 @@ public class UserController {
                 thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán QR CodeBankink, vui lòng xem lại trạng thái thanh toán" +
                         " Mã đơn hàng:");
                 thongBaoServices.addThongBao(thongBaoKhachHang);
+            }else{
+                ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+                thongBaoKhachHang.setKhachHang(hoaDonHuy.getKhachHang());
+                thongBaoKhachHang.setTgTB(new Date());
+                thongBaoKhachHang.setHoaDon(hoaDonHuy);
+                thongBaoKhachHang.setTrangThai(3);
+                thongBaoKhachHang.setKhachHang(khachHang);
+                thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán khi nhận hàng, vui lòng xem lại trạng thái thanh toán" +
+                        " Mã đơn hàng:");
+                thongBaoServices.addThongBao(thongBaoKhachHang);
             }
 
             LichSuThanhToan lichSuThanhToan =  new LichSuThanhToan();
@@ -1164,6 +1213,16 @@ public class UserController {
                 thongBaoKhachHang.setTrangThai(3);
                 thongBaoKhachHang.setKhachHang(khachHang);
                 thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán QR CodeBankink, vui lòng xem lại trạng thái thanh toán" +
+                        " Mã đơn hàng:");
+                thongBaoServices.addThongBao(thongBaoKhachHang);
+            }else{
+                ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+                thongBaoKhachHang.setKhachHang(hoaDonHuy.getKhachHang());
+                thongBaoKhachHang.setTgTB(new Date());
+                thongBaoKhachHang.setHoaDon(hoaDonHuy);
+                thongBaoKhachHang.setTrangThai(3);
+                thongBaoKhachHang.setKhachHang(khachHang);
+                thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán khi nhận hàng, vui lòng xem lại trạng thái thanh toán" +
                         " Mã đơn hàng:");
                 thongBaoServices.addThongBao(thongBaoKhachHang);
             }

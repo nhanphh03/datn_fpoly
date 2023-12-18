@@ -12,4 +12,6 @@ public interface GiaoHangService {
     List<GiaoHang> findByHoaDonAndTrangThai(HoaDon hoaDon, int trangThai);
 
     void saveGiaoHang(GiaoHang giaoHang);
+
+    List<GiaoHang> getAllGiaoHangs();
 }
