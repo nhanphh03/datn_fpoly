@@ -522,7 +522,7 @@
 <div class="modal fade" id="myModal-mauSac" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel-mauSac"></h5>
@@ -590,7 +590,7 @@
 <div class="modal fade" id="myModal-size" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel-size"></h5>
@@ -735,7 +735,7 @@
 <div class="modal fade" id="myModal-hang" tabindex="-1" role="dialog"
      aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel-hang"></h5>
@@ -801,7 +801,7 @@
 <!-- Modal ChatLieu-->
 <div class="modal fade" id="myModal-chatLieu" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel-chatLieu"></h5>
@@ -1256,10 +1256,10 @@
 </script>
 <script>
     function previewImage(event) {
-        const imageInput = document.getElementById('anhHang');
+        const imageInput1 = document.getElementById('anhHang');
         const imagePreview = document.getElementById('anhHang1');
 
-        if (imageInput.files && imageInput.files[0]) {
+        if (imageInput1.files && imageInput1.files[0]) {
             const reader = new FileReader();
 
             reader.onload = function (e) {
@@ -1267,7 +1267,7 @@
                 imagePreview.style.display = 'block';
             };
 
-            reader.readAsDataURL(imageInput.files[0]);
+            reader.readAsDataURL(imageInput1.files[0]);
         }
     }
 </script>
