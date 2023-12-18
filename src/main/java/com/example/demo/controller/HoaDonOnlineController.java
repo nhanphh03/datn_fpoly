@@ -51,6 +51,9 @@ public class HoaDonOnlineController {
     @Autowired
     private ThongBaoServices thongBaoServices;
 
+    @Autowired
+    private ChucVuService chucVuService;
+
     @GetMapping("online")
     private String manageBillOnline(Model model){
         model.addAttribute("reLoadPage", true);
@@ -65,7 +68,24 @@ public class HoaDonOnlineController {
     private String editBillOnline(Model model, @PathVariable UUID idHD){
 
         HoaDon billDelivery = hoaDonService.getOne(idHD);
-        List<NhanVien> listNhanVienGiao = nhanVienService.findByTrangThai(1);
+        List<NhanVien> listNhanVienGiao = new ArrayList<>();
+
+        ChucVu quanLi = chucVuService.findByMaCV("CV01");
+        ChucVu nvgh = chucVuService.findByMaCV("CV03");
+
+        List<NhanVien> listQL = nhanVienService.findByChucVu(quanLi);
+        List<NhanVien> listNVGH = nhanVienService.findByChucVu(nvgh);
+
+        if(listQL != null){
+            for (NhanVien x: listQL) {
+                listNhanVienGiao.add(x);
+            }
+        }
+        if(listNVGH != null){
+            for (NhanVien x: listNVGH) {
+                listNhanVienGiao.add(x);
+            }
+        }
 
         model.addAttribute("listNhanVienGiao", listNhanVienGiao);
         model.addAttribute("billDelivery", billDelivery);
@@ -74,6 +94,7 @@ public class HoaDonOnlineController {
         showTab3(model);
 
         showData(model);
+        showThongBao(model);
 
         return "manage/manage-bill-online";
     }
@@ -120,6 +141,8 @@ public class HoaDonOnlineController {
         model.addAttribute("reLoadPage", true);
         showData(model);
         showTab3(model);
+        showThongBao(model);
+
         return "manage/manage-bill-online";
     }
 
@@ -164,6 +187,8 @@ public class HoaDonOnlineController {
 
         showData(model);
         showTab2(model);
+        showThongBao(model);
+
         model.addAttribute("reLoadPage", true);
 
         return "manage/manage-bill-online";
@@ -186,6 +211,8 @@ public class HoaDonOnlineController {
         model.addAttribute("phieuTraHang", phieuTraHang);
 
         model.addAttribute("hoaDonOld", hoaDonOld);
+        showThongBao(model);
+
 
         return "manage/detailBillRefund";
     }
@@ -288,6 +315,8 @@ public class HoaDonOnlineController {
         model.addAttribute("reLoadPage", true);
         showData(model);
         showTab4(model);
+        showThongBao(model);
+
         return "manage/manage-bill-online";
     }
 
@@ -344,6 +373,8 @@ public class HoaDonOnlineController {
         model.addAttribute("reLoadPage", true);
         showData(model);
         showTab3(model);
+        showThongBao(model);
+
         return "manage/manage-bill-online";
     }
 
@@ -351,7 +382,24 @@ public class HoaDonOnlineController {
     private String editBillRefundOnline(Model model, @PathVariable UUID idHD){
 
         HoaDon billDelivery = hoaDonService.getOne(idHD);
-        List<NhanVien> listNhanVienGiao = nhanVienService.findByTrangThai(1);
+        List<NhanVien> listNhanVienGiao = new ArrayList<>();
+
+        ChucVu quanLi = chucVuService.findByMaCV("CV01");
+        ChucVu nvgh = chucVuService.findByMaCV("CV03");
+
+        List<NhanVien> listQL = nhanVienService.findByChucVu(quanLi);
+        List<NhanVien> listNVGH = nhanVienService.findByChucVu(nvgh);
+
+        if(listQL != null){
+            for (NhanVien x: listQL) {
+                listNhanVienGiao.add(x);
+            }
+        }
+        if(listNVGH != null){
+            for (NhanVien x: listNVGH) {
+                listNhanVienGiao.add(x);
+            }
+        }
 
         model.addAttribute("listNhanVienGiao", listNhanVienGiao);
         model.addAttribute("billDelivery", billDelivery);
@@ -388,7 +436,6 @@ public class HoaDonOnlineController {
         model.addAttribute("soThongBao", soThongBao);
         model.addAttribute("listThongBao", thongBaoKhachHangs);
     }
-
 
     private void showData(Model model){
 
@@ -554,6 +601,8 @@ public class HoaDonOnlineController {
         }
         return sb.toString();
     }
+
+
 
     private void showTab1(Model model){
         model.addAttribute("activeAll", "nav-link active");
