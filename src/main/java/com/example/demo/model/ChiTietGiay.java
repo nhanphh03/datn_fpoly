@@ -98,6 +98,9 @@ public class ChiTietGiay {
     @Column(name = "trang_thai_mail")
     private Integer trangThaiMail;
 
+    @Column(name = "id_chi_tiet_giay_old")
+    private UUID idCTGOld;
+
     public String getFormattedGiaBan() {
         DecimalFormat decimalFormat = new DecimalFormat("#,### VNĐ");
         return decimalFormat.format(giaBan);

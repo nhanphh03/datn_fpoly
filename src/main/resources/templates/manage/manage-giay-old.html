@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+  <meta name="description" content="POS - Bootstrap Admin Template">
+  <meta name="keywords"
+        content="admin, estimates, bootstrap, business, corporate, creative, invoice, html5, responsive, Projects">
+  <meta name="author" content="Dreamguys - Bootstrap Admin Template">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Sneaker Shop - Admin</title>
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
+
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+  <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
+
+  <link rel="stylesheet" href="/css/animate.css">
+
+  <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
+
+  <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
+  <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
+  <link rel="stylesheet" href="/plugins/scrollbar/scroll.min.css">
+  <link rel="stylesheet" href="/plugins/icons/feather/feather.css">
+  <link rel="stylesheet" href="/plugins/icons/flags/flags.css">
+
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body class="mini-sidebar">
+<div id="global-loader">
+  <div class="whirly-loader"></div>
+</div>
+<div class="main-wrapper">
+
+  <div class="header">
+
+    <div class="header-left active">
+      <a href="/manage" class="logo">
+        <img src="/images/img/logo.png" alt="">
+      </a>
+      <a href="/manage" class="logo-small">
+        <img src="/images/img/logo-small.png" alt="">
+      </a>
+      <a id="toggle_btn" href="javascript:void(0);">
+      </a>
+    </div>
+
+    <a id="mobile_btn" class="mobile_btn" href="#sidebar">
+            <span class="bar-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+            </span>
+    </a>
+
+    <ul class="nav user-menu">
+
+      <li class="nav-item dropdown has-arrow flag-nav">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);" role="button">
+          <i class="flag flag-vn"></i>
+        </a>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
+          <img src="/images/img/icons/notification-bing.svg" alt="img"> <span
+                class="badge rounded-pill" th:text="${soThongBao}"></span>
+        </a>
+        <div class="dropdown-menu notifications">
+          <div class="topnav-dropdown-header">
+            <span class="notification-title">Notifications</span>
+            <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+          </div>
+          <div class="noti-content">
+            <ul class="notification-list">
+              <th:block  th:each="x : ${listThongBao}">
+                <li th:if="${x.trangThai == 3}"class="notification-message">
+                  <a href="activities.html">
+                    <div class="media d-flex">
+                                        <span class="avatar flex-shrink-0">
+                                        <img alt="" src="/images/img/profiles/avatar-02.jpg">
+                                        </span>
+                      <div class="media-body flex-grow-1">
+                        <p class="noti-details" >
+                          <span class="noti-title" th:text="${x.khachHang.hoTenKH}"></span>
+                          <span th:text="${x.noiDungTB}"></span>
+                          <span class="noti-title" th:text="${x.hoaDon.maHD}"></span>
+                        </p>
+                        <p class="noti-time">
+                          <span class="notification-time"th:text="${#dates.format(x.tgTB, 'HH:mm yyyy-MM-dd')}"></span>
+                        </p>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </th:block>
+            </ul>
+          </div>
+          <div class="topnav-dropdown-footer">
+            <a href="activities.html">View all Notifications</a>
+          </div>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown has-arrow main-drop">
+        <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
+                    <span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
+                    <span class="status online"></span></span>
+        </a>
+        <div class="dropdown-menu menu-drop-user">
+          <div class="profilename">
+            <div class="profileset">
+                            <span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
+                            <span class="status online"></span></span>
+              <div class="profilesets">
+                <h6 th:text="${session.managerLogged.hoTenNV}"></h6>
+                <h5 th:text="${session.managerLogged.chucVu.tenCV}"></h5>
+              </div>
+            </div>
+            <hr class="m-0">
+            <a class="dropdown-item" href="profile.html"> <i class="me-2" data-feather="user"></i> My
+              Profile</a>
+            <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
+                                                                    data-feather="settings"></i>Settings</a>
+            <hr class="m-0">
+            <a class="dropdown-item logout pb-0" href="/logout"><img src="/images/img/icons/log-out.svg"
+                                                                     class="me-2" alt="img">Logout</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+
+    <div class="dropdown mobile-user-menu">
+      <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
+         aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a class="dropdown-item" href="profile.html">Thông tin cá nhân</a>
+        <a class="dropdown-item" href="generalsettings.html">Cài đặt</a>
+        <a class="dropdown-item" href="signin.html">Đăng xuất</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-inner slimscroll">
+      <div id="sidebar-menu" class="sidebar-menu">
+        <ul>
+          <li>
+            <a href="/manage/" ><img src="/images/iconlogo.png" alt="img"><span>Trang chủ nè</span>
+            </a>
+          </li>
+          <li>
+            <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
+            </a>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/product.svg" alt="img"><span> Quản lý Giày</span>
+              <span class="menu-arrow"></span></a>
+            <ul>
+              <li><a href="/manage/chat-lieu">Chất Liệu</a></li>
+              <li><a href="/manage/giay">Giày</a></li>
+              <li><a href="/manage/hang">Hãng</a></li>
+              <li><a href="/manage/hinh-anh">Hình Ảnh</a></li>
+              <li><a href="/manage/mau-sac">Màu Sắc</a></li>
+              <li><a href="/manage/size">Size</a></li>
+              <li><a class="active" href="/manage/giay/old">Giày lỗi</a></li>
+            </ul>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/expense1.svg" alt="img"><span> Quản Lý Hóa Đơn</span>
+              <span class="menu-arrow"></span></a>
+            <ul>
+              <li><a href="/manage/bill/offline">Hóa đơn tại quầy</a></li>
+              <li><a href="/manage/bill/online">Quản lý hóa đơn online</a></li>
+            </ul>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản Lý Khách Hàng</span>
+              <span class="menu-arrow"></span></a>
+            <ul>
+              <li><a href="/manage/khach-hang">Khách Hàng</a></li>
+              <li><a href="/manage/dia-chi">Địa Chỉ </a></li>
+              <li><a href="/manage/loai-khach-hang">Loại Khách Hàng</a></li>
+            </ul>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg" alt="img"><span> Lịch sử thanh toán</span>
+              <span class="menu-arrow"></span></a>
+            <ul>
+              <li><a href="/manage/history/delivery">Thanh toán tiền mặt</a></li>
+              <li><a href="/manage/history/pay">Thanh toán chuyển khoản </a></li>
+            </ul>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);"><img src="/images/img/icons/users1.svg" alt="img"><span> Quản Lý Nhân Viên</span>
+              <span class="menu-arrow"></span></a>
+            <ul>
+              <li><a href="/manage/chuc-vu">Chức Vụ</a></li>
+              <li><a href="/manage/nhan-vien">Nhân Viên</a></li>
+            </ul>
+          </li>
+          <li class="submenu">
+            <a href="javascript:void(0);">
+              <img src="/images/img/icons/transfer1.svg" alt="img"/>
+              <span>Quản lý Khuyến Mãi</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul>
+              <li><a href="/manage/voucher">Khuyến Mãi Chung</a></li>
+              <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
+              <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
+              <li><a href="/manage/voucher-ship">Khuyến Mãi Giao Hàng</a></li>
+              <li><a href="/manage/voucher-ship">Khuyến Mãi Khách Hàng</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="/manage/giao-hang"><i data-feather="layers"></i><span> Quản lý giao hàng</span> </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-wrapper">
+    <div class="content">
+      <div class="page-header">
+        <div class="page-title">
+          <h4>Quản lý giày lỗi</h4>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table datanew" id="data-table">
+              <thead>
+              <tr>
+                <th>Mã CTG</th>
+                <th>Hình Ảnh</th>
+                <th>Giày</th>
+                <th>Size</th>
+                <th>Màu Sắc</th>
+                <th>Số Lượng</th>
+                <th>Giá Bán (Trước Giảm)</th>
+                <th>Trọng Lượng</th>
+                <th>Năm Sản Xuất</th>
+                <th>Năm Bảo Hành</th>
+                <th>Gía Bán (Sau Giảm)</th>
+                <th>Trạng Thái</th>
+                <th>Thời Gian Thêm</th>
+                <th>ID Giày cũ</th>
+              </tr>
+              </thead>
+              <tbody>
+              <th:block th:each="items: ${listCTGOld}">
+                <tr th:if="${items.trangThai == 3}">
+                  <td th:text="${items.maCTG}"></td>
+                  <td><img th:src="@{'/images/imgsProducts/'+ ${items.hinhAnh.url1}}"></td>
+                  <td th:text="${items.giay.tenGiay}"></td>
+                  <td th:text="${items.size.soSize}"></td>
+                  <td th:text="${items.mauSac.tenMau}"></td>
+                  <td th:text="${items.soLuong}"></td>
+                  <td th:text="${#numbers.formatDecimal(items.soTienTruocKhiGiam, 2, 'COMMA', 1, 'POINT')} + ' đ'"></td>
+                  <td th:text="${items.trongLuong}+' gram'"></td>
+                  <td th:text="${items.namSX}"></td>
+                  <td th:text="${items.namBH}"></td>
+                  <td th:text="${#numbers.formatDecimal(items.giaBan, 2, 'COMMA', 1, 'POINT')} + ' đ'"></td>
+                  <td>Giày lỗi</td>
+                  <td th:text="${#dates.format(items.tgThem, 'dd-MM-yyyy')}" align="center"/>
+                  <td th:text="${items.idCTGOld}"></td>
+                </tr>
+              </th:block>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Section Modal Begin -->
+
+<section>
+
+  <!--  &lt;!&ndash; Modal All Purchase Begin &ndash;&gt;-->
+  <!--  <th:block th:each="bill: ${listHoaDonOnline}">-->
+  <!--    <div class="modal fade" th:id="'detailKMM' + ${bill.idHD}" tabindex="-1" aria-labelledby="create" aria-hidden="true">-->
+  <!--      <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 900px;">-->
+  <!--        <div class="modal-content">-->
+  <!--          <div class="modal-header">-->
+  <!--            <h5 class="modal-title">Hóa đơn online</h5>-->
+  <!--            <a href="#">Xem thống kê</a>-->
+  <!--            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">-->
+  <!--              <span aria-hidden="true">×</span>-->
+  <!--            </button>-->
+  <!--          </div>-->
+  <!--          <div class="modal-body">-->
+  <!--            <div class="row">-->
+  <!--              <div class="col-lg-4 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Mã Voucher :</label>-->
+  <!--                  <p style="font-size: 13pt; font-weight: 700;">Tự sinh</p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+
+  <!--              <div class="col-lg-3 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Tên Voucher :</label>-->
+  <!--                  <input value="Nhan" style="border: none; font-size: 12pt; font-weight: 600;" >-->
+  <!--                </div>-->
+  <!--              </div>-->
+
+  <!--              <div class="col-lg-4 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Loại Voucher :</label>-->
+  <!--                  <select class="form-select">-->
+  <!--                    <option>&#45;&#45; Select &#45;&#45;</option>-->
+  <!--                    <option>Voucher Sản Phẩm</option>-->
+  <!--                    <option>Voucher Hóa Đơn</option>-->
+  <!--                    <option>Voucher Jav</option>-->
+  <!--                  </select>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-1 col-sm-12 col-12">  </div>-->
+  <!--              <div class="col-lg-7 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Thời gian sử dụng :</label>-->
+  <!--                  <div style="display: flex;">-->
+  <!--                    <div style="display: flex;">-->
+  <!--                      <label> Bắt đầu : </label>  <input type="date" style="border: none; margin: 0 10px 8px 10px;">-->
+  <!--                    </div>-->
+
+  <!--                    <span style="margin-right: 10px;">đến</span>-->
+
+  <!--                    <div style="display: flex;">-->
+  <!--                      <label> Kết thúc : </label>  <input type="date" style="border: none; margin: 0 10px 8px 10px;">-->
+  <!--                    </div>-->
+  <!--                  </div>-->
+
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-5 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Trạng thái</label>-->
+  <!--                  <div style="display: flex;">-->
+  <!--                    <div style="display: flex;">-->
+  <!--                      <label> Hoạt động </label>  <input name="status" type="radio" style="border: none; margin: 0 10px 8px 10px;">-->
+  <!--                    </div>-->
+  <!--                    <div style="display: flex;">-->
+  <!--                      <label> Không hoạt động </label>  <input name="status" type="radio" style="border: none; margin: 0 10px 8px 10px;">-->
+  <!--                    </div>-->
+  <!--                  </div>-->
+  <!--                </div>-->
+  <!--              </div>-->
+
+  <!--              <div class="col-lg-7 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <div style="display: flex;">-->
+  <!--                    <div style="display: flex;">-->
+  <!--                      <label style="margin-top: 5px;"> Phần trăm giảm </label>  <input type="text" style=" width: 100px; margin: 0 10px 10px 10px;">-->
+  <!--                    </div>-->
+  <!--                    <div style="display: flex;">-->
+  <!--                      <label style="margin-top: 5px;"> Số tiền tối đa </label>  <input type="text" style=" width: 100px; margin: 0 10px 10px 10px;">-->
+  <!--                    </div>-->
+  <!--                  </div>-->
+  <!--                </div>-->
+  <!--              </div>-->
+
+
+  <!--              <div class="col-lg-5 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <div style="display: flex;">-->
+  <!--                    <div style="display: flex;">-->
+  <!--                      <label style="margin-top: 5px;"> Số lượng : </label>  <input type="text" style=" width: 50px; margin: 0 10px 10px 10px;">-->
+  <!--                    </div>-->
+  <!--                  </div>-->
+  <!--                </div>-->
+  <!--              </div>-->
+
+  <!--              <div class="col-lg-12 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Mô tả </label>-->
+  <!--                  <input type="text">-->
+  <!--                </div>-->
+  <!--              </div>-->
+
+  <!--            </div>-->
+  <!--            <div class="col-lg-12">-->
+  <!--              <a class="btn btn-submit me-2">Thêm</a>-->
+  <!--              <a class="btn btn-cancel" data-bs-dismiss="modal">Cancel</a>-->
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </th:block>-->
+  <!--  &lt;!&ndash; Modal All Purchase End &ndash;&gt;-->
+
+  <!--  &lt;!&ndash; Modal Xác nhận đã thanh toán Begin &ndash;&gt;-->
+  <!--  <th:block th:each="bill: ${listHoaDonOnlineQRCode}">-->
+  <!--    <div class="modal fade" th:id="'modalCofirmTT'+${bill.idHD}" tabindex="-1" aria-labelledby="create" aria-hidden="true">-->
+  <!--      <form th:action="@{'/manage/bill/online/confirm/pay/' + ${bill.idHD}}" method="post">-->
+  <!--        <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 600px;">-->
+  <!--          <div class="modal-content">-->
+  <!--            <div class="modal-header">-->
+  <!--              <h5 class="modal-title">Xác nhận thanh toán chuyển khoản</h5>-->
+  <!--              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">-->
+  <!--                <span aria-hidden="true">×</span>-->
+  <!--              </button>-->
+  <!--            </div>-->
+  <!--            <div class="modal-body">-->
+  <!--              <div class="row">-->
+  <!--                <div class="col-lg-6 col-sm-12 col-12">-->
+  <!--                  <div class="form-group">-->
+  <!--                    <label>Mã Hóa Đơn :</label>-->
+  <!--                    <p class="maHD" style="font-size: 13pt; font-weight: 700;" th:text="${bill.maHD}"></p>-->
+  <!--                  </div>-->
+  <!--                </div>-->
+
+  <!--                <div class="col-lg-6 col-sm-12 col-12">-->
+  <!--                  <div class="form-group">-->
+  <!--                    <label>Tổng tiền</label>-->
+  <!--                    <p style="font-size: 13pt; font-weight: 700;" th:text="'₫'+${#numbers.formatDecimal(bill.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>-->
+  <!--                  </div>-->
+  <!--                </div>-->
+
+  <!--                <div class="col-lg-6 col-sm-12 col-12">-->
+  <!--                  <div class="form-group">-->
+  <!--                    <label>Tên Khách Hàng</label>-->
+  <!--                    <p style="font-size: 13pt; font-weight: 700;" th:text="${bill.khachHang.hoTenKH}" ></p>-->
+  <!--                  </div>-->
+  <!--                </div>-->
+  <!--                <div class="col-lg-6 col-sm-12 col-12">-->
+  <!--                  <div class="form-group">-->
+  <!--                    <label>Thời gian thanh toán</label>-->
+  <!--                    <input name="thoiGianThanhToan" style="border: none;" type="datetime-local" id="birthdaytime">-->
+  <!--                  </div>-->
+  <!--                </div>-->
+  <!--                <div class="col-lg-12 col-sm-12 col-12">-->
+  <!--                  <div class="form-group">-->
+  <!--                    <label>Nội dung chuyển khoản</label>-->
+  <!--                    <input th:value="${bill.maHD}" class="inputMaHD" type="text" placeholder="Vui lòng nhập đúng thông tin khách chuyển khoản"  >-->
+  <!--                  </div>-->
+  <!--                </div>-->
+
+  <!--                <div class="col-lg-12 col-sm-12 col-12">-->
+  <!--                  <p style="color:red;">*Khi bạn xác nhận hóa đơn đã thanh toán đồng nghĩa với việc khách hàng đã thanh toán và hóa đơn sẽ được chuyển đi</p>-->
+  <!--                </div>-->
+
+  <!--                <div class="col-lg-12 col-sm-12 col-12">-->
+  <!--                  <p></p>-->
+  <!--                </div>-->
+
+  <!--              </div>-->
+  <!--              <div class="col-lg-12">-->
+  <!--                <button type="submit" class="btn btn-submit me-2">Xác nhận thanh toán</button>-->
+  <!--                <a class="btn btn-cancel" data-bs-dismiss="modal">Đóng</a>-->
+  <!--              </div>-->
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--      </form>-->
+  <!--    </div>-->
+  <!--  </th:block>-->
+  <!--  &lt;!&ndash; Modal Xác nhận đã thanh toán End &ndash;&gt;-->
+
+  <!--  &lt;!&ndash; Modal All giao hàng Begin &ndash;&gt;-->
+  <!--  <th:block th:each="bill: ${listHoaDonOnlineGiaoHang}">-->
+  <!--    <div class="modal fade" th:id="'viewBillGH' + ${bill.idHD}" tabindex="-1" aria-labelledby="create" aria-hidden="true">-->
+  <!--      <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 900px;">-->
+  <!--        <div class="modal-content">-->
+  <!--          <div class="modal-header">-->
+  <!--            <h5 class="modal-title">Chi tiết hóa đơn đang giao</h5>-->
+  <!--            <a href="#">Xem hành trình đơn hàng</a>-->
+  <!--            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">-->
+  <!--              <span aria-hidden="true">×</span>-->
+  <!--            </button>-->
+  <!--          </div>-->
+  <!--          <div class="modal-body">-->
+  <!--            <div class="row">-->
+  <!--              <div class="col-lg-4 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Mã đơn hàng :</label>-->
+  <!--                  <p style="font-size: 13pt; font-weight: 700;" th:text="${bill.maHD}"></p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+
+  <!--              <div class="col-lg-3 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Số tiền :</label>-->
+  <!--                  <p style="font-size: 11pt; font-weight: 600;" th:text="'₫'+${#numbers.formatDecimal(bill.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+
+  <!--              <div class="col-lg-2 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Số lượng SP :</label>-->
+  <!--                  <p style="font-size: 12pt; font-weight: 700;" th:text="${bill.tongSP}"></p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-3 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Thời gian tạo :</label>-->
+  <!--                  <p style="font-size: 11pt; font-weight: 600;" th:text="${#dates.format(bill.tgTao, 'HH:mm yyyy-MM-dd')}"></p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-3 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Nhân viên giao :</label>-->
+  <!--                  <p th:if="${bill.nhanVien != null}" th:text="${bill.nhanVien.hoTenNV}" style="font-size: 12pt; font-weight: 700;">Nhan Suy</p>-->
+  <!--                  <p th:if="${bill.nhanVien == null}" style="font-size: 12pt; font-weight: 700;">Chưa có</p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-3 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Số điện thoại người nhận:</label>-->
+  <!--                  <p style="font-size: 12pt; font-weight: 700;" th:text="${bill.sdtNguoiNhan}"></p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-3 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Tên khách hàng :</label>-->
+  <!--                  <p style="font-size: 12pt; font-weight: 700;" th:text="${bill.tenNguoiNhan}"></p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-3 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Thời gian giao hàng :</label>-->
+  <!--                  <p style="font-size: 11pt; font-weight: 600;" th:if="${bill.tgShip !=null}" th:text="${#dates.format(bill.tgShip, 'HH:mm yyyy-MM-dd')}"></p>-->
+  <!--                  <p style="font-size: 11pt; font-weight: 600;" th:unless="${bill.tgShip !=null}">Chưa giao</p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-12 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Địa chỉ nhận hàng :</label>-->
+  <!--                  <p style="font-size: 11pt; font-weight: 600;" th:text="${bill.diaChiNguoiNhan}"></p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+
+
+  <!--              <div class="col-lg-12 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Vị trí đơn hàng hiện tại </label>-->
+  <!--                  <p style="font-size: 11pt; font-weight: 600;">-->
+  <!--                    Đơn hàng đã giao đến Thanh Hóa</p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-12">-->
+  <!--                <a class="btn btn-cancel" data-bs-dismiss="modal">OK</a>-->
+  <!--              </div>-->
+
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </th:block>-->
+  <!--  &lt;!&ndash; Modal All Purchase End &ndash;&gt;-->
+
+
+  <!--  &lt;!&ndash; Modal All giao hàng Begin &ndash;&gt;-->
+  <!--  <div th:if="${showEditBillDelivery}" th:object="${billDelivery}" class="modal fade" id="editBillDelivery" tabindex="-1" aria-labelledby="create" aria-hidden="true">-->
+  <!--    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 900px;">-->
+  <!--      <div class="modal-content">-->
+  <!--        <div class="modal-header">-->
+  <!--          <h5 class="modal-title">Chi tiết hóa đơn đang giao</h5>-->
+  <!--          <a href="#">Xem hành trình đơn hàng</a>-->
+  <!--          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">-->
+  <!--            <span aria-hidden="true">×</span>-->
+  <!--          </button>-->
+  <!--        </div>-->
+  <!--        <div class="modal-body">-->
+  <!--          <form th:action="@{'/manage/bill/online/delivery/confirm/' + ${billDelivery.idHD}}" method="post">-->
+  <!--            <div class="row">-->
+  <!--              <div class="col-lg-4 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Mã đơn hàng :</label>-->
+  <!--                  <p style="font-size: 13pt; font-weight: 700;" th:text="${billDelivery.maHD}"></p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-3 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Số tiền :</label>-->
+  <!--                  <p style="font-size: 11pt; font-weight: 600;" th:text="'₫'+${#numbers.formatDecimal(billDelivery.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-2 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Số lượng SP :</label>-->
+  <!--                  <p style="font-size: 12pt; font-weight: 700;" th:text="${billDelivery.tongSP}"></p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-3 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Thời gian tạo :</label>-->
+  <!--                  <p style="font-size: 11pt; font-weight: 600;" th:text="${#dates.format(billDelivery.tgTao, 'HH:mm yyyy-MM-dd')}"></p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-3 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Nhân viên giao :</label>-->
+  <!--                  <select name="idNhanVien" class="form-control nested">-->
+  <!--                    <th:block th:each="nv: ${listNhanVienGiao}">-->
+  <!--                      <option th:value="${nv.idNV}" th:text="${nv.hoTenNV + '&#45;&#45;' + nv.maNV}"></option>-->
+  <!--                    </th:block>-->
+  <!--                  </select>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-3 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Số điện thoại người nhận:</label>-->
+  <!--                  <p style="font-size: 12pt; font-weight: 700;" th:text="${billDelivery.sdtNguoiNhan}"></p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-3 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Tên khách hàng :</label>-->
+  <!--                  <p style="font-size: 12pt; font-weight: 700;" th:text="${billDelivery.tenNguoiNhan}"></p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-3 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Thời gian giao hàng :</label>-->
+  <!--                  <p style="font-size: 11pt; font-weight: 600;" th:if="${billDelivery.tgShip !=null}" th:text="${#dates.format(billDelivery.tgShip, 'HH:mm yyyy-MM-dd')}"></p>-->
+  <!--                  <p style="font-size: 11pt; font-weight: 600;" th:unless="${billDelivery.tgShip !=null}">Chưa giao</p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-12 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Địa chỉ nhận hàng :</label>-->
+  <!--                  <p style="font-size: 11pt; font-weight: 600;" th:text="${billDelivery.diaChiNguoiNhan}"></p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-12 col-sm-12 col-12">-->
+  <!--                <div class="form-group">-->
+  <!--                  <label>Vị trí đơn hàng hiện tại </label>-->
+  <!--                  <p style="font-size: 11pt; font-weight: 600;">-->
+  <!--                    Đơn hàng đã giao đến Thanh Hóa</p>-->
+  <!--                </div>-->
+  <!--              </div>-->
+  <!--              <div class="col-lg-12">-->
+  <!--                <button type="submit" class="btn btn-submit me-2">Xác nhận</button>-->
+  <!--                <a class="btn btn-cancel" data-bs-dismiss="modal">Đóng</a>-->
+  <!--              </div>-->
+
+  <!--            </div>-->
+  <!--          </form>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <!--  &lt;!&ndash; Modal All Purchase End &ndash;&gt;-->
+
+  <!--  &lt;!&ndash; Mess KM Trungg Start &ndash;&gt;-->
+  <!--  <div th:if="${showMessThanhCong}" class="modal fade" id="messBillDeliveryThanhCong" tabindex="-1" aria-labelledby="create" aria-hidden="true">-->
+  <!--    <div class="modal-dialog modal-lg modal-dialog-centered" role="document"-->
+  <!--         style="width: 570px;">-->
+  <!--      <div class="modal-content">-->
+  <!--        <div class="modal-header">-->
+  <!--          <h5 class="modal-title">Thêm nhân viên giao hàng thành công</h5>-->
+  <!--          <button type="button" class="close" data-bs-dismiss="modal"-->
+  <!--                  aria-label="Close">-->
+  <!--            <span aria-hidden="true">×</span>-->
+  <!--          </button>-->
+  <!--        </div>-->
+  <!--        <div class="modal-body">-->
+  <!--          <div class="row"  style="text-align: center; align-items: center; padding: 30px 0 30px 0;">-->
+  <!--            <h3 style="font-weight: 600;">May quá ! Đã thêm nhân viên giao hàng thành công</h3>-->
+  <!--          </div>-->
+  <!--          <div class="col-lg-12">-->
+  <!--            <a class="btn btn-cancel" data-bs-dismiss="modal">OK</a>-->
+  <!--          </div>-->
+
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </div>-->
+  <!--  &lt;!&ndash; Mess KM Trung End &ndash;&gt;-->
+
+</section>
+
+<!-- Section Modal End -->
+
+<script src="/js/jquery-3.6.0.min.js"></script>
+
+<script src="/js/feather.min.js"></script>
+
+<script src="/js/jquery.slimscroll.min.js"></script>
+
+<script src="/js/jquery.dataTables.min.js"></script>
+<script src="/js/dataTables.bootstrap4.min.js"></script>
+
+<script src="/plugins/select2/js/select2.min.js"></script>
+<script src="/plugins/select2/js/custom-select.js"></script>
+<script src="/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/scrollbar/scrollbar.min.js"></script>
+<script src="/plugins/scrollbar/custom-scroll.js"></script>
+
+<script src="/js/script.js"></script>
+
+<!--Confirm thong bao pay begin-->
+<!--<script>-->
+<!--  // Lấy tất cả các container của form-->
+<!--  const formContainers = document.querySelectorAll('.form-container');-->
+
+<!--  // Duyệt qua từng form và gán sự kiện cho input-->
+<!--  formContainers.forEach(function (container) {-->
+<!--    const maHDElement = container.querySelector('.maHD');-->
+<!--    const inputMaHDElement = container.querySelector('.inputMaHD');-->
+<!--    const btnSubmitElement = container.querySelector('.btn-submit');-->
+
+<!--    inputMaHDElement.addEventListener('input', function () {-->
+<!--      if (inputMaHDElement.value === maHDElement.innerText) {-->
+<!--        btnSubmitElement.removeAttribute('disabled');-->
+<!--      } else {-->
+<!--        btnSubmitElement.setAttribute('disabled', 'true');-->
+<!--        alert('Mã hóa đơn không đúng!');-->
+
+<!--      }-->
+<!--    });-->
+<!--  });-->
+<!--</script>-->
+<!--Confirm thong bao pay end-->
+
+
+
+<!--<script>-->
+<!--  $(document).ready(function () {-->
+<!--    $('#editBillDelivery').modal('show');-->
+<!--  });-->
+<!--  $(document).ready(function () {-->
+<!--    $('#messBillDeliveryThanhCong').modal('show');-->
+<!--  });-->
+<!--  // $(document).ready(function () {-->
+<!--  //     $('#noticaAddVoucher').modal('show');-->
+<!--  // });-->
+<!--</script>-->
+
+</body>
+
+</html>

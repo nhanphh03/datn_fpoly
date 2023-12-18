@@ -60,6 +60,9 @@ public class UserController {
     private GiaoHangService giaoHangService;
 
     @Autowired
+    private LSThanhToanService lsThanhToanService;
+
+    @Autowired
     private DanhGiaServices danhGiaServices;
 
     @Autowired
@@ -70,6 +73,9 @@ public class UserController {
 
     @Autowired
     private ThongBaoServices thongBaoServices;
+
+    @Autowired
+    private ViTriDonHangServices viTriDonHangServices;
 
     @GetMapping("/setting")
     private String getSettingAccount(Model model){
@@ -126,7 +132,7 @@ public class UserController {
         diaChiKH.setMoTa(description);
         diaChiKH.setKhachHang(khachHang);
         diaChiKH.setTrangThai(1);
-        diaChiKH.setMaDC( "DC_" + khachHang.getMaKH() );
+        diaChiKH.setMaDC( "DC_" + khachHang.getMaKH() + generateRandomNumbers());
         diaChiKH.setSdtNguoiNhan(phoneAddress);
         diaChiKH.setQuanHuyen(district);
         diaChiKH.setTenDC(nameAddress);
@@ -372,6 +378,9 @@ public class UserController {
             model.addAttribute("detailBillShip",true);
             model.addAttribute("billDetailShip", hoaDon);
 
+            List<ViTriDonHang> viTriDonHangList = viTriDonHangServices.findByGiaoHang(giaoHangListActive);
+            model.addAttribute("listViTriDonHang", viTriDonHangList);
+
             session.removeAttribute("hoaDonPayDetail");
             session.setAttribute("hoaDonPayDetail", hoaDon);
 
@@ -380,31 +389,36 @@ public class UserController {
             GiaoHang giaoHangListActive = hoaDon.getGiaoHang();
             model.addAttribute("giaoHangListActive", giaoHangListActive);
 
+            List<ViTriDonHang> viTriDonHangList = viTriDonHangServices.findByGiaoHang(giaoHangListActive);
+            model.addAttribute("listViTriDonHang", viTriDonHangList);
+
             model.addAttribute("detailBillRecieve",true);
             model.addAttribute("billDetailRecieve", hoaDon);
 
+
+
         }else if (trangThai == 3){
             GiaoHang giaoHangListActive = hoaDon.getGiaoHang();
-            model.addAttribute("giaoHangListActive", giaoHangListActive);
-
             Date ngayBatDau =  hoaDon.getTgThanhToan();
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(ngayBatDau);
 
-            // Thực hiện cộng thêm 30 ngày
             calendar.add(Calendar.DATE, 2);
 
-            // Lấy ngày kết thúc
             Date ngayKetThuc = calendar.getTime();
             model.addAttribute("ngayKetThucHoanHang", ngayKetThuc);
+
+            List<ViTriDonHang> viTriDonHangList = viTriDonHangServices.findByGiaoHang(giaoHangListActive);
+            model.addAttribute("listViTriDonHang", viTriDonHangList);
 
             model.addAttribute("detailBillCompleted",true);
             model.addAttribute("billDetailCompleted", hoaDon);
         }else if (trangThai == 4){
             GiaoHang giaoHangListActive = hoaDon.getGiaoHang();
-            model.addAttribute("giaoHangListActive", giaoHangListActive);
 
+            List<ViTriDonHang> viTriDonHangList = viTriDonHangServices.findByGiaoHang(giaoHangListActive);
+            model.addAttribute("listViTriDonHang", viTriDonHangList);
             model.addAttribute("detailBillCancel",true);
             model.addAttribute("billDetailCancel", hoaDon);
 
@@ -724,6 +738,27 @@ public class UserController {
         hoaDon.setTrangThaiHoan(0);
         hoaDonService.add(hoaDon);
 
+        LichSuThanhToan lichSuThanhToan =  new LichSuThanhToan();
+        lichSuThanhToan.setTgThanhToan(new Date());
+        lichSuThanhToan.setSoTienThanhToan(hoaDon.getTongTienDG());
+        lichSuThanhToan.setNoiDungThanhToan(hoaDon.getMaHD());
+        lichSuThanhToan.setKhachHang(khachHang);
+        lichSuThanhToan.setHoaDon(hoaDon);
+        lichSuThanhToan.setMaLSTT("LSTT" + khachHang.getMaKH() + generateRandomNumbers());
+        lichSuThanhToan.setTrangThai(0);
+        lichSuThanhToan.setLoaiTT(1);
+        lichSuThanhToan.setNoiDungThanhToan("Tạo hóa đơn hoàn hàng " + hoaDon.getMaHD());
+        lsThanhToanService.addLSTT(lichSuThanhToan);
+
+        ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+        thongBaoKhachHang.setKhachHang(hoaDon.getKhachHang());
+        thongBaoKhachHang.setTgTB(new Date());
+        thongBaoKhachHang.setHoaDon(hoaDon);
+        thongBaoKhachHang.setTrangThai(3);
+        thongBaoKhachHang.setKhachHang(khachHang);
+        thongBaoKhachHang.setNoiDungTB(" đã yêu cầu hoàn đơn hàng. Vui lòng xem yêu cầu hoàn. Mã đơn hàng:");
+        thongBaoServices.addThongBao(thongBaoKhachHang);
+
         return "redirect:/buyer/home";
     }
 
@@ -881,6 +916,30 @@ public class UserController {
             hoaDon.setTrangThai(0);
             hoaDonService.add(hoaDon);
 
+            ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+            thongBaoKhachHang.setKhachHang(hoaDon.getKhachHang());
+            thongBaoKhachHang.setTgTB(new Date());
+            thongBaoKhachHang.setHoaDon(hoaDon);
+            thongBaoKhachHang.setTrangThai(3);
+            thongBaoKhachHang.setKhachHang(khachHang);
+            thongBaoKhachHang.setNoiDungTB(" đã thay đổi hình thức thanh toán, vui lòng xem lại hóa đơn :" +
+                    " Mã đơn hàng:");
+
+            LichSuThanhToan lichSuThanhToan =  new LichSuThanhToan();
+            lichSuThanhToan.setTgThanhToan(new Date());
+            lichSuThanhToan.setSoTienThanhToan(hoaDon.getTongTienDG());
+            lichSuThanhToan.setNoiDungThanhToan(hoaDon.getMaHD());
+            lichSuThanhToan.setKhachHang(khachHang);
+            lichSuThanhToan.setHoaDon(hoaDon);
+            lichSuThanhToan.setMaLSTT("LSTT" + khachHang.getMaKH() + generateRandomNumbers());
+            lichSuThanhToan.setTrangThai(0);
+            lichSuThanhToan.setLoaiTT(0);
+            lichSuThanhToan.setNoiDungThanhToan("Thay đổi hình thức thanh toán");
+            lsThanhToanService.addLSTT(lichSuThanhToan);
+
+            thongBaoServices.addThongBao(thongBaoKhachHang);
+
+            model.addAttribute("showThongBaoThayDoiHTTT", true);
             return "redirect:/buyer/purchase/pay";
         }else{
             UserForm(model, khachHang);
@@ -995,10 +1054,32 @@ public class UserController {
                 thongBaoKhachHang.setHoaDon(hoaDonHuy);
                 thongBaoKhachHang.setTrangThai(3);
                 thongBaoKhachHang.setKhachHang(khachHang);
-                thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán QR CodeBankink, vui lòng xem lại trạng thái thanh toán" +
+                thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán QR CodeBanking, vui lòng xem lại trạng thái thanh toán" +
+                        " Mã đơn hàng:");
+                thongBaoServices.addThongBao(thongBaoKhachHang);
+            }else{
+                ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+                thongBaoKhachHang.setKhachHang(hoaDonHuy.getKhachHang());
+                thongBaoKhachHang.setTgTB(new Date());
+                thongBaoKhachHang.setHoaDon(hoaDonHuy);
+                thongBaoKhachHang.setTrangThai(3);
+                thongBaoKhachHang.setKhachHang(khachHang);
+                thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán khi nhận hàng, vui lòng xem lại trạng thái thanh toán" +
                         " Mã đơn hàng:");
                 thongBaoServices.addThongBao(thongBaoKhachHang);
             }
+
+            LichSuThanhToan lichSuThanhToan =  new LichSuThanhToan();
+            lichSuThanhToan.setTgThanhToan(new Date());
+            lichSuThanhToan.setSoTienThanhToan(hoaDonHuy.getTongTienDG());
+            lichSuThanhToan.setNoiDungThanhToan(hoaDonHuy.getMaHD());
+            lichSuThanhToan.setKhachHang(khachHang);
+            lichSuThanhToan.setHoaDon(hoaDonHuy);
+            lichSuThanhToan.setMaLSTT("LSTT" + khachHang.getMaKH() + generateRandomNumbers());
+            lichSuThanhToan.setTrangThai(0);
+            lichSuThanhToan.setLoaiTT(0);
+            lichSuThanhToan.setNoiDungThanhToan("Hủy đơn hàng ");
+            lsThanhToanService.addLSTT(lichSuThanhToan);
 
             return "online/checkout";
 
@@ -1018,7 +1099,29 @@ public class UserController {
                 thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán QR CodeBankink, vui lòng xem lại trạng thái thanh toán" +
                         " Mã đơn hàng:");
                 thongBaoServices.addThongBao(thongBaoKhachHang);
+            }else{
+                ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+                thongBaoKhachHang.setKhachHang(hoaDonHuy.getKhachHang());
+                thongBaoKhachHang.setTgTB(new Date());
+                thongBaoKhachHang.setHoaDon(hoaDonHuy);
+                thongBaoKhachHang.setTrangThai(3);
+                thongBaoKhachHang.setKhachHang(khachHang);
+                thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán khi nhận hàng, vui lòng xem lại trạng thái thanh toán" +
+                        " Mã đơn hàng:");
+                thongBaoServices.addThongBao(thongBaoKhachHang);
             }
+
+            LichSuThanhToan lichSuThanhToan =  new LichSuThanhToan();
+            lichSuThanhToan.setTgThanhToan(new Date());
+            lichSuThanhToan.setSoTienThanhToan(hoaDonHuy.getTongTienDG());
+            lichSuThanhToan.setNoiDungThanhToan(hoaDonHuy.getMaHD());
+            lichSuThanhToan.setKhachHang(khachHang);
+            lichSuThanhToan.setHoaDon(hoaDonHuy);
+            lichSuThanhToan.setMaLSTT("LSTT" + khachHang.getMaKH() + generateRandomNumbers());
+            lichSuThanhToan.setTrangThai(0);
+            lichSuThanhToan.setLoaiTT(0);
+            lichSuThanhToan.setNoiDungThanhToan("Hủy đơn hàng ");
+            lsThanhToanService.addLSTT(lichSuThanhToan);
 
         }else if(lyDoHuy.equals("none")){
             lyDoHuy = "Tôi không  có nhu cầu mua nữa";
@@ -1036,7 +1139,28 @@ public class UserController {
                 thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán QR CodeBankink, vui lòng xem lại trạng thái thanh toán" +
                         " Mã đơn hàng:");
                 thongBaoServices.addThongBao(thongBaoKhachHang);
+            }else{
+                ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+                thongBaoKhachHang.setKhachHang(hoaDonHuy.getKhachHang());
+                thongBaoKhachHang.setTgTB(new Date());
+                thongBaoKhachHang.setHoaDon(hoaDonHuy);
+                thongBaoKhachHang.setTrangThai(3);
+                thongBaoKhachHang.setKhachHang(khachHang);
+                thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán khi nhận hàng, vui lòng xem lại trạng thái thanh toán" +
+                        " Mã đơn hàng:");
+                thongBaoServices.addThongBao(thongBaoKhachHang);
             }
+            LichSuThanhToan lichSuThanhToan =  new LichSuThanhToan();
+            lichSuThanhToan.setTgThanhToan(new Date());
+            lichSuThanhToan.setSoTienThanhToan(hoaDonHuy.getTongTienDG());
+            lichSuThanhToan.setNoiDungThanhToan(hoaDonHuy.getMaHD());
+            lichSuThanhToan.setKhachHang(khachHang);
+            lichSuThanhToan.setHoaDon(hoaDonHuy);
+            lichSuThanhToan.setMaLSTT("LSTT" + khachHang.getMaKH() + generateRandomNumbers());
+            lichSuThanhToan.setTrangThai(0);
+            lichSuThanhToan.setLoaiTT(0);
+            lichSuThanhToan.setNoiDungThanhToan("Hủy đơn hàng ");
+            lsThanhToanService.addLSTT(lichSuThanhToan);
         }else if (lyDoHuy.equals("lyDoKhac")) {
             lyDoHuy = request.getParameter("hutThuocNenDauDaDay");
             hoaDonHuy.setTrangThai(4);
@@ -1053,7 +1177,29 @@ public class UserController {
                 thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán QR CodeBankink, vui lòng xem lại trạng thái thanh toán" +
                         " Mã đơn hàng:");
                 thongBaoServices.addThongBao(thongBaoKhachHang);
+            }else{
+                ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+                thongBaoKhachHang.setKhachHang(hoaDonHuy.getKhachHang());
+                thongBaoKhachHang.setTgTB(new Date());
+                thongBaoKhachHang.setHoaDon(hoaDonHuy);
+                thongBaoKhachHang.setTrangThai(3);
+                thongBaoKhachHang.setKhachHang(khachHang);
+                thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán khi nhận hàng, vui lòng xem lại trạng thái thanh toán" +
+                        " Mã đơn hàng:");
+                thongBaoServices.addThongBao(thongBaoKhachHang);
             }
+
+            LichSuThanhToan lichSuThanhToan =  new LichSuThanhToan();
+            lichSuThanhToan.setTgThanhToan(new Date());
+            lichSuThanhToan.setSoTienThanhToan(hoaDonHuy.getTongTienDG());
+            lichSuThanhToan.setNoiDungThanhToan(hoaDonHuy.getMaHD());
+            lichSuThanhToan.setKhachHang(khachHang);
+            lichSuThanhToan.setHoaDon(hoaDonHuy);
+            lichSuThanhToan.setMaLSTT("LSTT" + khachHang.getMaKH() + generateRandomNumbers());
+            lichSuThanhToan.setTrangThai(0);
+            lichSuThanhToan.setLoaiTT(0);
+            lichSuThanhToan.setNoiDungThanhToan("Hủy đơn hàng ");
+            lsThanhToanService.addLSTT(lichSuThanhToan);
         }else if(lyDoHuy.equals("changeSize")) {
             lyDoHuy = request.getParameter("hutThuocNenDauDaDay");
             hoaDonHuy.setTrangThai(4);
@@ -1069,8 +1215,29 @@ public class UserController {
                 thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán QR CodeBankink, vui lòng xem lại trạng thái thanh toán" +
                         " Mã đơn hàng:");
                 thongBaoServices.addThongBao(thongBaoKhachHang);
+            }else{
+                ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+                thongBaoKhachHang.setKhachHang(hoaDonHuy.getKhachHang());
+                thongBaoKhachHang.setTgTB(new Date());
+                thongBaoKhachHang.setHoaDon(hoaDonHuy);
+                thongBaoKhachHang.setTrangThai(3);
+                thongBaoKhachHang.setKhachHang(khachHang);
+                thongBaoKhachHang.setNoiDungTB(" đã hủy hóa đơn thanh toán khi nhận hàng, vui lòng xem lại trạng thái thanh toán" +
+                        " Mã đơn hàng:");
+                thongBaoServices.addThongBao(thongBaoKhachHang);
             }
             hoaDonService.add(hoaDonHuy);
+            LichSuThanhToan lichSuThanhToan =  new LichSuThanhToan();
+            lichSuThanhToan.setTgThanhToan(new Date());
+            lichSuThanhToan.setSoTienThanhToan(hoaDonHuy.getTongTienDG());
+            lichSuThanhToan.setNoiDungThanhToan(hoaDonHuy.getMaHD());
+            lichSuThanhToan.setKhachHang(khachHang);
+            lichSuThanhToan.setHoaDon(hoaDonHuy);
+            lichSuThanhToan.setMaLSTT("LSTT" + khachHang.getMaKH() + generateRandomNumbers());
+            lichSuThanhToan.setTrangThai(0);
+            lichSuThanhToan.setLoaiTT(0);
+            lichSuThanhToan.setNoiDungThanhToan("Hủy đơn hàng ");
+            lsThanhToanService.addLSTT(lichSuThanhToan);
         }
 
 
@@ -1172,6 +1339,9 @@ public class UserController {
             danhGiaServices.addDanhGia(danhGiaKhachHang);
         }
 
+        hoaDon.setSoLanDanhGia(1);
+        hoaDonService.add(hoaDon);
+
         return "redirect:/buyer/home";
     }
 
@@ -1181,6 +1351,156 @@ public class UserController {
         String dvvc = request.getParameter("donViNhanHang");
         String maVanDon = request.getParameter("maVanDon");
         return "redirect:/buyer/";
+    }
+
+    @PostMapping("/purchase/bill/add/address/get/{idHD}")
+    private String addAddressNhanHang(Model model,
+                                      @PathVariable UUID idHD,
+                                      @RequestParam(name = "defaultSelected", defaultValue = "false") boolean defaultSelected){
+
+        HoaDon hoaDon = hoaDonService.getOne(idHD);
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+
+        String nameAddress = request.getParameter("nameAddress");
+        String fullName = request.getParameter("fullName");
+        String phoneAddress = request.getParameter("phoneAddress");
+        String city = request.getParameter("city");
+        String district = request.getParameter("district");
+        String ward = request.getParameter("ward");
+        String description = request.getParameter("description");
+
+        String diaChiChiTiet = description + ", " + ward + ", " + district + ", " + city;
+
+        DiaChiKH diaChiKH = new DiaChiKH();
+        diaChiKH.setDiaChiChiTiet(diaChiChiTiet);
+        diaChiKH.setMoTa(description);
+        diaChiKH.setKhachHang(khachHang);
+        diaChiKH.setTrangThai(1);
+        diaChiKH.setMaDC( "DC_" + khachHang.getMaKH() + generateRandomNumbers());
+        diaChiKH.setSdtNguoiNhan(phoneAddress);
+        diaChiKH.setQuanHuyen(district);
+        diaChiKH.setTenDC(nameAddress);
+        diaChiKH.setTinhTP(city);
+        diaChiKH.setTenNguoiNhan(fullName);
+        diaChiKH.setXaPhuong(ward);
+        diaChiKH.setTgThem(new Date());
+        diaChiKH.setLoai(defaultSelected);
+
+        diaChiKHService.save(diaChiKH);
+
+        hoaDon.setTenNguoiNhan(diaChiKH.getTenNguoiNhan());
+        hoaDon.setSdtNguoiNhan(diaChiKH.getSdtNguoiNhan());
+        hoaDon.setDiaChiNguoiNhan(diaChiKH.getDiaChiChiTiet());
+
+        hoaDonService.add(hoaDon);
+
+        Double tienShip = shippingFeeService.calculatorShippingFee(hoaDon, 25000.0);
+
+        double tienShipCu = hoaDon.getTienShip();
+
+        Date ngayBatDau =  hoaDon.getTgTao();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(ngayBatDau);
+
+        calendar.add(Calendar.DATE, shippingFeeService.tinhNgayNhanDuKien(hoaDon));
+
+        hoaDon.setTongTien(hoaDon.getTongTien() - tienShipCu + tienShip);
+        hoaDon.setTienShip(tienShip);
+        hoaDon.setTgNhanDK(calendar.getTime());
+        hoaDon.setSoLanThayDoiViTriShip(1);
+        hoaDon.setTongTienDG(hoaDon.getTongTienDG() + tienShip - tienShipCu);
+
+        hoaDonService.add(hoaDon);
+
+        ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+        thongBaoKhachHang.setKhachHang(hoaDon.getKhachHang());
+        thongBaoKhachHang.setTgTB(new Date());
+        thongBaoKhachHang.setHoaDon(hoaDon);
+        thongBaoKhachHang.setTrangThai(3);
+        thongBaoKhachHang.setKhachHang(khachHang);
+        thongBaoKhachHang.setNoiDungTB(" đã thay đổi địa chỉ nhận hàng, vui lòng xem lại trang thái hóa đơn :" +
+                " Mã đơn hàng:");
+        thongBaoServices.addThongBao(thongBaoKhachHang);
+
+        UserForm(model, khachHang);
+
+        List<HoaDon> listHoaDonByKhachHang = hoaDonService.findHoaDonByKhachHang(khachHang);
+
+        List<HoaDon> listHoaDonChoThanhToan = hoaDonService.listHoaDonKhachHangAndTrangThaiOnline(khachHang, 0);
+
+        model.addAttribute("pagePurchaseUser",true);
+        model.addAttribute("purchaseAll",true);
+        model.addAttribute("listAllHDByKhachHang", listHoaDonByKhachHang);
+        model.addAttribute("listHoaDonChoThanhToan", listHoaDonChoThanhToan);
+
+        model.addAttribute("type1","active");
+
+        model.addAttribute("showThongBaoThayDoiDiaChiNhanHangThanhCong", true);
+        showThongBao(model, khachHang);
+
+
+        return "online/user";
+    }
+
+    @PostMapping("/purchase/bill/change/address/get/{idHD}")
+    private String changeAddressNhanHang(Model model, @PathVariable UUID idHD){
+        HoaDon hoaDon = hoaDonService.getOne(idHD);
+        KhachHang khachHang = (KhachHang) session.getAttribute("KhachHangLogin");
+
+        UUID idDCKH = UUID.fromString(request.getParameter("idDCKH"));
+
+        DiaChiKH diaChiKH = diaChiKHService.findByIdDiaChiKH(idDCKH);
+
+        hoaDon.setTenNguoiNhan(diaChiKH.getTenNguoiNhan());
+        hoaDon.setSdtNguoiNhan(diaChiKH.getSdtNguoiNhan());
+        hoaDon.setDiaChiNguoiNhan(diaChiKH.getDiaChiChiTiet());
+
+        hoaDonService.add(hoaDon);
+
+        Double tienShip = shippingFeeService.calculatorShippingFee(hoaDon, 25000.0);
+
+        double tienShipCu = hoaDon.getTienShip();
+
+        Date ngayBatDau =  hoaDon.getTgTao();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(ngayBatDau);
+
+        calendar.add(Calendar.DATE, shippingFeeService.tinhNgayNhanDuKien(hoaDon));
+
+        hoaDon.setTongTien(hoaDon.getTongTien() - tienShipCu + tienShip);
+        hoaDon.setTienShip(tienShip);
+        hoaDon.setTgNhanDK(calendar.getTime());
+        hoaDon.setSoLanThayDoiViTriShip(1);
+        hoaDon.setTongTienDG(hoaDon.getTongTienDG() + tienShip - tienShipCu);
+
+        hoaDonService.add(hoaDon);
+
+        ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+        thongBaoKhachHang.setKhachHang(hoaDon.getKhachHang());
+        thongBaoKhachHang.setTgTB(new Date());
+        thongBaoKhachHang.setHoaDon(hoaDon);
+        thongBaoKhachHang.setTrangThai(3);
+        thongBaoKhachHang.setKhachHang(khachHang);
+        thongBaoKhachHang.setNoiDungTB(" đã thay đổi địa chỉ nhận hàng, vui lòng xem lại trang thái hóa đơn :" +
+                " Mã đơn hàng:");
+        thongBaoServices.addThongBao(thongBaoKhachHang);
+
+        UserForm(model, khachHang);
+        List<HoaDon> listHoaDonByKhachHang = hoaDonService.findHoaDonByKhachHang(khachHang);
+        List<HoaDon> listHoaDonChoThanhToan = hoaDonService.listHoaDonKhachHangAndTrangThaiOnline(khachHang, 0);
+
+        model.addAttribute("pagePurchaseUser",true);
+        model.addAttribute("purchaseAll",true);
+        model.addAttribute("listAllHDByKhachHang", listHoaDonByKhachHang);
+        model.addAttribute("listHoaDonChoThanhToan", listHoaDonChoThanhToan);
+
+        model.addAttribute("type1","active");
+        showThongBao(model, khachHang);
+        model.addAttribute("showThongBaoThayDoiDiaChiNhanHangThanhCong", true);
+
+        return "online/user";
     }
 
     private void UserForm(Model model, KhachHang khachHang){
