@@ -1393,7 +1393,11 @@
 
                     <div class="row coupon__code" style="margin-bottom: 30px;" >
                         <div class="row">
-                            <a style="display: flex; margin-right: 300px" href="/buyer/purchase/refund">
+                            <a th:unless="${phieuTraHang.trangThai == 6 or phieuTraHang.trangThai == 7}" style="display: flex; margin-right: 250px" href="/buyer/purchase/refund">
+                                <svg style="width: 30px; height: 30px;" viewBox="0 0 1024 1024" fill="#000000" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="24.576"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M669.6 849.6c8.8 8 22.4 7.2 30.4-1.6s7.2-22.4-1.6-30.4l-309.6-280c-8-7.2-8-17.6 0-24.8l309.6-270.4c8.8-8 9.6-21.6 2.4-30.4-8-8.8-21.6-9.6-30.4-2.4L360.8 480.8c-27.2 24-28 64-0.8 88.8l309.6 280z" fill=""></path></g></svg>
+                                <p style="margin:4px 0 0 0; font-weight: 600; font-size: 12pt;">Quay lại</p>
+                            </a>
+                            <a th:if="${phieuTraHang.trangThai == 6 or phieuTraHang.trangThai == 7}" style="display: flex; margin-right: 130px" href="/buyer/purchase/refund">
                                 <svg style="width: 30px; height: 30px;" viewBox="0 0 1024 1024" fill="#000000" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="24.576"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M669.6 849.6c8.8 8 22.4 7.2 30.4-1.6s7.2-22.4-1.6-30.4l-309.6-280c-8-7.2-8-17.6 0-24.8l309.6-270.4c8.8-8 9.6-21.6 2.4-30.4-8-8.8-21.6-9.6-30.4-2.4L360.8 480.8c-27.2 24-28 64-0.8 88.8l309.6 280z" fill=""></path></g></svg>
                                 <p style="margin:4px 0 0 0; font-weight: 600; font-size: 12pt;">Quay lại</p>
                             </a>
@@ -1405,9 +1409,8 @@
                             <p style="color: red;" th:if="${phieuTraHang.trangThai == 3}">BẠN ĐÃ HỦY</p>
                             <p style="color: red;" th:if="${phieuTraHang.trangThai == 4}">CHỜ HOÀN HÀNG</p>
                             <p style="color: red;" th:if="${phieuTraHang.trangThai == 5}">ĐANG HOÀN HÀNG</p>
-                            <p style="color: red;" th:if="${phieuTraHang.trangThai == 6}">ĐÃ HOÀN HÀNG</p>
-                            <p style="color: red;" th:if="${phieuTraHang.trangThai == 7}">ĐÃ HOÀN TIỀN</p>
-
+                            <p style="color: red;" th:if="${phieuTraHang.trangThai == 6 or phieuTraHang.trangThai == 7}">ĐÃ HOÀN HÀNG/CHỜ HOÀN TIỀN</p>
+                            <p style="color: red;" th:if="${phieuTraHang.trangThai == 8}">ĐÃ HOÀN TIỀN</p>
 
                         </div>
 
@@ -2357,7 +2360,7 @@
                         <div th:if="${purchaseRefund}"  class="row" style="margin-top: 10px;background-color: white; width: 836px ; border-radius: 5px;">
                             <th:block th:each="x : ${listAllHDByKhachHang}">
 
-                                <div th:if="${x.idHDOld == null and x.trangThaiHoan != 8}" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+                                <div th:if="${x.idHDOld == null and x.trangThaiHoan != 9}" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
 
                                     <div style="float: right; display: flex; padding: 10px 0 0 0;">
                                         <a style="color: black;" href="#" th:text="${x.maHD}"></a>
@@ -2368,8 +2371,7 @@
                                         <p th:if="${x.trangThaiHoan == 3}" style="margin-right: 20px; color: red;">ĐÃ HỦY</p>
                                         <p th:if="${x.trangThaiHoan == 4}" style="margin-right: 20px; color: red;">CHỜ HOÀN HÀNG</p>
                                         <p th:if="${x.trangThaiHoan == 5}" style="margin-right: 20px; color: red;">ĐANG HOÀN HÀNG</p>
-                                        <p th:if="${x.trangThaiHoan == 6}" style="margin-right: 20px; color: red;">HOÀN THÀNH CÔNG</p>
-                                        <p th:if="${x.trangThaiHoan == 7}" style="margin-right: 20px; color: red;">CHỜ HOÀN TIỀN</p>
+                                        <p th:if="${x.trangThaiHoan == 6 or x.trangThaiHoan == 7}" style="margin-right: 20px; color: red;">HOÀN THÀNH CÔNG / CHỜ HOÀN TIỀN</p>
                                         <p th:if="${x.trangThaiHoan == 8}" style="margin-right: 20px; color: red;">ĐÃ HOÀN TIỀN</p>
                                     </div>
 
