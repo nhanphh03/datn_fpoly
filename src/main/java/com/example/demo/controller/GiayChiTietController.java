@@ -1316,9 +1316,7 @@ public class GiayChiTietController {
             chiTietGiayDb.setTrongLuong(chiTietGiay.getTrongLuong());
             giayChiTietService.save(chiTietGiayDb);
 
-//            Nhan update
-            giayChiTietService.updatePriceCTGGHCT(chiTietGiayDb);
-//            End
+
 
             redirectAttributes.addFlashAttribute("message", true);
         }

@@ -50,6 +50,11 @@ public class CheckOutController {
     @Autowired
     private ThongBaoServices thongBaoServices;
 
+    @Autowired
+    private KhuyenMaiChiTietHoaDonService khuyenMaiChiTietHoaDonService;
+
+    @Autowired
+    private LSThanhToanService lsThanhToanService;
 
     @PostMapping("/checkout")
     private String checkOutCart(Model model, @RequestParam("selectedProducts") List<UUID> selectedProductIds){
@@ -124,7 +129,6 @@ public class CheckOutController {
             model.addAttribute("listAddressKH", diaChiKHList);
         }
 
-        hoaDon.setTongTien(total);
         hoaDon.setTongSP(sumQuantity);
 
         hoaDonService.add(hoaDon);
@@ -143,6 +147,8 @@ public class CheckOutController {
 
         if (diaChiKHDefault != null){
             Double shippingFee = shippingFeeService.calculatorShippingFee(hoaDon, 25000.0);
+            hoaDon.setTongTien(total + shippingFee);
+            hoaDonService.add(hoaDon);
             model.addAttribute("shippingFee", shippingFee);
             model.addAttribute("toTalOder", total  + shippingFee );
             model.addAttribute("tongTienDaGiamVoucherShip", total + shippingFee);
@@ -228,6 +234,10 @@ public class CheckOutController {
                 .sum();
 
         Double shippingFee = shippingFeeService.calculatorShippingFee(hoaDon, 25000.0);
+
+        hoaDon.setTongTien(total + shippingFee);
+        hoaDonService.add(hoaDon);
+
         Double shippingVoucher = 0.0;
         if (khuyenMaiGiaoHang !=null){
             shippingVoucher = shippingFeeService.calculatorVoucherShipping(hoaDon, khuyenMaiGiaoHang, shippingFee);
@@ -302,6 +312,9 @@ public class CheckOutController {
         Double shippingFee = shippingFeeService.calculatorShippingFee(hoaDon, 25000.0);
         Double shippingVoucher = 0.0;
 
+        hoaDon.setTongTien(total + shippingFee);
+        hoaDonService.add(hoaDon);
+
         if (khuyenMaiGiaoHang !=null){
             shippingVoucher = shippingFeeService.calculatorVoucherShipping(hoaDon, khuyenMaiGiaoHang, shippingFee);
 
@@ -312,8 +325,6 @@ public class CheckOutController {
             voucherBill =  shippingFeeService.calculatorVoucherBill(hoaDon, khuyenMaiHoaDon);
             model.addAttribute("nameVoucher", khuyenMaiHoaDon.getTenKM());
         }
-
-
 
 //      TODO PASSING DATA BEGIN
         model.addAttribute("sumQuantity", sumQuantity);
@@ -521,17 +532,59 @@ public class CheckOutController {
 
         if (khuyenMaiGiaoHang !=null){
             tienGiamGiaShip = shippingFeeService.calculatorVoucherShipping(hoaDon, khuyenMaiGiaoHang, shippingFee);
+
+            KhuyenMaiChiTietHoaDon khuyenMaiChiTietHoaDon = new KhuyenMaiChiTietHoaDon();
+            khuyenMaiChiTietHoaDon.setKhuyenMai(khuyenMaiGiaoHang);
+            khuyenMaiChiTietHoaDon.setSoTienGiam(tienGiamGiaShip);
+            khuyenMaiChiTietHoaDon.setTgThem(new Date());
+            khuyenMaiChiTietHoaDon.setHoaDon(hoaDon);
+            khuyenMaiChiTietHoaDonService.addKMCTHD(khuyenMaiChiTietHoaDon);
+
+            khuyenMaiGiaoHang.setSoLuongDaDung(khuyenMaiGiaoHang.getSoLuongDaDung() + 1);
+            khuyenMaiService.createKhuyenMais(khuyenMaiGiaoHang);
         }
 
         if(khuyenMaiHoaDon != null){
             tienGiamGiaHoaDon =  shippingFeeService.calculatorVoucherBill(hoaDon, khuyenMaiHoaDon);
+            KhuyenMaiChiTietHoaDon khuyenMaiChiTietHoaDon = new KhuyenMaiChiTietHoaDon();
+
+            khuyenMaiChiTietHoaDon.setKhuyenMai(khuyenMaiHoaDon);
+            khuyenMaiChiTietHoaDon.setSoTienGiam(tienGiamGiaHoaDon);
+            khuyenMaiChiTietHoaDon.setTgThem(new Date());
+            khuyenMaiChiTietHoaDon.setHoaDon(hoaDon);
+            khuyenMaiChiTietHoaDonService.addKMCTHD(khuyenMaiChiTietHoaDon);
+
+            khuyenMaiHoaDon.setSoLuongDaDung(khuyenMaiHoaDon.getSoLuongDaDung() + 1);
+            khuyenMaiService.createKhuyenMais(khuyenMaiHoaDon);
         }
+
+        Date ngayBatDau =  hoaDon.getTgTao();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(ngayBatDau);
+
+        calendar.add(Calendar.DATE, shippingFeeService.tinhNgayNhanDuKien(hoaDon));
+
+        Date ngayKetThuc = calendar.getTime();
 
         hoaDon.setGiamGiaShip(tienGiamGiaShip);
         hoaDon.setGiamGiaHoaDon(tienGiamGiaHoaDon);
         hoaDon.setTienShip(shippingFee);
         hoaDon.setLoiNhan(loiNhan);
-        hoaDon.setTongTienDG(hoaDon.getTongTien() + shippingFee - tienGiamGiaHoaDon - tienGiamGiaShip);
+        hoaDon.setTgNhanDK(ngayKetThuc);
+        hoaDon.setTongTienDG(hoaDon.getTongTien() - tienGiamGiaHoaDon - tienGiamGiaShip);
+
+        List<HoaDonChiTiet> hoaDonChiTietList = hoaDonChiTietService.findByHoaDon(hoaDon);
+
+        for (HoaDonChiTiet xx: hoaDonChiTietList) {
+            GioHangChiTiet gioHangChiTiet = ghctService.findByCTSPActive(xx.getChiTietGiay());
+            gioHangChiTiet.setTrangThai(0);
+            ghctService.addNewGHCT(gioHangChiTiet);
+
+            ChiTietGiay chiTietGiay = xx.getChiTietGiay();
+            chiTietGiay.setSoLuong(chiTietGiay.getSoLuong() - xx.getSoLuong());
+            giayChiTietService.save(chiTietGiay);
+        }
 
         if (hinhThucThanhToan.equals("QRCodeBanking")){
             hoaDon.setHinhThucThanhToan(1);
@@ -556,6 +609,16 @@ public class CheckOutController {
             thongBaoKhachHang.setNoiDungTB(" đã đặt đơn hàng với hình thức QR Code Banking. Mã đơn hàng: ");
             thongBaoServices.addThongBao(thongBaoKhachHang);
 
+            LichSuThanhToan lichSuThanhToan =  new LichSuThanhToan();
+            lichSuThanhToan.setTgThanhToan(new Date());
+            lichSuThanhToan.setSoTienThanhToan(hoaDon.getTongTienDG());
+            lichSuThanhToan.setNoiDungThanhToan("Đặt hàng " + hoaDon.getMaHD() + " hình thức thanh toán QRCode Baking");
+            lichSuThanhToan.setKhachHang(khachHang);
+            lichSuThanhToan.setHoaDon(hoaDon);
+            lichSuThanhToan.setMaLSTT("LSTT" + khachHang.getMaKH() + generateRandomNumbers());
+            lichSuThanhToan.setTrangThai(0);
+            lsThanhToanService.addLSTT(lichSuThanhToan);
+
             return "online/checkout";
         }else{
             hoaDon.setHinhThucThanhToan(0);
@@ -570,6 +633,16 @@ public class CheckOutController {
             thongBaoKhachHang.setKhachHang(khachHang);
             thongBaoKhachHang.setNoiDungTB(" đã đặt đơn hàng với hình thức thanh toán khi nhận hàng. Mã đơn hàng:");
             thongBaoServices.addThongBao(thongBaoKhachHang);
+
+            LichSuThanhToan lichSuThanhToan =  new LichSuThanhToan();
+            lichSuThanhToan.setTgThanhToan(new Date());
+            lichSuThanhToan.setSoTienThanhToan(hoaDon.getTongTienDG());
+            lichSuThanhToan.setNoiDungThanhToan("Đặt hàng " + hoaDon.getMaHD() + " hình thức thanh toán khi nhận hàng");
+            lichSuThanhToan.setKhachHang(khachHang);
+            lichSuThanhToan.setHoaDon(hoaDon);
+            lichSuThanhToan.setMaLSTT("LSTT" + khachHang.getMaKH() + generateRandomNumbers());
+            lichSuThanhToan.setTrangThai(0);
+            lsThanhToanService.addLSTT(lichSuThanhToan);
 
             UserForm(model);
 
