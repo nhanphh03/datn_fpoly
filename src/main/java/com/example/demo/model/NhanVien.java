@@ -60,7 +60,7 @@ public class NhanVien {
     @Column(name = "Email_NV")
     private String emailNV;
 
-    @NotBlank
+
     @Column(name = "diaChi_NV")
     private String diaChi;
 

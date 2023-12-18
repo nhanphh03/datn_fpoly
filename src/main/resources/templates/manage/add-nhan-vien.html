@@ -325,6 +325,17 @@
                         <div class="row">
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
+                                    <label>Ảnh NV <span style="color: red;">*</span></label>
+                                    <input th:field="*{AnhNV}" type="file"
+                                           id="imageInput"
+                                           accept="image/*"
+                                           onchange="previewImage(event)">
+                                    <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
+                                                 style="display: none; max-width: 150px; max-height: 150px;"><br><br>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-sm-6 col-12">
+                                <div class="form-group">
                                     <label>Mã Nhân Viên <span style="color: red;">*</span></label>
                                     <input type="text" th:field="*{maNV}">
                                     <br><br>
@@ -379,18 +390,6 @@
                                     <strong th:if="${#fields.hasErrors('sdtNV')}"
                                             class="alert alert-danger alert-dismissible fade"
                                             role="alert" th:errors="*{sdtNV}"></strong>
-                                </div>
-                            </div>
-                            <div class="col-lg-6 col-sm-6 col-12">
-                                <div class="form-group">
-                                    <label>Ảnh Nhân Viên <span style="color: red;">*</span></label>
-                                    <input th:field="*{AnhNV}" type="file" id="imageInput" accept="image/*"
-                                           onchange="previewImage(event)">
-                                    <br><br><img id="imagePreview" src="#" alt="Ảnh mô tả"
-                                                 style="display: none; max-width: 150px; max-height: 150px;"><br><br>
-                                    <strong th:if="${#fields.hasErrors('AnhNV')}"
-                                            class="alert alert-danger alert-dismissible fade show"
-                                            role="alert" th:errors="*{AnhNV}"></strong>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -593,7 +592,6 @@
 
 <script>
         function validateForm() {
-
             var maNV = document.getElementById("maNV").value;
             var hoTenNV = document.getElementById("hoTenNV").value;
             var ngaySinh = document.getElementById("ngaySinh").value;
@@ -601,8 +599,7 @@
             var emailNV = document.getElementById("emailNV").value;
             var CCCDNV = document.getElementById("CCCDNV").value;
             var matkhau = document.getElementById("matKhau").value;
-            var AnhNV = document.getElementById("AnhNV").value;
-            console.log(ngaySinh);
+            var AnhNV = document.getElementById("imageInput").value;
 
             // Kiểm tra không để trống các trường
             if (maNV === "" || hoTenNV === "" || ngaySinh === "" || sdtNV === "" || emailNV === "" || CCCDNV === "" || matkhau === "" || AnhNV === "" ) {
