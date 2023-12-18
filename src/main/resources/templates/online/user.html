@@ -2038,9 +2038,6 @@
                         </div>
 
                         <!-- ALL begin -->
-                        <div th:if="${purchaseAll}" class="row" style="background-color: #f3f2ee; width: 836px ; height: 50px; border-radius: 5px; margin-top: 10px;margin-bottom: 10px;">
-                             <p>Form Search</p>
-                        </div>
 
                         <div th:if="${purchaseAll}" class="row" style="background-color: white; width: 836px ; border-radius: 5px;">
 
@@ -2122,7 +2119,7 @@
                         <div th:if="${purchasePay}" class="row" style="margin-top: 10px; background-color: white; width: 836px; border-radius: 5px;">
                             <th:block th:each="x : ${listAllHDByKhachHang}">
 
-                                <div class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+                                <div  th:if="${x.idHDOld == null}" class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
 
                                     <div style="float: right; display: flex; padding: 10px 0 0 0;">
                                         <a style="color: black;" href="#" th:text="${x.maHD}"></a>
@@ -2169,7 +2166,7 @@
                         <div th:if="${purchaseShip}" class="row" style="margin-top: 10px; background-color: white; width: 836px; border-radius: 5px;">
                             <th:block th:each="x : ${listAllHDByKhachHang}">
 
-                                <div class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+                                <div th:if="${x.idHDOld == null}" class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
 
                                     <div style="float: right; display: flex; padding: 10px 0 0 0;">
                                         <a style="color: black;" href="#" th:text="${x.maHD}"></a>
@@ -2215,7 +2212,7 @@
                          <div th:if="${purchaseReceive}" class="row" style="margin-top: 10px;background-color: white; width: 836px ; border-radius: 5px;">
                              <th:block th:each="x : ${listAllHDByKhachHang}">
 
-                                 <div class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+                                 <div th:if="${x.idHDOld == null}" class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
 
                                      <div style="float: right; display: flex; padding: 10px 0 0 0;">
                                          <a style="color: black;" href="#" th:text="${x.maHD}"></a>
@@ -2315,7 +2312,7 @@
                         <div th:if="${purchaseCancel}"  class="row" style="margin-top: 10px;background-color: white; width: 836px ; border-radius: 5px;">
                             <th:block th:each="x : ${listAllHDByKhachHang}">
 
-                                <div class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+                                <div th:if="${x.idHDOld == null}" class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
 
                                     <div style="float: right; display: flex; padding: 10px 0 0 0;">
                                         <a style="color: black;" href="#" th:text="${x.maHD}"></a> <span style="margin: 0 10px 0 10px;">  | </span> <p style="margin-right: 20px; color: red;">ĐÃ HỦY</p>
