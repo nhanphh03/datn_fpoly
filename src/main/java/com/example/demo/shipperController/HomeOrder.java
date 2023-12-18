@@ -197,7 +197,7 @@ public class HomeOrder {
                 viTriDonHang.setTrangThai(2);
                 viTriDonHang.setNoiDung(moTa);
                 viTriDonHang.setGiaoHang(giaoHang);
-                viTriDonHangServices.addViTriDonHang(viTriDonHang);
+                viTriDonHangServices.addViTriDonHang(viTriDonHang2);
 
                 showDataTab2(model);
                 showData(model);
