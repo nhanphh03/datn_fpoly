@@ -158,6 +158,11 @@ public class HoaDonServiceImpl implements HoaDonService {
     }
 
     @Override
+    public List<HoaDon> listAllHoaDonByNhanVienHienTai(NhanVien nhanVien) {
+        return hoaDonRepository.listAllHoaDonByNhanVienHienTai();
+    }
+
+    @Override
     public List<HoaDon> listHoaDonOnlineAndHTTTAndTrangThai(int httt, int trangThai) {
         return hoaDonRepository.findByLoaiHDAndTrangThaiAndHinhThucThanhToanOrderByTgTaoDesc(0, trangThai, httt);
     }

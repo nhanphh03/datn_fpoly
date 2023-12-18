@@ -20,28 +20,25 @@
 
     <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
     <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
-
+    <link rel="stylesheet" href="/plugins/simpleline/simple-line-icons.css">
     <link rel="stylesheet" href="/css/style.css">
 
 </head>
 
-<body>
+<body class="mini-sidebar">
 <div id="global-loader">
     <div class="whirly-loader"> </div>
 </div>
 
 <div class="header">
 
-    <a id="mobile_btn" class="mobile_btn" href="#sidebar">
-            <span class="bar-icon">
-                <span></span>
-                <span></span>
-                <span></span>
-            </span>
-    </a>
-
     <ul class="nav user-menu">
 
+        <li class="nav-item dropdown has-arrow flag-nav " style="margin-right: 30px;">
+            <a href="/order" style="height: 30px; width: 30px; background-color: #ff9f43; border-radius: 5px; margin-top: 13px;">
+                <i class="si si-refresh" style="color: #ffffff; margin-left: -10px;"></i>
+            </a>
+        </li>
         <li class="nav-item dropdown">
             <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
                 <img src="/images/img/icons/notification-bing.svg" alt="img"> <span
@@ -57,13 +54,13 @@
                         <li class="notification-message">
                             <a href="activities.html">
                                 <div class="media d-flex">
-                                        <span class="avatar flex-shrink-0">
-                                            <img alt="" src="assets/img/profiles/avatar-02.jpg">
-                                        </span>
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="/images/img/profiles/avatar-02.jpg">
+                                            </span>
                                     <div class="media-body flex-grow-1">
                                         <p class="noti-details"><span class="noti-title">John Doe</span> added
-                                            new task <span class="noti-title">Patient appointment booking</span>
-                                        </p>
+                                            new
+                                            task <span class="noti-title">Patient appointment booking</span></p>
                                         <p class="noti-time"><span class="notification-time">4 mins ago</span>
                                         </p>
                                     </div>
@@ -73,13 +70,14 @@
                         <li class="notification-message">
                             <a href="activities.html">
                                 <div class="media d-flex">
-                                        <span class="avatar flex-shrink-0">
-                                            <img alt="" src="/images/img/profiles/avatar-03.jpg">
-                                        </span>
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="/images/img/profiles/avatar-03.jpg">
+                                            </span>
                                     <div class="media-body flex-grow-1">
                                         <p class="noti-details"><span class="noti-title">Tarah Shropshire</span>
                                             changed the task name <span class="noti-title">Appointment booking
-                                                    with payment gateway</span></p>
+                                                        with payment gateway</span>
+                                        </p>
                                         <p class="noti-time"><span class="notification-time">6 mins ago</span>
                                         </p>
                                     </div>
@@ -89,14 +87,16 @@
                         <li class="notification-message">
                             <a href="activities.html">
                                 <div class="media d-flex">
-                                        <span class="avatar flex-shrink-0">
-                                            <img alt="" src="assets/img/profiles/avatar-06.jpg">
-                                        </span>
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="/images/img/profiles/avatar-06.jpg">
+                                            </span>
                                     <div class="media-body flex-grow-1">
                                         <p class="noti-details"><span class="noti-title">Misty Tison</span>
-                                            added <span class="noti-title">Domenic Houston</span> and <span
+                                            added
+                                            <span class="noti-title">Domenic Houston</span> and <span
                                                     class="noti-title">Claire Mapes</span> to project <span
-                                                    class="noti-title">Doctor available module</span></p>
+                                                    class="noti-title">Doctor available module</span>
+                                        </p>
                                         <p class="noti-time"><span class="notification-time">8 mins ago</span>
                                         </p>
                                     </div>
@@ -106,13 +106,14 @@
                         <li class="notification-message">
                             <a href="activities.html">
                                 <div class="media d-flex">
-                                        <span class="avatar flex-shrink-0">
-                                            <img alt="" src="assets/img/profiles/avatar-17.jpg">
-                                        </span>
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="/images/img/profiles/avatar-17.jpg">
+                                            </span>
                                     <div class="media-body flex-grow-1">
                                         <p class="noti-details"><span class="noti-title">Rolland Webber</span>
                                             completed task <span class="noti-title">Patient and Doctor video
-                                                    conferencing</span></p>
+                                                        conferencing</span>
+                                        </p>
                                         <p class="noti-time"><span class="notification-time">12 mins ago</span>
                                         </p>
                                     </div>
@@ -122,9 +123,9 @@
                         <li class="notification-message">
                             <a href="activities.html">
                                 <div class="media d-flex">
-                                        <span class="avatar flex-shrink-0">
-                                            <img alt="" src="assets/img/profiles/avatar-13.jpg">
-                                        </span>
+                                            <span class="avatar flex-shrink-0">
+                                                <img alt="" src="/images/img/profiles/avatar-13.jpg">
+                                            </span>
                                     <div class="media-body flex-grow-1">
                                         <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span>
                                             added new task <span class="noti-title">Private chat module</span>
@@ -145,17 +146,21 @@
 
         <li class="nav-item dropdown has-arrow main-drop">
             <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
-                    <span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
-                        <span class="status online"></span></span>
+                <span class="user-img">
+<!--                    <img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">-->
+                    <span class="status online"></span>
+                </span>
             </a>
             <div class="dropdown-menu menu-drop-user">
                 <div class="profilename">
                     <div class="profileset">
-                            <span class="user-img"><img src="/images/img/profiles/avator1.jpg" alt="">
-                                <span class="status online"></span></span>
+                        <span class="user-img">
+<!--                            <img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">-->
+                            <span class="status online"></span>
+                        </span>
                         <div class="profilesets">
-                            <h6 th:text="${nameNhanVien}"></h6>
-                            <h5>Shipper</h5>
+<!--                            <h6 th:text="${session.managerLogged.hoTenNV}"></h6>-->
+<!--                            <h5 th:text="${session.managerLogged.chucVu.tenCV}"></h5>-->
                         </div>
                     </div>
                     <hr class="m-0">
@@ -164,20 +169,21 @@
                     <a class="dropdown-item" href="generalsettings.html"><i class="me-2"
                                                                             data-feather="settings"></i>Settings</a>
                     <hr class="m-0">
-                    <a class="dropdown-item logout pb-0" href="signin.html"><img
-                            src="/images/img/icons/log-out.svg" class="me-2" alt="img">Logout</a>
+                    <a class="dropdown-item logout pb-0" href="/logout"><img src="/images/img/icons/log-out.svg"
+                                                                             class="me-2" alt="img">Logout</a>
                 </div>
             </div>
         </li>
     </ul>
 
+
     <div class="dropdown mobile-user-menu">
         <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
            aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
         <div class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="profile.html">Tài khoản cá nhân</a>
-            <a class="dropdown-item" href="generalsettings.html">Cài đặt</a>
-            <a class="dropdown-item" href="signin.html">Đăng xuất</a>
+            <a class="dropdown-item" href="profile.html">My Profile</a>
+            <a class="dropdown-item" href="generalsettings.html">Settings</a>
+            <a class="dropdown-item" href="signin.html">Logout</a>
         </div>
     </div>
 
@@ -200,12 +206,15 @@
 
                         <div class="card-body">
                             <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded nav-justified">
-                                <li class="nav-item"><a th:class="${activeAll}"
-                                                        href="#solid-rounded-justified-tab1" data-bs-toggle="tab">Tổng quan</a>
+                                <li class="nav-item">
+                                    <a th:class="${activeAll}"
+                                       href="#solid-rounded-justified-tab1"
+                                       data-bs-toggle="tab">Tổng quan</a>
                                 </li>
-                                <li class="nav-item"><a th:class="${activeVanChuyen}"
-                                                        href="#solid-rounded-justified-tab2"
-                                                        data-bs-toggle="tab">Đang vận chuyển</a></li>
+                                <li class="nav-item">
+                                    <a th:class="${activeVanChuyen}"
+                                       href="#solid-rounded-justified-tab2"
+                                       data-bs-toggle="tab">Đang vận chuyển</a></li>
                                 <li class="nav-item">
                                     <a th:class="${activeDone}"
                                        href="#solid-rounded-justified-tab3"
@@ -288,6 +297,7 @@
                                                     <tr>
                                                         <th>Mã Hóa Đơn</th>
                                                         <th>Thời gian tạo</th>
+                                                        <th>Loại Hóa Đơn</th>
                                                         <th>Thanh Toán</th>
                                                         <th>Trạng thái</th>
                                                         <th>Khách hàng</th>
@@ -299,14 +309,33 @@
                                                 </thead>
                                                 <tbody>
                                                     <th:block th:each="x: ${allHoaDonList}">
-                                                        <tr th:if="${x.hinhThucThanhToan == 1}">
+
+                                                        <tr >
                                                             <td th:text="${x.maHD}"></td>
                                                             <td th:text="${x.tgTao}"></td>
-                                                            <td>Đã Thanh toán</td>
 
-                                                            <td th:if="${x.trangThai == 2}">Đang giao</td>
-                                                            <td style="color: #0875eb;" th:if="${x.trangThai == 3}">Thành công</td>
-                                                            <td style="color: #e01627;" th:if="${x.trangThai == 4}">Đã hủy</td>
+                                                            <td th:unless="${x.idHDOld == null}" style="color: #ff9f43;"> HĐ Hoàn Hàng</td>
+                                                            <td th:if="${x.idHDOld == null}"> HĐ Mua Hàng</td>
+
+<!--                                                         Hóa đơn thường begin-->
+                                                            <td th:if="${x.trangThai == 2 and x.idHDOld == null}">Chưa Thanh toán</td>
+                                                            <td th:if="${x.trangThai == 3 and x.idHDOld == null}">Đã thanh toán</td>
+                                                            <td th:if="${x.trangThai == 4 and x.idHDOld == null}">Đã Thanh toán</td>
+
+                                                            <td th:if="${x.trangThai == 2 and x.idHDOld == null}">Đang giao</td>
+                                                            <td th:if="${x.trangThai == 3 and x.idHDOld == null}" style="color: #0875eb;" >Thành công</td>
+                                                            <td th:if="${x.trangThai == 4 and x.idHDOld == null}" style="color: #e01627;">Đã hủy</td>
+<!--                                                         Hóa đơn thường end-->
+
+<!--                                                         Hóa đơn hoàn hàng begin-->
+                                                            <td th:if="${x.idHDOld != null}">......</td>
+
+                                                            <td th:if="${x.trangThai == 1 and x.idHDOld != null}">Chờ hoàn</td>
+                                                            <td th:if="${x.trangThai == 2 and x.idHDOld != null}">Đang hoàn</td>
+                                                            <td th:if="${x.trangThai == 3 and x.idHDOld != null}" style="color: #0875eb;" >Thành công</td>
+                                                            <td th:if="${x.trangThai == 4 and x.idHDOld != null}" style="color: #e01627;">Đã hủy</td>
+<!--                                                         Hóa đơn hoàn hàng end-->
+
 
                                                             <td th:text="${x.tenNguoiNhan}"></td>
                                                             <td th:text="${x.tongSP}"></td>
@@ -315,35 +344,12 @@
                                                             <th>
                                                                 <i class="fe fe-eye" data-bs-toggle="modal"
                                                                    data-bs-target="#modalAll" style="cursor: pointer; margin: 0 10px 0 20px; color: #ff9f43;"></i>
-                                                                <a th:href="@{'http://localhost:8081/order/bill/print/' + ${x.idHD}}"
+                                                                <a th:if="${x.idHDOld == null}" th:href="@{'http://localhost:8081/order/bill/print/' + ${x.idHD}}"
                                                                    onclick="window.open(this.href, '_blank'); return false;">
                                                                     <i class="fe fe-printer" data-bs-toggle="tooltip" title="" style="cursor: pointer; color: #ff9f43;"
                                                                        data-bs-original-title="In hóa đơn" aria-label="fe fe-printer"></i>
                                                                 </a>
-                                                            </th>
-                                                        </tr>
-
-                                                        <tr th:if="${x.hinhThucThanhToan == 0}">
-                                                            <td th:text="${x.maHD}"></td>
-                                                            <td th:text="${x.tgTao}"></td>
-
-                                                            <td th:if="${x.trangThai == 2}">Chưa Thanh toán</td>
-                                                            <td th:if="${x.trangThai == 3}">Đã thanh toán</td>
-                                                            <td th:if="${x.trangThai == 4}">Đã Thanh toán</td>
-
-
-                                                            <td th:if="${x.trangThai == 2}">Đang giao</td>
-                                                            <td style="color: #0875eb;" th:if="${x.trangThai == 3}">Thành công</td>
-                                                            <td style="color: #e01627;" th:if="${x.trangThai == 4}">Đã hủy</td>
-
-                                                            <td th:text="${x.tenNguoiNhan}"></td>
-                                                            <td th:text="${x.tongSP}"></td>
-                                                            <td th:text="'₫'+${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
-                                                            <td>Đơn hàng tại Thanh Hóa</td>
-                                                            <th>
-                                                                <i class="fe fe-eye" data-bs-toggle="modal"
-                                                                   data-bs-target="#modalAll" style="cursor: pointer; margin: 0 10px 0 20px; color: #ff9f43;"></i>
-                                                                <a th:href="@{'http://localhost:8081/order/bill/print/' + ${x.idHD}}"
+                                                                <a th:unless="${x.idHDOld == null}" th:href="@{'http://localhost:8081/order/bill/refund/print/' + ${x.idHD}}"
                                                                    onclick="window.open(this.href, '_blank'); return false;">
                                                                     <i class="fe fe-printer" data-bs-toggle="tooltip" title="" style="cursor: pointer; color: #ff9f43;"
                                                                        data-bs-original-title="In hóa đơn" aria-label="fe fe-printer"></i>
@@ -357,8 +363,45 @@
                                     </div>
                                 </div>
                                 <div th:class="${tabpane2}" id="solid-rounded-justified-tab2">
-
-                                    <div th:if="${showHTGH}" class="row" th:object="${HoaDonVanChuyen}" style="border: 0.5px solid #ff9f43; margin-bottom: 50px" >
+                                    <div class="row">
+                                        <div class="col-lg-6 col-sm-6 col-12">
+                                            <div class="dash-widget">
+                                                <div class="dash-widgetimg">
+                                                    <span><img src="/images/img/icons/dash1.svg" alt="img"></span>
+                                                </div>
+                                                <div class="dash-widgetcontent">
+                                                    <h5><span class="counters" th:data-count="${sumDH}"></span></h5>
+                                                    <h6>Đơn hàng mua hàng</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-6 col-12">
+                                            <div class="dash-widget dash1">
+                                                <div class="dash-widgetimg">
+                                                    <span>
+                                                        <svg fill="#ffffff" stroke="#ffffff" style="height: 30px; width: 30px;" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 101.94 122.88"><defs><style>.cls-1{fill-rule:evenodd;}</style></defs><path class="cls-1" d="M93.34,7.49a3.11,3.11,0,0,1,2,.38,3.06,3.06,0,0,1,1.82,2.78l.2,28.16,0,0,0,0h0l0,0,0,0h0l0,0,0,0h0l0,0,0,0h0l0,0,0,0h-.09l0,0h0l0,0h-.09l0,0h0l0,0h-.05l0,0h0l-.05,0h0l0,0h-.05l0,0H95.8l0,0H91.82l0,0h-.09l-.09,0h0l-.09,0h-.09l0,0h0l0,0-.16-22.52-19,12V70.08a45.77,45.77,0,0,1-4.91,3l-1.21-1.82V28.7L41.4,25.57l-.91,26.52-9.83-6.71-9.84,5.56,2-27.74L6.12,21.07V77.91l39.5,4.39-1.19,6L2.91,83.71A3.06,3.06,0,0,1,0,80.65v-63a3.08,3.08,0,0,1,1.83-2.86L34.79.25A3.07,3.07,0,0,1,36.42,0L93.34,7.49ZM48.7,114.27l8.19-41.61,8.3,12.51C83.07,78,93.11,66.16,94.6,47.94c14.69,25.68,5.77,48.7-12.84,62.18l8.47,12.76L48.7,114.27ZM64.61,9.88l-18,10.21,21.82,2.78L84.85,12.53,64.61,9.88ZM27.68,17.67,45.14,7.32,36.48,6.19,14.25,16l13.43,1.71Z"/></svg>
+                                                    </span>
+                                                </div>
+                                                <div class="dash-widgetcontent">
+                                                    <h5><span class="counters" data-count="10"></span></h5>
+                                                    <h6>Đơn hàng hoàn hàng</h6>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded nav-justified">
+                                        <li class="nav-item">
+                                            <a class="nav-link active"
+                                               href="#solid-rounded-justified-tab4"
+                                               data-bs-toggle="tab">Đơn hàng mua hàng</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link"
+                                               href="#solid-rounded-justified-tab5"
+                                               data-bs-toggle="tab">Đơn hàng hoàn hàng</a>
+                                        </li>
+                                    </ul>
+                                    <div th:if="${showHTGH}" class="row" th:object="${HoaDonVanChuyen}" style="border: 0.5px solid #ff9f43; margin: 50px 0 50px 0" >
                                         <div class="col-md-8">
 
                                             <form th:action="'/order/delivery/update/' + ${HoaDonVanChuyen.idHD}" method="post">
@@ -378,14 +421,14 @@
                                                     <div class="col-lg-3 col-sm-12 col-12">
                                                         <div class="form-group">
                                                             <label>Thanh toán :</label>
-                                                            <p th:if="${HoaDonVanChuyen.loaiHD == 0 }" style="font-size: 11pt; font-weight: 600;">Thanh toán nhận hàng</p>
-                                                            <p th:if="${HoaDonVanChuyen.loaiHD == 1 }" style="font-size: 11pt; font-weight: 600;">Đã thanh toán</p>
+                                                            <p th:if="${HoaDonVanChuyen.loaiHD == 1 }" style="font-size: 11pt; font-weight: 600;">Thanh toán nhận hàng</p>
+                                                            <p th:if="${HoaDonVanChuyen.loaiHD == 0 }" style="font-size: 11pt; font-weight: 600;">Đã thanh toán</p>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-3 col-sm-12 col-12">
                                                         <div class="form-group">
                                                             <label>Thời gian giao dự kiến :</label>
-                                                            <p style="font-size: 11pt; font-weight: 600;">11 tháng 3</p>
+<!--                                                            <p style="font-size: 11pt; font-weight: 600;" th:text="${#dates.format(billPrint.tgNhanDK, 'HH:mm yyyy-MM-dd')}"></p>-->
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-12 col-sm-12 col-12">
@@ -396,31 +439,253 @@
                                                     </div>
                                                     <div class="col-lg-4 col-sm-12 col-12">
                                                         <div class="form-group">
-                                                            <label>Đơn hàng </label>
-                                                            <select name="trangThaiGiaoHang" class="select" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
-                                                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;  ">
-                                                                <option  value="dangGiao" selected>Đang giao</option>
-                                                                <option value="thanhCong" >Giao thành công</option>
-                                                                <option value="thatBai" >Giao thất bại(Bị Hủy)</option>
+                                                            <label>Tên đơn vị vận chuyển</label>
+                                                            <p th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" style="font-size: 11pt; font-weight: 600;" th:text="${HoaDonVanChuyen.giaoHang.tenDVVC}"></p>
+                                                            <select th:if="${HoaDonVanChuyen.giaoHang.tenDVVC == null}" id="deliveryOptions" class="form-control" name="donViVanChuyen">
+                                                                <option value="humanExpress" selected>Human Express</option>
+                                                                <option value="ghn" >Giao hàng nhanh</option>
+                                                                <option value="ghtk" >Giao Hàng Tiết Kiệm</option>
+                                                                <option value="viettelPost" >Viettel Post</option>
+                                                                <option value="ahamove" >Ahamove</option>
+                                                                <option value="grab" >Grab</option>
+                                                                <option value="be" >Be</option>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-sm-12 col-12">
                                                         <div class="form-group">
+                                                            <label>Mã vận đơn:</label>
+                                                            <p th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" style="font-size: 11pt; font-weight: 600;" th:text="${HoaDonVanChuyen.giaoHang.maVanDon}"></p>
+                                                            <input th:if="${HoaDonVanChuyen.giaoHang.tenDVVC == null}" name="maVanDonGH" id="maVanDon" class="form-control" type="text" >
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Phí giao hàng</label>
+                                                            <p th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" style="font-size: 11pt; font-weight: 600;" th:text="'₫'+${#numbers.formatDecimal(HoaDonVanChuyen.giaoHang.phiGiaoHang, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                                            <input th:if="${HoaDonVanChuyen.giaoHang.tenDVVC == null}" name="phiGiaoHangGH" id="phiGiaoHang" class="form-control" type="text" >
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Trạng thái đơn hàng </label>
+                                                            <select name="trangThaiGiaoHang" class="select" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;  ">
+                                                                <option th:if="${HoaDonVanChuyen.giaoHang.tenDVVC == null}" value="daGuiHang">Đã lấy/gửi hàng</option>
+                                                                <option th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" value="dangGiao">Đang giao</option>
+                                                                <option th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" value="thanhCong" >Giao thành công</option>
+                                                                <option th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" value="thatBai" >Giao thất bại(Bị Hủy)</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" class="form-group">
                                                             <label>Vị trí hiện tại :</label>
                                                             <p style="font-size: 11pt; font-weight: 600;">Đơn hàng đã đến Thanh Hóa</p>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-sm-12 col-12">
-                                                        <div class="form-group">
+                                                        <div th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" class="form-group">
                                                             <label>Thời gian đã giao :</label>
                                                             <p style="font-size: 11pt; font-weight: 600;">01:03 2011/04/25</p>
                                                         </div>
                                                     </div>
+
                                                     <div style="border-top: 1px solid black;" class="col-lg-12 col-sm-12 col-12">
-                                                        <div class="form-group" style="display: flex;">
+                                                        <div th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" class="form-group" style="display: flex;">
                                                             <label style="font-size: 11pt; font-weight: 600;">Địa chỉ cập nhật:</label>
-                                                            <p style="color: red; font-size: 9pt; margin: 2px 0 0 20px;"> *Chuyển hàng tối đa 3 lần sẽ hoàn hàng về </p>
+                                                            <p style="color: red; font-size: 9pt; margin: 2px 0 0 20px;" th:text="'*Chuyển hàng tối đa 3 lần sẽ hoàn hàng về ( đã hủy ' + ${soLanHuy} + ' lần )' "> </p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Tỉnh :</label>
+                                                            <select class="select" id="city" name="city" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                            font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;  ">
+                                                                <option value="" selected>Chọn thành phố</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Quận/Huyện :</label>
+                                                            <select class="select" id="district" name="district" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;">
+                                                                <option value="" selected>Chọn quận/huyện</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Phường Xã :</label>
+                                                            <select class="select" id="ward" name="ward" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;">
+                                                                <option value="" selected>Chọn phường xã</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Mô tả :</label>
+                                                            <textarea name="moTa" style="height: 80px;" cols="1" rows="1"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <button style="height: 50.33px;" type="submit" class="btn btn-primary" onclick="luuThayDoi()">Lưu thay đổi</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                        <div class="col-md-4" style=" border-left: 0.5 px solid black ;">
+                                            <p style="font-size: 14pt; font-weight: 700; margin-top: 20px; text-align: center;">Vị trí đơn hàng</p>
+
+                                            <th:block th:each="x: ${giaoHangList}">
+                                                <p th:if="${x.trangThai == 2}" style="color: red; margin-top: 30px;" th:text="${#dates.format(x.thoiGian, 'HH:mm yyyy-MM-dd')}"></p>
+                                                <p th:if="${x.trangThai == 2}" style="color: red;" th:text="${x.viTri}"></p>
+
+                                                <p th:if="${x.trangThai == 1}" style="color: blue; margin-top: 30px;" th:text="${#dates.format(x.thoiGian, 'HH:mm yyyy-MM-dd')}"></p>
+                                                <p th:if="${x.trangThai == 1}" style="color: blue;" th:text="${x.viTri}"></p>
+
+                                                <p th:if="${x.trangThai == 0}" style=" margin-top: 30px;" th:text="${#dates.format(x.thoiGian, 'HH:mm yyyy-MM-dd')}"></p>
+                                                <p th:if="${x.trangThai == 0}" th:text="${x.viTri}"></p>
+                                            </th:block>
+
+                                        </div>
+                                    </div>
+                                    <div th:if="${showDonHangHoan}" class="row" th:object="${HoaDonVanChuyen}" style="border: 0.5px solid #ff9f43; margin: 50px 0 50px 0" >
+                                        <div class="col-md-8">
+
+                                            <form th:action="'/order/delivery/refund/update/' + ${HoaDonVanChuyen.idHD}" method="post">
+                                                <div class="row" style="padding: 10px;">
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 13pt; font-weight: 700;">Mã đơn hàng :</label>
+                                                            <p th:text="${HoaDonVanChuyen.maHD}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;" >Số sản phẩm :</label>
+                                                            <p th:text="${HoaDonVanChuyen.tongSP}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Sản phẩm hoàn</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-lg-2 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Ảnh</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Tên sản phẩm</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 13pt; font-weight: 700;">Size</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 13pt; font-weight: 700;">Màu</label>
+                                                        </div>
+                                                    </div>
+
+                                                    <th:block th:each="bill: ${HoaDonVanChuyen.hoaDonChiTiets}">
+                                                        <div class="col-lg-2 col-sm-12 col-12">
+                                                            <div class="form-group">
+                                                                <img th:src="@{'/images/imgsProducts/' + ${bill.chiTietGiay.hinhAnh.url1}}" style="height: 70px; width: 70px;" alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-4 col-sm-12 col-12">
+                                                            <div class="form-group">
+                                                                <p th:text="${bill.ChiTietGiay.giay.tenGiay}"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3 col-sm-12 col-12">
+                                                            <div class="form-group">
+                                                                <p th:text="${bill.ChiTietGiay.mauSac.tenMau}"></p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3 col-sm-12 col-12">
+                                                            <div class="form-group">
+                                                                <p th:text="${bill.ChiTietGiay.size.soSize}"></p>
+                                                            </div>
+                                                        </div>
+                                                    </th:block>
+
+                                                    <div class="col-lg-12 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Địa chỉ lấy hàng:</label>
+                                                            <p th:text="${HoaDonVanChuyen.diaChiNguoiNhan}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Trạng thái đơn hàng </label>
+                                                            <select name="trangThaiGiaoHang" class="select" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;  ">
+                                                                <option th:if="${HoaDonVanChuyen.giaoHang.tenDVVC == null}" value="daLayHang" >Đã lấy hàng</option>
+                                                                <option th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" value="thatBai" >Lấy hàng thất bại</option>
+                                                                <option th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" value="dangGiao" >Đang hoàn</option>
+                                                                <option th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" value="thanhCong" >Hoàn Thành Công</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Vị trí hiện tại :</label>
+                                                            <p>Đơn hàng đã đến Thanh Hóa</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Thời gian :</label>
+                                                            <p>01:03 2011/04/25</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Tên đơn vị vận chuyển</label>
+                                                            <p th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" style="font-size: 11pt; font-weight: 600;" th:text="${HoaDonVanChuyen.giaoHang.tenDVVC}"></p>
+                                                            <select th:if="${HoaDonVanChuyen.giaoHang.tenDVVC == null}" id="deliveryOptions" class="form-control" name="donViVanChuyen">
+                                                                <option value="humanExpress" selected>Human Express</option>
+                                                                <option value="ghn" >Giao hàng nhanh</option>
+                                                                <option value="ghtk" >Giao Hàng Tiết Kiệm</option>
+                                                                <option value="viettelPost" >Viettel Post</option>
+                                                                <option value="ahamove" >Ahamove</option>
+                                                                <option value="grab" >Grab</option>
+                                                                <option value="be" >Be</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Mã vận đơn:</label>
+                                                            <p th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" style="font-size: 11pt; font-weight: 600;" th:text="${HoaDonVanChuyen.giaoHang.maVanDon}"></p>
+                                                            <input th:if="${HoaDonVanChuyen.giaoHang.tenDVVC == null}" name="maVanDonGH" id="maVanDon" class="form-control" type="text" >
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Phí giao hàng</label>
+                                                            <p th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" style="font-size: 11pt; font-weight: 600;" th:text="'₫'+${#numbers.formatDecimal(HoaDonVanChuyen.giaoHang.phiGiaoHang, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                                            <input th:if="${HoaDonVanChuyen.giaoHang.tenDVVC == null}" name="phiGiaoHangGH" id="phiGiaoHang" class="form-control" type="text" >
+                                                        </div>
+                                                    </div>
+                                                    <div style="border-top: 1px solid black;" class="col-lg-12 col-sm-12 col-12">
+                                                        <div class="form-group" style="display: flex; margin-top: 15px;">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Địa chỉ cập nhật:</label>
+                                                            <p style="color: red; font-size: 9pt; margin: 2px 0 0 20px;"> *Lấy hàng tối đa 3 lần không được sẽ hủy đơn hàng hoàn </p>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-4 col-sm-12 col-12">
@@ -453,13 +718,258 @@
                                                     <div class="col-lg-12 col-sm-12 col-12">
                                                         <div class="form-group">
                                                             <label style="font-size: 11pt; font-weight: 600;">Mô tả :</label>
+                                                            <textarea name="moTa" style="height: 80px;" cols="1" rows="1"></textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <button style="height: 50.33px;" type="submit" class="btn btn-primary" onclick="luuThayDoi()">Lưu thay đổi</button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+                                        <div class="col-md-4" style=" border-left: 0.5 px solid black ;">
+                                            <p style="font-size: 14pt; font-weight: 700; margin-top: 20px; text-align: center;">Vị trí đơn hàng</p>
+                                            <th:block th:each="x: ${giaoHangListActive.viTriDonHangs}">
+                                                <p th:if="${x.trangThai == 2}" style="color: red; margin-top: 30px;" th:text="${#dates.format(x.thoiGian, 'HH:mm yyyy-MM-dd')}"></p>
+                                                <p th:if="${x.trangThai == 2}" style="color: red;" th:text="${x.viTri}"></p>
+
+                                                <p th:if="${x.trangThai == 1}" style="color: blue; margin-top: 30px;" th:text="${#dates.format(x.thoiGian, 'HH:mm yyyy-MM-dd')}"></p>
+                                                <p th:if="${x.trangThai == 1}" style="color: blue;" th:text="${x.viTri}"></p>
+
+                                                <p th:if="${x.trangThai == 0}" style=" margin-top: 30px;" th:text="${#dates.format(x.thoiGian, 'HH:mm yyyy-MM-dd')}"></p>
+                                                <p th:if="${x.trangThai == 0}" th:text="${x.viTri}"></p>
+                                            </th:block>
+                                        </div>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane show active" id="solid-rounded-justified-tab4">
+                                            <div style="border: 0.5px solid #ff9f43; padding: 10px;" class="row">
+                                                <div class="vertical-scroll scroll-demo">
+                                                    <table class="table  datanew ">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="position: sticky; top: 0;background-color: #209de3; color: white;">Mã Hóa Đơn</th>
+                                                                <th style="position: sticky; top: 0;background-color: #209de3; color: white;">Thời gian tạo</th>
+                                                                <th style="position: sticky; top: 0;background-color: #209de3; color: white;">Trạng thái</th>
+                                                                <th style="position: sticky; top: 0;background-color: #209de3; color: white;">Khách hàng</th>
+                                                                <th style="position: sticky; top: 0;background-color: #209de3; color: white;">Tổng SP</th>
+                                                                <th style="position: sticky; top: 0;background-color: #209de3; color: white;">Tổng tiền</th>
+                                                                <th style="position: sticky; top: 0;background-color: #209de3; color: white;">Vị trí đơn hàng</th>
+                                                                <th style="position: sticky; top: 0;background-color: #209de3; color: white;">Hành động</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <th:block th:each="x: ${hoaDonDGList}">
+                                                            <tr th:if="${x.idHDOld == null}">
+                                                                <td th:text="${x.maHD}"></td>
+                                                                <td th:text="${x.tgTao}"></td>
+                                                                <td th:if="${x.giaoHang.tenDVVC == null}">Chưa lấy/gửi hàng</td>
+                                                                <td th:if="${x.giaoHang.tenDVVC != null}">Đang giao</td>
+                                                                <td th:text="${x.tenNguoiNhan}"></td>
+                                                                <td th:text="${x.tongSP}"></td>
+                                                                <td th:text="'₫'+${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
+                                                                <td>Đơn hàng tại Thanh Hóa</td>
+                                                                <th>
+                                                                    <i class="fe fe-eye" data-bs-toggle="modal"
+                                                                       data-bs-target="#modalDVC" title="" style="cursor: pointer; margin-left: 20px; color: #ff9f43;"></i>
+                                                                    <a th:href="@{'/order/delivery/update/' + ${x.idHD}}">
+                                                                        <i class="fe fe-edit-3" data-bs-original-title="Cập nhật giao hàng"
+                                                                           data-bs-toggle="tooltip" title="" style="cursor: pointer; margin-left: 20px; color: #ff9f43;"></i>
+                                                                    </a>
+                                                                </th>
+                                                            </tr>
+                                                        </th:block>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="tab-pane" id="solid-rounded-justified-tab5" >
+                                            <div class="row">
+                                                <div class="vertical-scroll scroll-demo">
+                                                    <table class="table  datanew ">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="position: sticky; top: 0;background-color: #209de3; color: white;">Mã Hóa Đơn</th>
+                                                                <th style="position: sticky; top: 0;background-color: #209de3; color: white;">Thời gian tạo</th>
+                                                                <th style="position: sticky; top: 0;background-color: #209de3; color: white;">Trạng thái</th>
+                                                                <th style="position: sticky; top: 0;background-color: #209de3; color: white;">Khách hàng</th>
+                                                                <th style="position: sticky; top: 0;background-color: #209de3; color: white;">Tổng SP</th>
+                                                                <th style="position: sticky; top: 0;background-color: #209de3; color: white;">Tổng tiền</th>
+                                                                <th style="position: sticky; top: 0;background-color: #209de3; color: white;">Vị trí đơn hàng</th>
+                                                                <th style="position: sticky; top: 0;background-color: #209de3; color: white;">Hành động</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        <th:block th:each="x: ${hoaDonDGList}">
+                                                            <tr th:if="${x.idHDOld != null}">
+                                                                <td th:text="${x.maHD}"></td>
+                                                                <td th:text="${x.tgTao}"></td>
+
+                                                                <td style="color: #0875eb;"
+                                                                    th:unless="${x.trangThaiHoan == 5 or x.trangThaiHoan == 4}">Hoàn thành công</td>
+                                                                <td th:if="${x.trangThaiHoan == 5}">Đang hoàn</td>
+                                                                <td th:if="${x.trangThaiHoan == 4}">Chờ Hoàn</td>
+                                                                <td style="color: #d81324;" th:if="${x.trangThaiHoan == 3}">Hủy</td>
+
+                                                                <td th:text="${x.tenNguoiNhan}"></td>
+                                                                <td th:text="${x.tongSP}"></td>
+                                                                <td th:text="'₫'+${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
+                                                                <td>Đơn hàng tại Thanh Hóa</td>
+                                                                <th>
+                                                                    <i class="fe fe-eye" data-bs-toggle="modal"
+                                                                       data-bs-target="#modalDVC" title="" style="cursor: pointer; margin-left: 20px; color: #ff9f43;"></i>
+                                                                    <a th:if="${x.trangThaiHoan != 6 and x.trangThaiHoan != 7}" th:href="@{'/order/delivery/refund/update/' + ${x.idHD}}">
+                                                                        <i class="fe fe-edit-3" style="cursor: pointer; margin-left: 20px; color: #ff9f43;"></i>
+                                                                    </a>
+                                                                </th>
+                                                            </tr>
+                                                        </th:block>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div th:class="${tabpane3}" id="solid-rounded-justified-tab3">
+                                    <div th:if="${showHuyHoanHang}" class="row" th:object="${HoaDonVanChuyen}" style="border: 0.5px solid #ff9f43; margin: 50px 0 50px 0" >
+                                        <div class="col-md-8">
+
+                                            <form th:action="'/order/return/update/' + ${HoaDonVanChuyen.idHD}" method="post">
+                                                <div class="row" style="padding: 10px;">
+                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Mã đơn hàng :</label>
+                                                            <p style="font-size: 13pt; font-weight: 700;" th:text="${HoaDonVanChuyen.maHD}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-2 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Số tiền :</label>
+                                                            <p style="font-size: 11pt; font-weight: 600;" th:text="'₫'+${#numbers.formatDecimal(HoaDonVanChuyen.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Hóa đơn không nhận hàng:</label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Thời gian hủy:</label>
+                                                            <p style="font-size: 11pt; font-weight: 600;" th:text="${#dates.format(HoaDonVanChuyen.tgHuy, 'HH:mm yyyy-MM-dd')}"></p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Địa chỉ hoàn:</label>
+                                                            <p style="font-size: 11pt; font-weight: 600;">35 Lê Văn Lương, Thanh Xuân, Hà Nội || SDT 0384329003 || Người nhận : Phạm Hữu Nhân</p>
+                                                        </div>
+                                                    </div>
+                                                    <div  th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Tên đơn vị vận chuyển</label>
+                                                            <p style="font-size: 11pt; font-weight: 600;" th:text="${HoaDonVanChuyen.giaoHang.tenDVVC}"></p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div  th:if="${HoaDonVanChuyen.giaoHang.maVanDon != null}" class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Mã vận đơn hoàn:</label>
+                                                            <p style="font-size: 11pt; font-weight: 600;" th:if="${HoaDonVanChuyen.giaoHang.maVanDonHoan != null}" th:text="${HoaDonVanChuyen.giaoHang.maVanDon}"></p>
+                                                            <input th:if="${HoaDonVanChuyen.giaoHang.maVanDonHoan == null}" name="maVanDonGH" id="maVanDon" class="form-control" type="text" >
+                                                        </div>
+                                                    </div>
+
+                                                    <div  th:if="${HoaDonVanChuyen.giaoHang.maVanDon != null}" class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Phí hoàn hàng</label>
+                                                            <p th:if="${HoaDonVanChuyen.giaoHang.maVanDonHoan != null}" style="font-size: 11pt; font-weight: 600;" th:text="'₫'+${#numbers.formatDecimal(HoaDonVanChuyen.giaoHang.phiGiaoHang, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                                            <input th:if="${HoaDonVanChuyen.giaoHang.maVanDonHoan == null}" name="phiGiaoHangGH" id="phiGiaoHang" class="form-control" type="number" >
+                                                        </div>
+                                                    </div>
+
+                                                    <div th:if="${chuaBatDau}" class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Trạng thái đơn hàng </label>
+                                                            <select name="trangThaiGiaoHang" class="select" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;  ">
+                                                                <option  value="batDauHoan">Bắt đầu hoàn hàng</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div th:if="${daBatDau}" class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label>Trạng thái đơn hàng </label>
+                                                            <select name="trangThaiGiaoHang" class="select" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;  ">
+                                                                <option value="dangGiao">Đang hoàn</option>
+                                                                <option value="thanhCong" >Hoàn thành công</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div th:if="${daBatDau}" class="col-lg-4 col-sm-12 col-12">
+                                                        <div th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" class="form-group">
+                                                            <label>Vị trí hiện tại :</label>
+                                                            <p style="font-size: 11pt; font-weight: 600;">Đơn hàng đã đến Thanh Hóa</p>
+                                                        </div>
+                                                    </div>
+                                                    <div th:if="${daBatDau}" class="col-lg-4 col-sm-12 col-12">
+                                                        <div th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" class="form-group">
+                                                            <label>Thời gian đã giao :</label>
+                                                            <p style="font-size: 11pt; font-weight: 600;">01:03 2011/04/25</p>
+                                                        </div>
+                                                    </div>
+
+                                                    <div th:if="${daBatDau}" style="border-top: 1px solid black;" class="col-lg-12 col-sm-12 col-12">
+                                                        <div  class="form-group" style="display: flex;">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Địa chỉ cập nhật:</label>
+                                                            <p style="color: red; font-size: 9pt; margin: 2px 0 0 20px;" th:text="'*Chuyển hàng tối đa 3 lần sẽ hoàn hàng về ( đã hủy ' + ${soLanHuy} + ' lần )' "> </p>
+                                                        </div>
+                                                    </div>
+                                                    <div th:if="${daBatDau}" class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Tỉnh :</label>
+                                                            <select class="select" id="city" name="city" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                            font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;  ">
+                                                                <option value="" selected>Chọn thành phố</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div th:if="${daBatDau}" class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Quận/Huyện :</label>
+                                                            <select class="select" id="district" name="district" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;">
+                                                                <option value="" selected>Chọn quận/huyện</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div th:if="${daBatDau}" class="col-lg-4 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Phường Xã :</label>
+                                                            <select class="select" id="ward" name="ward" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;">
+                                                                <option value="" selected>Chọn phường xã</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12 col-sm-12 col-12">
+                                                        <div class="form-group">
+                                                            <label style="font-size: 11pt; font-weight: 600;">Mô tả :</label>
                                                             <textarea name="moTa" style="height: 80px;" id="" cols="1" rows="1"></textarea>
                                                         </div>
                                                     </div>
                                                     <div class="col-lg-12">
                                                     </div>
                                                     <div class="col-lg-12">
-                                                        <button style="height: 50.33px;" type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                                                        <button style="height: 50.33px;" type="submit" class="btn btn-primary" onclick="luuThayDoi()">Lưu thay đổi</button>
                                                     </div>
                                                 </div>
                                             </form>
@@ -468,7 +978,14 @@
                                         <div class="col-md-4" style=" border-left: 0.5 px solid black ;">
                                             <p style="font-size: 14pt; font-weight: 700; margin-top: 20px; text-align: center;">Vị trí đơn hàng</p>
 
-                                            <th:block th:each="x: ${giaoHangListActive}">
+                                            <th:block th:each="x: ${giaoHangList}">
+                                                <p th:if="${x.trangThai == 4}" style="color: red; margin-top: 30px;" th:text="${#dates.format(x.thoiGian, 'HH:mm yyyy-MM-dd')}"></p>
+                                                <p th:if="${x.trangThai == 4}" style="color: red;" th:text="${x.viTri}"></p>
+
+                                                <p th:if="${x.trangThai == 3}" style="color: blue; margin-top: 30px;" th:text="${#dates.format(x.thoiGian, 'HH:mm yyyy-MM-dd')}"></p>
+                                                <p th:if="${x.trangThai == 3}" style="color: blue;" th:text="${x.viTri}"></p>
+
+
                                                 <p th:if="${x.trangThai == 2}" style="color: red; margin-top: 30px;" th:text="${#dates.format(x.thoiGian, 'HH:mm yyyy-MM-dd')}"></p>
                                                 <p th:if="${x.trangThai == 2}" style="color: red;" th:text="${x.viTri}"></p>
 
@@ -479,52 +996,8 @@
                                                 <p th:if="${x.trangThai == 0}" th:text="${x.viTri}"></p>
                                             </th:block>
 
-
                                         </div>
                                     </div>
-
-                                    <div style="border: 0.5px solid #ff9f43; padding: 10px;" class="row">
-                                        <div class="vertical-scroll scroll-demo">
-                                            <table class="table  datanew ">
-                                                <thead>
-                                                <tr>
-                                                    <th>Mã Hóa Đơn</th>
-                                                    <th>Thời gian tạo</th>
-                                                    <th>Trạng thái</th>
-                                                    <th>Khách hàng</th>
-                                                    <th>Tổng SP</th>
-                                                    <th>Tổng tiền</th>
-                                                    <th>Vị trí đơn hàng</th>
-                                                    <th>Hành động</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <th:block th:each="x: ${hoaDonDGList}">
-                                                        <tr>
-                                                            <td th:text="${x.maHD}"></td>
-                                                            <td th:text="${x.tgTao}"></td>
-                                                            <td>Đang giao</td>
-                                                            <td th:text="${x.tenNguoiNhan}"></td>
-                                                            <td th:text="${x.tongSP}"></td>
-                                                            <td th:text="'₫'+${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
-                                                            <td>Đơn hàng tại Thanh Hóa</td>
-                                                            <th>
-                                                                <i class="fe fe-eye" data-bs-toggle="modal"
-                                                                   data-bs-target="#modalDVC" title="" style="cursor: pointer; margin-left: 20px; color: #ff9f43;"></i>
-                                                                <a th:href="@{'/order/delivery/update/' + ${x.idHD}}">
-                                                                    <i class="fe fe-edit-3" data-bs-original-title="Cập nhật giao hàng"
-                                                                       data-bs-toggle="tooltip" title="" style="cursor: pointer; margin-left: 20px; color: #ff9f43;"></i>
-                                                                </a>
-                                                            </th>
-                                                        </tr>
-                                                    </th:block>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                </div>
-                                <div th:class="${tabpane3}" id="solid-rounded-justified-tab3">
                                     <div class="row">
                                         <div class="vertical-scroll scroll-demo">
                                             <table class="table  datanew ">
@@ -557,6 +1030,9 @@
                                                                 <i class="fe fe-eye" data-bs-toggle="modal"
                                                                    data-bs-target="#modalDone" style="cursor: pointer; margin-left: 30px; color: #ff9f43;"
                                                                    aria-label="fe fe-printer"></i>
+                                                                <a th:if="${x.trangThai == 4}" th:href="@{'/order/return/' + ${x.idHD}}">
+                                                                    <i style="margin-left: 20px; color: #0a53be" class="si si-reload" data-bs-toggle="tooltip" title="Hoàn hàng về kho"></i>
+                                                                </a>
                                                             </th>
                                                         </tr>
                                                     </th:block>
@@ -915,6 +1391,25 @@
 
 <script src="/js/script.js"></script>
 
+
+<script>
+    function luuThayDoi() {
+        var selectedOption = document.getElementById("deliveryOptions").value;
+        var maVanDon = document.getElementById("maVanDon").value;
+        var phiGiaoHang = document.getElementById("phiGiaoHang").value;
+
+        if (selectedOption !== "humanExpress") {
+            if (maVanDon === "" || phiGiaoHang === "") {
+                alert("Bạn cần nhập mã vận đơn và phí giao hàng khi chọn đơn vị vận chuyển khác Human Express.");
+                event.preventDefault()
+            }
+        }
+
+        // Thực hiện các thay đổi khác hoặc gửi dữ liệu đi nếu cần
+        // ...
+        // ...
+    }
+</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 
 <script>

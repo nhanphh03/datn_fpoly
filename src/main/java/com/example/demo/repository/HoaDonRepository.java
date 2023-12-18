@@ -55,5 +55,7 @@ public interface HoaDonRepository extends JpaRepository<HoaDon , UUID> {
 
     HoaDon findByIdHDOld(UUID idHDOld);
 
+    @Query(value = "select * from hoa_don where day(tg_tao) = day(GETDATE()) and loai_hd=1 ",nativeQuery = true)
+    List<HoaDon> listAllHoaDonByNhanVienHienTai();
 
 }

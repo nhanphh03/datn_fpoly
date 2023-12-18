@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -23,16 +24,15 @@ public class GiaoHang {
     @Column(name = "id_Giao_Hang")
     private UUID idGH;
 
-    @ManyToOne
-    @JoinColumn(name="idHD")
+    @OneToMany(mappedBy = "giaoHang")
+    private List<ViTriDonHang> viTriDonHangs;
+
+    @OneToOne
+    @JoinColumn(name = "id_HD")
     private HoaDon hoaDon;
 
-    @ManyToOne
-    @JoinColumn(name="id_DVVC")
-    private DonViVanChuyen donViVanChuyen;
-
-    @Column(name = "ma_van_don")
-    private String maVanDon;
+    @Column(name = "ma_giao_hang")
+    private String maGiaoHang;
 
     @Column(name="trang_Thai")
     private int trangThai;
@@ -43,6 +43,21 @@ public class GiaoHang {
     @Column(name ="noi_Dung")
     private String noiDung;
 
-    @Column(name ="vi_Tri_DH")
-    private String viTri;
+    @Column(name ="ten_dvvc")
+    private String tenDVVC;
+
+    @Column(name ="ma_van_don")
+    private String maVanDon;
+
+    @Column(name ="ma_van_don_hoan")
+    private String maVanDonHoan;
+
+    @Column(name ="phi_giao_hang")
+    private Double phiGiaoHang;
+
+    @Column(name ="phi_hoan_hang")
+    private Double phiHoanHang;
+
+    @Column(name = "thoi_Gian_Hoan")
+    private Date thoiGianHoan;
 }

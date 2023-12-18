@@ -13,7 +13,7 @@ public class StaffLoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Object obj = request.getSession().getAttribute("staffLogged");
         if (obj != null){
-            return false;
+            return true;
         }
         response.sendRedirect("/login");
         return false;

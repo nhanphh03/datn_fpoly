@@ -88,12 +88,14 @@ public class BanHangController {
     private UUID idHoaDon = null;
     private int tongSanPham = 0;
 
-    private double dieuKienKhuyenMai= 0;
+    private double dieuKienKhuyenMai = 0;
 
-    @RequestMapping(value = {"", "/", "/home", "/hien-thi"})
+    @RequestMapping(value = {"/", "/home", "/hien-thi"})
     public String hienThi(Model model
             , @ModelAttribute("messageSuccess") String messageSuccess
             , @ModelAttribute("messageError") String messageError) {
+        NhanVien nhanVien = (NhanVien) httpSession.getAttribute("staffLogged");
+
         model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
         model.addAttribute("tongTien", 0);
         model.addAttribute("tongSanPham", 0);
@@ -107,6 +109,10 @@ public class BanHangController {
         if (!"true".equals(messageError)) {
             model.addAttribute("messageError", false);
         }
+
+        List<HoaDon> listHoaDonHomNay = hoaDonService.listAllHoaDonByNhanVienHienTai(nhanVien);
+        model.addAttribute("listHoaDonHomNay", listHoaDonHomNay);
+
         return "offline/index";
     }
 
@@ -124,6 +130,7 @@ public class BanHangController {
             hd.setLoaiHD(1);
             hd.setTrangThaiHoan(8);
             hd.setNhanVien(nhanVien);
+            hd.setTongTienDG(0.0);
             hoaDonService.add(hd);
             model.addAttribute("message", "Tạo hóa đơn thành công");
             redirectAttributes.addFlashAttribute("messageSuccess", true);
@@ -165,9 +172,9 @@ public class BanHangController {
 
         //điều kiện hóa đơn
 //        this.dieuKienKhuyenMai = (double) httpSession.getAttribute("dieuKienkhuyenMai");
-        if (hoaDonChiTietService.tongTien(findByIdHoaDon) >= dieuKienKhuyenMai ){
+        if (hoaDonChiTietService.tongTien(findByIdHoaDon) >= dieuKienKhuyenMai) {
             model.addAttribute("khuyenMai", this.tienKhuyenMai);
-        }else {
+        } else {
             this.tienKhuyenMai = 0;
             model.addAttribute("khuyenMai", 0);
         }
@@ -179,9 +186,9 @@ public class BanHangController {
 
         //khach hang
         KhachHang khachHang = hoaDon.getKhachHang();
-        if (khachHang == null || khachHang.getIdKH() == null){
-            model.addAttribute("khachHang",null);
-        }else {
+        if (khachHang == null || khachHang.getIdKH() == null) {
+            model.addAttribute("khachHang", null);
+        } else {
             model.addAttribute("khachHang", httpSession.getAttribute("khachHang"));
         }
         if (messageSuccess == null || !"true".equals(messageSuccess)) {
@@ -191,6 +198,7 @@ public class BanHangController {
         if (messageError == null || !"true".equals(messageError)) {
             model.addAttribute("messageError", false);
         }
+        model.addAttribute("idHoaDon",idHoaDon);
         return "offline/index";
     }
 
@@ -204,7 +212,7 @@ public class BanHangController {
             model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
             return "redirect:/ban-hang/";
         }
-        if(keyword.length() >= 3 && keyword.substring(0,3).equals("CTG")){
+        if (keyword.length() >= 3 && keyword.substring(0, 3).equals("CTG")) {
             ChiTietGiay chiTietGiay = giayChiTietService.findByMa(keyword);
             if (chiTietGiay == null) {
                 redirectAttributes.addFlashAttribute("messageError", true);
@@ -214,7 +222,7 @@ public class BanHangController {
             model.addAttribute("quetQR", chiTietGiay);
             model.addAttribute("idHoaDon", idHoaDon);
             model.addAttribute("showModalQuetQR", true);
-        }else {
+        } else {
             List<GiayViewModel> list = giayViewModelService.getAll(keyword);
             if (list.isEmpty()) {
                 redirectAttributes.addFlashAttribute("messageError", true);
@@ -280,18 +288,18 @@ public class BanHangController {
         HoaDon hoaDon = hoaDonService.getOne(idHoaDon);
         HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.getOne(idHoaDon, idChiTietGiay);
         if (hoaDonChiTiet != null) {
+            hoaDonChiTiet.setDonGia(chiTietGiay.getGiaBan() * (hoaDonChiTiet.getSoLuong() + soLuong));
+            hoaDonChiTiet.setDonGiaTruocGiam(chiTietGiay.getSoTienTruocKhiGiam() * (hoaDonChiTiet.getSoLuong() + soLuong));
             hoaDonChiTiet.setSoLuong(hoaDonChiTiet.getSoLuong() + soLuong);
             hoaDonChiTiet.setTgSua(new Date());
             hoaDonChiTiet.setTrangThai(1);
-            hoaDonChiTiet.setDonGia(chiTietGiay.getGiaBan() * (hoaDonChiTiet.getSoLuong() + soLuong));
-            hoaDonChiTiet.setDonGiaTruocGiam(chiTietGiay.getSoTienTruocKhiGiam() * (hoaDonChiTiet.getSoLuong() + soLuong));
             hoaDonChiTietService.add(hoaDonChiTiet);
         } else {
             HoaDonChiTiet hdct = new HoaDonChiTiet();
             hdct.setChiTietGiay(chiTietGiay);
             hdct.setHoaDon(hoaDon);
-            hdct.setDonGia(chiTietGiay.getGiaBan()* soLuong);
-            hdct.setDonGiaTruocGiam(chiTietGiay.getSoTienTruocKhiGiam()*soLuong);
+            hdct.setDonGia(chiTietGiay.getGiaBan() * soLuong);
+            hdct.setDonGiaTruocGiam(chiTietGiay.getSoTienTruocKhiGiam() * soLuong);
             hdct.setSoLuong(soLuong);
             hdct.setTrangThai(1);
             hdct.setTgThem(new Date());
@@ -344,6 +352,8 @@ public class BanHangController {
 
         hoaDonChiTiet.setTrangThai(0);
         hoaDonChiTiet.setSoLuong(0);
+        hoaDonChiTiet.setDonGia(0.0);
+        hoaDonChiTiet.setDonGiaTruocGiam(0.0);
         hoaDonChiTietService.add(hoaDonChiTiet);
         tongSanPham--;
         httpSession.setAttribute("tongSP", tongSanPham);
@@ -425,13 +435,14 @@ public class BanHangController {
     @PostMapping("/khach-hang/add")
     public String addKhachHang(@Valid @ModelAttribute("kh") KhachHang khachHang, BindingResult result, Model model) {
         if (result.hasErrors()) {
+            model.addAttribute("addKH", new KhachHang());
+            model.addAttribute("showModalAddKH", true);
             return "offline/index";
         } else {
             String ma = String.valueOf(Math.floor(((Math.random() * 899999) + 100000)));
             khachHang.setMaKH("KH" + ma);
             khachHang.setTrangThai(1);
-            LoaiKhachHang loaiKhachHang = loaiKhachHangService.getByIdLoaiKhachHang(
-                    UUID.fromString("22BE1F84-AE1D-442D-AAAF-4504F3552F70"));
+            LoaiKhachHang loaiKhachHang = loaiKhachHangService.findByMaLKH("H1");
             khachHang.setLoaiKhachHang(loaiKhachHang);
             khachHang.setTgThem(new Date());
 
@@ -480,7 +491,7 @@ public class BanHangController {
     }
 
     @PostMapping("/khuyen-mai")
-    public String chonKhuyenMai( RedirectAttributes redirectAttributes) {
+    public String chonKhuyenMai(RedirectAttributes redirectAttributes) {
         this.tongTien = (double) httpSession.getAttribute("tongTien");
         UUID idVoucherBill = UUID.fromString(request.getParameter("selectVoucherShipping"));
         UUID idHoaDon = (UUID) httpSession.getAttribute("idHoaDon");
@@ -504,7 +515,7 @@ public class BanHangController {
         return "redirect:/ban-hang/cart/hoadon/" + idHoaDon;
     }
 
-//    @GetMapping("/searchByCode")
+    //    @GetMapping("/searchByCode")
 //    public String searchByCode(@RequestParam(value = "code", required = false) String code, Model model,
 //                               RedirectAttributes redirectAttributes) {
 //        UUID idHoaDon = (UUID) httpSession.getAttribute("idHoaDon");
@@ -546,5 +557,12 @@ public class BanHangController {
         hoaDonChiTiet.setSoLuong(quantity);
         hoaDonChiTietService.add(hoaDonChiTiet);
         return "redirect:/ban-hang/cart/hoadon/" + idHoaDon;
+    }
+
+    @GetMapping("/bill/print/{idHD}")
+    private String printBill(Model model, @PathVariable UUID idHD){
+        HoaDon hoaDon = hoaDonService.getOne(idHD);
+        model.addAttribute("billPrint", hoaDon);
+        return "offline/printBillOffline";
     }
 }

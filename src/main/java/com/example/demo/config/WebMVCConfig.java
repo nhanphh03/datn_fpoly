@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.i18n.CookieLocaleResolver;
 
@@ -34,6 +35,14 @@ public class WebMVCConfig  implements WebMvcConfigurer {
     private ManageLoginInterceptor manageLoginInterceptor;
 
     @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // Disable caching for all resources
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/static/")
+                .setCachePeriod(0);
+    }
+
+    @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(buyerLoginInterceptor)
                 .addPathPatterns("/buyer/cart/**","/buyer/checkout/**", "/buyer/addresses/**", "/buyer/setting/**", "/buyer/fa&recently/**", "/buyer/purchase/**", "buyer/shop/addProductCart/**")
@@ -45,7 +54,7 @@ public class WebMVCConfig  implements WebMvcConfigurer {
                 .addPathPatterns("/order/**")
                 .excludePathPatterns("/login");
         registry.addInterceptor(staffLoginInterceptor)
-                .addPathPatterns("/sell/**")
+                .addPathPatterns("/ban-hang/**")
                 .excludePathPatterns("/login");
     }
 

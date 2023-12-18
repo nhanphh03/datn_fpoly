@@ -5,6 +5,7 @@ import com.example.demo.repository.CTGViewModelRepository;
 import com.example.demo.repository.GiayChiTietRepository;
 import com.example.demo.service.*;
 import com.example.demo.viewModel.CTGViewModel;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,9 @@ public class AuthController {
     @Autowired
     private HanhViKHService hanhViKHService;
 
+    @Autowired
+    private ThongBaoServices thongBaoServices;
+
     @GetMapping("/login")
     public String getFormBuyerLogin(){
 
@@ -60,9 +64,7 @@ public class AuthController {
 
 
     @PostMapping("/login")
-    private String buyerLogin(Model model, RedirectAttributes redirectAttributes,
-                              HttpSession session){
-
+    private String buyerLogin(Model model, HttpSession session) throws MessagingException {
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -89,7 +91,6 @@ public class AuthController {
                     return "redirect:/buyer/";
                 }
 
-//Add new Hanh vi Khach Hang
                 String maHVKH = kh.getHoTenKH() + kh.getMaKH() + kh.getCCCDKH() ;
                 HanhViKhachHang hvkh = new HanhViKhachHang();
                 hvkh.setKhachHang(kh);
@@ -97,15 +98,12 @@ public class AuthController {
                 hvkh.setTrangThai(1);
                 hvkh.setMa_HVKH(maHVKH);
                 hanhViKHService.addNewHanhViKH(hvkh);
-//End
 
-//Add new Gio Hang Khach Hang
                 GioHang gioHang = new GioHang();
                 gioHang.setKhachHang(kh);
                 gioHang.setTrangThai(1);
                 gioHang.setTgThem(date);
                 gioHangService.saveGH(gioHang);
-//End
 
                 session.setAttribute("KhachHangLogin", kh);
                 session.setAttribute("GHLogged", gioHang);
@@ -208,12 +206,16 @@ public class AuthController {
             model.addAttribute("formRegister", true);
             return "/online/register";
         }
+        Date date = new Date();
+        String maKH = "KH0" + date.getDate() + generateRandomNumbers();
+
         KhachHang khachHang = new KhachHang();
         khachHang.setEmailKH(email);
         khachHang.setHoTenKH(fullName);
         khachHang.setMatKhau(password);
         khachHang.setTrangThai(2);
-        Date date = new Date();
+        khachHang.setMaKH(maKH);
+
         khachHang.setTgThem(date);
         LoaiKhachHang loaiKhachHang = loaiKHService.findByMaLKH("H1");
         khachHang.setLoaiKhachHang(loaiKhachHang);
@@ -246,6 +248,14 @@ public class AuthController {
             KHRegiter.setTrangThai(1);
             khachHangService.save(KHRegiter);
             session.invalidate();
+
+            ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
+            thongBaoKhachHang.setKhachHang(KHRegiter);
+            thongBaoKhachHang.setTrangThai(0);
+            thongBaoKhachHang.setNoiDungTB("Tạo tài khoản thành công");
+            thongBaoKhachHang.setTgTB(new Date());
+            thongBaoServices.addThongBao(thongBaoKhachHang);
+
             return"online/login";
         }else {
             model.addAttribute("formRegister", false);

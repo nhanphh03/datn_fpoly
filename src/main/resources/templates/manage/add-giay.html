@@ -13,6 +13,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="/images/img/icon.png">
 
     <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/plugins/icons/flags/flags.css">
 
     <link rel="stylesheet" href="/css/animate.css">
 
@@ -25,8 +26,29 @@
     <link rel="stylesheet" href="/plugins/alertify/alertify.min.css"/>
     <link rel="stylesheet" href="/plugins/toastr/toatr.css"/>
     <link rel="stylesheet" href="/css/style.css">
+    <!-- Thêm link thư viện Alertify -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/alertify.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/css/themes/default.min.css"/>
+    <style>
+        .alertify .ajs-message {
+            background-color: black;
+            color: #ffffff;
+        }
+
+        /* Thay đổi màu nền của tiêu đề */
+        .alertify .ajs-header {
+            background-color: coral;
+            color: #ffffff;
+        }
+
+        /* Thay đổi màu nền của các nút */
+        .alertify .ajs-buttons .ajs-ok {
+            background-color: #2ecc71;
+            color: #ffffff;
+        }
+    </style>
 </head>
-<body>
+<body class="mini-sidebar">
 <div id="global-loader">
     <div class="whirly-loader"></div>
 </div>
@@ -45,53 +67,20 @@
         </div>
 
         <a id="mobile_btn" class="mobile_btn" href="#sidebar">
-<span class="bar-icon">
-<span></span>
-<span></span>
-<span></span>
-</span>
+            <span class="bar-icon">
+            <span></span>
+            <span></span>
+            <span></span>
+            </span>
         </a>
 
         <ul class="nav user-menu">
 
-            <li class="nav-item">
-                <div class="top-nav-search">
-                    <a href="javascript:void(0);" class="responsive-search">
-                        <i class="fa fa-search"></i>
-                    </a>
-                    <form action="#">
-                        <div class="searchinputs">
-                            <input type="text" placeholder="Search Here ...">
-                            <div class="search-addon">
-                                <span><img src="/images/img/icons/closes.svg" alt="img"></span>
-                            </div>
-                        </div>
-                        <a class="btn" id="searchdiv"><img src="/images/img/icons/search.svg" alt="img"></a>
-                    </form>
-                </div>
-            </li>
-
-
             <li class="nav-item dropdown has-arrow flag-nav">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="javascript:void(0);" role="button">
-                    <img src="/images/img/flags/us1.png" alt="" height="20">
+                    <i class="flag flag-vn"></i>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="/images/img/flags/us.png" alt="" height="16"> English
-                    </a>
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="/images/img/flags/fr.png" alt="" height="16"> French
-                    </a>
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="/images/img/flags/es.png" alt="" height="16"> Spanish
-                    </a>
-                    <a href="javascript:void(0);" class="dropdown-item">
-                        <img src="/images/img/flags/de.png" alt="" height="16"> German
-                    </a>
-                </div>
             </li>
-
 
             <li class="nav-item dropdown">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link" data-bs-toggle="dropdown">
@@ -108,9 +97,9 @@
                             <li class="notification-message">
                                 <a href="activities.html">
                                     <div class="media d-flex">
-<span class="avatar flex-shrink-0">
-<img alt="" src="/images/img/profiles/avatar-02.jpg">
-</span>
+                                        <span class="avatar flex-shrink-0">
+                                        <img alt="" src="/images/img/profiles/avatar-02.jpg">
+                                        </span>
                                         <div class="media-body flex-grow-1">
                                             <p class="noti-details"><span class="noti-title">John Doe</span> added new
                                                 task <span class="noti-title">Patient appointment booking</span></p>
@@ -122,9 +111,9 @@
                             <li class="notification-message">
                                 <a href="activities.html">
                                     <div class="media d-flex">
-<span class="avatar flex-shrink-0">
-<img alt="" src="/images/img/profiles/avatar-03.jpg">
-</span>
+                                        <span class="avatar flex-shrink-0">
+                                        <img alt="" src="/images/img/profiles/avatar-03.jpg">
+                                        </span>
                                         <div class="media-body flex-grow-1">
                                             <p class="noti-details"><span class="noti-title">Tarah Shropshire</span>
                                                 changed the task name <span class="noti-title">Appointment booking with payment gateway</span>
@@ -137,9 +126,9 @@
                             <li class="notification-message">
                                 <a href="activities.html">
                                     <div class="media d-flex">
-<span class="avatar flex-shrink-0">
-<img alt="" src="/images/img/profiles/avatar-06.jpg">
-</span>
+                                        <span class="avatar flex-shrink-0">
+                                        <img alt="" src="/images/img/profiles/avatar-06.jpg">
+                                        </span>
                                         <div class="media-body flex-grow-1">
                                             <p class="noti-details"><span class="noti-title">Misty Tison</span> added
                                                 <span class="noti-title">Domenic Houston</span> and <span
@@ -153,9 +142,9 @@
                             <li class="notification-message">
                                 <a href="activities.html">
                                     <div class="media d-flex">
-<span class="avatar flex-shrink-0">
-<img alt="" src="/images/img/profiles/avatar-17.jpg">
-</span>
+                                        <span class="avatar flex-shrink-0">
+                                        <img alt="" src="/images/img/profiles/avatar-17.jpg">
+                                        </span>
                                         <div class="media-body flex-grow-1">
                                             <p class="noti-details"><span class="noti-title">Rolland Webber</span>
                                                 completed task <span class="noti-title">Patient and Doctor video conferencing</span>
@@ -168,9 +157,9 @@
                             <li class="notification-message">
                                 <a href="activities.html">
                                     <div class="media d-flex">
-<span class="avatar flex-shrink-0">
-<img alt="" src="/images/img/profiles/avatar-13.jpg">
-</span>
+                                        <span class="avatar flex-shrink-0">
+                                        <img alt="" src="/images/img/profiles/avatar-13.jpg">
+                                        </span>
                                         <div class="media-body flex-grow-1">
                                             <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span>
                                                 added new task <span class="noti-title">Private chat module</span></p>
@@ -189,14 +178,14 @@
 
             <li class="nav-item dropdown has-arrow main-drop">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
-<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
-<span class="status online"></span></span>
+                    <span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
+                    <span class="status online"></span></span>
                 </a>
                 <div class="dropdown-menu menu-drop-user">
                     <div class="profilename">
                         <div class="profileset">
-<span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
-<span class="status online"></span></span>
+                            <span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
+                            <span class="status online"></span></span>
                             <div class="profilesets">
                                 <h6 th:text="${session.managerLogged.hoTenNV}"></h6>
                                 <h5 th:text="${session.managerLogged.chucVu.tenCV}"></h5>
@@ -215,14 +204,13 @@
             </li>
         </ul>
 
-
         <div class="dropdown mobile-user-menu">
             <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"
                aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
             <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item" href="profile.html">My Profile</a>
-                <a class="dropdown-item" href="generalsettings.html">Settings</a>
-                <a class="dropdown-item" href="signin.html">Logout</a>
+                <a class="dropdown-item" href="profile.html">Thông tin cá nhân</a>
+                <a class="dropdown-item" href="generalsettings.html">Cài đặt</a>
+                <a class="dropdown-item" href="signin.html">Đăng xuất</a>
             </div>
         </div>
 
@@ -231,6 +219,10 @@
         <div class="sidebar-inner slimscroll">
             <div id="sidebar-menu" class="sidebar-menu">
                 <ul>
+                    <li>
+                        <a href="/manage/"><img src="/images/iconlogo.png" alt="img"><span>Trang chủ nè</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
                         </a>
@@ -248,23 +240,11 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg"
-                                                           alt="img"><span> Quản Lý Đặt Hàng</span> <span
-                                class="menu-arrow"></span></a>
-                        <ul>
-                            <li><a href="purchaselist.html">Purchase List</a></li>
-                            <li><a href="addpurchase.html">Add Purchase</a></li>
-                            <li><a href="importpurchase.html">Import Purchase</a></li>
-                        </ul>
-                    </li>
-                    <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/expense1.svg" alt="img"><span> Quản Lý Hóa Đơn</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="/manage/hoa-don/hien-thi">Hóa đơn tại quầy</a></li>
-                            <li><a href="expenselist.html">Expense List</a></li>
-                            <li><a href="createexpense.html">Add Expense</a></li>
-                            <li><a href="expensecategory.html">Expense Category</a></li>
+                            <li><a href="/manage/bill/offline">Hóa đơn tại quầy</a></li>
+                            <li><a href="/manage/bill/online">Quản lý hóa đơn online</a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -277,13 +257,11 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/return1.svg" alt="img"><span> Quản Lý Đổi Trả</span>
+                        <a href="javascript:void(0);"><img src="/images/img/icons/purchase1.svg" alt="img"><span> Lịch sử thanh toán</span>
                             <span class="menu-arrow"></span></a>
                         <ul>
-                            <li><a href="salesreturnlist.html">Sales Return List</a></li>
-                            <li><a href="createsalesreturn.html">Add Sales Return </a></li>
-                            <li><a href="purchasereturnlist.html">Purchase Return List</a></li>
-                            <li><a href="createpurchasereturn.html">Add Purchase Return </a></li>
+                            <li><a href="/manage/history/delivery">Thanh toán tiền mặt</a></li>
+                            <li><a href="/manage/history/pay">Thanh toán chuyển khoản </a></li>
                         </ul>
                     </li>
                     <li class="submenu">
@@ -295,20 +273,24 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="javascript:void(0);"><img src="/images/img/icons/transfer1.svg" alt="img"/><span>Quản lý Khuyến Mãi</span>
+                        <a href="javascript:void(0);">
+                            <img src="/images/img/icons/transfer1.svg" alt="img"/>
+                            <span>Quản lý Khuyến Mãi</span>
                             <span class="menu-arrow"></span>
                         </a>
                         <ul>
                             <li><a href="/manage/voucher">Khuyến Mãi Chung</a></li>
                             <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
                             <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
+                            <li><a href="/manage/voucher-ship">Khuyến Mãi Giao Hàng</a></li>
+                            <li><a href="/manage/voucher-ship">Khuyến Mãi Khách Hàng</a></li>
                         </ul>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
-    <form th:object="${giay}" method="post" th:action="@{/manage/giay/viewAdd/add}">
+    <form th:object="${giay}" method="post" th:action="@{/manage/giay/viewAdd/add}" onsubmit="return validateGiayForm()" name="giayForm">
         <div class="page-wrapper">
             <div class="content">
                 <div class="page-header">
@@ -324,7 +306,7 @@
                             <div class="col-lg-12 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Mã Giày</label>
-                                    <input type="text" th:field="*{maGiay}" required>
+                                    <input type="text" th:field="*{maGiay}" >
                                     <br><br>
                                     <strong th:if="${#fields.hasErrors('maGiay')}"
                                             class="alert alert-danger alert-dismissible fade"
@@ -334,7 +316,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Mô tả</label>
-                                    <textarea class="form-control" th:field="*{moTa}" required></textarea>
+                                    <textarea class="form-control" th:field="*{moTa}" ></textarea>
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -342,7 +324,7 @@
                                     <div class="col-lg-9 col-sm-6 col-12">
                                         <div class="form-group">
                                             <label>Tên Giày</label>
-                                            <input type="text" th:field="*{tenGiay}" required>
+                                            <input type="text" th:field="*{tenGiay}" >
                                             <br><br>
                                             <strong th:if="${#fields.hasErrors('tenGiay')}"
                                                     class="alert alert-danger alert-dismissible fade"
@@ -428,7 +410,7 @@
             </div>
             <div class="modal-body">
                 <form th:object="${hangAdd}" method="post" th:action="@{/manage/giay/hang/viewAdd/add}"
-                      enctype="multipart/form-data"
+                      enctype="multipart/form-data" onsubmit="return validateHangForm()" name="hangForm"
                       style="width: auto;height: auto">
                     <div class="page-header">
                         <div class="page-title">
@@ -453,13 +435,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Hãng</label>
-                                        <input type="text" name="maHang" required>
+                                        <input type="text" name="maHang" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Hãng</label>
-                                        <input type="text" name="tenHang" required>
+                                        <input type="text" name="tenHang" >
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -494,7 +476,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form th:object="${chatLieuAdd}" method="post" th:action="@{/manage/giay/chat-lieu/viewAdd/add}"
+                <form th:object="${chatLieuAdd}" method="post" th:action="@{/manage/giay/chat-lieu/viewAdd/add}" onsubmit="return validateChatLieuForm()" name="chatLieuForm"
                       style="width: auto;height: auto">
                     <div class="page-header">
                         <div class="page-title">
@@ -508,13 +490,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Chất Liệu</label>
-                                        <input type="text" th:field="*{maChatLieu}" required>
+                                        <input type="text" th:field="*{maChatLieu}" >
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Chất Liệu</label>
-                                        <input type="text" th:field="*{tenChatLieu}" required>
+                                        <input type="text" th:field="*{tenChatLieu}" >
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -542,28 +524,28 @@
 //
 <div th:if="${maGiayError}" id="warning1" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${tenGiayError}" id="warning2" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Tên Giày không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${hangError}" id="warning3" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Hãng không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${chatLieuError}" id="warning4" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Chất Liệu không được bỏ trống.</div>
     </div>
@@ -571,21 +553,21 @@
 //Hãng
 <div th:if="${messageHang}" id="successHang" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Hãng của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${maHangError}" id="warning5" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Hãng không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${tenHangError}" id="warning6" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Tên Hãng không được bỏ trống.</div>
     </div>
@@ -593,42 +575,42 @@
 //Chất liệu
 <div th:if="${messageChatLieu}" id="successChatLieu" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Thành Công</div>
         <div class="toast-message">Chất Liệu của bạn đã được Thêm</div>
     </div>
 </div>
 <div th:if="${maChatLieuError}" id="warning7" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Chất Liệu không được bỏ trống trống.</div>
     </div>
 </div>
 <div th:if="${tenChatLieuError}" id="warning8" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Tên Chất Liệu không được bỏ trống.</div>
     </div>
 </div>
 <div th:if="${ErrormessageHang}" id="checkMaHang" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Hãng đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${ErrormessageChatLieu}" id="checkMaChatLieu" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Chất Liệu đã tồn tại.</div>
     </div>
 </div>
 <div th:if="${Errormessage}" id="checkMaGiay" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button">×</button>
+        <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Mã Giày đã tồn tại.</div>
     </div>
@@ -660,6 +642,8 @@
 <script src="/plugins/toastr/toastr.js"></script>
 
 <script src="/js/script.js"></script>
+<script src="/plugins/alertify/custom-alertify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/AlertifyJS/1.13.1/alertify.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         // Lấy phần tử có id="modal"
@@ -803,6 +787,136 @@
     $(document).ready(function () {
         $('.select').select2();
     });
+</script>
+<script>
+    function validateGiayForm() {
+        var maGiay = document.forms["giayForm"]["maGiay"].value;
+        var moTa = document.forms["giayForm"]["moTa"].value;
+        var tenGiay = document.forms["giayForm"]["tenGiay"].value;
+        var hang = document.forms["giayForm"]["hang"].value;
+        var chatLieu = document.forms["giayForm"]["chatLieu"].value;
+
+        // Kiểm tra cho từng trường
+        if (maGiay === "") {
+            showAlert("Vui lòng nhập Mã Giày");
+            return false;
+        }
+
+        if (!maGiay.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Mã Giày chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        if (moTa === "") {
+            showAlert("Vui lòng nhập Mô tả");
+            return false;
+        }
+
+        if (tenGiay === "") {
+            showAlert("Vui lòng nhập Tên Giày");
+            return false;
+        }
+
+        if (!tenGiay.match(/^[a-zA-Z0-9\s]+$/)) {
+            showAlert("Tên Giày chỉ được chứa chữ cái, số và khoảng trắng");
+            return false;
+        }
+
+        if (hang === "") {
+            showAlert("Vui lòng chọn Hãng");
+            return false;
+        }
+
+        if (chatLieu === "") {
+            showAlert("Vui lòng chọn Chất Liệu");
+            return false;
+        }
+
+        return true;
+    }
+
+    function showAlert(message) {
+        alertify.alert(message).setting({
+            'title': 'Thông báo',
+            'label': 'Đồng ý',
+        }).show();
+    }
+</script>
+<script>
+    function validateHangForm() {
+        var maHang = document.forms["hangForm"]["maHang"].value;
+        var tenHang = document.forms["hangForm"]["tenHang"].value;
+        var logoHang = document.forms["hangForm"]["logoHang"].value;
+
+
+        if (maHang === "") {
+            showAlert("Vui lòng nhập Mã Hãng");
+            return false;
+        }
+
+        if (!maHang.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Mã Hãng chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        if (tenHang === "") {
+            showAlert("Vui lòng nhập Tên Hãng");
+            return false;
+        }
+
+        if (!tenHang.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Tên Hãng chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        if (logoHang === "") {
+            showAlert("Vui lòng chọn Logo Hãng");
+            return false;
+        }
+        return true;
+    }
+    function showAlert(message) {
+        alertify.alert(message).setting({
+            'title': 'Thông báo',
+            'label': 'Đồng ý',
+        }).show();
+    }
+</script>
+<script>
+    function validateChatLieuForm() {
+        var maChatLieu = document.forms["chatLieuForm"]["maChatLieu"].value;
+        var tenChatLieu = document.forms["chatLieuForm"]["tenChatLieu"].value;
+
+        if (maChatLieu === "") {
+            showAlert("Vui lòng nhập Mã Chất Liệu");
+            return false;
+        }
+
+        if (!maChatLieu.match(/^[a-zA-Z0-9]+$/)) {
+            showAlert("Mã Chất Liệu chỉ được chứa chữ cái và số");
+            return false;
+        }
+
+        if (tenChatLieu === "") {
+            showAlert("Vui lòng nhập Tên Chất Liệu");
+            return false;
+        }
+
+        if (!tenChatLieu.match(/^[a-zA-Z0-9\s]+$/)) {
+            showAlert("Tên Chất Liệu chỉ được chứa chữ cái, số và khoảng trắng");
+            return false;
+        }
+
+
+        return true;
+    }
+
+    function showAlert(message) {
+        alertify.alert(message).setting({
+            'title': 'Thông báo',
+            'label': 'Đồng ý',
+        }).show();
+    }
 </script>
 </body>
 </html>

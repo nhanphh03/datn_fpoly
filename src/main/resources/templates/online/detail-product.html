@@ -97,12 +97,14 @@
         </div>
 
         <div class="col-lg-6 d-flex align-items-center" >
-          <div style="width: 100%; display: flex; background-color: white; border: 10px;">
-            <input  class="form-control" style="border: none; width: 90%;"  placeholder="Nhập văn bản..." type="text">
-            <div style="width: 60px; background-color: #f3f2ee; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-              <a href=""><img src="/images/img/icon/search.png" alt=""></a>
+          <form action="/buyer/search" method="post">
+            <div style="width: 100%; display: flex; background-color: white; border: 10px;">
+              <input th:value="${keyword}" name="keyWord" class="form-control" style="border: none; width: 500px;"  placeholder="Nhập văn bản..." type="text">
+              <div style="width: 60px; background-color: #f3f2ee; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <a type="submit" href=""><img src="/images/img/icon/search.png" alt=""></a>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
 
         <div class="col-lg-3 d-flex align-items-center">
@@ -112,22 +114,19 @@
               <a th:href="@{'/buyer/purchase'}">Đơn mua</a>
             </div>
 
-
             <!--        Buyer FullName Begin    -->
             <div class="header__top__hover">
               <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
               <ul>
                 <li><a th:href="@{'/buyer/setting'}" >Cài đặt</a></li>
                 <li><a th:href="@{'/buyer/logout'}">Đăng xuất</a></li>
+
               </ul>
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}" style="color: #ffffff;font-size: 13px;text-transform: uppercase;letter-spacing: 2px;display: inline-block;cursor: pointer;">Đăng nhập</a>
+              <a><span> | | </span></a>
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}" style="color: #ffffff;font-size: 13px;text-transform: uppercase;letter-spacing: 2px;display: inline-block;cursor: pointer;">Đăng ký </a>
             </div>
-
             <!--            Buyer FullName End -->
-
-            <div class="header__top__hover"  >
-              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Đăng nhập</a>
-              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Đăng ký</a>
-            </div>
 
           </div>
         </div>
@@ -162,116 +161,38 @@
 
 
           <div class="nav user-menu" style="height: 30px;">
-
             <li class="nav-item dropdown" style="height: 30px;">
               <a data-bs-toggle="dropdown" href="#" >
                 <img style="margin-bottom: 42px; width: 18px; height: 18px;"   src="/images/img/icon/notification.png" >
               </a>
-              <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
+              <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${soThongBao}"></span>
               <div class="dropdown-menu notifications" style="width:300px; top: -80px; position: absolute;">
                 <div class="topnav-dropdown-header">
                   <span class="notification-title">Thông báo</span>
-                  <a href="javascript:void(0)" class="clear-noti"> Xóa sạch </a>
+                  <a class="clear-noti"> Xóa sạch </a>
                 </div>
                 <div class="vertical-scroll scroll-demo" >
+                  <th:block th:if="${x.trangThai != 3}" th:each="x : ${listThongBao}">
+                    <a href="#" class="items-noticafitions">
+                      <div class="items-notica">
+                                        <span class="avatar">
+                                            <img alt="" src="/images/img/blog/blog-1.jpg">
+                                        </span>
+                        <div class="text-notica">
+                          <span class="notica-title" th:text="${fullNameLogin}"></span>
+                          <p class="notica-times">1 phút trước</p>
+                          <input th:if="x.trangThai == 1" checked class="notica-read" type="radio" name="" id="">
+                          <input th:if="x.trangThai == 0">
+                        </div>
+                        <p class="notica-status">---------</p>
+                        <div class="text-contents">
+                          <p class="notica-contents" th:text="${x.noiDungTB}"></p>
+                        </div>
 
-                  <a href="#" class="items-noticafitions">
-                    <div class="items-notica">
-                      <span class="avatar">
-                          <img alt="" src="/images/img/blog/blog-1.jpg">
-                      </span>
-                      <div class="text-notica">
-                        <span class="notica-title">Phạm Hữu Nhân </span>
-                        <p class="notica-times">1 phút trước</p>
-                        <input checkedS class="notica-read" type="radio" name="" id="">
-                      </div>
-                      <p class="notica-status">deliever oder</p>
-                      <div class="text-contents">
-                        <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
-                      </div>
-
-
-                    </div>
-                  </a>
-
-                  <a href="#" class="items-noticafitions">
-                    <div class="items-notica">
-                      <span class="avatar">
-                          <img alt="" src="/images/img/blog/blog-1.jpg">
-                      </span>
-                      <div class="text-notica">
-                        <span class="notica-title">Phạm Hữu Nhân </span>
-                        <p class="notica-times">10 phút trước</p>
-                        <input class="notica-read" type="radio" name="" id="" checked>
-                      </div>
-                      <p class="notica-status">deliever oder</p>
-                      <div class="text-contents">
-                        <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
-                      </div>
-
-
-                    </div>
-                  </a>
-
-                  <a href="#" class="items-noticafitions">
-                    <div class="items-notica">
-                      <span class="avatar">
-                          <img alt="" src="/images/img/blog/blog-1.jpg">
-                      </span>
-                      <div class="text-notica">
-                        <span class="notica-title">Phạm Hữu Nhân </span>
-                        <p class="notica-times">15 phút trước</p>
-                        <!-- <input class="notica-read" type="radio" checked name="" id=""> -->
-                      </div>
-                      <p class="notica-status">deliever oder</p>
-                      <div class="text-contents">
-                        <p class="notica-contents" >Vui long xac nhan don hang</p>
-                      </div>
-
-
-                    </div>
-                  </a>
-
-                  <a href="#" class="items-noticafitions">
-                    <div class="items-notica">
-                      <span class="avatar">
-                          <img alt="" src="/images/img/blog/blog-1.jpg">
-                      </span>
-                      <div class="text-notica">
-                        <span class="notica-title">Phạm Hữu Nhân </span>
-                        <p class="notica-times">10 phút trước</p>
 
                       </div>
-                      <input class="notica-read" type="radio" name="" id="">
-                      <p class="notica-status">deliever oder</p>
-                      <div class="text-contents">
-                        <p class="notica-contents" >Don hang cua ban dang duoc giao
-                        </p>
-                      </div>
-
-
-                    </div>
-                  </a>
-
-                  <a href="#" class="items-noticafitions">
-                    <div class="items-notica">
-                      <span class="avatar">
-                          <img alt="" src="/images/img/blog/blog-1.jpg">
-                      </span>
-                      <div class="text-notica">
-                        <span class="notica-title">Phạm Hữu Nhân </span>
-                        <p class="notica-times">10 phút trước</p>
-                        <input class="notica-read" type="radio" name="" id="">
-                      </div>
-                      <p class="notica-status">deliever oder</p>
-                      <div class="text-contents">
-                        <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
-                      </div>
-
-
-                    </div>
-                  </a>
-
+                    </a>
+                  </th:block>
                 </div>
                 <div class="topnav-dropdown-footer">
                   <a href="activities.html">Xem tất cả thông báo</a>
@@ -308,7 +229,7 @@
             <div class="product__details__breadcrumb">
               <a th:href="@{'/buyer/homeBuyer'}" >Home</a>
               <a th:href="@{'/buyer/shop'}" >Shop</a>
-              <span>Product Details</span>
+              <span>Chi tiết sản phẩm</span>
             </div>
           </div>
         </div>
@@ -376,7 +297,7 @@
           <div class="col-lg-8">
             <div class="product__details__text">
               <h4 th:text="${product.tenGiay}"></h4>
-              <h3 class="price-range" th:text="'₫' + ${#numbers.formatDecimal(minPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' ' + '-' + ' ₫' + ${#numbers.formatDecimal(maxPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}" ></h3>
+              <h3 id="price-range" class="price-range" th:text="'₫' + ${#numbers.formatDecimal(minPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' ' + '-' + ' ₫' + ${#numbers.formatDecimal(maxPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}" ></h3>
               <h3 id="price_product"></h3>
               <p th:text="${product.moTa}"></p>
               <div style="display: flex; margin-left: 215px">
@@ -425,13 +346,13 @@
 
               <div class="product__details__option">
                 <div class="product__details__option__size" style="margin-left: 50px">
-
                   <div class="label-container" style="display: flex; flex-wrap: wrap; justify-content: center; ">
                     <th:block th:each="x : ${listSizeCTG}">
-                      <label th:name="${x[1]}" class="label" style="width: 200px; margin: 5px; font-weight: unset; font-size: small;height: 40px;" th:text="${x[0]}">
-                      </label>
-                      <a th:if="${x[2]}" th:href="@{'/buyer/receiveMail/' +${x[1]}}"><img src="/images/img/icon/view.png"></a>
+                      <label th:name="${x[1]}" class="label" style="width: 200px; margin: 5px; font-weight: unset; font-size: small; height: 40px;"
+                             onclick="capNhatGia(event)" th:text="${x[0]}"></label>
+                      <a th:if="${x[2]}" th:href="@{'/buyer/receiveMail/' + ${x[1]}}"><img src="/images/img/icon/view.png"></a>
                     </th:block>
+
                   </div>
 
                 </div>
@@ -443,7 +364,7 @@
                 <div class="quantity">
                   <p style="display: inline-block; margin: 0;">Số lượng :</p>
                   <div  style="display: inline-block; ">
-                    <input  oninput="validateInput()" id="quantityInput" style="width: 80px;" type="number" class="form-control" aria-label="Quantity" min="1" max="5" value="1">
+                    <input oninput="validateInput()" id="quantityInput" style="width: 80px;" type="number" class="form-control" aria-label="Quantity" min="1" max="10" value="1">
                   </div>
                   <p class="sum-remind" id="quantityProductMax" style="display: inline-block; margin: 0;" th:text="${sunProductAvaible}"></p>
                   <p style="display: inline-block; margin: 0;"><span id="quantity_remind"></span></p>
@@ -466,12 +387,7 @@
               </div>
 
               <div class="product__details__last__option">
-                <h5><span>Guaranteed Safe Checkout</span></h5>
-                <ul>
-                  <li><span>SKU:</span> 3812912</li>
-                  <li><span>Categories:</span> Clothes</li>
-                  <li><span>Tag:</span> Clothes, Skin, Body</li>
-                </ul>
+                <h5><span>Thanh toán được đảm bảo</span></h5>
               </div>
             </div>
           </div>
@@ -484,15 +400,13 @@
                 <ul class="nav nav-tabs" role="tablist">
                   <li class="nav-item">
                     <a class="nav-link active" data-toggle="tab" href="#tabs-5"
-                       role="tab">Description</a>
+                       role="tab">Gợi ý sản phẩm</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tabs-6" role="tab">Customer
-                      Previews(5)</a>
+                    <a class="nav-link" data-toggle="tab" href="#tabs-6" role="tab">Đánh giá</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" href="#tabs-7" role="tab">Additional
-                      information</a>
+                    <a class="nav-link" data-toggle="tab" href="#tabs-7" role="tab">Thông tin thêm</a>
                   </li>
                 </ul>
                 <div class="tab-content">
@@ -896,15 +810,15 @@
                   <div class="tab-pane" id="tabs-6" role="tabpanel">
                     <div class="product__details__tab__content">
                       <div class="product__details__tab__content__item">
-                        <h5>Product Ratings</h5>
+                        <h5>Đánh giá sản phẩm</h5>
                         <div class="rating">
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star"></i>
                           <i class="fa fa-star-o"></i>
-                          <span> - 5 Reviews</span>
-                          <span> (13 Sold)</span>
+                          <span> - 5 Đã đánh giá</span>
+                          <span> (13 Đã bán)</span>
                         </div>
                       </div>
                     </div>
@@ -912,102 +826,65 @@
                     <hr>
 
                     <div class="product__details__tab__content">
-                      <div style="display: flex;">
-                        <img src="/images/img/blog/blog-1.jpg" alt=""
-                             style="height: 70px; width: 70px; border-radius: 50%; margin-right: 30px">
-                        <div class="product__details__tab__content__item">
+                      <th:block th:each="x : ${listDanhGiaKhachHang}">
+                        <div style="display: flex;">
+                          <img src="/images/img/blog/blog-1.jpg" alt=""
+                               style="height: 70px; width: 70px; border-radius: 50%; margin-right: 30px">
+                          <div class="product__details__tab__content__item">
 
-                          <h5>Nguye2n Van A</h5>
+                            <h5 th:text="${x.hoaDon.khachHang.hoTenKH}"></h5>
 
-                          <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                            <span> - 5 Reviews</span>
+                            <div th:if="${x.soSao == 1}" class="rating">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star-o"></i>
+                              <i class="fa fa-star-o"></i>
+                              <i class="fa fa-star-o"></i>
+                              <i class="fa fa-star-o"></i>
+                            </div>
+
+                            <div th:if="${x.soSao == 2}" class="rating">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star-o"></i>
+                              <i class="fa fa-star-o"></i>
+                              <i class="fa fa-star-o"></i>
+                            </div>
+
+                            <div th:if="${x.soSao == 3}" class="rating">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star-o"></i>
+                              <i class="fa fa-star-o"></i>
+                            </div>
+
+                            <div th:if="${x.soSao == 4}" class="rating">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star-o"></i>
+                            </div>
+
+                            <div th:if="${x.soSao == 5}" class="rating">
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                              <i class="fa fa-star"></i>
+                            </div>
+
+                            <p th:text="${x.noiDungDG}"></p>
+                            <br>
+
+                            <img th:src="@{'/images/imagesRate/' + ${x.anhDG}}" style="height: 150px;" alt="">
+                            <img th:if="x.anhDG2 != null" th:src="@{'/images/imagesRate/' + ${x.anhDG2}}" style="height: 150px;" alt="">
+                            <img th:if="x.anhDG3 != null" th:src="@{'/images/imagesRate/' + ${x.anhDG3}}" style="height: 150px;" alt="">
+
                           </div>
-                          <p>As is the case with any new technology product, the cost of a Pocket
-                            PC
-                            was substantial during it’s early release. For approximately
-                            $700.00,
-                            consumers could purchase one of top-of-the-line Pocket PCs in 2003.
-                            These days, customers are finding that prices have become much more
-                            reasonable now that the newness is wearing off. For approximately
-                            $350.00, a new Pocket PC can now be purchased.</p>
-                          <br>
-
-                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
-                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
-                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
-
                         </div>
-                      </div>
-                      <hr>
-                      <div style="display: flex;">
-                        <img src="/images/img/blog/blog-1.jpg" alt=""
-                             style="height: 70px; width: 70px; border-radius: 50%; margin-right: 30px">
-                        <div class="product__details__tab__content__item">
-
-                          <h5>Nguye2n Van A</h5>
-
-                          <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                            <span> - 5 Reviews</span>
-                          </div>
-                          <p>As is the case with any new technology product, the cost of a Pocket
-                            PC
-                            was substantial during it’s early release. For approximately
-                            $700.00,
-                            consumers could purchase one of top-of-the-line Pocket PCs in 2003.
-                            These days, customers are finding that prices have become much more
-                            reasonable now that the newness is wearing off. For approximately
-                            $350.00, a new Pocket PC can now be purchased.</p>
-                          <br>
-
-                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
-                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
-                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
-
-                        </div>
-                      </div>
-                      <hr>
-                      <div style="display: flex;">
-                        <img src="/images/img/blog/blog-1.jpg" alt=""
-                             style="height: 70px; width: 70px; border-radius: 50%; margin-right: 30px">
-                        <div class="product__details__tab__content__item">
-
-                          <h5>Nguye2n Van A</h5>
-
-                          <div class="rating">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-o"></i>
-                            <span> - 5 Reviews</span>
-                          </div>
-                          <p>As is the case with any new technology product, the cost of a Pocket
-                            PC
-                            was substantial during it’s early release. For approximately
-                            $700.00,
-                            consumers could purchase one of top-of-the-line Pocket PCs in 2003.
-                            These days, customers are finding that prices have become much more
-                            reasonable now that the newness is wearing off. For approximately
-                            $350.00, a new Pocket PC can now be purchased.</p>
-                          <br>
-
-                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
-                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
-                          <img src="/images/img/banner/banner-1.jpg" style="height: 150px;" alt="">
-
-                        </div>
-                      </div>
-                      <hr>
+                        <hr>
+                      </th:block>
                     </div>
 
                   </div>
@@ -1063,31 +940,31 @@
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="footer__about">
           <div class="footer__logo">
-            <a href="#"><img src="/images/img/footer-logo.png" alt=""></a>
+            <a href="#"><img src="/Logo.png" alt=""></a>
           </div>
-          <p>The customer is at the heart of our unique business model, which includes design.</p>
-          <a href="#"><img src="/images/img/payment.png" alt=""></a>
+          <p> Khách hàng là trung tâm của mô hình kinh doanh độc đáo của chúng tôi, bao gồm cả thiết kế.</p>
+          <a href="#"><img src="img/payment.png" alt=""></a>
         </div>
       </div>
       <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
         <div class="footer__widget">
-          <h6>Shopping</h6>
+          <h6>Cửa hàng</h6>
           <ul>
-            <li><a href="#">Clothing Store</a></li>
-            <li><a href="#">Trending Shoes</a></li>
-            <li><a href="#">Accessories</a></li>
-            <li><a href="#">Sale</a></li>
+            <li><a href="/buyer/shop">Gian hàng</a></li>
+            <li><a href="/buyer/shop">Xu Hướng</a></li>
+            <li><a href="/buyer/shop">Đề Xuất</a></li>
+            <li><a href="/buyer/shop/sale">Giảm giá</a></li>
           </ul>
         </div>
       </div>
       <div class="col-lg-2 col-md-3 col-sm-6">
         <div class="footer__widget">
-          <h6>Shopping</h6>
+          <h6>Mua sắm</h6>
           <ul>
-            <li><a href="#">Contact Us</a></li>
-            <li><a href="#">Payment Methods</a></li>
-            <li><a href="#">Delivary</a></li>
-            <li><a href="#">Return & Exchanges</a></li>
+            <li><a href="#">Liên Hệ</a></li>
+            <li><a href="#">Thanh Toán</a></li>
+            <li><a href="#">Giao Hàng</a></li>
+            <li><a href="#">Hoàn Hàng/Tiền</a></li>
           </ul>
         </div>
       </div>
@@ -1095,7 +972,7 @@
         <div class="footer__widget">
           <h6>NewLetter</h6>
           <div class="footer__newslatter">
-            <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+            <p>Hãy là người đầu tiên biết về hàng mới, sách tra cứu, khuyến mại và khuyến mãi!</p>
             <form action="#">
               <input type="text" placeholder="Your email">
               <button type="submit"><span class="icon_mail_alt"></span></button>
@@ -1109,11 +986,10 @@
         <div class="footer__copyright__text">
           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
           <p>Copyright ©
-            <script>
-              document.write(new Date().getFullYear());
-            </script>2020
-            All rights reserved | This template is made with <i class="fa fa-heart-o"
-                                                                aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+            2023
+            All rights reserved | This template is edit with <i class="fa fa-heart-o"
+                                                                aria-hidden="true"></i> by <a
+                    href="https://www.instagram.com/nhanngu_03/" target="_blank">Nhan Pham</a>
           </p>
           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         </div>
@@ -1123,9 +999,21 @@
 </footer>
 <!-- Footer Section End -->
 
+<!--Section giá và size begin-->
+
+<section>
+  <th:block th:each="x : ${listGiavaSize}">
+    <div th:value="${x.size.soSize}" hidden>
+      <input th:value="${x.giaBan}">
+      <input th:value="${x.size.soSize}">
+    </div>
+  </th:block>
+</section>
+<!--Section giá và size end-->
+
 <!--Modal Begin-->
 <div class="modal fade" id="noticaAddVoucher" tabindex="-1" role="dialog" aria-labelledby="messAddThanhCongTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-dialog modal-dialog-centered" role="document" style="width: 600px;">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="messAddThanhCongTitle" >Thông báo !</h5>
@@ -1147,19 +1035,53 @@
   </div>
 </div>
 <!--Modal End-->
-
-<!--<script>-->
-<!--     alert("Please login to add the product to cart");-->
-<!--</script>-->
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script>
   function validateInput() {
-    var inputElement = document.getElementById('quantityInput');
-    var inputValue = inputElement.value;
+    var input = document.getElementById('quantityInput');
+    var inputValue = input.value;
 
-    if (inputValue <= 0 || isNaN(inputValue)) {
-      inputElement.value = 1;
+    // Remove non-numeric characters using a regular expression
+    inputValue = inputValue.replace(/[^0-9]/g, '');
+
+    // Ensure the value is not empty
+    if (inputValue === '') {
+      inputValue = '1'; // Set a default value if empty
     }
+
+    // Check if the value is within the range 1 to 10
+    inputValue = parseInt(inputValue, 10);
+    if (inputValue < 1 || isNaN(inputValue)) {
+      // If outside the range or not a number, set the value to 1
+      input.value = '1';
+    } else if (inputValue > 10) {
+      // If greater than 10, set the value to 10
+      input.value = '10';
+    } else {
+      // Update the input value
+      input.value = inputValue;
+    }
+  }
+</script>
+<script>
+  function capNhatGia(event) {
+    // Lấy giá trị của label
+    var giaTriLabel = event.target.textContent || event.target.innerText;
+
+    // Tìm phần ẩn tương ứng cho kích thước đã chọn
+    var phanAn = document.querySelector('section div[value="' + giaTriLabel + '"]');
+
+    // Lấy giá trị giá từ phần ẩn
+    var gia = phanAn.querySelector('input:first-child').value;
+
+    var giaDinhDang = gia.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+
+    // Cập nhật giá hiển thị
+    var hienThiGia = document.getElementById('price-range');
+    hienThiGia.textContent = giaDinhDang;
+    // Cập nhật giá hiển thị
+    var hienThiGia = document.getElementById('price-range');
+    hienThiGia.textContent = '₫' + gia ;
   }
 </script>
 

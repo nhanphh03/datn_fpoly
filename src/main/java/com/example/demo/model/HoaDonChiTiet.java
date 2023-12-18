@@ -33,19 +33,19 @@ public class HoaDonChiTiet {
     private HoaDon hoaDon;
 
     @Column(name = "don_Gia")
-    private double donGia;
+    private Double donGia;
 
     @Column(name = "so_Luong")
     private int soLuong;
 
     @Column(name = "don_Gia_Truoc_Khi_Giam")
-    private double donGiaTruocGiam;
+    private Double donGiaTruocGiam;
 
     @Column(name = "so_Tien_Giam")
-    private double soTienGiam;
+    private Double soTienGiam;
 
     @Column(name = "trang_Thai")
-    private int trangThai;
+    private Integer trangThai;
 
     @Column(name = "tg_Them")
     private Date tgThem;

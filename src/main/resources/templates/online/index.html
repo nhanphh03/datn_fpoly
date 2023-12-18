@@ -57,12 +57,14 @@
                 </div>
 
                 <div class="col-lg-6 d-flex align-items-center" >
-                    <div style="width: 100%; display: flex; background-color: white; border: 10px;">
-                        <input  class="form-control" style="border: none; width: 90%;"  placeholder="Nhập văn bản..." type="text">
-                        <div style="width: 60px; background-color: #f3f2ee; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                            <a href=""><img src="/images/img/icon/search.png" alt=""></a>
+                    <form action="/buyer/search" method="post">
+                        <div style="width: 100%; display: flex; background-color: white; border: 10px;">
+                            <input th:value="${keyword}" name="keyWord" class="form-control" style="border: none; width: 500px;"  placeholder="Nhập văn bản..." type="text">
+                            <div style="width: 60px; background-color: #f3f2ee; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                <a type="submit" href=""><img src="/images/img/icon/search.png" alt=""></a>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
 
                 <div class="col-lg-3 d-flex align-items-center">
@@ -79,15 +81,13 @@
                             <ul>
                                 <li><a th:href="@{'/buyer/setting'}" >Cài đặt</a></li>
                                 <li><a th:href="@{'/buyer/logout'}">Đăng xuất</a></li>
+
                             </ul>
+                            <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}" style="color: #ffffff;font-size: 13px;text-transform: uppercase;letter-spacing: 2px;display: inline-block;cursor: pointer;">Đăng nhập</a>
+                            <a><span> | | </span></a>
+                            <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}" style="color: #ffffff;font-size: 13px;text-transform: uppercase;letter-spacing: 2px;display: inline-block;cursor: pointer;">Đăng ký </a>
                         </div>
-
                         <!--            Buyer FullName End -->
-
-                        <div class="header__top__hover"  >
-                            <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Đăng nhập</a>
-                            <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Đăng ký</a>
-                        </div>
 
                     </div>
                 </div>
@@ -127,111 +127,34 @@
                             <a data-bs-toggle="dropdown" href="#" >
                                 <img style="margin-bottom: 42px; width: 18px; height: 18px;"   src="/images/img/icon/notification.png" >
                             </a>
-                            <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
+                            <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${soThongBao}"></span>
                             <div class="dropdown-menu notifications" style="width:300px; top: -80px; position: absolute;">
                                 <div class="topnav-dropdown-header">
                                     <span class="notification-title">Thông báo</span>
-                                    <a href="javascript:void(0)" class="clear-noti"> Xóa sạch </a>
+                                    <a class="clear-noti"> Xóa sạch </a>
                                 </div>
                                 <div class="vertical-scroll scroll-demo" >
-
-                                    <a href="#" class="items-noticafitions">
+                                    <th:block th:if="${x.trangThai != 3}" th:each="x : ${listThongBao}">
+                                        <a href="#" class="items-noticafitions">
                                         <div class="items-notica">
                                         <span class="avatar">
                                             <img alt="" src="/images/img/blog/blog-1.jpg">
                                         </span>
                                             <div class="text-notica">
-                                                <span class="notica-title">Phạm Hữu Nhân </span>
+                                                <span class="notica-title" th:text="${fullNameLogin}"></span>
                                                 <p class="notica-times">1 phút trước</p>
-                                                <input checkedS class="notica-read" type="radio" name="" id="">
+                                                <input th:if="x.trangThai == 1" checked class="notica-read" type="radio" name="" id="">
+                                                <input th:if="x.trangThai == 0">
                                             </div>
-                                            <p class="notica-status">deliever oder</p>
+                                            <p class="notica-status">---------</p>
                                             <div class="text-contents">
-                                                <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
+                                                <p class="notica-contents" th:text="${x.noiDungTB}"></p>
                                             </div>
 
 
                                         </div>
                                     </a>
-
-                                    <a href="#" class="items-noticafitions">
-                                        <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
-                                            <div class="text-notica">
-                                                <span class="notica-title">Phạm Hữu Nhân </span>
-                                                <p class="notica-times">10 phút trước</p>
-                                                <input class="notica-read" type="radio" name="" id="" checked>
-                                            </div>
-                                            <p class="notica-status">deliever oder</p>
-                                            <div class="text-contents">
-                                                <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
-                                            </div>
-
-
-                                        </div>
-                                    </a>
-
-                                    <a href="#" class="items-noticafitions">
-                                        <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
-                                            <div class="text-notica">
-                                                <span class="notica-title">Phạm Hữu Nhân </span>
-                                                <p class="notica-times">15 phút trước</p>
-                                                <!-- <input class="notica-read" type="radio" checked name="" id=""> -->
-                                            </div>
-                                            <p class="notica-status">deliever oder</p>
-                                            <div class="text-contents">
-                                                <p class="notica-contents" >Vui long xac nhan don hang</p>
-                                            </div>
-
-
-                                        </div>
-                                    </a>
-
-                                    <a href="#" class="items-noticafitions">
-                                        <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
-                                            <div class="text-notica">
-                                                <span class="notica-title">Phạm Hữu Nhân </span>
-                                                <p class="notica-times">10 phút trước</p>
-
-                                            </div>
-                                            <input class="notica-read" type="radio" name="" id="">
-                                            <p class="notica-status">deliever oder</p>
-                                            <div class="text-contents">
-                                                <p class="notica-contents" >Don hang cua ban dang duoc giao
-                                                </p>
-                                            </div>
-
-
-                                        </div>
-                                    </a>
-
-                                    <a href="#" class="items-noticafitions">
-                                        <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
-                                            <div class="text-notica">
-                                                <span class="notica-title">Phạm Hữu Nhân </span>
-                                                <p class="notica-times">10 phút trước</p>
-                                                <input class="notica-read" type="radio" name="" id="">
-                                            </div>
-                                            <p class="notica-status">deliever oder</p>
-                                            <div class="text-contents">
-                                                <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
-                                            </div>
-
-
-                                        </div>
-                                    </a>
-
+                                    </th:block>
                                 </div>
                                 <div class="topnav-dropdown-footer">
                                     <a href="activities.html">Xem tất cả thông báo</a>
@@ -319,7 +242,7 @@
                     </div>
                     <div class="banner__item__text">
                         <h2>Clothing Collections 2030</h2>
-                        <a href="/shop">Shop now</a>
+                        <a href="/buyer/shop">Shop now</a>
                     </div>
                 </div>
             </div>
@@ -330,7 +253,7 @@
                     </div>
                     <div class="banner__item__text">
                         <h2>Accessories</h2>
-                        <a href="/shop">Shop now</a>
+                        <a href="/buyer/shop">Shop now</a>
                     </div>
                 </div>
             </div>
@@ -341,7 +264,7 @@
                     </div>
                     <div class="banner__item__text">
                         <h2>Shoes Spring 2030</h2>
-                        <a href="/shop">Shop now</a>
+                        <a href="/buyer/shop">Shop now</a>
                     </div>
                 </div>
             </div>
@@ -351,8 +274,8 @@
 <!-- Banner Section End -->
 
 <!-- Product Section Begin -->
-<form action="">
-    <section class="product spad">
+
+<section class="product spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -393,6 +316,7 @@
                               </div>
                             <div>
                                 <h6 style="margin-top:  10px; margin-bottom: 10px " th:text="${product.tenGiay}"></h6>
+                                <h5 th:if="${product.minPrice != product.minPriceTruocGiam}" style="font-weight: bold; margin-bottom: 10px; " th:text="'₫' + ${#numbers.formatDecimal(product.minPriceTruocGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
                                 <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="'₫' + ${#numbers.formatDecimal(product.minPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
                                 <div class="product__color__select" style="display: flex">
                                     <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'có sẵn'"></h6>
@@ -432,6 +356,7 @@
                             <div>
 
                                 <h6 style="margin-top:  10px; margin-bottom: 10px " th:text="${product.tenGiay}"></h6>
+                                <h5 th:if="${product.minPrice != product.minPriceTruocGiam}" style="font-weight: bold; margin-bottom: 10px; " th:text="'₫' + ${#numbers.formatDecimal(product.minPriceTruocGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
                                 <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="'₫' + ${#numbers.formatDecimal(product.minPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
                                 <div class="product__color__select" style="display: flex">
                                     <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'có sẵn'"></h6>
@@ -473,7 +398,8 @@
                             <div>
 
                                 <h6 style="margin-top:  10px; margin-bottom: 10px " th:text="${product.tenGiay}"></h6>
-                                <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="'₫' + ${#numbers.formatDecimal(product.minPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
+                                <h5 th:if="${product.minPrice != product.minPriceTruocGiam}" style="font-weight: bold; margin-bottom: 10px; " th:text="'₫' + ${#numbers.formatDecimal(product.minPriceTruocGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
+                                <h5 style="font-weight: bold; margin-bottom: 10px;" th:text="'₫' + ${#numbers.formatDecimal(product.minPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
                                 <div class="product__color__select" style="display: flex">
                                     <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'có sẵn'"></h6>
                                     <h6 style="font-style: italic; font-size: 12px ;margin-left: 100px;" th:text="${product.soLuongDaBan} + ' ' + 'đã bán'"></h6>
@@ -488,7 +414,7 @@
             </div>
         </div>
     </section>
-</form>
+
 <!-- Product Section End -->
 
 <!-- Categories Section Begin -->
@@ -531,40 +457,13 @@
                             <p>Seconds</p>
                         </div>
                     </div>
-                    <a href="#" class="primary-btn">Shop now</a>
+                    <a href="/buyer/shop" class="primary-btn">Shop now</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
 <!-- Categories Section End -->
-
-<!-- Instagram Section Begin -->
-<section class="instagram spad">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8">
-                <div class="instagram__pic">
-                    <div class="instagram__pic__item set-bg" data-setbg="/images/img/instagram/instagram-1.jpg"></div>
-                    <div class="instagram__pic__item set-bg" data-setbg="/images/img/instagram/instagram-2.jpg"></div>
-                    <div class="instagram__pic__item set-bg" data-setbg="/images/img/instagram/instagram-3.jpg"></div>
-                    <div class="instagram__pic__item set-bg" data-setbg="/images/img/instagram/instagram-4.jpg"></div>
-                    <div class="instagram__pic__item set-bg" data-setbg="/images/img/instagram/instagram-5.jpg"></div>
-                    <div class="instagram__pic__item set-bg" data-setbg="/images/img/instagram/instagram-6.jpg"></div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="instagram__text">
-                    <h2>Instagram</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore magna aliqua.</p>
-                    <h3>#Male_Fashion</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Instagram Section End -->
 
 <!-- Latest Blog Section Begin -->
 <section class="latest spad">
@@ -580,31 +479,31 @@
         <div class="row">
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="blog__item">
-                    <div class="blog__item__pic set-bg" data-setbg="/imagesimg/blog/blog-1.jpg"></div>
+                    <div class="blog__item__pic set-bg" data-setbg="/images/imgNhan/blog1.jpg"></div>
                     <div class="blog__item__text">
                         <span><img src="/images/img/icon/calendar.png" alt=""> 16 February 2020</span>
                         <h5>What Curling Irons Are The Best Ones</h5>
-                        <a href="#">Read More</a>
+                        <a href="https://www.instagram.com/nhanngu_03/">Read More</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="blog__item">
-                    <div class="blog__item__pic set-bg" data-setbg="/img/blog/blog-2.jpg"></div>
+                    <div class="blog__item__pic set-bg" data-setbg="/images/imgNhan/blog2.jpeg"></div>
                     <div class="blog__item__text">
                         <span><img src="/images/img/icon/calendar.png" alt=""> 21 February 2020</span>
                         <h5>Eternity Bands Do Last Forever</h5>
-                        <a href="#">Read More</a>
+                        <a href="https://www.facebook.com/Nhanday.19092003">Read More</a>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="blog__item">
-                    <div class="blog__item__pic set-bg" data-setbg="/images/img/blog/blog-3.jpg"></div>
+                    <div class="blog__item__pic set-bg" data-setbg="/images/imgNhan/blog3.jpg"></div>
                     <div class="blog__item__text">
                         <span><img src="/images/img/icon/calendar.png" alt=""> 28 February 2020</span>
                         <h5>The Health Benefits Of Sunglasses</h5>
-                        <a href="#">Read More</a>
+                        <a href="https://github.com/NhanPham2003">Read More</a>
                     </div>
                 </div>
             </div>
@@ -620,31 +519,31 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="footer__about">
                     <div class="footer__logo">
-                        <a href="#"><img src="/images/img/footer-logo.png" alt=""></a>
+                        <a href="#"><img src="/Logo.png" alt=""></a>
                     </div>
-                    <p>The customer is at the heart of our unique business model, which includes design.</p>
-                    <a href="#"><img src="/images/img/payment.png" alt=""></a>
+                    <p> Khách hàng là trung tâm của mô hình kinh doanh độc đáo của chúng tôi, bao gồm cả thiết kế.</p>
+                    <a href="#"><img src="img/payment.png" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
                 <div class="footer__widget">
-                    <h6>Shopping</h6>
+                    <h6>Cửa hàng</h6>
                     <ul>
-                        <li><a href="#">Clothing Store</a></li>
-                        <li><a href="#">Trending Shoes</a></li>
-                        <li><a href="#">Accessories</a></li>
-                        <li><a href="#">Sale</a></li>
+                        <li><a href="/buyer/shop">Gian hàng</a></li>
+                        <li><a href="/buyer/shop">Xu Hướng</a></li>
+                        <li><a href="/buyer/shop">Đề Xuất</a></li>
+                        <li><a href="/buyer/shop/sale">Giảm giá</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-6">
                 <div class="footer__widget">
-                    <h6>Shopping</h6>
+                    <h6>Mua sắm</h6>
                     <ul>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Payment Methods</a></li>
-                        <li><a href="#">Delivary</a></li>
-                        <li><a href="#">Return & Exchanges</a></li>
+                        <li><a href="#">Liên Hệ</a></li>
+                        <li><a href="#">Thanh Toán</a></li>
+                        <li><a href="#">Giao Hàng</a></li>
+                        <li><a href="#">Hoàn Hàng/Tiền</a></li>
                     </ul>
                 </div>
             </div>
@@ -652,7 +551,7 @@
                 <div class="footer__widget">
                     <h6>NewLetter</h6>
                     <div class="footer__newslatter">
-                        <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+                        <p>Hãy là người đầu tiên biết về hàng mới, sách tra cứu, khuyến mại và khuyến mãi!</p>
                         <form action="#">
                             <input type="text" placeholder="Your email">
                             <button type="submit"><span class="icon_mail_alt"></span></button>
@@ -666,11 +565,10 @@
                 <div class="footer__copyright__text">
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     <p>Copyright ©
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script>2020
-                        All rights reserved | This template is made with <i class="fa fa-heart-o"
-                                                                            aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                        2023
+                        All rights reserved | This template is edit with <i class="fa fa-heart-o"
+                                                                            aria-hidden="true"></i> by <a
+                                href="https://www.instagram.com/nhanngu_03/" target="_blank">Nhan Pham</a>
                     </p>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </div>
@@ -679,8 +577,6 @@
     </div>
 </footer>
 <!-- Footer Section End -->
-
-
 
 <!-- Js Plugins -->
 <script src="/js/jquery-3.6.0.min.js"></script>

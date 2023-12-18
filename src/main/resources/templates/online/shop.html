@@ -60,12 +60,14 @@
         </div>
 
         <div class="col-lg-6 d-flex align-items-center" >
-          <div style="width: 100%; display: flex; background-color: white; border: 10px;">
-            <input  class="form-control" style="border: none; width: 90%;"  placeholder="Nhập văn bản..." type="text">
-            <div style="width: 60px; background-color: #f3f2ee; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-              <a href=""><img src="/images/img/icon/search.png" alt=""></a>
+          <form action="/buyer/search" method="post">
+            <div style="width: 100%; display: flex; background-color: white; border: 10px;">
+              <input th:value="${keyword}" name="keyWord" class="form-control" style="border: none; width: 500px;"  placeholder="Nhập văn bản..." type="text">
+              <div style="width: 60px; background-color: #f3f2ee; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <a type="submit" href=""><img src="/images/img/icon/search.png" alt=""></a>
+              </div>
             </div>
-          </div>
+          </form>
         </div>
 
         <div class="col-lg-3 d-flex align-items-center">
@@ -75,21 +77,22 @@
               <a th:href="@{'/buyer/purchase'}">Đơn mua</a>
             </div>
 
-
             <!--        Buyer FullName Begin    -->
             <div class="header__top__hover">
               <span th:text="${fullNameLogin}"><i class="arrow_carrot-down" ></i></span>
               <ul>
                 <li><a th:href="@{'/buyer/setting'}" >Cài đặt</a></li>
                 <li><a th:href="@{'/buyer/logout'}">Đăng xuất</a></li>
-              </ul>
-            </div>
 
+              </ul>
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}" style="color: #ffffff;font-size: 13px;text-transform: uppercase;letter-spacing: 2px;display: inline-block;cursor: pointer;">Đăng nhập</a>
+              <a><span> | | </span></a>
+              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}" style="color: #ffffff;font-size: 13px;text-transform: uppercase;letter-spacing: 2px;display: inline-block;cursor: pointer;">Đăng ký </a>
+            </div>
             <!--            Buyer FullName End -->
 
             <div class="header__top__hover"  >
-              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/login'}">Đăng nhập</a>
-              <a th:if="${messageLoginOrSignin}" th:href="@{'/buyer/register'}">Đăng ký</a>
+
             </div>
 
           </div>
@@ -125,130 +128,47 @@
 
 
           <div class="nav user-menu" style="height: 30px;">
-
             <li class="nav-item dropdown" style="height: 30px;">
               <a data-bs-toggle="dropdown" href="#" >
                 <img style="margin-bottom: 42px; width: 18px; height: 18px;"   src="/images/img/icon/notification.png" >
               </a>
-              <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
+              <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${soThongBao}"></span>
               <div class="dropdown-menu notifications" style="width:300px; top: -80px; position: absolute;">
                 <div class="topnav-dropdown-header">
-                  <span class="notification-title">Notifications</span>
-                  <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                  <span class="notification-title">Thông báo</span>
+                  <a class="clear-noti"> Xóa sạch </a>
                 </div>
                 <div class="vertical-scroll scroll-demo" >
-
-
-
-                  <a href="#" class="items-noticafitions">
-                    <div class="items-notica">
+                  <th:block th:if="${x.trangThai != 3}" th:each="x : ${listThongBao}">
+                    <a href="#" class="items-noticafitions">
+                      <div class="items-notica">
                                         <span class="avatar">
                                             <img alt="" src="/images/img/blog/blog-1.jpg">
                                         </span>
-                      <div class="text-notica">
-                        <span class="notica-title">Phạm Hữu Nhân </span>
-                        <p class="notica-times">1 phút trước</p>
-                        <input checkedS class="notica-read" type="radio" name="" id="">
-                      </div>
-                      <p class="notica-status">deliever oder</p>
-                      <div class="text-contents">
-                        <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
-                      </div>
+                        <div class="text-notica">
+                          <span class="notica-title" th:text="${fullNameLogin}"></span>
+                          <p class="notica-times">1 phút trước</p>
+                          <input th:if="x.trangThai == 1" checked class="notica-read" type="radio" name="" id="">
+                          <input th:if="x.trangThai == 0">
+                        </div>
+                        <p class="notica-status">---------</p>
+                        <div class="text-contents">
+                          <p class="notica-contents" th:text="${x.noiDungTB}"></p>
+                        </div>
 
-
-                    </div>
-                  </a>
-
-                  <a href="#" class="items-noticafitions">
-                    <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
-                      <div class="text-notica">
-                        <span class="notica-title">Phạm Hữu Nhân </span>
-                        <p class="notica-times">10 phút trước</p>
-                        <input class="notica-read" type="radio" name="" id="" checked>
-                      </div>
-                      <p class="notica-status">deliever oder</p>
-                      <div class="text-contents">
-                        <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
-                      </div>
-
-
-                    </div>
-                  </a>
-
-
-                  <a href="#" class="items-noticafitions">
-                    <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
-                      <div class="text-notica">
-                        <span class="notica-title">Phạm Hữu Nhân </span>
-                        <p class="notica-times">15 phút trước</p>
-                        <!-- <input class="notica-read" type="radio" checked name="" id=""> -->
-                      </div>
-                      <p class="notica-status">deliever oder</p>
-                      <div class="text-contents">
-                        <p class="notica-contents" >Vui long xac nhan don hang</p>
-                      </div>
-
-
-                    </div>
-                  </a>
-
-                  <a href="#" class="items-noticafitions">
-                    <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
-                      <div class="text-notica">
-                        <span class="notica-title">Phạm Hữu Nhân </span>
-                        <p class="notica-times">10 phút trước</p>
 
                       </div>
-                      <input class="notica-read" type="radio" name="" id="">
-                      <p class="notica-status">deliever oder</p>
-                      <div class="text-contents">
-                        <p class="notica-contents" >Don hang cua ban dang duoc giao
-                        </p>
-                      </div>
-
-
-                    </div>
-                  </a>
-
-                  <a href="#" class="items-noticafitions">
-                    <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
-                      <div class="text-notica">
-                        <span class="notica-title">Phạm Hữu Nhân </span>
-                        <p class="notica-times">10 phút trước</p>
-                        <input class="notica-read" type="radio" name="" id="">
-                      </div>
-                      <p class="notica-status">deliever oder</p>
-                      <div class="text-contents">
-                        <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
-                      </div>
-
-
-                    </div>
-                  </a>
-
-
-
-
+                    </a>
+                  </th:block>
                 </div>
                 <div class="topnav-dropdown-footer">
-                  <a href="activities.html">View all Notifications</a>
+                  <a href="activities.html">Xem tất cả thông báo</a>
                 </div>
               </div>
 
             </li>
           </div>
+
           <a th:href="@{'/buyer/fa&recently'}"><img src="/images/img/icon/heart2.png" alt=""></a>
 
           <a th:href="@{'/buyer/cart'}" style="position: relative; display: inline-block; ">
@@ -306,11 +226,10 @@
                   <div class="card-body">
                     <div class="shop__sidebar__categories">
                       <ul class="nice-scroll" style="height: 20%">
-                        <li><a href="/buyer/shop" th:text="'Tất cả '+ ${sumProduct}"></a></li>
-                        <li><a href="#">Bán chạy</a></li>
-                        <li><a href="#">Hàng mới về </a></li>
-                        <li><a href="#">Bộ sưu tập</a></li>
-                        <li><a href="#">Khuyến Mãi</a></li>
+                        <li><a href="/buyer/shop" th:text="'Tất cả ( '+ ${sumProduct} + ' )'"></a></li>
+                        <li><a href="/buyer/shop/best">Bán chạy </a></li>
+                        <li><a href="/buyer/shop/new">Hàng mới về </a></li>
+                        <li><a href="/buyer/shop/sale" th:text="'Khuyến Mãi ( '+ ${sumProductSale} + ' )'"></a></li>
                       </ul>
                     </div>
                   </div>
@@ -341,29 +260,12 @@
                   <div class="card-body">
                     <div class="shop__sidebar__price">
                       <ul>
-                        <li><a href="#">$0.00 - $50.00</a></li>
-                        <li><a href="#">$50.00 - $100.00</a></li>
-                        <li><a href="#">$100.00 - $150.00</a></li>
-                        <li><a href="#">$150.00 - $200.00</a></li>
-                        <li><a href="#">$200.00 - $250.00</a></li>
-                        <li><a href="#">250.00+</a></li>
+                        <li><a href="/buyer/shop/price/type=1">₫0K - ₫2000K</a></li>
+                        <li><a href="/buyer/shop/price/type=2">₫2000K - ₫3000K</a></li>
+                        <li><a href="/buyer/shop/price/type=3">₫3000K - ₫5000K</a></li>
+                        <li><a href="/buyer/shop/price/type=4">₫5000K - ₫8000K</a></li>
+                        <li><a href="/buyer/shop/price/type=5">₫8000K +</a></li>
                       </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-heading">
-                  <a data-toggle="collapse" data-target="#collapseFour">Size</a>
-                </div>
-                <div id="collapseFour" class="collapse show" data-parent="#accordionExample">
-                  <div class="card-body">
-                    <div class="shop__sidebar__size">
-                      <th:block th:each="a : ${listSize}">
-                        <label>
-                        <li><a  th:href="@{'/shop/size/' + ${a.idSize}}" th:text="${a.soSize}" > </a></li>
-                        </label>
-                      </th:block>
                     </div>
                   </div>
                 </div>
@@ -376,34 +278,15 @@
                   <div class="card-body">
                     <div class="shop__sidebar__color">
                       <th:block th:each="a : ${listColor}">
-                        <a  th:href="@{'/shop/size/' + ${a.idMau}}">
-                          <label class="color-box" th:style="'background-color: ' +  ${a.maMau}">
-                            <input type="radio" >
-                          </label>
+                        <a  th:href="@{'/buyer/shop/color/' + ${a.idMau}}">
+                          <div class="color-box" th:style="'height: 30px; width: 30px; border-radius: 50%;background-color: ' +  ${a.maMau}"></div>
                         </a>
                       </th:block>
                     </div>
                   </div>
                 </div>
               </div>
-              <div class="card">
-                <div class="card-heading">
-                  <a data-toggle="collapse" data-target="#collapseSix">Tags</a>
-                </div>
-                <div id="collapseSix" class="collapse show" data-parent="#accordionExample">
-                  <div class="card-body">
-                    <div class="shop__sidebar__tags">
-                      <a href="#">Product</a>
-                      <a href="#">Bags</a>
-                      <a href="#">Shoes</a>
-                      <a href="#">Fashion</a>
-                      <a href="#">Clothing</a>
-                      <a href="#">Hats</a>
-                      <a href="#">Accessories</a>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
             </div>
           </div>
         </div>
@@ -420,7 +303,7 @@
               <div class="shop__product__option__right">
                 <p>Sắp xếp theo giá:</p>
                 <select onchange="window.location.href = this.value;">
-                  <option>Choose option</option>
+                  <option>Lựa chọn </option>
                   <option value="/buyer/shop/lowToHigh">Từ thấp đến cao</option>
                   <option value="/buyer/shop/highToLow">Từ cao xuống thấp</option>
                 </select>
@@ -431,6 +314,9 @@
 
         <div class="row product__filter">
 
+          <div th:if="${khongThay}" class="col-lg-12 col-md-6 col-sm-6">
+            <h5 style="text-align: center; margin: auto;">Không có sản phẩm </h5>
+          </div>
 
           <th:block th:each="product : ${listCTGModel}">
 
@@ -454,7 +340,8 @@
                   </div>
                   <div >
                     <h6 style="margin-top:  10px; margin-bottom: 10px " th:text="${product.tenGiay}"></h6>
-                    <h5 style="font-weight: bold; margin-bottom: 10px; " th:text="'₫' + ${#numbers.formatDecimal(product.minPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
+                    <h5 th:if="${product.minPrice != product.minPriceTruocGiam}" style="color: #b7b7b7; text-decoration: line-through; margin-bottom: 10px;" th:text="'₫' + ${#numbers.formatDecimal(product.minPriceTruocGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
+                    <h5  style="font-weight: bold; margin-bottom: 10px; " th:text="'₫' + ${#numbers.formatDecimal(product.minPrice, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
                     <div class="product__color__select" style="display: flex">
                       <h6 style="font-size: 12px ;" th:text="${product.slTon}+ ' ' + 'có sẵn'"></h6>
                       <h6 style="font-style: italic; font-size: 12px ;margin-left: 100px;" th:text="${product.soLuongDaBan} + ' ' + 'đã bán'"></h6>
@@ -467,7 +354,7 @@
 
         </div>
 
-        <div class="row">
+        <div th:if="${showPage}" class="row">
           <div class="col-lg-12">
             <div th:if="${pageNumber}" class="product__pagination">
 
@@ -487,14 +374,11 @@
                 <a class="active" th:href="@{'/buyer/shop/lowToHigh?pageNum=' + ${i}}" th:text="${i}"></a>
               </th:block>
             </div>
-
-
-
           </div>
         </div>
 
         <div class="row">
-          <div style="background-color: black; height: 2px; width: 100%; margin-top: 20px;"></div>
+          <div style="background-color: black; height: 2px; width: 100%; margin-top: 20px; margin-bottom: 20px;"></div>
         </div>
 
         <div class="row product__filter">
@@ -543,31 +427,31 @@
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="footer__about">
           <div class="footer__logo">
-            <a href="#"><img src="/images/img/footer-logo.png" alt=""></a>
+            <a href="#"><img src="/Logo.png" alt=""></a>
           </div>
-          <p>The customer is at the heart of our unique business model, which includes design.</p>
-          <a href="#"><img src="/images/img/payment.png" alt=""></a>
+          <p> Khách hàng là trung tâm của mô hình kinh doanh độc đáo của chúng tôi, bao gồm cả thiết kế.</p>
+          <a href="#"><img src="img/payment.png" alt=""></a>
         </div>
       </div>
       <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
         <div class="footer__widget">
-          <h6>Shopping</h6>
+          <h6>Cửa hàng</h6>
           <ul>
-            <li><a href="#">Clothing Store</a></li>
-            <li><a href="#">Trending Shoes</a></li>
-            <li><a href="#">Accessories</a></li>
-            <li><a href="#">Sale</a></li>
+            <li><a href="/buyer/shop">Gian hàng</a></li>
+            <li><a href="/buyer/shop">Xu Hướng</a></li>
+            <li><a href="/buyer/shop">Đề Xuất</a></li>
+            <li><a href="/buyer/shop/sale">Giảm giá</a></li>
           </ul>
         </div>
       </div>
       <div class="col-lg-2 col-md-3 col-sm-6">
         <div class="footer__widget">
-          <h6>Shopping</h6>
+          <h6>Mua sắm</h6>
           <ul>
-            <li><a href="#">Contact Us</a></li>
-            <li><a href="#">Payment Methods</a></li>
-            <li><a href="#">Delivary</a></li>
-            <li><a href="#">Return & Exchanges</a></li>
+            <li><a href="#">Liên Hệ</a></li>
+            <li><a href="#">Thanh Toán</a></li>
+            <li><a href="#">Giao Hàng</a></li>
+            <li><a href="#">Hoàn Hàng/Tiền</a></li>
           </ul>
         </div>
       </div>
@@ -575,7 +459,7 @@
         <div class="footer__widget">
           <h6>NewLetter</h6>
           <div class="footer__newslatter">
-            <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+            <p>Hãy là người đầu tiên biết về hàng mới, sách tra cứu, khuyến mại và khuyến mãi!</p>
             <form action="#">
               <input type="text" placeholder="Your email">
               <button type="submit"><span class="icon_mail_alt"></span></button>
@@ -589,11 +473,10 @@
         <div class="footer__copyright__text">
           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
           <p>Copyright ©
-            <script>
-              document.write(new Date().getFullYear());
-            </script>2020
-            All rights reserved | This template is made with <i class="fa fa-heart-o"
-                                                                aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+            2023
+            All rights reserved | This template is edit with <i class="fa fa-heart-o"
+                                                                aria-hidden="true"></i> by <a
+                    href="https://www.instagram.com/nhanngu_03/" target="_blank">Nhan Pham</a>
           </p>
           <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
         </div>
@@ -602,7 +485,6 @@
   </div>
 </footer>
 <!-- Footer Section End -->
-
 
 <!-- Js Plugins -->
 <script src="/js/jquery-3.6.0.min.js"></script>

@@ -73,19 +73,42 @@
             background-color:rgba(255,255,255,0.6);
             cursor:pointer;
         }
-        .imgAdd {
+        .imagePreview2 {
+            width: 175px;
+            height: 200px;
+            background-position: center center;
+            background:url(http://cliquecities.com/assets/no-image-e3699ae23f866f6cbdf8ba2443ee5c4e.jpg);
+            background-color:#fff;
+            background-size: cover;
+            background-repeat:no-repeat;
+            display: inline-block;
+            box-shadow:0px -3px 6px 2px rgba(0,0,0,0.2);
+        }
+        .btn-primary2 {
+            display:block;
+            width: 175px;
+            border-radius:0px;
+            box-shadow:0px 4px 6px 2px rgba(0,0,0,0.2);
+            margin-top:-5px;
+            background-color: #0069d9;
+            color: #ffffff;
+        }
+        .imgUp2 {
+            margin-bottom:15px;
+            width: 200px;
+            margin-right: 100px;
+            height: 200px;
+        }
+        .del2 {
+            position:absolute;
+            top:0px;
+            right:180px;
             width:30px;
             height:30px;
-            /* margin-left: 10px; */
-            border-radius:50%;
-            background-color:#4bd7ef;
-            color:#fff;
-            box-shadow:0px 0px 2px 1px rgba(0,0,0,0.2);
             text-align:center;
-            line-height:28px;
-            margin-top:0px;
+            line-height:30px;
+            background-color:rgba(255,255,255,0.6);
             cursor:pointer;
-            font-size:15px;
         }
     </style>
 <body>
@@ -107,12 +130,14 @@
                 </div>
 
                 <div class="col-lg-6 d-flex align-items-center" >
-                    <div style="width: 100%; display: flex; background-color: white; border: 10px;">
-                        <input  class="form-control" style="border: none; width: 90%;"  placeholder="Nhập văn bản..." type="text">
-                        <div style="width: 60px; background-color: #f3f2ee; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                            <a href=""><img src="/images/img/icon/search.png" alt=""></a>
+                    <form action="/buyer/search" method="post">
+                        <div style="width: 100%; display: flex; background-color: white; border: 10px;">
+                            <input th:value="${keyword}" name="keyWord" class="form-control" style="border: none; width: 500px;"  placeholder="Nhập văn bản..." type="text">
+                            <div style="width: 60px; background-color: #f3f2ee; height: 40px; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                                <a type="submit" href=""><img src="/images/img/icon/search.png" alt=""></a>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
 
                 <div class="col-lg-3 d-flex align-items-center">
@@ -164,123 +189,41 @@
 
 
                     <div class="nav user-menu" style="height: 30px;">
-
                         <li class="nav-item dropdown" style="height: 30px;">
                             <a data-bs-toggle="dropdown" href="#" >
                                 <img style="margin-bottom: 42px; width: 18px; height: 18px;"   src="/images/img/icon/notification.png" >
                             </a>
-                            <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${sumProductInCart}"></span>
+                            <span style="position: absolute; height:20px; width: 25px; top: -13px; left: 7px;  color: rgb(0, 0, 0) ; font-size: 12px; font-weight: bold;  padding: 4px; border-radius: 50%;" th:text="${soThongBao}"></span>
                             <div class="dropdown-menu notifications" style="width:300px; top: -80px; position: absolute;">
                                 <div class="topnav-dropdown-header">
                                     <span class="notification-title">Thông báo</span>
-                                    <a href="javascript:void(0)" class="clear-noti"> Xóa sạch</a>
+                                    <a class="clear-noti"> Xóa sạch </a>
                                 </div>
                                 <div class="vertical-scroll scroll-demo" >
-
-                                    <a href="#" class="items-noticafitions">
-                                        <div class="items-notica">
+                                    <th:block th:if="${x.trangThai != 3}" th:each="x : ${listThongBao}">
+                                        <a href="#" class="items-noticafitions">
+                                            <div class="items-notica">
                                         <span class="avatar">
                                             <img alt="" src="/images/img/blog/blog-1.jpg">
                                         </span>
-                                            <div class="text-notica">
-                                                <span class="notica-title">Phạm Hữu Nhân </span>
-                                                <p class="notica-times">1 phút trước</p>
-                                                <input checkedS class="notica-read" type="radio" name="" id="">
-                                            </div>
-                                            <p class="notica-status">deliever oder</p>
-                                            <div class="text-contents">
-                                                <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
-                                            </div>
+                                                <div class="text-notica">
+                                                    <span class="notica-title" th:text="${fullNameLogin}"></span>
+                                                    <p class="notica-times">1 phút trước</p>
+                                                    <input th:if="x.trangThai == 1" checked class="notica-read" type="radio" name="" id="">
+                                                    <input th:if="x.trangThai == 0">
+                                                </div>
+                                                <p class="notica-status">---------</p>
+                                                <div class="text-contents">
+                                                    <p class="notica-contents" th:text="${x.noiDungTB}"></p>
+                                                </div>
 
-
-                                        </div>
-                                    </a>
-
-                                    <a href="#" class="items-noticafitions">
-                                        <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
-                                            <div class="text-notica">
-                                                <span class="notica-title">Phạm Hữu Nhân </span>
-                                                <p class="notica-times">10 phút trước</p>
-                                                <input class="notica-read" type="radio" name="" id="" checked>
-                                            </div>
-                                            <p class="notica-status">deliever oder</p>
-                                            <div class="text-contents">
-                                                <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
-                                            </div>
-
-
-                                        </div>
-                                    </a>
-
-
-                                    <a href="#" class="items-noticafitions">
-                                        <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
-                                            <div class="text-notica">
-                                                <span class="notica-title">Phạm Hữu Nhân </span>
-                                                <p class="notica-times">15 phút trước</p>
-                                                <!-- <input class="notica-read" type="radio" checked name="" id=""> -->
-                                            </div>
-                                            <p class="notica-status">deliever oder</p>
-                                            <div class="text-contents">
-                                                <p class="notica-contents" >Vui long xac nhan don hang</p>
-                                            </div>
-
-
-                                        </div>
-                                    </a>
-
-                                    <a href="#" class="items-noticafitions">
-                                        <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
-                                            <div class="text-notica">
-                                                <span class="notica-title">Phạm Hữu Nhân </span>
-                                                <p class="notica-times">10 phút trước</p>
 
                                             </div>
-                                            <input class="notica-read" type="radio" name="" id="">
-                                            <p class="notica-status">deliever oder</p>
-                                            <div class="text-contents">
-                                                <p class="notica-contents" >Don hang cua ban dang duoc giao
-                                                </p>
-                                            </div>
-
-
-                                        </div>
-                                    </a>
-
-                                    <a href="#" class="items-noticafitions">
-                                        <div class="items-notica">
-                                        <span class="avatar">
-                                            <img alt="" src="/images/img/blog/blog-1.jpg">
-                                        </span>
-                                            <div class="text-notica">
-                                                <span class="notica-title">Phạm Hữu Nhân </span>
-                                                <p class="notica-times">10 phút trước</p>
-                                                <input class="notica-read" type="radio" name="" id="">
-                                            </div>
-                                            <p class="notica-status">deliever oder</p>
-                                            <div class="text-contents">
-                                                <p class="notica-contents" >Tôi trước : Em muốn dừng lại để học 12 giờ em không muốn yêu và đùng sau đó 2 tháng set hẹn hò trên fb</p>
-                                            </div>
-
-
-                                        </div>
-                                    </a>
-
-
-
-
+                                        </a>
+                                    </th:block>
                                 </div>
                                 <div class="topnav-dropdown-footer">
-                                    <a href="activities.html">Tất cả thông báo</a>
+                                    <a href="activities.html">Xem tất cả thông báo</a>
                                 </div>
                             </div>
 
@@ -656,7 +599,7 @@
                             <p style="font-size: 9pt; font-weight: 400; margin-top: -15px;" th:text="${billDetailShip.diaChiNguoiNhan}"></p>
                         </div>
                         <div class="col-lg-9" style="border-left: 0.5px solid black;">
-                            <th:block th:each="x: ${giaoHangListActive}">
+                            <th:block th:each="x: ${giaoHangListActive.viTriDonHangs}">
                                 <div th:if="${x.trangThai == 2}" class="row">
                                     <p style="margin-left: 30px;color: #d73211; font-size: 9pt; font-weight: 400;" th:text="${#dates.format(x.thoiGian, 'HH:mm yyyy-MM-dd')}"></p>
                                     <span style="margin: 0 10px 0 10px"></span>
@@ -828,8 +771,14 @@
                         <div class="col-lg-4">
                             <div style="display: grid;">
                                 <button style="border: 0.3px solid black; height: 40px;">Đánh Giá</button>
-                                <button style="border: 0.3px solid black; margin: 20px 0 20px 0; height: 40px;">Yêu Cầu Hoàn Hàng/Tiền</button>
-                                <button style="border: 0.3px solid black; height: 40px;">Nhận Hàng</button>
+                                <a th:if="${billDetailRecieve.trangThaiHoan != 8 }" th:href="@{'/buyer/purchaser/bill/detail/refund/' + ${billDetailRecieve.idHD}}" type style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px;
+                                              width: 250px; border: 0.5px solid black; margin: 0 20px 0 0; background-color: #f0f0f0"> Xem chi tiết Hoàn/Đổi Hàng</a>
+
+                                <form th:if="${billDetailRecieve.trangThaiHoan == 8}" th:action="@{'/buyer/purchaser/bill/refund/' + ${billDetailRecieve.idHD}}" method="post">
+                                    <button type="submit" style=" color: black; text-align: center;
+                                                 align-items: center; height: 40px; width: 130px; border: 0.5px solid black; background-color: #f0f0f0">Yêu Cầu Hoàn Hàng/Tiền</button>
+                                </form>
+                                <button  style="border: 0.3px solid black; margin: 20px 0 20px 0; height: 40px;">Yêu Cầu Hoàn Hàng/Tiền</button>
                             </div>
                         </div>
                     </div>
@@ -843,7 +792,7 @@
                         </div>
                         <div class="col-lg-8" style="border-left: 0.5px solid black;">
 
-                            <th:block th:each="x: ${giaoHangListActive}">
+                            <th:block th:each="x: ${giaoHangListActive.viTriDonHangs}">
                                 <div th:if="${x.trangThai == 2}" class="row">
                                     <p style="margin-left: 30px;color: #d73211; font-size: 9pt; font-weight: 400;" th:text="${#dates.format(x.thoiGian, 'HH:mm yyyy-MM-dd')}"></p>
                                     <span style="margin: 0 10px 0 10px"></span>
@@ -964,6 +913,7 @@
                             <div class="col-lg-8">
                                 <p style="font-size: 12pt; font-weight: 600;" th:text="'Lý do hủy đơn : ' + ${billDetailCancel.lyDoHuy}"></p>
                                 <p style="font-size: 10pt;">*Tiền sẽ được hoàn vào tài khoản ngân hàng của bạn trong vòng 24h (nếu bạn đã thanh toán)</p>
+                                <p style="font-size: 10pt; color: red;">*Đơn hàng đã giao nếu không nhận hàng sẽ không được hoàn lại tiền đã thanh toán</p>
                                 <p style="font-size: 9pt; margin-top: 10px;">Mọi chi tiết xin liên hệ tới tổng đài <b>0384329003</b> để được nhân viên CSKH tư vấn</p>
                             </div>
                             <div class="col-lg-4">
@@ -982,7 +932,7 @@
                                 <p style="font-size: 9pt; font-weight: 400; margin-top: -15px;" th:text="${billDetailCancel.diaChiNguoiNhan}"></p>
                             </div>
                             <div class="col-lg-6" style="border-left: 0.5px solid black;">
-                                <th:block th:each="x: ${giaoHangListActive}">
+                                <th:block th:each="x: ${giaoHangListActive.viTriDonHangs}">
                                     <div th:if="${x.trangThai == 2}" class="row">
                                         <p style="margin-left: 30px;color: #d73211; font-size: 9pt; font-weight: 400;" th:text="${#dates.format(x.thoiGian, 'HH:mm yyyy-MM-dd')}"></p>
                                         <span style="margin: 0 10px 0 10px"></span>
@@ -1053,8 +1003,8 @@
 
                     <div class="row coupon__code" style="margin-bottom: 30px;">
                         <div class="row">
-                            <a style="display: flex; margin-right: 300px" href="/buyer/purchase/completed">
-                                <svg style="width: 30x; height: 30px;" viewBox="0 0 1024 1024" fill="#000000" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="24.576"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M669.6 849.6c8.8 8 22.4 7.2 30.4-1.6s7.2-22.4-1.6-30.4l-309.6-280c-8-7.2-8-17.6 0-24.8l309.6-270.4c8.8-8 9.6-21.6 2.4-30.4-8-8.8-21.6-9.6-30.4-2.4L360.8 480.8c-27.2 24-28 64-0.8 88.8l309.6 280z" fill=""></path></g></svg>
+                            <a style="display: flex; margin-right: 250px" href="/buyer/purchase/completed">
+                                <svg style="width: 30px; height: 30px;" viewBox="0 0 1024 1024" fill="#000000" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="24.576"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M669.6 849.6c8.8 8 22.4 7.2 30.4-1.6s7.2-22.4-1.6-30.4l-309.6-280c-8-7.2-8-17.6 0-24.8l309.6-270.4c8.8-8 9.6-21.6 2.4-30.4-8-8.8-21.6-9.6-30.4-2.4L360.8 480.8c-27.2 24-28 64-0.8 88.8l309.6 280z" fill=""></path></g></svg>
                                 <p style="margin:4px 0 0 0; font-weight: 600; font-size: 12pt;">Quay lại</p>
                             </a>
                             <p style="float: right; display: flex; " th:text="'MÃ ĐƠN HÀNG : ' + ${billDetailCompleted.maHD}">
@@ -1078,17 +1028,6 @@
                             </div>
 
                             <div class="col-md-2" style="margin: 0 25px 0 35px;">
-                                <!-- <svg style="margin:0 0 10px 35px; width: 30px; height: 30px;" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" stroke="#000000">
-                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                                    <g id="SVGRepo_iconCarrier">
-                                        <path stroke="#2dc258" d="M3.17157 20.8284C4.34315 22 6.22876 22 10 22H14C17.7712 22 19.6569 22 20.8284 20.8284C22 19.6569 22 17.7712 22 14C22 12.8302 22 11.8419 21.965 11M20.8284 7.17157C19.6569 6 17.7712 6 14 6H10C6.22876 6 4.34315 6 3.17157 7.17157C2 8.34315 2 10.2288 2 14C2 15.1698 2 16.1581 2.03496 17" stroke-width="0.9120000000000001" stroke-linecap="round"></path>
-                                        <path stroke="#2dc258" d="M12 2C13.8856 2 14.8284 2 15.4142 2.58579C16 3.17157 16 4.11438 16 6M8.58579 2.58579C8 3.17157 8 4.11438 8 6" stroke-width="0.9120000000000001" stroke-linecap="round"></path>
-                                        <path stroke="#2dc258" d="M12 17.3333C13.1046 17.3333 14 16.5871 14 15.6667C14 14.7462 13.1046 14 12 14C10.8954 14 10 13.2538 10 12.3333C10 11.4129 10.8954 10.6667 12 10.6667M12 17.3333C10.8954 17.3333 10 16.5871 10 15.6667M12 17.3333V18M12 10V10.6667M12 10.6667C13.1046 10.6667 14 11.4129 14 12.3333" stroke-width="0.9120000000000001" stroke-linecap="round"></path>
-                                    </g>
-                                </svg>
-                                <p style="font-size: 10pt;">Chờ Thanh Toán</p>  -->
-
                                 <svg  fill="#2dc258" style="margin:0 0 10px 30px; width: 30px; height: 30px;" version="1.1" id="Uploaded to svgrepo.com" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 32 32" xml:space="preserve">
                                             <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                                     <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -1152,15 +1091,19 @@
                         </div>
                         <div class="col-lg-4">
                             <div style="display: grid;">
-                                <button style="border: 0.3px solid black; height: 40px; width: 243px;">Đánh Giá</button>
+                                <button data-toggle="modal" data-target="#modalDanhGiaDonHang" style="border: 0.3px solid black; height: 40px; width: 243px;">Đánh Giá</button>
 
-                                <form th:if="${ngayKetThucHoanHang.after(#dates.createNow())}" th:action="@{'/buyer/purchaser/bill/refund/' + ${billDetailCompleted.idHD}}" method="post">
+                                <a th:if="${billDetailCompleted.trangThaiHoan != 9 }" th:href="@{'/buyer/purchaser/bill/detail/refund/' + ${billDetailCompleted.idHD}}"
+                                   style=" color: black; text-align: center; padding-top: 9px; align-items: center; height: 50px;border: 0.3px solid black;height: 40px; width: 243px;
+                                    border: 0.5px solid black; margin: 20px 20px 20px 0; background-color: #f0f0f0"> Xem chi tiết Hoàn/Đổi Hàng</a>
+
+                                <form th:if="${ngayKetThucHoanHang.after(#dates.createNow()) and billDetailCompleted.trangThaiHoan == 9}" th:action="@{'/buyer/purchaser/bill/refund/' + ${billDetailCompleted.idHD}}" method="post">
                                     <button style="border: 0.3px solid black; margin: 20px 0 20px 0; height: 40px; width: 243px;" type="submit">Yêu Cầu Hoàn Hàng/Tiền</button>
                                 </form>
 
                                 <button th:if="${ngayKetThucHoanHang.before(#dates.createNow())}" style="border: 0.3px solid black; margin: 20px 0 20px 0; height: 40px; width: 243px;"> Hết hạn yêu Cầu Hoàn Hàng/Tiền</button>
 
-                                <a th:href="@{'/buyer/purchaser/bill/buy/again/' + ${billDetailCompleted.idHD}}"  style=" color: black; text-align: center; padding-top: 12px; align-items: center;
+                                <a th:href="@{'/buyer/purchaser/bill/buy/again/' + ${billDetailCompleted.idHD}}"  style=" color: black; text-align: center; padding-top: 9px; align-items: center;
                                  height: 40px; width: 243px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Mua Lại</a>
                             </div>
                         </div>
@@ -1174,7 +1117,7 @@
                             <p style="font-size: 9pt; font-weight: 400; margin-top: -15px;" th:text="${billDetailCompleted.diaChiNguoiNhan}"></p>
                         </div>
                         <div class="col-lg-9" style="border-left: 0.5px solid black;">
-                            <th:block th:each="x: ${giaoHangListActive}">
+                            <th:block th:each="x: ${giaoHangListActive.viTriDonHangs}">
                                 <div th:if="${x.trangThai == 2}" class="row">
                                     <p style="margin-left: 30px;color: #d73211; font-size: 9pt; font-weight: 400;" th:text="${#dates.format(x.thoiGian, 'HH:mm yyyy-MM-dd')}"></p>
                                     <span style="margin: 0 10px 0 10px"></span>
@@ -1242,7 +1185,7 @@
 <!--                Yêu cầu hoàn hàng begin -->
                 <div th:if="${detailBillRefundMoney}" th:object="${billDetailRefund}">
 
-                    <form method="post" th:action="@{'/buyer/purchase/bill/refund/request/' + ${billDetailRefund.idHD}}" enctype="multipart/form-data">
+                    <form id="purchaseForm" method="post" th:action="@{'/buyer/purchase/bill/refund/request/' + ${billDetailRefund.idHD}}" enctype="multipart/form-data">
 
                         <div class="row coupon__code" style="margin-bottom: 30px;">
                             <div class="row">
@@ -1328,6 +1271,28 @@
 
                         </div>
 
+                        <div class="row coupon__code" style="margin-bottom: 30px;">
+
+                            <a href="" style="margin-top: -10px;">
+                                <svg style="height: 30px; width: 30px;" viewBox="0 0 1024 1024" fill="#000000" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                                    <g id="SVGRepo_iconCarrier"><path d="M512 1012.8c-253.6 0-511.2-54.4-511.2-158.4 0-92.8 198.4-131.2 283.2-143.2h3.2c12 0 22.4 8.8 24 20.8 0.8 6.4-0.8 12.8-4.8 17.6-4 4.8-9.6 8.8-16 9.6-176.8 25.6-242.4 72-242.4 96 0 44.8 180.8 110.4 463.2 110.4s463.2-65.6 463.2-110.4c0-24-66.4-70.4-244.8-96-6.4-0.8-12-4-16-9.6-4-4.8-5.6-11.2-4.8-17.6 1.6-12 12-20.8 24-20.8h3.2c85.6 12 285.6 50.4 285.6 143.2 0.8 103.2-256 158.4-509.6 158.4z m-16.8-169.6c-12-11.2-288.8-272.8-288.8-529.6 0-168 136.8-304.8 304.8-304.8S816 145.6 816 313.6c0 249.6-276.8 517.6-288.8 528.8l-16 16-16-15.2zM512 56.8c-141.6 0-256.8 115.2-256.8 256.8 0 200.8 196 416 256.8 477.6 61.6-63.2 257.6-282.4 257.6-477.6C768.8 172.8 653.6 56.8 512 56.8z m0 392.8c-80 0-144.8-64.8-144.8-144.8S432 160 512 160c80 0 144.8 64.8 144.8 144.8 0 80-64.8 144.8-144.8 144.8zM512 208c-53.6 0-96.8 43.2-96.8 96.8S458.4 401.6 512 401.6c53.6 0 96.8-43.2 96.8-96.8S564.8 208 512 208z" fill=""></path>
+                                    </g>
+                                </svg>
+                            </a>
+                            <a style="margin-left: 15px; font-weight: 700; font-size: 13pt;">Địa chỉ lấy hàng</a>
+
+                            <div style="display: flex; margin-left: 10px; margin-top: 10px;">
+                                <h5 style="font-weight: 700; font-size: 12pt ;" th:text="${billDetailRefund.tenNguoiNhan}"></h5>
+                                <span style="margin: -4px 5px 0 5px ;"> | </span>
+                                <h5 style="font-weight: 700; font-size: 12pt ;" th:text="${billDetailRefund.sdtNguoiNhan}"></h5>
+                                <span style="margin-left: 20px;"></span>
+                                <h5 style="font-size: 11pt ;"  th:text="${billDetailRefund.diaChiNguoiNhan}"></h5>
+                                <a data-toggle="modal" data-target="#modalAddress" style="text-decoration: none; color: rgb(84, 84, 250); cursor: pointer; margin-left: 20px;"> Thay đổi</a>
+                            </div>
+
+                        </div>
+
                         <div class="row coupon__code">
                             <div class="row" style="display: block;">
                                 <a style="margin-right: 210px; font-weight: 700; font-size: 13pt;">Tạo yêu cầu trả hàng/hoàn tiền</a>
@@ -1337,28 +1302,38 @@
                             </div>
 
                             <div class="row" style="display: flex; margin: 30px 0 0 0; width: 100%;">
-                                <th:block th:each="product : ${billDetailRefund.hoaDonChiTiets}">
+                                <div class="col-sm-1" >
 
-                                    <div style="display: flex; margin-bottom: 40px;">
+                                </div>
+                                <div class="col-sm-7" style="align-items: center;">
+                                    <p style="font-size: 13pt; font-weight: 600; text-align: center;">Sản phẩm</p>
+                                </div>
+                                <div class="col-sm-4" style="align-items: center;">
+                                    <p style="font-size: 13pt; font-weight: 600; text-align: center;">Giá tiền</p>
+                                </div>
+
+                                <div class="col-sm-12" style="height: 20px;"></div>
+
+                                <th:block th:each="product : ${billDetailRefund.hoaDonChiTiets}">
                                         <div class="col-sm-1" >
-                                            <input name="ctspSelected" th:id="'checkbox_' + ${product.chiTietGiay.idCTG}" th:value="'id=' + ${product.chiTietGiay.idCTG}"  onchange="updateCheckboxValue(this)" type="checkbox" style="height: 20px; width: 20px; margin-top: 25px;">
+                                            <input name="idCTGSelectted" th:id="'checkbox_' + ${product.chiTietGiay.idCTG} " th:value="${product.chiTietGiay.idCTG}" type="checkbox" style="height: 20px; width: 20px; margin-top: 25px;">
                                         </div>
-                                        <div class="col-sm-1" ></div>
                                         <div class="col-sm-7" style="display: flex;">
                                             <img th:src="@{'/images/imgsProducts/' + ${product.chiTietGiay.hinhAnh.url1}}" style="height: 70px; width: 70px;" alt="">
                                             <div style=" display: block;">
                                                 <p style="margin-left: 20px;"  th:text="${product.chiTietGiay.giay.tenGiay}"></p>
                                                 <span style="margin-left: 20px; margin-top: -20px;" th:text="'Phân loại: ' + ${product.chiTietGiay.mauSac.tenMau} +' | Size:' + ${product.chiTietGiay.size.soSize} "></span>
-                                                <input th:id="'quantity_' + ${product.chiTietGiay.idCTG}"  type="number" style="margin-left: 20px; margin-top: -20px;" th:max="${product.soLuong}" min="1" th:value="${product.soLuong}" oninput="validateInput(this)">
+                                                <input name="soLuong" th:id="'quantity_' + ${product.chiTietGiay.idCTG}"  type="number" style="margin-left: 20px; margin-top: -20px; width: 70px; " th:max="${product.soLuong}" min="1" th:value="${product.soLuong}" oninput="validateInput(this)">
                                             </div>
 
                                         </div>
-                                        <div class="col-sm-3" style="display: flex;">
-                                            <p th:text="'₫' + ${#numbers.formatDecimal(product.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}" style="color: #b7b7b7;text-decoration: line-through; margin-right: 30px;"></p>
-                                            <p th:text="'₫' + ${#numbers.formatDecimal(product.chiTietGiay.soTienTruocKhiGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                        <div class="col-sm-2" style="display: flex;">
+                                            <p th:if="${product.donGiaTruocGiam != product.donGia}" th:text="'₫' + ${#numbers.formatDecimal(product.donGiaTruocGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}" style="color: #b7b7b7;text-decoration: line-through; margin-right: 30px;"></p>
                                         </div>
-                                    </div>
-
+                                        <div class="col-sm-2" style="display: flex;">
+                                            <p th:text="'₫' + ${#numbers.formatDecimal(product.donGia, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                        </div>
+                                        <div class="col-sm-12" style="height: 20px;"></div>
                                 </th:block>
                             </div>
                         </div>
@@ -1370,7 +1345,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <div style="display: grid;">
-                                    <button type="submit" style="border: 0.3px solid black; margin: 50px 0 20px 0; height: 40px;">Gửi yêu cầu</button>
+                                    <button onclick="return validatePurchase()" type="submit" style="border: 0.3px solid black; margin: 50px 0 20px 0; height: 40px;">Gửi yêu cầu</button>
                                 </div>
                             </div>
 
@@ -1379,23 +1354,22 @@
                                 <div class="row" style="margin: 40px 0 50px 40px;">
                                     <div class="col-sm-2 imgUp">
                                         <div class="imagePreview"></div>
-                                        <label class="btn btn-primary">Upload
-                                            <input type="file" name="imagesRequest" class="uploadFile img" style="width: 0px;height: 0px;">
+                                        <label class="btn btn-primary">Tải lên
+                                            <input accept=".jpg, .jpeg, .png" type="file" name="imagesRequest" class="uploadFile img" style="width: 0px;height: 0px;">
                                         </label>
                                     </div>
                                     <div class="col-sm-2 imgUp">
                                         <div class="imagePreview"></div>
-                                        <label class="btn btn-primary">Upload
-                                            <input type="file" name="imagesRequest" class="uploadFile img" style="width: 0px;height: 0px;">
+                                        <label class="btn btn-primary">Tải lên
+                                            <input accept=".jpg, .jpeg, .png" type="file" name="imagesRequest" class="uploadFile img" style="width: 0px;height: 0px;">
                                         </label>
                                     </div>
                                     <div class="col-sm-2 imgUp">
                                         <div class="imagePreview"></div>
-                                        <label class="btn btn-primary">Upload
-                                            <input type="file" name="imagesRequest" class="uploadFile img" style="width: 0px;height: 0px;">
+                                        <label class="btn btn-primary">Tải lên
+                                            <input accept=".jpg, .jpeg, .png" type="file" name="imagesRequest" class="uploadFile img" style="width: 0px;height: 0px;">
                                         </label>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -1407,48 +1381,6 @@
 
 <!--                Yêu cầu hoàn hàng begin -->
                 <div th:if="${detailBillRefundMoneyRequest}">
-
-                    <!-- Thông tin hoàn hàng begin -->
-                    <div th:if="${thongTinHoanHang}" class="row coupon__code" style="margin-bottom: 30px;">
-                        <div class="col-lg-12" style="border-bottom: 0.3px solid black ; margin-bottom: 20px;">
-                            <p style="text-align: center; margin-bottom: 20px;">*Nếu bạn chọn các đơn vị vận chuyển khác
-                                <b style="color:red;">Human Express</b>
-                                vui lòng nhập mã đơn hoàn trước 13:15 20/12/2023. Nếu không đơn hoàn sẽ bị hủy !</p>
-                        </div>
-                        <div class="col-lg-4" style="align-items: center;">
-                            <p>Chọn địa chỉ trả hàng :</p>
-                            <a style="cursor: pointer;" data-toggle="modal" data-target="#diaChiHoanHang">Chọn địa chỉ gửi hàng </a>
-
-                        </div>
-                        <div class="col-lg-4" >
-                            <p>Đơn vị nhận hàng hoàn :</p>
-                            <div style="margin-left: 30px;">
-                                <select class="form-control" name="">
-                                    <option value="">Human Express</option>
-                                    <option value="">Giao hàng tiết kiệm</option>
-                                    <option value="">Giao hàng nhanh</option>
-                                    <option value="">Viettel Post</option>
-                                    <option value="">Ahamove</option>
-                                </select>
-                            </div>
-
-                        </div>
-                        <div class="col-lg-4">
-                            <p>Mã vận đơn :</p>
-                            <input style="width: 100%;" class="form-control" name="">
-                        </div>
-                        <div class="col-lg-12" style="height: 30px;">
-
-                        </div>
-                        <div class="col-lg-4">
-                        </div>
-                        <div class="col-lg-4">
-                            <button style="border: 0.3px solid black; height: 40px; width: 100%;">Xác nhận thông tin</button>
-                        </div>
-                        <div class="col-lg-4">
-                        </div>
-                    </div>
-                    <!-- Thông tin hoàn hàng end -->
 
                     <div class="row coupon__code" style="margin-bottom: 30px;" >
                         <div class="row">
@@ -1742,16 +1674,41 @@
 
                     <div class="row coupon__code" th:unless="${phieuTraHang.trangThai == 0}" style="border-top: 2px solid black" >
                         <div class="row" style=" margin: 10px 0 0 0; width: 100%;">
+
+                            <div class="col-lg-12" style="display: flex; margin: 0 0 10px 0; height: 0.5px;"></div>
+
+                            <div class="col-lg-3" style="display: flex;">
+                                <p style="font-size: 12pt; font-weight: 600;">Địa chỉ lấy hàng :</p>
+                            </div>
+                            <div class="col-lg-9" style="display: flex;">
+                                <p style="" th:text="${phieuTraHang.hoaDon.diaChiNguoiNhan}"></p>
+                            </div>
+
+                            <div class="col-lg-12" style="display: flex; margin: 0 0 10px 0;; height: 0.5px; background-color: black"></div>
+
+
                             <div class="col-lg-12" style="display: flex; height: 20px; margin-bottom: 20px;">
                                 <a style="font-weight: 700; font-size: 13pt;">Sản phẩm shop chấp nhận hoàn</a>
                             </div>
+
                             <div class="col-lg-3" style="display: flex;">
                                 <p style="font-size: 12pt; font-weight: 600;">Lý do từ chối :</p>
                             </div>
                             <div class="col-lg-9" style="display: flex;">
                                 <p style="" th:text="${lyDoTuChoi}"></p>
                             </div>
-                            <div class="col-lg-12" style="display: flex;  margin: 20px 0 20px; height: 0.5px; background-color: black"></div>
+
+                            <div class="col-lg-4" style="display: flex;">
+                                <p style="font-size: 12pt; font-weight: 600;">Hành trình hoàn hàng :</p>
+                            </div>
+                            <div class="col-lg-3" style="display: flex;">
+                                <p style="" > 13:54 12/12/2023</p>
+                            </div>
+                            <div class="col-lg-5" style="display: flex;">
+                                <p>Nhân viên đã lấy hàng</p>
+                            </div>
+
+                            <div class="col-lg-12" style="display: flex;  margin: 20px 0 20px 0; height: 0.5px; background-color: black"></div>
                             <th:block th:each="product : ${billDetailRefundNew.hoaDonChiTiets}">
                                 <div class="col-lg-2" >
                                     <p style="color: #d91325" th:if="${product.trangThai == 1}">Bị từ chối</p>
@@ -1906,7 +1863,6 @@
                 </div>
 <!--                Yêu cầu hoàn hàng end -->
 
-
 <!--                Setting Account Begin-->
                 <div th:if="${pagesettingAccount}" class="card">
                     <div class="card-body" >
@@ -1998,7 +1954,7 @@
                         <div class="row"
                              style="background-color: #f3f2ee; height: 80px; width: 836px; border-radius: 5px; margin-top: -10px;">
                             <p style="font-size: 14pt; margin-top: 26px; margin-left: 30px;">Địa chỉ của tôi</p>
-                            <a style="height: 40px; width: 200px; margin-left: 450px; margin-top: 20px;" type="button" data-toggle="modal" data-target="#exampleModalCenter"> + thêm địa chỉ mới</a>
+                            <a style="height: 40px; width: 200px; margin-left: 450px; margin-top: 20px;" type="button" data-toggle="modal" data-target="#modalThemDiaChi"> + thêm địa chỉ mới</a>
                         </div>
 
                         <div  th:object="${addressKHDefault}" class="row"
@@ -2082,7 +2038,7 @@
 
                                 <div th:unless="${x.trangThai == 6 or x.trangThai == 7}" class="" style=" display: block; width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
 
-                                    <div style="float: right; display: flex; padding: 10px 0 0 0;">
+                                    <div th:if="${x.idHDOld == null}" style="float: right; display: flex; padding: 10px 0 0 0;">
                                         <p style="float: right; display: flex; " th:text="${x.maHD}"></p>
                                         <p style="margin: 0 10px 0 10px;">|</p>
                                         <p th:if="${x.trangThai == 0}" style="color: red; margin-right: 20px;">CHỜ THANH TOÁN</p>
@@ -2093,10 +2049,10 @@
                                         <p th:if="${x.trangThai == 5}" style="color: red; margin-right: 20px;">ĐÃ HOÀN TIỀN</p>
                                     </div>
 
-                                    <div style="width: 90%; margin: 40px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
+                                    <div th:if="${x.idHDOld == null}" style="width: 90%; margin: 40px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
 
                                     <!-- List CTDP in HD begin -->
-                                    <th:block th:each="product : ${x.hoaDonChiTiets}">
+                                    <th:block th:if="${x.idHDOld == null}" th:each="product : ${x.hoaDonChiTiets}">
                                         <div style="display: flex; padding-left: 40px;">
                                             <img th:src="@{'/images/imgsProducts/' + ${product.chiTietGiay.hinhAnh.url1}}" style="height: 80px; width: 80px; border-radius: 5px;" alt="">
                                             <div style="width: 300px;">
@@ -2112,18 +2068,30 @@
                                     </th:block>
                                     <!-- List CTDP in HD end -->
 
-                                    <div style=" margin: 0 0 20px 560px;">
+                                    <div th:if="${x.idHDOld == null}" style=" margin: 0 0 20px 560px;">
 
                                         <p style="font-size: 13pt; color: black; font-weight: 600; margin-right: 50px; " th:text="'Thanh toán      : ₫' + ${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
 
                                     </div>
 
-                                    <div style="float: right; margin: 0 0 20px 0;">
+                                    <div th:if="${x.idHDOld == null}" style="float: right; margin: 0 0 20px 0;">
                                         <div style="display: flex; margin-right: 20px;">
                                             <a th:href="@{'/buyer/purchase/bill/detail/' + ${x.idHD}}" style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Xem chi tiết</a>
                                             <a th:if="${x.trangThai == 3 or x.trangThai == 4 or x.trangThai == 5}" th:href="@{'/buyer/purchaser/bill/buy/again/' + ${x.idHD}}"  style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Mua lại</a>
-                                            <a th:if="${x.trangThai == 3}" th:href="@{'/buyer/purchase/rate/' + ${x.idHD}}"  style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Đánh giá</a>
-                                            <a th:if="${x.trangThai == 3}" th:href="@{'/buyer/purchase/request/refund/' + ${x.idHD}}"  style="font-size: 10pt; color: black; text-align: center; padding-top: 5px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Yêu cầu hoàn hàng/trả tiền</a>
+                                            <a th:if="${x.trangThai == 3}" th:data-bs-toggle="modal"
+                                               th:data-bs-target="'#modalDanhGia' + ${x.idHD}"  style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Đánh giá</a>
+
+                                            <form th:if="${x.trangThaiHoan == 9}" th:action="@{'/buyer/purchaser/bill/refund/' + ${x.idHD}}" method="post">
+                                                <button style="font-size: 10pt; color: black; text-align: center; padding-top: 5px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Yêu cầu hoàn hàng/trả tiền</button>
+                                            </form>
+
+                                            <form th:if="${x.trangThaiHoan != 9}" th:action="@{'/buyer/purchaser/bill/detail/refund/' + ${x.idHD}}" method="get">
+                                                <button style="font-size: 10pt; color: black; text-align: center;
+                                                 padding-top: 5px; align-items: center; height: 50px; width: 130px;
+                                                  border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">
+                                                    Xem chi tiết hoàn hàng/tiền</button>
+                                            </form>
+
                                             <a th:if="${x.trangThai == 0}" th:data-bs-toggle="modal"
                                                th:data-bs-target="'#modalQRCode' + ${x.idHD}"  style="cursor: pointer; color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Thanh Toán</a>
                                             <a th:if="${x.trangThai == 0 or x.trangThai == 1}" th:href="@{'/buyer/purchase/bill/detail/cancel/' + ${x.idHD}}"  style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0;">Hủy đơn</a>
@@ -2280,7 +2248,7 @@
                          <div th:if="${purchaseCompleted}" class="row" style="margin-top: 10px;background-color: white; width: 836px ; border-radius: 5px;">
                              <th:block th:each="x : ${listAllHDByKhachHang}">
 
-                                 <div class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+                                 <div th:if="${x.idHDOld == null}" class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
 
                                      <div style="float: right; display: flex; padding: 10px 0 0 0;">
                                          <a style="color: black;" href="#" th:text="${x.maHD}"></a>
@@ -2309,18 +2277,18 @@
 
                                      <div style="float: right; margin: 0 0 20px 0;">
 
-                                         <p style="font-size: 13pt; color: black; font-weight: 600; margin-left: 80px;" th:text="'Thanh toán      : ₫' + ${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                                         <p style="font-size: 13pt; color: black; font-weight: 600; margin-left: 80px;" th:text="'Thanh toán: ₫' + ${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
 
                                          <div style="display: flex; margin-right: 20px;">
                                              <a th:href="@{'/buyer/purchase/bill/detail/' + ${x.idHD}}" style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px; width: 130px; border: 0.5px solid black; margin-right: 20px; background-color: #f0f0f0">Xem chi tiết</a>
                                              <a th:href="@{'/buyer/purchaser/bill/completed/rated/' + ${x.idHD}}" style=" color: black; text-align: center; margin-right:20px;  padding-top: 12px; align-items: center; height: 50px;
                                               width: 130px; border: 0.5px solid black; background-color: #f0f0f0">Đánh giá</a>
 
-                                             <a th:if="${x.trangThaiHoan != null}" th:href="@{'/buyer/purchaser/bill/detail/refund/' + ${x.idHD}}" type style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px;
+                                             <a th:if="${x.trangThaiHoan != 8 }" th:href="@{'/buyer/purchaser/bill/detail/refund/' + ${x.idHD}}" type style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px;
                                               width: 250px; border: 0.5px solid black; margin: 0 20px 0 0; background-color: #f0f0f0"> Xem chi tiết Hoàn/Đổi Hàng</a>
 
-                                             <form th:action="@{'/buyer/purchaser/bill/refund/' + ${x.idHD}}" method="post">
-                                                 <button type="submit" th:if="${x.trangThaiHoan == null}" style=" color: black; text-align: center;
+                                             <form th:if="${x.trangThaiHoan == 8}" th:action="@{'/buyer/purchaser/bill/refund/' + ${x.idHD}}" method="post">
+                                                 <button type="submit" style=" color: black; text-align: center;
                                                  align-items: center; height: 50px; width: 130px; border: 0.5px solid black; background-color: #f0f0f0">Hoàn/Đổi Hàng</button>
                                              </form>
                                          </div>
@@ -2380,7 +2348,7 @@
                         <div th:if="${purchaseRefund}"  class="row" style="margin-top: 10px;background-color: white; width: 836px ; border-radius: 5px;">
                             <th:block th:each="x : ${listAllHDByKhachHang}">
 
-                                <div class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+                                <div th:if="${x.idHDOld == null and x.trangThaiHoan != 8}" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
 
                                     <div style="float: right; display: flex; padding: 10px 0 0 0;">
                                         <a style="color: black;" href="#" th:text="${x.maHD}"></a>
@@ -2392,7 +2360,8 @@
                                         <p th:if="${x.trangThaiHoan == 4}" style="margin-right: 20px; color: red;">CHỜ HOÀN HÀNG</p>
                                         <p th:if="${x.trangThaiHoan == 5}" style="margin-right: 20px; color: red;">ĐANG HOÀN HÀNG</p>
                                         <p th:if="${x.trangThaiHoan == 6}" style="margin-right: 20px; color: red;">HOÀN THÀNH CÔNG</p>
-                                        <p th:if="${x.trangThaiHoan == 7}" style="margin-right: 20px; color: red;">ĐÃ HOÀN TIỀN</p>
+                                        <p th:if="${x.trangThaiHoan == 7}" style="margin-right: 20px; color: red;">CHỜ HOÀN TIỀN</p>
+                                        <p th:if="${x.trangThaiHoan == 8}" style="margin-right: 20px; color: red;">ĐÃ HOÀN TIỀN</p>
                                     </div>
 
                                     <div style="width: 90%; margin: 40px 0 20px 40px ; background-color: black; height: 0.5px;"></div>
@@ -2490,31 +2459,31 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <div class="footer__about">
                     <div class="footer__logo">
-                        <a href="#"><img src="/images/img/footer-logo.png" alt=""></a>
+                        <a href="#"><img src="/Logo.png" alt=""></a>
                     </div>
-                    <p>The customer is at the heart of our unique business model, which includes design.</p>
-                    <a href="#"><img src="/images/img/payment.png" alt=""></a>
+                    <p> Khách hàng là trung tâm của mô hình kinh doanh độc đáo của chúng tôi, bao gồm cả thiết kế.</p>
+                    <a href="#"><img src="img/payment.png" alt=""></a>
                 </div>
             </div>
             <div class="col-lg-2 offset-lg-1 col-md-3 col-sm-6">
                 <div class="footer__widget">
-                    <h6>Shopping</h6>
+                    <h6>Cửa hàng</h6>
                     <ul>
-                        <li><a href="#">Clothing Store</a></li>
-                        <li><a href="#">Trending Shoes</a></li>
-                        <li><a href="#">Accessories</a></li>
-                        <li><a href="#">Sale</a></li>
+                        <li><a href="/buyer/shop">Gian hàng</a></li>
+                        <li><a href="/buyer/shop">Xu Hướng</a></li>
+                        <li><a href="/buyer/shop">Đề Xuất</a></li>
+                        <li><a href="/buyer/shop/sale">Giảm giá</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-lg-2 col-md-3 col-sm-6">
                 <div class="footer__widget">
-                    <h6>Shopping</h6>
+                    <h6>Mua sắm</h6>
                     <ul>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Payment Methods</a></li>
-                        <li><a href="#">Delivary</a></li>
-                        <li><a href="#">Return & Exchanges</a></li>
+                        <li><a href="#">Liên Hệ</a></li>
+                        <li><a href="#">Thanh Toán</a></li>
+                        <li><a href="#">Giao Hàng</a></li>
+                        <li><a href="#">Hoàn Hàng/Tiền</a></li>
                     </ul>
                 </div>
             </div>
@@ -2522,7 +2491,7 @@
                 <div class="footer__widget">
                     <h6>NewLetter</h6>
                     <div class="footer__newslatter">
-                        <p>Be the first to know about new arrivals, look books, sales & promos!</p>
+                        <p>Hãy là người đầu tiên biết về hàng mới, sách tra cứu, khuyến mại và khuyến mãi!</p>
                         <form action="#">
                             <input type="text" placeholder="Your email">
                             <button type="submit"><span class="icon_mail_alt"></span></button>
@@ -2536,13 +2505,10 @@
                 <div class="footer__copyright__text">
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     <p>Copyright ©
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script>
-                        2020
-                        All rights reserved | This template is made with <i class="fa fa-heart-o"
+                        2023
+                        All rights reserved | This template is edit with <i class="fa fa-heart-o"
                                                                             aria-hidden="true"></i> by <a
-                                href="https://colorlib.com" target="_blank">Colorlib</a>
+                                href="https://www.instagram.com/nhanngu_03/" target="_blank">Nhan Pham</a>
                     </p>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </div>
@@ -2551,18 +2517,16 @@
     </div>
 </footer>
 <!-- Footer Section End -->
-
-
 <!--Modal begin-->
 <section>
 
 <!--    Thêm địa chỉ  begin-->
-    <div class="modal fade" id="modalThemDiaChi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
+    <div th:if="${addNewAddressSetting}" class="modal fade" id="modalThemDiaChi" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="width: 500px">
             <div class="modal-content">
                 <form action="/buyer/addresses/add" method="post">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">New Address</h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle">Thêm địa chỉ mới</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -2571,67 +2535,56 @@
                         <div>
                             <div class="row" style="margin-bottom: 20px;">
                                 <input style="height: 40px; margin-left: 38px; margin-right: 30px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
-                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;" type="text" placeholder="Name Address" name="nameAddress">
+                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;" type="text" placeholder="Tên địa chỉ" name="nameAddress">
 
                                 <input style="height: 40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
-                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;" type="text" placeholder="Full Name" name="fullName" >
+                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;" type="text" placeholder="Tên người nhận" name="fullName" >
                             </div>
-
                             <div class="row" style="margin-bottom: 20px;">
                                 <input style="height: 40px; margin-left: 38px; margin-right: 30px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
-                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;" type="text" placeholder="Phone" name="phoneAddress">
+                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;" type="text" placeholder="SDT người nhận" name="phoneAddress">
 
-                                <select class="select" id="loc" name="thernAddress"
+                                <select class="select" id="city" name="city"
                                         style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
                                                        font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;">
-                                    <option selected >Selected Thern</option>
-                                    <option th:value="mien_bac" >Miền Bắc</option>
-                                    <option th:value="mien_trung" >Miền Trung</option>
-                                    <option th:value="mien_nam">Miền Nam</option>
+                                    <option value="" selected>Chọn thành phố</option>
                                 </select>
                             </div>
 
                             <div class="row" style="margin-bottom: 20px;">
 
-                                <select class="select" id="city" name="city" style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
-                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;  margin-right: 30px; margin-left: 38px;">
-                                    <option value="" selected>Select City</option>
+                                <select class="select" id="district" name="district" style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px; margin-left: 38px; margin-right: 30px; ">
+                                    <option value="" selected>Chọn quận huyện</option>
                                 </select>
 
-                                <select class="select" id="district" name="district" style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
-                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;">
-                                    <option value="" selected>Select District</option>
+                                <select class="select" id="ward" name="ward" style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px; ">
+                                    <option value="" selected>Chọn phường/xã</option>
                                 </select>
 
                             </div>
 
                             <div class="row" style="margin-bottom: 20px;" >
 
-                                <select class="select" id="ward" name="ward" style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
-                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;  margin-right: 30px; margin-left: 38px;">
-                                    <option value="" selected>Select Ward</option>
-                                </select>
-
-                                <input name="description" style="height: 40px;width: 190px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
-                                font-weight: 500; font-size: 14px; color: #637381;  padding: 10px 15px;" type="text" placeholder="Description" >
+                                <input name="description" style="height: 40px;width: 410px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                font-weight: 500; font-size: 14px; color: #637381;  padding: 10px 15px; margin-left: 38px;" type="text" placeholder="Mô tả";  >
 
                             </div>
 
+                            <div style="width: 100%; height:15px;"></div>
                             <div style="width: 100%; height: 0.5px; background-color: rgb(64, 64, 64) ;"></div>
-
-                            <div class="row"style="margin:10px 0 10px 0;">
-                                <p style="text-align: center;">Toà Nhà T1, Số 35, Lê Văn Lương, Phường Nhân Chính, Quận Thanh Xuân, Hà Nội</p>
-                            </div>
+                            <div style="width: 100%; height:15px;"></div>
 
                             <div class="row">
-                                <input style="margin: 0 10px 0 38px;" type="checkbox" name="defaultSelected">  Set as Default Address
+                                <input style="margin: 0 10px 0 38px;" type="checkbox" name="defaultSelected">  Đặt làm mặc định
                             </div>
 
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save changes</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
                     </div>
                 </form>
             </div>
@@ -2641,8 +2594,8 @@
 
 <!--    Thông tin thanh toán begin-->
     <div class="modal fade" id="modalQRCode" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document" style="margin: 2.5rem;max-width: 2000px;" >
-            <div class="modal-content" style="width: 1170px;" >
+        <div class="modal-dialog modal-dialog-centered" role="document" style="width: 1170px;"  >
+            <div class="modal-content">
 
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Thông tin thanh toán</h5>
@@ -2675,7 +2628,7 @@
                                                 <p style="font-weight: 700;">NỘI DUNG THANH TOÁN</p>
                                                 <p style="display: flex;">NỘI DUNG CHUYỂN KHOẢN  </p>
 
-                                                <p style="font-weight: 700; border: 0.5px solid black; padding: 10px; width: 200px;" th:text="${billDetailPay.maHD}"></p>
+                                                <p style="font-weight: 700; border: 0.5px solid black; padding: 10px; width: 250px;" th:text="${billDetailPay.maHD}"></p>
 
                                                 <p>Số Tiền</p>
 
@@ -2704,12 +2657,44 @@
     </div>
 <!--    Thông tin thanh toán end-->
 
+<!--    Modal thông báo quy định trả hàng begin-->
+    <div class="modal fade" id="thongBaoQuyDinhTraHang" tabindex="-1" role="dialog" aria-labelledby="messAddThanhCongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messAddThanhCongTitle" >Quy định hoàn trả hàng !</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div style="align-items: center; text-align: center; width: 465px; margin-top: 10px; margin-bottom: 10px;">
+                    <p style="text-align: center; margin-bottom: 20px;">*Chi phí hoàn hàng sẽ được shop thanh toán</p>
+                    <p>Các bước nhập thông tin hoàn hàng</p>
+                    <p><b>Bước 1 :</b>  Chọn đơn vị vận chuyển mà bạn muốn hoàn hàng</p>
+                    <p><b>Bước 2 :</b>  Gửi hàng hoặc đặt đơn hàng để shipper đến lấy</p>
+                    <p><b>Bước 3 :</b>  Nhập địa chỉ hoàn hàng ở <b>Cửa hàng Sneaker Shop</b> </p>
+                    <p>Địa chỉ:Toà Nhà T1, Số 35, Lê Văn Lương Phường Nhân Chính, Quận Thanh Xuân, Hà Nội</p>
+                    <p>SDT : 0384329003</p>
+                    <p> <b>Bước 4 :</b> Nhập mã vận đơn mà bạn đã gửi</p>
+                    <p>Shop sẽ kiểm tra mã vận đơn nếu sai tối đa <b style="color: red;">3</b> lần đơn hàng sẽ hủy</p>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--    Modal thông báo quy định trả hàng end-->
+
 <!--  List Thông tin thanh toán begin-->
     <th:block th:each="x : ${listHoaDonChoThanhToan}">
         <div class="modal fade" th:id="'modalQRCode' + ${x.idHD}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document" style="margin: 2.5rem;max-width: 2000px;" >
-                <div class="modal-content" style="width: 1170px;" >
-
+            <div class="modal-dialog modal-dialog-centered" role="document" style="width: 1170px;" >
+                <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLongTitle">Thông tin thanh toán</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -2717,7 +2702,7 @@
                         </button>
                     </div>
 
-                    <div class="modal-body" style="width: 1170px;" >
+                    <div class="modal-body" >
 
                         <div class="row"  style="background-color: #f3f2ee;">
                             <div class="col-lg-4" style="padding: 20px;">
@@ -2740,7 +2725,7 @@
 
                                             <p style="font-weight: 700;">NỘI DUNG THANH TOÁN</p>
                                             <p style="display: flex;">NỘI DUNG CHUYỂN KHOẢN</p>
-                                            <p style="font-weight: 700; border: 0.5px solid black; padding: 10px; width: 200px;" th:text="${x.maHD}"></p>
+                                            <p style="font-weight: 700; border: 0.5px solid black; padding: 10px; width: 250px;" th:text="${x.maHD}"></p>
                                             <p>Số Tiền</p>
                                             <p style="font-weight: 700; border: 0.5px solid black; padding: 10px; width: 150px;" th:text="'₫' + ${#numbers.formatDecimal(x.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
 
@@ -2978,7 +2963,7 @@
     <div th:if="${modalHuyHoaDonInDetailBillPay}" class="modal fade" id="modalHuyHoaDonInDetailBillPay" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
         <!--       Modal Hủy chờ thanh toán begin-->
-        <div th:if="${detailBillPay}" class="modal-dialog modal-dialog-centered" role="document" th:object="${billDetailPay}" >
+        <div th:if="${detailBillPay}" class="modal-dialog modal-dialog-centered" role="document" style="width: 600px;" th:object="${billDetailPay}" >
             <form th:action="@{'/buyer/purchase/bill/pay/cancel/' + ${billDetailPay.idHD}}" method="post">
                 <div class="modal-content" >
 
@@ -3179,21 +3164,240 @@
     </div>
 <!--Modal thay đổi địa chỉ nhận hàng end-->
 
-<!--   Modal địa chỉ hoàn hàng begin-->
-    <div th:if="${diaChiHoanHang}" class="modal fade" id="diaChiHoanHang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle2" aria-hidden="true">
+<!--    Validate chọn sản phẩm trả hàng begin-->
+    <div class="modal fade" id="thongBaoChonSPTraHang" tabindex="-1" role="dialog" aria-labelledby="messAddThanhCongTitle" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <form action="/buyer/checkout/change/address" method="post">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="messAddThanhCongTitle" >Thông báo !</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
+                    <div style="align-items: center; text-align: center; width: 465px; margin-top: 10px; margin-bottom: 10px;">
+                        <p style="font-size: 13pt; font-weight: 600;">Chọn ít nhất 1 sản phẩm để hoàn hàng !!</p>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--    Validate chọn sản phẩm trả hàng end-->
+
+<!--    Validate chọn sản phẩm trả hàng begin-->
+    <div class="modal fade" id="thongBaoNhapMa" tabindex="-1" role="dialog" aria-labelledby="messAddThanhCongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messAddThanhCongTitle" >Thông báo !</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div style="align-items: center; text-align: center; width: 465px; margin-top: 10px; margin-bottom: 10px;">
+                    <p style="font-size: 13pt; font-weight: 600;">Vui lòng nhập mã vận đơn !!</p>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--    Validate chọn sản phẩm trả hàng end-->
+
+<!--    Modal dánh giá đơn hàng begin-->
+    <div th:if="${detailBillCompleted}" class="modal fade" id="modalDanhGiaDonHang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document"  style="width: 750px ">
+            <form th:action="@{'/buyer/purchase/bill/complete/rate/' + ${billDetailCompleted.idHD}}" method="post" enctype="multipart/form-data">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Đánh giá sản phẩm</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="margin-bottom: 30px;">
+                        <p style="margin: auto; font-weight: 600; font-size: 13pt;">Mức độ đánh giá </p>
+
+                    </div>
+                    <div class="row" >
+                        <div class="col-lg-1"></div>
+                        <div class="col-lg-2">
+                            <input  style="height: 20px; width: 20px; margin-left: 30px; "  type="radio" value="1" name="soDiem">
+                            <p style="margin: auto; font-size: 10pt; margin-left: 30px;">Tệ</p>
+                        </div>
+                        <div class="col-lg-2">
+                            <input style="height: 20px; width: 20px; margin-left: 30px; " type="radio" value="2" name="soDiem">
+                            <p style="margin: auto; font-size: 10pt;">Không hài lòng</p>
+                        </div>
+                        <div class="col-lg-2">
+                            <input  style="height: 20px; width: 20px; margin-left: 30px; "   type="radio" value="3" name="soDiem">
+                            <p style="margin: auto; font-size: 10pt; margin-left: 10px;">Bình thường</p>
+                        </div>
+                        <div class="col-lg-2">
+                            <input  style="height: 20px; width: 20px; margin-left: 30px; "   type="radio" value="4" name="soDiem">
+                            <p style="margin: auto; font-size: 10pt;margin-left: 15px;">Hài lòng</p>
+                        </div>
+                        <div class="col-lg-2">
+                            <input  style="height: 20px; width: 20px; margin-left: 30px; "  checked type="radio" value="5" name="soDiem">
+                            <p style="margin: auto; font-size: 10pt;margin-left: 15px;">Tuyệt vời</p>
+                        </div>
+                        <div class="col-lg-1"></div>
+
+                    </div>
+
+                    <div style="width: 100%; margin-top: 10px; margin-bottom: 10px; height: 1px; background: rgba(0,0,0,.54);"></div>
+
+                    <div class="row">
+                        <p style="margin: auto; font-weight: 600; font-size: 11pt;">Hãy chia sẻ những điều bạn thích về sản phẩm này với những người mua khác nhé.</p>
+                        <textarea name="moTaDanhGia" class="form-control" style="margin:20px 0 0 35px; width: 90%; height: 50px;"></textarea>
+                    </div>
+
+                    <div style="width: 100%; margin-top: 10px; margin-bottom: 10px; height: 1px; background: rgba(0,0,0,.54);"></div>
+
+                    <div class="row" style="margin: 40px 0 50px 40px;">
+                        <div class="col-sm-2 imgUp2">
+                            <div class="imagePreview2"></div>
+                            <label class="btn btn-primary2">Tải lên
+                                <input accept=".jpg, .jpeg, .png" type="file" name="imagesRequest" class="uploadFile img2" style="width: 0px;height: 0px;">
+                            </label>
+                        </div>
+                        <div class="col-sm-2 imgUp2">
+                            <div class="imagePreview2"></div>
+                            <label class="btn btn-primary2">Tải lên
+                                <input accept=".jpg, .jpeg, .png" type="file" name="imagesRequest" class="uploadFile img2" style="width: 0px;height: 0px;">
+                            </label>
+                        </div>
+                        <div class="col-sm-2 imgUp2">
+                            <div class="imagePreview2"></div>
+                            <label class="btn btn-primary2">Tải lên
+                                <input accept=".jpg, .jpeg, .png" type="file" name="imagesRequest" class="uploadFile img2" style="width: 0px;height: 0px;">
+                            </label>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary" style="border-radius: 5px; margin-top: 5px;width: 150px;">Gửi Đánh Giá</button>
+                </div>
+            </div>
+            </form>
+        </div>
+    </div>
+<!--    Modal đánh giá đơn hàng end-->
+
+<!--    Modal dánh giá đơn hàng begin-->
+    <th:block th:each="x : ${listAllHDByKhachHang}">
+        <form th:action="@{'/buyer/purchase/bill/complete/rate/' + ${x.idHD}}" method="post" enctype="multipart/form-data">
+            <div th:if="${x.idHDOld == null}" class="modal fade" th:id="'modalDanhGia' + ${x.idHD}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document"  style="width: 750px ">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle2">Thay đổi địa chỉ nhận hàng</h5>
+                        <h5 class="modal-title" id="exampleModalLongTitle">Đánh giá sản phẩm</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="margin-bottom: 30px;">
+                            <p style="margin: auto; font-weight: 600; font-size: 13pt;">Mức độ đánh giá </p>
+
+                        </div>
+                        <div class="row" >
+                            <div class="col-lg-1"></div>
+                            <div class="col-lg-2">
+                                <input  style="height: 20px; width: 20px; margin-left: 30px; "  type="radio" value="1" name="soDiem">
+                                <p style="margin: auto; font-size: 10pt; margin-left: 30px;">Tệ</p>
+                            </div>
+                            <div class="col-lg-2">
+                                <input style="height: 20px; width: 20px; margin-left: 30px; " type="radio" value="2" name="soDiem">
+                                <p style="margin: auto; font-size: 10pt;">Không hài lòng</p>
+                            </div>
+                            <div class="col-lg-2">
+                                <input  style="height: 20px; width: 20px; margin-left: 30px; "   type="radio" value="3" name="soDiem">
+                                <p style="margin: auto; font-size: 10pt; margin-left: 10px;">Bình thường</p>
+                            </div>
+                            <div class="col-lg-2">
+                                <input  style="height: 20px; width: 20px; margin-left: 30px; "   type="radio" value="4" name="soDiem">
+                                <p style="margin: auto; font-size: 10pt;margin-left: 15px;">Hài lòng</p>
+                            </div>
+                            <div class="col-lg-2">
+                                <input  style="height: 20px; width: 20px; margin-left: 30px; " checked type="radio" value="5" name="soDiem">
+                                <p style="margin: auto; font-size: 10pt;margin-left: 15px;">Tuyệt vời</p>
+                            </div>
+                            <div class="col-lg-1"></div>
+
+                        </div>
+
+                        <div style="width: 100%; margin-top: 10px; margin-bottom: 10px; height: 1px; background: rgba(0,0,0,.54);"></div>
+
+                        <div class="row">
+                            <p style="margin: auto; font-weight: 600; font-size: 11pt;">Hãy chia sẻ những điều bạn thích về sản phẩm này với những người mua khác nhé.</p>
+                            <textarea name="moTaDanhGia" class="form-control" style="margin:20px 0 0 35px; width: 90%; height: 50px;"></textarea>
+                        </div>
+
+                        <div style="width: 100%; margin-top: 10px; margin-bottom: 10px; height: 1px; background: rgba(0,0,0,.54);"></div>
+
+                        <div class="row" style="margin: 40px 0 50px 40px;">
+                            <div class="col-sm-2 imgUp2">
+                                <div class="imagePreview2"></div>
+                                <label class="btn btn-primary2">Tải lên
+                                    <input accept=".jpg, .jpeg, .png" type="file" name="imagesRequest" class="uploadFile img2" style="width: 0px;height: 0px;">
+                                </label>
+                            </div>
+                            <div class="col-sm-2 imgUp2">
+                                <div class="imagePreview2"></div>
+                                <label class="btn btn-primary2">Tải lên
+                                    <input accept=".jpg, .jpeg, .png" type="file" name="imagesRequest" class="uploadFile img2" style="width: 0px;height: 0px;">
+                                </label>
+                            </div>
+                            <div class="col-sm-2 imgUp2">
+                                <div class="imagePreview2"></div>
+                                <label class="btn btn-primary2">Tải lên
+                                    <input accept=".jpg, .jpeg, .png" type="file" name="imagesRequest" class="uploadFile img2" style="width: 0px;height: 0px;">
+                                </label>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-primary" style="border-radius: 5px; margin-top: 5px;width: 150px;">Gửi Đánh Giá</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </form>
+    </th:block>
+<!--    Modal đánh giá đơn hàng end-->
+
+<!--Modal địa chỉ lấy hàng hoàn begin-->
+    <div th:if="${addNewAddressNotNull}" class="modal fade" id="modalAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle2" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="width: 600px;">
+            <form action="/buyer/purchase/refund/change/address" method="post">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle2">Thay đổi địa chỉ lấy hàng</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
 
-                        <div>
+                        <div style="margin-bottom: 20px;">
                             <div style="display: flex; margin-left: 20px; margin:10px 0 10px 10px;" th:object="${diaChiKHDefault}">
                                 <input type="radio" th:value="${diaChiKHDefault.idDC}" name="idDCKH" style="height: 20px; width: 20px; margin: 0 20px 0 -10px;" >
                                 <h5 style="font-weight: 700; font-size: 13pt ;" th:text="${diaChiKHDefault.tenNguoiNhan}" ></h5>
@@ -3206,8 +3410,6 @@
                             </div>
                             <h5 style=" margin-bottom: 10px ;font-size: 11pt;" th:text="${diaChiKHDefault.diaChiChiTiet}"></h5>
                         </div>
-
-                        <div style="width: 465px; margin: 20px 0 20px 0; height: 0.5px; background: rgba(0,0,0,.54);"></div>
 
                         <th:block th:each="x : ${listAddressKH}">
 
@@ -3233,26 +3435,98 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                        <button type="submit" class="btn btn-primary" style="width: 150px;margin-top: 4px;border-radius: 5px; ">Lưu thay đổi</button>
                     </div>
                 </div>
 
             </form>
         </div>
     </div>
-<!--   Modal địa chỉ hoàn hàng end-->
+<!--Modal địa chỉ lấy hàng hoàn end-->
 
+<!--    Modal thêm địa chỉ lấy hàng begin-->
+    <div th:if="${addNewAddressNotNull}" class="modal fade" id="addNewAddress" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="width: 500px">
+            <div class="modal-content">
+                <form action="/buyer/purchase/refund/add/address" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Thêm địa chỉ mới</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <div class="row" style="margin-bottom: 20px;">
+                                <input style="height: 40px; margin-left: 38px; margin-right: 30px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;" type="text" placeholder="Tên địa chỉ" name="nameAddress">
+
+                                <input style="height: 40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;" type="text" placeholder="Tên người nhận" name="fullName" >
+                            </div>
+                            <div class="row" style="margin-bottom: 20px;">
+                                <input style="height: 40px; margin-left: 38px; margin-right: 30px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;" type="text" placeholder="SDT người nhận" name="phoneAddress">
+
+                                <select class="select" id="city" name="city"
+                                        style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                                       font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;">
+                                    <option value="" selected>Chọn thành phố</option>
+                                </select>
+                            </div>
+
+                            <div class="row" style="margin-bottom: 20px;">
+
+                                <select class="select" id="district" name="district" style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px; margin-left: 38px; margin-right: 30px; ">
+                                    <option value="" selected>Chọn quận huyện</option>
+                                </select>
+
+                                <select class="select" id="ward" name="ward" style="width: 190px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px; ">
+                                    <option value="" selected>Chọn phường/xã</option>
+                                </select>
+
+                            </div>
+
+                            <div class="row" style="margin-bottom: 20px;" >
+
+                                <input name="description" style="height: 40px;width: 410px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
+                                font-weight: 500; font-size: 14px; color: #637381;  padding: 10px 15px; margin-left: 38px;" type="text" placeholder="Mô tả";  >
+
+                            </div>
+
+                            <div style="width: 100%; height:15px;"></div>
+                            <div style="width: 100%; height: 0.5px; background-color: rgb(64, 64, 64) ;"></div>
+                            <div style="width: 100%; height:15px;"></div>
+
+                            <div class="row">
+                                <input style="margin: 0 10px 0 38px;" type="checkbox" name="defaultSelected">  Đặt làm mặc định
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!--    Modal thêm địa chỉ lấy hàng end-->
 </section>
 <!--Modal end-->
 
 <!-- Js Plugins -->
+
 <script src="/js/jquery-3.6.0.min.js"></script>
 <script src="/js/feather.min.js"></script>
 <script src="/js/bootstrap.bundle.min.js"></script>
 <script src="/js/script.js"></script>
 <script src="/js/jquery-3.3.1.min.js"></script>
 <script src="/js/bootstrap.min.js"></script>
-<script src="/js/jquery.nice-select.min.js"></script>
+<!--<script src="/js/jquery.nice-select.min.js"></script>-->
 <script src="/js/jquery.nicescroll.min.js"></script>
 <script src="/js/jquery.magnific-popup.min.js"></script>
 <script src="/js/jquery.countdown.min.js"></script>
@@ -3265,47 +3539,6 @@
 <script src="/js/custom-scroll.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-
-<script>
-    $(".imgAdd").click(function(){
-        $(this).closest(".row").find('.imgAdd').before('<div class="col-sm-2 imgUp"><div class="imagePreview"></div><label class="btn btn-primary">Upload<input type="file" class="uploadFile img" style="width:0px;height:0px;overflow:hidden;"></label><i class="del">X</i></div>');
-    });
-    $(document).on("click", "i.del" , function() {
-        $(this).parent().remove();
-    });
-    $(function() {
-        $(document).on("change",".uploadFile", function()
-        {
-            var uploadFile = $(this);
-            var files = !!this.files ? this.files : [];
-            if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
-
-            if (/^image/.test( files[0].type)){ // only image file
-                var reader = new FileReader(); // instance of the FileReader
-                reader.readAsDataURL(files[0]); // read the local file
-
-                reader.onloadend = function(){ // set image data as background of div
-                    //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
-                    uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url("+this.result+")");
-                }
-            }
-
-        });
-    });
-</script>
-
-<script>
-    $(document).ready(function () {
-        $('#modalHuyHoaDonInDetailBillPay').modal('show');
-    });
-    $(document).ready(function () {
-        $('#messBillDeliveryThanhCong').modal('show');
-    });
-    // $(document).ready(function () {
-    //     $('#noticaAddVoucher').modal('show');
-    // });
-</script>
-
 <script>
     const host = "https://provinces.open-api.vn/api/";
     var callAPI = (api) => {
@@ -3356,6 +3589,90 @@
 </script>
 
 <script>
+    function validateForm() {
+        // Lấy giá trị của select box
+        var donViNhanHang = document.getElementById("donViNhanHang").value;
+
+        // Nếu đơn vị nhận hàng không phải là "Human Express", kiểm tra input
+        if (donViNhanHang !== "human_express") {
+            var maVanDon = document.getElementById("maVanDon").value;
+
+            // Kiểm tra nếu input không được nhập
+            if (maVanDon.trim() === "") {
+                $('#thongBaoNhapMa').modal('show');
+                event.preventDefault();
+            }
+        }
+        document.forms[0].submit();
+    }
+</script>
+
+<script>
+    $(".imgAdd").click(function(){
+        $(this).closest(".row").find('.imgAdd').before('<div class="col-sm-2 imgUp"><div class="imagePreview"></div><label class="btn btn-primary">Tải <input type="file" class="uploadFile img" style="width:0px;height:0px;overflow:hidden;"></label><i class="del">X</i></div>');
+    });
+    $(document).on("click", "i.del" , function() {
+        $(this).parent().remove();
+    });
+    $(function() {
+        $(document).on("change",".uploadFile", function()
+        {
+            var uploadFile = $(this);
+            var files = !!this.files ? this.files : [];
+            if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+            if (/^image/.test( files[0].type)){ // only image file
+                var reader = new FileReader(); // instance of the FileReader
+                reader.readAsDataURL(files[0]); // read the local file
+
+                reader.onloadend = function(){ // set image data as background of div
+                    //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+                    uploadFile.closest(".imgUp").find('.imagePreview').css("background-image", "url("+this.result+")");
+                }
+            }
+
+        });
+    });
+</script>
+
+<script>
+    $(document).on("click", "i.del" , function() {
+        $(this).parent().remove();
+    });
+    $(function() {
+        $(document).on("change",".uploadFile", function()
+        {
+            var uploadFile = $(this);
+            var files = !!this.files ? this.files : [];
+            if (!files.length || !window.FileReader) return; // no file selected, or no FileReader support
+
+            if (/^image/.test( files[0].type)){ // only image file
+                var reader = new FileReader(); // instance of the FileReader
+                reader.readAsDataURL(files[0]); // read the local file
+
+                reader.onloadend = function(){ // set image data as background of div
+                    //alert(uploadFile.closest(".upimage").find('.imagePreview').length);
+                    uploadFile.closest(".imgUp2").find('.imagePreview2').css("background-image", "url("+this.result+")");
+                }
+            }
+
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#modalHuyHoaDonInDetailBillPay').modal('show');
+    });
+    $(document).ready(function () {
+        $('#messBillDeliveryThanhCong').modal('show');
+    });
+    // $(document).ready(function () {
+    //     $('#noticaAddVoucher').modal('show');
+    // });
+</script>
+
+<script>
     function updateCheckboxValue(checkbox) {
         var quantityId = checkbox.id.replace("checkbox_", "quantity_");
         var quantityInput = document.getElementById(quantityId);
@@ -3367,6 +3684,7 @@
             // Nếu checkbox không được chọn, đặt lại giá trị ban đầu của checkbox
             checkbox.value = checkbox.value.split(",")[0];
         }
+        console.log(checkbox.value);
     }
 
     function validateInput(input) {
@@ -3387,14 +3705,28 @@
             // Nếu là số âm hoặc không phải là số, đặt lại giá trị của ô input thành giá trị min
             input.value = input.getAttribute("min");
         }
+    }
+</script>
 
-        var checkboxId = input.id.replace("quantity_", "checkbox_");
-        var checkbox = document.getElementById(checkboxId);
+<script>
+    function validatePurchase() {
+        var form = document.getElementById('purchaseForm');
+        var checkboxes = form.querySelectorAll('input[type="checkbox"]');
+        var atLeastOneChecked = false;
 
-        // Nếu checkbox được chọn, cập nhật giá trị của checkbox
-        if (checkbox.checked) {
-            checkbox.value = checkbox.value.split(",")[0] + ", quantity=" + input.value;
+        checkboxes.forEach(function (checkbox) {
+            if (checkbox.checked) {
+                atLeastOneChecked = true;
+                return;
+            }
+        });
+
+        if (!atLeastOneChecked) {
+            $('#thongBaoChonSPTraHang').modal('show');
+            event.preventDefault();
         }
+
+        return true;
     }
 </script>
 

@@ -16,10 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Service
 public class GiayChiTietServiceImpl implements GiayChiTietService {
@@ -42,9 +39,9 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
     @Autowired
     private HangRepository hangRepository;
 
-    @Autowired 
-    private GHCTService ghctService; 
-    private KMCTProductRepository kmctProductRepository; 
+    @Autowired
+    private GHCTService ghctService;
+    private KMCTProductRepository kmctProductRepository;
 
     @Override
     public List<ChiTietGiay> getAllChiTietGiay() {
@@ -224,9 +221,15 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
     @Override
     public void updatePriceCTGGHCT(ChiTietGiay chiTietGiay) {
         GioHangChiTiet gioHangChiTiet = ghctService.findByCTSP(chiTietGiay);
-        gioHangChiTiet.setDonGia(gioHangChiTiet.getSoLuong()*chiTietGiay.getSoTienTruocKhiGiam());
-        gioHangChiTiet.setDonGiaKhiGiam(gioHangChiTiet.getSoLuong()*chiTietGiay.getGiaBan());
+        gioHangChiTiet.setDonGia(gioHangChiTiet.getSoLuong() * chiTietGiay.getSoTienTruocKhiGiam());
+        gioHangChiTiet.setDonGiaTruocKhiGiam(gioHangChiTiet.getSoLuong() * chiTietGiay.getGiaBan());
         ghctService.addNewGHCT(gioHangChiTiet);
+    }
+
+    @Override
+    public boolean isDuplicateChiTietGiay(UUID giayId, UUID sizeId, UUID mauSacId, UUID hinhAnhId) {
+        return giayChiTietRepository.findByGiayAndSizeAndMauSacAndHinhAnh(giayId, sizeId, mauSacId, hinhAnhId)
+                .isPresent();
     }
 
     @Override
@@ -257,6 +260,7 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
 
         return products;
     }
+
     @Override
     public ChiTietGiay findByMa(String ma) {
         return giayChiTietRepository.findByMaCTG(ma);
