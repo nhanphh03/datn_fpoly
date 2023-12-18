@@ -260,7 +260,7 @@ public class HomeOrder {
         String trangThaiGiaoHang = request.getParameter("trangThaiGiaoHang");
         HoaDon hoaDon = hoaDonService.getOne(idHD);
 
-        HoaDon hoaDonOld = hoaDonService.findByIdHoaDonOld(hoaDon.getIdHDOld());
+        HoaDon hoaDonOld = hoaDonService.getOne(hoaDon.getIdHDOld());
 
         String thanhPho = request.getParameter("city");
         String district = request.getParameter("district");
@@ -333,7 +333,8 @@ public class HomeOrder {
 
             return "transportation/index";
 
-        }else if(trangThaiGiaoHang.equals("thatBai")){
+        }
+        else if(trangThaiGiaoHang.equals("thatBai")){
             String viTri = "Đơn hàng hoàn thất bại ( " +moTa + " )";
 
             GiaoHang giaoHang = hoaDon.getGiaoHang();
@@ -384,7 +385,8 @@ public class HomeOrder {
             showDataTab2(model);
             return "transportation/index";
 
-        }else if(trangThaiGiaoHang.equals("dangGiao")){
+        }
+        else if(trangThaiGiaoHang.equals("dangGiao")){
             String viTri = "Đơn hàng đã đến"  + ", " + ward + ", " + district + " , " + thanhPho;
 
             GiaoHang giaoHang = hoaDon.getGiaoHang();
@@ -405,12 +407,13 @@ public class HomeOrder {
                 }
             }
 
-            showDataGH(model, hoaDon);
+            showData(model);
             showDataTab2(model);
 
             return "transportation/index";
 
-        }else if(trangThaiGiaoHang.equals("thanhCong")){
+        }
+        else if(trangThaiGiaoHang.equals("thanhCong")){
             String viTri = "Đơn hàng đã hoàn hàng thành công";
 
             viTriDonHang.setViTri(viTri);
@@ -429,6 +432,28 @@ public class HomeOrder {
             hoaDon.setTrangThaiHoan(6);
             hoaDonService.add(hoaDon);
 
+            for (HoaDonChiTiet xx: hoaDon.getHoaDonChiTiets()) {
+                if (xx.getTrangThai() == 2){
+                    Date date = new Date();
+                    ChiTietGiay chiTietGiay = xx.getChiTietGiay();
+                    ChiTietGiay chiTietGiayHoan = new ChiTietGiay();
+                    chiTietGiayHoan.setIdCTGOld(chiTietGiay.getIdCTG());
+                    chiTietGiayHoan.setMaCTG("CTGHOAN_" + date.getDate() + phieuTraHang.getMaMPTH());
+                    chiTietGiayHoan.setGiay(chiTietGiay.getGiay());
+                    chiTietGiayHoan.setHinhAnh(chiTietGiay.getHinhAnh());
+                    chiTietGiayHoan.setMauSac(chiTietGiay.getMauSac());
+                    chiTietGiayHoan.setNamSX(chiTietGiay.getNamSX());
+                    chiTietGiayHoan.setNamBH(chiTietGiay.getNamBH());
+                    chiTietGiayHoan.setSize(chiTietGiay.getSize());
+                    chiTietGiayHoan.setTrongLuong(chiTietGiay.getTrongLuong());
+                    chiTietGiayHoan.setGiaBan(chiTietGiay.getGiaBan());
+                    chiTietGiayHoan.setTgThem(date);
+                    chiTietGiayHoan.setSoLuong(1);
+                    chiTietGiayHoan.setTrangThai(3);
+                    chiTietGiayHoan.setTgThem(date);
+                    giayChiTietService.save(chiTietGiayHoan);
+                }
+            }
             hoaDonOld.setTrangThaiHoan(6);
             hoaDonService.add(hoaDonOld);
 
@@ -447,7 +472,7 @@ public class HomeOrder {
         HoaDon hoaDon = hoaDonService.getOne(idHD);
         GiaoHang giaoHang = hoaDon.getGiaoHang();
 
-        if (giaoHang.getPhiHoanHang() == null){
+        if (giaoHang.getThoiGianHoan() == null){
             model.addAttribute("chuaBatDau", true);
         }else{
             model.addAttribute("daBatDau", true);

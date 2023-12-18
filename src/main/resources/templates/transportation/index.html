@@ -635,7 +635,7 @@
                                                             <select name="trangThaiGiaoHang" class="select" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
                                                                 font-weight: 500; font-size: 14px; color: #637381; padding: 10px 15px;  ">
                                                                 <option th:if="${HoaDonVanChuyen.giaoHang.tenDVVC == null}" value="daLayHang" >Đã lấy hàng</option>
-                                                                <option th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" value="thatBai" >Lấy hàng thất bại</option>
+                                                                <option th:if="${HoaDonVanChuyen.giaoHang.tenDVVC == null}" value="thatBai" >Lấy hàng thất bại</option>
                                                                 <option th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" value="dangGiao" >Đang hoàn</option>
                                                                 <option th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" value="thanhCong" >Hoàn Thành Công</option>
                                                             </select>
@@ -682,13 +682,13 @@
                                                             <input th:if="${HoaDonVanChuyen.giaoHang.tenDVVC == null}" name="phiGiaoHangGH" id="phiGiaoHang" class="form-control" type="text" >
                                                         </div>
                                                     </div>
-                                                    <div style="border-top: 1px solid black;" class="col-lg-12 col-sm-12 col-12">
+                                                    <div th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" style="border-top: 1px solid black;" class="col-lg-12 col-sm-12 col-12">
                                                         <div class="form-group" style="display: flex; margin-top: 15px;">
                                                             <label style="font-size: 11pt; font-weight: 600;">Địa chỉ cập nhật:</label>
                                                             <p style="color: red; font-size: 9pt; margin: 2px 0 0 20px;"> *Lấy hàng tối đa 3 lần không được sẽ hủy đơn hàng hoàn </p>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                    <div th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" class="col-lg-4 col-sm-12 col-12">
                                                         <div class="form-group">
                                                             <label style="font-size: 11pt; font-weight: 600;">Tỉnh :</label>
                                                             <select class="select" id="city" name="city" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
@@ -697,7 +697,7 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                    <div th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" class="col-lg-4 col-sm-12 col-12">
                                                         <div class="form-group">
                                                             <label style="font-size: 11pt; font-weight: 600;">Quận/Huyện :</label>
                                                             <select class="select" id="district" name="district" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
@@ -706,7 +706,7 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-4 col-sm-12 col-12">
+                                                    <div th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" class="col-lg-4 col-sm-12 col-12">
                                                         <div class="form-group">
                                                             <label style="font-size: 11pt; font-weight: 600;">Phường Xã :</label>
                                                             <select class="select" id="ward" name="ward" style="width: 220px; height:40px; border: 1px solid rgba(145, 158, 171, .32); border-radius: 5px;
@@ -715,7 +715,7 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    <div class="col-lg-12 col-sm-12 col-12">
+                                                    <div th:if="${HoaDonVanChuyen.giaoHang.tenDVVC != null}" class="col-lg-12 col-sm-12 col-12">
                                                         <div class="form-group">
                                                             <label style="font-size: 11pt; font-weight: 600;">Mô tả :</label>
                                                             <textarea name="moTa" style="height: 80px;" cols="1" rows="1"></textarea>
