@@ -83,8 +83,8 @@ public class GiayChiTietController {
 
         List<ChiTietGiay> chiTietGiayList = new ArrayList<>();
 
-        for (ChiTietGiay x: items) {
-            if (x.getIdCTGOld() == null){
+        for (ChiTietGiay x : items) {
+            if (x.getIdCTGOld() == null) {
                 chiTietGiayList.add(x);
             }
         }
@@ -569,16 +569,20 @@ public class GiayChiTietController {
 
         for (UUID x : listSize) {
             //
-            boolean isDuplicate = giayChiTietService.isDuplicateChiTietGiay(
+            List<ChiTietGiay> isDuplicate = giayChiTietService.isDuplicateChiTietGiay(
                     chiTietGiay.getGiay().getIdGiay(),
                     x,
                     chiTietGiay.getMauSac().getIdMau(),
                     chiTietGiay.getHinhAnh().getIdHinhAnh()
             );
-            if (isDuplicate) {
+            if (!isDuplicate.isEmpty()) {
+                for (ChiTietGiay duplicateChiTietGiay : isDuplicate) {
+                    System.out.println("ChiTietGiay đã tồn tại với ID: " + duplicateChiTietGiay.getIdCTG());
+                    redirectAttributes.addFlashAttribute("userInput", duplicateChiTietGiay.getIdCTG());
+                }
                 // Xử lý sự trùng lặp, ví dụ: hiển thị thông báo và không thêm mới
-                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
                 redirectAttributes.addFlashAttribute("error", "daTonTai");
+                redirectAttributes.addFlashAttribute("updateQuantity", true);
                 return "redirect:/manage/giay-chi-tiet/viewAdd";
             }
             //
@@ -669,16 +673,20 @@ public class GiayChiTietController {
         ///
         for (UUID x : listSize) {
             //
-            boolean isDuplicate = giayChiTietService.isDuplicateChiTietGiay(
+            List<ChiTietGiay> isDuplicate = giayChiTietService.isDuplicateChiTietGiay(
                     chiTietGiay.getGiay().getIdGiay(),
                     x,
                     chiTietGiay.getMauSac().getIdMau(),
                     chiTietGiay.getHinhAnh().getIdHinhAnh()
             );
-            if (isDuplicate) {
+            if (!isDuplicate.isEmpty()) {
+                for (ChiTietGiay duplicateChiTietGiay : isDuplicate) {
+                    System.out.println("ChiTietGiay đã tồn tại với ID: " + duplicateChiTietGiay.getIdCTG());
+                    redirectAttributes.addFlashAttribute("userInput", duplicateChiTietGiay.getIdCTG());
+                }
                 // Xử lý sự trùng lặp, ví dụ: hiển thị thông báo và không thêm mới
-                redirectAttributes.addFlashAttribute("userInput", chiTietGiay);
                 redirectAttributes.addFlashAttribute("error", "daTonTai");
+                redirectAttributes.addFlashAttribute("updateQuantity", true);
                 return link1;
             }
             //
@@ -1406,10 +1414,6 @@ public class GiayChiTietController {
             chiTietGiayDb.setTrongLuong(chiTietGiay.getTrongLuong());
             giayChiTietService.save(chiTietGiayDb);
 
-//            Nhan update
-            giayChiTietService.updatePriceCTGGHCT(chiTietGiayDb);
-//            End
-
             redirectAttributes.addFlashAttribute("message", true);
         }
         return link1;
@@ -1481,16 +1485,14 @@ public class GiayChiTietController {
         return "manage/giay";
     }
 
-    @PostMapping("/giayCT/import")
-    public String importData(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+    @PostMapping("/giayCT/importExcel")
+    public String importData(@RequestParam("file") MultipartFile file) {
         if (file != null && !file.isEmpty()) {
             try {
                 InputStream excelFile = file.getInputStream();
-                giayChiTietServiceImpl.importChiTietGiayFromExcel(excelFile); // Gọi phương thức nhập liệu từ Excel
-                redirectAttributes.addFlashAttribute("message", true);
+                giayChiTietServiceImpl.importDataFromExcel(excelFile); // Gọi phương thức nhập liệu từ Excel
             } catch (Exception e) {
                 e.printStackTrace();
-                return "Import Failed: " + e.getMessage();
                 // Xử lý lỗi
             }
         }
