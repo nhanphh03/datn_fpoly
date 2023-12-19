@@ -469,7 +469,7 @@
                                                                                                style="width: 30px; text-align: center; border: none;"
                                                                                                type="text"
                                                                                                th:name="${gioHang.chiTietGiay.idCTG}"
-                                                                                                min="1">
+                                                                                               min="1">
 
                                                                                         <input style="border: none; font-weight: 700; font-size: 14pt; background-color: white;"
                                                                                                type="button" value="+"
@@ -505,7 +505,8 @@
                                                             <ul>
                                                                 <li>
                                                                     <h5>Tổng tiền </h5>
-                                                                    <h6 th:text=" ${#numbers.formatDecimal(tongTien, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'"></h6>
+                                                                    <div class="grandTotal"
+                                                                         th:text=" ${#numbers.formatDecimal(tongTien, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'"></div>
 
                                                                 </li>
                                                             </ul>
@@ -555,7 +556,7 @@
                                                                 <ul>
                                                                     <li style="margin-bottom: 20px;">
                                                                         <h5>Tạm tính :</h5>
-                                                                        <h5 style="font-size: 13pt;"
+                                                                        <h5 class="grandTotal" style="font-size: 13pt;"
                                                                             th:text=" ${#numbers.formatDecimal(tongTien, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' đ'"></h5>
                                                                     </li>
                                                                     <li style="margin-bottom: 20px;">
@@ -600,36 +601,52 @@
                                                             </div>
                                                             <div class="text-center">
                                                                 <div class="dropdown mt-3">
-                                                                    <a class="btn btn-primary" disabled
-                                                                       th:href="@{'/ban-hang/thanh-toan'}"
-                                                                       onclick="return confirm('Bạn có muốn thanh toán không')"
-                                                                       style="background-color: #37517E;cursor: pointer;color: white;border: none;padding: 10px 20px;border-radius: 10px">
-                                                                        Thanh toán
-                                                                    </a>
-                                                                    <!--                                                                    <button id="nutThanhToan" disabled class="btn btn-primary"-->
-                                                                    <!--                                                                            style="background-color: #37517E;cursor: pointer;color: white;border: none;padding: 10px 20px;border-radius: 10px"-->
-                                                                    <!--                                                                            data-bs-toggle="modal" data-bs-target="#exampleModal">-->
+                                                                    <!--                                                                    <a type="button" class="btn btn-primary" disabled-->
+                                                                    <!--                                                                       th:href="@{'/ban-hang/thanh-toan'}"-->
+                                                                    <!--                                                                       onclick="return confirm('Bạn có muốn thanh toán không')"-->
+                                                                    <!--                                                                       style="background-color: #37517E;cursor: pointer;color: white;border: none;padding: 10px 20px;border-radius: 10px">-->
                                                                     <!--                                                                        Thanh toán-->
-                                                                    <!--                                                                    </button>-->
-                                                                    <!--                                                                    &lt;!&ndash; Modal &ndash;&gt;-->
-                                                                    <!--                                                                    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel6" aria-hidden="true">-->
-                                                                    <!--                                                                        <div class="modal-dialog modal-md" style="width: 550px;">-->
-                                                                    <!--                                                                            <div class="modal-content">-->
-                                                                    <!--                                                                                <div class="modal-header">-->
-                                                                    <!--                                                                                    <h1 class="modal-title fs-5" id="exampleModalLabel6">Xác nhận</h1>-->
-                                                                    <!--                                                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
-                                                                    <!--                                                                                </div>-->
-                                                                    <!--                                                                                <div class="modal-body">-->
-                                                                    <!--                                                                                    <div class="text-center">Bạn có chắc muốn thanh toán </div>-->
-                                                                    <!--                                                                                </div>-->
-                                                                    <!--                                                                                <div class="modal-footer">-->
-                                                                    <!--                                                                                    <a type="button" class="btn btn-warning" th:href="@{'/ban-hang/thanh-toan'}"-->
-                                                                    <!--                                                                                       style="background-color: #37517E;cursor: pointer;color: white;border: none;padding: 10px 20px;border-radius: 10px"-->
-                                                                    <!--                                                                                    >Thanh toán</a>-->
-                                                                    <!--                                                                                </div>-->
-                                                                    <!--                                                                            </div>-->
-                                                                    <!--                                                                        </div>-->
-                                                                    <!--                                                                    </div>-->
+                                                                    <!--                                                                    </a>-->
+                                                                    <button id="nutThanhToan" disabled
+                                                                            class="btn btn-primary"
+                                                                            style="background-color: #37517E;cursor: pointer;color: white;border: none;padding: 10px 20px;border-radius: 10px"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#exampleModal">
+                                                                        Thanh toán
+                                                                    </button>
+                                                                    <!-- Modal -->
+                                                                    <div class="modal fade" id="exampleModal"
+                                                                         tabindex="-1"
+                                                                         aria-labelledby="exampleModalLabel6"
+                                                                         aria-hidden="true">
+                                                                        <div class="modal-dialog modal-md text-center"
+                                                                             style="width: 550px;">
+                                                                            <div class="modal-content">
+                                                                                <div class="modal-header">
+                                                                                    <h1 class="modal-title fs-5"
+                                                                                        id="exampleModalLabel6">Xác
+                                                                                        nhận</h1>
+                                                                                    <button type="button"
+                                                                                            class="btn-close"
+                                                                                            data-bs-dismiss="modal"
+                                                                                            aria-label="Close"></button>
+                                                                                </div>
+                                                                                <div class="modal-body">
+                                                                                    <div class="text-center" type="">Bạn có chắc
+                                                                                        muốn thanh toán
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="modal-footer text-center">
+                                                                                    <a type="button"
+                                                                                       class="btn btn-warning"
+                                                                                       th:href="@{'/ban-hang/thanh-toan'}"
+                                                                                       style="background-color: #37517E;cursor: pointer;color: white;border: none;padding: 10px 20px;border-radius: 10px"
+                                                                                    >Thanh toán</a>
+                                                                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -1990,51 +2007,52 @@
             totalElements.forEach(function (element) {
                 grandTotal += parseInt(element.innerText.replace(/[^0-9]/g, ''));
             });
-
+            console.log(grandTotal);
             grandTotalElement.innerText = formatCurrency(grandTotal) + ' đ';
         }
 
         // Hàm định dạng số tiền thành chuỗi có định dạng
         function formatCurrency(amount) {
-            return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+            return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,').replace(/\.00/g, '');
         }
     }
 
     /*]]>*/
 </script>
-<!--<script>-->
-<!--    function incrementQuantity(input) {-->
-<!--        var quantityInput = input.parentNode.querySelector('.quantityInput');-->
-<!--        var currentQuantity = parseInt(quantityInput.value);-->
-<!--        quantityInput.value = currentQuantity + 1;-->
-<!--        updateTotalAmountAndGrandTotal(quantityInput);-->
-<!--    }-->
+<script>
+    function incrementQuantity(input) {
+        var quantityInput = input.parentNode.querySelector('.quantityInput');
+        var currentQuantity = parseInt(quantityInput.value);
+        quantityInput.value = currentQuantity + 1;
+        updateTotalAmountAndGrandTotal(quantityInput);
+    }
 
-<!--    function decrementQuantity(input) {-->
-<!--        var quantityInput = input.parentNode.querySelector('.quantityInput');-->
-<!--        var currentQuantity = parseInt(quantityInput.value);-->
-<!--        if (currentQuantity > 0) {-->
-<!--            quantityInput.value = currentQuantity - 1;-->
-<!--            updateTotalAmountAndGrandTotal(quantityInput);-->
-<!--        }-->
-<!--    }-->
-<!--    // function updateTotalAmount(input) {-->
-<!--    //     var quantity = input.value;-->
-<!--    //     var idCTG = input.getAttribute('name');-->
-<!--    //     fetch('/ban-hang/updateQuantity', {-->
-<!--    //         method: 'POST',-->
-<!--    //         headers: {-->
-<!--    //             'Content-Type': 'application/x-www-form-urlencoded',-->
-<!--    //         },-->
-<!--    //         body: 'idCTG=' + encodeURIComponent(idCTG) + '&quantity=' + encodeURIComponent(quantity),-->
-<!--    //     })-->
-<!--    //         .then(response => response.text())-->
-<!--    //         .then(data => {-->
-<!--    //         })-->
-<!--    //         .catch(error => {-->
-<!--    //         });-->
-<!--    // }-->
-<!--</script>-->
+    function decrementQuantity(input) {
+        var quantityInput = input.parentNode.querySelector('.quantityInput');
+        var currentQuantity = parseInt(quantityInput.value);
+        if (currentQuantity > 0) {
+            quantityInput.value = currentQuantity - 1;
+            updateTotalAmountAndGrandTotal(quantityInput);
+        }
+    }
+
+    // function updateTotalAmount(input) {
+    //     var quantity = input.value;
+    //     var idCTG = input.getAttribute('name');
+    //     fetch('/ban-hang/updateQuantity', {
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/x-www-form-urlencoded',
+    //         },
+    //         body: 'idCTG=' + encodeURIComponent(idCTG) + '&quantity=' + encodeURIComponent(quantity),
+    //     })
+    //         .then(response => response.text())
+    //         .then(data => {
+    //         })
+    //         .catch(error => {
+    //         });
+    // }
+</script>
 
 </body>
 </html>
