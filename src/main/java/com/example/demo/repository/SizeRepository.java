@@ -22,7 +22,7 @@ public interface SizeRepository extends JpaRepository<Size, UUID> {
             "join MauSac ms on ctg.mauSac.idMau = ms.idMau \n" +
             "where ctg.giay.idGiay = ?1 \n" +
             "and ms.tenMau = ?2 \n " +
-            "and  ctg.soLuong > 0 " +
+            "and  ctg.soLuong > 0 and ctg.trangThai = 1 " +
             "order by s.soSize asc" )
     List<ChiTietGiay> findByIdGiayAndMauSac2(UUID idGiay, String mauSac);
 

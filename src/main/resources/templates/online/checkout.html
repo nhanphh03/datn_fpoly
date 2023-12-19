@@ -577,10 +577,10 @@
                   </div>
 
                   <div style="display: flex; margin: -15px 20px 0 10px;">
-                    <p th:if="${xxx.loaiGiam}" th:text="${xxx.phanTramGiam*100} + '% giảm'" style="margin: 0 10px 0 0;"></p>
-                    <p th:unless="${xxx.loaiGiam}" th:text="'₫' + ${#numbers.formatDecimal(xxx.giaTienGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' giảm'" style="margin: 0 10px 0 0;"></p>
-                    <p th:if="${xxx.loaiGiam}" th:text=" 'Đơn tối thiểu ₫' + ${#numbers.formatDecimal(xxx.dieuKienKMBill, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' Giảm tối đa ₫' + ${#numbers.formatDecimal(xxx.giaTienGiamToiDaPT, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}" style="font-size: 10pt; margin-right: 5px; font-style: italic;"></p>
-                    <p th:unless="${xxx.loaiGiam}" th:text="'Đơn tối thiểu ₫' + ${#numbers.formatDecimal(xxx.dieuKienKMBill, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}" style="font-size: 10pt; margin-right: 5px; font-style: italic;"></p>
+                    <p th:if="${xxx.loaiGiam == false}" th:text="${xxx.phanTramGiam*100} + '% giảm'" style="margin: 0 10px 0 0;"></p>
+                    <p th:unless="${xxx.loaiGiam == false}" th:text="'₫' + ${#numbers.formatDecimal(xxx.giaTienGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' giảm'" style="margin: 0 10px 0 0;"></p>
+                    <p th:if="${xxx.loaiGiam == false}" th:text=" 'Đơn tối thiểu ₫' + ${#numbers.formatDecimal(xxx.dieuKienKMBill, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' Giảm tối đa ₫' + ${#numbers.formatDecimal(xxx.giaTienGiamToiDaPT, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}" style="font-size: 10pt; margin-right: 5px; font-style: italic;"></p>
+                    <p th:unless="${xxx.loaiGiam == false}" th:text="'Đơn tối thiểu ₫' + ${#numbers.formatDecimal(xxx.dieuKienKMBill, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}" style="font-size: 10pt; margin-right: 5px; font-style: italic;"></p>
                   </div>
 
                   <p th:text="${xxx.soLuongDaDung} + ' đã dùng (số lượng ' + ${xxx.soLuong} + ' ) '" style="margin: -15px 20px 0 10px; font-size: 10pt;"></p>
@@ -632,10 +632,10 @@
                   </div>
 
                   <div style="display: flex; margin: -15px 20px 0 10px;">
-                    <p th:if="${xxx.loaiGiam}" th:text="${xxx.phanTramGiam*100} + '% giảm'" style="margin: 0 10px 0 0;"></p>
-                    <p th:unless="${xxx.loaiGiam}" th:text="'₫' + ${#numbers.formatDecimal(xxx.giaTienGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' giảm'" style="margin: 0 10px 0 0;"></p>
-                    <p th:if="${xxx.loaiGiam}" th:text=" 'Đơn tối thiểu ₫' + ${#numbers.formatDecimal(xxx.dieuKienKMBill, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' Giảm tối đa ₫' + ${#numbers.formatDecimal(xxx.giaTienGiamToiDaPT, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}" style="font-size: 10pt; margin-right: 5px; font-style: italic;"></p>
-                    <p th:unless="${xxx.loaiGiam}" th:text="'Đơn tối thiểu ₫' + ${#numbers.formatDecimal(xxx.dieuKienKMBill, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}" style="font-size: 10pt; margin-right: 5px; font-style: italic;"></p>
+                    <p th:if="${xxx.loaiGiam == false}" th:text="${xxx.phanTramGiam*100} + '% giảm'" style="margin: 0 10px 0 0;"></p>
+                    <p th:unless="${xxx.loaiGiam == false}" th:text="'₫' + ${#numbers.formatDecimal(xxx.giaTienGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' giảm'" style="margin: 0 10px 0 0;"></p>
+                    <p th:if="${xxx.loaiGiam == false}" th:text=" 'Đơn tối thiểu ₫' + ${#numbers.formatDecimal(xxx.dieuKienKMBill, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' Giảm tối đa ₫' + ${#numbers.formatDecimal(xxx.giaTienGiamToiDaPT, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}" style="font-size: 10pt; margin-right: 5px; font-style: italic;"></p>
+                    <p th:unless="${xxx.loaiGiam == false}" th:text="'Đơn tối thiểu ₫' + ${#numbers.formatDecimal(xxx.dieuKienKMBill, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}" style="font-size: 10pt; margin-right: 5px; font-style: italic;"></p>
                   </div>
 
                   <p th:text="${xxx.soLuongDaDung} + ' đã dùng ( Số lượng ' + ${xxx.soLuong} + ' ) '" style="margin: -15px 20px 0 10px; font-size: 10pt;"></p>

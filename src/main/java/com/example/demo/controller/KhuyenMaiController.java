@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.*;
 import com.example.demo.service.*;
 import com.example.demo.viewModel.CTGViewModel;
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,6 +46,12 @@ public class KhuyenMaiController {
 
     @Autowired
     private HttpSession session;
+
+    @Autowired
+    private KhachHangService khachHangService;
+
+    @Autowired
+    private SendMailService sendMailService;
 
     @GetMapping("voucher")
     private String getPageVoucher(Model model){
@@ -117,7 +124,39 @@ public class KhuyenMaiController {
         LoaiKhuyenMai loaiKhuyenMai = loaiKhuyenMaiService.findByMaLKM("LKM01");
         List<KhuyenMai> khuyenMaiList = khuyenMaiService.findByLoaiKM(loaiKhuyenMai);
 
+        List<KhuyenMai> listKhuyenMaiActive = khuyenMaiService.findByLoaiKMAndTrangThai(loaiKhuyenMai);
+
+        List<KhachHang> khachHangList = khachHangService.getAllKhachHang();
+
+        model.addAttribute("listKH", khachHangList);
+        model.addAttribute("listKhuyenMaiActive", listKhuyenMaiActive);
         model.addAttribute("listKhuyenMai", khuyenMaiList);
+        return "manage/manageVoucherBill";
+    }
+
+    @PostMapping("/voucher-bill/send-mail")
+    private String sendMailKMHD(Model model, @RequestParam("idKH") List<String> listKH) throws MessagingException {
+        LoaiKhuyenMai loaiKhuyenMai = loaiKhuyenMaiService.findByMaLKM("LKM01");
+        List<KhuyenMai> khuyenMaiList = khuyenMaiService.findByLoaiKM(loaiKhuyenMai);
+
+        List<KhuyenMai> listKhuyenMaiActive = khuyenMaiService.findByLoaiKMAndTrangThai(loaiKhuyenMai);
+
+        List<KhachHang> khachHangList = khachHangService.getAllKhachHang();
+
+        UUID khuyenMaiSelected =UUID.fromString(request.getParameter("khuyenMaiSelected"));
+
+        for (String xx: listKH) {
+            KhachHang khachHang = khachHangService.getByIdKhachHang(UUID.fromString(xx));
+            if (khachHang != null){
+                sendMailService.sendMimeMessageKMHD(khachHang.getEmailKH(), "", "'");
+            }
+        }
+
+
+        model.addAttribute("listKH", khachHangList);
+        model.addAttribute("listKhuyenMaiActive", listKhuyenMaiActive);
+        model.addAttribute("listKhuyenMai", khuyenMaiList);
+        model.addAttribute("thongBaoGuiMai", true);
         return "manage/manageVoucherBill";
     }
 

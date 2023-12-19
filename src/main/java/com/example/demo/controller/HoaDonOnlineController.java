@@ -43,7 +43,7 @@ public class HoaDonOnlineController {
     private LSThanhToanService lsThanhToanService;
 
     @Autowired
-    private PhieuTraHangServices  phieuTraHangServices;
+    private PhieuTraHangServices phieuTraHangServices;
 
     @Autowired
     private ViTriDonHangServices viTriDonHangServices;
@@ -55,7 +55,7 @@ public class HoaDonOnlineController {
     private ChucVuService chucVuService;
 
     @GetMapping("online")
-    private String manageBillOnline(Model model){
+    private String manageBillOnline(Model model) {
         model.addAttribute("reLoadPage", true);
         showData(model);
         showTab1(model);
@@ -65,7 +65,7 @@ public class HoaDonOnlineController {
     }
 
     @GetMapping("online/delivery/{idHD}")
-    private String editBillOnline(Model model, @PathVariable UUID idHD){
+    private String editBillOnline(Model model, @PathVariable UUID idHD) {
 
         HoaDon billDelivery = hoaDonService.getOne(idHD);
         List<NhanVien> listNhanVienGiao = new ArrayList<>();
@@ -76,13 +76,13 @@ public class HoaDonOnlineController {
         List<NhanVien> listQL = nhanVienService.findByChucVu(quanLi);
         List<NhanVien> listNVGH = nhanVienService.findByChucVu(nvgh);
 
-        if(listQL != null){
-            for (NhanVien x: listQL) {
+        if (listQL != null) {
+            for (NhanVien x : listQL) {
                 listNhanVienGiao.add(x);
             }
         }
-        if(listNVGH != null){
-            for (NhanVien x: listNVGH) {
+        if (listNVGH != null) {
+            for (NhanVien x : listNVGH) {
                 listNhanVienGiao.add(x);
             }
         }
@@ -100,7 +100,7 @@ public class HoaDonOnlineController {
     }
 
     @PostMapping("online/delivery/confirm/{idHD}")
-    private String confirmNVGH(Model model,  @PathVariable UUID idHD){
+    private String confirmNVGH(Model model, @PathVariable UUID idHD) {
 
         UUID idNV = UUID.fromString(request.getParameter("idNhanVien"));
 
@@ -114,7 +114,7 @@ public class HoaDonOnlineController {
 
         hoaDonService.add(hoaDon);
 
-        String maGH = "GH_" + hoaDon.getMaHD() ;
+        String maGH = "GH_" + hoaDon.getMaHD();
 
         GiaoHang giaoHang = new GiaoHang();
         giaoHang.setHoaDon(hoaDon);
@@ -147,7 +147,7 @@ public class HoaDonOnlineController {
     }
 
     @PostMapping("online/confirm/pay/{idHD}")
-    private String confirmPayBill(Model model, @PathVariable UUID idHD){
+    private String confirmPayBill(Model model, @PathVariable UUID idHD) {
 
         Date date = new Date();
 
@@ -195,7 +195,7 @@ public class HoaDonOnlineController {
     }
 
     @GetMapping("/online/refund/detail/{idHD}")
-    private String pageDetailBillRefund(Model model, @PathVariable UUID idHD){
+    private String pageDetailBillRefund(Model model, @PathVariable UUID idHD) {
 
         HoaDon hoaDon = hoaDonService.getOne(idHD);
 
@@ -219,12 +219,12 @@ public class HoaDonOnlineController {
 
     @PostMapping("/online/refund/detail/dismist/accept/{idHD}")
     private String dismistOrAcceptBillRefund(Model model,
-                                     @PathVariable UUID idHD,
-                                     @RequestParam("idCTGHoanHang") List<String> listIdCTGHoanHang,
-                                     @RequestParam("lyDoTuChoi") String lyDoTuChoi,
-                                     @RequestParam(name = "accept", required = false) String accept,
-                                     @RequestParam(name = "dismist", required = false) String dismist,
-                                     @RequestParam(name = "inputCheckAll", defaultValue = "false") boolean inputCheckAll){
+                                             @PathVariable UUID idHD,
+                                             @RequestParam("idCTGHoanHang") List<String> listIdCTGHoanHang,
+                                             @RequestParam("lyDoTuChoi") String lyDoTuChoi,
+                                             @RequestParam(name = "accept", required = false) String accept,
+                                             @RequestParam(name = "dismist", required = false) String dismist,
+                                             @RequestParam(name = "inputCheckAll", defaultValue = "false") boolean inputCheckAll) {
 
         if (accept != null) {
             List<HoaDonChiTiet> hoaDonChiTietList = hoaDonChiTietService.findByHoaDon(hoaDonService.getOne(idHD));
@@ -232,7 +232,7 @@ public class HoaDonOnlineController {
             HoaDon hoaDon = hoaDonService.getOne(idHD);
             HoaDon hoaDonOld = hoaDonService.getOne(hoaDon.getIdHDOld());
 
-            for (String x: listIdCTGHoanHang) {
+            for (String x : listIdCTGHoanHang) {
                 HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.getOne(idHD, UUID.fromString(x));
 
                 hoaDonChiTiet.setTrangThai(2);
@@ -241,7 +241,7 @@ public class HoaDonOnlineController {
                 hoaDonChiTietList.remove(hoaDonChiTiet);
 
             }
-            for ( HoaDonChiTiet x: hoaDonChiTietList) {
+            for (HoaDonChiTiet x : hoaDonChiTietList) {
                 x.setMoTa(lyDoTuChoi);
                 x.setTrangThai(1);
                 hoaDonChiTietService.add(x);
@@ -265,6 +265,21 @@ public class HoaDonOnlineController {
                 phieuTraHang.setTrangThai(4);
                 hoaDon.setTrangThaiHoan(4);
                 thongBaoKhachHang.setNoiDungTB("Đơn hàng hoàn đã được xác nhận");
+
+                Date date = new Date();
+                String maLSTT = "HTT0" + date.getDay() + generateRandomNumbers();
+
+                LichSuThanhToan lichSuThanhToan = new LichSuThanhToan();
+                lichSuThanhToan.setHoaDon(hoaDon);
+                lichSuThanhToan.setTgThanhToan(new Date());
+                lichSuThanhToan.setSoTienThanhToan(hoaDon.getTongTienDG());
+                lichSuThanhToan.setTrangThai(1);
+                lichSuThanhToan.setKhachHang(hoaDon.getKhachHang());
+                lichSuThanhToan.setMaLSTT(maLSTT);
+                lichSuThanhToan.setLoaiTT(0); //Thanh toán online
+                lichSuThanhToan.setNoiDungThanhToan("Xác nhận yêu cầu hoàn");
+                lsThanhToanService.addLSTT(lichSuThanhToan);
+
             }
 
             thongBaoServices.addThongBao(thongBaoKhachHang);
@@ -275,30 +290,28 @@ public class HoaDonOnlineController {
             phieuTraHangServices.savePTH(phieuTraHang);
 
 
-
         } else if (dismist != null) {
             List<HoaDonChiTiet> hoaDonChiTietList = hoaDonChiTietService.findByHoaDon(hoaDonService.getOne(idHD));
 
             HoaDon hoaDon = hoaDonService.getOne(idHD);
             HoaDon hoaDonOld = hoaDonService.getOne(hoaDon.getIdHDOld());
 
-            for (String x: listIdCTGHoanHang) {
+            for (String x : listIdCTGHoanHang) {
                 HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.getOne(idHD, UUID.fromString(x));
                 hoaDonChiTiet.setTrangThai(1);
                 hoaDonChiTiet.setMoTa(lyDoTuChoi);
                 hoaDonChiTietList.remove(hoaDonChiTiet);
             }
 
-            for ( HoaDonChiTiet x: hoaDonChiTietList) {
+            for (HoaDonChiTiet x : hoaDonChiTietList) {
                 x.setTrangThai(2);
                 hoaDonChiTietService.add(x);
             }
 
             PhieuTraHang phieuTraHang = phieuTraHangServices.findByHoaDon(hoaDonService.getOne(idHD));
-            if (hoaDonChiTietList.size() == 0){
+            if (hoaDonChiTietList.size() == 0) {
 
                 phieuTraHang.setTrangThai(2);
-                hoaDonOld.setMaHDOld("2");
                 hoaDonService.add(hoaDonOld);
 
                 hoaDon.setTrangThaiHoan(4);
@@ -322,7 +335,7 @@ public class HoaDonOnlineController {
 
 
     @GetMapping("/online/print/{idHD}")
-    private String printBillOnline(Model model, @PathVariable UUID idHD){
+    private String printBillOnline(Model model, @PathVariable UUID idHD) {
 
         HoaDon hoaDon = hoaDonService.getOne(idHD);
 
@@ -332,7 +345,7 @@ public class HoaDonOnlineController {
     }
 
     @PostMapping("online/refund/delivery/confirm/{idHD}")
-    private String confirmNVGHBillRefund(Model model,  @PathVariable UUID idHD){
+    private String confirmNVGHBillRefund(Model model, @PathVariable UUID idHD) {
 
         UUID idNV = UUID.fromString(request.getParameter("idNhanVien"));
 
@@ -346,7 +359,7 @@ public class HoaDonOnlineController {
 
         hoaDonService.add(hoaDon);
 
-        String maGH = "GH_" + hoaDon.getMaHD() ;
+        String maGH = "GH_" + hoaDon.getMaHD();
 
         GiaoHang giaoHang = new GiaoHang();
         giaoHang.setHoaDon(hoaDon);
@@ -379,7 +392,7 @@ public class HoaDonOnlineController {
     }
 
     @GetMapping("online/bill/refund/delivery/{idHD}")
-    private String editBillRefundOnline(Model model, @PathVariable UUID idHD){
+    private String editBillRefundOnline(Model model, @PathVariable UUID idHD) {
 
         HoaDon billDelivery = hoaDonService.getOne(idHD);
         List<NhanVien> listNhanVienGiao = new ArrayList<>();
@@ -390,13 +403,13 @@ public class HoaDonOnlineController {
         List<NhanVien> listQL = nhanVienService.findByChucVu(quanLi);
         List<NhanVien> listNVGH = nhanVienService.findByChucVu(nvgh);
 
-        if(listQL != null){
-            for (NhanVien x: listQL) {
+        if (listQL != null) {
+            for (NhanVien x : listQL) {
                 listNhanVienGiao.add(x);
             }
         }
-        if(listNVGH != null){
-            for (NhanVien x: listNVGH) {
+        if (listNVGH != null) {
+            for (NhanVien x : listNVGH) {
                 listNhanVienGiao.add(x);
             }
         }
@@ -413,7 +426,7 @@ public class HoaDonOnlineController {
     }
 
     @GetMapping("/online/print/refund/bill/{idHD}")
-    private String printBillRefundOnline(Model model, @PathVariable UUID idHD){
+    private String printBillRefundOnline(Model model, @PathVariable UUID idHD) {
 
         HoaDon hoaDon = hoaDonService.getOne(idHD);
 
@@ -422,6 +435,71 @@ public class HoaDonOnlineController {
         return "manage/managePrintBillRefund";
     }
 
+    @PostMapping("online/cancel/refund/{idHD}")
+    private String confirmRefundBillCancel(Model model, @PathVariable UUID idHD) {
+        HoaDon hoaDon = hoaDonService.getOne(idHD);
+
+        Date date = new Date();
+        String maLSTT = "HTT0" + date.getDay() + generateRandomNumbers();
+
+        LichSuThanhToan lichSuThanhToan = new LichSuThanhToan();
+        lichSuThanhToan.setHoaDon(hoaDon);
+        lichSuThanhToan.setTgThanhToan(new Date());
+        lichSuThanhToan.setSoTienThanhToan(hoaDon.getTongTienDG());
+        lichSuThanhToan.setTrangThai(1);
+        lichSuThanhToan.setKhachHang(hoaDon.getKhachHang());
+        lichSuThanhToan.setMaLSTT(maLSTT);
+        lichSuThanhToan.setLoaiTT(0); //Thanh toán online
+        lichSuThanhToan.setNoiDungThanhToan("Thanh toán cho hóa đơn hủy thành công");
+        lsThanhToanService.addLSTT(lichSuThanhToan);
+
+        model.addAttribute("reLoadPage", true);
+        model.addAttribute("thongBaoHoanTien", true);
+        showData(model);
+        showTab1(model);
+        showThongBao(model);
+
+        return "manage/manage-bill-online";
+    }
+
+    @PostMapping("online/refund/refund/{idHD}")
+    private String confirmRefundBillRefund(Model model, @PathVariable UUID idHD){
+        HoaDon hoaDon = hoaDonService.getOne(idHD);
+        HoaDon hoaDonOld = hoaDonService.findByIdHoaDonOld(hoaDon.getIdHDOld());
+
+        Date date = new Date();
+        String maLSTT = "HTT0" + date.getDay() + generateRandomNumbers();
+
+        LichSuThanhToan lichSuThanhToan = new LichSuThanhToan();
+        lichSuThanhToan.setHoaDon(hoaDon);
+        lichSuThanhToan.setTgThanhToan(new Date());
+        lichSuThanhToan.setSoTienThanhToan(hoaDon.getTongTienDG());
+        lichSuThanhToan.setTrangThai(1);
+        lichSuThanhToan.setKhachHang(hoaDon.getKhachHang());
+        lichSuThanhToan.setMaLSTT(maLSTT);
+        lichSuThanhToan.setLoaiTT(0); //Thanh toán online
+        lichSuThanhToan.setNoiDungThanhToan("Đã hoàn lại tiền cho khách hàng");
+        lsThanhToanService.addLSTT(lichSuThanhToan);
+
+        hoaDon.setTrangThaiHoan(8);
+        hoaDonOld.setTrangThaiHoan(8);
+
+        PhieuTraHang phieuTraHang = hoaDon.getPhieuTraHang();
+
+        phieuTraHang.setTrangThai(8);
+
+        phieuTraHangServices.savePTH(phieuTraHang);
+        hoaDonService.add(hoaDon);
+        hoaDonService.add(hoaDonOld);
+
+        model.addAttribute("thongBaoHoanTien", true);
+        model.addAttribute("reLoadPage", true);
+        showData(model);
+        showTab1(model);
+        showThongBao(model);
+
+        return "manage/manage-bill-online";
+    }
 
     private void showThongBao(Model model){
         int soThongBao = 0;
@@ -601,8 +679,6 @@ public class HoaDonOnlineController {
         }
         return sb.toString();
     }
-
-
 
     private void showTab1(Model model){
         model.addAttribute("activeAll", "nav-link active");

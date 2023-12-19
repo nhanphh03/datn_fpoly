@@ -61,12 +61,10 @@
             <div class="col-sm-6">
               <div class="text-muted">
                 <h5 class="font-size-16 mb-3">Khách mua :</h5>
-                <h5 class="font-size-15 mb-2" th:text="${billPrint.tenNguoiNhan}"></h5>
-                <p class="mb-1"><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-                                   data-cfemail="3f6f4d5a4c4b5051725653535a4d7f5e4d52464c4f46115c5052">no email</a>
-                </p>
-                <p th:if="${billPrint.sdtNguoiNhan != null}" th:text="'Số điện thoại : ' + ${billPrint.sdtNguoiNhan}"></p>
-                <p th:if="${billPrint.sdtNguoiNhan == null}">Không có SDT</p>
+                <h5 class="font-size-15 mb-2" th:unless="${billPrint.khachHang != null}" th:text="'Khách lẻ'"></h5>
+                <h5 class="font-size-15 mb-2" th:if="${billPrint.khachHang != null}" th:text="'Tên khách hàng :'+ ${billPrint.khachHang.hoTenKH}"></h5>
+                <p th:if="${billPrint.khachHang != null && billPrint.khachHang.sdtKH != null}" th:text="'Số điện thoại : ' + ${billPrint.khachHang.sdtKH}"> </p>
+                <p th:if="${billPrint.khachHang != null && billPrint.khachHang.emailKH != null}" th:text="'Email : ' + ${billPrint.khachHang.emailKH}"></p>
               </div>
             </div>
 
