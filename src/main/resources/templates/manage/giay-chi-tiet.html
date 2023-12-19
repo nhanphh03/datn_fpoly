@@ -373,6 +373,7 @@
                             <table class="table datanew" id="data-table">
                                 <thead>
                                 <tr>
+                                    <th>Mã</th>
                                     <th>Hình Ảnh</th>
                                     <th>Giày</th>
                                     <th>Size</th>
@@ -392,6 +393,7 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="items : ${items}">
+                                    <td th:text="${items.maCTG}"></td>
                                     <td><img th:src="@{'/images/imgsProducts/'+ ${items.hinhAnh.url1}}"></td>
                                     <td th:text="${items.giay.tenGiay}"></td>
                                     <td th:text="${items.size.soSize}"></td>

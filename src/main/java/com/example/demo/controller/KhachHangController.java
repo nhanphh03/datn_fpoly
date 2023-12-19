@@ -167,6 +167,7 @@ public class KhachHangController {
         khachHang1.setDiaChi(khachHang.getDiaChi());
         khachHang1.setEmailKH(khachHang.getEmailKH());
         khachHang1.setMatKhau(khachHang.getMatKhau());
+        khachHang1.setCCCDKH(khachHang.getCCCDKH());
         khachHang1.setSdtKH(khachHang.getSdtKH());
         khachHang1.setAnhKH(khachHang.getAnhKH());
         khachHang1.setAnhcccd(khachHang.getAnhcccd());

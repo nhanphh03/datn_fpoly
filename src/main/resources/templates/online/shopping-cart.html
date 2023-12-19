@@ -267,7 +267,7 @@
 
                         <input style=" margin-top: 3px;border: none; font-weight: 700; font-size: 18pt; background-color: white;" type="button" value="-" class="button-minus dec button" onclick="decrementQuantity(this)">
 
-                        <input  class="quantityInput" oninput="updateTotalAmount(this)" th:value="${x.soLuong}" style="width: 30px; text-align: center; border: none;" readonly type="text" th:name="${x.chiTietGiay.idCTG}" value="0">
+                        <input  class="quantityInput" oninput="validateQuantity(this)" th:value="${x.soLuong}" style="width: 30px; text-align: center; border: none;" type="number" th:name="${x.chiTietGiay.idCTG}">
 
                         <input style="border: none; font-weight: 700; font-size: 14pt; background-color: white;" type="button" value="+" class="button-plus inc button a3 a5 a1 a-1" onclick="incrementQuantity(this)">
 
@@ -761,6 +761,24 @@
 <script src="/js/scrollbar.min.js"></script>
 <script src="/js/custom-scroll.js"></script>
 
+
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  function validateQuantity(inputElement) {
+    var quantity = parseInt(inputElement.value);
+
+    // Kiểm tra xem giá trị có phải là số không
+    if (isNaN(quantity) || quantity < 1 || quantity > 10) {
+      alert('Vui lòng nhập số trong khoảng từ 1 đến 10.');
+      // Đặt giá trị mặc định là 1 nếu giá trị không hợp lệ hoặc là chữ
+      inputElement.value = 1;
+    }
+
+    // Gọi hàm updateTotalAmount để cập nhật tổng tiền
+    updateTotalAmount(inputElement);
+  }
+  /*]]>*/
+</script>
 <!--Update quantity product in cart BEGIN -->
 <script>
   function incrementQuantity(input) {
