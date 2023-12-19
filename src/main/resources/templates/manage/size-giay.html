@@ -451,6 +451,13 @@
         <div class="toast-message">Mã Size đã tồn tại.</div>
     </div>
 </div>
+<div th:if="${trungSoSize}" id="trungSoSize" class="toast-container toast-top-right">
+    <div class="toast toast-error" aria-live="assertive" style="display: block;">
+        <button type="button" class="toast-close-button" role="button"></button>
+        <div class="toast-title">Error!</div>
+        <div class="toast-message">Số Size đã tồn tại.</div>
+    </div>
+</div>
 <div th:if="${importError}" id="importError" class="toast-container toast-top-right">
     <div class="toast toast-error" aria-live="assertive" style="display: block;">
         <button type="button" class="toast-close-button" role="button"></button>
@@ -611,11 +618,19 @@
         if (warning3) {
             warning3.style.display = 'none';
         }
-    }, 5000);//
+    }, 5000);
+    //
     setTimeout(function () {
         var importError = document.getElementById('importError');
         if (importError) {
             importError.style.display = 'none';
+        }
+    }, 5000);
+    //
+    setTimeout(function () {
+        var trungSoSize = document.getElementById('trungSoSize');
+        if (trungSoSize) {
+            trungSoSize.style.display = 'none';
         }
     }, 5000);
 </script>

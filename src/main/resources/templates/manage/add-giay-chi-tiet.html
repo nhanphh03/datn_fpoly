@@ -113,21 +113,22 @@
                     </div>
                     <div class="noti-content">
                         <ul class="notification-list">
-                            <th:block  th:each="x : ${listThongBao}">
-                                <li th:if="${x.trangThai == 3}"class="notification-message">
+                            <th:block th:each="x : ${listThongBao}">
+                                <li th:if="${x.trangThai == 3}" class="notification-message">
                                     <a href="/manage/bill/online">
                                         <div class="media d-flex">
                                         <span class="avatar flex-shrink-0">
                                         <img alt="" src="/images/img/profiles/avatar-02.jpg">
                                         </span>
                                             <div class="media-body flex-grow-1">
-                                                <p class="noti-details" >
+                                                <p class="noti-details">
                                                     <span class="noti-title" th:text="${x.khachHang.hoTenKH}"></span>
                                                     <span th:text="${x.noiDungTB}"></span>
                                                     <span class="noti-title" th:text="${x.hoaDon.maHD}"></span>
                                                 </p>
                                                 <p class="noti-time">
-                                                    <span class="notification-time"th:text="${#dates.format(x.tgTB, 'HH:mm yyyy-MM-dd')}"></span>
+                                                    <span class="notification-time"
+                                                          th:text="${#dates.format(x.tgTB, 'HH:mm yyyy-MM-dd')}"></span>
                                                 </p>
                                             </div>
                                         </div>
@@ -144,13 +145,15 @@
 
             <li class="nav-item dropdown has-arrow main-drop">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
-                    <span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
+                    <span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}"
+                                                alt="">
                     <span class="status online"></span></span>
                 </a>
                 <div class="dropdown-menu menu-drop-user">
                     <div class="profilename">
                         <div class="profileset">
-                            <span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
+                            <span class="user-img"><img
+                                    th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
                             <span class="status online"></span></span>
                             <div class="profilesets">
                                 <h6 th:text="${session.managerLogged.hoTenNV}"></h6>
@@ -190,7 +193,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span>
+                        <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg"
+                                                       alt="img"><span> Thống Kê</span>
                         </a>
                     </li>
                     <li class="submenu">
@@ -270,7 +274,21 @@
                         <h6>Quản Lý Giày</h6>
                     </div>
                 </div>
-
+                <div th:if="${error eq 'daTonTai'}" id="daTonTai" class="toast-container toast-top-right">
+                    <div class="toast toast-error" aria-live="assertive" style="display: block; width: 550px;">
+                        <button type="button" class="toast-close-button" role="button"></button><br>
+                        Sản phẩm có ID: <span th:text="${userInput}"></span> đã tồn tại.<br><br>
+                        <!-- Kiểm tra xem có yêu cầu cập nhật số lượng hay không -->
+                        <div th:if="${updateQuantity}">
+                            Bạn có muốn cập nhật số lượng không?
+                            <br><br>
+                            <a th:href="@{'/manage/giay-chi-tiet/viewUpdate/' + ${userInput}}">
+                                Cập nhật số lượng
+                            </a>
+                            <a href="#" onclick="hideToast()" style="float: right; margin-left: 10px;">Hủy và Đóng</a>
+                        </div>
+                    </div>
+                </div>
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
@@ -295,7 +313,7 @@
                             <div class="col-lg-5 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Số Lượng</label>
-                                    <input type="text" th:field="*{soLuong}" name="soLuong" >
+                                    <input type="text" th:field="*{soLuong}" name="soLuong">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -320,13 +338,13 @@
                             <div class="col-lg-2 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Năm Sản Xuất</label>
-                                    <input type="text" th:field="*{namSX}" name="namSX" >
+                                    <input type="text" th:field="*{namSX}" name="namSX">
                                 </div>
                             </div>
                             <div class="col-lg-2 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Năm Bảo Hành</label>
-                                    <input type="text" th:field="*{namBH}" name="namBH" >
+                                    <input type="text" th:field="*{namBH}" name="namBH">
                                 </div>
                             </div>
                             <div class="col-lg-1 col-sm-6 col-12">
@@ -351,7 +369,7 @@
                             <div class="col-lg-5 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Trọng Lượng</label>
-                                    <input type="text" th:field="*{trongLuong}" name="trongLuong" >
+                                    <input type="text" th:field="*{trongLuong}" name="trongLuong">
                                 </div>
                             </div>
                             <div class="col-lg-6 col-sm-6 col-12">
@@ -380,7 +398,7 @@
                             <div class="col-lg-5 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Giá Bán</label>
-                                    <input type="text" th:field="*{giaBan}" name="giaBan" >
+                                    <input type="text" th:field="*{giaBan}" name="giaBan">
                                 </div>
                             </div>
                             <div class="col-lg-12 col-sm-6 col-12">
@@ -434,7 +452,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form th:object="${giayAdd}" method="post" th:action="@{/manage/giay-chi-tiet/giay/viewAdd/add}" onsubmit="return validateGiayForm()" name="giayForm"
+                <form th:object="${giayAdd}" method="post" th:action="@{/manage/giay-chi-tiet/giay/viewAdd/add}"
+                      onsubmit="return validateGiayForm()" name="giayForm"
                       style="width: auto;height: auto">
                     <div class="page-header">
                         <div class="page-title">
@@ -448,13 +467,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Giày</label>
-                                        <input type="text" th:field="*{maGiay}" >
+                                        <input type="text" th:field="*{maGiay}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Giày</label>
-                                        <input type="text" th:field="*{tenGiay}" >
+                                        <input type="text" th:field="*{tenGiay}">
                                     </div>
                                 </div>
                                 <div class="col-lg-10 col-sm-6 col-12">
@@ -531,7 +550,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form th:object="${mauSacAdd}" method="post" th:action="@{/manage/giay-chi-tiet/mau-sac/viewAdd/add}" onsubmit="return validateMauSacForm()" name="mauSacForm">
+                <form th:object="${mauSacAdd}" method="post" th:action="@{/manage/giay-chi-tiet/mau-sac/viewAdd/add}"
+                      onsubmit="return validateMauSacForm()" name="mauSacForm">
                     <div class="page-header">
                         <div class="page-title">
                             <h4>Thêm Màu </h4>
@@ -544,7 +564,7 @@
                                 <div class="col-lg-4 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã</label>
-                                        <input type="text" th:field="*{ma}" >
+                                        <input type="text" th:field="*{ma}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
@@ -563,7 +583,7 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Màu</label>
-                                        <input type="text" th:field="*{tenMau}" >
+                                        <input type="text" th:field="*{tenMau}">
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -599,7 +619,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form th:object="${sizeAdd}" method="post" th:action="@{/manage/giay-chi-tiet/size/viewAdd/add}" onsubmit="return validateSizeForm()" name="sizeForm">
+                <form th:object="${sizeAdd}" method="post" th:action="@{/manage/giay-chi-tiet/size/viewAdd/add}"
+                      onsubmit="return validateSizeForm()" name="sizeForm">
                     <div class="page-header">
                         <div class="page-title">
                             <h4>Thêm Size </h4>
@@ -612,13 +633,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Size</label>
-                                        <input type="text" th:field="*{maSize}" >
+                                        <input type="text" th:field="*{maSize}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Size</label>
-                                        <input type="text" th:field="*{soSize}" >
+                                        <input type="text" th:field="*{soSize}">
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -669,7 +690,7 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã</label>
-                                        <input type="text" name="maAnh" th:field="*{maAnh}" >
+                                        <input type="text" name="maAnh" th:field="*{maAnh}">
                                     </div>
                                 </div>
                                 <div th:fragment="whitespace">&nbsp;</div>
@@ -769,13 +790,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Hãng</label><br><br>
-                                        <input type="text" name="maHang" >
+                                        <input type="text" name="maHang">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Hãng</label><br><br>
-                                        <input type="text" name="tenHang" >
+                                        <input type="text" name="tenHang">
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -811,7 +832,8 @@
             </div>
             <div class="modal-body">
                 <form th:object="${chatLieuAdd}" method="post"
-                      th:action="@{/manage/giay-chi-tiet/giay/chat-lieu/viewAdd/add}" onsubmit="return validateChatLieuForm()" name="chatLieuForm"
+                      th:action="@{/manage/giay-chi-tiet/giay/chat-lieu/viewAdd/add}"
+                      onsubmit="return validateChatLieuForm()" name="chatLieuForm"
                       style="width: auto;height: auto">
                     <div class="page-header">
                         <div class="page-title">
@@ -825,13 +847,13 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Mã Chất Liệu</label>
-                                        <input type="text" th:field="*{maChatLieu}" >
+                                        <input type="text" th:field="*{maChatLieu}">
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Chất Liệu</label>
-                                        <input type="text" th:field="*{tenChatLieu}" >
+                                        <input type="text" th:field="*{tenChatLieu}">
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -920,13 +942,14 @@
         <div class="toast-message">Hãy chọn trường size.</div>
     </div>
 </div>
-<div th:if="${daTonTai}" id="daTonTai" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button"></button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Giày chi tiết đã tồn tại trong cơ sở dữ liệu.</div>
-    </div>
-</div>
+<!--<div th:if="${daTonTai}" id="daTonTai" class="toast-container toast-top-right">-->
+<!--    <div class="toast toast-error" aria-live="assertive" style="display: block;">-->
+<!--        <button type="button" class="toast-close-button" role="button"></button>-->
+<!--        <div class="toast-title">Error!</div>-->
+<!--        <div class="toast-message">Giày chi tiết đã tồn tại trong cơ sở dữ liệu.</div>-->
+<!--    </div>-->
+<!--</div>-->
+<!-- Kiểm tra xem daTonTai có tồn tại hay không -->
 <!--//Size-->
 <div th:if="${messageSize}" id="successSize" class="toast-container toast-top-right">
     <div class="toast toast-success" aria-live="polite" style="display: block;">
@@ -1518,7 +1541,7 @@
         if (daTonTai) {
             daTonTai.style.display = 'none';
         }
-    }, 5000);
+    }, 500000);
 </script>
 <script>
     // In your Javascript (external .js resource or <script> tag)
@@ -1582,6 +1605,7 @@
             $('#selectedImage3').attr('src', '/images/imgsProducts/' + imageUrl3);
             $('#selectedImage4').attr('src', '/images/imgsProducts/' + imageUrl4);
         }
+
         updateSelectedImages();
         $('.image').change(function () {
             updateSelectedImages();
@@ -1884,6 +1908,7 @@
 
         return true;
     }
+
     function showAlert(message) {
         alertify.alert(message).setting({
             'title': 'Thông báo',
@@ -1997,11 +2022,17 @@
         }
         return true;
     }
+
     function showAlert(message) {
         alertify.alert(message).setting({
             'title': 'Thông báo',
             'label': 'Đồng ý',
         }).show();
+    }
+</script>
+<script>
+    function hideToast() {
+        document.getElementById('daTonTai').style.display = 'none';
     }
 </script>
 </body>
