@@ -41,6 +41,9 @@ public class HomeOrder {
     @Autowired
     private GiayChiTietService giayChiTietService;
 
+    @Autowired
+    private LSThanhToanService lsThanhToanService;
+
     @RequestMapping(value = {"", "/", "/home"})
     private String getHomeShipping(Model model){
 
@@ -155,19 +158,32 @@ public class HomeOrder {
             return "transportation/index";
         }else if (trangThaiGiaoHang.equals("thanhCong")){
             String viTri = "Đơn hàng đã giao hàng thành công";
+
+            Date date = new Date();
             ViTriDonHang viTriDonHang = new ViTriDonHang();
 
             viTriDonHang.setViTri(viTri);
-            viTriDonHang.setThoiGian(new Date());
+            viTriDonHang.setThoiGian(date);
             viTriDonHang.setTrangThai(1);
             viTriDonHang.setNoiDung(moTa);
             viTriDonHang.setGiaoHang(hoaDon.getGiaoHang());
             viTriDonHangServices.addViTriDonHang(viTriDonHang);
 
             hoaDon.setTrangThai(3);
-            hoaDon.setTgThanhToan(new Date());
-            hoaDon.setTgNhan(new Date());
+            hoaDon.setTgThanhToan(date);
+            hoaDon.setTgNhan(date);
             hoaDonService.add(hoaDon);
+
+            LichSuThanhToan lichSuThanhToan = new LichSuThanhToan();
+            lichSuThanhToan.setHoaDon(hoaDon);
+            lichSuThanhToan.setTgThanhToan(date);
+            lichSuThanhToan.setSoTienThanhToan(0.0);
+            lichSuThanhToan.setKhachHang(hoaDon.getKhachHang());
+            lichSuThanhToan.setMaLSTT("LSST0" + date.getTime());
+            lichSuThanhToan.setNoiDungThanhToan("Khách hàng đã thanh toán cho đơn hàng");
+            lichSuThanhToan.setTrangThai(1);
+            lsThanhToanService.addLSTT(lichSuThanhToan);
+
 
             showData(model);
             showDataTab2(model);
@@ -190,6 +206,8 @@ public class HomeOrder {
                 hoaDon.setLyDoHuy(moTa);
                 hoaDonService.add(hoaDon);
 
+                Date date = new Date();
+
                 ViTriDonHang viTriDonHang2 = new ViTriDonHang();
 
                 viTriDonHang.setViTri("Đơn hàng đã bị hủy");
@@ -197,7 +215,17 @@ public class HomeOrder {
                 viTriDonHang.setTrangThai(2);
                 viTriDonHang.setNoiDung(moTa);
                 viTriDonHang.setGiaoHang(giaoHang);
-                viTriDonHangServices.addViTriDonHang(viTriDonHang);
+                viTriDonHangServices.addViTriDonHang(viTriDonHang2);
+
+                LichSuThanhToan lichSuThanhToan = new LichSuThanhToan();
+                lichSuThanhToan.setHoaDon(hoaDon);
+                lichSuThanhToan.setTgThanhToan(date);
+                lichSuThanhToan.setSoTienThanhToan(hoaDon.getTongTienDG());
+                lichSuThanhToan.setKhachHang(hoaDon.getKhachHang());
+                lichSuThanhToan.setMaLSTT("LSST0" + date.getTime());
+                lichSuThanhToan.setNoiDungThanhToan("Khách hàng không nhận hàng");
+                lichSuThanhToan.setTrangThai(5);
+                lsThanhToanService.addLSTT(lichSuThanhToan);
 
                 showDataTab2(model);
                 showData(model);
@@ -259,7 +287,6 @@ public class HomeOrder {
         showData(model);
         String trangThaiGiaoHang = request.getParameter("trangThaiGiaoHang");
         HoaDon hoaDon = hoaDonService.getOne(idHD);
-
         HoaDon hoaDonOld = hoaDonService.getOne(hoaDon.getIdHDOld());
 
         String thanhPho = request.getParameter("city");

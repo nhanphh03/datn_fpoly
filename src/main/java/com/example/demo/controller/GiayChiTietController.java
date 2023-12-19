@@ -80,10 +80,19 @@ public class GiayChiTietController {
     @GetMapping("/giay-chi-tiet")
     public String dsGiayChiTiet(Model model, @ModelAttribute("message") String message, @ModelAttribute("importError") String importError) {
         List<ChiTietGiay> items = giayChiTietService.getAllChiTietGiay();
+
+        List<ChiTietGiay> chiTietGiayList = new ArrayList<>();
+
+        for (ChiTietGiay x: items) {
+            if (x.getIdCTGOld() == null){
+                chiTietGiayList.add(x);
+            }
+        }
+
         List<Giay> giayList = giayService.getAllGiay();
         List<Size> sizeList = sizeService.getAllSize();
         List<MauSac> mauSacList = mauSacService.getALlMauSac();
-        model.addAttribute("items", items);
+        model.addAttribute("items", chiTietGiayList);
         model.addAttribute("giayList", giayList);
         model.addAttribute("sizeList", sizeList);
         model.addAttribute("mauSacList", mauSacList);
@@ -573,7 +582,13 @@ public class GiayChiTietController {
                 return "redirect:/manage/giay-chi-tiet/viewAdd";
             }
             //
+            List<ChiTietGiay> list = giayChiTietService.getAllChiTietGiay();
+            Date date = new Date();
+            String maCtg = "CTG00" + date.getDate();
+            int index = list.size();
+            //
             ChiTietGiay chiTietGiay1 = new ChiTietGiay();
+            chiTietGiay1.setMaCTG(maCtg + index);
             chiTietGiay1.setGiay(chiTietGiay.getGiay());
             chiTietGiay1.setNamSX(chiTietGiay.getNamSX());
             chiTietGiay1.setNamBH(chiTietGiay.getNamBH());
@@ -667,8 +682,14 @@ public class GiayChiTietController {
                 return link1;
             }
             //
+            List<ChiTietGiay> list = giayChiTietService.getAllChiTietGiay();
+            Date date = new Date();
+            String maCtg = "CTG00" + date.getDate();
+            int index = list.size();
+            //
             ChiTietGiay chiTietGiay2 = new ChiTietGiay();
             chiTietGiay2.setGiay(giay);
+            chiTietGiay2.setMaCTG(maCtg + index);
             chiTietGiay2.setNamSX(chiTietGiay.getNamSX());
             chiTietGiay2.setNamBH(chiTietGiay.getNamBH());
             chiTietGiay2.setTrongLuong(chiTietGiay.getTrongLuong());
@@ -1315,7 +1336,6 @@ public class GiayChiTietController {
             chiTietGiayDb.setTrangThai(chiTietGiay.getTrangThai());
             chiTietGiayDb.setTrongLuong(chiTietGiay.getTrongLuong());
             giayChiTietService.save(chiTietGiayDb);
-
 
 
             redirectAttributes.addFlashAttribute("message", true);

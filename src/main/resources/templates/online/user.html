@@ -113,9 +113,9 @@
     </style>
 <body>
 <!-- Page Preloder -->
-<div id="preloder">
-    <div class="loader"></div>
-</div>
+<!--<div id="preloder">-->
+<!--    <div class="loader"></div>-->
+<!--</div>-->
 
 <!-- Header Section BegiAccount  -->
 <header class="header">
@@ -872,8 +872,8 @@
                     <form method="post" >
                         <div class="row coupon__code" style=" margin-bottom: 30px;">
                             <div class="row">
-                                <a style="display: flex; margin-right: 250px" href="/buyer/purchase/cancel">
-                                    <svg style="width: 30x; height: 30px;" viewBox="0 0 1024 1024" fill="#000000" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="24.576"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M669.6 849.6c8.8 8 22.4 7.2 30.4-1.6s7.2-22.4-1.6-30.4l-309.6-280c-8-7.2-8-17.6 0-24.8l309.6-270.4c8.8-8 9.6-21.6 2.4-30.4-8-8.8-21.6-9.6-30.4-2.4L360.8 480.8c-27.2 24-28 64-0.8 88.8l309.6 280z" fill=""></path></g></svg>
+                                <a style="display: flex; margin-right: 200px" href="/buyer/purchase/cancel">
+                                    <svg style="width: 30Px; height: 30px;" viewBox="0 0 1024 1024" fill="#000000" class="icon" version="1.1" xmlns="http://www.w3.org/2000/svg" stroke="#000000" stroke-width="24.576"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M669.6 849.6c8.8 8 22.4 7.2 30.4-1.6s7.2-22.4-1.6-30.4l-309.6-280c-8-7.2-8-17.6 0-24.8l309.6-270.4c8.8-8 9.6-21.6 2.4-30.4-8-8.8-21.6-9.6-30.4-2.4L360.8 480.8c-27.2 24-28 64-0.8 88.8l309.6 280z" fill=""></path></g></svg>
                                     <p style="margin:4px 100px 0 0; font-weight: 600; font-size: 12pt;">Quay lại</p>
                                 </a>
                                 <p style="float: right; display: flex;"  th:text="'MÃ ĐƠN HÀNG : ' + ${billDetailCancel.maHD}">
@@ -2038,9 +2038,6 @@
                         </div>
 
                         <!-- ALL begin -->
-                        <div th:if="${purchaseAll}" class="row" style="background-color: #f3f2ee; width: 836px ; height: 50px; border-radius: 5px; margin-top: 10px;margin-bottom: 10px;">
-                             <p>Form Search</p>
-                        </div>
 
                         <div th:if="${purchaseAll}" class="row" style="background-color: white; width: 836px ; border-radius: 5px;">
 
@@ -2122,7 +2119,7 @@
                         <div th:if="${purchasePay}" class="row" style="margin-top: 10px; background-color: white; width: 836px; border-radius: 5px;">
                             <th:block th:each="x : ${listAllHDByKhachHang}">
 
-                                <div class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+                                <div  th:if="${x.idHDOld == null}" class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
 
                                     <div style="float: right; display: flex; padding: 10px 0 0 0;">
                                         <a style="color: black;" href="#" th:text="${x.maHD}"></a>
@@ -2169,7 +2166,7 @@
                         <div th:if="${purchaseShip}" class="row" style="margin-top: 10px; background-color: white; width: 836px; border-radius: 5px;">
                             <th:block th:each="x : ${listAllHDByKhachHang}">
 
-                                <div class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+                                <div th:if="${x.idHDOld == null}" class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
 
                                     <div style="float: right; display: flex; padding: 10px 0 0 0;">
                                         <a style="color: black;" href="#" th:text="${x.maHD}"></a>
@@ -2215,7 +2212,7 @@
                          <div th:if="${purchaseReceive}" class="row" style="margin-top: 10px;background-color: white; width: 836px ; border-radius: 5px;">
                              <th:block th:each="x : ${listAllHDByKhachHang}">
 
-                                 <div class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+                                 <div th:if="${x.idHDOld == null}" class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
 
                                      <div style="float: right; display: flex; padding: 10px 0 0 0;">
                                          <a style="color: black;" href="#" th:text="${x.maHD}"></a>
@@ -2296,10 +2293,10 @@
                                              <a th:href="@{'/buyer/purchaser/bill/completed/rated/' + ${x.idHD}}" style=" color: black; text-align: center; margin-right:20px;  padding-top: 12px; align-items: center; height: 50px;
                                               width: 130px; border: 0.5px solid black; background-color: #f0f0f0">Đánh giá</a>
 
-                                             <a th:if="${x.trangThaiHoan != 8 }" th:href="@{'/buyer/purchaser/bill/detail/refund/' + ${x.idHD}}" type style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px;
+                                             <a th:if="${x.trangThaiHoan != 9 }" th:href="@{'/buyer/purchaser/bill/detail/refund/' + ${x.idHD}}" type style=" color: black; text-align: center; padding-top: 12px; align-items: center; height: 50px;
                                               width: 250px; border: 0.5px solid black; margin: 0 20px 0 0; background-color: #f0f0f0"> Xem chi tiết Hoàn/Đổi Hàng</a>
 
-                                             <form th:if="${x.trangThaiHoan == 8}" th:action="@{'/buyer/purchaser/bill/refund/' + ${x.idHD}}" method="post">
+                                             <form th:if="${x.trangThaiHoan == 9}" th:action="@{'/buyer/purchaser/bill/refund/' + ${x.idHD}}" method="post">
                                                  <button type="submit" style=" color: black; text-align: center;
                                                  align-items: center; height: 50px; width: 130px; border: 0.5px solid black; background-color: #f0f0f0">Hoàn/Đổi Hàng</button>
                                              </form>
@@ -2315,7 +2312,7 @@
                         <div th:if="${purchaseCancel}"  class="row" style="margin-top: 10px;background-color: white; width: 836px ; border-radius: 5px;">
                             <th:block th:each="x : ${listAllHDByKhachHang}">
 
-                                <div class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
+                                <div th:if="${x.idHDOld == null}" class="" style="width: 100%; border-radius: 5px; margin-bottom: 10px;  border: 0.5px solid rgb(176, 176, 176); background-color: #f3f2ee;">
 
                                     <div style="float: right; display: flex; padding: 10px 0 0 0;">
                                         <a style="color: black;" href="#" th:text="${x.maHD}"></a> <span style="margin: 0 10px 0 10px;">  | </span> <p style="margin-right: 20px; color: red;">ĐÃ HỦY</p>
