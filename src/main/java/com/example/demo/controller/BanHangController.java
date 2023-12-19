@@ -7,6 +7,7 @@ import com.example.demo.model.HoaDonChiTiet;
 import com.example.demo.model.KhachHang;
 import com.example.demo.model.NhanVien;
 import com.example.demo.model.*;
+import com.example.demo.repository.KhachHangRepository;
 import com.example.demo.repository.SizeRepository;
 import com.example.demo.service.GiayChiTietService;
 import com.example.demo.service.GiayService;
@@ -81,6 +82,9 @@ public class BanHangController {
 
     @Autowired
     private LoaiKhachHangService loaiKhachHangService;
+
+    @Autowired
+    private KhachHangRepository khachHangRepository;
 
     private double tongTien = 0;
     private double tienKhuyenMai = 0;
@@ -316,6 +320,9 @@ public class BanHangController {
 //        tongTien = hoaDonChiTietService.tongTien(findByIdHoaDon);
 //        model.addAttribute("tongTien", this.tongTien);
         // cập nhật sl ctg
+        if (soLuong == chiTietGiay.getSoLuong()){
+            chiTietGiay.setTrangThai(0);
+        }
         chiTietGiay.setSoLuong(chiTietGiay.getSoLuong() - soLuong);
         giayChiTietService.save(chiTietGiay);
         redirectAttributes.addFlashAttribute("messageSuccess", true);
@@ -349,6 +356,7 @@ public class BanHangController {
         HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.getOne(idHoaDon, idChiTietGiay);
 
         chiTietGiay.setSoLuong(chiTietGiay.getSoLuong() + hoaDonChiTiet.getSoLuong());
+        chiTietGiay.setTrangThai(1);
         giayChiTietService.save(chiTietGiay);
 
         hoaDonChiTiet.setTrangThai(0);
@@ -434,11 +442,12 @@ public class BanHangController {
     }
 
     @PostMapping("/khach-hang/add")
-    public String addKhachHang(@Valid @ModelAttribute("kh") KhachHang khachHang, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-            model.addAttribute("addKH", new KhachHang());
-            model.addAttribute("showModalAddKH", true);
-            return "offline/index";
+    public String addKhachHang( @ModelAttribute("kh") KhachHang khachHang,Model model,RedirectAttributes redirectAttributes) {
+        if (khachHangRepository.existsBySdtKH(khachHang.getSdtKH())) {
+            redirectAttributes.addFlashAttribute("messageError", true);
+            redirectAttributes.addFlashAttribute("tbaoError", "Đã tồn tại số điện thoại");
+            model.addAttribute("listHoaDon", hoaDonService.getListHoaDonChuaThanhToan());
+            return "redirect:/ban-hang/cart/hoadon/" + this.idHoaDon;
         } else {
             String ma = String.valueOf(Math.floor(((Math.random() * 899999) + 100000)));
             khachHang.setMaKH("KH" + ma);
@@ -455,6 +464,8 @@ public class BanHangController {
             hoaDon.setKhachHang(khachHang);
             hoaDonService.add(hoaDon);
             httpSession.setAttribute("khachHang", khachHang);
+            redirectAttributes.addFlashAttribute("messageSuccess", true);
+            redirectAttributes.addFlashAttribute("tb", "Thêm khách hàng thành công");
             return "redirect:/ban-hang/cart/hoadon/" + idHoaDon;
         }
     }
