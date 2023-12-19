@@ -256,7 +256,7 @@
                                                         </span>
                                                 </div>
                                                 <div class="dash-widgetcontent">
-                                                    <h5><span class="counters" data-count="10"></span></h5>
+                                                    <h5><span class="counters" th:data-count="${dangGiao}" th:text="${dangGiao}"></span></h5>
                                                     <h6>Đang giao</h6>
                                                 </div>
                                             </div>
@@ -284,8 +284,8 @@
                                                             </span>
                                                 </div>
                                                 <div class="dash-widgetcontent">
-                                                    <h5><span class="counters" data-count="20"></span></h5>
-                                                    <h6>Hoàn thành</h6>
+                                                    <h5><span class="counters" th:data-count="${giaoThanhCong}"></span></h5>
+                                                    <h6>Hoàn thành/Huỷ</h6>
                                                 </div>
                                             </div>
                                         </div>
@@ -383,7 +383,7 @@
                                                     </span>
                                                 </div>
                                                 <div class="dash-widgetcontent">
-                                                    <h5><span class="counters" data-count="10"></span></h5>
+                                                    <h5><span class="counters" th:data-count="${hoaDonHoan}" th:text="${hoaDonHoan}"></span></h5>
                                                     <h6>Đơn hàng hoàn hàng</h6>
                                                 </div>
                                             </div>

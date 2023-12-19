@@ -9,7 +9,12 @@ public interface SendMailService {
                         String body);
 
 
-    void sendMimeMessage(String toEmail,
+    void sendMimeMessageKMHD(String toEmail,
                         String subject,
                         String body) throws MessagingException;
+
+    void sendMimeMessageSP(String toEmail,
+                             String subject,
+                             String linkSP,
+                             String body) throws MessagingException;
 }
