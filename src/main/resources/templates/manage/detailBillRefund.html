@@ -290,7 +290,7 @@
           <div class="col-lg-2 col-sm-12 col-12">
             <div class="form-group">
               <label>Tổng tiền :</label>
-              <p  th:text="'₫' + ${#numbers.formatDecimal(hoaDon.tongTien, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}" style="font-size: 11pt; font-weight: 700;"></p>
+              <p  th:text="'₫' + ${#numbers.formatDecimal(hoaDon.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}" style="font-size: 11pt; font-weight: 700;"></p>
             </div>
           </div>
           <div class="col-lg-2 col-sm-12 col-12">

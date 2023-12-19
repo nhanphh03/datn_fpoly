@@ -417,45 +417,37 @@
                                                                     </th>
                                                                 </tr>
                                                                 </thead>
-                                                                <tbody>
-                                                                <th:block th:each="bill: ${hoaDonList}">
-                                                                    <tr>
-                                                                        <td th:text="${bill.maHD}"></td>
-                                                                        <td th:text="${#dates.format(bill.tgTao, 'HH:mm yyyy-MM-dd')}"></td>
+                                                                  <tbody>
+                                                                  <th:block th:each="bill: ${hoaDonList}">
+                                                                      <tr>
+                                                                          <td th:text="${bill.maHD}"></td>
+                                                                          <td th:text="${#dates.format(bill.tgTao, 'HH:mm yyyy-MM-dd')}"></td>
 
 
-                                                                        <td th:if="${bill.trangThai == 0}">HD Chờ</td>
-                                                                        <td th:if="${bill.trangThai == 1}">HD Thành
-                                                                            công
-                                                                        </td>
-                                                                        <td th:if="${bill.trangThai == 2}">HD Hủy</td>
+                                                                          <td th:if="${bill.trangThai == 0}">HD Chờ</td>
+                                                                          <td th:if="${bill.trangThai == 1}">HD Thành công</td>
 
-                                                                        <td th:if="${bill.khachHang == null}">Không có
-                                                                        </td>
-                                                                        <td th:if="${bill.khachHang != null}"
-                                                                            th:text="${bill.khachHang.hoTenKH}"></td>
+                                                                          <td th:if="${bill.khachHang == null}">Không có</td>
+                                                                          <td th:if="${bill.khachHang != null}" th:text="${bill.khachHang.hoTenKH}"></td>
 
-                                                                        <td th:text="${bill.tongSP}"></td>
-                                                                        <td th:text="'₫'+${#numbers.formatDecimal(bill.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
+                                                                          <td th:text="${bill.tongSP}"></td>
+                                                                          <td th:text="'₫'+${#numbers.formatDecimal(bill.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
 
-                                                                        <th>
-                                                                            <i class="fe fe-eye" data-bs-toggle="modal"
-                                                                               data-bs-target="#modalAll"
-                                                                               style="cursor: pointer; margin: 0 25px 0 20px; color: #ff9f43;"></i>
-                                                                            <a th:href="@{'http://localhost:8081/manage/bill/offline/print/' + ${bill.idHD}}"
-                                                                               onclick="window.open(this.href, '_blank'); return false;">
-                                                                                <i class="fe fe-printer"
-                                                                                   data-bs-toggle="tooltip" title=""
-                                                                                   style="cursor: pointer; color: #ff9f43;"
-                                                                                   data-bs-original-title="In hóa đơn"
-                                                                                   aria-label="fe fe-printer"></i>
-                                                                            </a>
-                                                                        </th>
+                                                                          <th>
+                                                                              <i class="fe fe-eye" data-bs-toggle="modal"
+                                                                                 data-bs-target="#modalAll" style="cursor: pointer; margin: 0 25px 0 20px; color: #ff9f43;"></i>
+                                                                              <a th:href="@{'http://localhost:8081/manage/bill/offline/print/' + ${bill.idHD}}"
+                                                                                 onclick="window.open(this.href, '_blank'); return false;">
+                                                                                  <i class="fe fe-printer" data-bs-toggle="tooltip" title="" style="cursor: pointer; color: #ff9f43;"
+                                                                                     data-bs-original-title="In hóa đơn" aria-label="fe fe-printer"></i>
+                                                                              </a>
+                                                                          </th>
 
-                                                                    </tr>
-                                                                </th:block>
-                                                                </tbody>
-                                                            </table>
+                                                                      </tr>
+                                                                  </th:block>
+                                                                  </tbody>
+                                                                </table>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
