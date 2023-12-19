@@ -637,7 +637,7 @@ public class UserController {
         hoaDonNew.setIdHDOld(hoaDon.getIdHD());
         hoaDonNew.setMaHDOld(hoaDon.getMaHD());
         hoaDonNew.setTgTao(date);
-        hoaDonNew.setMaHD("HD00_" + khachHang.getMaKH() + date.getDay() + generateRandomNumbers());
+        hoaDonNew.setMaHD("HDH00_" + khachHang.getMaKH() + date.getDay() + generateRandomNumbers());
         hoaDonNew.setHinhThucThanhToan(1);
         hoaDonNew.setTrangThaiHoan(0);
         hoaDonNew.setSdtNguoiNhan(sdtLayHang);
@@ -646,6 +646,12 @@ public class UserController {
         hoaDonNew.setKhachHang(khachHang);
 
         hoaDonService.add(hoaDonNew);
+
+        List<HoaDonChiTiet> listHDCTOld = hoaDonChiTietService.findByHoaDon(hoaDon);
+        double totalOld = listHDCTOld.stream()
+                .mapToDouble(HoaDonChiTiet::getDonGia)
+                .sum();
+
         List<HoaDonChiTiet> hoaDonChiTiets = new ArrayList<>();
 
         int i = 0;
@@ -654,8 +660,8 @@ public class UserController {
             i++;
 
             HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.getOne(hoaDon.getIdHD(), x);
-            Double phanTramCTG = hoaDonChiTiet.getDonGia()/hoaDonChiTiet.getSoLuong()/hoaDon.getTongTien();
-            Double giaBanCTG = hoaDon.getTongTienDG()*phanTramCTG;
+            Double phanTramCTG = hoaDon.getTongTienDG()/ totalOld;
+            Double giaBanCTG = hoaDonChiTiet.getDonGia()*phanTramCTG/hoaDonChiTiet.getSoLuong();
             HoaDonChiTiet hoaDonChiTietNew = new HoaDonChiTiet();
 
             hoaDonChiTietNew.setSoLuong(quantity);
@@ -743,7 +749,7 @@ public class UserController {
         lichSuThanhToan.setSoTienThanhToan(hoaDon.getTongTienDG());
         lichSuThanhToan.setNoiDungThanhToan(hoaDon.getMaHD());
         lichSuThanhToan.setKhachHang(khachHang);
-        lichSuThanhToan.setHoaDon(hoaDon);
+        lichSuThanhToan.setHoaDon(hoaDonNew);
         lichSuThanhToan.setMaLSTT("LSTT" + khachHang.getMaKH() + generateRandomNumbers());
         lichSuThanhToan.setTrangThai(0);
         lichSuThanhToan.setLoaiTT(1);
@@ -890,6 +896,20 @@ public class UserController {
         hoaDonOld.setMaHDOld("4");
         hoaDonOld.setHinhThucThanhToan(1);
         hoaDonService.add(hoaDonOld);
+        Date date = new Date();
+
+        String maLSTT = "HTT0" + date.getDay() + generateRandomNumbers();
+
+        LichSuThanhToan lichSuThanhToan = new LichSuThanhToan();
+        lichSuThanhToan.setHoaDon(hoaDonNew);
+        lichSuThanhToan.setTgThanhToan(new Date());
+        lichSuThanhToan.setSoTienThanhToan(hoaDonNew.getTongTienDG());
+        lichSuThanhToan.setTrangThai(1);
+        lichSuThanhToan.setKhachHang(hoaDonNew.getKhachHang());
+        lichSuThanhToan.setMaLSTT(maLSTT);
+        lichSuThanhToan.setLoaiTT(0); //Thanh toán online
+        lichSuThanhToan.setNoiDungThanhToan("Xác nhận yêu cầu hoàn");
+        lsThanhToanService.addLSTT(lichSuThanhToan);
 
         model.addAttribute("thongTinHoanHang", true);
 

@@ -50,7 +50,11 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
             "((b.loai_hd=1 and b.trang_thai=1) or (b.loai_hd=0 and b.trang_thai = 3))",nativeQuery = true)
     Optional<Integer> getTongSPBanTrongThang();
 
+<<<<<<< HEAD
     @Query(value = "select sum(tong_tien_da_giam) from hoa_don where (loai_hd=1 and trang_thai=1) or (loai_hd=0 and trang_thai = 3) or (loai_hd=0 and trang_thai=1 and hinh_thuc_thanh_toan=1)",nativeQuery = true)
+=======
+    @Query(value = "select sum(tong_tien_da_giam) from hoa_don where month(tg_thanh_toan) = month(GETDATE())  and year(tg_thanh_toan) = year(GETDATE()) and ((loai_hd=1 and trang_thai=1) or (loai_hd=0 and trang_thai = 3) or(loai_hd=0 and trang_thai=3 and hinh_thuc_thanh_toan=1))",nativeQuery = true)
+>>>>>>> 220eec3b1d2df41c7e69050ea9d495b12244be5c
     Optional<Double> getTongTienLaiCuaHang();
 
     @Query(value = "select ((gia_nhap*b.so_luong)) from hoa_don a join hoa_don_chi_tiet b on a.id_hd=b.id_hd \n" +

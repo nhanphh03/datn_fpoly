@@ -146,9 +146,22 @@ public class NhanVienController {
             return "redirect:/manage/nhan-vien/viewAdd";
         }
 
-        nhanVien.setTgThem(new Date());
-        nhanVien.setTrangThai(1);
-        nhanVienService.save(nhanVien);
+        NhanVien nhanVien1 = new NhanVien();
+        nhanVien1.setMaNV(nhanVien.getMaNV());
+        nhanVien1.setHoTenNV(nhanVien.getHoTenNV());
+        nhanVien1.setNgaySinh(nhanVien.getNgaySinh());
+        nhanVien1.setSdtNV(nhanVien.getSdtNV());
+        nhanVien1.setMatKhau(nhanVien.getMatKhau());
+        nhanVien1.setEmailNV(nhanVien.getEmailNV());
+        nhanVien1.setGioiTinh(nhanVien.getGioiTinh());
+        nhanVien1.setCCCDNV(nhanVien.getCCCDNV());
+        nhanVien1.setDiaChi(nhanVien.getDiaChi());
+        nhanVien1.setAnhNV(nhanVien.getAnhNV());
+        nhanVien1.setTrangThai(nhanVien.getTrangThai());
+        nhanVien1.setChucVu(nhanVien.getChucVu());
+        nhanVien1.setTgThem(new Date());
+        nhanVien1.setTrangThai(1);
+        nhanVienService.save(nhanVien1);
         redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/nhan-vien";
     }
