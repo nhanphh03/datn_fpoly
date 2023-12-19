@@ -637,7 +637,7 @@ public class UserController {
         hoaDonNew.setIdHDOld(hoaDon.getIdHD());
         hoaDonNew.setMaHDOld(hoaDon.getMaHD());
         hoaDonNew.setTgTao(date);
-        hoaDonNew.setMaHD("HD00_" + khachHang.getMaKH() + date.getDay() + generateRandomNumbers());
+        hoaDonNew.setMaHD("HDH00_" + khachHang.getMaKH() + date.getDay() + generateRandomNumbers());
         hoaDonNew.setHinhThucThanhToan(1);
         hoaDonNew.setTrangThaiHoan(0);
         hoaDonNew.setSdtNguoiNhan(sdtLayHang);
@@ -646,6 +646,12 @@ public class UserController {
         hoaDonNew.setKhachHang(khachHang);
 
         hoaDonService.add(hoaDonNew);
+
+        List<HoaDonChiTiet> listHDCTOld = hoaDonChiTietService.findByHoaDon(hoaDon);
+        double totalOld = listHDCTOld.stream()
+                .mapToDouble(HoaDonChiTiet::getDonGia)
+                .sum();
+
         List<HoaDonChiTiet> hoaDonChiTiets = new ArrayList<>();
 
         int i = 0;
@@ -654,8 +660,8 @@ public class UserController {
             i++;
 
             HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.getOne(hoaDon.getIdHD(), x);
-            Double phanTramCTG = hoaDonChiTiet.getDonGia()/hoaDonChiTiet.getSoLuong()/hoaDon.getTongTien();
-            Double giaBanCTG = hoaDon.getTongTienDG()*phanTramCTG;
+            Double phanTramCTG = hoaDon.getTongTienDG()/ totalOld;
+            Double giaBanCTG = hoaDonChiTiet.getDonGia()*phanTramCTG/hoaDonChiTiet.getSoLuong();
             HoaDonChiTiet hoaDonChiTietNew = new HoaDonChiTiet();
 
             hoaDonChiTietNew.setSoLuong(quantity);
