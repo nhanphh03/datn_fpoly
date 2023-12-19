@@ -70,7 +70,6 @@ public class ChiTietGiay {
     @Column(name = "gia_Ban")
     private double giaBan;
 
-    @Min(value = 1)
     @Column(name = "so_Luong")
     private int soLuong;
 

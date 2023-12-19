@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -388,6 +389,7 @@ public class HomeOrder {
                 phieuTraHangServices.savePTH(phieuTraHang);
 
                 hoaDon.setTrangThaiHoan(3);
+                hoaDon.setTrangThai(4);
                 hoaDon.setTgHuy(new Date());
                 hoaDon.setLyDoHuy(moTa);
                 hoaDonService.add(hoaDon);
@@ -457,6 +459,7 @@ public class HomeOrder {
             phieuTraHangServices.savePTH(phieuTraHang);
 
             hoaDon.setTrangThaiHoan(6);
+            hoaDon.setTrangThai(3);
             hoaDonService.add(hoaDon);
 
             for (HoaDonChiTiet xx: hoaDon.getHoaDonChiTiets()) {
@@ -613,7 +616,20 @@ public class HomeOrder {
         List<HoaDon> hoaDonDGList = hoaDonService.listHoaDonByNhanVienAndTrangThai(nhanVien, 2);
         List<HoaDon> hoaDonDoneList = hoaDonService.listHoaDonHuyAndThanhCongByNhanVien(nhanVien);
 
+        List<HoaDon> hoaDonListHoan= new ArrayList<>();
+
+        if(hoaDonDGList != null){
+            for (HoaDon x: allHoaDonList) {
+                hoaDonListHoan.add(x);
+            }
+        }
+
+
         model.addAttribute("allHoaDonList",allHoaDonList);
+        model.addAttribute("sumDH", allHoaDonList.size());
+        model.addAttribute("dangGiao", hoaDonDGList.size());
+        model.addAttribute("giaoThanhCong", hoaDonDoneList.size());
+        model.addAttribute("hoaDonHoan", hoaDonListHoan.size());
         model.addAttribute("hoaDonDGList",hoaDonDGList);
         model.addAttribute("hoaDonDoneList",hoaDonDoneList);
 
