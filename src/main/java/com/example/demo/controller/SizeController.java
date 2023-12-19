@@ -55,7 +55,8 @@ public class SizeController {
             , @ModelAttribute("soSizeError") String soSizeError
             , @ModelAttribute("error") String error
             , @ModelAttribute("userInput") Size userInput
-            , @ModelAttribute("Errormessage") String Errormessage) {
+            , @ModelAttribute("Errormessage") String Errormessage
+            , @ModelAttribute("trungSoSize") String trungSoSize) {
         List<Size> size = sizeService.getAllSize();
         model.addAttribute("size", size);
         //
@@ -79,6 +80,10 @@ public class SizeController {
         //
         if (Errormessage == null || !"true".equals(Errormessage)) {
             model.addAttribute("Errormessage", false);
+        }
+        //
+        if (trungSoSize == null || !"true".equals(trungSoSize)) {
+            model.addAttribute("trungSoSize", false);
         }
         return "manage/size-giay";
     }
@@ -108,7 +113,9 @@ public class SizeController {
             redirectAttributes.addFlashAttribute("Errormessage", true);
             return "redirect:/manage/size";
         }
-        if (size != null) {
+        int soSize = size.getSoSize();
+        Size size1 = repository.findBySoSize(soSize);
+        if (size != null && size1 == null) {
             Size sizeAdd = new Size();
             sizeAdd.setMaSize(size.getMaSize());
             sizeAdd.setSoSize(size.getSoSize());
@@ -116,6 +123,8 @@ public class SizeController {
             sizeAdd.setTrangThai(1);
             sizeService.save(sizeAdd);
         } else {
+            redirectAttributes.addFlashAttribute("userInput", size);
+            redirectAttributes.addFlashAttribute("trungSoSize", true);
             return "redirect:/manage/size";
         }
         redirectAttributes.addFlashAttribute("message", true);
