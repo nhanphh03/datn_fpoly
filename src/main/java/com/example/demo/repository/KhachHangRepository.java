@@ -41,4 +41,6 @@ public interface KhachHangRepository extends JpaRepository<KhachHang, UUID> {
 
     @Query(value = "select count(id_kh) from khach_hang" ,nativeQuery = true)
     Integer getTongKH();
+
+    boolean existsBySdtKH(String sdtKH);
 }

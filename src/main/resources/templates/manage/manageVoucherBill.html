@@ -347,6 +347,80 @@
 
       </div>
 
+      <div class="card">
+
+        <div class="card-body">
+
+          <form action="/manage/voucher-bill/send-mail" method="post">
+            <div class="row">
+              <div class="col-lg-4 col-sm-12 col-12">
+              <p style="font-size: 14pt; color: black; margin: auto; font-weight: 700; text-align: center;">Gửi thông báo khuyến mãi tới khách hàng</p>
+
+              <div style="margin:10px 0 0 20px;">
+
+                <div class="form-group">
+                  <div style="display: flex; margin-top: 10px;">
+                    <label style="margin: 17px 24px 0 0 ; font-weight: 500;">Lựa chọn khuyến mãi :</label>
+                    <div style="width: 200px; margin-top: 10px;" >
+                      <select style="width: 200px; margin-top: 10px;" name="khuyenMaiSelected" class="form-control form-small select">
+                        <th:block th:each="km: ${listKhuyenMaiActive}">
+                          <option th:value="${km.idKM}" th:text="${km.tenKM}"></option>
+                        </th:block>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div style="display: flex; margin-top: 20px;">
+                    <button type="submit" style="height: 40px; width: 200px; background-color: #ff9f43; border-radius: 5px; border: none; color: white; font-size: 11pt;">Gửi thông báo</button>
+                  </div>
+                </div>
+
+              </div>
+
+              <div style="with:96%; height: 0.3px; margin: 10px 0 30px 10px; background-color: #656565"> </div>
+
+            </div>
+              <div style=" height: 495px; border-left: 0.3px solid rgb(94, 94, 94);"
+                 class="col-lg-8 col-sm-12 col-12">
+              <p style="font-size: 14pt; color: black; margin: auto; font-weight: 700; text-align: center;">Danh sách khách hàng</p>
+
+              <div style="width: 98%; height: 450px" class="vertical-scroll scroll-demo">
+
+                <table class="table  datanew ">
+                  <thead>
+                  <tr>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43;">
+                      <input id="checkAll" style="height: 20px; width: 20px" type="checkbox">
+                    </th>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;"> Mã KH</th>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;"> Tên KH</th>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;"> Số điện thoại</th>
+                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;"> Email</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <th:block th:each="x: ${listKH}">
+                    <tr>
+                      <td><input class="itemsCart" name="idKH" style="height: 20px; width: 20px;" th:value="${x.idKH}" type="checkbox"></td>
+                      <td><p th:text="${x.maKH}"></p></td>
+                      <td><p th:text="${x.hoTenKH}"></p></td>
+                      <td><p th:text="${x.sdtKH}"></p></td>
+                      <td><p th:text="${x.emailKH}"></p></td>
+                    </tr>
+                  </th:block>
+
+                  </tbody>
+                </table>
+
+              </div>
+
+            </div>
+          </div>
+          </form>
+        </div>
+
+      </div>
+
     </div>
 
   </div>
@@ -656,6 +730,29 @@
   </div>
   <!--  Mess End-->
 
+  <div th:if="${thongBaoGuiMai}" class="modal fade" id="thongBaoGuiMai" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 500px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thành Công</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row" style="text-align: center; align-items: center; padding: 30px 0 30px 0;">
+            <div>
+              <h3>Gửi thông báo khuyến mãi tới khách hàng thành công</h3>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <a class="btn btn-submit" style="background: #3088df;" data-bs-dismiss="modal">OK</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 
@@ -707,6 +804,9 @@
 <script>
   $(document).ready(function () {
     $('#messAddThanhCong').modal('show');
+  });
+  $(document).ready(function () {
+    $('#thongBaoGuiMai').modal('show');
   });
 </script>
 
