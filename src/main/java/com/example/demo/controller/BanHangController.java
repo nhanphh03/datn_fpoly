@@ -131,6 +131,7 @@ public class BanHangController {
             hd.setTrangThaiHoan(8);
             hd.setNhanVien(nhanVien);
             hd.setTongTienDG(0.0);
+            hd.setSoLanDanhGia(0);
             hoaDonService.add(hd);
             model.addAttribute("message", "Tạo hóa đơn thành công");
             redirectAttributes.addFlashAttribute("messageSuccess", true);
@@ -551,12 +552,14 @@ public class BanHangController {
 //        return "offline/index";
 //    }
     @PostMapping("/updateQuantity")
-    public String updateQuantity(@RequestParam UUID idCTG, @RequestParam int quantity) {
+    @ResponseBody
+    public void updateQuantity(@RequestParam UUID idCTG, @RequestParam int quantity) {
         UUID idHoaDon = (UUID) httpSession.getAttribute("idHoaDon");
+        ChiTietGiay chiTietGiay = giayChiTietService.getByIdChiTietGiay(idCTG);
         HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.getOne(idHoaDon, idCTG);
         hoaDonChiTiet.setSoLuong(quantity);
+        hoaDonChiTiet.setDonGia(chiTietGiay.getGiaBan() * quantity);
         hoaDonChiTietService.add(hoaDonChiTiet);
-        return "redirect:/ban-hang/cart/hoadon/" + idHoaDon;
     }
 
     @GetMapping("/bill/print/{idHD}")
