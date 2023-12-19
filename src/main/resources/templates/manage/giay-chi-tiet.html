@@ -248,7 +248,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="form-hidden-2" style="display: none">
-                            <form action="/manage/giayCT/import" method="post" enctype="multipart/form-data">
+                            <form action="/manage/giayCT/importExcel" method="post" enctype="multipart/form-data">
                                 <div class="form-group">
                                     <label> Upload Excel File</label>
                                     <input type="file" name="file"/>
@@ -275,13 +275,13 @@
                             </div>
                             <div class="wordset">
                                 <ul>
-<!--                                    <li>-->
-<!--                                        <a class="btn btn-filter" id="import-excel" data-bs-toggle="tooltip"-->
-<!--                                           data-bs-placement="top" title="Import Excel">-->
-<!--                                            <img src="/images/img/icons/upload.svg" alt="img">-->
-<!--                                            <span><img src="/images/img/icons/closes.svg" alt="img"></span>-->
-<!--                                        </a>-->
-<!--                                    </li>-->
+                                    <li>
+                                        <a class="btn btn-filter" id="import-excel" data-bs-toggle="tooltip"
+                                           data-bs-placement="top" title="Import Excel">
+                                            <img src="/images/img/icons/upload.svg" alt="img">
+                                            <span><img src="/images/img/icons/closes.svg" alt="img"></span>
+                                        </a>
+                                    </li>
                                     <li>
                                         <a th:href="@{/manage/barCodeTest}"
                                            data-bs-toggle="tooltip"

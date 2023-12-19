@@ -30,6 +30,7 @@ public class SendMailServiceImpl implements SendMailService {
 
     @Override
     public void sendMimeMessageKMHD(String toEmail, String subject, String body) throws MessagingException {
+        String projectPath = System.getProperty("user.dir");
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
@@ -93,11 +94,11 @@ public class SendMailServiceImpl implements SendMailService {
                 "    </div>" ;
         helper.setText(content, true);
 
-        FileSystemResource resource1 = new FileSystemResource(new File("F:\\Final_Fpoly\\SD74---Sneaker-Shop\\src\\main\\resources\\static\\images\\imgEmails\\A1.png"));
-        FileSystemResource resource2 = new FileSystemResource(new File("F:\\Final_Fpoly\\SD74---Sneaker-Shop\\src\\main\\resources\\static\\images\\imgEmails\\A2.png"));
-        FileSystemResource resource3 = new FileSystemResource(new File("F:\\Final_Fpoly\\SD74---Sneaker-Shop\\src\\main\\resources\\static\\images\\imgEmails\\A3.png"));
-        FileSystemResource resource4 = new FileSystemResource(new File("F:\\Final_Fpoly\\SD74---Sneaker-Shop\\src\\main\\resources\\static\\images\\imgEmails\\A4.png"));
-        FileSystemResource resource7 = new FileSystemResource(new File("F:\\Final_Fpoly\\SD74---Sneaker-Shop\\src\\main\\resources\\static\\images\\imgEmails\\Logo.png"));
+        FileSystemResource resource1 = new FileSystemResource(new File(projectPath+"/src/main/resources/static/images/imgEmails/A1.png"));
+        FileSystemResource resource2 = new FileSystemResource(new File(projectPath+"/src/main/resources/static/images/imgEmails/A2.png"));
+        FileSystemResource resource3 = new FileSystemResource(new File(projectPath+"/src/main/resources/static/images/imgEmails/A3.png"));
+        FileSystemResource resource4 = new FileSystemResource(new File(projectPath+"/src/main/resources/static/images/imgEmails/A4.png"));
+        FileSystemResource resource7 = new FileSystemResource(new File(projectPath+"/src/main/resources/static/images/imgEmails/Logo.png"));
 
         helper.addInline("image001", resource1);
         helper.addInline("image002", resource2);
@@ -111,6 +112,7 @@ public class SendMailServiceImpl implements SendMailService {
 
     @Override
     public void sendMimeMessageSP(String toEmail, String subject, String linkSP, String body) throws MessagingException {
+        String projectPath = System.getProperty("user.dir");
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
 
@@ -176,13 +178,13 @@ public class SendMailServiceImpl implements SendMailService {
                 "    </div>" ;
         helper.setText(content, true);
 
-        FileSystemResource resource1 = new FileSystemResource(new File("F:\\Final_Fpoly\\SD74---Sneaker-Shop\\src\\main\\resources\\static\\images\\imgEmails\\A1.png"));
-        FileSystemResource resource2 = new FileSystemResource(new File("F:\\Final_Fpoly\\SD74---Sneaker-Shop\\src\\main\\resources\\static\\images\\imgEmails\\A2.png"));
-        FileSystemResource resource3 = new FileSystemResource(new File("F:\\Final_Fpoly\\SD74---Sneaker-Shop\\src\\main\\resources\\static\\images\\imgEmails\\A3.png"));
-        FileSystemResource resource4 = new FileSystemResource(new File("F:\\Final_Fpoly\\SD74---Sneaker-Shop\\src\\main\\resources\\static\\images\\imgEmails\\A4.png"));
-        FileSystemResource resource5 = new FileSystemResource(new File("F:\\Final_Fpoly\\SD74---Sneaker-Shop\\src\\main\\resources\\static\\images\\imgEmails\\call.png"));
-        FileSystemResource resource6 = new FileSystemResource(new File("F:\\Final_Fpoly\\SD74---Sneaker-Shop\\src\\main\\resources\\static\\images\\imgEmails\\global.png"));
-        FileSystemResource resource7 = new FileSystemResource(new File("F:\\Final_Fpoly\\SD74---Sneaker-Shop\\src\\main\\resources\\static\\images\\imgEmails\\Logo.png"));
+        FileSystemResource resource1 = new FileSystemResource(new File(projectPath+"/src/main/resources/static/images/imgEmails/A1.png"));
+        FileSystemResource resource2 = new FileSystemResource(new File(projectPath+"/src/main/resources/static/images/imgEmails/A2.png"));
+        FileSystemResource resource3 = new FileSystemResource(new File(projectPath+"/src/main/resources/static/images/imgEmails/A3.png"));
+        FileSystemResource resource4 = new FileSystemResource(new File(projectPath+"/src/main/resources/static/images/imgEmails/A4.png"));
+        FileSystemResource resource5 = new FileSystemResource(new File(projectPath+"/src/main/resources/static/images/imgEmails/call.png"));
+        FileSystemResource resource6 = new FileSystemResource(new File(projectPath+"/src/main/resources/static/images/imgEmails/global.png"));
+        FileSystemResource resource7 = new FileSystemResource(new File(projectPath+"/src/main/resources/static/images/imgEmails/Logo.png"));
 
         helper.addInline("image001", resource1);
         helper.addInline("image002", resource2);
