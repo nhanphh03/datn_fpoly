@@ -1485,16 +1485,14 @@ public class GiayChiTietController {
         return "manage/giay";
     }
 
-    @PostMapping("/giayCT/import")
-    public String importData(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
+    @PostMapping("/giayCT/importExcel")
+    public String importData(@RequestParam("file") MultipartFile file) {
         if (file != null && !file.isEmpty()) {
             try {
                 InputStream excelFile = file.getInputStream();
-                giayChiTietServiceImpl.importChiTietGiayFromExcel(excelFile); // Gọi phương thức nhập liệu từ Excel
-                redirectAttributes.addFlashAttribute("message", true);
+                giayChiTietServiceImpl.importDataFromExcel(excelFile); // Gọi phương thức nhập liệu từ Excel
             } catch (Exception e) {
                 e.printStackTrace();
-                return "Import Failed: " + e.getMessage();
                 // Xử lý lỗi
             }
         }
