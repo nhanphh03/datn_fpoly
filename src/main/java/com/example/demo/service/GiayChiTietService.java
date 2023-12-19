@@ -52,5 +52,7 @@ public interface GiayChiTietService {
 
     void updatePriceCTGGHCT(ChiTietGiay chiTietGiay);
 
-    boolean isDuplicateChiTietGiay(UUID giayId, UUID sizeId, UUID mauSacId, UUID hinhAnhId);
+    List<ChiTietGiay> isDuplicateChiTietGiay(UUID giayId, UUID sizeId, UUID mauSacId, UUID hinhAnhId);
+
+    public void importDataFromExcel(InputStream excelFile);
 }

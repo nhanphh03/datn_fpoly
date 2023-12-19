@@ -115,89 +115,67 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
         return giayChiTietRepository.customSearchGCT(searchTerm);
     }
 
-    @Transactional
-    public void importChiTietGiayFromExcel(InputStream excelFile) throws IOException {
-        try (Workbook workbook = WorkbookFactory.create(excelFile)) {
-            Sheet sheet = workbook.getSheetAt(0);
-            Iterator<Row> rowIterator = sheet.iterator();
-            if (rowIterator.hasNext()) {
-                rowIterator.next();
-            }
-            while (rowIterator.hasNext()) {
-                Row row = rowIterator.next();
-                ChiTietGiay chiTietGiay = createChiTietGiayFromRow(row);
+    @Override
+    public void importDataFromExcel(InputStream excelFile) {
+        try (Workbook workbook = new XSSFWorkbook(excelFile)) {
+            Sheet sheet = workbook.getSheetAt(0); // Lấy sheet đầu tiên (index 0)
+            for (Row row : sheet) {
+                if (row.getRowNum() == 0) {
+                    // Bỏ qua hàng đầu tiên nếu nó là tiêu đề
+                    continue;
+                }
+                ChiTietGiay chiTietGiay = new ChiTietGiay();
+                chiTietGiay.setMaCTG(row.getCell(0).getStringCellValue());
+
+                String maGiay = row.getCell(1).getStringCellValue();
+                Giay giay = giayRepository.findByMaGiay(maGiay);
+                chiTietGiay.setGiay(giay);
+
+                String maSize = row.getCell(2).getStringCellValue();
+                Size size = sizeRepository.findByMaSize(maSize);
+                chiTietGiay.setSize(size);
+
+                String maMau = row.getCell(3).getStringCellValue();
+                MauSac mauSac = mauSacRepository.findByMa(maMau);
+                chiTietGiay.setMauSac(mauSac);
+
+                if (row.getCell(4).getCellType() == CellType.NUMERIC) {
+                    chiTietGiay.setNamSX((int) row.getCell(4).getNumericCellValue()); // Chuyển đổi thành kiểu int
+                }
+
+                if (row.getCell(5).getCellType() == CellType.NUMERIC) {
+                    chiTietGiay.setNamBH((int) row.getCell(5).getNumericCellValue()); // Chuyển đổi thành kiểu int
+                }
+
+                if (row.getCell(6).getCellType() == CellType.NUMERIC) {
+                    chiTietGiay.setTrongLuong((int) row.getCell(6).getNumericCellValue()); // Chuyển đổi thành kiểu int
+                }
+
+                Cell giaBanCell = row.getCell(7, Row.MissingCellPolicy.CREATE_NULL_AS_BLANK);
+                if (giaBanCell.getCellType() == CellType.NUMERIC) {
+                    chiTietGiay.setGiaBan(giaBanCell.getNumericCellValue());
+                }
+
+                if (row.getCell(8).getCellType() == CellType.NUMERIC) {
+                    chiTietGiay.setSoLuong((int) row.getCell(8).getNumericCellValue()); // Chuyển đổi thành kiểu int
+                }
+
+                String maHA = row.getCell(9).getStringCellValue();
+                HinhAnh hinhAnh = hinhAnhRepository.findByMaAnh(maHA);
+                chiTietGiay.setHinhAnh(hinhAnh);
+
+                chiTietGiay.setGiaBan(3000000);
+                chiTietGiay.setSoTienTruocKhiGiam(3000000.00);
+                chiTietGiay.setTrangThai(1);
+                chiTietGiay.setTgThem(new Date());
+
                 giayChiTietRepository.save(chiTietGiay);
             }
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Lỗi ở đâu đó ================================================================================================="+ e.getMessage());
+            // Xử lý lỗi nếu cần
         }
-    }
-
-    private ChiTietGiay createChiTietGiayFromRow(Row row) {
-        ChiTietGiay chiTietGiay = new ChiTietGiay();
-
-        // Mã CTG (Giả sử là chuỗi)
-        chiTietGiay.setMaCTG(row.getCell(0).getStringCellValue());
-
-        // Size (Giả sử là số nguyên)
-        int soSize = (int) row.getCell(1).getNumericCellValue();
-        Size size = sizeRepository.findBySoSize(soSize);
-        chiTietGiay.setSize(size);
-
-        // Khuyến mãi chi tiết (Giả sử là chuỗi)
-        String tenKM = row.getCell(2).getStringCellValue();
-        KhuyenMaiChiTietCTG khuyenMaiChiTietCTG = kmctProductRepository.findByTenKM(tenKM);
-        chiTietGiay.setKhuyenMaiChiTietCTG(khuyenMaiChiTietCTG);
-
-        // Giày (Giả sử là chuỗi)
-        String giayName = row.getCell(3).getStringCellValue();
-        Giay giay = giayRepository.findByTenGiay(giayName);
-        chiTietGiay.setGiay(giay);
-
-        // Hình ảnh (Giả sử là chuỗi)
-        String hinhAnhName = row.getCell(4).getStringCellValue();
-        HinhAnh hinhAnh = hinhAnhRepository.findByMaAnh(hinhAnhName);
-        chiTietGiay.setHinhAnh(hinhAnh);
-
-        // Màu sắc (Giả sử là chuỗi)
-        String mauSacName = row.getCell(5).getStringCellValue();
-        MauSac mauSac = mauSacRepository.findByTenMau(mauSacName);
-        chiTietGiay.setMauSac(mauSac);
-
-        // Năm sản xuất (Giả sử là số nguyên)
-        chiTietGiay.setNamSX((int) row.getCell(6).getNumericCellValue());
-
-        // Năm bảo hành (Giả sử là số nguyên)
-        chiTietGiay.setNamBH((int) row.getCell(7).getNumericCellValue());
-
-        // Trọng lượng (Giả sử là số nguyên)
-        chiTietGiay.setTrongLuong((int) row.getCell(8).getNumericCellValue());
-
-        // Giá bán (Giả sử là số thập phân)
-        chiTietGiay.setGiaBan(row.getCell(9).getNumericCellValue());
-
-        // Số lượng (Giả sử là số nguyên)
-        chiTietGiay.setSoLuong((int) row.getCell(10).getNumericCellValue());
-
-        // Trạng thái (Giả sử là số nguyên)
-        chiTietGiay.setTrangThai((int) row.getCell(11).getNumericCellValue());
-
-        // Thời gian thêm (Giả sử là ngày tháng)
-        chiTietGiay.setTgThem(row.getCell(12).getDateCellValue());
-
-        // Thời gian sửa (Giả sử là ngày tháng)
-        chiTietGiay.setTgSua(row.getCell(13).getDateCellValue());
-
-        // Mã người sửa (Giả sử là chuỗi)
-        chiTietGiay.setMaNVSua(row.getCell(14).getStringCellValue());
-
-        // Số tiền trước khi giảm (Giả sử là số thập phân)
-        chiTietGiay.setSoTienTruocKhiGiam(row.getCell(15).getNumericCellValue());
-
-        // Lý do sửa (Giả sử là chuỗi)
-        chiTietGiay.setLyDoSua(row.getCell(16).getStringCellValue());
-
-        // Barcode (Giả sử là chuỗi)
-        chiTietGiay.setBarcode(row.getCell(17).getStringCellValue());
-        return chiTietGiay;
     }
 
     public List<Size> findDistinctSizeByGiayAndMauSac(Giay giay, MauSac mauSac) {
@@ -227,9 +205,8 @@ public class GiayChiTietServiceImpl implements GiayChiTietService {
     }
 
     @Override
-    public boolean isDuplicateChiTietGiay(UUID giayId, UUID sizeId, UUID mauSacId, UUID hinhAnhId) {
-        return giayChiTietRepository.findByGiayAndSizeAndMauSacAndHinhAnh(giayId, sizeId, mauSacId, hinhAnhId)
-                .isPresent();
+    public List<ChiTietGiay> isDuplicateChiTietGiay(UUID giayId, UUID sizeId, UUID mauSacId, UUID hinhAnhId) {
+        return giayChiTietRepository.findByGiayAndSizeAndMauSacAndHinhAnh(giayId, sizeId, mauSacId, hinhAnhId);
     }
 
     @Override
