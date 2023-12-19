@@ -62,7 +62,10 @@ public class LichSuThanhToanController {
         for (HoaDon x: hoaDonList) {
             if (x.getTrangThai() == 6 || x.getTrangThai() == 7){
             }else{
-                tongTienQRCode += x.getTongTienDG();
+                if(x.getTrangThai() == 1|| x.getTrangThai() == 2 || x.getTrangThai() == 3){
+                    tongTienQRCode += x.getTongTienDG();
+                }
+
                 if (x.getHinhThucThanhToan() == 1 && x.getIdHDOld() == null){
                     tongHoaDon ++;
                 }
