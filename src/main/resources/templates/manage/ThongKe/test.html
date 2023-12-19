@@ -368,10 +368,15 @@
                                                                                 </div>
                                                                             </li>
                                                                         </td>
-                                                                        <td>
-                                                                            <div>Tên người nhận: <span th:text="${a.ten}" class="text-info"></span></div>
-                                                                            <div>SĐT: <span th:text="${a.sdt}" class="text-info"></span></div>
-                                                                            <div>Địa chỉ: <span th:text="${a.diaChi}" class="text-info"></span></div>
+                                                                        <td >
+                                                                            <div th:if="${a.ten==null}">
+                                                                                Đơn hàng tại quầy
+                                                                            </div>
+                                                                            <div th:if="${a.ten!=null}">
+                                                                                <div>Tên người nhận: <span th:text="${a.ten}" class="text-info"></span></div>
+                                                                                <div>SĐT: <span th:text="${a.sdt}" class="text-info"></span></div>
+                                                                                <div>Địa chỉ: <span th:text="${a.diaChi}" class="text-info"></span></div>
+                                                                            </div>
                                                                         </td>
                                                                         <td>
                                                                             <li>
@@ -464,9 +469,14 @@
                                                                             </li>
                                                                         </td>
                                                                         <td>
-                                                                            <div>Tên người nhận: <span th:text="${a.ten}" class="text-info"></span></div>
-                                                                            <div>SĐT: <span th:text="${a.sdt}" class="text-info"></span></div>
-                                                                            <div>Địa chỉ: <span th:text="${a.diaChi}" class="text-info"></span></div>
+                                                                            <div th:if="${a.ten==null}">
+                                                                                Đơn hàng tại quầy
+                                                                            </div>
+                                                                            <div th:if="${a.ten!=null}">
+                                                                                <div>Tên người nhận: <span th:text="${a.ten}" class="text-info"></span></div>
+                                                                                <div>SĐT: <span th:text="${a.sdt}" class="text-info"></span></div>
+                                                                                <div>Địa chỉ: <span th:text="${a.diaChi}" class="text-info"></span></div>
+                                                                            </div>
                                                                         </td>
                                                                         <td>
                                                                             <li>

@@ -37,8 +37,7 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
             "ORDER BY so_luong_ban DESC;", nativeQuery = true)
     List<Object[]> spBanChay();
 
-    @Query(value = "select sum(tong_tien_da_giam) from hoa_don \n" +
-            "where month(tg_thanh_toan) = month(GETDATE())  and year(tg_thanh_toan) = year(GETDATE()) and ((loai_hd=1 and trang_thai=1) or (loai_hd=0 and trang_thai = 3))\n",
+    @Query(value = "select sum(tong_tien_da_giam) from hoa_don where month(tg_thanh_toan) = month(GETDATE())  and year(tg_thanh_toan) = year(GETDATE()) and ((loai_hd=1 and trang_thai=1) or (loai_hd=0 and trang_thai = 3) or (loai_hd=0 and trang_thai=1 and hinh_thuc_thanh_toan=1))\n",
             nativeQuery = true)
     Optional<Double> getLaiThangNay();
 
@@ -51,7 +50,7 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
             "((b.loai_hd=1 and b.trang_thai=1) or (b.loai_hd=0 and b.trang_thai = 3))",nativeQuery = true)
     Optional<Integer> getTongSPBanTrongThang();
 
-    @Query(value = "select sum(tong_tien_da_giam) from hoa_don where (loai_hd=1 and trang_thai=1) or (loai_hd=0 and trang_thai = 3)",nativeQuery = true)
+    @Query(value = "select sum(tong_tien_da_giam) from hoa_don where (loai_hd=1 and trang_thai=1) or (loai_hd=0 and trang_thai = 3) or (loai_hd=0 and trang_thai=1 and hinh_thuc_thanh_toan=1)",nativeQuery = true)
     Optional<Double> getTongTienLaiCuaHang();
 
     @Query(value = "select ((gia_nhap*b.so_luong)) from hoa_don a join hoa_don_chi_tiet b on a.id_hd=b.id_hd \n" +
@@ -109,7 +108,7 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
             "join chi_tiet_giay ctg on ctg.id_chi_tiet_giay=hdct.id_ctg\n" +
             "join hinh_anh ha on ha.id_hinh_anh=ctg.id_hinh_anh\n" +
             "join giay g on g.id_giay=ctg.id_giay\n" +
-            "WHERE (loai_hd=1 and hd.trang_thai=1) or (hd.loai_hd=0 and hd.trang_thai = 3) AND MONTH(hd.tg_thanh_toan) = MONTH (getdate()) and Day(tg_thanh_toan) = Day(getdate())",nativeQuery = true)
+            "WHERE ((loai_hd=1 and hd.trang_thai=1) or (hd.loai_hd=0 and hd.trang_thai = 3)) AND MONTH(hd.tg_thanh_toan) = MONTH (getdate()) and Day(tg_thanh_toan) = Day(getdate())",nativeQuery = true)
     List<Object[]> findHoaDonChiTietByDate();
 
 
@@ -137,7 +136,7 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, UU
             "\t\t\torder by SUM(cthd.so_luong) desc",nativeQuery = true)
     List<Object[]> getHieuSuatNhanVienBanHang();
 
-    @Query("select g from HoaDonChiTiet g where g.hoaDon.nhanVien.maNV =:maNV and g.hoaDon.trangThai=1 and g.hoaDon.loaiHD=1")
+    @Query("select g from HoaDonChiTiet g where g.hoaDon.nhanVien.maNV =:maNV")
     List<HoaDonChiTiet> getChiTietSPNhanVienBan( String maNV);
     //code chart thống kê doanh thu
     @Query(value = "select  sum(tong_tien_da_giam) from hoa_don where (MONTH(tg_thanh_toan) = 1) and ((loai_hd=1 and trang_thai=1) or (loai_hd=0 and trang_thai = 3)) and year(tg_thanh_toan)=year(getdate())",nativeQuery = true)
