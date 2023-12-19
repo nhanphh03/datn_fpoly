@@ -469,7 +469,7 @@
                                                                                                style="width: 30px; text-align: center; border: none;"
                                                                                                type="text"
                                                                                                th:name="${gioHang.chiTietGiay.idCTG}"
-                                                                                               value="1" min="1">
+                                                                                                min="1">
 
                                                                                         <input style="border: none; font-weight: 700; font-size: 14pt; background-color: white;"
                                                                                                type="button" value="+"
@@ -1953,21 +1953,9 @@
     /*<![CDATA[*/
     function updateTotalAmountAndGrandTotal(inputElement) {
 
-    // Lấy giá trị số lượng từ input
-    var quantity = parseInt(inputElement.value);
-
-    // Lấy giá trị giá bán từ phần tử cha
-    var giaBan = parseInt(inputElement.closest('.product-lists').querySelector('.product-lists li:nth-child(2) div').innerText.replace(/[^0-9]/g, ''));
-
-    // Tính tổng tiền và cập nhật vào phần tử hiển thị tổng tiền
-    var totalAmountElement = inputElement.closest('.product-lists').querySelector('.product-lists li:nth-child(3) div');
-    var totalAmount = giaBan * quantity;
-    totalAmountElement.innerText = formatCurrency(totalAmount) + ' đ';
-
-    // Cập nhật tổng tiền bên dưới
-    updateGrandTotal();
-        var quantity = input.value;
-        var idCTG = input.getAttribute('name');
+        // Lấy giá trị số lượng từ input
+        var quantity = parseInt(inputElement.value);
+        var idCTG = inputElement.getAttribute('name');
         fetch('/ban-hang/updateQuantity', {
             method: 'POST',
             headers: {
@@ -1980,61 +1968,75 @@
             })
             .catch(error => {
             });
-    }
 
-    // Hàm cập nhật tổng tiền bên dưới
-    function updateGrandTotal() {
-        var totalElements = document.querySelectorAll('.product-lists li:nth-child(3) div');
-        var grandTotalElement = document.querySelector('.setvalue h6');
+        // Lấy giá trị giá bán từ phần tử cha
+        var giaBan = parseInt(inputElement.closest('.product-lists').querySelector('.product-lists li:nth-child(2) div').innerText.replace(/[^0-9]/g, ''));
 
-        var grandTotal = 0;
-        totalElements.forEach(function (element) {
-            grandTotal += parseInt(element.innerText.replace(/[^0-9]/g, ''));
-        });
+        // Tính tổng tiền và cập nhật vào phần tử hiển thị tổng tiền
+        var totalAmountElement = inputElement.closest('.product-lists').querySelector('.product-lists li:nth-child(3) div');
+        var totalAmount = giaBan * quantity;
+        totalAmountElement.innerText = formatCurrency(totalAmount) + ' đ';
 
-        grandTotalElement.innerText = formatCurrency(grandTotal) + ' đ';
-    }
 
-    // Hàm định dạng số tiền thành chuỗi có định dạng
-    function formatCurrency(amount) {
-        return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+
+        // Cập nhật tổng tiền bên dưới
+        updateGrandTotal();
+
+
+        // Hàm cập nhật tổng tiền bên dưới
+        function updateGrandTotal() {
+            var totalElements = document.querySelectorAll('.product-lists li:nth-child(3) div');
+            var grandTotalElement = document.querySelector('.setvalue h6');
+
+            var grandTotal = 0;
+            totalElements.forEach(function (element) {
+                grandTotal += parseInt(element.innerText.replace(/[^0-9]/g, ''));
+            });
+
+            grandTotalElement.innerText = formatCurrency(grandTotal) + ' đ';
+        }
+
+        // Hàm định dạng số tiền thành chuỗi có định dạng
+        function formatCurrency(amount) {
+            return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+        }
     }
 
     /*]]>*/
 </script>
-<script>
-    function incrementQuantity(input) {
-        var quantityInput = input.parentNode.querySelector('.quantityInput');
-        var currentQuantity = parseInt(quantityInput.value);
-        quantityInput.value = currentQuantity + 1;
-        updateTotalAmountAndGrandTotal(quantityInput);
-    }
+<!--<script>-->
+<!--    function incrementQuantity(input) {-->
+<!--        var quantityInput = input.parentNode.querySelector('.quantityInput');-->
+<!--        var currentQuantity = parseInt(quantityInput.value);-->
+<!--        quantityInput.value = currentQuantity + 1;-->
+<!--        updateTotalAmountAndGrandTotal(quantityInput);-->
+<!--    }-->
 
-    function decrementQuantity(input) {
-        var quantityInput = input.parentNode.querySelector('.quantityInput');
-        var currentQuantity = parseInt(quantityInput.value);
-        if (currentQuantity > 0) {
-            quantityInput.value = currentQuantity - 1;
-            updateTotalAmountAndGrandTotal(quantityInput);
-        }
-    }
-    // function updateTotalAmount(input) {
-    //     var quantity = input.value;
-    //     var idCTG = input.getAttribute('name');
-    //     fetch('/ban-hang/updateQuantity', {
-    //         method: 'POST',
-    //         headers: {
-    //             'Content-Type': 'application/x-www-form-urlencoded',
-    //         },
-    //         body: 'idCTG=' + encodeURIComponent(idCTG) + '&quantity=' + encodeURIComponent(quantity),
-    //     })
-    //         .then(response => response.text())
-    //         .then(data => {
-    //         })
-    //         .catch(error => {
-    //         });
-    // }
-</script>
+<!--    function decrementQuantity(input) {-->
+<!--        var quantityInput = input.parentNode.querySelector('.quantityInput');-->
+<!--        var currentQuantity = parseInt(quantityInput.value);-->
+<!--        if (currentQuantity > 0) {-->
+<!--            quantityInput.value = currentQuantity - 1;-->
+<!--            updateTotalAmountAndGrandTotal(quantityInput);-->
+<!--        }-->
+<!--    }-->
+<!--    // function updateTotalAmount(input) {-->
+<!--    //     var quantity = input.value;-->
+<!--    //     var idCTG = input.getAttribute('name');-->
+<!--    //     fetch('/ban-hang/updateQuantity', {-->
+<!--    //         method: 'POST',-->
+<!--    //         headers: {-->
+<!--    //             'Content-Type': 'application/x-www-form-urlencoded',-->
+<!--    //         },-->
+<!--    //         body: 'idCTG=' + encodeURIComponent(idCTG) + '&quantity=' + encodeURIComponent(quantity),-->
+<!--    //     })-->
+<!--    //         .then(response => response.text())-->
+<!--    //         .then(data => {-->
+<!--    //         })-->
+<!--    //         .catch(error => {-->
+<!--    //         });-->
+<!--    // }-->
+<!--</script>-->
 
 </body>
 </html>
