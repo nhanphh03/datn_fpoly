@@ -276,7 +276,8 @@
                 </div>
                 <div th:if="${error eq 'daTonTai'}" id="daTonTai" class="toast-container toast-top-right">
                     <div class="toast toast-error" aria-live="assertive" style="display: block; width: 550px;">
-                        <button type="button" class="toast-close-button" role="button"></button><br>
+                        <button type="button" class="toast-close-button" role="button"></button>
+                        <br>
                         Sản phẩm có ID: <span th:text="${userInput}"></span> đã tồn tại.<br><br>
                         <!-- Kiểm tra xem có yêu cầu cập nhật số lượng hay không -->
                         <div th:if="${updateQuantity}">
@@ -352,10 +353,16 @@
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Size</label>
-                                    <input type="checkbox" th:each="loc : ${size}" th:value="${loc.idSize}"
-                                           th:text="${loc.soSize}"
-                                           th:if="${loc.trangThai} == 1"
-                                           name="listSize" class="my-checkbox-x2" onchange="updatePreviewTable()">
+                                    <input data-bs-toggle="tooltip" data-bs-placement="top" title="Chọn Tất Cả"
+                                           style="float:right;" type="checkbox" id="selectAllSizes"
+                                           class="my-checkbox-x2" onchange="toggleAllSizes()">
+                                    <br><br>
+                                    <div class="col-lg-11">
+                                        <input type="checkbox" th:each="loc : ${size}" th:value="${loc.idSize}"
+                                               th:text="${loc.soSize}"
+                                               th:if="${loc.trangThai} == 1"
+                                               name="listSize" class="my-checkbox-x2" onchange="updatePreviewTable()">
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-1 col-sm-2 col-2 ps-0">
@@ -2033,6 +2040,18 @@
 <script>
     function hideToast() {
         document.getElementById('daTonTai').style.display = 'none';
+    }
+</script>
+<script>
+    function toggleAllSizes() {
+        var selectAllCheckbox = document.getElementById("selectAllSizes");
+        var sizeCheckboxes = document.getElementsByName("listSize");
+
+        for (var i = 0; i < sizeCheckboxes.length; i++) {
+            sizeCheckboxes[i].checked = selectAllCheckbox.checked;
+        }
+
+        updatePreviewTable(); // Cập nhật bảng xem trước khi có sự thay đổi
     }
 </script>
 </body>
