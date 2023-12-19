@@ -61,7 +61,7 @@ public interface GiayChiTietRepository extends JpaRepository<ChiTietGiay, UUID> 
     List<Object[]> getSoLuongTon();
 
     @Query("SELECT c FROM ChiTietGiay c WHERE c.giay.idGiay = :giayId AND c.size.idSize = :sizeId AND c.mauSac.idMau = :mauSacId AND c.hinhAnh.idHinhAnh = :hinhAnhId")
-    Optional<ChiTietGiay> findByGiayAndSizeAndMauSacAndHinhAnh(
+    List<ChiTietGiay> findByGiayAndSizeAndMauSacAndHinhAnh(
             @Param("giayId") UUID giayId,
             @Param("sizeId") UUID sizeId,
             @Param("mauSacId") UUID mauSacId,

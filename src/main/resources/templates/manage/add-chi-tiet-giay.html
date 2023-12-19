@@ -113,21 +113,22 @@
                     </div>
                     <div class="noti-content">
                         <ul class="notification-list">
-                            <th:block  th:each="x : ${listThongBao}">
-                                <li th:if="${x.trangThai == 3}"class="notification-message">
+                            <th:block th:each="x : ${listThongBao}">
+                                <li th:if="${x.trangThai == 3}" class="notification-message">
                                     <a href="activities.html">
                                         <div class="media d-flex">
                                         <span class="avatar flex-shrink-0">
                                         <img alt="" src="/images/img/profiles/avatar-02.jpg">
                                         </span>
                                             <div class="media-body flex-grow-1">
-                                                <p class="noti-details" >
+                                                <p class="noti-details">
                                                     <span class="noti-title" th:text="${x.khachHang.hoTenKH}"></span>
                                                     <span th:text="${x.noiDungTB}"></span>
                                                     <span class="noti-title" th:text="${x.hoaDon.maHD}"></span>
                                                 </p>
                                                 <p class="noti-time">
-                                                    <span class="notification-time"th:text="${#dates.format(x.tgTB, 'HH:mm yyyy-MM-dd')}"></span>
+                                                    <span class="notification-time"
+                                                          th:text="${#dates.format(x.tgTB, 'HH:mm yyyy-MM-dd')}"></span>
                                                 </p>
                                             </div>
                                         </div>
@@ -144,13 +145,15 @@
 
             <li class="nav-item dropdown has-arrow main-drop">
                 <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
-                    <span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
+                    <span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}"
+                                                alt="">
                     <span class="status online"></span></span>
                 </a>
                 <div class="dropdown-menu menu-drop-user">
                     <div class="profilename">
                         <div class="profileset">
-                            <span class="user-img"><img th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
+                            <span class="user-img"><img
+                                    th:src="@{'/images/imgsNhanVien/'+${session.managerLogged.AnhNV}}" alt="">
                             <span class="status online"></span></span>
                             <div class="profilesets">
                                 <h6 th:text="${session.managerLogged.hoTenNV}"></h6>
@@ -190,7 +193,8 @@
                         </a>
                     </li>
                     <li>
-                        <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg" alt="img"><span> Thống Kê</span></a>
+                        <a href="/manage/thongke"><img src="/images/img/icons/dashboard.svg"
+                                                       alt="img"><span> Thống Kê</span></a>
                     </li>
                     <li class="submenu">
                         <a href="javascript:void(0);"><img src="/images/img/icons/product.svg" alt="img"><span> Quản lý Giày</span>
@@ -259,7 +263,8 @@
             </div>
         </div>
     </div>
-    <form th:object="${chiTietGiay}" method="post" th:action="@{/manage/chi-tiet-giay/viewAdd/add}" id="formId" onsubmit="return validateForm()">
+    <form th:object="${chiTietGiay}" method="post" th:action="@{/manage/chi-tiet-giay/viewAdd/add}" id="formId"
+          onsubmit="return validateForm()">
         <div class="page-wrapper">
             <div class="content">
                 <div class="page-header">
@@ -268,14 +273,29 @@
                         <h6>Quản Lý Giày</h6>
                     </div>
                 </div>
-
+                <div th:if="${error eq 'daTonTai'}" id="daTonTai" class="toast-container toast-top-right">
+                    <div class="toast toast-error" aria-live="assertive" style="display: block; width: 550px;">
+                        <button type="button" class="toast-close-button" role="button"></button><br>
+                        Sản phẩm có ID: <span th:text="${userInput}"></span> đã tồn tại.<br><br>
+                        <!-- Kiểm tra xem có yêu cầu cập nhật số lượng hay không -->
+                        <div th:if="${updateQuantity}">
+                            Bạn có muốn cập nhật số lượng không?
+                            <br><br>
+                            <a th:href="@{'/manage/chi-tiet-giay/viewUpdate/' + ${userInput}}">
+                                Cập nhật số lượng
+                            </a>
+                            <a href="#" onclick="hideToast()" style="float: right; margin-left: 10px;">Hủy và Đóng</a>
+                        </div>
+                    </div>
+                </div>
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Giày</label>
-                                    <select class="select" th:field="*{giay}" name="giay" onchange="updatePreviewTable()">
+                                    <select class="select" th:field="*{giay}" name="giay"
+                                            onchange="updatePreviewTable()">
                                         <option th:each="loc : ${giay}" th:value="${loc.idGiay}"
                                                 th:text="${loc.tenGiay}"></option>
                                     </select>
@@ -286,12 +306,12 @@
                                 </div>
                             </div>
                             <div class="col-lg-1 col-sm-2 col-2 ps-0">
-<!--                                <div class="add-icon">-->
-<!--                                    <a href="javascript:void(0);" id="modal-giay" data-toggle="modal"-->
-<!--                                       data-target="#myModal"><img-->
-<!--                                            src="/images/img/icons/plus1.svg"-->
-<!--                                            alt="img"></a>-->
-<!--                                </div>-->
+                                <!--                                <div class="add-icon">-->
+                                <!--                                    <a href="javascript:void(0);" id="modal-giay" data-toggle="modal"-->
+                                <!--                                       data-target="#myModal"><img-->
+                                <!--                                            src="/images/img/icons/plus1.svg"-->
+                                <!--                                            alt="img"></a>-->
+                                <!--                                </div>-->
                             </div>
                             <div class="col-lg-5 col-sm-6 col-12">
                                 <div class="form-group">
@@ -302,7 +322,8 @@
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Màu Sắc</label>
-                                    <select class="select" th:field="*{mauSac}" name="mauSac" onchange="updatePreviewTable()">
+                                    <select class="select" th:field="*{mauSac}" name="mauSac"
+                                            onchange="updatePreviewTable()">
                                         <option th:each="loc : ${mauSac}" th:value="${loc.idMau}"
                                                 th:text="${loc.tenMau}"
                                                 th:style="'color: '+ ${loc.maMau}"></option>
@@ -334,11 +355,16 @@
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Size</label>
-                                    <input type="checkbox" th:each="loc : ${size}" th:value="${loc.idSize}"
-                                           th:text="${loc.soSize}"
-                                           th:if="${loc.trangThai} == 1"
-                                           onchange="updatePreviewTable()"
-                                           name="listSize" class="my-checkbox-x2">
+                                    <input data-bs-toggle="tooltip" data-bs-placement="top" title="Chọn Tất Cả"
+                                           style="float:right;" type="checkbox" id="selectAllSizes"
+                                           class="my-checkbox-x2" onchange="toggleAllSizes()">
+                                    <br><br>
+                                    <div class="col-lg-11">
+                                        <input type="checkbox" th:each="loc : ${size}" th:value="${loc.idSize}"
+                                               th:text="${loc.soSize}"
+                                               th:if="${loc.trangThai} == 1"
+                                               name="listSize" class="my-checkbox-x2" onchange="updatePreviewTable()">
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-lg-1 col-sm-2 col-2 ps-0">
@@ -358,7 +384,8 @@
                             <div class="col-lg-6 col-sm-6 col-12">
                                 <div class="form-group">
                                     <label>Hình Ảnh</label>
-                                    <select class="select image" th:field="*{hinhAnh}" name="hinhAnh" onchange="updatePreviewTable()">
+                                    <select class="select image" th:field="*{hinhAnh}" name="hinhAnh"
+                                            onchange="updatePreviewTable()">
                                         <option th:each="loc : ${hinhAnh}" th:value="${loc.idHinhAnh}"
                                                 th:data-url1="${loc.url1}" th:data-url2="${loc.url2}"
                                                 th:data-url3="${loc.url3}" th:data-url4="${loc.url4}">
@@ -435,7 +462,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form th:object="${mauSacAdd}" method="post" th:action="@{/manage/chi-tiet-giay/mau-sac/viewAdd/add}" onsubmit="return validateMauSacForm()" name="mauSacForm">
+                <form th:object="${mauSacAdd}" method="post" th:action="@{/manage/chi-tiet-giay/mau-sac/viewAdd/add}"
+                      onsubmit="return validateMauSacForm()" name="mauSacForm">
                     <div class="page-header">
                         <div class="page-title">
                             <h4>Thêm Màu </h4>
@@ -467,7 +495,7 @@
                                 <div class="col-lg-6 col-sm-6 col-12">
                                     <div class="form-group">
                                         <label>Tên Màu</label>
-                                        <input type="text" th:field="*{tenMau}" >
+                                        <input type="text" th:field="*{tenMau}">
                                     </div>
                                 </div>
                                 <!--                                <div class="col-lg-6 col-sm-6 col-12">-->
@@ -503,7 +531,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form th:object="${sizeAdd}" method="post" th:action="@{/manage/chi-tiet-giay/size/viewAdd/add}" onsubmit="return validateSizeForm()" name="sizeForm">
+                <form th:object="${sizeAdd}" method="post" th:action="@{/manage/chi-tiet-giay/size/viewAdd/add}"
+                      onsubmit="return validateSizeForm()" name="sizeForm">
                     <div class="page-header">
                         <div class="page-title">
                             <h4>Thêm Size </h4>
@@ -558,7 +587,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form th:object="${hinhAnhAdd}" method="post" th:action="@{/manage/chi-tiet-giay/hinh-anh/viewAdd/add}" enctype="multipart/form-data" onsubmit="return validateHinhAnhForm()" name="hinhAnhForm"
+                <form th:object="${hinhAnhAdd}" method="post" th:action="@{/manage/chi-tiet-giay/hinh-anh/viewAdd/add}"
+                      enctype="multipart/form-data" onsubmit="return validateHinhAnhForm()" name="hinhAnhForm"
                       style="width: auto;height: auto">
                     <div class="page-header">
                         <div class="page-title">
@@ -822,13 +852,6 @@
         <button type="button" class="toast-close-button" role="button"></button>
         <div class="toast-title">Error!</div>
         <div class="toast-message">Hãy chọn trường size.</div>
-    </div>
-</div>
-<div th:if="${daTonTai}" id="daTonTai" class="toast-container toast-top-right">
-    <div class="toast toast-error" aria-live="assertive" style="display: block;">
-        <button type="button" class="toast-close-button" role="button"></button>
-        <div class="toast-title">Error!</div>
-        <div class="toast-message">Giày chi tiết đã tồn tại trong cơ sở dữ liệu.</div>
     </div>
 </div>
 <div th:if="${messageSize}" id="successSize" class="toast-container toast-top-right">
@@ -1227,11 +1250,11 @@
         if (daTonTai) {
             daTonTai.style.display = 'none';
         }
-    }, 5000);
+    }, 500000);
 </script>
 <script>
     // In your Javascript (external .js resource or <script> tag)
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.select').select2();
     });
 </script>
@@ -1249,6 +1272,7 @@
             $('#selectedImage3').attr('src', '/images/imgsProducts/' + imageUrl3);
             $('#selectedImage4').attr('src', '/images/imgsProducts/' + imageUrl4);
         }
+
         updateSelectedImages();
         $('.image').change(function () {
             updateSelectedImages();
@@ -1512,6 +1536,7 @@
 
         return true;
     }
+
     function showAlert(message) {
         alertify.alert(message).setting({
             'title': 'Thông báo',
@@ -1625,11 +1650,29 @@
         }
         return true;
     }
+
     function showAlert(message) {
         alertify.alert(message).setting({
             'title': 'Thông báo',
             'label': 'Đồng ý',
         }).show();
+    }
+</script>
+<script>
+    function hideToast() {
+        document.getElementById('daTonTai').style.display = 'none';
+    }
+</script>
+<script>
+    function toggleAllSizes() {
+        var selectAllCheckbox = document.getElementById("selectAllSizes");
+        var sizeCheckboxes = document.getElementsByName("listSize");
+
+        for (var i = 0; i < sizeCheckboxes.length; i++) {
+            sizeCheckboxes[i].checked = selectAllCheckbox.checked;
+        }
+
+        updatePreviewTable(); // Cập nhật bảng xem trước khi có sự thay đổi
     }
 </script>
 </body>
