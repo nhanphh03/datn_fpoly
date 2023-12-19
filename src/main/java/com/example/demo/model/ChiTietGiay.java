@@ -54,23 +54,18 @@ public class ChiTietGiay {
     @NotNull
     private MauSac mauSac;
 
-    @Min(value = 1)
     @Column(name = "nam_San_Xuat")
     private int namSX;
 
-    @Min(value = 1)
     @Column(name = "nam_Bao_Hanh")
     private int namBH;
 
-    @Min(value = 1)
     @Column(name = "trong_Luong")
     private int trongLuong;
 
-    @Min(value = 1)
     @Column(name = "gia_Ban")
     private double giaBan;
 
-    @Min(value = 1)
     @Column(name = "so_Luong")
     private int soLuong;
 

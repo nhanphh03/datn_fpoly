@@ -80,5 +80,8 @@ public class KhachHang {
     @Column(name = "tg_Sua")
     private Date tgSua;
 
+    @Column(name = "bank")
+    private String bank;
+
 
 }

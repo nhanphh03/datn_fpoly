@@ -749,7 +749,7 @@ public class UserController {
         lichSuThanhToan.setSoTienThanhToan(hoaDon.getTongTienDG());
         lichSuThanhToan.setNoiDungThanhToan(hoaDon.getMaHD());
         lichSuThanhToan.setKhachHang(khachHang);
-        lichSuThanhToan.setHoaDon(hoaDon);
+        lichSuThanhToan.setHoaDon(hoaDonNew);
         lichSuThanhToan.setMaLSTT("LSTT" + khachHang.getMaKH() + generateRandomNumbers());
         lichSuThanhToan.setTrangThai(0);
         lichSuThanhToan.setLoaiTT(1);
@@ -896,6 +896,20 @@ public class UserController {
         hoaDonOld.setMaHDOld("4");
         hoaDonOld.setHinhThucThanhToan(1);
         hoaDonService.add(hoaDonOld);
+        Date date = new Date();
+
+        String maLSTT = "HTT0" + date.getDay() + generateRandomNumbers();
+
+        LichSuThanhToan lichSuThanhToan = new LichSuThanhToan();
+        lichSuThanhToan.setHoaDon(hoaDonNew);
+        lichSuThanhToan.setTgThanhToan(new Date());
+        lichSuThanhToan.setSoTienThanhToan(hoaDonNew.getTongTienDG());
+        lichSuThanhToan.setTrangThai(1);
+        lichSuThanhToan.setKhachHang(hoaDonNew.getKhachHang());
+        lichSuThanhToan.setMaLSTT(maLSTT);
+        lichSuThanhToan.setLoaiTT(0); //Thanh toán online
+        lichSuThanhToan.setNoiDungThanhToan("Xác nhận yêu cầu hoàn");
+        lsThanhToanService.addLSTT(lichSuThanhToan);
 
         model.addAttribute("thongTinHoanHang", true);
 

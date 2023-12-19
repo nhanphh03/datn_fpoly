@@ -232,7 +232,7 @@
 
                 <th:block th:each="x : ${listCartDetail}">
 
-                  <tr id="productId" th:value="${x.chiTietGiay.idCTG}">
+                  <tr th:if="${x.chiTietGiay.trangThai == 1}" id="productId" th:value="${x.chiTietGiay.idCTG}">
 
                     <td>
                       <input style="height: 20px; width: 20px;" class="itemsCart" onclick="updateTotalAmount(this)" name="selectedProducts" type="checkbox" th:value="${x.chiTietGiay.idCTG}">
@@ -252,10 +252,10 @@
                     </td>
                     <td style="width: 175px;"  class="quantity__item">
                       <div  style="margin-top: -20px; display: block;">
-                          <span id="showButton" style="font-weight: normal; font-size: medium;">Phân loại :</span>
-                          <a th:href="@{'/buyer/cart/option/' + ${x.chiTietGiay.giay.idGiay} + '/' + ${x.chiTietGiay.mauSac.idMau}+ '/' + ${x.chiTietGiay.idCTG}}">
-                            <img style="height: 10px; width: 10px;" src="/images/img/icon/dropdown.png" alt="">
-                          </a>
+                        <span id="showButton" style="font-weight: normal; font-size: medium;">Phân loại :</span>
+                        <a th:href="@{'/buyer/cart/option/' + ${x.chiTietGiay.giay.idGiay} + '/' + ${x.chiTietGiay.mauSac.idMau}+ '/' + ${x.chiTietGiay.idCTG}}">
+                          <img style="height: 10px; width: 10px;" src="/images/img/icon/dropdown.png" alt="">
+                        </a>
                       </div>
                       <div style="padding-right: 20px;">
                         <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" th:text="'Colors : ' + ${x.chiTietGiay.mauSac.tenMau}"></span>
@@ -279,6 +279,53 @@
                   </tr>
 
                 </th:block>
+
+                <th:block th:each="x : ${listCartDetail}">
+
+                  <tr th:if="${x.chiTietGiay.trangThai == 0 or x.soLuong > x.chiTietGiay.soLuong }" id="productId" th:value="${x.chiTietGiay.idCTG}">
+
+                    <td>
+                      <p>Hết hàng</p>
+                    </td>
+                    <td style="width: 400px;" class="product__cart__item" >
+                      <div class="product__cart__item__pic">
+                        <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}"> <img style="width:90px; height:90px;" th:src="@{'/images/imgsProducts/' + ${x.chiTietGiay.hinhAnh.url1}}"></a>
+                      </div>
+                      <div class="product__cart__item__text">
+                        <a th:href="@{'/buyer/shop-details/' + ${x.chiTietGiay.giay.idGiay} + '/' +  ${x.chiTietGiay.mauSac.idMau}}">
+                          <h6 style="margin-top: -22px;" th:text="${x.chiTietGiay.giay.tenGiay}"></h6>
+                        </a>
+                        <h5 class="cart__price" th:text="'₫' +  ${#numbers.formatDecimal(x.chiTietGiay.giaBan, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
+                        <h5 th:if="${x.chiTietGiay.giaBan} != ${x.chiTietGiay.soTienTruocKhiGiam}" style="color: #b7b7b7; font-size: 15px; font-weight: 400; text-decoration: line-through;" th:text="'₫' +  ${#numbers.formatDecimal(x.chiTietGiay.soTienTruocKhiGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></h5>
+                      </div>
+
+                    </td>
+                    <td style="width: 175px;"  class="quantity__item">
+                      <div  style="margin-top: -20px; display: block;">
+                        <span id="showButton" style="font-weight: normal; font-size: medium;">Phân loại :</span>
+                        <a th:href="@{'/buyer/cart/option/' + ${x.chiTietGiay.giay.idGiay} + '/' + ${x.chiTietGiay.mauSac.idMau}+ '/' + ${x.chiTietGiay.idCTG}}">
+                          <img style="height: 10px; width: 10px;" src="/images/img/icon/dropdown.png" alt="">
+                        </a>
+                      </div>
+                      <div style="padding-right: 20px;">
+                        <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" th:text="'Colors : ' + ${x.chiTietGiay.mauSac.tenMau}"></span>
+                        <span style="font-size: 10pt; font-weight: 500; color: rgba(0,0,0,.54);" th:text="'Size : ' + ${x.chiTietGiay.size.soSize}" ></span>
+                      </div>
+                    </td>
+                    <td style="width: 175px;"  class="quantity__item">
+                      <div class="quantity">
+
+
+
+                      </div>
+                    </td>
+                    <td style="width: 140px;" class="cart__price totalAmount" th:text="'₫' + ${#numbers.formatDecimal(x.chiTietGiay.giaBan * x.soLuong, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
+                    <td class="cart__close"><a th:href="@{'/buyer/cart/delete/' + ${x.chiTietGiay.idCTG}}" id="deleteToCartButton" style="border-radius: 20% ; " ><i class="fa fa-close"></i></a></td>
+
+                  </tr>
+
+                </th:block>
+
 
                 </tbody>
               </table>
