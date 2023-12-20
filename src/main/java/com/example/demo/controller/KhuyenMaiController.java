@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.*;
 
 @RequestMapping("/manage/")
@@ -128,6 +132,33 @@ public class KhuyenMaiController {
 
         List<KhachHang> khachHangList = khachHangService.getAllKhachHang();
 
+        LocalDate currentDate = LocalDate.now();
+        int soLuongKhuyenMaiHetHan = 0;
+
+        for (KhuyenMai xx : khuyenMaiList) {
+            Instant tgKetThucInstant = xx.getTgKetThuc().toInstant();
+
+            LocalDateTime tgKetThucLocalDateTime = tgKetThucInstant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+            if (tgKetThucLocalDateTime.isBefore(currentDate.atStartOfDay())) {
+                soLuongKhuyenMaiHetHan ++;
+                xx.setTrangThai(0);
+                khuyenMaiService.createKhuyenMais(xx);
+            }
+            List<KhuyenMaiChiTietCTG> khuyenMaiChiTietCTGList = xx.getKhuyenMaiChiTietCTGList();
+
+            for (KhuyenMaiChiTietCTG x: khuyenMaiChiTietCTGList ) {
+                ChiTietGiay chiTietGiay = x.getChiTietGiay();
+                chiTietGiay.setGiaBan(chiTietGiay.getSoTienTruocKhiGiam());
+                chiTietService.save(chiTietGiay);
+                khuyenMaiChiTietProductService.removeKMCTSP(x);
+            }
+        }
+        if (soLuongKhuyenMaiHetHan != 0){
+            model.addAttribute("showSoLuongKhuyenMaiHetHan", true);
+            model.addAttribute("soLuongKhuyenMaiHetHan", soLuongKhuyenMaiHetHan);
+        }
+
         model.addAttribute("listKH", khachHangList);
         model.addAttribute("listKhuyenMaiActive", listKhuyenMaiActive);
         model.addAttribute("listKhuyenMai", khuyenMaiList);
@@ -151,7 +182,6 @@ public class KhuyenMaiController {
                 sendMailService.sendMimeMessageKMHD(khachHang.getEmailKH(), "", "'");
             }
         }
-
 
         model.addAttribute("listKH", khachHangList);
         model.addAttribute("listKhuyenMaiActive", listKhuyenMaiActive);
@@ -275,6 +305,33 @@ public class KhuyenMaiController {
         model.addAttribute("listCTGViewModel",ctgViewModelList);
         model.addAttribute("listKhuyenMai", khuyenMaiList);
         model.addAttribute("listKhuyenMaiActive", khuyenMaiService.findByLoaiKMAndTrangThai(loaiKhuyenMai));
+        LocalDate currentDate = LocalDate.now();
+        int soLuongKhuyenMaiHetHan = 0;
+
+        for (KhuyenMai xx : khuyenMaiList) {
+            Instant tgKetThucInstant = xx.getTgKetThuc().toInstant();
+
+            LocalDateTime tgKetThucLocalDateTime = tgKetThucInstant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+            if (tgKetThucLocalDateTime.isBefore(currentDate.atStartOfDay())) {
+                soLuongKhuyenMaiHetHan ++;
+                xx.setTrangThai(0);
+                khuyenMaiService.createKhuyenMais(xx);
+            }
+            List<KhuyenMaiChiTietCTG> khuyenMaiChiTietCTGList = xx.getKhuyenMaiChiTietCTGList();
+
+            for (KhuyenMaiChiTietCTG x: khuyenMaiChiTietCTGList ) {
+                ChiTietGiay chiTietGiay = x.getChiTietGiay();
+                chiTietGiay.setGiaBan(chiTietGiay.getSoTienTruocKhiGiam());
+                chiTietService.save(chiTietGiay);
+                khuyenMaiChiTietProductService.removeKMCTSP(x);
+            }
+        }
+        if (soLuongKhuyenMaiHetHan != 0){
+            model.addAttribute("showSoLuongKhuyenMaiHetHan", true);
+            model.addAttribute("soLuongKhuyenMaiHetHan", soLuongKhuyenMaiHetHan);
+        }
+
         return "manage/manageVoucherSP";
     }
 
@@ -472,7 +529,6 @@ public class KhuyenMaiController {
         String soTienGiamTD = request.getParameter("soTienToiDa");
         String moTa = request.getParameter("moTa");
 
-
         Date dateStart = new Date();
         Date dateEnd = new Date();
 
@@ -508,6 +564,9 @@ public class KhuyenMaiController {
         }
         if (trangThai == 0){
             for (KhuyenMaiChiTietCTG x: khuyenMaiChiTietCTGList ) {
+                ChiTietGiay chiTietGiay = x.getChiTietGiay();
+                chiTietGiay.setGiaBan(chiTietGiay.getSoTienTruocKhiGiam());
+                chiTietService.save(chiTietGiay);
                 khuyenMaiChiTietProductService.removeKMCTSP(x);
             }
         }
@@ -658,6 +717,21 @@ public class KhuyenMaiController {
         List<KhuyenMai> khuyenMaiListSP =khuyenMaiService.findByLoaiKM(loaiKhuyenMaiService.findByMaLKM("LKM02"));
         List<KhuyenMai> khuyenMaiListShip =khuyenMaiService.findByLoaiKM(loaiKhuyenMaiService.findByMaLKM("LKM03"));
 
+        LocalDate currentDate = LocalDate.now();
+        int soLuongKhuyenMaiHetHan = 0;
+
+        for (KhuyenMai xx : khuyenMaiList) {
+            Instant tgKetThucInstant = xx.getTgKetThuc().toInstant();
+
+            LocalDateTime tgKetThucLocalDateTime = tgKetThucInstant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+            if (tgKetThucLocalDateTime.isBefore(currentDate.atStartOfDay())) {
+                soLuongKhuyenMaiHetHan ++;
+                xx.setTrangThai(0);
+                khuyenMaiService.createKhuyenMais(xx);
+            }
+        }
+
         model.addAttribute("listKhuyenMai", khuyenMaiList);
         model.addAttribute("listKhuyenMaiBill", khuyenMaiListHD);
         model.addAttribute("listKhuyenMaiSP", khuyenMaiListSP);
@@ -665,12 +739,35 @@ public class KhuyenMaiController {
         model.addAttribute("thongBaoABC", mess);
         model.addAttribute("loaiKM", loaiKM);
         model.addAttribute("showModalMess", modalMess);
+        if (soLuongKhuyenMaiHetHan != 0){
+            model.addAttribute("showSoLuongKhuyenMaiHetHan", true);
+            model.addAttribute("soLuongKhuyenMaiHetHan", soLuongKhuyenMaiHetHan);
+        }
 
         return "manage/manageVoucher";
     }
 
     private String showPageVoucherShipping(Model model, String mess, LoaiKhuyenMai loaiKhuyenMai, boolean thongBao){
         List<KhuyenMai> khuyenMaiList = khuyenMaiService.findByLoaiKM(loaiKhuyenMai);
+
+        LocalDate currentDate = LocalDate.now();
+        int soLuongKhuyenMaiHetHan = 0;
+
+        for (KhuyenMai xx : khuyenMaiList) {
+            Instant tgKetThucInstant = xx.getTgKetThuc().toInstant();
+
+            LocalDateTime tgKetThucLocalDateTime = tgKetThucInstant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+            if (tgKetThucLocalDateTime.isBefore(currentDate.atStartOfDay()) || xx.getSoLuong() <= xx.getSoLuongDaDung()) {
+                soLuongKhuyenMaiHetHan ++;
+                xx.setTrangThai(0);
+                khuyenMaiService.createKhuyenMais(xx);
+            }
+        }
+        if (soLuongKhuyenMaiHetHan != 0){
+            model.addAttribute("showSoLuongKhuyenMaiHetHan", true);
+            model.addAttribute("soLuongKhuyenMaiHetHan", soLuongKhuyenMaiHetHan);
+        }
 
         model.addAttribute("thongBaoABC", mess);
         model.addAttribute("showModalMess", thongBao);
@@ -682,6 +779,24 @@ public class KhuyenMaiController {
     private String showPageVoucherBill(Model model, String mess, LoaiKhuyenMai loaiKhuyenMai, boolean thongBao){
         List<KhuyenMai> khuyenMaiList = khuyenMaiService.findByLoaiKM(loaiKhuyenMai);
 
+        LocalDate currentDate = LocalDate.now();
+        int soLuongKhuyenMaiHetHan = 0;
+
+        for (KhuyenMai xx : khuyenMaiList) {
+            Instant tgKetThucInstant = xx.getTgKetThuc().toInstant();
+
+            LocalDateTime tgKetThucLocalDateTime = tgKetThucInstant.atZone(ZoneId.systemDefault()).toLocalDateTime();
+
+            if (tgKetThucLocalDateTime.isBefore(currentDate.atStartOfDay())) {
+                soLuongKhuyenMaiHetHan ++;
+                xx.setTrangThai(0);
+                khuyenMaiService.createKhuyenMais(xx);
+            }
+        }
+        if (soLuongKhuyenMaiHetHan != 0){
+            model.addAttribute("showSoLuongKhuyenMaiHetHan", true);
+            model.addAttribute("soLuongKhuyenMaiHetHan", soLuongKhuyenMaiHetHan);
+        }
         model.addAttribute("thongBaoABC", mess);
         model.addAttribute("showModalMess", thongBao);
         model.addAttribute("listKhuyenMai", khuyenMaiList);

@@ -217,19 +217,17 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="javascript:void(0);">
-                            <img src="/images/img/icons/transfer1.svg" alt="img"/>
-                            <span>Quản lý Khuyến Mãi</span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <ul>
-                            <li><a href="/manage/voucher">Khuyến Mãi Chung</a></li>
-                            <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
-                            <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
-                            <li><a href="/manage/voucher-ship">Khuyến Mãi Giao Hàng</a></li>
-                            <li><a href="/manage/voucher-ship">Khuyến Mãi Khách Hàng</a></li>
-                        </ul>
-                    </li>
+            <a href="javascript:void(0);">
+              <img src="/images/img/icons/transfer1.svg" alt="img"/>
+              <span>Quản lý Khuyến Mãi</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul>
+              <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
+              <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
+              <li><a href="/manage/voucher-ship">Khuyến Mãi Giao Hàng</a></li>
+            </ul>
+          </li>
                     <li>
                         <a href="/manage/giao-hang"><i data-feather="layers"></i><span> Quản lý giao hàng</span> </a>
                     </li>
@@ -539,7 +537,7 @@
                                                                                style="cursor: pointer; margin: 0 20px 0 20px; color: #ff9f43;"></i>
                                                                             <i class="si si-speedometer"  th:data-bs-toggle="modal"
                                                                                th:data-bs-target="'#modalXemLichSuThanhToan' + ${bill.idHD}"
-                                                                               style="cursor: pointer; margin: 0 0 0 20px; color: #ff9f43;"></i>
+                                                                               style="cursor: pointer; margin: 0 20px 0 0; color: #ff9f43;"></i>
                                                                             <a th:href="@{'http://localhost:8081/manage/bill/online/print/' + ${bill.idHD}}"
                                                                                onclick="window.open(this.href, '_blank'); return false;">
                                                                                 <i class="fe fe-printer"
@@ -603,15 +601,19 @@
                                                                 </thead>
                                                                 <tbody>
                                                                 <th:block th:each="bill: ${listHoaDonOnlineQRCode}">
-                                                                    <tr th:unless="${bill.trangThai == 6 or bill.trangThai==7}">
+                                                                    <tr th:unless="${bill.trangThai == 4 or bill.trangThai==5 or bill.trangThai==6 or bill.trangThai==7}">
                                                                         <td th:text="${bill.maHD}"></td>
                                                                         <td th:text="${#dates.format(bill.tgTao, 'HH:mm yyyy-MM-dd')}"></td>
 
                                                                         <td th:if="${bill.trangThai == 0}">Chưa thanh
                                                                             toán
                                                                         </td>
-                                                                        <td th:unless="${bill.trangThai == 0}">Đã thanh
+                                                                        <td th:if="${bill.trangThai == 1}">Đã thanh
                                                                             toán
+                                                                        </td>
+                                                                        <td th:if="${bill.trangThai == 2}">Đang giao
+                                                                        </td>
+                                                                        <td th:if="${bill.trangThai == 3}">Đã hủy
                                                                         </td>
 
                                                                         <td th:if="${bill.tgThanhToan != null}"
@@ -624,11 +626,7 @@
                                                                         <td th:text="${bill.maHD}"></td>
                                                                         <td th:text="'₫'+${#numbers.formatDecimal(bill.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
                                                                         <th>
-                                                                            <i data-bs-toggle="tooltip"
-                                                                               title="Chỉnh sửa"
-                                                                               style="cursor: pointer; margin: 0 10px 0 20px;"
-                                                                               class="fe fe-edit-3"></i>
-                                                                            <i th:if="${bill.tgThanhToan == null}"
+                                                                            <i th:if="${bill.trangThai == 0}"
                                                                                th:data-bs-toggle="modal"
                                                                                th:data-bs-target="'#modalCofirmTT'+${bill.idHD}"
                                                                                style="cursor: pointer; color: #ff9f43;"

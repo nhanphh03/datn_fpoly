@@ -54,7 +54,7 @@ public class UserController {
     private KhuyenMaiService khuyenMaiService;
 
     @Autowired
-    private GioHangService gioHangService;
+    private KhuyenMaiChiTietHoaDonService khuyenMaiChiTietHoaDonService;
 
     @Autowired
     private GiaoHangService giaoHangService;
@@ -1101,6 +1101,15 @@ public class UserController {
             lichSuThanhToan.setNoiDungThanhToan("Hủy đơn hàng ");
             lsThanhToanService.addLSTT(lichSuThanhToan);
 
+            List<KhuyenMaiChiTietHoaDon> khuyenMaiChiTietHoaDons = khuyenMaiChiTietHoaDonService.listKhuyenMaiChiTietHoaDonByHoaDon(hoaDonHuy);
+
+            if (khuyenMaiChiTietHoaDons !=null){
+                for (KhuyenMaiChiTietHoaDon xx: khuyenMaiChiTietHoaDons) {
+                    KhuyenMai khuyenMai = xx.getKhuyenMai();
+                    khuyenMai.setSoLuongDaDung(khuyenMai.getSoLuongDaDung() - 1);
+                    khuyenMaiService.createKhuyenMais(khuyenMai);
+                }
+            }
             return "online/checkout";
 
         }else if(lyDoHuy.equals("changeProduct")){
@@ -1109,6 +1118,18 @@ public class UserController {
             hoaDonHuy.setLyDoHuy(lyDoHuy);
             hoaDonHuy.setTgHuy(new Date());
             hoaDonService.add(hoaDonHuy);
+
+            List<KhuyenMaiChiTietHoaDon> khuyenMaiChiTietHoaDons = khuyenMaiChiTietHoaDonService.listKhuyenMaiChiTietHoaDonByHoaDon(hoaDonHuy);
+
+            if (khuyenMaiChiTietHoaDons !=null){
+                for (KhuyenMaiChiTietHoaDon xx: khuyenMaiChiTietHoaDons) {
+                    KhuyenMai khuyenMai = xx.getKhuyenMai();
+                    khuyenMai.setSoLuongDaDung(khuyenMai.getSoLuongDaDung() - 1);
+                    khuyenMaiService.createKhuyenMais(khuyenMai);
+                }
+            }
+
+
             if (hoaDonHuy.getHinhThucThanhToan() == 1){
                 ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
                 thongBaoKhachHang.setKhachHang(hoaDonHuy.getKhachHang());
@@ -1181,6 +1202,16 @@ public class UserController {
             lichSuThanhToan.setLoaiTT(0);
             lichSuThanhToan.setNoiDungThanhToan("Hủy đơn hàng ");
             lsThanhToanService.addLSTT(lichSuThanhToan);
+
+            List<KhuyenMaiChiTietHoaDon> khuyenMaiChiTietHoaDons = khuyenMaiChiTietHoaDonService.listKhuyenMaiChiTietHoaDonByHoaDon(hoaDonHuy);
+
+            if (khuyenMaiChiTietHoaDons !=null){
+                for (KhuyenMaiChiTietHoaDon xx: khuyenMaiChiTietHoaDons) {
+                    KhuyenMai khuyenMai = xx.getKhuyenMai();
+                    khuyenMai.setSoLuongDaDung(khuyenMai.getSoLuongDaDung() - 1);
+                    khuyenMaiService.createKhuyenMais(khuyenMai);
+                }
+            }
         }else if (lyDoHuy.equals("lyDoKhac")) {
             lyDoHuy = request.getParameter("hutThuocNenDauDaDay");
             hoaDonHuy.setTrangThai(4);
@@ -1220,6 +1251,17 @@ public class UserController {
             lichSuThanhToan.setLoaiTT(0);
             lichSuThanhToan.setNoiDungThanhToan("Hủy đơn hàng ");
             lsThanhToanService.addLSTT(lichSuThanhToan);
+
+            List<KhuyenMaiChiTietHoaDon> khuyenMaiChiTietHoaDons = khuyenMaiChiTietHoaDonService.listKhuyenMaiChiTietHoaDonByHoaDon(hoaDonHuy);
+
+            if (khuyenMaiChiTietHoaDons !=null){
+                for (KhuyenMaiChiTietHoaDon xx: khuyenMaiChiTietHoaDons) {
+                    KhuyenMai khuyenMai = xx.getKhuyenMai();
+                    khuyenMai.setSoLuongDaDung(khuyenMai.getSoLuongDaDung() - 1);
+                    khuyenMaiService.createKhuyenMais(khuyenMai);
+                }
+            }
+
         }else if(lyDoHuy.equals("changeSize")) {
             lyDoHuy = request.getParameter("hutThuocNenDauDaDay");
             hoaDonHuy.setTrangThai(4);
@@ -1258,6 +1300,16 @@ public class UserController {
             lichSuThanhToan.setLoaiTT(0);
             lichSuThanhToan.setNoiDungThanhToan("Hủy đơn hàng ");
             lsThanhToanService.addLSTT(lichSuThanhToan);
+
+            List<KhuyenMaiChiTietHoaDon> khuyenMaiChiTietHoaDons = khuyenMaiChiTietHoaDonService.listKhuyenMaiChiTietHoaDonByHoaDon(hoaDonHuy);
+
+            if (khuyenMaiChiTietHoaDons !=null){
+                for (KhuyenMaiChiTietHoaDon xx: khuyenMaiChiTietHoaDons) {
+                    KhuyenMai khuyenMai = xx.getKhuyenMai();
+                    khuyenMai.setSoLuongDaDung(khuyenMai.getSoLuongDaDung() - 1);
+                    khuyenMaiService.createKhuyenMais(khuyenMai);
+                }
+            }
         }
 
 

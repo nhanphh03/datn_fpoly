@@ -32,6 +32,9 @@ public class KhuyenMai {
     @OneToMany(mappedBy = "khuyenMai")
     private List<KhuyenMaiChiTietCTG> khuyenMaiChiTietCTGList;
 
+    @OneToMany(mappedBy = "khuyenMai")
+    private List<KhuyenMaiChiTietHoaDon> khuyenMaiChiTietHoaDons;
+
     @Column(name = "ma_KM")
     private String maKM;
 

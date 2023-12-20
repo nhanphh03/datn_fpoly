@@ -565,7 +565,7 @@
 
             <th:block th:each="xxx : ${listVoucherShipping}">
 
-              <div class="row"  style="border: 0.3px solid rgb(52, 52, 52); margin: 10px 0 10px 0; height: 100px ;width: 500px;">
+              <div th:if="${xxx.soLuongDaDung < xxx.soLuong}" class="row"  style="border: 0.3px solid rgb(52, 52, 52); margin: 10px 0 10px 0; height: 100px ;width: 500px;">
                 <div class="col-lg-1">
                   <input type="radio" style="height: 20px; width: 20px; margin-top: 40px;" name="selectVoucherShipping" th:value="${xxx.idKM}" >
                 </div>
@@ -620,7 +620,7 @@
 
             <th:block th:each="xxx : ${listVoucherBill}">
 
-              <div class="row"  style="border: 0.3px solid rgb(52, 52, 52); margin: 10px 0 10px 0; height: 100px; width: 520px;">
+              <div th:if="${xxx.soLuongDaDung < xxx.soLuong}" class="row"  style="border: 0.3px solid rgb(52, 52, 52); margin: 10px 0 10px 0; height: 100px; width: 520px;">
                 <div class="col-lg-1">
                   <input type="radio" style="height: 20px; width: 20px; margin-top: 40px;" name="selectVoucherBill" th:value="${xxx.idKM}" >
                 </div>

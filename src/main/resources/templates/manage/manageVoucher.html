@@ -204,11 +204,9 @@
               <span class="menu-arrow"></span>
             </a>
             <ul>
-              <li><a href="/manage/voucher" class="active">Khuyến Mãi Chung</a></li>
               <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
               <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
               <li><a href="/manage/voucher-ship">Khuyến Mãi Giao Hàng</a></li>
-              <li><a href="/manage/voucher-ship">Khuyến Mãi Khách Hàng</a></li>
             </ul>
           </li>
           <li>
@@ -489,6 +487,28 @@
           <div class="row" style="text-align: center; align-items: center; padding: 30px 0 30px 0;">
             <div>
               <h3 th:text="${thongBaoABC} + ' Khuyến Mãi ' + ${loaiKM} +' thành công '"></h3>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <a class="btn btn-submit" style="background: #3088df;" data-bs-dismiss="modal">OK</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div th:if="${showSoLuongKhuyenMaiHetHan}" class="modal fade" id="showSoLuongKhuyenMaiHetHan" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 500px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thành Công</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row" style="text-align: center; align-items: center; padding: 30px 0 30px 0;">
+            <div>
+              <h3 th:text="'Có ' + ${soLuongKhuyenMaiHetHan} + ' khuyến mãi đã hết hạn sử dụng'"></h3>
             </div>
           </div>
           <div class="col-lg-12">
@@ -914,6 +934,9 @@
 <script>
   $(document).ready(function () {
     $('#messAddThanhCong').modal('show');
+  });
+  $(document).ready(function () {
+    $('#showSoLuongKhuyenMaiHetHan').modal('show');
   });
 </script>
 </body>

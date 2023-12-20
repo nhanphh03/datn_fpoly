@@ -1354,6 +1354,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <div style="display: grid;">
+                                    <a  data-toggle="modal" data-target="#thongBaoQuyDinhTraHang" style="color: red; text-decoration: none;">Quy định trả hàng</a>
                                     <button onclick="return validatePurchase()" type="submit" style="border: 0.3px solid black; margin: 50px 0 20px 0; height: 40px;">Gửi yêu cầu</button>
                                 </div>
                             </div>
@@ -2668,7 +2669,7 @@
 
 <!--    Modal thông báo quy định trả hàng begin-->
     <div class="modal fade" id="thongBaoQuyDinhTraHang" tabindex="-1" role="dialog" aria-labelledby="messAddThanhCongTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="width: 600px;">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="messAddThanhCongTitle" >Quy định hoàn trả hàng !</h5>
@@ -2679,15 +2680,14 @@
             <div class="modal-body">
 
                 <div style="align-items: center; text-align: center; width: 465px; margin-top: 10px; margin-bottom: 10px;">
-                    <p style="text-align: center; margin-bottom: 20px;">*Chi phí hoàn hàng sẽ được shop thanh toán</p>
-                    <p>Các bước nhập thông tin hoàn hàng</p>
-                    <p><b>Bước 1 :</b>  Chọn đơn vị vận chuyển mà bạn muốn hoàn hàng</p>
-                    <p><b>Bước 2 :</b>  Gửi hàng hoặc đặt đơn hàng để shipper đến lấy</p>
-                    <p><b>Bước 3 :</b>  Nhập địa chỉ hoàn hàng ở <b>Cửa hàng Sneaker Shop</b> </p>
-                    <p>Địa chỉ:Toà Nhà T1, Số 35, Lê Văn Lương Phường Nhân Chính, Quận Thanh Xuân, Hà Nội</p>
-                    <p>SDT : 0384329003</p>
-                    <p> <b>Bước 4 :</b> Nhập mã vận đơn mà bạn đã gửi</p>
-                    <p>Shop sẽ kiểm tra mã vận đơn nếu sai tối đa <b style="color: red;">3</b> lần đơn hàng sẽ hủy</p>
+                    <p style="text-align: center; margin-bottom: 20px; color :red;">Lưu ý: Trường hợp yêu cầu Trả hàng Hoàn tiền của bạn được chấp nhận, Voucher có thể sẽ không được hoàn lại</p>
+                    <p style="text-align: center; margin-bottom: 20px;">*Phí hoàn hàng của mỗi sản phẩm sẽ được tính theo tổng tiền mà bạn đã trả cho cửa hàng</p>
+                    <p style="text-align: center; margin-bottom: 20px;">(Tổng tiền mà bạn đã trả bao gồm tổng tiền sản phẩm, phí giao hàng, giảm giá hóa đơn và giảm giá giao hàng) </p>
+                </div>
+
+                <div style="display: flex;">
+                    <input type="checkbox" >
+                    <p style="margin-right: 20px;">Tôi đồng ý với điều khoản</p>
                 </div>
 
             </div>

@@ -574,7 +574,6 @@ public class HomeOrder {
             String ward = request.getParameter("ward");
             String moTa = request.getParameter("moTa");
 
-            System.out.println("Buon thoi ruot");
             String viTri = "Đơn hàng đã về kho "  + ", " + ward + ", " + district + " , " + thanhPho + " || " + moTa;
 
             ViTriDonHang viTriDonHang = new ViTriDonHang();
@@ -584,6 +583,8 @@ public class HomeOrder {
             viTriDonHang.setTrangThai(5);
             viTriDonHang.setNoiDung(moTa);
             viTriDonHangServices.addViTriDonHang(viTriDonHang);
+            giaoHang.setTrangThai(2);
+            giaoHangService.saveGiaoHang(giaoHang);
 
             for (HoaDonChiTiet xx: hoaDon.getHoaDonChiTiets()) {
                 ChiTietGiay chiTietGiay = xx.getChiTietGiay();
@@ -618,16 +619,19 @@ public class HomeOrder {
 
         List<HoaDon> hoaDonListHoan= new ArrayList<>();
 
-        if(hoaDonDGList != null){
+        if(allHoaDonList != null){
             for (HoaDon x: allHoaDonList) {
-                hoaDonListHoan.add(x);
+                if (x.getIdHDOld() != null){
+                    hoaDonListHoan.add(x);
+                }
             }
         }
 
 
         model.addAttribute("allHoaDonList",allHoaDonList);
-        model.addAttribute("sumDH", allHoaDonList.size());
+        model.addAttribute("sumDH", allHoaDonList.size() + hoaDonListHoan.size());
         model.addAttribute("dangGiao", hoaDonDGList.size());
+        model.addAttribute("sumDHMuaHang", hoaDonDGList.size());
         model.addAttribute("giaoThanhCong", hoaDonDoneList.size());
         model.addAttribute("hoaDonHoan", hoaDonListHoan.size());
         model.addAttribute("hoaDonDGList",hoaDonDGList);

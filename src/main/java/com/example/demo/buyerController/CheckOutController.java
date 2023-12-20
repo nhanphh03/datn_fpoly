@@ -129,6 +129,7 @@ public class CheckOutController {
             model.addAttribute("listAddressKH", diaChiKHList);
         }
 
+        hoaDon.setTongTienDG(total);
         hoaDon.setTongSP(sumQuantity);
 
         hoaDonService.add(hoaDon);

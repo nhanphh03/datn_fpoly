@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
   <link rel="stylesheet" href="/plugins/icons/flags/flags.css">
   <link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
-
+  <link rel="stylesheet" href="/plugins/simpleline/simple-line-icons.css">
   <link rel="stylesheet" href="/plugins/fontawesome/css/fontawesome.min.css">
   <link rel="stylesheet" href="/plugins/fontawesome/css/all.min.css">
 
@@ -204,11 +204,9 @@
               <span class="menu-arrow"></span>
             </a>
             <ul>
-              <li><a href="/manage/voucher">Khuyến Mãi Chung</a></li>
               <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
               <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
               <li><a href="/manage/voucher-ship" class="active">Khuyến Mãi Giao Hàng</a></li>
-              <li><a href="/manage/voucher-ship">Khuyến Mãi Khách Hàng</a></li>
             </ul>
           </li>
           <li>
@@ -267,8 +265,8 @@
                     <p th:if="${x.loaiGiam == true}">Giá tiền</p>
                     <p th:unless="${x.loaiGiam == true}">Phần trăm</p>
                   </td>
-                  <td th:text="${#dates.format(x.tgBatDau, 'yyyy-MM-dd')}" ></td>
-                  <td th:text="${#dates.format(x.tgKetThuc, 'yyyy-MM-dd')}" ></td>
+                  <td th:text="${#dates.format(x.tgBatDau, 'HH:mm yyyy-MM-dd')}" ></td>
+                  <td th:text="${#dates.format(x.tgKetThuc, 'HH:mm yyyy-MM-dd')}" ></td>
                   <td th:text="${x.soLuong}"></td>
                   <td th:text="${x.soLuongDaDung}"></td>
                   <td th:text="${x.phanTramGiam * 100} +' % ' + '( ' + '₫' + ${#numbers.formatDecimal(x.giaTienGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')} + ' )'"></td>
@@ -278,6 +276,9 @@
                     <p th:unless="${x.trangThai == 1}">Không Hoạt Động</p>
                   </td>
                   <td style="padding-left: 25px;">
+                    <i class="si si-speedometer"  th:data-bs-toggle="modal"
+                       th:data-bs-target="'#modalXemLichSuSuDung' + ${x.idKM}"
+                       style="cursor: pointer; margin: 0 10px 0 10px; color: #ff9f43;"></i>
                     <a href="javascript:void(0);"
                        th:data-bs-toggle="modal"
                        th:data-bs-target="'#detalKM' + ${x.idKM}">
@@ -476,7 +477,7 @@
       <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 1000px;">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Tạo mới Khuyến Mãi Sản Phẩm</h5>
+            <h5 class="modal-title">Tạo mới khuyến mãi giao hàng</h5>
             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
@@ -606,8 +607,234 @@
 
   <!--  Modal Add Voucher Bill End-->
 
+  <div th:if="${showSoLuongKhuyenMaiHetHan}" class="modal fade" id="showSoLuongKhuyenMaiHetHan" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 500px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thành Công</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row" style="text-align: center; align-items: center; padding: 30px 0 30px 0;">
+            <div>
+              <h3 th:text="'Có ' + ${soLuongKhuyenMaiHetHan} + ' khuyến mãi đã hết hạn sử dụng'"></h3>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <a class="btn btn-submit" style="background: #3088df;" data-bs-dismiss="modal">OK</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="errThem1" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 500px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thông báo</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row" style="text-align: center; align-items: center; padding: 30px 0 30px 0;">
+            <div>
+              <h3>Vui lòng nhập đầy đủ và đúng định dạng cho các trường !</h3>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <a class="btn btn-submit" style="background: #3088df;" data-bs-dismiss="modal">OK</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="errThem2" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 500px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thông báo</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row" style="text-align: center; align-items: center; padding: 30px 0 30px 0;">
+            <div>
+              <h3>Ngày kết thúc phải lớn hơn ngày bắt đầu !</h3>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <a class="btn btn-submit" style="background: #3088df;" data-bs-dismiss="modal">OK</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="errThem3" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 500px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thông báo</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row" style="text-align: center; align-items: center; padding: 30px 0 30px 0;">
+            <div>
+              <h3>Ngày kết thúc phải lớn hơn thời gian hiện tại !</h3>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <a class="btn btn-submit" style="background: #3088df;" data-bs-dismiss="modal">OK</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="errThem4" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" style="width: 500px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Thông báo</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row" style="text-align: center; align-items: center; padding: 30px 0 30px 0;">
+            <div>
+              <h3>Phần trăm voucher phải nhỏ hơn 50, số tiền voucher và số tiền tối đa voucher phải nhỏ hơn 1,000,000 !</h3>
+            </div>
+          </div>
+          <div class="col-lg-12">
+            <a class="btn btn-submit" style="background: #3088df;" data-bs-dismiss="modal">OK</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
 </section>
 
+<script>
+  function validateDateRange() {
+    var startDateValue = document.getElementById('startDateAdd').value;
+    var endDateValue = document.getElementById('endDateAdd').value;
+    var tenVoucherAddValue = document.getElementById('tenVoucherAdd').value;
+    var moTaVoucherAddValue = document.getElementById('moTaVoucherAdd').value;
+    var soTienVoucherAdd = parseFloat(document.getElementById('soTienGiamGiaAdd').value);
+    var soTienToiDaVoucherAdd = parseFloat(document.getElementById('soTienGiamGiaTDVoucherAdd').value);
+    var phanTramVoucherAdd = parseFloat(document.getElementById('phanTramGiamVoucherAdd').value);
+
+    if (!tenVoucherAddValue || !moTaVoucherAddValue || isNaN(soTienVoucherAdd) || isNaN(soTienToiDaVoucherAdd) || isNaN(phanTramVoucherAdd) || !startDateValue || !endDateValue) {
+      $('#errThem1').modal('show');
+      event.preventDefault();
+    }
+
+    var startDate = new Date(startDateValue);
+    var endDate = new Date(endDateValue);
+    var currentDate = new Date(); // Thời gian hiện tại
+
+    // Kiểm tra nếu ngày kết thúc nhỏ hơn hoặc bằng ngày bắt đầu
+    if (endDate <= startDate) {
+      $('#errThem2').modal('show');
+      event.preventDefault();
+    }
+
+    // Kiểm tra ngày kết thúc có lớn hơn thời gian hiện tại không
+    if (endDate <= currentDate) {
+      $('#errThem3').modal('show');
+      event.preventDefault();
+    }
+
+    // Kiểm tra điều kiện cho phanTramVoucherAdd, soTienVoucherAdd, soTienToiDaVoucherAdd
+    if (phanTramVoucherAdd >= 50 || soTienVoucherAdd >= 1000000 || soTienToiDaVoucherAdd >= 1000000) {
+      $('#errThem4').modal('show');
+      event.preventDefault();
+    }
+  }
+</script>
+
+<!-- Modal detail Hóa Đơn begin-->
+<th:block th:each="x: ${listKhuyenMai}">
+  <div class="modal fade" th:id="'modalXemLichSuSuDung' + ${x.idKM}" tabindex="-1" aria-labelledby="create" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document" style="width: 900px;">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Lịch sử sử dụng khuyến mãi</h5>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+
+
+            <div class="col-lg-3 col-sm-12 col-12">
+              <div class="form-group">
+                <label style="border: none; font-size: 12pt; font-weight: 600;">Mã Hóa Đơn</label>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-12 col-12">
+              <div class="form-group">
+                <label style="border: none; font-size: 12pt; font-weight: 600;">Tổng tiền hóa đơn</label>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-12 col-12">
+              <div class="form-group">
+                <label style="border: none; font-size: 12pt; font-weight: 600;">Thời gian sử dụng</label>
+              </div>
+            </div>
+            <div class="col-lg-3 col-sm-12 col-12">
+              <div class="form-group">
+                <label style="border: none; font-size: 12pt; font-weight: 600;">Số tiền được giảm</label>
+              </div>
+            </div>
+
+            <!-- So lan thay doi -->
+            <th:block th:each="xx: ${x.khuyenMaiChiTietHoaDons}">
+              <div class="col-lg-3 col-sm-12 col-12">
+                <div class="form-group">
+                  <p th:text="${xx.hoaDon.maHD}"></p>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-12 col-12">
+                <div class="form-group">
+                  <p th:text="'₫' + ${#numbers.formatDecimal(xx.hoaDon.tongTien, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-12 col-12">
+                <div class="form-group">
+                  <p th:text="${#dates.format(xx.tgThem, 'HH:mm yyyy-MM-dd')}" ></p>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-12 col-12">
+                <div class="form-group">
+                  <p th:text="'₫' + ${#numbers.formatDecimal(xx.soTienGiam, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></p>
+                </div>
+              </div>
+            </th:block>
+            <!-- So lan thay doi -->
+
+          </div>
+          <div class="col-lg-12">
+            <a class="btn btn-cancel" data-bs-dismiss="modal">Hủy hóa đơn</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</th:block>
+<!-- Modal detail Hóa Đơn end-->
 
 <script src="/js/jquery-3.6.0.min.js"></script>
 
@@ -632,6 +859,9 @@
 <script>
   $(document).ready(function () {
     $('#messAddThanhCong').modal('show');
+  });
+  $(document).ready(function () {
+    $('#showSoLuongKhuyenMaiHetHan').modal('show');
   });
 </script>
 </body>

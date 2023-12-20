@@ -223,19 +223,17 @@
                         </ul>
                     </li>
                     <li class="submenu">
-                        <a href="javascript:void(0);">
-                            <img src="/images/img/icons/transfer1.svg" alt="img"/>
-                            <span>Quản lý Khuyến Mãi</span>
-                            <span class="menu-arrow"></span>
-                        </a>
-                        <ul>
-                            <li><a href="/manage/voucher">Khuyến Mãi Chung</a></li>
-                            <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
-                            <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
-                            <li><a href="/manage/voucher-ship">Khuyến Mãi Giao Hàng</a></li>
-                            <li><a href="/manage/voucher-ship">Khuyến Mãi Khách Hàng</a></li>
-                        </ul>
-                    </li>
+            <a href="javascript:void(0);">
+              <img src="/images/img/icons/transfer1.svg" alt="img"/>
+              <span>Quản lý Khuyến Mãi</span>
+              <span class="menu-arrow"></span>
+            </a>
+            <ul>
+              <li><a href="/manage/voucher-product">Khuyến Mãi Sản Phẩm</a></li>
+              <li><a href="/manage/voucher-bill">Khuyến Mãi Hóa Đơn</a></li>
+              <li><a href="/manage/voucher-ship">Khuyến Mãi Giao Hàng</a></li>
+            </ul>
+          </li>
                     <li>
                         <a href="/manage/giao-hang"><i data-feather="layers"></i><span> Quản lý giao hàng</span> </a>
                     </li>
@@ -266,11 +264,6 @@
                                     <a class="nav-link"
                                        href="#solid-rounded-justified-tab2"
                                        data-bs-toggle="tab">Hóa đơn chờ</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link"
-                                       href="#solid-rounded-justified-tab3"
-                                       data-bs-toggle="tab">Hóa đơn hủy</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link"
@@ -348,7 +341,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-sm-6 col-12 d-flex">
+                                        <div class="col-lg-6 col-sm-6 col-12 d-flex">
                                             <div class="dash-count das1">
                                                 <div class="dash-counts">
                                                     <h4 th:text="${hoaDonThanhCong}"></h4>
@@ -359,7 +352,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4 col-sm-6 col-12 d-flex">
+                                        <div class="col-lg-6 col-sm-6 col-12 d-flex">
                                             <div class="dash-count bg-warning">
                                                 <div class="dash-counts">
                                                     <h4 th:text="${hoaDonChoTaiQuay}"></h4>
@@ -367,17 +360,6 @@
                                                 </div>
                                                 <div class="dash-imgs">
                                                     <i class="fe fe-file"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4 col-sm-6 col-12 d-flex">
-                                            <div class="dash-count das3 bg-danger">
-                                                <div class="dash-counts">
-                                                    <h4 th:text="${hoaDonHuy}"></h4>
-                                                    <h5>Hóa đơn hủy</h5>
-                                                </div>
-                                                <div class="dash-imgs">
-                                                    <i class="fe fe-file-minus"></i>
                                                 </div>
                                             </div>
                                         </div>
@@ -447,7 +429,6 @@
                                                                   </th:block>
                                                                   </tbody>
                                                                 </table>
-                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -456,7 +437,6 @@
 
                                     </div>
                                 </div>
-
                                 <div class="tab-pane" id="solid-rounded-justified-tab2">
 
                                     <div class="row">
@@ -534,95 +514,6 @@
                                     </div>
 
                                 </div>
-                                <div class="tab-pane" id="solid-rounded-justified-tab3">
-                                    <div class="row">
-                                        <div class="col-sm-12">
-                                            <div class="card">
-                                                <div class="card-header">
-                                                    <h4 class="card-title">Hóa đơn hủy</h4>
-                                                </div>
-                                                <div class="card-body">
-                                                    <div class="table-responsive">
-                                                        <div class="vertical-scroll scroll-demo">
-                                                            <table class="table  datanew ">
-                                                                <thead>
-                                                                <tr>
-                                                                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">
-                                                                        Mã Hóa Đơn
-                                                                    </th>
-                                                                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">
-                                                                        Thời gian tạo
-                                                                    </th>
-                                                                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">
-                                                                        Thời gian hủy
-                                                                    </th>
-                                                                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">
-                                                                        Trạng thái
-                                                                    </th>
-                                                                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">
-                                                                        Khách hàng
-                                                                    </th>
-                                                                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">
-                                                                        Tổng sản phẩm
-                                                                    </th>
-                                                                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">
-                                                                        Tổng tiền
-                                                                    </th>
-                                                                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">
-                                                                        Hành động
-                                                                    </th>
-                                                                </tr>
-                                                                </thead>
-                                                                <tbody>
-
-                                                                <th:block th:each="bill: ${listHoaDonHuy}">
-                                                                    <tr>
-                                                                        <td th:text="${bill.maHD}"></td>
-                                                                        <td th:text="${#dates.format(bill.tgTao, 'HH:mm yyyy-MM-dd')}"></td>
-                                                                        <td th:text="${#dates.format(bill.tgHuy, 'HH:mm yyyy-MM-dd')}"></td>
-                                                                        <td>HD Hủy</td>
-
-                                                                        <td th:if="${bill.khachHang == null}">Không có
-                                                                        </td>
-                                                                        <td th:if="${bill.khachHang != null}"
-                                                                            th:text="${bill.khachHang.hoTenKH}"></td>
-
-                                                                        <td th:text="${bill.tongSP}"></td>
-
-                                                                        <td th:text="'₫'+${#numbers.formatDecimal(bill.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
-                                                                        <th>
-                                                                            <i data-bs-toggle="tooltip"
-                                                                               title="Chỉnh sửa"
-                                                                               style="cursor: pointer; margin: 0 10px 0 20px;"
-                                                                               class="fe fe-edit-3"></i>
-                                                                            <i th:if="${bill.tgThanhToan == null}"
-                                                                               th:data-bs-toggle="modal"
-                                                                               th:data-bs-target="'#modalCofirmTT'+${bill.idHD}"
-                                                                               style="cursor: pointer; color: #ff9f43;"
-                                                                               class="fe fe-check-square"></i>
-                                                                        </th>
-                                                                        <th>
-                                                                            <i class="fe fe-eye"
-                                                                               th:data-bs-toggle="modal"
-                                                                               th:data-bs-target="'#viewBillGH' + ${bill.idHD}"
-                                                                               style="cursor: pointer; margin: 0 10px 0 20px;"></i>
-                                                                            <!--                                                                                <a th:href="@{'/manage/bill/online/delivery/' + ${bill.idHD}}">-->
-                                                                            <!--                                                                                    <i class="fe fe-edit-3" data-bs-toggle="tooltip"-->
-                                                                            <!--                                                                                       title="Xem vận đơn" style="cursor: pointer;"></i>-->
-                                                                            <!--                                                                                </a>-->
-                                                                        </th>
-                                                                    </tr>
-                                                                </th:block>
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
                                 <div class="tab-pane" id="solid-rounded-justified-tab4">
                                     <div class="row">
                                         <div class="col-sm-12">
@@ -657,9 +548,6 @@
                                                                     <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">
                                                                         Tổng tiền
                                                                     </th>
-                                                                    <th style="position: sticky; top: 0;background-color: #ff9f43; color: white;">
-                                                                        Hành động
-                                                                    </th>
                                                                 </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -679,27 +567,7 @@
                                                                         <td th:text="${bill.tongSP}"></td>
 
                                                                         <td th:text="'₫'+${#numbers.formatDecimal(bill.tongTienDG, 0, 'COMMA', 2, 'POINT').replaceAll('([,.])0+$', '$1').replaceAll('\\.$', '')}"></td>
-                                                                        <th>
-                                                                            <i data-bs-toggle="tooltip"
-                                                                               title="Chỉnh sửa"
-                                                                               style="cursor: pointer; margin: 0 10px 0 20px;"
-                                                                               class="fe fe-edit-3"></i>
-                                                                            <i th:if="${bill.tgThanhToan == null}"
-                                                                               th:data-bs-toggle="modal"
-                                                                               th:data-bs-target="'#modalCofirmTT'+${bill.idHD}"
-                                                                               style="cursor: pointer; color: #ff9f43;"
-                                                                               class="fe fe-check-square"></i>
-                                                                        </th>
-                                                                        <th>
-                                                                            <i class="fe fe-eye"
-                                                                               th:data-bs-toggle="modal"
-                                                                               th:data-bs-target="'#viewBillGH' + ${bill.idHD}"
-                                                                               style="cursor: pointer; margin: 0 10px 0 20px;"></i>
-                                                                            <!--                                                                                <a th:href="@{'/manage/bill/online/delivery/' + ${bill.idHD}}">-->
-                                                                            <!--                                                                                    <i class="fe fe-edit-3" data-bs-toggle="tooltip"-->
-                                                                            <!--                                                                                       title="Xem vận đơn" style="cursor: pointer;"></i>-->
-                                                                            <!--                                                                                </a>-->
-                                                                        </th>
+
                                                                     </tr>
                                                                 </th:block>
                                                                 </tbody>

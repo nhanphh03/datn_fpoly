@@ -231,11 +231,13 @@ public class HoaDonOnlineController {
 
             HoaDon hoaDon = hoaDonService.getOne(idHD);
             HoaDon hoaDonOld = hoaDonService.getOne(hoaDon.getIdHDOld());
+            Double tongTienHoan = 0.0;
 
             for (String x : listIdCTGHoanHang) {
                 HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.getOne(idHD, UUID.fromString(x));
 
                 hoaDonChiTiet.setTrangThai(2);
+                tongTienHoan+=hoaDonChiTiet.getDonGia();
 
                 hoaDonChiTietService.add(hoaDonChiTiet);
                 hoaDonChiTietList.remove(hoaDonChiTiet);
@@ -249,7 +251,8 @@ public class HoaDonOnlineController {
             PhieuTraHang phieuTraHang = phieuTraHangServices.findByHoaDon(hoaDonService.getOne(idHD));
             phieuTraHang.setTrangThai(1);
 
-
+            hoaDon.setTongTien(tongTienHoan);
+            hoaDon.setTongTienDG(tongTienHoan);
             hoaDonOld.setTrangThaiHoan(1);
 
             ThongBaoKhachHang thongBaoKhachHang = new ThongBaoKhachHang();
@@ -295,6 +298,7 @@ public class HoaDonOnlineController {
 
             HoaDon hoaDon = hoaDonService.getOne(idHD);
             HoaDon hoaDonOld = hoaDonService.getOne(hoaDon.getIdHDOld());
+            Double tongTienHoan = 0.0;
 
             for (String x : listIdCTGHoanHang) {
                 HoaDonChiTiet hoaDonChiTiet = hoaDonChiTietService.getOne(idHD, UUID.fromString(x));
@@ -305,8 +309,12 @@ public class HoaDonOnlineController {
 
             for (HoaDonChiTiet x : hoaDonChiTietList) {
                 x.setTrangThai(2);
+                tongTienHoan += x.getDonGia();
                 hoaDonChiTietService.add(x);
             }
+            hoaDon.setTongTien(tongTienHoan);
+            hoaDon.setTongTienDG(tongTienHoan);
+            hoaDonService.add(hoaDon);
 
             PhieuTraHang phieuTraHang = phieuTraHangServices.findByHoaDon(hoaDonService.getOne(idHD));
             if (hoaDonChiTietList.size() == 0) {
