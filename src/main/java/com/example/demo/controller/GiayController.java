@@ -507,7 +507,7 @@ public class GiayController {
     }
 
     @PostMapping("/giay/import")
-    public String importData(@RequestParam("file") MultipartFile file) {
+    public String importData(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes) {
         if (file != null && !file.isEmpty()) {
             try {
                 InputStream excelFile = file.getInputStream();
@@ -517,6 +517,7 @@ public class GiayController {
                 // Xử lý lỗi
             }
         }
+        redirectAttributes.addFlashAttribute("message", true);
         return "redirect:/manage/giay"; // Chuyển hướng sau khi nhập liệu thành công hoặc không thành công
     }
 }
